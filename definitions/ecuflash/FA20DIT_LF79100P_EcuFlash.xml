@@ -2,8 +2,9 @@
 <!-- FA20DIT (SH72543R) EcuFlash definition, my own clean-room work: https://github.com/Jengacat/subaru-dit-defs
      Generated from my table list. Do not edit by hand.
      memmodel SH72543R / flashmethod subaruhitachi are EcuFlash built-in names (my research notes).
-     checksummodule is empty: EcuFlash will not correct the checksum. Run tools/checksum.py (or tools/checksum.ps1) fix
-     on the image before flashing (rule: u16 word sum 0x6000..0x1FFFFF = 0x5AA5). -->
+     Checksum: EcuFlash may correct it for this ECU, but that is not confirmed (no checksummodule is
+     set). Run tools/checksum.py (or tools/checksum.ps1) fix on the image and check it with verify before flashing
+     (rule: u16 word sum 0x6000..0x1FFFFF = 0x5AA5). -->
 <rom>
  <romid>
   <xmlid>LF79100P</xmlid>

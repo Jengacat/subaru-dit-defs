@@ -1,6 +1,6 @@
 name: ROM submission
 description: Send in a stock ROM that isn't supported yet (or a complete read of one listed as incomplete).
-title: "[ROM] <calibration ID> – <year> <model> <transmission>"
+title: "[ROM] <year> <model> <transmission> <market>"
 labels: ["rom submission"]
 body:
   - type: markdown
@@ -14,14 +14,10 @@ body:
           Export or save the raw binary instead.
         - Issue attachments are **public**. Zip the `.bin` and attach it below, or say in the notes that you'd rather
           share it privately and I'll get in touch.
-  - type: input
-    id: calid
-    attributes:
-      label: Calibration ID
-      description: The ROM ID your flashing tool shows when it reads the ECU (for example LF75404S).
-      placeholder: LF75404S
-    validations:
-      required: true
+
+        **How to read the ECU:** in EcuFlash, read with the **larger 2 MB** setting. A smaller read stops partway
+        through the flash and can't be used. A complete read of a 2015–2018 ECU is exactly 2,097,152 bytes.
+        You don't need to know the calibration ID; I'll work it out from the file.
   - type: input
     id: vehicle
     attributes:
@@ -67,7 +63,7 @@ body:
     id: size
     attributes:
       label: File size
-      description: Complete 2015–2018 reads are exactly 2,097,152 bytes. 2019+ ECUs have 2.5 MB of flash.
+      description: Complete 2015–2018 reads are exactly 2,097,152 bytes. 2019+ ECUs have 2.5 MB of flash, which EcuFlash can't read in full yet (a tool for these is in the works).
       options:
         - 2,097,152 bytes (2 MB)
         - 2,621,440 bytes (2.5 MB)

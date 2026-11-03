@@ -24,7 +24,7 @@ and a description of what the ECU does with it.
 | FA20DIT, early software ("LV9N" family) | 2015 | AT/CVT coding | not confirmed | **LV9N101C** | 1122 | 888 | yes |
 | FA20DIT, early software ("LV9N" family) | 2015 | MT coding | not confirmed | **LV9N100F** | 1122 | 888 | yes |
 
-The calibration ID is the ROM's identifier: your flashing tool shows it when it reads the ECU, and RomRaider/EcuFlash
+The calibration ID is the ROM's identifier, stored in the ROM itself; RomRaider/EcuFlash
 pick the matching definition from it automatically. A ROM with a different ID is **not supported**, even if it is the
 same model year; flashing with a definition for another ID will corrupt the calibration.
 
@@ -34,7 +34,7 @@ same model year; flashing with a definition for another ID will corrupt the cali
 |---|---|
 | LF75300G (2016 WRX CVT) | The only copy I have is an incomplete read. A complete read would make it supportable quickly. |
 | Other 2015–2018 WRX and Forester XT calibrations (e.g. LF75403T, LF75404H, LF75403G, LF79103P, LF79102N, LF9C102P, LF9C002N, LF61803B, LF75403A, LF78106B, LF9C002B) | I don't have these ROMs. [Submit one](#submitting-a-rom) and I can add it. |
-| 2019+ WRX (LF9D…, LF9G…) | These ECUs have 2.5 MB of flash and a newer boot block. Reading and writing them needs a different flashing path, and EcuFlash only handles 2 MB. |
+| 2019+ WRX (LF9D…, LF9G…) | These ECUs have 2.5 MB of flash and a newer boot block, and EcuFlash only reads and writes 2 MB. A tool for reading and writing the 2.5 MB ECUs is in the works. |
 | 2022+ WRX (FA24DIT) | Different engine and ECU generation; not started. |
 
 ## What's included
@@ -128,11 +128,23 @@ Switch scales from the table's View menu in RomRaider.
 - **Partial ports.** LF78001H and the LV9N images have fewer tables than the WRX images; tables I could not place with
   confidence are left out rather than guessed.
 
+## Reading your ECU
+
+Use EcuFlash with the **larger 2 MB** read setting. A smaller read stops partway through the flash and is not usable:
+a complete read of a 2015–2018 ECU is exactly **2,097,152 bytes**. Keep that stock read somewhere safe before you
+change anything; it is your way back.
+
+EcuFlash may not show the calibration ID if it has no definition for the ROM yet. That's fine: the ID is inside the
+file (open it with these definitions, or submit it as below and I'll identify it).
+
+The 2019 and later WRX ECUs have 2.5 MB of flash, which EcuFlash can't read in full; a 2 MB read of one of those is
+incomplete. A tool for reading and writing the 2.5 MB ECUs is in the works.
+
 ## Submitting a ROM
 
 Have a ROM that isn't supported, or a complete read of one listed above as incomplete? Open a
 [ROM submission](../../issues/new?template=rom_submission.yml) issue. Please send a **raw `.bin` read of a stock
-ECU**, not a modified tune and not a container format from a flashing tool (those can contain your VIN). Issue
+ECU**, made as described in [Reading your ECU](#reading-your-ecu), not a modified tune and not a container format from a flashing tool (those can contain your VIN). Issue
 attachments are public, so don't include anything you wouldn't post publicly.
 
 ## Reporting a problem

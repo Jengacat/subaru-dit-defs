@@ -19,14 +19,14 @@ each ROM is in the [table below](#supported-roms).
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTC switches | Logging patch |
 |---|---|---|---|---|---|---|---|
-| WRX | 2015 | 6MT | USDM | **LF75404S** | 1188 | 904 | yes |
-| WRX | 2016 | 6MT | not confirmed | **LF75300H** | 1188 | 904 | yes |
-| WRX | 2017 | 6MT | not confirmed | **LF79002P** | 1206 | 912 | yes |
-| WRX | 2017 | 6MT (later revision) | not confirmed | **LF79100P** | 1206 | 912 | yes |
-| WRX | 2018 | 6MT | not confirmed | **LF9C100P** | 1211 | 912 | yes |
-| Forester tS (STI) | 2016 | CVT | Australia | **LF78001H** | 1197 | 908 | yes |
-| FA20DIT, early software ("LV9N" family) | 2015 | AT/CVT coding | not confirmed | **LV9N101C** | 1122 | 888 | yes |
-| FA20DIT, early software ("LV9N" family) | 2015 | MT coding | not confirmed | **LV9N100F** | 1122 | 888 | yes |
+| WRX | 2015 | 6MT | USDM | **LF75404S** | 1189 | 904 | yes |
+| WRX | 2016 | 6MT | not confirmed | **LF75300H** | 1189 | 904 | yes |
+| WRX | 2017 | 6MT | not confirmed | **LF79002P** | 1207 | 912 | yes |
+| WRX | 2017 | 6MT (later revision) | not confirmed | **LF79100P** | 1207 | 912 | yes |
+| WRX | 2018 | 6MT | not confirmed | **LF9C100P** | 1212 | 912 | yes |
+| Forester tS (STI) | 2016 | CVT | Australia | **LF78001H** | 1198 | 908 | yes |
+| FA20DIT, early software ("LV9N" family) | 2015 | AT/CVT coding | not confirmed | **LV9N101C** | 1123 | 888 | yes |
+| FA20DIT, early software ("LV9N" family) | 2015 | MT coding | not confirmed | **LV9N100F** | 1123 | 888 | yes |
 
 The calibration ID is the ROM's identifier, stored in the ROM itself; RomRaider/EcuFlash
 pick the matching definition from it automatically. A ROM with a different ID is **not supported**, even if it is the

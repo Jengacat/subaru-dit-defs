@@ -146,3 +146,7 @@ Modifying an engine ECU can damage the engine, void warranties, and may not be l
 These files are provided as-is, without warranty of any kind. You are responsible for what you flash to a car.
 Subaru, WRX, Forester, SI-Drive and STI are trademarks of Subaru Corporation; this project is not affiliated with or
 endorsed by Subaru.
+
+Generative AI tools were used in creating and maintaining this repository, including the analysis behind the
+definitions, the documentation and the tooling. All of it remains untested on a running engine; check it against your
+own logs before relying on it.

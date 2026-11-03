@@ -130,15 +130,15 @@ Switch scales from the table's View menu in RomRaider.
 
 ## Reading your ECU
 
-Use EcuFlash with the **larger 2 MB** read setting. A smaller read stops partway through the flash and is not usable:
+Use EcuFlash with the **larger, 2 MB** read setting. A smaller read stops partway through the flash and is not usable:
 a complete read of a 2015–2018 ECU is exactly **2,097,152 bytes**. Keep that stock read somewhere safe before you
-change anything; it is your way back.
+change anything.
 
 EcuFlash may not show the calibration ID if it has no definition for the ROM yet. That's fine: the ID is inside the
 file (open it with these definitions, or submit it as below and I'll identify it).
 
-The 2019 and later WRX ECUs have 2.5 MB of flash, which EcuFlash can't read in full; a 2 MB read of one of those is
-incomplete. A tool for reading and writing the 2.5 MB ECUs is in the works.
+The 2019 and later WRX ECUs (and presumably other DIT cars) have 2.5 MB of flash, which EcuFlash can't read in full. A 2 MB read of one of those is
+incomplete, so a tool for reading and writing the 2.5 MB ECUs is in the works.
 
 ## Submitting a ROM
 

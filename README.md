@@ -44,7 +44,7 @@ same model year; flashing with a definition for another ID will corrupt the cali
 | `definitions/romraider/` | `FA20DIT_RomRaider.xml`: one file covering every supported ROM. |
 | `definitions/ecuflash/` | One EcuFlash definition per ROM. |
 | `logger/` | `FA20DIT_Logger.xml` (stock SSM parameters) and `FA20DIT_Logger_LogPatch.xml` (stock plus the logging-patch parameters). `FA20DIT_Logger_LogPatch_only.xml` holds only the new parameters, for merging into your own logger file. |
-| `tools/checksum.py` | Checks and fixes the ROM checksum. **Required before flashing an edited ROM** (see below). |
+| `tools/checksum.py`, `tools/checksum.ps1` | Check and fix the ROM checksum (Python, or PowerShell for Windows). **Required before flashing an edited ROM** (see below). |
 | `tools/logpatch/` | The logging patch: `make_logpatch.py` and one spec per supported ROM. |
 | `docs/guide/` | [The tuning guide](docs/guide/README.md): workflows, how the logic works, appendices and a table reference. |
 | `extras/can/` | A DBC file of the ECU's CAN messages, for passive logging with a CAN interface. |
@@ -72,8 +72,15 @@ python3 tools/checksum.py fix  edited.bin  edited_fixed.bin
 python3 tools/checksum.py verify  edited_fixed.bin
 ```
 
-Every line of `verify` must say OK. A ROM with a bad checksum sets P0605 or is refused by the ECU. The tool needs only
-Python 3 (no extra packages).
+On Windows without Python, use the PowerShell version (Windows PowerShell 5.1 or later, nothing to install):
+
+```
+powershell -ExecutionPolicy Bypass -File tools\checksum.ps1 fix  edited.bin  edited_fixed.bin
+powershell -ExecutionPolicy Bypass -File tools\checksum.ps1 verify  edited_fixed.bin
+```
+
+Every line of `verify` must say OK. A ROM with a bad checksum sets P0605 or is refused by the ECU. The Python tool
+needs only Python 3 (no extra packages).
 
 ### Logging
 
@@ -108,7 +115,7 @@ Switch scales from the table's View menu in RomRaider.
 
 - **Untested on hardware.** No ROM edited with these definitions has been flashed and driven yet. Start from a known
   good stock read, change little at a time and log everything.
-- **Checksum.** EcuFlash and RomRaider do not fix this ECU's checksum; use `tools/checksum.py` (above). RomRaider
+- **Checksum.** EcuFlash and RomRaider do not fix this ECU's checksum; use `tools/checksum.py` or `tools/checksum.ps1` (above). RomRaider
   can't load a custom checksum class from a definition folder in versions 1.0.0 and 1.1.0; a fix has been submitted
   upstream, and once it is in a release the RomRaider definition will fix the checksum on save.
 - **Writing with EcuFlash** has not been tested on this ECU.

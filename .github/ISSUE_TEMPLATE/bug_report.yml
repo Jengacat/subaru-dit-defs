@@ -1,0 +1,46 @@
+name: Bug report
+description: A table, scaling, description or tool that looks wrong.
+title: "[Bug] <table or tool> – <short description>"
+labels: ["bug"]
+body:
+  - type: input
+    id: calid
+    attributes:
+      label: Calibration ID
+      placeholder: LF75404S
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where
+      options:
+        - RomRaider definition
+        - EcuFlash definition
+        - Logger definition
+        - Logging patch
+        - Checksum tool
+        - Tuning guide
+        - Something else
+    validations:
+      required: true
+  - type: input
+    id: item
+    attributes:
+      label: Table, parameter or page
+      description: Exact name as shown in the definition or guide.
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What's wrong
+      description: What you expected, what you saw, and how you know (a log excerpt or screenshot helps a lot).
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: Release of these definitions, and your RomRaider / EcuFlash version.
+      placeholder: v0.9.0-beta, RomRaider 1.1.0

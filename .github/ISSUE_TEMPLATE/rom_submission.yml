@@ -1,0 +1,95 @@
+name: ROM submission
+description: Send us a stock ROM that isn't supported yet (or a complete read of one listed as incomplete).
+title: "[ROM] <calibration ID> – <year> <model> <transmission>"
+labels: ["rom submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping add support for another ROM.
+
+        **Please read before attaching anything:**
+        - Send a **raw `.bin` read of a stock (unmodified) ECU**. A tuned ROM can't be used as a reference.
+        - Don't attach a flashing tool's own container format (for example `.srf`): those can include your **VIN**.
+          Export or save the raw binary instead.
+        - Issue attachments are **public**. Zip the `.bin` and attach it below, or say in the notes that you'd rather
+          share it privately and we'll get in touch.
+  - type: input
+    id: calid
+    attributes:
+      label: Calibration ID
+      description: The ROM ID your flashing tool shows when it reads the ECU (for example LF75404S).
+      placeholder: LF75404S
+    validations:
+      required: true
+  - type: input
+    id: vehicle
+    attributes:
+      label: Vehicle
+      description: Model, model year and trim.
+      placeholder: 2017 WRX Premium
+    validations:
+      required: true
+  - type: dropdown
+    id: transmission
+    attributes:
+      label: Transmission
+      options:
+        - 6MT
+        - CVT
+        - Not sure
+    validations:
+      required: true
+  - type: input
+    id: market
+    attributes:
+      label: Market / country
+      placeholder: USA (federal), USA (California), Canada, Australia, …
+    validations:
+      required: true
+  - type: dropdown
+    id: stock
+    attributes:
+      label: Is this ROM stock?
+      options:
+        - Yes, read from an unmodified ECU
+        - Dealer-updated stock calibration
+        - Not sure
+    validations:
+      required: true
+  - type: input
+    id: tool
+    attributes:
+      label: Read with
+      description: Tool and interface used to read the ECU.
+      placeholder: e.g. EcuFlash + Tactrix OpenPort 2.0
+  - type: dropdown
+    id: size
+    attributes:
+      label: File size
+      description: Complete 2015–2018 reads are exactly 2,097,152 bytes. 2019+ ECUs have 2.5 MB of flash.
+      options:
+        - 2,097,152 bytes (2 MB)
+        - 2,621,440 bytes (2.5 MB)
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: file
+    attributes:
+      label: ROM file
+      description: Drag the zipped `.bin` here, or leave empty if you'd rather share it privately.
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Anything else we should know (mods on the car, where the ROM came from, private sharing, …).
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmation
+      options:
+        - label: The attached file is a raw binary read and contains no VIN or personal information.
+          required: true
+        - label: I'm happy for this ROM to be used to build and test definitions in this project.
+          required: true

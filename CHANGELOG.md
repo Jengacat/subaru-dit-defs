@@ -10,8 +10,9 @@ First public release.
   grouped by purpose in tuning order, carry a plain-English summary, and are tiered by user level (Beginner to Debug).
 - Default units for tuners: load in g/rev, torque in ft-lb, boost in psi, rail pressure in psi, temperatures in °F,
   with alternate scales.
-- SSM logger definition, and a logging patch adding 24 parameters (knock corrections, rail pressure, target boost,
-  combustion mode, target torque and more) on every supported ROM.
+- Logger definition for stock ROMs: 46 SSM parameters, 156 trouble codes for RomRaider's DTC tab, and 32 standard
+  OBD-II parameters (including actual fuel rail pressure). A logging patch adds 24 more parameters (knock corrections,
+  rail pressure target, target boost, combustion mode, target torque and more) on every supported ROM.
 - Checksum tool and logging-patch tool.
 - Tuning guide: workflows, how the logic works, appendices and a table reference.
 - CAN DBC for passive logging.

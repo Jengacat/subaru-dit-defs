@@ -47,7 +47,7 @@ same model year; flashing with a definition for another ID will corrupt the cali
 |---|---|
 | `definitions/romraider/` | `FA20DIT_RomRaider.xml`: one file covering every supported ROM. |
 | `definitions/ecuflash/` | One EcuFlash definition per ROM. |
-| `logger/` | `FA20DIT_Logger.xml` (stock SSM parameters) and `FA20DIT_Logger_LogPatch.xml` (stock plus the logging-patch parameters). `FA20DIT_Logger_LogPatch_only.xml` holds only the new parameters, for merging into your own logger file. |
+| `logger/` | `FA20DIT_Logger.xml` (stock SSM and OBD parameters, trouble codes) and `FA20DIT_Logger_LogPatch.xml` (stock plus the logging-patch parameters). `FA20DIT_Logger_LogPatch_only.xml` holds only the new parameters, for merging into your own logger file. |
 | `tools/checksum.py`, `tools/checksum.ps1` | Check and fix the ROM checksum (Python, or PowerShell for Windows). **Required before flashing an edited ROM** (see below). |
 | `tools/logpatch/` | The logging patch: `make_logpatch.py` and one spec per supported ROM. |
 | `docs/guide/` | [The tuning guide](docs/guide/README.md): workflows, how the logic works, appendices and a table reference. |
@@ -92,9 +92,11 @@ needs only Python 3 (no extra packages).
 
 ### Logging
 
-`logger/FA20DIT_Logger.xml` works with any supported ROM over SSM (RomRaider Logger). On a stock ROM some of the most
-useful values (feedback knock correction, rail pressure, target boost, combustion mode, target torque) are not
-reachable over SSM. The **logging patch** fixes that.
+`logger/FA20DIT_Logger.xml` works with any supported ROM in RomRaider Logger. Over SSM it has 46 parameters and
+shows pending and stored trouble codes in the DTC tab. Switch the logger protocol to OBD for 32 standard OBD-II
+parameters, including actual fuel rail pressure. On a stock ROM some of the most useful values (feedback knock
+correction, target boost, target torque, combustion mode, the rail-pressure target) can't be read with RomRaider at
+all. The **logging patch** fixes that. See the [logger README](logger/README.md).
 
 ### The logging patch
 

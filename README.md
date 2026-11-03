@@ -3,8 +3,8 @@
 RomRaider and EcuFlash definitions, a logger definition and a tuning guide for Subaru's **FA20DIT** engine ECU
 (Hitachi SH72543R): the 2015–2018 WRX and the 2016 Forester tS.
 
-The definitions were built from scratch from our own analysis of the stock ROMs. No existing community definition was
-used as a source, so table names, scalings and descriptions are our own. Every table carries a plain-English summary
+The definitions were built from scratch from my own analysis of the stock ROMs. No existing community definition was
+used as a source, so table names, scalings and descriptions are my own. Every table carries a plain-English summary
 and a description of what the ECU does with it.
 
 > **Status: beta.** The definitions have been checked table by table against the ECU code and load cleanly in
@@ -32,8 +32,8 @@ same model year; flashing with a definition for another ID will corrupt the cali
 
 | ROM | Why |
 |---|---|
-| LF75300G (2016 WRX CVT) | The only copy we have is an incomplete read. A complete read would make it supportable quickly. |
-| Other 2015–2018 WRX and Forester XT calibrations (e.g. LF75403T, LF75404H, LF75403G, LF79103P, LF79102N, LF9C102P, LF9C002N, LF61803B, LF75403A, LF78106B, LF9C002B) | We don't have these ROMs. [Submit one](#submitting-a-rom) and we can add it. |
+| LF75300G (2016 WRX CVT) | The only copy I have is an incomplete read. A complete read would make it supportable quickly. |
+| Other 2015–2018 WRX and Forester XT calibrations (e.g. LF75403T, LF75404H, LF75403G, LF79103P, LF79102N, LF9C102P, LF9C002N, LF61803B, LF75403A, LF78106B, LF9C002B) | I don't have these ROMs. [Submit one](#submitting-a-rom) and I can add it. |
 | 2019+ WRX (LF9D…, LF9G…) | These ECUs have 2.5 MB of flash and a newer boot block. Reading and writing them needs a different flashing path, and EcuFlash only handles 2 MB. |
 | 2022+ WRX (FA24DIT) | Different engine and ECU generation; not started. |
 
@@ -90,7 +90,7 @@ reachable over SSM. The **logging patch** fixes that.
 
 ### The logging patch
 
-The patch points 41 unused entries of the ECU's SSM parameter table at RAM values we want to log, adding 24 parameters:
+The patch points 41 unused entries of the ECU's SSM parameter table at RAM values worth logging, adding 24 parameters:
 target and throttle torque, base timing, FBKC / FLKC / KCA / total knock correction, combustion mode, rail pressure
 actual and target, target boost, boost pressure, wastegate duty and feedback, closed-loop target, A/F correction and
 learning, throttle-model values, the throttle target, cam targets and injector pulse. Nothing else in the ROM changes,
@@ -125,12 +125,12 @@ Switch scales from the table's View menu in RomRaider.
 - **Hard limits in the code** that no table changes: manifold pressure reads at most 256 kPa absolute (about 22.4 psi
   boost at sea level); the overboost cut can't trigger above about 236 kPa absolute; engine load is clamped at
   3.31 g/rev. See the guide's [hard limits chapter](docs/guide/C11.md).
-- **Partial ports.** LF78001H and the LV9N images have fewer tables than the WRX images; tables we could not place with
+- **Partial ports.** LF78001H and the LV9N images have fewer tables than the WRX images; tables I could not place with
   confidence are left out rather than guessed.
 
 ## Submitting a ROM
 
-Have a ROM we don't support, or a complete read of one listed above as incomplete? Open a
+Have a ROM that isn't supported, or a complete read of one listed above as incomplete? Open a
 [ROM submission](../../issues/new?template=rom_submission.yml) issue. Please send a **raw `.bin` read of a stock
 ECU**, not a modified tune and not a container format from a flashing tool (those can contain your VIN). Issue
 attachments are public, so don't include anything you wouldn't post publicly.

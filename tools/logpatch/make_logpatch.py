@@ -2,7 +2,7 @@
 """Make a logging-patched FA20DIT image: re-point spare SSM 0xA8 index slots at RAM variables, fix the checksum.
 
 What is changed: only the u32 pointer words of the chosen slots in the 848-entry index table (SPEC 'table') and the
-checksum correction word 0x1FFFFE (same rule as tools/defs/checksum.py: u16 big-endian word sum 0x6000..0x1FFFFF =
+checksum correction word 0x1FFFFE (same rule as tools/checksum.py (or tools/checksum.ps1): u16 big-endian word sum 0x6000..0x1FFFFF =
 0x5AA5). Nothing else.
 
 Checks before writing (any failure aborts, nothing is written):
@@ -15,7 +15,7 @@ Checks before writing (any failure aborts, nothing is written):
 Checks after patching (verification, also run on the written file):
   * byte diff against the input: changed bytes lie only inside the patched table words and the correction word;
   * every patched slot reads back as the requested RAM address and was spare before;
-  * checksum: sum16 = 0x5AA5, and the validity markers are unchanged (tools/defs/checksum.py report()).
+  * checksum: sum16 = 0x5AA5, and the validity markers are unchanged (tools/checksum.py (or tools/checksum.ps1) report()).
 
 usage: make_logpatch.py SPEC.json ROM OUT.bin
        make_logpatch.py --verify SPEC.json ROM PATCHED.bin      (verification only)"""
@@ -103,7 +103,7 @@ def verify(spec, src, out):
         print('  FAIL: table words changed that are not in the spec: %s' % other)
     for n in notes:
         print('  note:', n)
-    print('  checksum (tools/defs/checksum.py rule):')
+    print('  checksum (tools/checksum.py (or tools/checksum.ps1) rule):')
     ok &= checksum.report(out)
     print('  RESULT: %s' % ('PASS' if ok else 'FAIL'))
     return ok

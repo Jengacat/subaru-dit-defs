@@ -21,4 +21,6 @@ in the settings.
 **Units:** load in g/rev, torque in ft-lb, boost in psi, rail pressure in psi and temperatures in °F by default. Other
 scales (%, Nm, kPa, MPa, °C) are available from each table's View menu.
 
-RomRaider does not fix this ECU's checksum on save; use the [checksum tool](../../tools/) before flashing.
+RomRaider can't correct this ECU's checksum on save yet: versions 1.0.0 and 1.1.0 can't load a checksum module from
+a definition folder. My fix is in [RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248); once it is merged and released, the definition
+will correct the checksum on save. Until then, use the [checksum tool](../../tools/) before flashing.

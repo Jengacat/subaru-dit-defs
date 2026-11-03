@@ -10,5 +10,6 @@ Table definitions for the supported FA20DIT ROMs (see the [supported ROMs](../RE
 Both carry the same tables, scalings and descriptions. Each table has a plain-English summary first and the detail
 after it, and tables are grouped by purpose in tuning order.
 
-Neither editor fixes this ECU's checksum: run [`tools/checksum.py`](../tools/) or `tools/checksum.ps1` on every edited
-ROM before flashing.
+EcuFlash may correct this ECU's checksum (not yet confirmed); RomRaider can't until
+[pull request #248](https://github.com/RomRaider/RomRaider/pull/248) is merged and released. Until then, run [`tools/checksum.py`](../tools/) or
+`tools/checksum.ps1` on every edited ROM before flashing.

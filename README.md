@@ -64,8 +64,12 @@ Copy the file for your ROM from `definitions/ecuflash/` into your EcuFlash metad
 
 ### Fix the checksum before every flash
 
-This ECU checks a 16-bit checksum over the whole flash. **Neither EcuFlash nor RomRaider fixes it for this ECU**, so a
-saved ROM must go through the checksum tool before it is flashed:
+This ECU checks a 16-bit checksum over the whole flash, and a ROM with a bad checksum won't run. **EcuFlash may
+correct it** when it writes the ROM, but that hasn't been confirmed for this ECU. **RomRaider can't correct it yet**:
+RomRaider 1.0.0 and 1.1.0 can't load a checksum module from a definition folder, so the definition can't include one
+until my fix
+([RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)) is merged and released. Until then, run every edited ROM through the checksum
+tool and confirm it with `verify` before flashing:
 
 ```
 python3 tools/checksum.py fix  edited.bin  edited_fixed.bin
@@ -115,9 +119,10 @@ Switch scales from the table's View menu in RomRaider.
 
 - **Untested on hardware.** No ROM edited with these definitions has been flashed and driven yet. Start from a known
   good stock read, change little at a time and log everything.
-- **Checksum.** EcuFlash and RomRaider do not fix this ECU's checksum; use `tools/checksum.py` or `tools/checksum.ps1` (above). RomRaider
-  can't load a custom checksum class from a definition folder in versions 1.0.0 and 1.1.0; a fix has been submitted
-  upstream, and once it is in a release the RomRaider definition will fix the checksum on save.
+- **Checksum.** EcuFlash may correct this ECU's checksum, but that isn't confirmed. RomRaider can't load a
+  checksum module from a definition folder in versions 1.0.0 and 1.1.0; my fix is in
+  [RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248), and once it is merged and released the RomRaider definition will correct the
+  checksum on save. Until then, use `tools/checksum.py` or `tools/checksum.ps1` (above) on every edited ROM.
 - **Writing with EcuFlash** has not been tested on this ECU.
 - **Inferred items.** Everything is decoded from the ECU code; where the code doesn't settle a meaning, the description
   says "inferred". In particular, the **SI-Drive positions** of the drive-mode maps (mode 4 = Sport Sharp, 2 = Sport,

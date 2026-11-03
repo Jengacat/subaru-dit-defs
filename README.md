@@ -7,6 +7,10 @@ The definitions were built from scratch from my own analysis of the stock ROMs. 
 used as a source, so table names, scalings and descriptions are my own. Every table carries a plain-English summary
 and a description of what the ECU does with it.
 
+Across the supported ROMs, each definition averages roughly **1,200 entries**: about 1,000 maps and curves and
+about 140 single values and switches. On top of that, each has about 900 DTC enable switches. The exact count for
+each ROM is in the [table below](#supported-roms).
+
 > **Status: beta.** The definitions have been checked table by table against the ECU code and load cleanly in
 > RomRaider, but **nothing has been validated on a running engine or flashed to a car yet.** Read the
 > [known issues](#known-issues) before you use them, and always keep a stock read of the ECU.

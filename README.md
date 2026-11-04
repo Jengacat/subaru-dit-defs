@@ -31,7 +31,10 @@ each ROM is in the [table below](#supported-roms).
 | WRX | 2018 | 6MT | not confirmed | **LF9C100P** | 1212 | 912 | yes |
 
 *Outdated:* LV9N000C is an early calibration that Subaru superseded (its tune is 99.7% the same as LV9N101C's). It
-is still fully supported; RomRaider flags it as obsolete when you open it.
+is still fully supported. When you open it, RomRaider shows its "ECU Revision is Obsolete" notice ("A newer version of
+this ECU revision exists"), with a link to RomRaider's general ECU revision list rather than to this repo. The notice
+can be switched off with its "Always display this message" box or in RomRaider's settings ("Warn me when opening out
+of date image revision"). EcuFlash has no equivalent flag.
 
 The calibration ID is the ROM's identifier, stored in the ROM itself; RomRaider/EcuFlash
 pick the matching definition from it automatically. A ROM with a different ID is **not supported**, even if it is the

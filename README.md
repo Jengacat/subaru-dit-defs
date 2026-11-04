@@ -20,15 +20,18 @@ each ROM is in the [table below](#supported-roms).
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTC switches | Logging patch |
 |---|---|---|---|---|---|---|---|
 | WRX | 2015 | 6MT | USDM | **LF75404S** | 1189 | 904 | yes |
+| WRX (early software) | 2015 | 6MT | Australia | **LV9N100F** | 1123 | 888 | yes |
+| WRX (early software) | 2015 | CVT | USDM | **LV9N101C** | 1123 | 888 | yes |
+| Forester XT (early software; briefly also the WRX CVT) — *outdated* | early 2015 | CVT | USDM | **LV9N000C** | 1123 | 888 | yes |
 | WRX | 2016 | 6MT | not confirmed | **LF75300H** | 1189 | 904 | yes |
+| Forester tS (STI) | 2016 | CVT | Australia | **LF78001H** | 1198 | 908 | yes |
 | WRX | 2017 | 6MT | not confirmed | **LF79002P** | 1207 | 912 | yes |
 | WRX | 2017 | 6MT (later revision) | not confirmed | **LF79100P** | 1207 | 912 | yes |
-| WRX | 2018 | 6MT | not confirmed | **LF9C100P** | 1212 | 912 | yes |
-| Forester tS (STI) | 2016 | CVT | Australia | **LF78001H** | 1198 | 908 | yes |
-| WRX (early software) | 2015 | CVT | not confirmed | **LV9N101C** | 1123 | 888 | yes |
-| WRX (early software) | 2015 | 6MT | Australia | **LV9N100F** | 1123 | 888 | yes |
-| Forester XT | 2015 | CVT coding | not confirmed | **LV9N000C** | 1123 | 888 | yes |
 | Forester XT | 2017 | CVT | Europe | **LF9C000C** | 1212 | 912 | yes |
+| WRX | 2018 | 6MT | not confirmed | **LF9C100P** | 1212 | 912 | yes |
+
+*Outdated:* LV9N000C is an early calibration that Subaru superseded (its tune is 99.7% the same as LV9N101C's). It
+is still fully supported; RomRaider flags it as obsolete when you open it.
 
 The calibration ID is the ROM's identifier, stored in the ROM itself; RomRaider/EcuFlash
 pick the matching definition from it automatically. A ROM with a different ID is **not supported**, even if it is the

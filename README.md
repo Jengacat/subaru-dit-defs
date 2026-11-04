@@ -27,6 +27,7 @@ each ROM is in the [table below](#supported-roms).
 | WRX (early software) | 2015 | CVT | USDM | **LV9N101C** | 1123 | 888 | yes |
 | WRX S4 (early software) | 2015 | CVT | Japan | **LV9N100B** | 1123 | 888 | yes |
 | WRX S4 | 2015 | CVT | Japan | **LF75300F** | 1189 | 904 | yes |
+| WRX | 2015 | CVT | Canada | **LF75200T** | 1167 | 904 | yes |
 | WRX | 2015–2016 (not stated) | CVT | not confirmed | **LF75300L** | 1189 | 904 | yes |
 | Forester XT (early software; briefly also the WRX CVT) — *outdated* | early 2015 | CVT | USDM | **LV9N000C** | 1123 | 888 | yes |
 | WRX | 2016 | 6MT | not confirmed | **LF75300H** | 1189 | 904 | yes |
@@ -35,6 +36,7 @@ each ROM is in the [table below](#supported-roms).
 | WRX | 2017 | 6MT | not confirmed | **LF79002P** | 1207 | 912 | yes |
 | WRX | 2017 | 6MT (later revision) | not confirmed | **LF79100P** | 1207 | 912 | yes |
 | WRX | 2017 | CVT | not confirmed | **LF79100N** | 1207 | 912 | yes |
+| Forester XT | 2017 | CVT | USDM | **LF78103B** | 1195 | 912 | yes |
 | Forester XT | 2017 | CVT | Europe | **LF9C000C** | 1212 | 912 | yes |
 | WRX | 2018 | 6MT | not confirmed | **LF9C100P** | 1212 | 912 | yes |
 | WRX S4 | 2018 | CVT | Japan | **LF9C001K** | 1212 | 912 | yes |
@@ -53,7 +55,6 @@ same model year; flashing with a definition for another ID will corrupt the cali
 
 | ROM | Why |
 |---|---|
-| LF78103B (2017 Forester XT), LF75200T (2015 Canadian WRX CVT) | Complete ROMs in hand, new software builds: definitions in progress. |
 | LF75300G (2016 WRX CVT), LF75300T (2015 WRX CVT), LV9N101D (2015 USDM WRX), LV9N002F (2014 Australian WRX) | The only copies I have are incomplete (1.5 MB) reads. A complete read would make them supportable quickly. |
 | Other 2015–2018 WRX and Forester XT calibrations (e.g. LF75403T, LF75404H, LF75403G, LF79103P, LF79102N, LF9C102P, LF9C002N, LF61803B, LF75403A, LF78106B, LF9C002B) | I don't have these ROMs. [Submit one](#submitting-a-rom) and I can add it. |
 | 2019+ WRX (LF9D…, LF9G…) | These ECUs have 2.5 MB of flash and a newer boot block, and EcuFlash only reads and writes 2 MB. A tool for reading and writing the 2.5 MB ECUs is in the works. |

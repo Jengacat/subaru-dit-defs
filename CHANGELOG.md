@@ -4,8 +4,8 @@
 
 First public release.
 
-- RomRaider definition covering eight FA20DIT ROMs (2015–2018 WRX 6MT, 2016 Forester tS CVT, two early-2015
-  calibrations), and an EcuFlash definition for each.
+- RomRaider definition covering ten FA20DIT ROMs (2015–2018 WRX 6MT, 2018 WRX CVT coding, 2016 Forester tS CVT,
+  2015 Forester XT, two early-2015 calibrations), and an EcuFlash definition for each.
 - 1,123–1,212 tables, scalars and switches per ROM, plus about 900 DTC enable and fail-safe switches. Tables are
   grouped by purpose in tuning order, carry a plain-English summary, and are tiered by user level (Beginner to Debug).
 - Default units for tuners: load in g/rev, torque in ft-lb, boost in psi, rail pressure in psi, temperatures in °F,

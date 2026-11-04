@@ -57,7 +57,7 @@ same model year; flashing with a definition for another ID will corrupt the cali
 |---|---|
 | LF75300G (2016 WRX CVT), LF75300T (2015 WRX CVT), LV9N101D (2015 USDM WRX), LV9N002F (2014 Australian WRX) | The only copies I have are incomplete (1.5 MB) reads. A complete read would make them supportable quickly. |
 | Other 2015–2018 WRX and Forester XT calibrations (e.g. LF75403T, LF75404H, LF75403G, LF79103P, LF79102N, LF9C102P, LF9C002N, LF61803B, LF75403A, LF78106B, LF9C002B) | I don't have these ROMs. [Submit one](#submitting-a-rom) and I can add it. |
-| 2019+ WRX (LF9D…, LF9G…) | These ECUs have 2.5 MB of flash and a newer boot block, and EcuFlash only reads and writes 2 MB. A tool for reading and writing the 2.5 MB ECUs is in the works. |
+| 2019+ WRX (LF9D…, LF9G…) | These ECUs have 2.5 MB of flash and a newer boot block, and EcuFlash only reads and writes 2 MB. PCMFlash may read them in full (see [Reading your ECU](#reading-your-ecu)); an open tool for reading and writing the 2.5 MB ECUs is in the works. |
 | 2022+ WRX (FA24DIT) | Different engine and ECU generation; not started. |
 
 ## What's included
@@ -167,8 +167,14 @@ change anything.
 EcuFlash may not show the calibration ID if it has no definition for the ROM yet. That's fine: the ID is inside the
 file (open it with these definitions, or submit it as below and I'll identify it).
 
-The 2019 and later WRX ECUs (and presumably other DIT cars) have 2.5 MB of flash, which EcuFlash can't read in full. A 2 MB read of one of those is
-incomplete, so a tool for reading and writing the 2.5 MB ECUs is in the works.
+**PCMFlash** (commercial, licensed per module) is another option for reading and writing. I haven't tested it on
+these ECUs myself, so treat it as an alternative to EcuFlash rather than a recommendation.
+
+The 2019 and later WRX ECUs (and presumably other DIT cars) have 2.5 MB of flash, which EcuFlash can't read in full. A
+2 MB read of one of those is incomplete. PCMFlash may be able to read them: a 2019 JDM Levorg STI 2.0 (LF9F000R) on
+the RomRaider forum was read in full (2,621,440 bytes, valid checksum) with PCMFlash's "Levorg 2018+ 2.0 DIT CAT
+(Hitachi SH72544/2.5 MB)" module and a Tactrix OpenPort 2.0. Whether that module also covers the 2019+ WRX isn't
+confirmed. I'm still building an open tool for reading and writing the 2.5 MB ECUs.
 
 ## Submitting a ROM
 

@@ -167,14 +167,16 @@ change anything.
 EcuFlash may not show the calibration ID if it has no definition for the ROM yet. That's fine: the ID is inside the
 file (open it with these definitions, or submit it as below and I'll identify it).
 
-**PCMFlash** (commercial, licensed per module) is another option for reading and writing. I haven't tested it on
-these ECUs myself, so treat it as an alternative to EcuFlash rather than a recommendation.
+**PCMFlash** (commercial, licensed per module) is another option for reading and writing. Its "Subaru Hitachi" module
+(module 16) lists the SH72543 / 2 MB ECU used in these cars, with reading, writing and checksum correction
+([module list](https://ecutools.eu/chip-tuning/pcmflash/#subproduct-group-8037)). I haven't tested it on these ECUs
+myself, so treat it as an alternative to EcuFlash rather than a recommendation.
 
 The 2019 and later WRX ECUs (and presumably other DIT cars) have 2.5 MB of flash, which EcuFlash can't read in full. A
 2 MB read of one of those is incomplete. PCMFlash may be able to read them: a 2019 JDM Levorg STI 2.0 (LF9F000R) on
 the RomRaider forum was read in full (2,621,440 bytes, valid checksum) with PCMFlash's "Levorg 2018+ 2.0 DIT CAT
-(Hitachi SH72544/2.5 MB)" module and a Tactrix OpenPort 2.0. Whether that module also covers the 2019+ WRX isn't
-confirmed. I'm still building an open tool for reading and writing the 2.5 MB ECUs.
+(Hitachi SH72544/2.5 MB)" module and a Tactrix OpenPort 2.0. That 2.5 MB module isn't on the module list linked above, and
+whether it covers the 2019+ WRX isn't confirmed. I'm still building an open tool for reading and writing the 2.5 MB ECUs.
 
 ## Submitting a ROM
 

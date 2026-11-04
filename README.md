@@ -34,7 +34,7 @@ each ROM is in the [table below](#supported-roms).
 is still fully supported. When you open it, RomRaider shows its "ECU Revision is Obsolete" notice ("A newer version of
 this ECU revision exists"), with a link to RomRaider's general ECU revision list rather than to this repo. The notice
 can be switched off with its "Always display this message" box or in RomRaider's settings ("Warn me when opening out
-of date image revision"). EcuFlash has no equivalent flag.
+of date image revision"). The EcuFlash definition does not carry this flag.
 
 The calibration ID is the ROM's identifier, stored in the ROM itself; RomRaider/EcuFlash
 pick the matching definition from it automatically. A ROM with a different ID is **not supported**, even if it is the

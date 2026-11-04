@@ -4,8 +4,8 @@ For RomRaider Logger over CAN (Tactrix OpenPort 2.0 or another J2534 interface).
 
 | File | Use |
 |---|---|
-| `FA20DIT_Logger.xml` | Stock ROMs (all ten supported). SSM: 46 parameters plus trouble codes for the DTC tab. OBD: 32 standard OBD-II parameters. |
-| `FA20DIT_Logger_LogPatch.xml` | ROMs with the [logging patch](../tools/logpatch/): everything in the stock file plus L01–L24. Valid for all ten supported ROMs (the patch uses the same slots in each). |
+| `FA20DIT_Logger.xml` | Stock ROMs (all supported). SSM: 46 parameters plus trouble codes for the DTC tab. OBD: 32 standard OBD-II parameters. |
+| `FA20DIT_Logger_LogPatch.xml` | ROMs with the [logging patch](../tools/logpatch/): everything in the stock file plus L01–L24. Valid for every supported ROM (the patch uses the same slots in each). |
 | `FA20DIT_Logger_LogPatch_only.xml` | Only the logging-patch parameters, to merge into your own logger file. |
 
 ## What a stock ROM gives you

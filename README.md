@@ -184,8 +184,8 @@ whether it covers the 2019+ WRX isn't confirmed.
 read, so nothing is written to the ECU, and it reads the full 2.5 MB (2,621,440 bytes). Three caveats: it isn't in a
 FastECU release yet (only in the current source); a follow-up fix that makes it appear in the protocol list
 ([my branch](https://github.com/Jengacat/FastECU/tree/sh72544-car-model)) hasn't been merged yet; and I haven't tested
-it on a car yet. If you try it, a complete read
-is exactly 2,621,440 bytes; please let me know how it went. Writing the 2.5 MB ECUs isn't supported yet.
+it on a car yet. If you try it, a complete read is exactly 2,621,440 bytes; please let me know how it went. Writing
+the 2.5 MB ECUs isn't supported yet.
 
 ## Submitting a ROM
 

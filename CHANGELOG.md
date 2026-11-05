@@ -4,6 +4,7 @@
 
 First public release.
 
+- Licensed under the GNU General Public License, version 3 (GPL-3.0); see LICENSE.
 - Reading 2019+ ECUs: the README now covers FastECU's read-only 2.5 MB protocol (in FastECU's source since
   miikasyvanen/FastECU#159, not yet tested on a car) alongside PCMFlash.
 - RomRaider definition covering 21 FA20DIT ROMs (2015–2018 WRX 6MT and CVT, WRX S4, 2016 Forester tS, the 2015 and

@@ -199,6 +199,16 @@ attachments are public, so don't include anything you wouldn't post publicly.
 If a table looks wrong, a scaling doesn't match what you log, or something behaves differently on the car, open a
 [bug report](../../issues/new?template=bug_report.yml) with the ROM ID, the table name and, ideally, a log.
 
+## License
+
+Copyright (C) 2026 Jengacat.
+
+The definitions, logger files, documentation and tools in this repository are free software: you can redistribute
+them and/or modify them under the terms of the GNU General Public License, version 3, as published by the Free
+Software Foundation. See [LICENSE](LICENSE) for the full text. They are distributed in the hope that they will be
+useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+PURPOSE.
+
 ## Disclaimer
 
 Modifying an engine ECU can damage the engine, void warranties, and may not be legal for road use (including

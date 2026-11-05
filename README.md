@@ -181,8 +181,10 @@ whether it covers the 2019+ WRX isn't confirmed.
 **FastECU** (free, open source, works with a Tactrix OpenPort 2.0) now has a read-only protocol for these ECUs:
 "Subaru 2019+ 2.0 DIT CAN (Hitachi SH72544R/2.5MB), read only", which I added to the project
 ([miikasyvanen/FastECU#159](https://github.com/miikasyvanen/FastECU/pull/159)). It uses the ECU's own diagnostic memory
-read, so nothing is written to the ECU, and it reads the full 2.5 MB (2,621,440 bytes). Two caveats: it isn't in a
-FastECU release yet (only in the current source), and I haven't tested it on a car yet. If you try it, a complete read
+read, so nothing is written to the ECU, and it reads the full 2.5 MB (2,621,440 bytes). Three caveats: it isn't in a
+FastECU release yet (only in the current source); a follow-up fix that makes it appear in the protocol list
+([my branch](https://github.com/Jengacat/FastECU/tree/sh72544-car-model)) hasn't been merged yet; and I haven't tested
+it on a car yet. If you try it, a complete read
 is exactly 2,621,440 bytes; please let me know how it went. Writing the 2.5 MB ECUs isn't supported yet.
 
 ## Submitting a ROM

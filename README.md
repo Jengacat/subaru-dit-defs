@@ -57,7 +57,7 @@ same model year; flashing with a definition for another ID will corrupt the cali
 |---|---|
 | LF75300G (2016 WRX CVT), LF75300T (2015 WRX CVT), LV9N101D (2015 USDM WRX), LV9N002F (2014 Australian WRX) | The only copies I have are incomplete (1.5 MB) reads. A complete read would make them supportable quickly. |
 | Other 2015–2018 WRX and Forester XT calibrations (e.g. LF75403T, LF75404H, LF75403G, LF79103P, LF79102N, LF9C102P, LF9C002N, LF61803B, LF75403A, LF78106B, LF9C002B) | I don't have these ROMs. [Submit one](#submitting-a-rom) and I can add it. |
-| 2019+ WRX (LF9D…, LF9G…) | These ECUs have 2.5 MB of flash and a newer boot block, and EcuFlash only reads and writes 2 MB. PCMFlash may read them in full (see [Reading your ECU](#reading-your-ecu)); an open tool for reading and writing the 2.5 MB ECUs is in the works. |
+| 2019+ WRX (LF9D…, LF9G…) | These ECUs have 2.5 MB of flash and a newer boot block, and EcuFlash only reads and writes 2 MB. FastECU can now read them in full (read only, not yet tested on a car) and PCMFlash may too (see [Reading your ECU](#reading-your-ecu)); writing them isn't supported by an open tool yet. |
 | 2022+ WRX (FA24DIT) | Different engine and ECU generation; not started. |
 
 ## What's included
@@ -176,7 +176,14 @@ The 2019 and later WRX ECUs (and presumably other DIT cars) have 2.5 MB of flash
 2 MB read of one of those is incomplete. PCMFlash may be able to read them: a 2019 JDM Levorg STI 2.0 (LF9F000R) on
 the RomRaider forum was read in full (2,621,440 bytes, valid checksum) with PCMFlash's "Levorg 2018+ 2.0 DIT CAT
 (Hitachi SH72544/2.5 MB)" module and a Tactrix OpenPort 2.0. That 2.5 MB module isn't on the module list linked above, and
-whether it covers the 2019+ WRX isn't confirmed. I'm still building an open tool for reading and writing the 2.5 MB ECUs.
+whether it covers the 2019+ WRX isn't confirmed.
+
+**FastECU** (free, open source, works with a Tactrix OpenPort 2.0) now has a read-only protocol for these ECUs:
+"Subaru 2019+ 2.0 DIT CAN (Hitachi SH72544R/2.5MB), read only", which I added to the project
+([miikasyvanen/FastECU#159](https://github.com/miikasyvanen/FastECU/pull/159)). It uses the ECU's own diagnostic memory
+read, so nothing is written to the ECU, and it reads the full 2.5 MB (2,621,440 bytes). Two caveats: it isn't in a
+FastECU release yet (only in the current source), and I haven't tested it on a car yet. If you try it, a complete read
+is exactly 2,621,440 bytes; please let me know how it went. Writing the 2.5 MB ECUs isn't supported yet.
 
 ## Submitting a ROM
 

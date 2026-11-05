@@ -4,6 +4,8 @@
 
 First public release.
 
+- Reading 2019+ ECUs: the README now covers FastECU's read-only 2.5 MB protocol (in FastECU's source since
+  miikasyvanen/FastECU#159, not yet tested on a car) alongside PCMFlash.
 - RomRaider definition covering 21 FA20DIT ROMs (2015–2018 WRX 6MT and CVT, WRX S4, 2016 Forester tS, the 2015 and
   2017 Forester XT, early-2015 "LV9N" calibrations), and an EcuFlash definition for each. Nine of them share their
   code and table layout byte for byte with another supported ROM and use its table list.

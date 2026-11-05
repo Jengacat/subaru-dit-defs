@@ -201,10 +201,13 @@ If a table looks wrong, a scaling doesn't match what you log, or something behav
 
 ## Disclaimer
 
-Modifying an engine ECU can damage the engine, void warranties, and may not be legal for road use where you live.
+Modifying an engine ECU can damage the engine, void warranties, and may not be legal for road use (including
+emissions rules) where you live.
 These files are provided as-is, without warranty of any kind. You are responsible for what you flash to a car.
-Subaru, WRX, Forester, SI-Drive and STI are trademarks of Subaru Corporation; this project is not affiliated with or
-endorsed by Subaru.
+Subaru, WRX, STI, Forester, Levorg, SI-Drive and other Subaru model, trim and feature names are trademarks of Subaru
+Corporation or its affiliates. Other product and company names (including Tactrix, OpenPort, EcuFlash, RomRaider,
+PCMFlash, FastECU and Hitachi) are trademarks of their respective owners. This project is not affiliated with or
+endorsed by any of them.
 
 Generative AI tools were used in creating and maintaining this repository, including the analysis behind the
 definitions, the documentation and the tooling. All of it remains untested on a running engine; check it against your

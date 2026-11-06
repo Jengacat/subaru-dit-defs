@@ -27,11 +27,10 @@ Long-term fuel trim is 0.39 % per count (older logger files showed double the re
 
 ## Coming: logging without the patch
 
-I've written a Subaru UDS logger protocol (**SUBUDS**) for RomRaider that reads RAM directly on a stock ROM, so the L
-parameters (and more) will work without the logging patch. My
-[fork of RomRaider](https://github.com/Jengacat/RomRaider/tree/Subaru-UDS-Logging) already has it; it isn't in the
-official RomRaider yet, and the logger file section for it isn't published here yet. See [In progress: logging without a patch](../README.md#in-progress-logging-without-a-patch-subaru-uds-in-romraider)
-in the main README.
+A new RomRaider logger protocol, **SUBUDS**, will read the L parameters (and more) on a stock ROM, without the logging
+patch. [My fork of RomRaider](https://github.com/Jengacat/RomRaider/tree/Subaru-UDS-Logging) already has it; the logger
+file for it will be added here with a test build. See the
+[main README](../README.md#in-progress-logging-without-a-patch-subaru-uds-in-romraider).
 
 ## Status
 

@@ -135,26 +135,11 @@ every supported ROM, so one logger file covers all of them.
 
 ### In progress: logging without a patch (Subaru UDS in RomRaider)
 
-I'm working on getting RomRaider to log these ECUs a second way, which would make the logging patch unnecessary. Besides
-SSM, the ECU speaks UDS on the same CAN connection. In its extended diagnostic session it lets a tool define its own
-data identifiers from RAM addresses and read them back, with no security unlock and no reflash. That means any RAM
-value can be logged on a stock ROM: everything the logging patch adds, and more.
-
-Stock RomRaider can't do this yet, so I've written a logger protocol for it, **SUBUDS**, built the same way as
-RomRaider's existing Nissan CAN protocol. **My fork of RomRaider already has it**, on the
-[`Subaru-UDS-Logging` branch](https://github.com/Jengacat/RomRaider/tree/Subaru-UDS-Logging). It will go to the
-RomRaider project as a pull request once it has been tested on a car. Where it stands:
-
-* **ECU side:** the requests and limits come from the ECU's own diagnostic code. I ran the whole sequence through the
-  ECU software of every supported ROM in an emulator, and for all 70 parameters (J01–J46 and L01–L24) the new read
-  returns the same bytes as SSM does.
-* **RomRaider side:** the protocol is written and its unit tests pass, including ones built from the emulated ECU's
-  replies. Nothing in RomRaider's existing protocols changes.
-* **Logger file:** a SUBUDS section with all 70 parameters for every supported ROM is ready and loads cleanly in both
-  the fork and current RomRaider (where SSM and OBD behave exactly as before). It will be added here together with a
-  test build of the fork.
-* **Not yet:** a test on a car. If you have one of the supported cars and an OpenPort and would like to help with a
-  read-only logging test, please [open an issue](../../issues/new/choose).
+I'm adding a new logger protocol to RomRaider, **SUBUDS**, that reads values straight from the ECU's RAM over CAN. It
+works on a stock ROM with no reflash, so everything the logging patch adds (and more) could be logged without it.
+[My fork of RomRaider](https://github.com/Jengacat/RomRaider/tree/Subaru-UDS-Logging) already has it. It hasn't been
+tested on a car yet; once it has, I'll publish a test build and the matching logger file here and send it to the
+RomRaider project. If you'd like to help test, please [open an issue](../../issues/new/choose).
 
 ## Units
 

@@ -39,6 +39,7 @@ each ROM is in the [table below](#supported-roms).
 | Forester XT | 2017 | CVT | USDM | **LF78103B** | 1195 | 912 | yes |
 | Forester XT | 2017 | CVT | Europe | **LF9C000C** | 1212 | 912 | yes |
 | WRX | 2018 | 6MT | not confirmed | **LF9C100P** | 1212 | 912 | yes |
+| WRX | 2018 | 6MT | USDM | **LF9C001P** | 1212 | 912 | yes |
 | WRX S4 | 2018 | CVT | Japan | **LF9C001K** | 1212 | 912 | yes |
 
 *Outdated:* LV9N000C is an early calibration that Subaru superseded (its tune is 99.7% the same as LV9N101C's). It

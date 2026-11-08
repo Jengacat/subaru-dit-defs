@@ -3,6 +3,10 @@
 `FA20DIT_RomRaider.xml` covers every supported ROM in one file; RomRaider picks the right section from the ROM's
 calibration ID.
 
+The file uses RomRaider's inheritance to stay small (about 20 MB instead of 75 MB): the tables common to every ROM are
+in a shared `FA20DIT_BASE` section, which never matches a ROM, and each ROM's section lists only its own addresses and
+tables. If you see `FA20DIT_BASE` in the Definition Manager, that's expected.
+
 **Install:** RomRaider → ECU Definitions → ECU Definition Manager → Add, select `FA20DIT_RomRaider.xml`, then open your
 ROM.
 

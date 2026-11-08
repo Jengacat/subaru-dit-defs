@@ -4,7 +4,7 @@
 |---|---|
 | `checksum.py` | Verify or fix the ROM checksum. Python 3, no extra packages. |
 | `checksum.ps1` | The same in PowerShell, for Windows without Python (Windows PowerShell 5.1 or later). |
-| [`logpatch/`](logpatch/) | The logging patch: adds 24 loggable parameters to a ROM. |
+| [`logpatch/`](logpatch/) | The logging patch: adds 24 loggable parameters to a ROM (Python or PowerShell 5.1). |
 
 ## Checksum
 

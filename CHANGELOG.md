@@ -19,6 +19,8 @@ First public release.
   rail pressure target, target boost, combustion mode, target torque and more) on every supported ROM.
 - Checksum tool and logging-patch tool.
 - Tuning guide: workflows, how the logic works, appendices and a table reference.
-- CAN DBC for passive logging.
+- CAN dictionary for passive logging: every frame the ECU receives and sends, for 30 ROMs (2014–2018 WRX,
+  WRX S4, Levorg, Forester XT/tS), with a DBC for all of them and each signal's RAM address per ROM. The ROMs fall
+  into nine layout groups; the differences (the Foresters' alternate frames, 2017+ changes) are listed per group.
 
 Not yet validated on a running engine; see the README's known issues.

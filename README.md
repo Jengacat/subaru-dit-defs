@@ -71,7 +71,7 @@ same model year; flashing with a definition for another ID will corrupt the cali
 | `tools/checksum.py`, `tools/checksum.ps1` | Check and fix the ROM checksum (Python, or PowerShell for Windows). **Required before flashing an edited ROM** (see below). |
 | `tools/logpatch/` | The logging patch: `make_logpatch.py` and one spec per supported ROM. |
 | `docs/guide/` | [The tuning guide](docs/guide/README.md): workflows, how the logic works, appendices and a table reference. |
-| `extras/can/` | A DBC file of the ECU's CAN messages, for passive logging with a CAN interface. |
+| `extras/can/` | The CAN dictionary: every frame the ECU receives and sends, for 30 ROMs, with a DBC for CAN tools and each signal's RAM address per ROM. |
 
 ## Quick start
 

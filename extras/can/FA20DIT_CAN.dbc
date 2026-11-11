@@ -1,0 +1,553 @@
+VERSION "FA20DIT CAN dictionary, 30 ROMs"
+
+NS_ :
+
+BS_:
+
+BU_: ECM VDC TCM METER BCM OTHER
+
+BO_ 208 RX_0D0: 8 VDC
+ SG_ vdc0d0_b6 : 48|8@1+ (1,0) [0|0] "signed" ECM
+ SG_ vdc0d0_b7 : 56|8@1+ (1,0) [0|0] "signed" ECM
+
+BO_ 209 RX_0D1: 4 VDC
+ SG_ vehicle_speed : 0|16@1+ (0.05625,0) [0|0] "km/h" ECM
+ SG_ brake_pressure : 16|8@1+ (1,0) [0|0] "raw" ECM
+ SG_ rx_0d1_b3_2_2 : 26|1@1+ (1,0) [0|0] "raw" ECM
+
+BO_ 210 RX_0D2: 8 VDC
+ SG_ vdc_torque_request : 0|16@1+ (0.1,-1000) [0|0] "Nm" ECM
+ SG_ vdc_torque_limit : 16|16@1+ (0.1,-1000) [0|0] "Nm" ECM
+ SG_ vdc0d2_b4_bit0 : 32|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ vdc0d2_b4_bit1 : 33|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ vdc0d2_b4_bit2 : 34|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ vdc0d2_b5_bit0 : 40|1@1+ (1,0) [0|0] "raw" ECM
+
+BO_ 211 RX_0D3: 7 VDC
+ SG_ vdc0d3_b1 : 8|3@1+ (1,0) [0|0] "raw" ECM
+ SG_ vdc0d3_b2_lo : 16|4@1+ (1,0) [0|0] "raw" ECM
+ SG_ vdc0d3_b2_bit7 : 23|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ vdc0d3_b3_bit1 : 25|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ vdc0d3_b3_bit2 : 26|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ vdc0d3_b3_bit3 : 27|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ vdc0d3_b3_bit7 : 31|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ vdc0d3_counter : 48|8@1+ (1,0) [0|0] "raw" ECM
+
+BO_ 212 RX_0D4: 8 VDC
+ SG_ wheel_speed_1 : 0|16@1+ (0.05625,0) [0|0] "km/h" ECM
+ SG_ wheel_speed_2 : 16|16@1+ (0.05625,0) [0|0] "km/h" ECM
+ SG_ wheel_speed_3 : 32|16@1+ (0.05625,0) [0|0] "km/h" ECM
+ SG_ wheel_speed_4 : 48|16@1+ (0.05625,0) [0|0] "km/h" ECM
+
+BO_ 320 TX_140: 8 ECM
+ SG_ accel_pedal_raw : 0|8@1+ (0.39215686274509803,0) [0|0] "%" Vector__XXX
+ SG_ rolling_counter : 8|4@1+ (1,0) [0|0] "count" Vector__XXX
+ SG_ mil_request : 12|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ etc_fault : 13|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ ac_compressor_on : 14|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ clutch_switch_latched : 15|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ engine_speed : 16|14@1+ (1,0) [0|0] "rpm" Vector__XXX
+ SG_ pedal_released : 30|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ dtc_setting_off : 31|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ cruise_virtual_pedal : 32|8@1+ (0.39215686274509803,0) [0|0] "%" Vector__XXX
+ SG_ accel_pedal_effective : 40|8@1+ (0.39215686274509803,0) [0|0] "%" Vector__XXX
+ SG_ throttle_opening : 48|8@1+ (0.39215686274509803,0) [0|0] "%" Vector__XXX
+ SG_ throttle_closed : 56|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ status_89AB6 : 57|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ pin_PA2 : 58|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ accessory_load_flag : 61|1@1+ (1,0) [0|0] "flag" Vector__XXX
+
+BO_ 321 TX_141: 8 ECM
+ SG_ torque_request : 0|15@1+ (0.1,-1000) [0|0] "Nm" Vector__XXX
+ SG_ ac_flag_A9A3b1 : 15|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ torque_actual : 16|15@1+ (0.1,-1000) [0|0] "Nm" Vector__XXX
+ SG_ engine_speed_filtered : 32|14@1+ (1,0) [0|0] "rpm" Vector__XXX
+ SG_ pedal_flag_88C64b4 : 47|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ gear_mt : 48|3@1+ (1,0) [0|0] "gear" Vector__XXX
+ SG_ flag_88E0Eb0 : 51|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ crank_or_low_voltage : 52|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ below_rev_limit : 53|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ torque_flag_A63Db0 : 54|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ drive_mode_applied : 56|3@1+ (1,0) [0|0] "code" Vector__XXX
+ SG_ flag_A64Cb1 : 59|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ drive_mode_flag_A643 : 60|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ drive_mode_req_4 : 61|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ charging_flag_AA6Bb7 : 62|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ booster_sensor_fault : 63|1@1+ (1,0) [0|0] "flag" Vector__XXX
+
+BO_ 322 TX_142: 8 ECM
+ SG_ value_142 : 0|15@1+ (1,0) [0|0] "raw" Vector__XXX
+ SG_ flag_142_A9A2b6 : 15|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ value_142_b2 : 16|8@1+ (1,0) [0|0] "raw" Vector__XXX
+
+BO_ 324 TX_144: 8 ECM
+ SG_ cruise_switch_flag : 2|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ cruise_switch_code : 3|3@1+ (1,0) [0|0] "code" Vector__XXX
+ SG_ cruise_meter_flag_b5 : 6|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ cruise_meter_flag_b6 : 7|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ drive_cycle_done : 9|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ torque_monitor_AC77b0 : 11|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ cruise_switch_taps : 12|4@1+ (1,0) [0|0] "bits" Vector__XXX
+ SG_ max_available_torque : 16|8@1+ (1.6,0) [0|0] "Nm" Vector__XXX
+ SG_ start_counter : 24|8@1+ (1,0) [0|0] "count" Vector__XXX
+ SG_ warmup_counter : 32|8@1+ (1,0) [0|0] "count" Vector__XXX
+ SG_ coding_byte : 40|8@1+ (1,0) [0|0] "raw" Vector__XXX
+ SG_ cruise_standby : 48|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ cruise_active : 49|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ cruise_override : 50|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ pin_PA15 : 51|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ can_fault_latch : 52|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ cruise_unavailable : 53|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ vdc_flag_inverted : 54|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ mt_coding : 55|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ drive_mode_state : 56|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ drive_mode_requested : 57|3@1+ (1,0) [0|0] "code" Vector__XXX
+ SG_ network_variant0_flag : 61|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ cal_57ABC_b2 : 62|1@1+ (1,0) [0|0] "flag" Vector__XXX
+
+BO_ 328 RX_148: 8 TCM
+ SG_ tcm148_b0_lo_code : 0|4@1+ (1,0) [0|0] "raw" ECM
+ SG_ tcm148_b0_hi_code : 4|4@1+ (1,0) [0|0] "raw" ECM
+ SG_ tcm148_counter : 8|4@1+ (1,0) [0|0] "raw" ECM
+ SG_ tcm148_b1_flags : 12|3@1+ (1,0) [0|0] "raw" ECM
+ SG_ tcm148_word : 16|14@1+ (1,0) [0|0] "raw" ECM
+ SG_ tcm148_b6_lo : 48|4@1+ (1,0) [0|0] "raw" ECM
+ SG_ tcm148_gear : 52|4@1+ (1,0) [0|0] "gear code" ECM
+ SG_ tcm148_b7_bit0 : 56|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ tcm148_b7_bit1 : 57|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ tcm148_b7_bit2 : 58|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ tcm148_b7_bit4 : 60|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ tcm148_b7_bit5 : 61|1@1+ (1,0) [0|0] "raw" ECM
+
+BO_ 329 RX_149: 8 TCM
+ SG_ tcm149_b0 : 0|8@1+ (1,0) [0|0] "raw" ECM
+ SG_ tcm149_b1_lo : 8|4@1+ (1,0) [0|0] "raw" ECM
+ SG_ tcm149_b1_bit4 : 12|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ tcm149_b1_bit5 : 13|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ tcm149_b1_bit6 : 14|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ tcm149_b1_bit7 : 15|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ tcm149_idle_target : 16|8@1+ (8,0) [0|0] "rpm" ECM
+ SG_ tcm149_torque_limit : 32|8@1+ (2,0) [0|0] "Nm" ECM
+ SG_ tcm149_b5 : 40|8@1+ (1,0) [0|0] "raw" ECM
+ SG_ tcm149_word : 48|14@1+ (1,0) [0|0] "raw" ECM
+ SG_ tcm149_b7_bit7 : 63|1@1+ (1,0) [0|0] "raw" ECM
+
+BO_ 338 RX_152: 8 BCM
+ SG_ bcm152_b1_bit0 : 8|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ bcm152_b1_bit1 : 9|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ bcm152_b1_bit2 : 10|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ bcm152_b1_bit3 : 11|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ bcm152_counter : 12|4@1+ (1,0) [0|0] "raw" ECM
+ SG_ bcm152_b6_bit0 : 48|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ bcm152_b6_bit2 : 50|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ bcm152_b6_bit3 : 51|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ bcm152_b6_bit4 : 52|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ bcm152_b6_bit5 : 53|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ bcm152_b6_hi : 54|2@1+ (1,0) [0|0] "raw" ECM
+ SG_ bcm152_b7_bit1 : 57|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ bcm152_b7_bit2 : 58|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ bcm152_b7_bit3 : 59|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ bcm152_b7_bit4 : 60|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ bcm152_b7_bit5 : 61|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ bcm152_b7_bit6 : 62|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ bcm152_b7_bit7 : 63|1@1+ (1,0) [0|0] "raw" ECM
+
+BO_ 346 RX_15A: 8 OTHER
+ SG_ m15a_counter : 0|4@1+ (1,0) [0|0] "raw" ECM
+ SG_ can_restart_req : 16|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ m15a_b2_bit2 : 18|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ engine_stop_code : 48|4@1+ (1,0) [0|0] "raw" ECM
+ SG_ m15a_b7 : 56|3@1+ (1,0) [0|0] "raw" ECM
+
+BO_ 353 RX_161: 8 METER
+ SG_ m161_torque : 0|16@1+ (0.1,-1000) [0|0] "Nm" ECM
+ SG_ m161_b2 : 16|8@1+ (1,0) [0|0] "raw" ECM
+ SG_ m161_b3 : 24|8@1+ (1,0) [0|0] "raw" ECM
+ SG_ m161_b5_bit2 : 42|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ m161_counter : 44|3@1+ (1,0) [0|0] "raw" ECM
+ SG_ rx_161_b5_7_7 : 47|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ m161_switch_code : 48|3@1+ (1,0) [0|0] "raw" ECM
+ SG_ m161_b6_bit3 : 51|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ m161_checksum : 56|8@1+ (1,0) [0|0] "raw" ECM
+
+BO_ 354 RX_162: 8 OTHER
+ SG_ rolling_counter_162 : 48|3@1+ (1,0) [0|0] "count" ECM
+
+BO_ 392 RX_188: 8 OTHER
+ SG_ m188_counter : 17|3@1+ (1,0) [0|0] "raw" ECM
+ SG_ m188_code : 32|3@1+ (1,0) [0|0] "raw" ECM
+ SG_ rx_188_b6_6_6 : 54|1@1+ (1,0) [0|0] "raw" ECM
+
+BO_ 640 RX_280: 8 OTHER
+ SG_ ac280_b0_bit0 : 0|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ ac280_b0_code : 1|3@1+ (1,0) [0|0] "raw" ECM
+ SG_ ac280_counter : 8|4@1+ (1,0) [0|0] "raw" ECM
+ SG_ ac280_b1_bit7 : 15|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ ac280_b2_bit7 : 23|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ ac280_b3 : 24|8@1+ (1,0) [0|0] "raw" ECM
+ SG_ ac280_b4_lo : 32|5@1+ (1,0) [0|0] "raw" ECM
+ SG_ ac280_b4_hi : 37|3@1+ (1,0) [0|0] "raw" ECM
+ SG_ ac280_b5 : 40|8@1+ (1,0) [0|0] "%" ECM
+ SG_ ac280_b6_bit0 : 48|1@1+ (1,0) [0|0] "raw" ECM
+
+BO_ 642 RX_282: 8 METER
+ SG_ meter_word : 0|10@1+ (1,0) [0|0] "raw" ECM
+ SG_ meter_b1_bit3 : 11|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ meter_counter : 12|4@1+ (1,0) [0|0] "raw" ECM
+ SG_ meter_b3 : 24|8@1+ (1,0) [0|0] "raw" ECM
+ SG_ si_drive_b3 : 43|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ m282_b5_bit4 : 44|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ m282_b5_bit5 : 45|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ si_drive_b6 : 46|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ si_drive_b7 : 47|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ meter_code : 52|4@1+ (1,0) [0|0] "raw" ECM
+ SG_ cruise_option : 56|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ m282_b7_bit1 : 57|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ m282_b7_bit4 : 60|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ m282_b7_bit7 : 63|1@1+ (1,0) [0|0] "raw" ECM
+
+BO_ 864 TX_360: 8 ECM
+ SG_ fuel_flow : 0|16@1+ (0.001,0) [0|0] "unit not settled" Vector__XXX
+ SG_ oil_temp : 16|8@1+ (1,-40) [0|0] "degC" Vector__XXX
+ SG_ coolant_temp : 24|8@1+ (1,-40) [0|0] "degC" Vector__XXX
+ SG_ map : 32|8@1+ (2,0) [0|0] "kPa abs" Vector__XXX
+ SG_ flag_888A7b1 : 40|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ drive_mode_req_bits : 41|3@1+ (1,0) [0|0] "code" Vector__XXX
+ SG_ cruise_lamp_main : 44|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ cruise_lamp_set : 45|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ engine_warm_latch : 46|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ flag_ACECb4 : 47|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ flag_88E14b0 : 48|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ elec_load_flag : 49|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ flag_88E14b4 : 50|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ flag_8889Eb5 : 51|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ rad_fan_1 : 52|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ rad_fan_2 : 53|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ ac_switch_PA8 : 54|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ ac_request : 55|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ cruise_set_speed : 56|8@1+ (1,0) [0|0] "km/h or mph" Vector__XXX
+
+BO_ 865 TX_361: 8 ECM
+ SG_ gear_calc : 0|3@1+ (1,0) [0|0] "gear" Vector__XXX
+ SG_ flag_88E13b1 : 3|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ maint_flag_811E0 : 4|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ flag_88E13b2 : 5|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ coding_bits : 8|4@1+ (1,0) [0|0] "raw" Vector__XXX
+ SG_ mil_code : 13|3@1+ (1,0) [0|0] "code" Vector__XXX
+ SG_ booster_pressure_raw : 16|8@1+ (256,0) [0|0] "ADC raw" Vector__XXX
+ SG_ baro : 24|8@1+ (0.4,13.2) [0|0] "kPa abs" Vector__XXX
+ SG_ rolling_counter : 32|4@1+ (1,0) [0|0] "count" Vector__XXX
+ SG_ flag_89053b3 : 36|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ engine_not_rotating : 37|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ flag_89053b5 : 38|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ cruise_flag_A8B2b0 : 39|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ value_361_b5_6 : 40|16@1+ (1,0) [0|0] "raw" Vector__XXX
+ SG_ value_361_b7 : 56|8@1+ (1,0) [0|0] "raw" Vector__XXX
+
+BO_ 866 TX_362: 8 ECM
+ SG_ battery_current : 0|16@1+ (0.004,-125) [0|0] "A" Vector__XXX
+ SG_ lin_value_907A : 16|8@1+ (1,0) [0|0] "raw" Vector__XXX
+ SG_ battery_soc : 24|8@1+ (0.5,0) [0|0] "%" Vector__XXX
+ SG_ lin_value_89084 : 32|8@1+ (8,0) [0|0] "raw" Vector__XXX
+ SG_ lin_value_89258 : 40|8@1+ (8,0) [0|0] "raw" Vector__XXX
+ SG_ lin_value_928E : 48|8@1+ (64,0) [0|0] "raw" Vector__XXX
+ SG_ lin_fault_flag : 56|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ lin_status_89245b0 : 57|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ lin_flag_88E0Eb2 : 58|1@1+ (1,0) [0|0] "flag" Vector__XXX
+ SG_ battery_soc_low_nibble : 60|4@1+ (1,0) [0|0] "raw" Vector__XXX
+
+BO_ 872 RX_368: 8 TCM
+ SG_ rx_368_b0_7_7 : 7|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ tcm368_b1_bit4 : 12|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ tcm368_b1_bit5 : 13|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ tcm368_b1_bit6 : 14|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ tcm368_b1_bit7 : 15|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ tcm368_b3 : 24|8@1+ (1,0) [0|0] "raw" ECM
+
+BO_ 880 RX_370: 8 OTHER
+ SG_ m370_word : 0|16@1+ (1,0) [0|0] "raw" ECM
+ SG_ m370_b3_bit0 : 24|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ m370_b3_bit1 : 25|1@1+ (1,0) [0|0] "raw" ECM
+ SG_ m370_counter : 40|4@1+ (1,0) [0|0] "raw" ECM
+
+BO_ 882 RX_372: 8 OTHER
+ SG_ m372_counter : 12|4@1+ (1,0) [0|0] "raw" ECM
+ SG_ m372_code : 21|3@1+ (1,0) [0|0] "raw" ECM
+
+BO_ 977 RX_3D1: 8 METER
+ SG_ ambient_temp_raw : 0|13@1+ (1,0) [0|0] "raw" ECM
+ SG_ rx_3d1_b7_2_6 : 58|5@1+ (1,0) [0|0] "raw" ECM
+
+BO_ 1632 RX_660: 8 BCM
+ SG_ m660_w0 : 7|16@0+ (1,0) [0|0] "raw" ECM
+ SG_ m660_w1 : 23|16@0+ (1,0) [0|0] "raw" ECM
+ SG_ m660_dist : 47|24@0+ (1,0) [0|0] "raw" ECM
+
+BO_ 1788 TX_6FC: 8 ECM
+ SG_ lin_battery_b0 : 0|4@1+ (1,0) [0|0] "raw" Vector__XXX
+ SG_ lin_battery_b1 : 8|8@1+ (1,0) [0|0] "raw" Vector__XXX
+ SG_ lin_battery_b2 : 16|8@1+ (1,0) [0|0] "raw" Vector__XXX
+ SG_ lin_battery_b3 : 24|8@1+ (1,0) [0|0] "raw" Vector__XXX
+ SG_ lin_battery_b4 : 32|8@1+ (1,0) [0|0] "raw" Vector__XXX
+ SG_ lin_battery_b5 : 40|5@1+ (1,0) [0|0] "raw" Vector__XXX
+ SG_ lin_battery_b6 : 48|8@1+ (1,0) [0|0] "raw" Vector__XXX
+
+CM_ SG_ 208 vdc0d0_b6 "-> 0x11637C (gated by cal 0x364F3 b6) -> FFF8A8D1 / B406 / B452; meaning not determined [inferred; ROM groups: all]";
+CM_ SG_ 208 vdc0d0_b7 "as byte 6 [inferred; ROM groups: all]";
+CM_ BO_ 208 "VDC (FFF88DD8, U0122); timeout 30 ms; ROM groups: all";
+CM_ SG_ 209 vehicle_speed "-> 0x118D9C -> FFF8B4C2 -> 0x06C21C -> FFF88BE8 (ECU vehicle speed, x17.78) and FFF99835 (km/h); fallback 10 km/h on VDC fault [read; ROM groups: all]";
+CM_ SG_ 209 brake_pressure "brake override 0x181B38 (FFF8AC94), 0x0DE0E0, 0x0EE338, 0x111AB8 [inferred; ROM groups: all]";
+CM_ SG_ 209 rx_0d1_b3_2_2 "Used only by the ROMs listed; meaning not determined. [read (meaning unknown); ROM groups: G, H]";
+CM_ BO_ 209 "VDC (FFF88DD8); timeout 30 ms; ROM groups: all";
+CM_ SG_ 210 vdc_torque_request "-> 0x116264 -> FFF8B470 (applied only while FFF8A89F b2 = byte4 bit1 and value > 10000 and FFF886AB b5); fallback 10000 (0 Nm) [inferred; ROM groups: all]";
+CM_ SG_ 210 vdc_torque_limit "-> 0x117778 -> FFF8B47C/B464/B466 (torque module 0x0BE694, monitors 0x189DF0/0x1A8D6C); fallback 0x3700 (+408 Nm) [inferred; ROM groups: all]";
+CM_ SG_ 210 vdc0d2_b4_bit0 "0x117778 select, 0x11B594 -> FFF8A89F b3 [read; ROM groups: all]";
+CM_ SG_ 210 vdc0d2_b4_bit1 "torque-request enable (0x11B814 -> FFF8A89F b2) [read; ROM groups: all]";
+CM_ SG_ 210 vdc0d2_b4_bit2 "0x1191D4 -> FFF8A89F b1 [read; ROM groups: all]";
+CM_ SG_ 210 vdc0d2_b5_bit0 "0x115438 (SI-Drive arbitration), 0x0BE694 [read; ROM groups: all]";
+CM_ BO_ 210 "VDC (FFF88DD8); timeout 30 ms; ROM groups: all";
+CM_ SG_ 211 vdc0d3_b1 "b0/b1 -> 0x11BBB4 -> FFF8A898, FFF8A8A1 b7 [read; ROM groups: all]";
+CM_ SG_ 211 vdc0d3_b2_lo "0x1191D4, 0x11A0C4 (FFF8A8A2 b7), 0x11FA38 [read; ROM groups: all]";
+CM_ SG_ 211 vdc0d3_b2_bit7 "brake override validity 0x181978 [read; ROM groups: all]";
+CM_ SG_ 211 vdc0d3_b3_bit1 "0x113894 (FFF8A8D1 path) [read; ROM groups: all]";
+CM_ SG_ 211 vdc0d3_b3_bit2 "speed/VDC status: 0x06EDDC, cruise speed 0x16C2D0 [read; ROM groups: all]";
+CM_ SG_ 211 vdc0d3_b3_bit3 "0x115438 SI-Drive, brake override 0x181978 [read; ROM groups: all]";
+CM_ SG_ 211 vdc0d3_b3_bit7 "0x11BD48 -> FFF8A89F b0; FFF9BA24..26 delay line (0x0B5758) [read; ROM groups: all]";
+CM_ SG_ 211 vdc0d3_counter "rolling counter; U0416 if unchanged 200 passes [read; ROM groups: all]";
+CM_ BO_ 211 "VDC (FFF88DD8; U0416 = this counter frozen); timeout 30 ms; counter byte6 (whole byte, frozen check); ROM groups: all";
+CM_ SG_ 212 wheel_speed_1 "-> FFF8B4C0 [inferred; ROM groups: all]";
+CM_ SG_ 212 wheel_speed_2 "-> FFF8B4C4 [inferred; ROM groups: all]";
+CM_ SG_ 212 wheel_speed_3 "-> FFF8B4C6 [inferred; ROM groups: all]";
+CM_ SG_ 212 wheel_speed_4 "-> FFF8B4C8 [inferred; ROM groups: all]";
+CM_ BO_ 212 "VDC (FFF88DD8); timeout 30 ms; ROM groups: all";
+CM_ SG_ 320 accel_pedal_raw "Accelerator pedal, channel-1 position through Accelerator Pedal Scaling (0..65535) high byte; fallback cal 0x573C4 on pedal fault [read/inferred; ROM groups: all]";
+CM_ SG_ 320 rolling_counter "4-bit rolling counter 0..15, +1 per 10 ms (= per frame); 0..7 in variants 0 [read; ROM groups: all]";
+CM_ SG_ 320 mil_request "MIL requested: FFF99809 b3 (DTC confirmed, MIL on) OR FFF88E69 b1 (flashing-MIL DTC) [read/inferred; ROM groups: all]";
+CM_ SG_ 320 etc_fault "Copy of FFF8A2B8 b7: electronic-throttle fault with motor drive off (Phase 13 TE) [read/inferred; ROM groups: all]";
+CM_ SG_ 320 ac_compressor_on "A/C compressor output engaged (A/C module 0x121B90) [inferred; ROM groups: all]";
+CM_ SG_ 320 clutch_switch_latched "MT only: FFF88E62 b1 (pin PA14, active low) latched while MT coding FFF88ADA b7, released after cal 0x5780F passes; clutch pedal switch (inferred) [inferred; ROM groups: all]";
+CM_ SG_ 320 engine_speed "Engine speed, 1 rpm/bit (CD54 = rpm x 5.12), 14 bits [read; ROM groups: all]";
+CM_ SG_ 320 pedal_released "Accelerator fully released (0x09FF9A, Phase 11 A) [read; ROM groups: all]";
+CM_ SG_ 320 dtc_setting_off "Set by UDS 0x85 ControlDTCSetting 0x02 (off) in session 2/3 (0x0B54AC); cleared at reset/0x0B7730 [read; ROM groups: all]";
+CM_ SG_ 320 cruise_virtual_pedal "Cruise module pedal-equivalent request (B9AC, written by 0x168864); 0 when not cruising [inferred; ROM groups: all]";
+CM_ SG_ 320 accel_pedal_effective "Pedal used by the torque request: FFF88A5E, or max(pedal, B9AC) while cruise (FFF88E12 b1) [read; ROM groups: all]";
+CM_ SG_ 320 throttle_opening "Throttle opening: 888A4 = FFF88A3A x 25600 / cal 0x35AFE (43515); 255 ~ 100 % (scale inferred) [inferred; ROM groups: all]";
+CM_ SG_ 320 throttle_closed "Throttle byte FFF8CD77 <= cal 0x3550C (3), +cal 0x3550D (2) hysteresis: throttle (nearly) closed [read; ROM groups: all]";
+CM_ SG_ 320 status_89AB6 "FFF89AB6 != 0; 89AB6 set/cleared by a serial handshake in 0x090E8A/0x09203A (not decoded) [unknown; ROM groups: all]";
+CM_ SG_ 320 pin_PA2 "Raw discrete input A29A b4 = pin PA2 (active low) masked by cal 0x5693A (=0) [read (meaning unknown); ROM groups: all]";
+CM_ SG_ 320 accessory_load_flag "FFF8A8A0 b0, or (coding FFF811DC != 0x5A) input FFF88BC6 b4 (pin PA4); the flag that enables Idle Air Adder (CAN 0x280 Stage) [read/inferred; ROM groups: all]";
+CM_ BO_ 320 "period 10 ms; ROM groups: all";
+CM_ SG_ 321 torque_request "Driver torque request after the external limit (AEA6) x AEA0 (=1.0 stock): 10000 + 10 x Nm; with the pedal released: 10000 - 10 x friction (B46C) [read/inferred; ROM groups: all]";
+CM_ SG_ 321 ac_flag_A9A3b1 "A/C module 0x121B90 output bit (not decoded) [unknown; ROM groups: all]";
+CM_ SG_ 321 torque_actual "Estimated engine torque: DAM-weighted torque-from-load (B490/B4A2) through 05D3D8/05D3E4, minus losses AF62 and an idle term; 10000 + 10 x Nm, floor 0 [inferred; ROM groups: all]";
+CM_ SG_ 321 engine_speed_filtered "Filtered engine speed (CE9C, weight B73E); with an AT it tracks the TCM speed FFF8924E (0x149); 0 when FFF88A28 b1 clear or engine not rotating [inferred; ROM groups: all]";
+CM_ SG_ 321 pedal_flag_88C64b4 "Copy of FFF88C64 b4 (pedal module 0x09F282, not decoded) [unknown; ROM groups: all]";
+CM_ SG_ 321 gear_mt "Gear 1..6 as binary; 7 when neutral (FFF88ADA b6); hold otherwise; 0 when not MT [read; ROM groups: all]";
+CM_ SG_ 321 flag_88E0Eb0 "From 88A27 b0, 88ADA b3, 89010 b0, module voltage 88A7E, coolant 88A44, A82E b7 [unknown; ROM groups: all]";
+CM_ SG_ 321 crank_or_low_voltage "0 only when 88A27 b0 and 88ADA b3 clear, module voltage FFF88A7E > 0x6666 and a start timer (cal 0x35B06) expired [inferred; ROM groups: all]";
+CM_ SG_ 321 below_rev_limit "rpm < AED4 + cal 0x3552C and (rpm < A62E x 128 + cal 0x3552E or A63D b0 clear) [inferred; ROM groups: all]";
+CM_ SG_ 321 torque_flag_A63Db0 "Torque module 0x0BE694 status bit [unknown; ROM groups: all]";
+CM_ SG_ 321 drive_mode_applied "SI-Drive mode applied (A8C3): mode1 (default) -> b1b0=11, mode2 (Sport) -> b0, mode3 (Intelligent) -> b1, mode4 (Sport Sharp) -> b2; positions inferred from the stock maps (Phase 22) [read; ROM groups: all]";
+CM_ SG_ 321 flag_A64Cb1 "copy [unknown; ROM groups: all]";
+CM_ SG_ 321 drive_mode_flag_A643 "FFF8A643 in {1,2,3} [read (meaning unknown); ROM groups: all]";
+CM_ SG_ 321 drive_mode_req_4 "Last accepted requested mode A8C2 == 4 [read; ROM groups: all]";
+CM_ SG_ 321 charging_flag_AA6Bb7 "Charging-control module 0x13741C status bit (sent while cal 0x57584 b4 = 0) [unknown; ROM groups: A, D, E, G, H, I]";
+CM_ SG_ 321 booster_sensor_fault "Brake-booster pressure sensor FFF88D0C out of range low/high (0x071B82, cal 0x57585 b5) [read/inferred; ROM groups: all]";
+CM_ BO_ 321 "period 10 ms; ROM groups: all";
+CM_ SG_ 322 value_142 "16-bit ECU value FFF8B4B2 (low 15 bits, low byte first). 0x142 is sent instead of 0x362 by ROMs on the alternate network table. [read (meaning unknown); ROM groups: B, F]";
+CM_ SG_ 322 flag_142_A9A2b6 "FFF8A9A2 b6 (the byte whose b7 is the A/C compressor flag in 0x140). [read (meaning unknown); ROM groups: B, F]";
+CM_ SG_ 322 value_142_b2 "ECU value FFF8A8E7. [read (meaning unknown); ROM groups: B, F]";
+CM_ BO_ 322 "ECM; period 50 ms; ROM groups: B, F";
+CM_ SG_ 324 cruise_switch_flag "Cruise switch decoder 0x08DF14 bit [unknown; ROM groups: all]";
+CM_ SG_ 324 cruise_switch_code "Cruise lever switches FFF88EC9 b0/b1/b3/b2 one-hot-ish: b3 = b0 or b3 alone, b4 = b1 or b3 alone, b5 = b2 alone (held otherwise) [read/inferred; ROM groups: all]";
+CM_ SG_ 324 cruise_meter_flag_b5 "Cruise module 0x16557C (0x16EC9C), meter-related cruise state [inferred; ROM groups: all]";
+CM_ SG_ 324 cruise_meter_flag_b6 "Cruise module 0x16557C (0x16EE1C) [inferred; ROM groups: all]";
+CM_ SG_ 324 drive_cycle_done "Set once counters 89D3A >= 600, 89D3C >= 300, 89D3E >= 30 (OBD driving-cycle criteria, inferred) [inferred; ROM groups: all]";
+CM_ SG_ 324 torque_monitor_AC77b0 "0x17B0E8/0x17B268 [unknown; ROM groups: all]";
+CM_ SG_ 324 cruise_switch_taps "Cruise: b4 raise-switch tap, b5 raise edge, b6 lower-switch tap, b7 lower edge (Phase 18 C) [inferred; ROM groups: all]";
+CM_ SG_ 324 max_available_torque "(T_CAN - friction) x 0.625: T_CAN = Engine Torque from Load (CAN, DAM 1.0/0) blended by DAM; 255 = saturated [read/inferred; ROM groups: all]";
+CM_ SG_ 324 start_counter "Backup-RAM 8-bit wrap counter, +1 on each rising edge of FFF8AB8C b0 (engine-start event, 0x1739C8) in normal mode (AC78 = 0) [inferred; ROM groups: all]";
+CM_ SG_ 324 warmup_counter "Same for FFF8AB8D b0 (coolant-based event, 0x1739F4): warm-up cycle counter (inferred) [inferred; ROM groups: all]";
+CM_ SG_ 324 coding_byte "Bit-permuted copy of cal 0x58B7A (0x0A) -> 0x24 constant on this ROM [read; ROM groups: all]";
+CM_ SG_ 324 cruise_standby "Cruise ready/standby (0x16F194) [inferred; ROM groups: all]";
+CM_ SG_ 324 cruise_active "Cruise controlling (max(pedal torque, cruise torque) used) [read; ROM groups: all]";
+CM_ SG_ 324 cruise_override "Driver torque above cruise torque (0x16D1B4) [inferred; ROM groups: all]";
+CM_ SG_ 324 pin_PA15 "Discrete pin PA15 (A298.2) [read (meaning unknown); ROM groups: all]";
+CM_ SG_ 324 can_fault_latch "Latched (until reset) when 88DD4 b4/b5/b6 (0x161 group U-codes) or A8A4 b3/b5 [read/inferred; ROM groups: all]";
+CM_ SG_ 324 cruise_unavailable "0 only when meter flags 811E1 b4 and b2 set and no fault (88BB2 b0, 88E13 b4/b0, A8A4 b1) [inferred; ROM groups: all]";
+CM_ SG_ 324 vdc_flag_inverted "Inverted output of 0x11B5A4 (inputs incl. VDC request 888B6, MAP, coolant) [unknown; ROM groups: all]";
+CM_ SG_ 324 mt_coding "Manual-transmission coding (1 on this car) [read; ROM groups: all]";
+CM_ SG_ 324 drive_mode_state "Drive-mode state machine A8C0 in {2,3,4,5} [read; ROM groups: all]";
+CM_ SG_ 324 drive_mode_requested "Requested/accepted mode A8C2: bit1 = A8C2 in {1,2}, bit2 = in {1,3}, bit3 = (A8C2 == 4) [read; ROM groups: all]";
+CM_ SG_ 324 network_variant0_flag "FFF88E0C b3: set only when the ECU runs network variant 0, so always 0 on these cars (all select variant 1). [read; ROM groups: all]";
+CM_ SG_ 324 cal_57ABC_b2 "Copy of cal 0x57ABC b2 (0 -> always 0) [read; ROM groups: all]";
+CM_ BO_ 324 "period 20 ms; ROM groups: all";
+CM_ SG_ 328 tcm148_b0_lo_code "-> 0x1174EC -> FFF8A8DC (code map 0000->8, 0001->0, 0010->1, 0011->2, 0100->3, 1010->4, 1011->5, 1100->6, 1110->7, else hold); range/position-like (inferred) [read; ROM groups: all]";
+CM_ SG_ 328 tcm148_b0_hi_code "-> 0x114304 -> FFF8A8B9 (0..8, latched on fresh frame) -> 0x083052 [read; ROM groups: all]";
+CM_ SG_ 328 tcm148_counter "rolling counter, frozen-counter check 0x0683EE / U0402 0x078A92 [read; ROM groups: all]";
+CM_ SG_ 328 tcm148_b1_flags "-> 0x1197E4 -> FFF8A8A1 b6 [read; ROM groups: all]";
+CM_ SG_ 328 tcm148_word "consumers 0x094218, 0x0EE338 (idle) [read; ROM groups: all]";
+CM_ SG_ 328 tcm148_b6_lo "-> 0x117B18 -> FFF8A8E5 -> 0x116378 -> FFF8A8D0 (0x0C589C, 0x0EE338) and 0x121B90 [read; ROM groups: all]";
+CM_ SG_ 328 tcm148_gear "-> 0x1166F0 -> FFF8A8D5 (1..6, 0xD, 0xE, 0; others hold) -> FFF8A899 (0x08254C gear path, ignition 0x0DE0E0, cruise) [inferred; ROM groups: all]";
+CM_ SG_ 328 tcm148_b7_bit0 " [read; ROM groups: all]";
+CM_ SG_ 328 tcm148_b7_bit1 " [read; ROM groups: all]";
+CM_ SG_ 328 tcm148_b7_bit2 " [read; ROM groups: all]";
+CM_ SG_ 328 tcm148_b7_bit4 " [read; ROM groups: A, B, C, D, E, F, G, H]";
+CM_ SG_ 328 tcm148_b7_bit5 " [read; ROM groups: A, B, C, D, E, F, G, H]";
+CM_ BO_ 328 "TCM (U0101/U0402 group FFF88DD9; forced missing on MT coding FFF886AB b7); timeout 20 ms; counter byte1 bits0-3 (frozen check); ROM groups: all";
+CM_ SG_ 329 tcm149_b0 "consumers 0x13741C, 0x165AC4 (cruise) [read; ROM groups: all]";
+CM_ SG_ 329 tcm149_b1_lo "b4-6 -> 0x10F464 -> FFF8A88F (0/2/4 blend request; read by torque, ignition, idle, boost) [read; ROM groups: all]";
+CM_ SG_ 329 tcm149_b1_bit4 " [read; ROM groups: all]";
+CM_ SG_ 329 tcm149_b1_bit5 " [read; ROM groups: all]";
+CM_ SG_ 329 tcm149_b1_bit6 "no reader found [read; ROM groups: all]";
+CM_ SG_ 329 tcm149_b1_bit7 "-> 0x0BE694 [read; ROM groups: all]";
+CM_ SG_ 329 tcm149_idle_target "minimum idle target in 0x0F222C (B240 = max(B22C, x*1024/25)) [inferred; ROM groups: all]";
+CM_ SG_ 329 tcm149_torque_limit "used by 0x117778 only when FFF88B80 b2 is set, which no variant-1 frame sets; fallback cal 0x572D0 = 0x55 [inferred; ROM groups: all]";
+CM_ SG_ 329 tcm149_b5 "-> 0x0EE338 [read; ROM groups: all]";
+CM_ SG_ 329 tcm149_word "-> 0x13B308 [read; ROM groups: all]";
+CM_ SG_ 329 tcm149_b7_bit7 " [read; ROM groups: all]";
+CM_ BO_ 329 "TCM (FFF88DD9); timeout 20 ms; ROM groups: all";
+CM_ SG_ 338 bcm152_b1_bit0 "0x11AC8C -> FFF8A8A0 b4 [read; ROM groups: all]";
+CM_ SG_ 338 bcm152_b1_bit1 "0x11AD44 -> FFF8A8A0 b3 [read; ROM groups: all]";
+CM_ SG_ 338 bcm152_b1_bit2 "0x11BEDC [read; ROM groups: all]";
+CM_ SG_ 338 bcm152_b1_bit3 "0x11B138 -> FFF8A8A0 b2; 0x11BEDC -> A8A0 b1 [read; ROM groups: all]";
+CM_ SG_ 338 bcm152_counter "frozen-counter check 0x0687A8 [read; ROM groups: all]";
+CM_ SG_ 338 bcm152_b6_bit0 "SI-Drive enable term in 0x11A8B0 [read; ROM groups: all]";
+CM_ SG_ 338 bcm152_b6_bit2 " [read; ROM groups: A, B, C, D, E, F, G, H]";
+CM_ SG_ 338 bcm152_b6_bit3 " [read; ROM groups: all]";
+CM_ SG_ 338 bcm152_b6_bit4 " [read; ROM groups: all]";
+CM_ SG_ 338 bcm152_b6_bit5 "0x11BDD4 -> FFF8A8A3 b3 [read; ROM groups: all]";
+CM_ SG_ 338 bcm152_b6_hi "0x11BD6C -> FFF8A8A3 b4 [read; ROM groups: all]";
+CM_ SG_ 338 bcm152_b7_bit1 " [read; ROM groups: all]";
+CM_ SG_ 338 bcm152_b7_bit2 "idle air adder B1C4 (cal 0x25A72) in 0x0ECAE0 [read; ROM groups: all]";
+CM_ SG_ 338 bcm152_b7_bit3 "idle air adder B1B6 (cal 0x25A62) in 0x0ECAE0 [read; ROM groups: all]";
+CM_ SG_ 338 bcm152_b7_bit4 " [read; ROM groups: all]";
+CM_ SG_ 338 bcm152_b7_bit5 " [read; ROM groups: all]";
+CM_ SG_ 338 bcm152_b7_bit6 " [read; ROM groups: all]";
+CM_ SG_ 338 bcm152_b7_bit7 " [read; ROM groups: all]";
+CM_ BO_ 338 "BCM (FFF88DDA; U0140/U0422 disabled in this ROM); timeout 30 ms; counter byte1 bits4-7; ROM groups: all";
+CM_ SG_ 346 m15a_counter "frozen check 0x07B208 -> FFF88DD4 b7 [read; ROM groups: A, E, G, I]";
+CM_ SG_ 346 can_restart_req "CAN restart (start-state 5); many readers (0x06A064, 0x06A166, fuel, ignition) [read; ROM groups: A, E, G, I]";
+CM_ SG_ 346 m15a_b2_bit2 " [read; ROM groups: A, E, G, I]";
+CM_ SG_ 346 engine_stop_code "0x115E08: FFF8A8C5 = 10 when nibble = 1010b -> 0x0827B2 (A6E7 = 3 mode) [read; ROM groups: A, E, G, I]";
+CM_ SG_ 346 m15a_b7 "no reader found [read; ROM groups: A, E, G, I]";
+CM_ BO_ 346 "unknown (monitored only when FFF811E3 = 0xA5; no DTC); timeout 30 ms; counter byte0 bits0-3; ROM groups: A, E, G, I";
+CM_ SG_ 353 m161_torque "-> 0x10E640 -> FFF8B3F8 (x*8-64000, floor 16000 = 0 Nm) -> cruise 0x16557C/0x1663AC, 0x18AFC4 [inferred; ROM groups: all]";
+CM_ SG_ 353 m161_b2 "cruise flags (0x1196E0, 0x119624, 0x119CCC, 0x119CDC, 0x119DE4, 0x119EF8) [read; ROM groups: all]";
+CM_ SG_ 353 m161_b3 "0x118234 -> FFF8A8EE, 0x119624/0x1196E0 -> FFF8A8A4 b1/b2 [read; ROM groups: all]";
+CM_ SG_ 353 m161_b5_bit2 " [read; ROM groups: all]";
+CM_ SG_ 353 m161_counter " [read; ROM groups: all]";
+CM_ SG_ 353 rx_161_b5_7_7 "Used only by the ROMs listed; meaning not determined. [read (meaning unknown); ROM groups: F, G, H]";
+CM_ SG_ 353 m161_switch_code "0x10F504 -> FFF8A895 = CAN cruise switch code (used when FFF811E1 b4 and cal 0x36584 = 1) [read; ROM groups: all]";
+CM_ SG_ 353 m161_b6_bit3 " [read; ROM groups: all]";
+CM_ SG_ 353 m161_checksum " [read; ROM groups: all]";
+CM_ BO_ 353 "unknown driver-assist/cruise unit (inferred); gated by FFF811E1 b4 (meter option); group FFF88DD4 b4/b5/b6, no DTC; timeout 60 ms; counter byte5 bits4-6; ROM groups: all";
+CM_ SG_ 354 rolling_counter_162 "Rolling counter (frozen check only). 0x162 is received instead of 0x188 by ROMs on the alternate network table; no other bit of it is decoded. [read; ROM groups: B, C, F]";
+CM_ BO_ 354 "unknown sender (replaces 0x188 on the alternate table); ROM groups: B, C, F";
+CM_ SG_ 392 m188_counter "frozen-counter check 0x068D2E -> FFF8A8A8 b6 [read; ROM groups: A, D, E, G, H, I]";
+CM_ SG_ 392 m188_code "-> 0x1106D0 -> FFF8A89D (b0 + 2*b1 + 4*b2, 0 if b1 and b2) -> 0x11A060: FFF8A8A1 b3 = (code 5 for cal 0x35A94 = 70 passes) [read; ROM groups: A, D, E, G, H, I]";
+CM_ SG_ 392 rx_188_b6_6_6 "Used only by the ROMs listed; meaning not determined. [read (meaning unknown); ROM groups: G, H]";
+CM_ BO_ 392 "unknown (own group FFF8A8A8 b6/b7, no DTC); timeout 40 ms; counter byte2 bits1-3; ROM groups: A, D, E, G, H, I";
+CM_ SG_ 640 ac280_b0_bit0 "-> 0x1195AC (with FFF8A297 b2) -> FFF88B8B b0 = A/C request input of 0x080088 / 0x121B90 (inferred) [inferred; ROM groups: all]";
+CM_ SG_ 640 ac280_b0_code "-> 0x114760 -> FFF8A8BF (0..7) -> idle 0x0EE338, 0x13741C; 0x11B090 -> FFF8A8A0 b0 [read; ROM groups: all]";
+CM_ SG_ 640 ac280_counter "frozen-counter check 0x068556 [read; ROM groups: all]";
+CM_ SG_ 640 ac280_b1_bit7 "-> 0x111AB8 [read; ROM groups: all]";
+CM_ SG_ 640 ac280_b2_bit7 "FFF88B8E is read by 0x0EE338, 0x0F7618, 0x1CFD2E (bit not separated) [read; ROM groups: all]";
+CM_ SG_ 640 ac280_b3 "radiator fan duty table input 05C998 (0x0F70B4, fan module 0x0F7618, off in stock) [read; ROM groups: all]";
+CM_ SG_ 640 ac280_b4_lo "-> 0x116994 -> FFF8A8D9 (no reader) [read; ROM groups: all]";
+CM_ SG_ 640 ac280_b4_hi "-> 0x10E8C4 -> FFF8A889 -> 0x10E9C0 -> FFF8A88A (0..6) -> idle 0x0EE338 / 0x10EA40 [read; ROM groups: all]";
+CM_ SG_ 640 ac280_b5 "FFF8A8C6 = cal 0x3555C (121) x / 100, cap 128 (0x115F80) -> idle, torque 0x0BE694, 0x080088 [inferred; ROM groups: all]";
+CM_ SG_ 640 ac280_b6_bit0 "forces FFF8A8C6 = cal 0x35A85; set to 1 on frame loss [read; ROM groups: all]";
+CM_ BO_ 640 "unknown, A/C-related (own group FFF88BF9 b6/b7 -> FFF88CE4 b7, no DTC; recovers after 5 good frames); timeout 30 ms; counter byte1 bits0-3; ROM groups: all";
+CM_ SG_ 642 meter_word "-> 0x1108B8 -> FFF8B43C (0x06C336, SSM) [read; ROM groups: all]";
+CM_ SG_ 642 meter_b1_bit3 " [read; ROM groups: all]";
+CM_ SG_ 642 meter_counter " [read; ROM groups: all]";
+CM_ SG_ 642 meter_b3 "fan table select 05C9BC/05C9B0 (cal 0x342EC = 148), torque 0x0BE694, 0x09621E, 0x0F7618 [read; ROM groups: all]";
+CM_ SG_ 642 si_drive_b3 "SI-Drive: 0x115D10 -> FFF8A8C4 -> FFF8A8C1 [read; ROM groups: all]";
+CM_ SG_ 642 m282_b5_bit4 "0x11C330 -> FFF8A8A5 b3 [read; ROM groups: all]";
+CM_ SG_ 642 m282_b5_bit5 "0x11C330 [read; ROM groups: all]";
+CM_ SG_ 642 si_drive_b6 " [read; ROM groups: all]";
+CM_ SG_ 642 si_drive_b7 " [read; ROM groups: all]";
+CM_ SG_ 642 meter_code "0x10F344 -> FFF8A88C (0..15, market/units code, cruise tables) [read; ROM groups: all]";
+CM_ SG_ 642 cruise_option "0x119B54 -> FFF811E1 b4 after cal 0x35BEA = 10 passes [read; ROM groups: all]";
+CM_ SG_ 642 m282_b7_bit1 "0x119A20 -> FFF811E1 b2/b3 [read; ROM groups: all]";
+CM_ SG_ 642 m282_b7_bit4 "0x115E30 -> FFF811E3 = 0xA5 (clear) / 0x5A (set) after 10 passes [read; ROM groups: all]";
+CM_ SG_ 642 m282_b7_bit7 "0x11C4C8 -> FFF811DF b2/b5 (speed scale select) [read; ROM groups: all]";
+CM_ BO_ 642 "combination meter (FFF88DD4 b2/b3 = U0155/U0423); timeout 60 ms; counter byte1 bits4-7; ROM groups: all";
+CM_ SG_ 864 fuel_flow "1000 x cal 0x35B32 (49917) x C230 x rpm_raw x 2.6375e-11/60 x cal 0x35B34/32768, C230 = sum of the 8 injector pulse words x 0.8 / 4; 0 when engine not rotating; clamp 65535 [read/inferred; ROM groups: all]";
+CM_ SG_ 864 oil_temp "Engine oil temperature (88A9D = degC+50); 40 (0 degC) when FFF88E2B b5 (oil sensor fault) [read; ROM groups: all]";
+CM_ SG_ 864 coolant_temp "Coolant temperature (Coolant Temp Sensor Scaling, degC+50); 0xFF when FFF88E28 b1 (sensor fault) [read; ROM groups: all]";
+CM_ SG_ 864 map "Manifold pressure, 2 kPa/bit, first-order filtered (cal 0x3650A); 7 when FFF88E28 b3 (MAP fault); init 0x33 [read/inferred; ROM groups: all]";
+CM_ SG_ 864 flag_888A7b1 "Output of 0x11A9D8 (pedal, speed, drive mode, rpm inputs) [unknown; ROM groups: all]";
+CM_ SG_ 864 drive_mode_req_bits "b1/b2 = A8C2 code (as 0x144), b3 = A8C0 in {2..5} [read; ROM groups: all]";
+CM_ SG_ 864 cruise_lamp_main "Cruise indicator (state 0xA0 standby, blink timer cal 0x409BC) [inferred; ROM groups: all]";
+CM_ SG_ 864 cruise_lamp_set "Cruise SET indicator (controlling, cal 0x409CC) [inferred; ROM groups: all]";
+CM_ SG_ 864 engine_warm_latch "Latched once FFF88A44 > cal 0x35BDA [read/inferred; ROM groups: all]";
+CM_ SG_ 864 flag_ACECb4 "Module 0x19818C [unknown; ROM groups: all]";
+CM_ SG_ 864 flag_88E14b0 "1 with MT coding, else coolant FFF8CD65 < cal 0x35518 (0) [read; ROM groups: all]";
+CM_ SG_ 864 elec_load_flag "0 when A290 b5 clear and load word B458 (CAN 0x370) below cal 0x35AA0 (hyst 0x35AA2) [inferred; ROM groups: all]";
+CM_ SG_ 864 flag_88E14b4 "0x11C440(coolant, MT coding, AC78, 88EA2 b3, 88B8C b7) [unknown; ROM groups: all]";
+CM_ SG_ 864 flag_8889Eb5 "0x11B4A8(engine state 906B, coolant at start 88A46, coolant) [unknown; ROM groups: all]";
+CM_ SG_ 864 rad_fan_1 "Radiator fan stage >= 1 output (cal 0x57584 b3 = 0) [read; ROM groups: all]";
+CM_ SG_ 864 rad_fan_2 "Radiator fan stage 2 output (port PF6) [read; ROM groups: all]";
+CM_ SG_ 864 ac_switch_PA8 "Discrete pin PA8 (A/C-load switch, Phase 16) [read; ROM groups: all]";
+CM_ SG_ 864 ac_request "A/C request (pin PH4 or CAN) [read; ROM groups: all]";
+CM_ SG_ 864 cruise_set_speed "Cruise set speed B9FC (km/h x 128) rounded; x1000/1609 (mph) when A8A7 b0 (mph meter); 0 when main switch off [read; ROM groups: all]";
+CM_ BO_ 864 "period 50 ms; ROM groups: all";
+CM_ SG_ 865 gear_calc "Gear 1..6 binary from 0x114230 (20 ms gear logic; shift-indicator gear, inferred) [inferred; ROM groups: all]";
+CM_ SG_ 865 flag_88E13b1 "0 on this ROM (cal 0x57585 b3 = 0 holds init) [read; ROM groups: A, B, C, D, E, F, G, H]";
+CM_ SG_ 865 maint_flag_811E0 "Backup-RAM flag from 0x11BB08 (counters 1148C/1148E, A8D1); maintenance-type reminder (guess) [unknown; ROM groups: all]";
+CM_ SG_ 865 flag_88E13b2 "0 on this ROM (cal 0x57585 b3 = 0) [read; ROM groups: A, B, C, D, E, F, G, H]";
+CM_ SG_ 865 coding_bits "From cal 0x58B7A -> 0b0001 on this ROM [read; ROM groups: all]";
+CM_ SG_ 865 mil_code "88E69 b1/b2 -> 4 (flash phase on), 1 (lamp off / flash off phase), 0 (steady on); init 1 [read/inferred; ROM groups: all]";
+CM_ SG_ 865 booster_pressure_raw "Brake-booster pressure sensor A/D high byte (Phase 18 D) [read/inferred; ROM groups: all]";
+CM_ SG_ 865 baro "Barometric pressure (88A36, kPa x 256 inferred), clamp 0..255 [read/inferred; ROM groups: all]";
+CM_ SG_ 865 rolling_counter "0..cal 0x35B00 (15), +1 per 50 ms [read; ROM groups: all]";
+CM_ SG_ 865 flag_89053b3 "0x082800 (engine-state code input, Phase 11 C) [unknown; ROM groups: all]";
+CM_ SG_ 865 engine_not_rotating "Engine not rotating (Phase 14) [read; ROM groups: all]";
+CM_ SG_ 865 flag_89053b5 "0x082674 [unknown; ROM groups: all]";
+CM_ SG_ 865 cruise_flag_A8B2b0 "Cruise standby branch (0x16DB98) [inferred; ROM groups: all]";
+CM_ SG_ 865 value_361_b5_6 "16-bit ECU value FFF8B454, low byte first. Sent only when cal 0x57584 b4 is set (the Forester ROMs on the alternate table); otherwise bytes 5-7 are 0. [read (meaning unknown); ROM groups: B, C, F]";
+CM_ SG_ 865 value_361_b7 "ECU value FFF8A8E0; same option as bytes 5-6. [read (meaning unknown); ROM groups: B, C, F]";
+CM_ BO_ 865 "period 50 ms; ROM groups: all";
+CM_ SG_ 866 battery_current "(raw - 1875000)/4 of LIN battery-sensor word FFF89074 (I = raw/1000 - 2000 A, from the SOC integrator 0x139798), clamp -125..+125 A; 0xFFFF invalid [read/inferred; ROM groups: A, C, D, E, G, H, I]";
+CM_ SG_ 866 lin_value_907A "LIN battery-sensor 9-bit value, clamp 250, 0xFF invalid (init 120) [unknown; ROM groups: A, C, D, E, G, H, I]";
+CM_ SG_ 866 battery_soc "Battery state of charge (B72C = % x 10, 0x139798) [read/inferred; ROM groups: A, C, D, E, G, H, I]";
+CM_ SG_ 866 lin_value_89084 "LIN battery-sensor value; 0xFF invalid [unknown; ROM groups: A, C, D, E, G, H, I]";
+CM_ SG_ 866 lin_value_89258 "LIN battery-sensor value; 0xFF invalid [unknown; ROM groups: A, C, D, E, G, H, I]";
+CM_ SG_ 866 lin_value_928E "LIN battery-sensor value; 0xFF invalid [unknown; ROM groups: A, C, D, E, G, H, I]";
+CM_ SG_ 866 lin_fault_flag "89245 b2 or b1 (LIN status) while cal 0x57584 b4 = 0 [inferred; ROM groups: A, C, D, E, G, H, I]";
+CM_ SG_ 866 lin_status_89245b0 "0x096740 (LIN status) [unknown; ROM groups: A, C, D, E, G, H, I]";
+CM_ SG_ 866 lin_flag_88E0Eb2 "Set/cleared by the LIN receiver 0x097B06/0x097C12 [unknown; ROM groups: A, C, D, E, G, H, I]";
+CM_ SG_ 866 battery_soc_low_nibble "Low 4 bits of the battery state-of-charge byte (the value in byte 3). Packed by the 2017-2018 and Levorg ROMs; LF75404S leaves bits 4-7 at 0. [read; ROM groups: C, D, E, G, H]";
+CM_ BO_ 866 "period 50 ms; ROM groups: A, C, D, E, G, H, I";
+CM_ SG_ 872 rx_368_b0_7_7 "Used only by the ROMs listed; meaning not determined. [read (meaning unknown); ROM groups: F, G, H]";
+CM_ SG_ 872 tcm368_b1_bit4 " [read; ROM groups: all]";
+CM_ SG_ 872 tcm368_b1_bit5 " [read; ROM groups: all]";
+CM_ SG_ 872 tcm368_b1_bit6 "-> 0x10F434 -> FFF8A88E (0..3) -> cruise 0x165AC4/0x167988 [read; ROM groups: all]";
+CM_ SG_ 872 tcm368_b1_bit7 "-> FFF8A88E [read; ROM groups: all]";
+CM_ SG_ 872 tcm368_b3 "no reader found [read; ROM groups: all]";
+CM_ BO_ 872 "TCM (FFF88DD9); timeout 60 ms; ROM groups: all";
+CM_ SG_ 880 m370_word "-> 0x114AD0 -> FFF8B458 (zero when byte3 bit0) = idle air adder (electrical load, inferred) in 0x0ECAE0, 0x0801B8, 0x111AB8 [inferred; ROM groups: all]";
+CM_ SG_ 880 m370_b3_bit0 "invalid flag for the word (inferred) [inferred; ROM groups: all]";
+CM_ SG_ 880 m370_b3_bit1 " [read; ROM groups: all]";
+CM_ SG_ 880 m370_counter " [read; ROM groups: all]";
+CM_ BO_ 880 "unknown (group FFF88DD4 b0/b1, no DTC); timeout 60 ms; counter byte5 bits0-3; ROM groups: all";
+CM_ SG_ 882 m372_counter " [read; ROM groups: all]";
+CM_ SG_ 882 m372_code "0x1137D0 (40 ms) -> 0x118EAC -> FFF8A890..A892, FFF8A8A6 b1-b4 -> 0x128B18 [read; ROM groups: all]";
+CM_ BO_ 882 "unknown (group FFF88EDD b0/b1, no DTC; recovers after 5 good frames); timeout 110 ms; counter byte1 bits4-7; ROM groups: all";
+CM_ SG_ 977 ambient_temp_raw "0x1FFF = startup/invalid, 0x1FFE = frame lost; filtered FFF8924A (0x071DC6) checked by P0072/P0073 (0x071E14: <3523 -> P0073, >4873 -> P0072) [inferred; ROM groups: all]";
+CM_ SG_ 977 rx_3d1_b7_2_6 "Used only by the ROMs listed; meaning not determined. [read (meaning unknown); ROM groups: F, G, H]";
+CM_ BO_ 977 "combination meter group (counts toward U0155 when cal 0x58EBE = 'Z'); timeout 30 ms; ROM groups: all";
+CM_ SG_ 1632 m660_w0 "no reader found [read; ROM groups: all]";
+CM_ SG_ 1632 m660_w1 "0xFFFF = invalid; -> 0x1101B0 -> FFF81494 (DTC record stamp, 0x0A09C6) [inferred; ROM groups: all]";
+CM_ SG_ 1632 m660_dist "0xFFFFFF = invalid; last valid FFF8900C -> 0x110108 -> FFF8C228 (monotonic, DTC record stamp) [inferred; ROM groups: all]";
+CM_ BO_ 1632 "BCM group (FFF88DDA; loss counts only with cal 0x57585 b4); timeout 510 ms; ROM groups: all";
+CM_ SG_ 1788 lin_battery_b0 "LIN battery-sensor block, low nibble of FFF893A6. 0x6FC is sent every 100 ms by ROMs whose table has it in mailbox 15 (they do not receive 0x15A). [read (meaning unknown); ROM groups: B, C, D, H]";
+CM_ SG_ 1788 lin_battery_b1 "LIN battery-sensor value FFF893A9. [read (meaning unknown); ROM groups: B, C, D, H]";
+CM_ SG_ 1788 lin_battery_b2 "LIN battery-sensor value FFF893AA. [read (meaning unknown); ROM groups: B, C, D, H]";
+CM_ SG_ 1788 lin_battery_b3 "LIN battery-sensor value FFF893AB. [read (meaning unknown); ROM groups: B, C, D, H]";
+CM_ SG_ 1788 lin_battery_b4 "ECU value FFF899AF (LIN battery-sensor processing). [read (meaning unknown); ROM groups: B, C, D, H]";
+CM_ SG_ 1788 lin_battery_b5 "LIN battery-sensor value FFF893A7, bits 0-4. [read (meaning unknown); ROM groups: B, C, D, H]";
+CM_ SG_ 1788 lin_battery_b6 "LIN battery-sensor value FFF893A8. [read (meaning unknown); ROM groups: B, C, D, H]";
+CM_ BO_ 1788 "ECM; period 100 ms; ROM groups: B, C, D, H";

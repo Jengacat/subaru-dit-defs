@@ -1,12 +1,8 @@
 # subaru-dit-defs
 
-RomRaider and EcuFlash definitions, logger definitions, a logging patch, a CAN dictionary and a tuning guide for
-Subaru's **FA20DIT** engine ECU (Hitachi SH72543R, 2 MB flash): the 2015–2018 WRX and WRX S4, the 2015 and 2017
-Forester XT and the 2016 Forester tS, **23 ROMs** in all.
-
-The 2019+ ECUs (Hitachi **SH72544R**, 2.5 MB flash) are in progress: the checksum tools and an EcuFlash read template
-already handle them, and a definition for the 2019 Levorg STI 2.0 is being checked. See
-[Not supported yet](#not-supported-yet).
+RomRaider and EcuFlash definitions, logging tools and a tuning guide for Subaru's **FA20DIT** engine ECU
+(Hitachi SH72543R / SH72544R). Supported now: the 2015–2018 WRX, WRX S4 and Forester XT / tS. Support for 2019 and
+later is in progress.
 
 The definitions were built from scratch from my own analysis of the stock ROMs. No existing community definition was
 used as a source, so table names, scalings and descriptions are my own. Every table carries a plain-English summary

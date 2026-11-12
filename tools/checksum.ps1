@@ -1,13 +1,14 @@
 <#
 .SYNOPSIS
-    FA20DIT (SH72543R) flash checksum: verify or fix a 2 MB ROM image. Windows PowerShell 5.1 or later.
+    FA20DIT flash checksum: verify or fix a 2 MB (2015-2018, SH72543R) or 2.5 MB (2019+, SH72544R) ROM image.
+    Windows PowerShell 5.1 or later.
 
 .DESCRIPTION
-    The ECU requires the 16-bit sum of all big-endian words from 0x6000 up to 0x200000 to equal 0x5AA5.
-    The word at 0x1FFFFE is the correction word; "fix" rewrites only that word. The validity markers
-    (word 0x6000 = 0x5555, word 0x1FFFF2 = 0xAAAA, word 0x006C = word 0x6010) and the runtime reference
-    words (0x1FFFE0 and 0x1FFFE2 = 0x5AA5) are checked and reported, never edited.
-    Same rule and checks as tools/checksum.py.
+    The ECU requires the 16-bit sum of all big-endian words from 0x6000 up to the end of flash (0x200000, or
+    0x280000 in a 2.5 MB image) to equal 0x5AA5. The last word (0x1FFFFE / 0x27FFFE) is the correction word;
+    "fix" rewrites only that word. The validity markers (word 0x6000 = 0x5555, word 0x1FFFF2 / 0x27FFF2 = 0xAAAA,
+    word 0x006C = word 0x6010) and the runtime reference words (0x1FFFE0/E2 or 0x27FFE0/E2 = 0x5AA5) are checked
+    and reported, never edited. Same rule and checks as tools/checksum.py.
 
 .EXAMPLE
     powershell -ExecutionPolicy Bypass -File tools\checksum.ps1 fix edited.bin edited_fixed.bin
@@ -26,9 +27,14 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $START  = 0x6000
-$END    = 0x200000
+$END    = 0x200000           # set from the image size below: 0x200000 (2 MB) or 0x280000 (2.5 MB)
 $SUMLOC = 0x1FFFFE
 $TARGET = 0x5AA5
+$SIZES  = @(0x200000, 0x280000)
+
+function Set-Size([int]$n) {
+    $script:END = $n; $script:SUMLOC = $n - 2
+}
 
 # Fast 16-bit word sum in C# (compiled once per session); falls back to plain PowerShell if Add-Type is not allowed.
 $fast = $false
@@ -67,10 +73,11 @@ function Get-Correction([byte[]]$d) { return ($TARGET - (Get-Sum16 $d $SUMLOC) +
 
 function Test-Image([byte[]]$d) {
     $ok = $true
-    if ($d.Length -ne $END) {
-        Write-Host ('  size {0}, expected {1}' -f $d.Length, $END)
+    if ($SIZES -notcontains $d.Length) {
+        Write-Host ('  size {0}, expected {1} or {2}' -f $d.Length, $SIZES[0], $SIZES[1])
         return $false
     }
+    Set-Size $d.Length
     $s = Get-Sum16 -d $d -skip (-1)
     $good = ($s -eq $TARGET)
     if (-not $good) { $ok = $false }
@@ -78,7 +85,7 @@ function Test-Image([byte[]]$d) {
     if (-not $good) { $extra = ' (should be 0x{0:X4})' -f (Get-Correction $d) }
     Write-Host ('  sum16 0x{0:X4}..0x{1:X6} = 0x{2:X4} (need 0x{3:X4}) {4}; correction word 0x{5:X6} = 0x{6:X4}{7}' -f `
         $START, $END, $s, $TARGET, $(if ($good) { 'OK' } else { 'BAD' }), $SUMLOC, (Get-Word $d $SUMLOC), $extra)
-    foreach ($m in @(@(0x6000, 0x5555), @(0x1FFFF2, 0xAAAA))) {
+    foreach ($m in @(@(0x6000, 0x5555), @(($END - 0xE), 0xAAAA))) {
         $v = Get-Word $d $m[0]
         $mok = ($v -eq $m[1])
         if (-not $mok) { $ok = $false }
@@ -88,10 +95,10 @@ function Test-Image([byte[]]$d) {
     $mok = ($a -eq $b)
     if (-not $mok) { $ok = $false }
     Write-Host ('  marker word 0x006C = word 0x6010 (0x{0:X4} / 0x{1:X4}): {2}' -f $a, $b, $(if ($mok) { 'OK' } else { 'BAD' }))
-    $r0 = Get-Word $d 0x1FFFE0; $r1 = Get-Word $d 0x1FFFE2
+    $r0 = Get-Word $d ($END - 0x20); $r1 = Get-Word $d ($END - 0x1E)
     $mok = ($r0 -eq $TARGET -and $r1 -eq $TARGET)
     if (-not $mok) { $ok = $false }
-    Write-Host ('  runtime reference words 0x1FFFE0/E2 = 0x{0:X4}/0x{1:X4}: {2}' -f $r0, $r1, $(if ($mok) { 'OK' } else { 'UNEXPECTED' }))
+    Write-Host ('  runtime reference words 0x{0:X6}/{1:X2} = 0x{2:X4}/0x{3:X4}: {4}' -f ($END - 0x20), (($END - 0x1E) -band 0xFF), $r0, $r1, $(if ($mok) { 'OK' } else { 'UNEXPECTED' }))
     return $ok
 }
 
@@ -104,7 +111,8 @@ if ($Mode -eq 'verify') {
 }
 
 # fix
-if ($data.Length -ne $END) { Write-Host ('{0}: size {1}, expected {2}' -f $path, $data.Length, $END); exit 1 }
+if ($SIZES -notcontains $data.Length) { Write-Host ('{0}: size {1}, expected {2} or {3}' -f $path, $data.Length, $SIZES[0], $SIZES[1]); exit 1 }
+Set-Size $data.Length
 if ([string]::IsNullOrEmpty($Out)) { $outPath = $path }
 else { $outPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($Out) }
 $old = Get-Word $data $SUMLOC

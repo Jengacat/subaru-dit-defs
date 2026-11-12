@@ -2,7 +2,7 @@
 
 | Tool | What it does |
 |---|---|
-| `checksum.py` | Verify or fix the ROM checksum. Python 3, no extra packages. |
+| `checksum.py` | Verify or fix the ROM checksum, for 2 MB (2015–2018) and 2.5 MB (2019+) ROMs. Python 3, no extra packages. |
 | `checksum.ps1` | The same in PowerShell, for Windows without Python (Windows PowerShell 5.1 or later). |
 | [`logpatch/`](logpatch/) | The logging patch: adds 24 loggable parameters to a ROM (Python or PowerShell 5.1). |
 

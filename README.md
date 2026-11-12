@@ -59,7 +59,7 @@ same model year; flashing with a definition for another ID will corrupt the cali
 |---|---|
 | LF75300G (2016 WRX CVT), LF75300T (2015 WRX CVT), LV9N101D (2015 USDM WRX), LV9N002F (2014 Australian WRX) | The only copies I have are incomplete (1.5 MB) reads. A complete read would make them supportable quickly. |
 | Other 2015–2018 WRX and Forester XT calibrations (e.g. LF75403T, LF75404H, LF75403G, LF79103P, LF79102N, LF9C102P, LF9C002N, LF61803B, LF75403A, LF78106B, LF9C002B) | I don't have these ROMs. [Submit one](#submitting-a-rom) and I can add it. |
-| 2019+ WRX (LF9D…, LF9G…) | These ECUs have 2.5 MB of flash and a newer boot block. EcuFlash can open 2.5 MB files with its SH72544R memory model, but reading or writing these ECUs with it is untested (see [Reading your ECU](#reading-your-ecu)). FastECU can now read them in full (read only, not yet tested on a car) and PCMFlash may too (see [Reading your ECU](#reading-your-ecu)); writing them isn't supported by an open tool yet. |
+| 2019+ WRX (LF9D…, LF9G…) | These ECUs have 2.5 MB of flash and a newer boot block. A definition for the 2019 JDM Levorg STI 2.0 (LF9F000R, same ECU family) is in progress, and the checksum tools already handle 2.5 MB ROMs. EcuFlash can open 2.5 MB files with its SH72544R memory model, but reading or writing these ECUs with it is untested (see [Reading your ECU](#reading-your-ecu)). FastECU can now read them in full (read only, not yet tested on a car) and PCMFlash may too (see [Reading your ECU](#reading-your-ecu)); writing them isn't supported by an open tool yet. |
 | 2022+ WRX (FA24DIT) | Different engine and ECU generation; not started. |
 
 ## What's included
@@ -67,7 +67,7 @@ same model year; flashing with a definition for another ID will corrupt the cali
 | Folder | Contents |
 |---|---|
 | `definitions/romraider/` | `FA20DIT_RomRaider.xml`: one file covering every supported ROM. |
-| `definitions/ecuflash/` | One EcuFlash definition per ROM. |
+| `definitions/ecuflash/` | `FA20DIT_BASE_EcuFlash.xml` (every table) plus one small file per ROM; keep them in one folder. |
 | `logger/` | `FA20DIT_Logger.xml` (stock SSM and OBD parameters, trouble codes) and `FA20DIT_Logger_LogPatch.xml` (stock plus the logging-patch parameters). `FA20DIT_Logger_LogPatch_only.xml` holds only the new parameters, for merging into your own logger file. |
 | `tools/checksum.py`, `tools/checksum.ps1` | Check and fix the ROM checksum (Python, or PowerShell for Windows). **Required before flashing an edited ROM** (see below). |
 | `tools/logpatch/` | The logging patch: `make_logpatch.py` and one spec per supported ROM. |
@@ -84,17 +84,24 @@ same model year; flashing with a definition for another ID will corrupt the cali
    untick "List tables that are above my userlevel" if you want higher-level tables hidden rather than greyed out.
 
 ### Editing with EcuFlash
-Copy the file for your ROM from `definitions/ecuflash/` into your EcuFlash metadata folder (for example
-`rommetadata/subaru/`) and restart EcuFlash. Table folders are numbered in tuning order (`01.02 Fueling - …`).
+Copy `FA20DIT_BASE_EcuFlash.xml` and the file for your ROM from `definitions/ecuflash/` into one folder under your
+EcuFlash metadata folder (for example `rommetadata/subaru/FA20DIT/`) and restart EcuFlash. The base file is required:
+it holds the table definitions, and the ROM file only its addresses. Table folders are numbered in tuning order
+(`01.02 Fueling - …`). EcuFlash starts at the Beginner user level, which greys out most tables; raise it in the
+options (gear icon) → User Level.
+
+Each DTC has its own table in each class, as in RomRaider. To flip one, select its value and press **Increment
+( `]` ) once**; don't use Decrement. The [EcuFlash README](definitions/ecuflash/README.md) explains why.
 
 ### Fix the checksum before every flash
 
-This ECU checks a 16-bit checksum over the whole flash, and a ROM with a bad checksum won't run. **EcuFlash may
-correct it** when it writes the ROM, but that hasn't been confirmed for this ECU. **RomRaider can't correct it yet**:
+This ECU checks a 16-bit checksum over the whole flash, and a ROM with a bad checksum won't run. **EcuFlash corrects
+it when you save**: the EcuFlash definitions use its built-in `subaruhitachi` checksum module, and in EcuFlash 1.44.4870
+the saved file is byte-identical to the checksum tool's output. **RomRaider can't correct it yet**:
 RomRaider 1.0.0 and 1.1.0 can't load a checksum module from a definition folder, so the definition can't include one
 until my fix
-([RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)) is merged and released. Until then, run every edited ROM through the checksum
-tool and confirm it with `verify` before flashing:
+([RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)) is merged and released. Until then, run every ROM edited in RomRaider through
+the checksum tool. Either way, confirm the file you're about to flash with `verify`:
 
 ```
 python3 tools/checksum.py fix  edited.bin  edited_fixed.bin
@@ -139,9 +146,11 @@ every supported ROM, so one logger file covers all of them.
 
 I'm adding a new logger protocol to RomRaider, **SUBUDS**, that reads values straight from the ECU's RAM over CAN. It
 works on a stock ROM with no reflash, so everything the logging patch adds (and more) could be logged without it.
-[My fork of RomRaider](https://github.com/Jengacat/RomRaider/tree/Subaru-UDS-Logging) already has it. It hasn't been
-tested on a car yet; once it has, I'll publish a test build and the matching logger file here and send it to the
-RomRaider project. If you'd like to help test, please [open an issue](../../issues/new/choose).
+[My fork of RomRaider](https://github.com/Jengacat/RomRaider/tree/Subaru-UDS-Logging) has it, and a Windows test
+build with the matching logger file is on the fork's
+[subuds-test-1 release](https://github.com/Jengacat/RomRaider/releases/tag/subuds-test-1). It hasn't been tested on a
+car yet; once it has, the logger file will move here and the protocol will go to the RomRaider project. If you try it,
+please [open an issue](../../issues/new/choose) with how it went.
 
 ## Units
 
@@ -154,11 +163,14 @@ Switch scales from the table's View menu in RomRaider.
 
 - **Untested on hardware.** No ROM edited with these definitions has been flashed and driven yet. Start from a known
   good stock read, change little at a time and log everything.
-- **Checksum.** EcuFlash may correct this ECU's checksum, but that isn't confirmed. RomRaider can't load a
+- **Checksum.** EcuFlash corrects it on save (checked in EcuFlash 1.44.4870). RomRaider can't load a
   checksum module from a definition folder in versions 1.0.0 and 1.1.0; my fix is in
   [RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248), and once it is merged and released the RomRaider definition will correct the
-  checksum on save. Until then, use `tools/checksum.py` or `tools/checksum.ps1` (above) on every edited ROM.
+  checksum on save. Until then, use `tools/checksum.py` or `tools/checksum.ps1` (above) on ROMs edited in RomRaider.
 - **Writing with EcuFlash** has not been tested on this ECU.
+- **EcuFlash DTC tables:** EcuFlash has no single-bit table type, so each DTC table is a list of whole-byte values
+  arranged so that Increment flips only that code. Decrement doesn't, and a byte with many changed codes can show
+  `(no match)`; see the [EcuFlash README](definitions/ecuflash/README.md).
 - **Inferred items.** Everything is decoded from the ECU code; where the code doesn't settle a meaning, the description
   says "inferred". In particular, the **SI-Drive positions** of the drive-mode maps (mode 4 = Sport Sharp, 2 = Sport,
   3 = Intelligent, 1 = default) are inferred from the stock maps.

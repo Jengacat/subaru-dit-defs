@@ -185,8 +185,7 @@ myself, so treat it as an alternative to EcuFlash rather than a recommendation.
 The 2019 and later WRX ECUs (and presumably other DIT cars) have 2.5 MB of flash. A 2 MB read of one of those is
 incomplete. EcuFlash has a 2.5 MB memory model, SH72544R: with the read template
 [`definitions/ecuflash/read_subaruhitachish72544.xml`](definitions/ecuflash/read_subaruhitachish72544.xml) in your
-EcuFlash definitions folder, EcuFlash offers a 2560k read for these ECUs and can open 2.5 MB files (thanks to reokov on
-the RomRaider forum for the tip):
+EcuFlash definitions folder, EcuFlash offers a 2560k read for these ECUs and can open 2.5 MB files (thanks to reokov for the tip):
 
 ![EcuFlash read templates: the 2048k SH72543R entry and the new 2560k SH72544R entry](docs/images/ecuflash_sh72544r_read_template.png)
 

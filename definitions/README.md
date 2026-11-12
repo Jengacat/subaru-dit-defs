@@ -5,7 +5,7 @@ Table definitions for the supported FA20DIT ROMs (see the [supported ROMs](../RE
 | Folder | For | Files |
 |---|---|---|
 | [`romraider/`](romraider/) | RomRaider | One file covering every supported ROM. |
-| [`ecuflash/`](ecuflash/) | EcuFlash | One file per ROM, named by calibration ID. |
+| [`ecuflash/`](ecuflash/) | EcuFlash | One file per ROM, named by calibration ID, plus `read_subaruhitachish72544.xml`, a read template for the 2.5 MB (2019+) ECUs (untested; see the [main README](../README.md#reading-your-ecu)). |
 
 Both carry the same tables, scalings and descriptions. Each table has a plain-English summary first and the detail
 after it, and tables are grouped by purpose in tuning order.

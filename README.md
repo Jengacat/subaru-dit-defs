@@ -58,7 +58,7 @@ same model year; flashing with a definition for another ID will corrupt the cali
 |---|---|
 | LF75300G (2016 WRX CVT), LF75300T (2015 WRX CVT), LV9N101D (2015 USDM WRX), LV9N002F (2014 Australian WRX) | The only copies I have are incomplete (1.5 MB) reads. A complete read would make them supportable quickly. |
 | Other 2015–2018 WRX and Forester XT calibrations (e.g. LF75403T, LF75404H, LF75403G, LF79103P, LF79102N, LF9C102P, LF9C002N, LF61803B, LF75403A, LF78106B, LF9C002B) | I don't have these ROMs. [Submit one](#submitting-a-rom) and I can add it. |
-| 2019+ WRX (LF9D…, LF9G…) | These ECUs have 2.5 MB of flash and a newer boot block, and EcuFlash only reads and writes 2 MB. FastECU can now read them in full (read only, not yet tested on a car) and PCMFlash may too (see [Reading your ECU](#reading-your-ecu)); writing them isn't supported by an open tool yet. |
+| 2019+ WRX (LF9D…, LF9G…) | These ECUs have 2.5 MB of flash and a newer boot block. EcuFlash can open 2.5 MB files with its SH72544R memory model, but reading or writing these ECUs with it is untested (see [Reading your ECU](#reading-your-ecu)). FastECU can now read them in full (read only, not yet tested on a car) and PCMFlash may too (see [Reading your ECU](#reading-your-ecu)); writing them isn't supported by an open tool yet. |
 | 2022+ WRX (FA24DIT) | Different engine and ECU generation; not started. |
 
 ## What's included
@@ -181,8 +181,16 @@ file (open it with these definitions, or submit it as below and I'll identify it
 ([module list](https://ecutools.eu/chip-tuning/pcmflash/#subproduct-group-8037)). I haven't tested it on these ECUs
 myself, so treat it as an alternative to EcuFlash rather than a recommendation.
 
-The 2019 and later WRX ECUs (and presumably other DIT cars) have 2.5 MB of flash, which EcuFlash can't read in full. A
-2 MB read of one of those is incomplete. PCMFlash may be able to read them: a 2019 JDM Levorg STI 2.0 (LF9F000R) on
+The 2019 and later WRX ECUs (and presumably other DIT cars) have 2.5 MB of flash. A 2 MB read of one of those is
+incomplete. EcuFlash has a 2.5 MB memory model, SH72544R: with the read template
+[`definitions/ecuflash/read_subaruhitachish72544.xml`](definitions/ecuflash/read_subaruhitachish72544.xml) in your
+EcuFlash definitions folder, EcuFlash offers a 2560k read for these ECUs and can open 2.5 MB files (thanks to reokov on
+the RomRaider forum for the tip):
+
+![EcuFlash read templates: the 2048k SH72543R entry and the new 2560k SH72544R entry](docs/images/ecuflash_sh72544r_read_template.png)
+
+**Not tested yet:** the template only tells EcuFlash the chip and size. Whether EcuFlash's `subaruhitachi` method can
+actually read (or write) a 2019+ ECU is unknown, so for now treat it as reported, not confirmed. PCMFlash may be able to read them: a 2019 JDM Levorg STI 2.0 (LF9F000R) on
 the RomRaider forum was read in full (2,621,440 bytes, valid checksum) with PCMFlash's "Levorg 2018+ 2.0 DIT CAT
 (Hitachi SH72544/2.5 MB)" module and a Tactrix OpenPort 2.0. That 2.5 MB module isn't on the module list linked above, and
 whether it covers the 2019+ WRX isn't confirmed.

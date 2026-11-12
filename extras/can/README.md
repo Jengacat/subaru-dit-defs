@@ -1,6 +1,6 @@
 # FA20DIT CAN dictionary
 
-Every CAN frame the FA20DIT engine ECU (Hitachi SH72543R: 2015-2018 WRX, 2014-2018 Levorg, 2016-2018 Forester XT / tS) receives and sends, for **30 complete ROMs**. 500 kbit/s, 11-bit IDs.
+Every CAN frame the FA20DIT engine ECU (Hitachi SH72543R: 2015-2018 WRX, 2014-2018 Levorg, 2016-2018 Forester XT / tS) receives and sends, for **31 complete ROMs**. 500 kbit/s, 11-bit IDs.
 
 ## How this was made
 
@@ -30,6 +30,7 @@ ROMs in one group have the same IDs and use exactly the same bits.
 | A | LF75300L | 2015 | not confirmed | WRX | AT/CVT | 0x1F946C |
 | A | LF75300S | 2015 | USDM | WRX | MT | 0x1F946C |
 | A | LF75301K | 2016 | Singapore | WRX | MT | 0x1F946C |
+| A | LF75301P | 2015 | Middle East | WRX | MT | 0x1F946C |
 | A | LF75401D | 2014 | JDM | Levorg 2.0 | CVT (model) | 0x1F946C |
 | A | LF75404S | 2015 | USDM | WRX | MT | 0x1F946C |
 | B | LF78001H | 2016 | ADM | Forester tS | AT/CVT | 0x1F7580 |

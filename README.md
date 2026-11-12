@@ -21,6 +21,7 @@ each ROM is in the [table below](#supported-roms).
 |---|---|---|---|---|---|---|---|
 | WRX | 2015 | 6MT | USDM | **LF75404S** | 1189 | 904 | yes |
 | WRX | 2015 | 6MT | USDM | **LF75300S** | 1189 | 904 | yes |
+| WRX | 2015 | 6MT | Middle East | **LF75301P** | 1189 | 904 | yes |
 | WRX (early software) | 2015 | 6MT | Australia | **LV9N100F** | 1123 | 888 | yes |
 | WRX (early software) | 2015 | 6MT | Gulf (GCC) | **LV9N101I** | 1123 | 888 | yes |
 | WRX (early software) | 2015 | 6MT | not confirmed | **LV9N101F** | 1123 | 888 | yes |
@@ -71,7 +72,7 @@ same model year; flashing with a definition for another ID will corrupt the cali
 | `tools/checksum.py`, `tools/checksum.ps1` | Check and fix the ROM checksum (Python, or PowerShell for Windows). **Required before flashing an edited ROM** (see below). |
 | `tools/logpatch/` | The logging patch: `make_logpatch.py` and one spec per supported ROM. |
 | `docs/guide/` | [The tuning guide](docs/guide/README.md): workflows, how the logic works, appendices and a table reference. |
-| `extras/can/` | The CAN dictionary: every frame the ECU receives and sends, for 30 ROMs, with a DBC for CAN tools and each signal's RAM address per ROM. |
+| `extras/can/` | The CAN dictionary: every frame the ECU receives and sends, for 31 ROMs, with a DBC for CAN tools and each signal's RAM address per ROM. |
 
 ## Quick start
 

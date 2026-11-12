@@ -1,7 +1,12 @@
 # subaru-dit-defs
 
-RomRaider and EcuFlash definitions, a logger definition and a tuning guide for Subaru's **FA20DIT** engine ECU
-(Hitachi SH72543R): the 2015–2018 WRX and the 2016 Forester tS.
+RomRaider and EcuFlash definitions, logger definitions, a logging patch, a CAN dictionary and a tuning guide for
+Subaru's **FA20DIT** engine ECU (Hitachi SH72543R, 2 MB flash): the 2015–2018 WRX and WRX S4, the 2015 and 2017
+Forester XT and the 2016 Forester tS, **23 ROMs** in all.
+
+The 2019+ ECUs (Hitachi **SH72544R**, 2.5 MB flash) are in progress: the checksum tools and an EcuFlash read template
+already handle them, and a definition for the 2019 Levorg STI 2.0 is being checked. See
+[Not supported yet](#not-supported-yet).
 
 The definitions were built from scratch from my own analysis of the stock ROMs. No existing community definition was
 used as a source, so table names, scalings and descriptions are my own. Every table carries a plain-English summary
@@ -12,7 +17,7 @@ about 140 single values and switches. On top of that, each has about 900 DTC ena
 each ROM is in the [table below](#supported-roms).
 
 > **Status: beta.** The definitions have been checked table by table against the ECU code and load cleanly in
-> RomRaider, but **nothing has been validated on a running engine or flashed to a car yet.** Read the
+> RomRaider and EcuFlash, but **nothing has been validated on a running engine or flashed to a car yet.** Read the
 > [known issues](#known-issues) before you use them, and always keep a stock read of the ECU.
 
 ## Supported ROMs
@@ -69,7 +74,7 @@ same model year; flashing with a definition for another ID will corrupt the cali
 | `definitions/romraider/` | `FA20DIT_RomRaider.xml`: one file covering every supported ROM. |
 | `definitions/ecuflash/` | `FA20DIT_BASE_EcuFlash.xml` (every table) plus one small file per ROM; keep them in one folder. |
 | `logger/` | `FA20DIT_Logger.xml` (stock SSM and OBD parameters, trouble codes) and `FA20DIT_Logger_LogPatch.xml` (stock plus the logging-patch parameters). `FA20DIT_Logger_LogPatch_only.xml` holds only the new parameters, for merging into your own logger file. |
-| `tools/checksum.py`, `tools/checksum.ps1` | Check and fix the ROM checksum (Python, or PowerShell for Windows). **Required before flashing an edited ROM** (see below). |
+| `tools/checksum.py`, `tools/checksum.ps1` | Check and fix the ROM checksum of 2 MB and 2.5 MB ROMs (Python, or PowerShell for Windows). **Required for ROMs edited in RomRaider**, and `verify` before any flash (see below). |
 | `tools/logpatch/` | The logging patch: `make_logpatch.py` and one spec per supported ROM. |
 | `docs/guide/` | [The tuning guide](docs/guide/README.md): workflows, how the logic works, appendices and a table reference. |
 | `extras/can/` | The CAN dictionary: every frame the ECU receives and sends, for 31 ROMs, with a DBC for CAN tools and each signal's RAM address per ROM. |

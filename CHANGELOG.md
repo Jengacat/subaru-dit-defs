@@ -35,5 +35,8 @@ Since the first draft of this release:
   Sensor Exhaust Model Condensate at Start" (coolant × intake air temperature) and "Cruise Vehicle Speed Filter Weight"
   (speed error × speed).
 - Names for P0140, P0401 and P0402.
+- New: 2019 JDM Levorg STI 2.0 (LF9F000R), the first 2019+ (2.5 MB, SH72544R) ROM: RomRaider and EcuFlash
+  definitions, 1,211 tables, scalars and switches plus 924 DTC switches. Thanks to reokov for the ROM. No logging
+  patch, SSM logger parameters or CAN dictionary for it yet; EcuFlash doesn't correct its checksum.
 
 Not yet validated on a running engine; see the README's known issues.

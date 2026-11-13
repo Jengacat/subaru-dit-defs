@@ -4,17 +4,18 @@ EcuFlash shows each table in one unit, so the definitions come in two sets with 
 
 | Folder | Base file | Units |
 |---|---|---|
-| `Imperial/` | `FA20DIT_BASE_EcuFlash.xml` | psi (gauge for boost), psia, °F, ft-lb, mph |
-| `Metric/` | `FA20DIT_BASE_METRIC_EcuFlash.xml` | kPa (absolute for boost and manifold pressure), MPa (rail pressure), °C, Nm, km/h |
+| `Imperial/` | `FA20DIT_BASE_EcuFlash.xml`, `FB16DIT_BASE_EcuFlash.xml` (Levorg 1.6) | psi (gauge for boost), psia, °F, ft-lb, mph |
+| `Metric/` | `FA20DIT_BASE_METRIC_EcuFlash.xml`, `FB16DIT_BASE_METRIC_EcuFlash.xml` (Levorg 1.6) | kPa (absolute for boost and manifold pressure), MPa (rail pressure), °C, Nm, km/h |
 
 Units both systems use (g/rev, RPM, %, AFR, degrees, g/s) are the same in both. **Install one set only:** the ROM
 files in both have the same IDs, and EcuFlash would load whichever it finds first.
 
-In each set the base file defines every table once; each ROM has a small file named by calibration ID
-(`FA20DIT_<calibration ID>_EcuFlash.xml`) that gives that ROM's addresses and whatever differs. EcuFlash picks the ROM
+In each set a base file defines every table once (one base for the 2.0 ROMs, one for the Levorg 1.6 ROMs); each ROM
+has a small file named by calibration ID (`FA20DIT_<calibration ID>_EcuFlash.xml` or
+`FB16DIT_<calibration ID>_EcuFlash.xml`) that gives that ROM's addresses and whatever differs. EcuFlash picks the ROM
 file by the ID inside your ROM, and the ROM file pulls in the base.
 
-**Install:** from the folder you chose, copy the base file **and** the file(s) for your ROM(s) into the same folder
+**Install:** from the folder you chose, copy the base file for your engine **and** the file(s) for your ROM(s) into the same folder
 under your EcuFlash metadata folder (for example `rommetadata\subaru\FA20DIT\`), then restart EcuFlash. Copying the
 whole folder is fine too. Without the base file, the ROM files don't load. To switch sets later, delete the old files
 first.
@@ -34,7 +35,7 @@ first.
   bit values 1, 2, 4 … 128).
 - **Checksum:** the 2015–2018 (2 MB) definitions use EcuFlash's built-in `subaruhitachi` checksum module, which
   corrects the checksum when you save. I checked it in EcuFlash 1.44.4870: the result is byte-identical to the
-  checksum tool's. The 2019 Levorg STI (LF9F000R, 2.5 MB) definition has no checksum module, because that module gets
+  checksum tool's. The 2.5 MB definitions (2019 Levorg STI LF9F000R and the 2019–2020 Levorg 1.6 ROMs) have no checksum module, because that module gets
   the 2.5 MB layout wrong: fix those ROMs with the checksum tool. Either way, run `verify` on the file you're about to
   flash (see the main README).
 

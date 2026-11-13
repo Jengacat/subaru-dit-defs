@@ -4,6 +4,15 @@
 
 First public release.
 
+- New: **Levorg 1.6 (FB16DIT)**, 19 ROMs, 2014–2020: `FB16DIT_RomRaider.xml` and Imperial / Metric EcuFlash sets. The
+  1.6's ECU runs the same software as the 2.0's, so the tables and descriptions are shared; the stock logger file works
+  for it too. No logging patch for these ROMs yet. Thanks to reokov for the ROMs.
+- Table names no longer carry "(Off in Stock)" or "(Unused)", and the descriptions no longer quote stock values: those
+  were true for one calibration only (about 500 tables differ between the USDM and JDM ROMs). Whether a table is
+  switched off now sets its user level per ROM: Debug where the ROM's own calibration switches it off, Advanced where
+  it doesn't. "Transient Fuel Throttle-Rate Gain (Off in Stock)" is now "(MT Coding)".
+- The RomRaider file is smaller (12 MB, was 24 MB): ROMs that share a layout list only what differs.
+- README: the supported ROMs are listed per model; per-ROM notes and credits moved to `definitions/README.md`.
 - New: eight more ROMs. 2014 Middle East WRX (LF75401P) and seven Levorg 2.0 ROMs, 2014–2017 (LV9N100A, LV9N301A,
   LV9N302A, LF75401D, LF79100K, LF79101K, LF79100S): RomRaider and EcuFlash definitions, logger, logging patch, CAN
   dictionary (now 37 ROMs). Thanks to reokov for the ROMs.

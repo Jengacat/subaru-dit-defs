@@ -1,22 +1,28 @@
 # subaru-dit-defs
 
-RomRaider and EcuFlash definitions, logging tools and a tuning guide for Subaru's **FA20DIT** engine ECU
-(Hitachi SH72543R / SH72544R). Supported now: the 2015–2018 WRX, WRX S4 and Forester XT / tS, and the
-2014–2019 Levorg 2.0. Support for other 2019 and later cars is in progress.
+RomRaider and EcuFlash definitions, logging tools and a tuning guide for Subaru's **FA20DIT** and **FB16DIT** engine
+ECUs (Hitachi SH72543R / SH72544R). Supported now: the 2015–2018 WRX, WRX S4 and Forester XT / tS, the 2014–2019
+Levorg 2.0 and the 2014–2020 Levorg 1.6. Support for other 2019 and later cars is in progress.
 
 The definitions were built from scratch from my own analysis of the stock ROMs. No existing community definition was
 used as a source, so table names, scalings and descriptions are my own. Every table carries a plain-English summary
-and a description of what the ECU does with it.
+and a description of what the ECU does with it. The 1.6 and the 2.0 run the same ECU software, so they share table
+names and descriptions.
 
 Across the supported ROMs, each definition averages roughly **1,200 entries**: about 1,000 maps and curves and
 about 140 single values and switches. On top of that, each has a table for every trouble code (about 225), with its enable and fail-safe settings. The exact count for
-each ROM is in the [table below](#supported-roms).
+each ROM is in the [lists below](#supported-roms).
 
 > **Status: beta.** The definitions have been checked table by table against the ECU code and load cleanly in
 > RomRaider and EcuFlash, but **nothing has been validated on a running engine or flashed to a car yet.** Read the
 > [known issues](#known-issues) before you use them, and always keep a stock read of the ECU.
 
 ## Supported ROMs
+
+Open your model for its ROM list. Model years and markets are as the ROMs were supplied to me.
+
+<details>
+<summary><b>WRX and WRX S4</b>: 20 ROMs, 2014–2018</summary>
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
@@ -32,19 +38,35 @@ each ROM is in the [table below](#supported-roms).
 | WRX S4 | 2015 | CVT | Japan | **LF75300F** | 1189 | 226 | yes |
 | WRX | 2015 | CVT | Canada | **LF75200T** | 1167 | 226 | yes |
 | WRX | 2015–2016 (not stated) | CVT | not confirmed | **LF75300L** | 1189 | 226 | yes |
-| Forester XT (early software; briefly also the WRX CVT) — *outdated* | early 2015 | CVT | USDM | **LV9N000C** | 1123 | 222 | yes |
 | WRX | 2016 | 6MT | not confirmed | **LF75300H** | 1189 | 226 | yes |
 | WRX | 2016 | 6MT | Singapore | **LF75301K** | 1189 | 226 | yes |
-| Forester tS (STI) | 2016 | CVT | Australia | **LF78001H** | 1198 | 227 | yes |
 | WRX | 2017 | 6MT | not confirmed | **LF79002P** | 1207 | 228 | yes |
 | WRX | 2017 | 6MT (later revision) | not confirmed | **LF79100P** | 1207 | 228 | yes |
 | WRX | 2017 | CVT | not confirmed | **LF79100N** | 1207 | 228 | yes |
-| Forester XT | 2017 | CVT | USDM | **LF78103B** | 1195 | 228 | yes |
-| Forester XT | 2017 | CVT | Europe | **LF9C000C** | 1212 | 228 | yes |
-| Forester XT | 2018 | CVT | Malaysia | **LF9C000a** | 1212 | 228 | yes |
 | WRX | 2018 | 6MT | not confirmed | **LF9C100P** | 1212 | 228 | yes |
 | WRX | 2018 | 6MT | USDM | **LF9C001P** | 1212 | 228 | yes |
 | WRX S4 | 2018 | CVT | Japan | **LF9C001K** | 1212 | 228 | yes |
+
+</details>
+
+<details>
+<summary><b>Forester XT and tS</b>: 5 ROMs, 2015–2018</summary>
+
+| Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
+|---|---|---|---|---|---|---|---|
+| Forester XT (early software; briefly also the WRX CVT) — *outdated* | early 2015 | CVT | USDM | **LV9N000C** | 1123 | 222 | yes |
+| Forester tS (STI) | 2016 | CVT | Australia | **LF78001H** | 1198 | 227 | yes |
+| Forester XT | 2017 | CVT | USDM | **LF78103B** | 1195 | 228 | yes |
+| Forester XT | 2017 | CVT | Europe | **LF9C000C** | 1212 | 228 | yes |
+| Forester XT | 2018 | CVT | Malaysia | **LF9C000a** | 1212 | 228 | yes |
+
+</details>
+
+<details>
+<summary><b>Levorg 2.0</b>: 8 ROMs, 2014–2019</summary>
+
+| Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
+|---|---|---|---|---|---|---|---|
 | Levorg 2.0GT-S (early software) | 2014 | CVT | Japan | **LV9N100A** | 1123 | 222 | yes |
 | Levorg 2.0 (early software) | 2014 | CVT | Japan | **LV9N301A** | 1145 | 222 | yes |
 | Levorg 2.0 (early software) | 2014 | CVT | Japan | **LV9N302A** | 1145 | 222 | yes |
@@ -54,25 +76,36 @@ each ROM is in the [table below](#supported-roms).
 | Levorg 2.0GT-S | 2017 | CVT | Australia | **LF79100S** | 1207 | 228 | yes |
 | Levorg STI 2.0 (2.5 MB ECU) | 2019 | CVT | Japan | **LF9F000R** | 1211 | 231 | yes |
 
-*2019 Levorg STI (LF9F000R):* this is the first 2019+ ROM (Hitachi SH72544R, 2.5 MB). The calibration is almost the
-same as the 2018 WRX S4's, but the code and layout are new, so check it carefully. Logging (SSM, OBD, the logging
-patch) and the CAN dictionary cover it too. Four of its trouble codes sit where other ROMs have P0244, P0451, P0452
-and P0453, so in the logger's DTC tab those four names also give its code. EcuFlash can't correct its checksum: use
-the checksum tool (below). Writing a 2.5 MB ECU isn't supported by any open tool yet; see
-[Reading your ECU](#reading-your-ecu).
+</details>
 
-*Malaysian Forester XT (LF9C000a):* the ID really ends in a lowercase "a". The code and table layout are the same
-as LF9C000C's; only a few calibration bytes differ. Thanks to Hafiez STi for the ROM.
+<details>
+<summary><b>Levorg 1.6 (FB16DIT)</b>: 19 ROMs, 2014–2020</summary>
 
-*Levorg 2.0 (2014–2017):* the seven Levorg ROMs came from reokov and the RomRaider forum. Six run the same code as a
-WRX ROM in this table; LV9N301A / LV9N302A are a build of their own, ported and checked like the others. Thanks to
-reokov for the ROMs.
+| Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
+|---|---|---|---|---|---|---|---|
+| Levorg 1.6 | 2014 | CVT | Japan | **LV9N303J** | 1149 | 222 | not yet |
+| Levorg 1.6 | 2014 | CVT | Japan | **LV9N340J** | 1148 | 222 | not yet |
+| Levorg 1.6 | 2015 | CVT | Europe | **LF76400Q** | 1181 | 226 | not yet |
+| Levorg 1.6 | 2015 | CVT | Japan | **LF76401R** | 1181 | 226 | not yet |
+| Levorg 1.6 | 2015 | CVT | Europe | **LF76500Q** | 1181 | 226 | not yet |
+| Levorg 1.6 | 2015 | CVT | Japan | **LF76500R** | 1181 | 226 | not yet |
+| Levorg 1.6 | 2015 | CVT | Japan | **LF76600R** | 1181 | 226 | not yet |
+| Levorg 1.6 | 2016 | CVT | Japan | **LF79201U** | 1211 | 228 | not yet |
+| Levorg 1.6 | 2016 | CVT | Japan | **LF79202U** | 1211 | 228 | not yet |
+| Levorg 1.6 | 2016 | CVT | Japan | **LF79400U** | 1211 | 228 | not yet |
+| Levorg 1.6 | 2017 | CVT | Europe | **LF79200T** | 1211 | 228 | not yet |
+| Levorg 1.6 | 2017 | CVT | Europe | **LF79300T** | 1211 | 228 | not yet |
+| Levorg 1.6 | 2017 (facelift) | CVT | Japan | **LF9B003U** | 1216 | 228 | not yet |
+| Levorg 1.6 | 2017 (facelift) | CVT | Japan | **LF9B200U** | 1216 | 228 | not yet |
+| Levorg 1.6 | 2017 (facelift) | CVT | Europe | **LF9B100G** | 1216 | 228 | not yet |
+| Levorg 1.6 | 2019 (2.5 MB ECU) | CVT | Japan | **LF9D000d** | 1212 | 229 | not yet |
+| Levorg 1.6 | 2019 (2.5 MB ECU) | CVT | Europe | **LF9D100e** | 1212 | 229 | not yet |
+| Levorg 1.6 | 2020 (2.5 MB ECU) | CVT | Japan | **LF9F100P** | 1211 | 231 | not yet |
+| Levorg 1.6 | 2020 (2.5 MB ECU) | CVT | Europe | **LF9F100Q** | 1211 | 231 | not yet |
 
-*Outdated:* LV9N000C is an early calibration that Subaru superseded (its tune is 99.7% the same as LV9N101C's). It
-is still fully supported. When you open it, RomRaider shows its "ECU Revision is Obsolete" notice ("A newer version of
-this ECU revision exists"), with a link to RomRaider's general ECU revision list rather than to this repo. The notice
-can be switched off with its "Always display this message" box or in RomRaider's settings ("Warn me when opening out
-of date image revision"). The EcuFlash definition does not carry this flag.
+</details>
+
+Notes on individual ROMs and credits for the ROMs are in the [definitions README](definitions/README.md#notes-on-individual-roms).
 
 The calibration ID is the ROM's identifier, stored in the ROM itself; RomRaider/EcuFlash
 pick the matching definition from it automatically. A ROM with a different ID is **not supported**, even if it is the
@@ -91,9 +124,9 @@ same model year; flashing with a definition for another ID will corrupt the cali
 
 | Folder | Contents |
 |---|---|
-| `definitions/romraider/` | `FA20DIT_RomRaider.xml`: one file covering every supported ROM. |
-| `definitions/ecuflash/Imperial/`, `definitions/ecuflash/Metric/` | The same EcuFlash definitions in two unit systems (EcuFlash can't switch units itself). Each folder has a base file (every table) plus one small file per ROM; install one of the two. |
-| `logger/` | `FA20DIT_Logger.xml` (stock SSM and OBD parameters, trouble codes) and `FA20DIT_Logger_LogPatch.xml` (stock plus the logging-patch parameters). `FA20DIT_Logger_LogPatch_only.xml` holds only the new parameters, for merging into your own logger file. |
+| `definitions/romraider/` | `FA20DIT_RomRaider.xml`: one file covering every supported 2.0 ROM. `FB16DIT_RomRaider.xml`: the same for the Levorg 1.6. |
+| `definitions/ecuflash/Imperial/`, `definitions/ecuflash/Metric/` | The same EcuFlash definitions in two unit systems (EcuFlash can't switch units itself). Each folder has a base file per engine (every table) plus one small file per ROM; install one of the two. |
+| `logger/` | `FA20DIT_Logger.xml` (stock SSM and OBD parameters, trouble codes; also for the Levorg 1.6) and `FA20DIT_Logger_LogPatch.xml` (stock plus the logging-patch parameters). `FA20DIT_Logger_LogPatch_only.xml` holds only the new parameters, for merging into your own logger file. |
 | `tools/checksum.py`, `tools/checksum.ps1` | Check and fix the ROM checksum of 2 MB and 2.5 MB ROMs (Python, or PowerShell for Windows). **Required for ROMs edited in RomRaider**, and `verify` before any flash (see below). |
 | `tools/logpatch/` | The logging patch: `make_logpatch.py` and one spec per supported ROM. |
 | `docs/guide/` | [The tuning guide](docs/guide/README.md): workflows, how the logic works, appendices and a table reference. |
@@ -102,10 +135,12 @@ same model year; flashing with a definition for another ID will corrupt the cali
 ## Quick start
 
 ### Editing with RomRaider
-1. Add `definitions/romraider/FA20DIT_RomRaider.xml` in RomRaider's Definition Manager.
+1. Add `definitions/romraider/FA20DIT_RomRaider.xml` in RomRaider's Definition Manager (for a Levorg 1.6,
+   `FB16DIT_RomRaider.xml`; having both installed is fine).
 2. Open your ROM. Tables are grouped by purpose (Fueling, Ignition Timing, Boost Control, …) in tuning order.
 3. Set the user level (Settings → User Level) to match what you want to see: **Beginner** and **Intermediate** cover
-   normal tuning; **Debug** shows tables that are off in stock, unused, or only used by the other transmission. Also
+   normal tuning; **Debug** shows tables your ROM's own calibration switches off, tables of unused code paths, and
+   tables only the other transmission uses. Also
    untick "List tables that are above my userlevel" if you want higher-level tables hidden rather than greyed out.
 
 **Trouble codes (DTCs)** are in Diagnostics & Switches → DTC Switches, one table per code, in code order. Each has
@@ -116,7 +151,8 @@ the wrong bit.
 
 ### Editing with EcuFlash
 Pick a unit system: `definitions/ecuflash/Imperial/` (psi, °F, ft-lb, mph) or `definitions/ecuflash/Metric/` (kPa /
-MPa, °C, Nm, km/h). Copy that folder's base file (`FA20DIT_BASE_EcuFlash.xml`, or `FA20DIT_BASE_METRIC_EcuFlash.xml`)
+MPa, °C, Nm, km/h). Copy that folder's base file (`FA20DIT_BASE_EcuFlash.xml`, or `FA20DIT_BASE_METRIC_EcuFlash.xml`;
+for a Levorg 1.6, `FB16DIT_BASE_EcuFlash.xml` or `FB16DIT_BASE_METRIC_EcuFlash.xml`)
 and the file for your ROM into one folder under your EcuFlash metadata folder (for example
 `rommetadata/subaru/FA20DIT/`) and restart EcuFlash. The base file is required: it holds the table definitions, and
 the ROM file only its addresses. Install only one of the two sets: both use the same ROM IDs. Table folders are numbered in tuning order
@@ -132,7 +168,8 @@ Decrement. The [EcuFlash README](definitions/ecuflash/README.md) explains why.
 This ECU checks a 16-bit checksum over the whole flash, and a ROM with a bad checksum won't run. **EcuFlash corrects
 it when you save** a 2015–2018 (2 MB) ROM: those EcuFlash definitions use its built-in `subaruhitachi` checksum module,
 and in EcuFlash 1.44.4870 the saved file is byte-identical to the checksum tool's output. That module gets the 2019+
-(2.5 MB) layout wrong, so the LF9F000R definition doesn't use it: fix those with the checksum tool. **RomRaider can't correct it yet**:
+(2.5 MB) layout wrong, so the 2.5 MB definitions (LF9F000R and the 2019–2020 Levorg 1.6 ROMs) don't use it: fix those
+with the checksum tool. **RomRaider can't correct it yet**:
 RomRaider 1.0.0 and 1.1.0 can't load a checksum module from a definition folder, so the definition can't include one
 until my fix
 ([RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)) is merged and released. Until then, run every ROM edited in RomRaider, and every
@@ -155,7 +192,7 @@ needs only Python 3 (no extra packages).
 
 ### Logging
 
-`logger/FA20DIT_Logger.xml` works with every supported ROM in RomRaider Logger. Over SSM it has 46 parameters and
+`logger/FA20DIT_Logger.xml` works with every supported ROM in RomRaider Logger, the Levorg 1.6 included. Over SSM it has 46 parameters and
 shows pending and stored trouble codes in the DTC tab. Switch the logger protocol to OBD for 32 standard OBD-II
 parameters, including actual fuel rail pressure. On a stock ROM some of the most useful values (feedback knock
 correction, target boost, target torque, combustion mode, the rail-pressure target) can't be read with RomRaider at
@@ -173,7 +210,7 @@ and the checksum is fixed for you. Patch your own (stock or tuned) ROM with the 
 python3 tools/logpatch/make_logpatch.py tools/logpatch/specs/logpatch_LF75404S.json your_rom.bin your_rom_logpatch.bin
 ```
 
-The tool refuses a ROM of another calibration ID, a ROM whose checksum is already bad, and any slot that is not
+There is no logging patch for the Levorg 1.6 ROMs yet. The tool refuses a ROM of another calibration ID, a ROM whose checksum is already bad, and any slot that is not
 unused. Then log with `logger/FA20DIT_Logger_LogPatch.xml` (parameters L01–L24). The patch uses the same slots on
 every supported ROM, so one logger file covers all of them.
 
@@ -226,6 +263,13 @@ Every table whose unit depends on the system has both an imperial and a metric s
 - **Hard limits in the code** that no table changes: manifold pressure reads at most 256 kPa absolute (about 22.4 psi
   boost at sea level); the overboost cut can't trigger above about 236 kPa absolute; engine load is clamped at
   3.31 g/rev. See the guide's [hard limits chapter](docs/guide/C11.md).
+- **Levorg 1.6 (FB16DIT).** These ECUs run the same software as the 2.0 ROM of the same version, and their
+  definitions were carried over from it through the identical code, then checked where the code differs. The
+  descriptions were written on the 2.0, and I have not re-read every one against the 1.6. There is no logging patch for
+  them yet, and the CAN dictionary covers only three of them.
+- **User levels are set per ROM.** A table that one ROM's calibration switches off is at Debug level there and at
+  Advanced on a ROM that uses it. On the 2016 and later 2.0 ROMs about 150 such tables could not be checked
+  individually and stay at Debug.
 - **Partial ports.** LF78001H and the LV9N images have fewer tables than the WRX images; tables I could not place with
   confidence are left out rather than guessed.
 
@@ -243,10 +287,10 @@ file (open it with these definitions, or submit it as below and I'll identify it
 ([module list](https://ecutools.eu/chip-tuning/pcmflash/#subproduct-group-8037)). I haven't tested it on these ECUs
 myself, so treat it as an alternative to EcuFlash rather than a recommendation.
 
-The 2019 and later WRX ECUs (and presumably other DIT cars) have 2.5 MB of flash. A 2 MB read of one of those is
+The 2019 and later ECUs (WRX, Levorg and presumably other DIT cars) have 2.5 MB of flash. A 2 MB read of one of those is
 incomplete. EcuFlash has a 2.5 MB memory model, SH72544R: with the read template
 `read_subaruhitachish72544.xml` (in both [`Imperial`](definitions/ecuflash/Imperial/read_subaruhitachish72544.xml) and `Metric`) in your
-EcuFlash definitions folder, EcuFlash offers a 2560k read for these ECUs and can open 2.5 MB files (thanks to reokov for the tip):
+EcuFlash definitions folder, EcuFlash offers a 2560k read for these ECUs and can open 2.5 MB files:
 
 ![EcuFlash read templates: the 2048k SH72543R entry and the new 2560k SH72544R entry](docs/images/ecuflash_sh72544r_read_template.png)
 

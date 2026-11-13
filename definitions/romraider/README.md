@@ -1,14 +1,14 @@
 # RomRaider definition
 
-`FA20DIT_RomRaider.xml` covers every supported ROM in one file; RomRaider picks the right section from the ROM's
-calibration ID.
+`FA20DIT_RomRaider.xml` covers every supported 2.0 ROM in one file, and `FB16DIT_RomRaider.xml` every supported
+Levorg 1.6 ROM; RomRaider picks the right section from the ROM's calibration ID. Both can be installed together.
 
-The file uses RomRaider's inheritance to stay small (about 20 MB instead of 75 MB): the tables common to every ROM are
-in a shared `FA20DIT_BASE` section, which never matches a ROM, and each ROM's section lists only its own addresses and
-tables. If you see `FA20DIT_BASE` in the Definition Manager, that's expected.
+Each file uses RomRaider's inheritance to stay small (about 12 MB and 8 MB): the tables common to every ROM are in a
+shared `FA20DIT_BASE` / `FB16DIT_BASE` section, which never matches a ROM, and each ROM's section lists only its own
+addresses, user levels and tables. If you see a `…_BASE` entry in the Definition Manager, that's expected.
 
-**Install:** RomRaider → ECU Definitions → ECU Definition Manager → Add, select `FA20DIT_RomRaider.xml`, then open your
-ROM.
+**Install:** RomRaider → ECU Definitions → ECU Definition Manager → Add, select `FA20DIT_RomRaider.xml` (Levorg 1.6: `FB16DIT_RomRaider.xml`), then
+open your ROM.
 
 **User levels:** tables are tiered from Beginner to Debug. Set Settings → User Level to choose what you see:
 
@@ -17,7 +17,7 @@ ROM.
 | Beginner | The core tuning tables (fuel, timing, boost, torque, limits). |
 | Intermediate | Their compensations and the tables that have to move with them. |
 | Advanced / Highest | Model, filter and control-loop tables. |
-| Debug | Tables that are off in stock, unused, or only used by the other transmission coding. |
+| Debug | Tables this ROM's own calibration switches off, tables of unused code paths, and tables only the other transmission coding uses. The same table can be at Advanced in another ROM. |
 
 To hide tables above your level instead of showing them greyed out, untick "List tables that are above my userlevel"
 in the settings.

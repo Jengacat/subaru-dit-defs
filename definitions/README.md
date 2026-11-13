@@ -44,10 +44,14 @@ table is found by the same instruction that reads it in the 2.0. Where the code 
 (LF76…) are a software build I have no 2.0 ROM of; they sit between two 2.0 builds and needed the most hand work.
 In the 2014–2017 ROMs the knock background function is a shorter version: it has four extra rows, Knock Background
 Clear Step (Event 1–4). The 2019 and 2020 ROMs are 2.5 MB: EcuFlash can't correct their checksum (use the checksum
-tool), and no open tool writes those ECUs yet. Model years and markets are as the ROMs were supplied.
+tool), and no open tool writes those ECUs yet. Model years and markets are as the ROMs were supplied. The
+descriptions were written on the 2.0 and have not all been re-read against the 1.6.
 
 *User levels differ between ROMs:* a table that a ROM's own calibration switches off is at the Debug level in that
 ROM and at Advanced in a ROM that uses it.
+
+*Partial ports:* LF78001H and the LV9N ROMs have fewer tables than the WRX ROMs; tables I could not place with
+confidence are left out rather than guessed.
 
 ## Credits
 

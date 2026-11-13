@@ -5,7 +5,8 @@
 
 .DESCRIPTION
     Only two things change: the 32-bit pointer words of the spec's slots in the 848-entry index table, and the
-    checksum correction word at 0x1FFFFE (16-bit big-endian word sum 0x6000..0x1FFFFF = 0x5AA5, as checksum.ps1).
+    checksum correction word at the end of the image (0x1FFFFE for 2 MB, 0x27FFFE for 2.5 MB images; 16-bit big-endian
+    word sum from 0x6000 to the end = 0x5AA5, as checksum.ps1).
 
     Refuses to write anything if:
       * the ROM is not 2 MB, its checksum is already bad, or it doesn't contain the spec's calibration ID;
@@ -34,6 +35,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $START  = 0x6000
+$SIZES  = @(0x200000, 0x280000)                 # 2015-2018 (2 MB) and 2019+ (2.5 MB, SH72544R) images
 $END    = 0x200000
 $SUMLOC = 0x1FFFFE
 $TARGET = 0x5AA5
@@ -115,10 +117,16 @@ function Find-Bytes([byte[]]$d, [byte[]]$pat) {
     return $enc.GetString($d).IndexOf($enc.GetString($pat), [System.StringComparison]::Ordinal)
 }
 
+# The checksum covers the whole image, so its end, correction word and end markers follow the image size
+function Set-Size([int]$n) {
+    $script:END = $n; $script:SUMLOC = $n - 2
+}
+
 # Checksum and validity markers, same report as checksum.ps1 / checksum.py
 function Test-Image([byte[]]$d) {
     $ok = $true
-    if ($d.Length -ne $END) { Write-Host ('  size {0}, expected {1}' -f $d.Length, $END); return $false }
+    if ($SIZES -notcontains $d.Length) { Write-Host ('  size {0}, expected {1} or {2}' -f $d.Length, $SIZES[0], $SIZES[1]); return $false }
+    Set-Size $d.Length
     $s = Get-Sum16 -d $d -skip (-1)
     $good = ($s -eq $TARGET)
     if (-not $good) { $ok = $false }
@@ -126,7 +134,7 @@ function Test-Image([byte[]]$d) {
     if (-not $good) { $extra = ' (should be 0x{0:X4})' -f (Get-Correction $d) }
     Write-Host ('  sum16 0x{0:X4}..0x{1:X6} = 0x{2:X4} (need 0x{3:X4}) {4}; correction word 0x{5:X6} = 0x{6:X4}{7}' -f `
         $START, $END, $s, $TARGET, $(if ($good) { 'OK' } else { 'BAD' }), $SUMLOC, (Get-Word $d $SUMLOC), $extra)
-    foreach ($m in @(@(0x6000, 0x5555), @(0x1FFFF2, 0xAAAA))) {
+    foreach ($m in @(@(0x6000, 0x5555), @(($END - 0xE), 0xAAAA))) {
         $v = Get-Word $d $m[0]
         $mok = ($v -eq $m[1])
         if (-not $mok) { $ok = $false }
@@ -136,10 +144,10 @@ function Test-Image([byte[]]$d) {
     $mok = ($a -eq $b)
     if (-not $mok) { $ok = $false }
     Write-Host ('  marker word 0x006C = word 0x6010 (0x{0:X4} / 0x{1:X4}): {2}' -f $a, $b, $(if ($mok) { 'OK' } else { 'BAD' }))
-    $r0 = Get-Word $d 0x1FFFE0; $r1 = Get-Word $d 0x1FFFE2
+    $r0 = Get-Word $d ($END - 0x20); $r1 = Get-Word $d ($END - 0x1E)
     $mok = ($r0 -eq $TARGET -and $r1 -eq $TARGET)
     if (-not $mok) { $ok = $false }
-    Write-Host ('  runtime reference words 0x1FFFE0/E2 = 0x{0:X4}/0x{1:X4}: {2}' -f $r0, $r1, $(if ($mok) { 'OK' } else { 'UNEXPECTED' }))
+    Write-Host ('  runtime reference words 0x{3:X6}/E2 = 0x{0:X4}/0x{1:X4}: {2}' -f $r0, $r1, $(if ($mok) { 'OK' } else { 'UNEXPECTED' }), ($END - 0x20))
     return $ok
 }
 
@@ -166,7 +174,8 @@ function Get-TableInfo([byte[]]$d, [int]$base) {
 
 function Test-Spec($spec, [byte[]]$d) {
     $base = [int](ConvertFrom-Hex $spec.table)
-    if ($d.Length -ne $END) { Stop-Refused ('image size {0}, expected {1}' -f $d.Length, $END) }
+    if ($SIZES -notcontains $d.Length) { Stop-Refused ('image size {0}, expected {1} or {2}' -f $d.Length, $SIZES[0], $SIZES[1]) }
+    Set-Size $d.Length
     # the spec's RAM addresses are per calibration: refuse a ROM with another calibration ID
     if ((Find-Bytes $d ([System.Text.Encoding]::ASCII.GetBytes($spec.calid))) -lt 0) {
         Stop-Refused ('calibration ID {0} not found in the image: this spec is for another ROM' -f $spec.calid)

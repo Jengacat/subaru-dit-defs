@@ -29,14 +29,17 @@ Since the first draft of this release:
   press Increment to flip a code. The mask tables remain as an overview.
 - EcuFlash: the definitions use EcuFlash's `subaruhitachi` checksum module, which corrects the checksum on save
   (byte-identical to the checksum tool in EcuFlash 1.44.4870).
-- EcuFlash: one shared base file plus a small file per ROM (16 MB in total instead of 51 MB). Copy the base file
+- EcuFlash: one shared base file plus a small file per ROM (about 17 MB in total instead of 55 MB). Copy the base file
   along with your ROM's file.
 - Axis names fixed: "Spark Air Compensation Limiter Baro Factor" on LF79100N/LF79100P (was labelled coolant), "A/F
   Sensor Exhaust Model Condensate at Start" (coolant × intake air temperature) and "Cruise Vehicle Speed Filter Weight"
   (speed error × speed).
 - Names for P0140, P0401 and P0402.
 - New: 2019 JDM Levorg STI 2.0 (LF9F000R), the first 2019+ (2.5 MB, SH72544R) ROM: RomRaider and EcuFlash
-  definitions, 1,211 tables, scalars and switches plus 924 DTC switches. Thanks to reokov for the ROM. No logging
-  patch, SSM logger parameters or CAN dictionary for it yet; EcuFlash doesn't correct its checksum.
+  definitions, 1,211 tables, scalars and switches plus 924 DTC switches, the logger (SSM, OBD, DTC tab), the logging
+  patch and the CAN dictionary (now 32 ROMs). Thanks to reokov for the ROM. EcuFlash doesn't correct its checksum.
+- Logger DTC tab: on LF9F000R four positions hold other codes (P226B, P24B9, P24BA, P24BB); those entries name both.
+- New: 2018 Malaysian Forester XT CVT (LF9C000a, lowercase "a"): same code and layout as LF9C000C. RomRaider and
+  EcuFlash definitions, logger, logging patch and CAN dictionary (now 33 ROMs). Thanks to Hafiez STi for the ROM.
 
 Not yet validated on a running engine; see the README's known issues.

@@ -40,16 +40,21 @@ each ROM is in the [table below](#supported-roms).
 | WRX | 2017 | CVT | not confirmed | **LF79100N** | 1207 | 912 | yes |
 | Forester XT | 2017 | CVT | USDM | **LF78103B** | 1195 | 912 | yes |
 | Forester XT | 2017 | CVT | Europe | **LF9C000C** | 1212 | 912 | yes |
+| Forester XT | 2018 | CVT | Malaysia | **LF9C000a** | 1212 | 912 | yes |
 | WRX | 2018 | 6MT | not confirmed | **LF9C100P** | 1212 | 912 | yes |
 | WRX | 2018 | 6MT | USDM | **LF9C001P** | 1212 | 912 | yes |
 | WRX S4 | 2018 | CVT | Japan | **LF9C001K** | 1212 | 912 | yes |
-| Levorg STI 2.0 (2.5 MB ECU) | 2019 | CVT | Japan | **LF9F000R** | 1211 | 924 | not yet |
+| Levorg STI 2.0 (2.5 MB ECU) | 2019 | CVT | Japan | **LF9F000R** | 1211 | 924 | yes |
 
 *2019 Levorg STI (LF9F000R):* this is the first 2019+ ROM (Hitachi SH72544R, 2.5 MB). The calibration is almost the
-same as the 2018 WRX S4's, but the code and layout are new, so check it carefully. Not done yet for it: the logging
-patch, the SSM logger parameters (OBD logging works) and the CAN dictionary. EcuFlash can't correct its checksum: use
+same as the 2018 WRX S4's, but the code and layout are new, so check it carefully. Logging (SSM, OBD, the logging
+patch) and the CAN dictionary cover it too. Four of its trouble codes sit where other ROMs have P0244, P0451, P0452
+and P0453, so in the logger's DTC tab those four names also give its code. EcuFlash can't correct its checksum: use
 the checksum tool (below). Writing a 2.5 MB ECU isn't supported by any open tool yet; see
 [Reading your ECU](#reading-your-ecu).
+
+*Malaysian Forester XT (LF9C000a):* the ID really ends in a lowercase "a". The code and table layout are the same
+as LF9C000C's; only a few calibration bytes differ. Thanks to Hafiez STi for the ROM.
 
 *Outdated:* LV9N000C is an early calibration that Subaru superseded (its tune is 99.7% the same as LV9N101C's). It
 is still fully supported. When you open it, RomRaider shows its "ECU Revision is Obsolete" notice ("A newer version of
@@ -80,7 +85,7 @@ same model year; flashing with a definition for another ID will corrupt the cali
 | `tools/checksum.py`, `tools/checksum.ps1` | Check and fix the ROM checksum of 2 MB and 2.5 MB ROMs (Python, or PowerShell for Windows). **Required for ROMs edited in RomRaider**, and `verify` before any flash (see below). |
 | `tools/logpatch/` | The logging patch: `make_logpatch.py` and one spec per supported ROM. |
 | `docs/guide/` | [The tuning guide](docs/guide/README.md): workflows, how the logic works, appendices and a table reference. |
-| `extras/can/` | The CAN dictionary: every frame the ECU receives and sends, for 31 ROMs, with a DBC for CAN tools and each signal's RAM address per ROM. |
+| `extras/can/` | The CAN dictionary: every frame the ECU receives and sends, for 33 ROMs, with a DBC for CAN tools and each signal's RAM address per ROM. |
 
 ## Quick start
 
@@ -129,8 +134,7 @@ needs only Python 3 (no extra packages).
 
 ### Logging
 
-`logger/FA20DIT_Logger.xml` works with every supported 2015–2018 ROM in RomRaider Logger (for the 2019 Levorg STI,
-OBD only for now). Over SSM it has 46 parameters and
+`logger/FA20DIT_Logger.xml` works with every supported ROM in RomRaider Logger. Over SSM it has 46 parameters and
 shows pending and stored trouble codes in the DTC tab. Switch the logger protocol to OBD for 32 standard OBD-II
 parameters, including actual fuel rail pressure. On a stock ROM some of the most useful values (feedback knock
 correction, target boost, target torque, combustion mode, the rail-pressure target) can't be read with RomRaider at

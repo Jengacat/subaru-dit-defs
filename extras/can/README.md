@@ -1,6 +1,6 @@
 # FA20DIT CAN dictionary
 
-Every CAN frame the FA20DIT engine ECU (Hitachi SH72543R: 2015-2018 WRX, 2014-2018 Levorg, 2016-2018 Forester XT / tS) receives and sends, for **31 complete ROMs**. 500 kbit/s, 11-bit IDs.
+Every CAN frame the FA20DIT engine ECU (Hitachi SH72543R / SH72544R: 2015-2018 WRX, 2014-2019 Levorg, 2016-2018 Forester XT / tS) receives and sends, for **33 complete ROMs**. 500 kbit/s, 11-bit IDs.
 
 ## How this was made
 
@@ -45,16 +45,18 @@ ROMs in one group have the same IDs and use exactly the same bits.
 | E | LF79202U | not stated | JDM | Levorg | CVT (model) | 0x1F7418 |
 | E | LF79300T | not stated | JDM | Levorg | CVT (model) | 0x1F7418 |
 | F | LF9C000C | 2017 | EDM | Forester XT | AT/CVT | 0x1F75B8 |
+| F | LF9C000a | 2018 | Malaysia | Forester XT | AT/CVT | 0x1F75B8 |
 | G | LF9C001K | 2018 | JDM | WRX S4 | AT/CVT | 0x1F72B8 |
 | H | LF9C001P | 2018 | USDM | WRX | MT | 0x1F76B8 |
 | H | LF9C100P | 2018 | USDM | WRX | MT | 0x1F76B8 |
-| I | LV9N000C | 2015 | USDM | Forester XT | AT/CVT | 0x1CB3CC |
-| I | LV9N100A | 2014 | JDM | Levorg 2.0GT-S | CVT (model) | 0x1CB8AC |
-| I | LV9N100B | 2015 | JDM | WRX S4 | AT/CVT | 0x1CB8AC |
-| I | LV9N100F | 2015 | ADM | WRX | MT | 0x1CB8AC |
-| I | LV9N101C | 2015 | USDM | WRX | AT/CVT | 0x1CB8AC |
-| I | LV9N101F | 2015 | not confirmed | WRX | MT | 0x1CB8AC |
-| I | LV9N101I | 2015 | GCC | WRX | MT | 0x1CB8AC |
+| I | LF9F000R | 2019 | JDM | Levorg 2.0 STI | AT/CVT | 0x277574 |
+| J | LV9N000C | 2015 | USDM | Forester XT | AT/CVT | 0x1CB3CC |
+| J | LV9N100A | 2014 | JDM | Levorg 2.0GT-S | CVT (model) | 0x1CB8AC |
+| J | LV9N100B | 2015 | JDM | WRX S4 | AT/CVT | 0x1CB8AC |
+| J | LV9N100F | 2015 | ADM | WRX | MT | 0x1CB8AC |
+| J | LV9N101C | 2015 | USDM | WRX | AT/CVT | 0x1CB8AC |
+| J | LV9N101F | 2015 | not confirmed | WRX | MT | 0x1CB8AC |
+| J | LV9N101I | 2015 | GCC | WRX | MT | 0x1CB8AC |
 
 What differs between groups (everything else is identical in all groups):
 
@@ -62,10 +64,11 @@ What differs between groups (everything else is identical in all groups):
 * **C** (LF78103B): has 0x162, 0x6FC; no 0x15A, 0x188; also uses 0x361 value_361_b5_6, 0x361 value_361_b7, 0x362 battery_soc_low_nibble; does not use 0x141 charging_flag_AA6Bb7.
 * **D** (LF79002P, LF79100N, LF79100P): has 0x6FC; no 0x15A; also uses 0x362 battery_soc_low_nibble.
 * **E** (LF79100K, LF79100S, LF79200T, LF79202U, LF79300T): also uses 0x362 battery_soc_low_nibble.
-* **F** (LF9C000C): has 0x142, 0x162; no 0x15A, 0x188, 0x362; also uses 0x361 value_361_b5_6, 0x361 value_361_b7, 0x161 rx_161_b5_7_7, 0x368 rx_368_b0_7_7, 0x3D1 rx_3d1_b7_2_6; does not use 0x141 charging_flag_AA6Bb7.
+* **F** (LF9C000C, LF9C000a): has 0x142, 0x162; no 0x15A, 0x188, 0x362; also uses 0x361 value_361_b5_6, 0x361 value_361_b7, 0x161 rx_161_b5_7_7, 0x368 rx_368_b0_7_7, 0x3D1 rx_3d1_b7_2_6; does not use 0x141 charging_flag_AA6Bb7.
 * **G** (LF9C001K): also uses 0x362 battery_soc_low_nibble, 0x0D1 rx_0d1_b3_2_2, 0x161 rx_161_b5_7_7, 0x188 rx_188_b6_6_6, 0x368 rx_368_b0_7_7, 0x3D1 rx_3d1_b7_2_6.
 * **H** (LF9C001P, LF9C100P): has 0x6FC; no 0x15A; also uses 0x362 battery_soc_low_nibble, 0x0D1 rx_0d1_b3_2_2, 0x161 rx_161_b5_7_7, 0x188 rx_188_b6_6_6, 0x368 rx_368_b0_7_7, 0x3D1 rx_3d1_b7_2_6.
-* **I** (LV9N000C, LV9N100A, LV9N100B, LV9N100F, LV9N101C, LV9N101F, LV9N101I): does not use 0x148 tcm148_b7_bit4, 0x148 tcm148_b7_bit5, 0x152 bcm152_b6_bit2, 0x361 flag_88E13b1, 0x361 flag_88E13b2.
+* **I** (LF9F000R): also uses 0x362 battery_soc_low_nibble, 0x0D1 rx_0d1_b3_2_2, 0x140 tx_140_b7_4_4, 0x161 rx_161_b5_7_7, 0x188 rx_188_b6_6_6, 0x368 rx_368_b0_7_7, 0x3D1 rx_3d1_b7_2_6.
+* **J** (LV9N000C, LV9N100A, LV9N100B, LV9N100F, LV9N101C, LV9N101F, LV9N101I): does not use 0x148 tcm148_b7_bit4, 0x148 tcm148_b7_bit5, 0x152 bcm152_b6_bit2, 0x361 flag_88E13b1, 0x361 flag_88E13b2.
 
 ## Messages
 
@@ -83,15 +86,15 @@ What differs between groups (everything else is identical in all groups):
 | 0x148 | ECU receives | TCM | timeout 20 ms | 8 | all |
 | 0x149 | ECU receives | TCM | timeout 20 ms | 8 | all |
 | 0x152 | ECU receives | BCM | timeout 30 ms | 8 | all |
-| 0x15A | ECU receives | unknown | timeout 30 ms | 8 | A, E, G, I |
+| 0x15A | ECU receives | unknown | timeout 30 ms | 8 | A, E, G, I, J |
 | 0x161 | ECU receives | unknown driver-assist/cruise unit | timeout 60 ms | 8 | all |
 | 0x162 | ECU receives | unknown sender |  | 8 | B, C, F |
-| 0x188 | ECU receives | unknown | timeout 40 ms | 8 | A, D, E, G, H, I |
+| 0x188 | ECU receives | unknown | timeout 40 ms | 8 | A, D, E, G, H, I, J |
 | 0x280 | ECU receives | unknown, A/C-related | timeout 30 ms | 8 | all |
 | 0x282 | ECU receives | combination meter | timeout 60 ms | 8 | all |
 | 0x360 | ECU sends | ECM | 50 ms | 8 | all |
 | 0x361 | ECU sends | ECM | 50 ms | 8 | all |
-| 0x362 | ECU sends | ECM | 50 ms | 8 | A, C, D, E, G, H, I |
+| 0x362 | ECU sends | ECM | 50 ms | 8 | A, C, D, E, G, H, I, J |
 | 0x368 | ECU receives | TCM | timeout 60 ms | 8 | all |
 | 0x370 | ECU receives | unknown | timeout 60 ms | 8 | all |
 | 0x372 | ECU receives | unknown | timeout 110 ms | 8 | all |
@@ -119,7 +122,7 @@ What differs between groups (everything else is identical in all groups):
 |---|---|---|---|---|---|---|
 | 0-1 | LE u16 | vehicle_speed | km/h x 0.05625 | -> 0x118D9C -> FFF8B4C2 -> 0x06C21C -> FFF88BE8 (ECU vehicle speed, x17.78) and FFF99835 (km/h); fallback 10 km/h on VDC fault | read | all |
 | 2 | all | brake_pressure | raw | brake override 0x181B38 (FFF8AC94), 0x0DE0E0, 0x0EE338, 0x111AB8 | inferred | all |
-| 3 | 2 | rx_0d1_b3_2_2 | raw | Used only by the ROMs listed; meaning not determined. | read (meaning unknown) | G, H |
+| 3 | 2 | rx_0d1_b3_2_2 | raw | Used only by the ROMs listed; meaning not determined. | read (meaning unknown) | G, H, I |
 
 ### 0x0D2 (received, from VDC)
 
@@ -173,6 +176,7 @@ What differs between groups (everything else is identical in all groups):
 | 7 | 0 | throttle_closed | flag | Throttle byte FFF8CD77 <= cal 0x3550C (3), +cal 0x3550D (2) hysteresis: throttle (nearly) closed | read | all |
 | 7 | 1 | status_89AB6 | flag | FFF89AB6 != 0; 89AB6 set/cleared by a serial handshake in 0x090E8A/0x09203A (not decoded) | unknown | all |
 | 7 | 2 | pin_PA2 | flag | Raw discrete input A29A b4 = pin PA2 (active low) masked by cal 0x5693A (=0) | read (meaning unknown) | all |
+| 7 | 4 | tx_140_b7_4_4 | raw | Used only by the ROMs listed; meaning not determined. | read (meaning unknown) | I |
 | 7 | 5 | accessory_load_flag | flag | FFF8A8A0 b0, or (coding FFF811DC != 0x5A) input FFF88BC6 b4 (pin PA4); the flag that enables Idle Air Adder (CAN 0x280 Stage) | read/inferred | all |
 
 ### 0x141 (sent)
@@ -193,7 +197,7 @@ What differs between groups (everything else is identical in all groups):
 | 7 | 3 | flag_A64Cb1 | flag | copy | unknown | all |
 | 7 | 4 | drive_mode_flag_A643 | flag | FFF8A643 in {1,2,3} | read (meaning unknown) | all |
 | 7 | 5 | drive_mode_req_4 | flag | Last accepted requested mode A8C2 == 4 | read | all |
-| 7 | 6 | charging_flag_AA6Bb7 | flag | Charging-control module 0x13741C status bit (sent while cal 0x57584 b4 = 0) | unknown | A, D, E, G, H, I |
+| 7 | 6 | charging_flag_AA6Bb7 | flag | Charging-control module 0x13741C status bit (sent while cal 0x57584 b4 = 0) | unknown | A, D, E, G, H, I, J |
 | 7 | 7 | booster_sensor_fault | flag | Brake-booster pressure sensor FFF88D0C out of range low/high (0x071B82, cal 0x57585 b5) | read/inferred | all |
 
 ### 0x142 (sent)
@@ -246,8 +250,8 @@ What differs between groups (everything else is identical in all groups):
 | 7 | 0 | tcm148_b7_bit0 | raw |  | read | all |
 | 7 | 1 | tcm148_b7_bit1 | raw |  | read | all |
 | 7 | 2 | tcm148_b7_bit2 | raw |  | read | all |
-| 7 | 4 | tcm148_b7_bit4 | raw |  | read | A, B, C, D, E, F, G, H |
-| 7 | 5 | tcm148_b7_bit5 | raw |  | read | A, B, C, D, E, F, G, H |
+| 7 | 4 | tcm148_b7_bit4 | raw |  | read | A, B, C, D, E, F, G, H, I |
+| 7 | 5 | tcm148_b7_bit5 | raw |  | read | A, B, C, D, E, F, G, H, I |
 
 ### 0x149 (received, from TCM)
 
@@ -275,7 +279,7 @@ What differs between groups (everything else is identical in all groups):
 | 1 | 3 | bcm152_b1_bit3 | raw | 0x11B138 -> FFF8A8A0 b2; 0x11BEDC -> A8A0 b1 | read | all |
 | 1 | 4-7 | bcm152_counter | raw | frozen-counter check 0x0687A8 | read | all |
 | 6 | 0 | bcm152_b6_bit0 | raw | SI-Drive enable term in 0x11A8B0 | read | all |
-| 6 | 2 | bcm152_b6_bit2 | raw |  | read | A, B, C, D, E, F, G, H |
+| 6 | 2 | bcm152_b6_bit2 | raw |  | read | A, B, C, D, E, F, G, H, I |
 | 6 | 3 | bcm152_b6_bit3 | raw |  | read | all |
 | 6 | 4 | bcm152_b6_bit4 | raw |  | read | all |
 | 6 | 5 | bcm152_b6_bit5 | raw | 0x11BDD4 -> FFF8A8A3 b3 | read | all |
@@ -292,11 +296,11 @@ What differs between groups (everything else is identical in all groups):
 
 | Byte | Bits | Name | Scale | Meaning | Confidence | Groups |
 |---|---|---|---|---|---|---|
-| 0 | 0-3 | m15a_counter | raw | frozen check 0x07B208 -> FFF88DD4 b7 | read | A, E, G, I |
-| 2 | 0 | can_restart_req | raw | CAN restart (start-state 5); many readers (0x06A064, 0x06A166, fuel, ignition) | read | A, E, G, I |
-| 2 | 2 | m15a_b2_bit2 | raw |  | read | A, E, G, I |
-| 6 | 0-3 | engine_stop_code | raw | 0x115E08: FFF8A8C5 = 10 when nibble = 1010b -> 0x0827B2 (A6E7 = 3 mode) | read | A, E, G, I |
-| 7 | 0-2 | m15a_b7 | raw | no reader found | read | A, E, G, I |
+| 0 | 0-3 | m15a_counter | raw | frozen check 0x07B208 -> FFF88DD4 b7 | read | A, E, G, I, J |
+| 2 | 0 | can_restart_req | raw | CAN restart (start-state 5); many readers (0x06A064, 0x06A166, fuel, ignition) | read | A, E, G, I, J |
+| 2 | 2 | m15a_b2_bit2 | raw |  | read | A, E, G, I, J |
+| 6 | 0-3 | engine_stop_code | raw | 0x115E08: FFF8A8C5 = 10 when nibble = 1010b -> 0x0827B2 (A6E7 = 3 mode) | read | A, E, G, I, J |
+| 7 | 0-2 | m15a_b7 | raw | no reader found | read | A, E, G, I, J |
 
 ### 0x161 (received, from unknown driver-assist/cruise unit)
 
@@ -307,7 +311,7 @@ What differs between groups (everything else is identical in all groups):
 | 3 | all | m161_b3 | raw | 0x118234 -> FFF8A8EE, 0x119624/0x1196E0 -> FFF8A8A4 b1/b2 | read | all |
 | 5 | 2 | m161_b5_bit2 | raw |  | read | all |
 | 5 | 4-6 | m161_counter | raw |  | read | all |
-| 5 | 7 | rx_161_b5_7_7 | raw | Used only by the ROMs listed; meaning not determined. | read (meaning unknown) | F, G, H |
+| 5 | 7 | rx_161_b5_7_7 | raw | Used only by the ROMs listed; meaning not determined. | read (meaning unknown) | F, G, H, I |
 | 6 | 0-2 | m161_switch_code | raw | 0x10F504 -> FFF8A895 = CAN cruise switch code (used when FFF811E1 b4 and cal 0x36584 = 1) | read | all |
 | 6 | 3 | m161_b6_bit3 | raw |  | read | all |
 | 7 | all | m161_checksum | raw |  | read | all |
@@ -322,9 +326,9 @@ What differs between groups (everything else is identical in all groups):
 
 | Byte | Bits | Name | Scale | Meaning | Confidence | Groups |
 |---|---|---|---|---|---|---|
-| 2 | 1-3 | m188_counter | raw | frozen-counter check 0x068D2E -> FFF8A8A8 b6 | read | A, D, E, G, H, I |
-| 4 | 0-2 | m188_code | raw | -> 0x1106D0 -> FFF8A89D (b0 + 2*b1 + 4*b2, 0 if b1 and b2) -> 0x11A060: FFF8A8A1 b3 = (code 5 for cal 0x35A94 = 70 passes) | read | A, D, E, G, H, I |
-| 6 | 6 | rx_188_b6_6_6 | raw | Used only by the ROMs listed; meaning not determined. | read (meaning unknown) | G, H |
+| 2 | 1-3 | m188_counter | raw | frozen-counter check 0x068D2E -> FFF8A8A8 b6 | read | A, D, E, G, H, I, J |
+| 4 | 0-2 | m188_code | raw | -> 0x1106D0 -> FFF8A89D (b0 + 2*b1 + 4*b2, 0 if b1 and b2) -> 0x11A060: FFF8A8A1 b3 = (code 5 for cal 0x35A94 = 70 passes) | read | A, D, E, G, H, I, J |
+| 6 | 6 | rx_188_b6_6_6 | raw | Used only by the ROMs listed; meaning not determined. | read (meaning unknown) | G, H, I |
 
 ### 0x280 (received, from unknown, A/C-related)
 
@@ -389,9 +393,9 @@ What differs between groups (everything else is identical in all groups):
 | Byte | Bits | Name | Scale | Meaning | Confidence | Groups |
 |---|---|---|---|---|---|---|
 | 0 | 0-2 | gear_calc | gear x 1 | Gear 1..6 binary from 0x114230 (20 ms gear logic; shift-indicator gear, inferred) | inferred | all |
-| 0 | 3 | flag_88E13b1 | flag | 0 on this ROM (cal 0x57585 b3 = 0 holds init) | read | A, B, C, D, E, F, G, H |
+| 0 | 3 | flag_88E13b1 | flag | 0 on this ROM (cal 0x57585 b3 = 0 holds init) | read | A, B, C, D, E, F, G, H, I |
 | 0 | 4 | maint_flag_811E0 | flag | Backup-RAM flag from 0x11BB08 (counters 1148C/1148E, A8D1); maintenance-type reminder (guess) | unknown | all |
-| 0 | 5 | flag_88E13b2 | flag | 0 on this ROM (cal 0x57585 b3 = 0) | read | A, B, C, D, E, F, G, H |
+| 0 | 5 | flag_88E13b2 | flag | 0 on this ROM (cal 0x57585 b3 = 0) | read | A, B, C, D, E, F, G, H, I |
 | 1 | 0-3 | coding_bits | raw | From cal 0x58B7A -> 0b0001 on this ROM | read | all |
 | 1 | 5-7 | mil_code | code x 1 | 88E69 b1/b2 -> 4 (flash phase on), 1 (lamp off / flash off phase), 0 (steady on); init 1 | read/inferred | all |
 | 2 | all | booster_pressure_raw | ADC raw x 256 | Brake-booster pressure sensor A/D high byte (Phase 18 D) | read/inferred | all |
@@ -408,22 +412,22 @@ What differs between groups (everything else is identical in all groups):
 
 | Byte | Bits | Name | Scale | Meaning | Confidence | Groups |
 |---|---|---|---|---|---|---|
-| 0-1 | LE u16 | battery_current | A x 0.004 -125 | (raw - 1875000)/4 of LIN battery-sensor word FFF89074 (I = raw/1000 - 2000 A, from the SOC integrator 0x139798), clamp -125..+125 A; 0xFFFF invalid | read/inferred | A, C, D, E, G, H, I |
-| 2 | all | lin_value_907A | raw | LIN battery-sensor 9-bit value, clamp 250, 0xFF invalid (init 120) | unknown | A, C, D, E, G, H, I |
-| 3 | all | battery_soc | % x 0.5 | Battery state of charge (B72C = % x 10, 0x139798) | read/inferred | A, C, D, E, G, H, I |
-| 4 | all | lin_value_89084 | raw x 8 | LIN battery-sensor value; 0xFF invalid | unknown | A, C, D, E, G, H, I |
-| 5 | all | lin_value_89258 | raw x 8 | LIN battery-sensor value; 0xFF invalid | unknown | A, C, D, E, G, H, I |
-| 6 | all | lin_value_928E | raw x 64 | LIN battery-sensor value; 0xFF invalid | unknown | A, C, D, E, G, H, I |
-| 7 | 0 | lin_fault_flag | flag | 89245 b2 or b1 (LIN status) while cal 0x57584 b4 = 0 | inferred | A, C, D, E, G, H, I |
-| 7 | 1 | lin_status_89245b0 | flag | 0x096740 (LIN status) | unknown | A, C, D, E, G, H, I |
-| 7 | 2 | lin_flag_88E0Eb2 | flag | Set/cleared by the LIN receiver 0x097B06/0x097C12 | unknown | A, C, D, E, G, H, I |
-| 7 | 4-7 | battery_soc_low_nibble | raw | Low 4 bits of the battery state-of-charge byte (the value in byte 3). Packed by the 2017-2018 and Levorg ROMs; LF75404S leaves bits 4-7 at 0. | read | C, D, E, G, H |
+| 0-1 | LE u16 | battery_current | A x 0.004 -125 | (raw - 1875000)/4 of LIN battery-sensor word FFF89074 (I = raw/1000 - 2000 A, from the SOC integrator 0x139798), clamp -125..+125 A; 0xFFFF invalid | read/inferred | A, C, D, E, G, H, I, J |
+| 2 | all | lin_value_907A | raw | LIN battery-sensor 9-bit value, clamp 250, 0xFF invalid (init 120) | unknown | A, C, D, E, G, H, I, J |
+| 3 | all | battery_soc | % x 0.5 | Battery state of charge (B72C = % x 10, 0x139798) | read/inferred | A, C, D, E, G, H, I, J |
+| 4 | all | lin_value_89084 | raw x 8 | LIN battery-sensor value; 0xFF invalid | unknown | A, C, D, E, G, H, I, J |
+| 5 | all | lin_value_89258 | raw x 8 | LIN battery-sensor value; 0xFF invalid | unknown | A, C, D, E, G, H, I, J |
+| 6 | all | lin_value_928E | raw x 64 | LIN battery-sensor value; 0xFF invalid | unknown | A, C, D, E, G, H, I, J |
+| 7 | 0 | lin_fault_flag | flag | 89245 b2 or b1 (LIN status) while cal 0x57584 b4 = 0 | inferred | A, C, D, E, G, H, I, J |
+| 7 | 1 | lin_status_89245b0 | flag | 0x096740 (LIN status) | unknown | A, C, D, E, G, H, I, J |
+| 7 | 2 | lin_flag_88E0Eb2 | flag | Set/cleared by the LIN receiver 0x097B06/0x097C12 | unknown | A, C, D, E, G, H, I, J |
+| 7 | 4-7 | battery_soc_low_nibble | raw | Low 4 bits of the battery state-of-charge byte (the value in byte 3). Packed by the 2017-2018 and Levorg ROMs; LF75404S leaves bits 4-7 at 0. | read | C, D, E, G, H, I |
 
 ### 0x368 (received, from TCM)
 
 | Byte | Bits | Name | Scale | Meaning | Confidence | Groups |
 |---|---|---|---|---|---|---|
-| 0 | 7 | rx_368_b0_7_7 | raw | Used only by the ROMs listed; meaning not determined. | read (meaning unknown) | F, G, H |
+| 0 | 7 | rx_368_b0_7_7 | raw | Used only by the ROMs listed; meaning not determined. | read (meaning unknown) | F, G, H, I |
 | 1 | 4 | tcm368_b1_bit4 | raw |  | read | all |
 | 1 | 5 | tcm368_b1_bit5 | raw |  | read | all |
 | 1 | 6 | tcm368_b1_bit6 | raw | -> 0x10F434 -> FFF8A88E (0..3) -> cruise 0x165AC4/0x167988 | read | all |
@@ -451,7 +455,7 @@ What differs between groups (everything else is identical in all groups):
 | Byte | Bits | Name | Scale | Meaning | Confidence | Groups |
 |---|---|---|---|---|---|---|
 | 0-1 | LE, 13 bits from bit 0 | ambient_temp_raw | raw | 0x1FFF = startup/invalid, 0x1FFE = frame lost; filtered FFF8924A (0x071DC6) checked by P0072/P0073 (0x071E14: <3523 -> P0073, >4873 -> P0072) | inferred | all |
-| 7 | 2-6 | rx_3d1_b7_2_6 | raw | Used only by the ROMs listed; meaning not determined. | read (meaning unknown) | F, G, H |
+| 7 | 2-6 | rx_3d1_b7_2_6 | raw | Used only by the ROMs listed; meaning not determined. | read (meaning unknown) | F, G, H, I |
 
 ### 0x660 (received, from BCM group)
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- FA20DIT logger definition for RomRaider (LF75404S, LF75300H, LF78001H, LF79002P, LF79100P, LF9C100P, LF9C000C, LV9N100F, LV9N101C, LV9N000C and the eleven same-code calibrations LF75300S/F/L, LF75301K/P, LV9N101F/I, LV9N100B, LF79100N, LF9C001K, LF9C001P, plus LF78103B and LF75200T).
-     SSM: service 0xA8 on this ECU takes table indices, not memory addresses (handlers 0x0B551E / 0x0C58BC / 0x0BE382); every index used here was checked in all twelve software builds.
+<!-- FA20DIT logger definition for RomRaider (LF75404S, LF75300H, LF78001H, LF79002P, LF79100P, LF9C100P, LF9C000C, LV9N100F, LV9N101C, LV9N000C and the twelve same-code calibrations LF75300S/F/L, LF75301K/P, LV9N101F/I, LV9N100B, LF79100N, LF9C001K, LF9C001P, LF9C000a, plus LF78103B, LF75200T and the 2019 LF9F000R).
+     SSM: service 0xA8 on this ECU takes table indices, not memory addresses (handlers 0x0B551E / 0x0C58BC / 0x0BE382 / 0x0D368E); every index used here was checked in all thirteen software builds.
      OBD: standard mode 01 PIDs for RomRaider's OBD protocol (Settings > Logger Protocol); the PID set is the same in all twelve software builds. -->
 <logger version="FA20DIT-0.2">
  <protocols>
@@ -361,7 +361,7 @@
     <dtcode id="D061" name="P0563 System Voltage High" desc="P0563 (SSM pending byte index 0x0A9 / stored 0x0C9, bit 7; read)" tmpaddr="0x0000A9" memaddr="0x0000C9" bit="7"/>
     <dtcode id="D062" name="P0245 Turbocharger Wastegate Solenoid A Low" desc="P0245 (SSM pending byte index 0x0AA / stored 0x0CA, bit 0; read)" tmpaddr="0x0000AA" memaddr="0x0000CA" bit="0"/>
     <dtcode id="D063" name="P0246 Turbocharger Wastegate Solenoid A High" desc="P0246 (SSM pending byte index 0x0AA / stored 0x0CA, bit 1; read)" tmpaddr="0x0000AA" memaddr="0x0000CA" bit="1"/>
-    <dtcode id="D064" name="P0244 Turbocharger Wastegate Solenoid A Range/Performance" desc="P0244 (SSM pending byte index 0x0AA / stored 0x0CA, bit 3; read)" tmpaddr="0x0000AA" memaddr="0x0000CA" bit="3"/>
+    <dtcode id="D064" name="P0244 Turbocharger Wastegate Solenoid A Range/Performance (P226B on LF9F000R)" desc="P0244 (SSM pending byte index 0x0AA / stored 0x0CA, bit 3; read)" tmpaddr="0x0000AA" memaddr="0x0000CA" bit="3"/>
     <dtcode id="D065" name="P0230 Fuel Pump Primary Circuit" desc="P0230 (SSM pending byte index 0x126 / stored 0x12E, bit 1; read)" tmpaddr="0x000126" memaddr="0x00012E" bit="1"/>
     <dtcode id="D066" name="P0068 MAP/MAF - Throttle Position Correlation" desc="P0068 (SSM pending byte index 0x126 / stored 0x12E, bit 3; read)" tmpaddr="0x000126" memaddr="0x00012E" bit="3"/>
     <dtcode id="D067" name="P0101 Mass Air Flow Circuit Range/Performance" desc="P0101 (SSM pending byte index 0x126 / stored 0x12E, bit 7; read)" tmpaddr="0x000126" memaddr="0x00012E" bit="7"/>
@@ -435,8 +435,8 @@
     <dtcode id="D135" name="P2420 Evaporative Emission System Switching Valve Control Circuit High" desc="P2420 (SSM pending byte index 0x267 / stored 0x26C, bit 3; read)" tmpaddr="0x000267" memaddr="0x00026C" bit="3"/>
     <dtcode id="D136" name="P2419 Evaporative Emission System Switching Valve Control Circuit Low" desc="P2419 (SSM pending byte index 0x267 / stored 0x26C, bit 4; read)" tmpaddr="0x000267" memaddr="0x00026C" bit="4"/>
     <dtcode id="D137" name="P2401 Evaporative Emission System Leak Detection Pump Control Circuit Low" desc="P2401 (SSM pending byte index 0x267 / stored 0x26C, bit 5; read)" tmpaddr="0x000267" memaddr="0x00026C" bit="5"/>
-    <dtcode id="D138" name="P0453 Evaporative Emission System Pressure Sensor High" desc="P0453 (SSM pending byte index 0x267 / stored 0x26C, bit 6; read)" tmpaddr="0x000267" memaddr="0x00026C" bit="6"/>
-    <dtcode id="D139" name="P0452 Evaporative Emission System Pressure Sensor Low" desc="P0452 (SSM pending byte index 0x267 / stored 0x26C, bit 7; read)" tmpaddr="0x000267" memaddr="0x00026C" bit="7"/>
+    <dtcode id="D138" name="P0453 Evaporative Emission System Pressure Sensor High (P24BB on LF9F000R)" desc="P0453 (SSM pending byte index 0x267 / stored 0x26C, bit 6; read)" tmpaddr="0x000267" memaddr="0x00026C" bit="6"/>
+    <dtcode id="D139" name="P0452 Evaporative Emission System Pressure Sensor Low (P24BA on LF9F000R)" desc="P0452 (SSM pending byte index 0x267 / stored 0x26C, bit 7; read)" tmpaddr="0x000267" memaddr="0x00026C" bit="7"/>
     <dtcode id="D140" name="P015B O2 Sensor Delayed Response - Lean to Rich (Bank 1 Sensor 1)" desc="P015B (SSM pending byte index 0x2A6 / stored 0x2AB, bit 2; read)" tmpaddr="0x0002A6" memaddr="0x0002AB" bit="2"/>
     <dtcode id="D141" name="P015A O2 Sensor Delayed Response - Rich to Lean (Bank 1 Sensor 1)" desc="P015A (SSM pending byte index 0x2A6 / stored 0x2AB, bit 3; read)" tmpaddr="0x0002A6" memaddr="0x0002AB" bit="3"/>
     <dtcode id="D142" name="P014D O2 Sensor Slow Response - Lean to Rich (Bank 1 Sensor 1)" desc="P014D (SSM pending byte index 0x2A6 / stored 0x2AB, bit 6; read)" tmpaddr="0x0002A6" memaddr="0x0002AB" bit="6"/>
@@ -445,7 +445,7 @@
     <dtcode id="D145" name="P1451" desc="P1451 (SSM pending byte index 0x2A7 / stored 0x2AC, bit 1; read)" tmpaddr="0x0002A7" memaddr="0x0002AC" bit="1"/>
     <dtcode id="D146" name="P1449" desc="P1449 (SSM pending byte index 0x2A7 / stored 0x2AC, bit 2; read)" tmpaddr="0x0002A7" memaddr="0x0002AC" bit="2"/>
     <dtcode id="D147" name="P0455 Evaporative Emission System Leak Detected (Large Leak)" desc="P0455 (SSM pending byte index 0x2A7 / stored 0x2AC, bit 3; read)" tmpaddr="0x0002A7" memaddr="0x0002AC" bit="3"/>
-    <dtcode id="D148" name="P0451 Evaporative Emission System Pressure Sensor Range/Performance" desc="P0451 (SSM pending byte index 0x2A7 / stored 0x2AC, bit 4; read)" tmpaddr="0x0002A7" memaddr="0x0002AC" bit="4"/>
+    <dtcode id="D148" name="P0451 Evaporative Emission System Pressure Sensor Range/Performance (P24B9 on LF9F000R)" desc="P0451 (SSM pending byte index 0x2A7 / stored 0x2AC, bit 4; read)" tmpaddr="0x0002A7" memaddr="0x0002AC" bit="4"/>
     <dtcode id="D149" name="P0441 Evaporative Emission System Incorrect Purge Flow" desc="P0441 (SSM pending byte index 0x2A7 / stored 0x2AC, bit 5; read)" tmpaddr="0x0002A7" memaddr="0x0002AC" bit="5"/>
     <dtcode id="D150" name="P219A Bank 1 Air-Fuel Ratio Imbalance" desc="P219A (SSM pending byte index 0x2A7 / stored 0x2AC, bit 7; read)" tmpaddr="0x0002A7" memaddr="0x0002AC" bit="7"/>
     <dtcode id="D151" name="P2404 Evaporative Emission System Leak Detection Pump Sense Circuit Range/Performance" desc="P2404 (SSM pending byte index 0x2A8 / stored 0x2AD, bit 5; read)" tmpaddr="0x0002A8" memaddr="0x0002AD" bit="5"/>

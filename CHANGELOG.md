@@ -4,6 +4,8 @@
 
 First public release.
 
+- README: PCMFlash is reported to read and write these ECUs and to correct the checksum when it flashes (not
+  tested by me).
 - New: **Low-DAM boost cut** (Boost Feedback & Compensations, Advanced level), all ROMs: four values for a latch that
   forces wastegate duty to 0 % when DAM drops below a threshold, armed by a pass over the fine-learning knock cells
   (Arming Count, Cell Threshold, DAM Threshold, DAM Release). Switched off in every stock calibration.

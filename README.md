@@ -181,7 +181,8 @@ with the checksum tool. **RomRaider can't correct it yet**:
 RomRaider 1.0.0 and 1.1.0 can't load a checksum module from a definition folder, so the definition can't include one
 until my fix
 ([RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)) is merged and released. Until then, run every ROM edited in RomRaider, and every
-2.5 MB ROM, through the checksum tool. Either way, confirm the file you're about to flash with `verify`:
+2.5 MB ROM, through the checksum tool. **PCMFlash** is reported to correct the checksum as it writes (not tested by me;
+see [Reading your ECU](#reading-your-ecu)). Either way, confirm the file you're about to flash with `verify`:
 
 ```
 python3 tools/checksum.py fix  edited.bin  edited_fixed.bin
@@ -251,7 +252,8 @@ Every table whose unit depends on the system has both an imperial and a metric s
 
 - **Untested on hardware.** No ROM edited with these definitions has been flashed and driven yet. Start from a known
   good stock read, change little at a time and log everything.
-- **Checksum.** EcuFlash corrects it on save (checked in EcuFlash 1.44.4870). RomRaider can't load a
+- **Checksum.** EcuFlash corrects it on save (checked in EcuFlash 1.44.4870), and PCMFlash is reported to correct it
+  when it flashes (not tested by me). RomRaider can't load a
   checksum module from a definition folder in versions 1.0.0 and 1.1.0; my fix is in
   [RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248), and once it is merged and released the RomRaider definition will correct the
   checksum on save. Until then, use `tools/checksum.py` or `tools/checksum.ps1` (above) on ROMs edited in RomRaider
@@ -291,9 +293,10 @@ EcuFlash may not show the calibration ID if it has no definition for the ROM yet
 file (open it with these definitions, or submit it as below and I'll identify it).
 
 **PCMFlash** (commercial, licensed per module) is another option for reading and writing. Its "Subaru Hitachi" module
-(module 16) lists the SH72543 / 2 MB ECU used in these cars, with reading, writing and checksum correction
-([module list](https://ecutools.eu/chip-tuning/pcmflash/#subproduct-group-8037)). I haven't tested it on these ECUs
-myself, so treat it as an alternative to EcuFlash rather than a recommendation.
+(module 16) lists the SH72543 / 2 MB ECU used in these cars
+([module list](https://ecutools.eu/chip-tuning/pcmflash/#subproduct-group-8037)), and it has been reported to me that
+it reads and writes these ECUs and **corrects the checksum when it flashes**. I haven't tested it on these ECUs myself,
+so treat it as an alternative to EcuFlash rather than a recommendation, and still run `verify` on the file first.
 
 The 2019 and later ECUs (WRX, Levorg and presumably other DIT cars) have 2.5 MB of flash. A 2 MB read of one of those is
 incomplete. EcuFlash has a 2.5 MB memory model, SH72544R: with the read template

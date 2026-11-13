@@ -46659,7 +46659,9 @@ Details: When used: FFF8A782 = rate-limited (cals 0x32DE2/0x32DE4 = 65535, i.e. 
  </table>
  <table name="Base Timing IAT Compensation 2" category="02.02 Ignition Timing - Timing Compensations" type="2D" level="2" scaling="degrees int8">
   <table name="Intake Air Temp" type="Y Axis" elements="16" scaling="degrees F uint16" />
-  <description>A second IAT curve, looked up with the same input as Base Timing IAT Compensation, multiplied by Base Timing IAT Compensation Multiplier 2 and added to the first term (0x0DFD68, read). The rest of this text is the description of the first curve. When used: FFF8A782 = rate-limited (cals 0x32DE2/0x32DE4 = 65535, i.e. none) value, enabled once FFF8CD5C &gt;= cal 0x37F9E (800 rpm) in running mode FFF8866C = 3 (0x0E0184, read; cal 0x239AE bit 3 clear, so the knock-limit min() is not applied). FFF8A782 is added to the torque-model base timing FFF8A645 (0x0C2C08, A-D path with FFF8A787; E/F path with FFF8A788; my research notes, Ghidra stack args) and to the timing request FFF8A78A/FFF8B10E -&gt; FFF8A789 (0x0E0A30, register args, read), which becomes the spark target FFF8A72A (0x0D9088). It is not a separate term of the final timing sum FFF8A744, but it reaches the fired timing through FFF8A645 (FFF8A645 -&gt; FFF8A76A -&gt; FFF8A76D -&gt; FFF8A74B -&gt; FFF8A744, 0x0DD568 / 0x0DD760 / 0x0DA600 / 0x0D9E40, read). Value = this(IAT FFF88A48) x Base Timing IAT Compensation Multiplier(rpm, load) / 128 (read). Confidence: read.</description>
+  <description>A second timing correction for intake air temperature, only in some software versions: scaled by Base Timing IAT Compensation Multiplier 2 and added to Base Timing IAT Compensation. Where it exists, edit both IAT pairs together.
+
+Details: A second IAT curve, looked up with the same input as Base Timing IAT Compensation, multiplied by Base Timing IAT Compensation Multiplier 2 and added to the first term (0x0DFD68, read). The rest of this text is the description of the first curve. When used: FFF8A782 = rate-limited (cals 0x32DE2/0x32DE4 = 65535, i.e. none) value, enabled once FFF8CD5C &gt;= cal 0x37F9E (800 rpm) in running mode FFF8866C = 3 (0x0E0184, read; cal 0x239AE bit 3 clear, so the knock-limit min() is not applied). FFF8A782 is added to the torque-model base timing FFF8A645 (0x0C2C08, A-D path with FFF8A787; E/F path with FFF8A788; my research notes, Ghidra stack args) and to the timing request FFF8A78A/FFF8B10E -&gt; FFF8A789 (0x0E0A30, register args, read), which becomes the spark target FFF8A72A (0x0D9088). It is not a separate term of the final timing sum FFF8A744, but it reaches the fired timing through FFF8A645 (FFF8A645 -&gt; FFF8A76A -&gt; FFF8A76D -&gt; FFF8A74B -&gt; FFF8A744, 0x0DD568 / 0x0DD760 / 0x0DA600 / 0x0D9E40, read). Value = this(IAT FFF88A48) x Base Timing IAT Compensation Multiplier(rpm, load) / 128 (read). Confidence: read.</description>
  </table>
  <table name="Base Timing IAT Compensation Multiplier" category="02.02 Ignition Timing - Timing Compensations" type="3D" level="2" scaling="multiplier uint8">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint16" />
@@ -46671,7 +46673,9 @@ Details: When used: multiplies Base Timing IAT Compensation, /128 (0x0E0184, rea
  <table name="Base Timing IAT Compensation Multiplier 2" category="02.02 Ignition Timing - Timing Compensations" type="3D" level="2" scaling="multiplier uint8">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint16" />
   <table name="Engine Speed" type="Y Axis" elements="22" scaling="RPM uint16" />
-  <description>The multiplier of Base Timing IAT Compensation 2 (0x0DFD68, read). The rest of this text is the description of the first multiplier. When used: multiplies Base Timing IAT Compensation, /128 (0x0E0184, read). FFF8A782 = rate-limited (cals 0x32DE2/0x32DE4 = 65535, i.e. none) value, enabled once FFF8CD5C &gt;= cal 0x37F9E (800 rpm) in running mode FFF8866C = 3 (0x0E0184, read; cal 0x239AE bit 3 clear, so the knock-limit min() is not applied). FFF8A782 is added to the torque-model base timing FFF8A645 (0x0C2C08, A-D path with FFF8A787; E/F path with FFF8A788; my research notes, Ghidra stack args) and to the timing request FFF8A78A/FFF8B10E -&gt; FFF8A789 (0x0E0A30, register args, read), which becomes the spark target FFF8A72A (0x0D9088). It is not a separate term of the final timing sum FFF8A744, but it reaches the fired timing through FFF8A645 (FFF8A645 -&gt; FFF8A76A -&gt; FFF8A76D -&gt; FFF8A74B -&gt; FFF8A744, 0x0DD568 / 0x0DD760 / 0x0DA600 / 0x0D9E40, read). Axes rpm FFF8CD54 x load FFF8ADE4. Confidence: read.</description>
+  <description>Scales Base Timing IAT Compensation 2 by rpm and load: 0 = no correction from the second curve, 1.0 = the full amount.
+
+Details: The multiplier of Base Timing IAT Compensation 2 (0x0DFD68, read). The rest of this text is the description of the first multiplier. When used: multiplies Base Timing IAT Compensation, /128 (0x0E0184, read). FFF8A782 = rate-limited (cals 0x32DE2/0x32DE4 = 65535, i.e. none) value, enabled once FFF8CD5C &gt;= cal 0x37F9E (800 rpm) in running mode FFF8866C = 3 (0x0E0184, read; cal 0x239AE bit 3 clear, so the knock-limit min() is not applied). FFF8A782 is added to the torque-model base timing FFF8A645 (0x0C2C08, A-D path with FFF8A787; E/F path with FFF8A788; my research notes, Ghidra stack args) and to the timing request FFF8A78A/FFF8B10E -&gt; FFF8A789 (0x0E0A30, register args, read), which becomes the spark target FFF8A72A (0x0D9088). It is not a separate term of the final timing sum FFF8A744, but it reaches the fired timing through FFF8A645 (FFF8A645 -&gt; FFF8A76A -&gt; FFF8A76D -&gt; FFF8A74B -&gt; FFF8A744, 0x0DD568 / 0x0DD760 / 0x0DA600 / 0x0D9E40, read). Axes rpm FFF8CD54 x load FFF8ADE4. Confidence: read.</description>
  </table>
  <table name="Base Timing Coolant Compensation (TGV Open)" category="02.02 Ignition Timing - Timing Compensations" type="2D" level="2" scaling="degrees int16">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees F uint16" />
@@ -47159,7 +47163,9 @@ Details: When used: event slot FFF8CDC0 = 1 (Event 1), knock channel 2 of 8, on 
    <data>7</data>
    <data>8</data>
   </table>
-  <description>Only in software versions with the shorter knock background function. When used: event slot 1, on the knock window where the window flag clears. The longer version of the function subtracts the Knock Background Window Step table of the channel there; this one adds the fixed value of this row instead, one value per knock channel 1-8, and looks the tables up only on the window where the flag sets (0x0E5098, read at instruction level: no NEG / clamp, eight word loads from this row). Confidence: read.</description>
+  <description>Only in software versions with the shorter knock background function: a fixed value per knock channel added to the knock background on the knock window where the window flag clears (event slot 1). Signal processing; leave alone.
+
+Details: Only in software versions with the shorter knock background function. When used: event slot 1, on the knock window where the window flag clears. The longer version of the function subtracts the Knock Background Window Step table of the channel there; this one adds the fixed value of this row instead, one value per knock channel 1-8, and looks the tables up only on the window where the flag sets (0x0E5098, read at instruction level: no NEG / clamp, eight word loads from this row). Confidence: read.</description>
  </table>
  <table name="Knock Background Clear Step (Event 2)" category="02.04 Ignition Timing - Knock Detection" type="2D" level="4" scaling="knock channel level (raw) int16">
   <table name="Knock Channel" type="Static Y Axis" elements="8">
@@ -47172,7 +47178,9 @@ Details: When used: event slot FFF8CDC0 = 1 (Event 1), knock channel 2 of 8, on 
    <data>7</data>
    <data>8</data>
   </table>
-  <description>Only in software versions with the shorter knock background function. When used: event slot 2, on the knock window where the window flag clears. The longer version of the function subtracts the Knock Background Window Step table of the channel there; this one adds the fixed value of this row instead, one value per knock channel 1-8, and looks the tables up only on the window where the flag sets (0x0E5098, read at instruction level: no NEG / clamp, eight word loads from this row). Confidence: read.</description>
+  <description>Only in software versions with the shorter knock background function: a fixed value per knock channel added to the knock background on the knock window where the window flag clears (event slot 2). Signal processing; leave alone.
+
+Details: Only in software versions with the shorter knock background function. When used: event slot 2, on the knock window where the window flag clears. The longer version of the function subtracts the Knock Background Window Step table of the channel there; this one adds the fixed value of this row instead, one value per knock channel 1-8, and looks the tables up only on the window where the flag sets (0x0E5098, read at instruction level: no NEG / clamp, eight word loads from this row). Confidence: read.</description>
  </table>
  <table name="Knock Background Clear Step (Event 3)" category="02.04 Ignition Timing - Knock Detection" type="2D" level="4" scaling="knock channel level (raw) int16">
   <table name="Knock Channel" type="Static Y Axis" elements="8">
@@ -47185,7 +47193,9 @@ Details: When used: event slot FFF8CDC0 = 1 (Event 1), knock channel 2 of 8, on 
    <data>7</data>
    <data>8</data>
   </table>
-  <description>Only in software versions with the shorter knock background function. When used: event slot 3, on the knock window where the window flag clears. The longer version of the function subtracts the Knock Background Window Step table of the channel there; this one adds the fixed value of this row instead, one value per knock channel 1-8, and looks the tables up only on the window where the flag sets (0x0E5098, read at instruction level: no NEG / clamp, eight word loads from this row). Confidence: read.</description>
+  <description>Only in software versions with the shorter knock background function: a fixed value per knock channel added to the knock background on the knock window where the window flag clears (event slot 3). Signal processing; leave alone.
+
+Details: Only in software versions with the shorter knock background function. When used: event slot 3, on the knock window where the window flag clears. The longer version of the function subtracts the Knock Background Window Step table of the channel there; this one adds the fixed value of this row instead, one value per knock channel 1-8, and looks the tables up only on the window where the flag sets (0x0E5098, read at instruction level: no NEG / clamp, eight word loads from this row). Confidence: read.</description>
  </table>
  <table name="Knock Background Clear Step (Event 4)" category="02.04 Ignition Timing - Knock Detection" type="2D" level="4" scaling="knock channel level (raw) int16">
   <table name="Knock Channel" type="Static Y Axis" elements="8">
@@ -47198,7 +47208,9 @@ Details: When used: event slot FFF8CDC0 = 1 (Event 1), knock channel 2 of 8, on 
    <data>7</data>
    <data>8</data>
   </table>
-  <description>Only in software versions with the shorter knock background function. When used: event slot 4, on the knock window where the window flag clears. The longer version of the function subtracts the Knock Background Window Step table of the channel there; this one adds the fixed value of this row instead, one value per knock channel 1-8, and looks the tables up only on the window where the flag sets (0x0E5098, read at instruction level: no NEG / clamp, eight word loads from this row). Confidence: read.</description>
+  <description>Only in software versions with the shorter knock background function: a fixed value per knock channel added to the knock background on the knock window where the window flag clears (event slot 4). Signal processing; leave alone.
+
+Details: Only in software versions with the shorter knock background function. When used: event slot 4, on the knock window where the window flag clears. The longer version of the function subtracts the Knock Background Window Step table of the channel there; this one adds the fixed value of this row instead, one value per knock channel 1-8, and looks the tables up only on the window where the flag sets (0x0E5098, read at instruction level: no NEG / clamp, eight word loads from this row). Confidence: read.</description>
  </table>
  <table name="Knock Background Window Step (Event 1, Channel 3)" category="02.04 Ignition Timing - Knock Detection" type="3D" level="4" scaling="knock channel level (raw) int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8" />
@@ -50049,16 +50061,22 @@ Details: Convention (read, see FU_UNITS): crank degrees of intake cam ADVANCE fr
  <table name="Intake Cam Target Limit" category="06.01 AVCS (Cam Timing) - Intake Targets" type="3D" level="3" scaling="deg advance int16">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8" />
   <table name="Engine Speed" type="Y Axis" elements="20" scaling="RPM uint16" />
-  <description>While FFF8A8B0 bit 7 is set, the intake cam target is capped at Intake Cam Target Limit(rpm, load) + Intake Cam Target Limit Temperature Offset(rpm, load) x Intake Cam Target Limit Temperature Factor(temperature byte FFF88A1F) / 128. While the bit is clear the cap rises from its last value by cal 0x3F13C per pass. The capped target is not allowed below cal 0x3BA7E (0x15D498, read on the Ghidra lift of LF76401R, 2026-11-13). The flag and the temperature input are not identified; the factor axis is taken as degC + 50 (inferred from its range 50..200). Confidence: read.</description>
+  <description>Ceiling on the intake cam target by rpm and load, only in some software versions. It applies while a condition flag (not identified) is set and ramps back up when it clears; Intake Cam Target Limit Temperature Offset x Factor adjust it by a temperature.
+
+Details: While FFF8A8B0 bit 7 is set, the intake cam target is capped at Intake Cam Target Limit(rpm, load) + Intake Cam Target Limit Temperature Offset(rpm, load) x Intake Cam Target Limit Temperature Factor(temperature byte FFF88A1F) / 128. While the bit is clear the cap rises from its last value by cal 0x3F13C per pass. The capped target is not allowed below cal 0x3BA7E (0x15D498, read on the Ghidra lift of LF76401R, 2026-11-13). The flag and the temperature input are not identified; the factor axis is taken as degC + 50 (inferred from its range 50..200). Confidence: read.</description>
  </table>
  <table name="Intake Cam Target Limit Temperature Offset" category="06.01 AVCS (Cam Timing) - Intake Targets" type="3D" level="3" scaling="deg advance int16">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8" />
   <table name="Engine Speed" type="Y Axis" elements="20" scaling="RPM uint16" />
-  <description>While FFF8A8B0 bit 7 is set, the intake cam target is capped at Intake Cam Target Limit(rpm, load) + Intake Cam Target Limit Temperature Offset(rpm, load) x Intake Cam Target Limit Temperature Factor(temperature byte FFF88A1F) / 128. While the bit is clear the cap rises from its last value by cal 0x3F13C per pass. The capped target is not allowed below cal 0x3BA7E (0x15D498, read on the Ghidra lift of LF76401R, 2026-11-13). The flag and the temperature input are not identified; the factor axis is taken as degC + 50 (inferred from its range 50..200). Confidence: read.</description>
+  <description>Amount added to Intake Cam Target Limit by rpm and load, scaled by Intake Cam Target Limit Temperature Factor.
+
+Details: While FFF8A8B0 bit 7 is set, the intake cam target is capped at Intake Cam Target Limit(rpm, load) + Intake Cam Target Limit Temperature Offset(rpm, load) x Intake Cam Target Limit Temperature Factor(temperature byte FFF88A1F) / 128. While the bit is clear the cap rises from its last value by cal 0x3F13C per pass. The capped target is not allowed below cal 0x3BA7E (0x15D498, read on the Ghidra lift of LF76401R, 2026-11-13). The flag and the temperature input are not identified; the factor axis is taken as degC + 50 (inferred from its range 50..200). Confidence: read.</description>
  </table>
  <table name="Intake Cam Target Limit Temperature Factor" category="06.01 AVCS (Cam Timing) - Intake Targets" type="2D" level="3" scaling="multiplier uint8">
   <table name="Temperature" type="Y Axis" elements="16" scaling="degrees F uint8" />
-  <description>While FFF8A8B0 bit 7 is set, the intake cam target is capped at Intake Cam Target Limit(rpm, load) + Intake Cam Target Limit Temperature Offset(rpm, load) x Intake Cam Target Limit Temperature Factor(temperature byte FFF88A1F) / 128. While the bit is clear the cap rises from its last value by cal 0x3F13C per pass. The capped target is not allowed below cal 0x3BA7E (0x15D498, read on the Ghidra lift of LF76401R, 2026-11-13). The flag and the temperature input are not identified; the factor axis is taken as degC + 50 (inferred from its range 50..200). Confidence: read.</description>
+  <description>Scales Intake Cam Target Limit Temperature Offset by a temperature input that is not identified (1.0 = the full offset).
+
+Details: While FFF8A8B0 bit 7 is set, the intake cam target is capped at Intake Cam Target Limit(rpm, load) + Intake Cam Target Limit Temperature Offset(rpm, load) x Intake Cam Target Limit Temperature Factor(temperature byte FFF88A1F) / 128. While the bit is clear the cap rises from its last value by cal 0x3F13C per pass. The capped target is not allowed below cal 0x3BA7E (0x15D498, read on the Ghidra lift of LF76401R, 2026-11-13). The flag and the temperature input are not identified; the factor axis is taken as degC + 50 (inferred from its range 50..200). Confidence: read.</description>
  </table>
  <table name="Intake Cam Coolant Offset A (Altitude)" category="06.01 AVCS (Cam Timing) - Intake Targets" type="3D" level="3" scaling="deg advance int16">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8" />

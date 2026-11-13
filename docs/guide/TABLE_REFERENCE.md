@@ -90,7 +90,9 @@ Every Beginner (level 1) and Intermediate (level 2) table, in the definition's f
 | Table | Level | What it does |
 | --- | --- | --- |
 | **Base Timing IAT Compensation** | Intermediate | Timing added (negative = retard) for hot intake air, by intake air temperature, scaled by Base Timing IAT Compensation Multiplier. Applied once the engine is running above about 800 rpm and feeds into base timing. |
+| **Base Timing IAT Compensation 2** | Intermediate | A second timing correction for intake air temperature, only in some software versions: scaled by Base Timing IAT Compensation Multiplier 2 and added to Base Timing IAT Compensation. Where it exists, edit both IAT pairs together. |
 | **Base Timing IAT Compensation Multiplier** | Intermediate | Scales Base Timing IAT Compensation by rpm and load: 0 = no intake-temperature timing correction, 1.0 = the full amount. |
+| **Base Timing IAT Compensation Multiplier 2** | Intermediate | *Only in some ROMs.* Scales Base Timing IAT Compensation 2 by rpm and load: 0 = no correction from the second curve, 1.0 = the full amount. |
 | **Base Timing Coolant Compensation (TGV Open)** | Intermediate | Timing added to base timing on a cold engine, by coolant temperature, for the TGV-open side; scaled by Base Timing Coolant Compensation Weight (TGV Open) and blended with the TGV Closed table by how far the TGVs are open. Active above about 800 rpm. |
 | **Base Timing Coolant Compensation (TGV Closed)** | Intermediate | Timing added to base timing on a cold engine, by coolant temperature, for the TGV-closed side, blended with the TGV Open table by how far the TGVs are open. Active above about 800 rpm. Keep consistent with Base Timing Coolant Compensation (TGV Open). |
 | **Base Timing Coolant Compensation Weight (TGV Open)** | Intermediate | Percentage (by rpm and load) of Base Timing Coolant Compensation (TGV Open) actually applied. Lower values reduce the cold-engine timing correction in that area. |

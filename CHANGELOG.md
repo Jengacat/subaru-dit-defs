@@ -4,6 +4,10 @@
 
 First public release.
 
+- Tuning guide updated and renamed **Subaru DIT Tuning Guide**: it covers the Levorg 1.6 (new section 1.10), quotes
+  stock values as the reference ROM's (LF75404S) and says "unused on the reference ROM" where a table is gated out
+  there, uses the current table names, and adds the low-DAM boost cut (C14, A14), the 1.6-only tables, the logging
+  and checksum updates, and fresh screenshots.
 - README: shorter Known issues section (the details are in the definitions README, the EcuFlash README and the guide).
 - README: PCMFlash is reported to read and write these ECUs and to correct the checksum when it flashes (not
   tested by me).

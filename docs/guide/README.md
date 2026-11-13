@@ -1,10 +1,13 @@
-# FA20DIT Tuning Guide
+# Subaru DIT Tuning Guide
 
-A tuning guide for the FA20DIT ECU, written for tuners using these definitions. It assumes you already know
-how to tune a car; it explains what is specific to this ECU and how to tune it, in workflow order.
+A tuning guide for the FA20DIT (2.0) and FB16DIT (Levorg 1.6) ECUs, written for tuners using these definitions. Both
+engines' ECUs run the same software, so one guide covers them; [chapter 1.10](C01.md#110-the-levorg-16-fb16dit) lists
+what differs on the 1.6. It assumes you already know how to tune a car; it explains what is specific to this ECU and how
+to tune it, in workflow order.
 
 Units follow the definitions: load in g/rev, torque in ft-lb, boost in psi gauge, rail pressure in psi, temperatures
-in °F. Screenshots are from the RomRaider definition on the 2015 WRX 6MT ROM (LF75404S).
+in °F. Values quoted as "stock", and screenshots, are from the reference ROM, the 2015 USDM WRX 6MT (LF75404S); your
+ROM's calibration may differ, so check it in the editor.
 
 **Nothing here has been validated on a running engine yet.** Treat stock values and behaviour as the starting point
 and confirm with logs.

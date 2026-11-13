@@ -1,6 +1,6 @@
 # FA20DIT CAN dictionary
 
-Every CAN frame the FA20DIT engine ECU (Hitachi SH72543R / SH72544R: 2015-2018 WRX, 2014-2019 Levorg, 2016-2018 Forester XT / tS) receives and sends, for **33 complete ROMs**. 500 kbit/s, 11-bit IDs.
+Every CAN frame the FA20DIT engine ECU (Hitachi SH72543R / SH72544R: 2015-2018 WRX, 2014-2019 Levorg, 2016-2018 Forester XT / tS) receives and sends, for **37 complete ROMs**. 500 kbit/s, 11-bit IDs.
 
 ## How this was made
 
@@ -31,7 +31,8 @@ ROMs in one group have the same IDs and use exactly the same bits.
 | A | LF75300S | 2015 | USDM | WRX | MT | 0x1F946C |
 | A | LF75301K | 2016 | Singapore | WRX | MT | 0x1F946C |
 | A | LF75301P | 2015 | Middle East | WRX | MT | 0x1F946C |
-| A | LF75401D | 2014 | JDM | Levorg 2.0 | CVT (model) | 0x1F946C |
+| A | LF75401D | 2014 | JDM | Levorg 2.0 | AT/CVT | 0x1F946C |
+| A | LF75401P | 2014 | Middle East | WRX | MT | 0x1F946C |
 | A | LF75404S | 2015 | USDM | WRX | MT | 0x1F946C |
 | B | LF78001H | 2016 | ADM | Forester tS | AT/CVT | 0x1F7580 |
 | B | LF78002H | 2017 | ADM | Forester XT | CVT (model) | 0x1F75BC |
@@ -39,11 +40,12 @@ ROMs in one group have the same IDs and use exactly the same bits.
 | D | LF79002P | 2017 | USDM | WRX | MT | 0x1F77DC |
 | D | LF79100N | 2017 | not confirmed | WRX | AT/CVT | 0x1F7818 |
 | D | LF79100P | 2017 | USDM | WRX | MT | 0x1F7818 |
-| E | LF79100K | not stated | JDM | Levorg 2.0 STI | CVT (model) | 0x1F7418 |
-| E | LF79100S | 2017 | ADM | Levorg 2.0GT-S | CVT (model) | 0x1F7418 |
-| E | LF79200T | not stated | JDM | Levorg | CVT (model) | 0x1F7418 |
-| E | LF79202U | not stated | JDM | Levorg | CVT (model) | 0x1F7418 |
-| E | LF79300T | not stated | JDM | Levorg | CVT (model) | 0x1F7418 |
+| E | LF79100K | 2017 | JDM | Levorg 2.0 STI | AT/CVT | 0x1F7418 |
+| E | LF79100S | 2017 | ADM | Levorg 2.0GT-S | AT/CVT | 0x1F7418 |
+| E | LF79101K | 2017 | JDM | Levorg 2.0 STI | AT/CVT | 0x1F7418 |
+| E | LF79200T | 2017 | EDM | Levorg 1.6 (FB16) | CVT (model) | 0x1F7418 |
+| E | LF79202U | 2016 | JDM | Levorg 1.6 (FB16) | CVT (model) | 0x1F7418 |
+| E | LF79300T | 2017 | EDM | Levorg 1.6 (FB16) | CVT (model) | 0x1F7418 |
 | F | LF9C000C | 2017 | EDM | Forester XT | AT/CVT | 0x1F75B8 |
 | F | LF9C000a | 2018 | Malaysia | Forester XT | AT/CVT | 0x1F75B8 |
 | G | LF9C001K | 2018 | JDM | WRX S4 | AT/CVT | 0x1F72B8 |
@@ -51,24 +53,26 @@ ROMs in one group have the same IDs and use exactly the same bits.
 | H | LF9C100P | 2018 | USDM | WRX | MT | 0x1F76B8 |
 | I | LF9F000R | 2019 | JDM | Levorg 2.0 STI | AT/CVT | 0x277574 |
 | J | LV9N000C | 2015 | USDM | Forester XT | AT/CVT | 0x1CB3CC |
-| J | LV9N100A | 2014 | JDM | Levorg 2.0GT-S | CVT (model) | 0x1CB8AC |
+| J | LV9N100A | 2014 | JDM | Levorg 2.0GT-S | AT/CVT | 0x1CB8AC |
 | J | LV9N100B | 2015 | JDM | WRX S4 | AT/CVT | 0x1CB8AC |
 | J | LV9N100F | 2015 | ADM | WRX | MT | 0x1CB8AC |
 | J | LV9N101C | 2015 | USDM | WRX | AT/CVT | 0x1CB8AC |
 | J | LV9N101F | 2015 | not confirmed | WRX | MT | 0x1CB8AC |
 | J | LV9N101I | 2015 | GCC | WRX | MT | 0x1CB8AC |
+| J | LV9N301A | 2014 | JDM | Levorg 2.0 | AT/CVT | 0x1D2604 |
+| J | LV9N302A | 2014 | JDM | Levorg 2.0 | AT/CVT | 0x1D2604 |
 
 What differs between groups (everything else is identical in all groups):
 
 * **B** (LF78001H, LF78002H): has 0x142, 0x162, 0x6FC; no 0x15A, 0x188, 0x362; also uses 0x361 value_361_b5_6, 0x361 value_361_b7; does not use 0x141 charging_flag_AA6Bb7.
 * **C** (LF78103B): has 0x162, 0x6FC; no 0x15A, 0x188; also uses 0x361 value_361_b5_6, 0x361 value_361_b7, 0x362 battery_soc_low_nibble; does not use 0x141 charging_flag_AA6Bb7.
 * **D** (LF79002P, LF79100N, LF79100P): has 0x6FC; no 0x15A; also uses 0x362 battery_soc_low_nibble.
-* **E** (LF79100K, LF79100S, LF79200T, LF79202U, LF79300T): also uses 0x362 battery_soc_low_nibble.
+* **E** (LF79100K, LF79100S, LF79101K, LF79200T, LF79202U, LF79300T): also uses 0x362 battery_soc_low_nibble.
 * **F** (LF9C000C, LF9C000a): has 0x142, 0x162; no 0x15A, 0x188, 0x362; also uses 0x361 value_361_b5_6, 0x361 value_361_b7, 0x161 rx_161_b5_7_7, 0x368 rx_368_b0_7_7, 0x3D1 rx_3d1_b7_2_6; does not use 0x141 charging_flag_AA6Bb7.
 * **G** (LF9C001K): also uses 0x362 battery_soc_low_nibble, 0x0D1 rx_0d1_b3_2_2, 0x161 rx_161_b5_7_7, 0x188 rx_188_b6_6_6, 0x368 rx_368_b0_7_7, 0x3D1 rx_3d1_b7_2_6.
 * **H** (LF9C001P, LF9C100P): has 0x6FC; no 0x15A; also uses 0x362 battery_soc_low_nibble, 0x0D1 rx_0d1_b3_2_2, 0x161 rx_161_b5_7_7, 0x188 rx_188_b6_6_6, 0x368 rx_368_b0_7_7, 0x3D1 rx_3d1_b7_2_6.
 * **I** (LF9F000R): also uses 0x362 battery_soc_low_nibble, 0x0D1 rx_0d1_b3_2_2, 0x140 tx_140_b7_4_4, 0x161 rx_161_b5_7_7, 0x188 rx_188_b6_6_6, 0x368 rx_368_b0_7_7, 0x3D1 rx_3d1_b7_2_6.
-* **J** (LV9N000C, LV9N100A, LV9N100B, LV9N100F, LV9N101C, LV9N101F, LV9N101I): does not use 0x148 tcm148_b7_bit4, 0x148 tcm148_b7_bit5, 0x152 bcm152_b6_bit2, 0x361 flag_88E13b1, 0x361 flag_88E13b2.
+* **J** (LV9N000C, LV9N100A, LV9N100B, LV9N100F, LV9N101C, LV9N101F, LV9N101I, LV9N301A, LV9N302A): does not use 0x148 tcm148_b7_bit4, 0x148 tcm148_b7_bit5, 0x152 bcm152_b6_bit2, 0x361 flag_88E13b1, 0x361 flag_88E13b2.
 
 ## Messages
 

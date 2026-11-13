@@ -2888,11 +2888,11 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
   <table name="Engine Speed" address="0298ca" />
  </table>
  <table name="Idle Speed Target (Warm Idle, Mode 5)" address="024b10" />
- <table name="Idle Speed Target (Warm Idle, AT/CVT, Mode 6)" address="024b30" />
+ <table name="Idle Speed Target (Warm Idle, AT/CVT, Mode 6)" address="024b30" level="5" />
  <table name="Idle Speed Target (Post-Start, Modes 1/2)" address="024ab0" />
  <table name="Idle Speed Target (Warm Start, Mode 3)" address="024ad0" />
  <table name="Idle Speed Target (Warm-Up Drive-Off, Mode 7)" address="024b50" />
- <table name="Idle Speed Target (Warm-Up Drive-Off, AT/CVT, Mode 8)" address="024b70" />
+ <table name="Idle Speed Target (Warm-Up Drive-Off, AT/CVT, Mode 8)" address="024b70" level="5" />
  <table name="Idle Speed Target (In Drive, AT/CVT)" address="025a85" level="5">
   <table name="Coolant Temp" address="03834c" />
  </table>
@@ -2997,12 +2997,12 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  <table name="Idle Base Air (Post-Start, Modes 1/2, TGV Closed)" address="024efe" />
  <table name="Idle Base Air (Warm Start, Mode 3)" address="024ffe" />
  <table name="Idle Base Air (Warm Start, Mode 3, TGV Closed)" address="024f1e" />
- <table name="Idle Base Air (AT/CVT, Mode 6)" address="02505e" />
- <table name="Idle Base Air (AT/CVT, Mode 6, TGV Closed)" address="024f7e" />
+ <table name="Idle Base Air (AT/CVT, Mode 6)" address="02505e" level="5" />
+ <table name="Idle Base Air (AT/CVT, Mode 6, TGV Closed)" address="024f7e" level="5" />
  <table name="Idle Base Air (Warm-Up Drive-Off, Mode 7)" address="02507e" />
  <table name="Idle Base Air (Warm-Up Drive-Off, Mode 7, TGV Closed)" address="024f9e" />
- <table name="Idle Base Air (Warm-Up Drive-Off, AT/CVT, Mode 8)" address="02509e" />
- <table name="Idle Base Air (Warm-Up Drive-Off, AT/CVT, Mode 8, TGV Closed)" address="024fbe" />
+ <table name="Idle Base Air (Warm-Up Drive-Off, AT/CVT, Mode 8)" address="02509e" level="5" />
+ <table name="Idle Base Air (Warm-Up Drive-Off, AT/CVT, Mode 8, TGV Closed)" address="024fbe" level="5" />
  <table name="Post-Start Idle Air (Initial)" address="025dca">
   <table name="Coolant Temp" address="03834c" />
   <table name="Start Type FFF8A6E7" address="025eca" />
@@ -3684,928 +3684,458 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  <table name="Multi-Injection Allowed During High-Pedal Latch 1 [byte, bit 0 = 1]" address="02996d" />
  <table name="Multi-Injection Allowed During High-Pedal Latch 2 [byte, bit 1 = 2]" address="02996d" />
  <table name="Multi-Injection Allowed During High-Pedal Latch 3 [byte, bit 2 = 4]" address="02996d" />
- <table name="(P0335) Crankshaft Position Sensor A Circuit" address="4218c" />
- <table name="(P0336) Crankshaft Position Sensor A Circuit Range/Performance" address="4218c" />
- <table name="(P0604) Internal Control Module RAM Error" address="4218c" />
- <table name="(P0102) Mass Air Flow Circuit Low" address="4218d" />
- <table name="(P0103) Mass Air Flow Circuit High" address="4218d" />
- <table name="(P0500) Vehicle Speed Sensor A [slot 12]" address="4218d" />
- <table name="(P0332) Knock Sensor 2 Circuit Low (Bank 2)" address="4218d" />
- <table name="(P0333) Knock Sensor 2 Circuit High (Bank 2)" address="4218d" />
- <table name="(P0327) Knock Sensor 1 Circuit Low (Bank 1)" address="4218e" />
- <table name="(P0328) Knock Sensor 1 Circuit High (Bank 1)" address="4218e" />
- <table name="(P0122) Throttle Position Sensor A Circuit Low" address="4218e" />
- <table name="(P0123) Throttle Position Sensor A Circuit High" address="4218e" />
- <table name="(P0117) Engine Coolant Temperature Circuit Low" address="4218f" />
- <table name="(P0118) Engine Coolant Temperature Circuit High" address="4218f" />
- <table name="(P0125) Insufficient Coolant Temperature for Closed Loop Fuel Control" address="4218f" />
- <table name="(P0462) Fuel Level Sensor A Circuit Low" address="4218f" />
- <table name="(P0463) Fuel Level Sensor A Circuit High" address="4218f" />
- <table name="(P0461) Fuel Level Sensor A Circuit Range/Performance" address="4218f" />
- <table name="(P0851) Park/Neutral Switch Input Circuit Low" address="42192" />
- <table name="(P0852) Park/Neutral Switch Input Circuit High" address="42192" />
- <table name="(P1492) manufacturer-specific / not named" address="42194" />
- <table name="(P1493) manufacturer-specific / not named" address="42194" />
- <table name="(P1494) manufacturer-specific / not named" address="42194" />
- <table name="(P1495) manufacturer-specific / not named" address="42194" />
- <table name="(P1496) manufacturer-specific / not named" address="42194" />
- <table name="(P1497) manufacturer-specific / not named" address="42194" />
- <table name="(P1498) manufacturer-specific / not named" address="42194" />
- <table name="(P1499) manufacturer-specific / not named" address="42194" />
- <table name="(P0506) Idle Control System RPM Lower Than Expected" address="42196" />
- <table name="(P0507) Idle Control System RPM Higher Than Expected" address="42196" />
- <table name="(P0011) Intake Camshaft Timing Over-Advanced or System Performance (Bank 1)" address="42198" />
- <table name="(P0021) Intake Camshaft Timing Over-Advanced or System Performance (Bank 2)" address="42198" />
- <table name="(P0458) Evaporative Emission System Purge Control Valve Circuit Low" address="42198" />
- <table name="(P0459) Evaporative Emission System Purge Control Valve Circuit High" address="42198" />
- <table name="(P0141) O2 Sensor Heater Circuit (Bank 1 Sensor 2)" address="4219c" />
- <table name="(P0133) O2 Sensor Circuit Slow Response (Bank 1 Sensor 1)" address="4219d" />
- <table name="(P0420) Catalyst System Efficiency Below Threshold (Bank 1)" address="4219e" />
- <table name="(P0456) Evaporative Emission System Leak Detected (Very Small Leak)" address="4219e" />
- <table name="(P0400) Exhaust Gas Recirculation Flow" address="4219e" />
- <table name="(P0171) System Too Lean (Bank 1)" address="4219e" />
- <table name="(P0172) System Too Rich (Bank 1)" address="4219e" />
- <table name="(P0301) Cylinder 1 Misfire Detected" address="4219f" />
- <table name="(P0302) Cylinder 2 Misfire Detected" address="4219f" />
- <table name="(P0303) Cylinder 3 Misfire Detected" address="4219f" />
- <table name="(P0304) Cylinder 4 Misfire Detected" address="4219f" />
- <table name="(P0137) O2 Sensor Circuit Low Voltage (Bank 1 Sensor 2)" address="421a1" />
- <table name="(P0131) O2 Sensor Circuit Low Voltage (Bank 1 Sensor 1)" address="421a1" />
- <table name="(P0132) O2 Sensor Circuit High Voltage (Bank 1 Sensor 1)" address="421a1" />
- <table name="(P0138) O2 Sensor Circuit High Voltage (Bank 1 Sensor 2)" address="421a1" />
- <table name="(P0112) Intake Air Temperature Sensor 1 Circuit Low" address="421a2" />
- <table name="(P0113) Intake Air Temperature Sensor 1 Circuit High" address="421a2" />
- <table name="(P0111) Intake Air Temperature Sensor 1 Circuit Range/Performance" address="421a2" />
- <table name="(P0038) HO2S Heater Control Circuit High (Bank 1 Sensor 2)" address="421a2" />
- <table name="(P0032) HO2S Heater Control Circuit High (Bank 1 Sensor 1)" address="421a2" />
- <table name="(P0037) HO2S Heater Control Circuit Low (Bank 1 Sensor 2)" address="421a2" />
- <table name="(P0031) HO2S Heater Control Circuit Low (Bank 1 Sensor 1)" address="421a2" />
- <table name="(P0107) Manifold Absolute Pressure Circuit Low" address="421a3" />
- <table name="(P0108) Manifold Absolute Pressure Circuit High" address="421a3" />
- <table name="(P0128) Coolant Thermostat (Below Regulating Temperature)" address="421a6" />
- <table name="(P0562) System Voltage Low" address="421a7" />
- <table name="(P0563) System Voltage High" address="421a7" />
- <table name="(P0245) Turbocharger Wastegate Solenoid A Low" address="421a8" />
- <table name="(P0246) Turbocharger Wastegate Solenoid A High" address="421a8" />
- <table name="(P0244) Turbocharger Wastegate Solenoid A Range/Performance" address="421a8" />
- <table name="(P0230) Fuel Pump Primary Circuit" address="421b3" />
- <table name="(P0068) MAP/MAF - Throttle Position Correlation" address="421b3" />
- <table name="(P0101) Mass Air Flow Circuit Range/Performance" address="421b3" />
- <table name="(P0134) O2 Sensor Circuit No Activity Detected (Bank 1 Sensor 1)" address="421b4" />
- <table name="(P0030) HO2S Heater Control Circuit (Bank 1 Sensor 1)" address="421b4" />
- <table name="(P2109) Throttle/Pedal Position Sensor A Minimum Stop Performance" address="421b7" />
- <table name="(P0222) Throttle Position Sensor B Circuit Low" address="421b8" />
- <table name="(P0223) Throttle Position Sensor B Circuit High" address="421b8" />
- <table name="(P1160) manufacturer-specific / not named" address="421b8" />
- <table name="(P2102) Throttle Actuator Control Motor Circuit Low" address="421b8" />
- <table name="(P2103) Throttle Actuator Control Motor Circuit High" address="421b8" />
- <table name="(P2101) Throttle Actuator Control Motor Circuit Range/Performance" address="421b8" />
- <table name="(P2096) Post Catalyst Fuel Trim System Too Lean (Bank 1)" address="421b8" />
- <table name="(P2138) Throttle/Pedal Position Sensor/Switch D/E Voltage Correlation" address="421b9" />
- <table name="(P2127) Throttle/Pedal Position Sensor/Switch E Circuit Low" address="421b9" />
- <table name="(P2128) Throttle/Pedal Position Sensor/Switch E Circuit High" address="421b9" />
- <table name="(P2122) Throttle/Pedal Position Sensor/Switch D Circuit Low" address="421b9" />
- <table name="(P2123) Throttle/Pedal Position Sensor/Switch D Circuit High" address="421b9" />
- <table name="(P2135) Throttle/Pedal Position Sensor/Switch A/B Voltage Correlation" address="421b9" />
- <table name="(P2097) Post Catalyst Fuel Trim System Too Rich (Bank 1)" address="421b9" />
- <table name="(P0390) Camshaft Position Sensor B Circuit (Bank 2)" address="421ba" />
- <table name="(P0365) Camshaft Position Sensor B Circuit (Bank 1)" address="421ba" />
- <table name="(P0345) Camshaft Position Sensor A Circuit (Bank 2)" address="421ba" />
- <table name="(P0340) Camshaft Position Sensor A Circuit (Bank 1)" address="421ba" />
- <table name="(P0605) Internal Control Module ROM Error" address="421ba" />
- <table name="(P2095) B Camshaft Position Actuator Control Circuit High (Bank 2)" address="421bb" />
- <table name="(P2094) B Camshaft Position Actuator Control Circuit Low (Bank 2)" address="421bb" />
- <table name="(P2091) B Camshaft Position Actuator Control Circuit High (Bank 1)" address="421bb" />
- <table name="(P2090) B Camshaft Position Actuator Control Circuit Low (Bank 1)" address="421bb" />
- <table name="(P2093) A Camshaft Position Actuator Control Circuit High (Bank 2)" address="421bb" />
- <table name="(P2092) A Camshaft Position Actuator Control Circuit Low (Bank 2)" address="421bb" />
- <table name="(P2089) A Camshaft Position Actuator Control Circuit High (Bank 1)" address="421bb" />
- <table name="(P2088) A Camshaft Position Actuator Control Circuit Low (Bank 1)" address="421bb" />
- <table name="(P0197) Engine Oil Temperature Sensor Low" address="421bc" />
- <table name="(P0700) Transmission Control System (MIL Request)" address="421bc" />
- <table name="(P0196) Engine Oil Temperature Sensor Range/Performance" address="421bd" />
- <table name="(P0198) Engine Oil Temperature Sensor High" address="421bd" />
- <table name="(P2004) Intake Manifold Runner Control Stuck Open (Bank 1)" address="421c0" />
- <table name="(P2006) Intake Manifold Runner Control Stuck Closed (Bank 1)" address="421c0" />
- <table name="(P2005) Intake Manifold Runner Control Stuck Open (Bank 2)" address="421c0" />
- <table name="(P2007) Intake Manifold Runner Control Stuck Closed (Bank 2)" address="421c0" />
- <table name="(P2227) Barometric Pressure Sensor A Circuit Range/Performance" address="421c0" />
- <table name="(P2229) Barometric Pressure Sensor A Circuit High" address="421c0" />
- <table name="(P2228) Barometric Pressure Sensor A Circuit Low" address="421c0" />
- <table name="(P2016) Intake Manifold Runner Position Sensor/Switch Circuit Low (Bank 1)" address="421c1" />
- <table name="(P2017) Intake Manifold Runner Position Sensor/Switch Circuit High (Bank 1)" address="421c1" />
- <table name="(P2021) Intake Manifold Runner Position Sensor/Switch Circuit Low (Bank 2)" address="421c1" />
- <table name="(P2022) Intake Manifold Runner Position Sensor/Switch Circuit High (Bank 2)" address="421c1" />
- <table name="(P2009) Intake Manifold Runner Control Circuit Low (Bank 1)" address="421c1" />
- <table name="(P2012) Intake Manifold Runner Control Circuit Low (Bank 2)" address="421c1" />
- <table name="(P0018) Crankshaft/Camshaft Position Correlation (Bank 2 Sensor A)" address="421c5" />
- <table name="(P0016) Crankshaft/Camshaft Position Correlation (Bank 1 Sensor A)" address="421c5" />
- <table name="(P0024) Exhaust Camshaft Timing Over-Advanced or System Performance (Bank 2)" address="421c7" />
- <table name="(P0014) Exhaust Camshaft Timing Over-Advanced or System Performance (Bank 1)" address="421c7" />
- <table name="(P04F0) Evaporative Emission System High Pressure Purge Line Performance" address="421c7" />
- <table name="(P1458) manufacturer-specific / not named" address="421c7" />
- <table name="(P1459) manufacturer-specific / not named" address="421c7" />
- <table name="(P050E) Cold Start Engine Exhaust Temperature Too Low" address="421c8" />
- <table name="(P0019) Crankshaft/Camshaft Position Correlation (Bank 2 Sensor B)" address="421c8" />
- <table name="(P0017) Crankshaft/Camshaft Position Correlation (Bank 1 Sensor B)" address="421c8" />
- <table name="(U0422) Invalid Data Received from Body Control Module" address="421d4" />
- <table name="(U0140) Lost Communication with Body Control Module" address="421d4" />
- <table name="(U0402) Invalid Data Received from TCM" address="421d4" />
- <table name="(U0101) Lost Communication with TCM" address="421d4" />
- <table name="(U0416) Invalid Data Received from Vehicle Dynamics Control Module" address="421d4" />
- <table name="(U0122) Lost Communication with Vehicle Dynamics Control Module" address="421d4" />
- <table name="(U0073) Control Module Communication Bus Off" address="421d4" />
- <table name="(P050B) Cold Start Ignition Timing Performance" address="421d7" scaling="DTC enabled b0 mFF f00 sFE" />
- <table name="(P050A) Cold Start Idle Air Control System Performance" address="421d7" scaling="DTC enabled b1 mFF f00 sFD" />
- <table name="(P2610) ECM/PCM Internal Engine Off Timer Performance" address="421d7" scaling="DTC enabled b2 mFF f00 sFB" />
- <table name="(P2420) Evaporative Emission System Switching Valve Control Circuit High" address="421d7" scaling="DTC enabled b3 mFF f00 sF7" />
- <table name="(P2419) Evaporative Emission System Switching Valve Control Circuit Low" address="421d7" scaling="DTC enabled b4 mFF f00 sEF" />
- <table name="(P2401) Evaporative Emission System Leak Detection Pump Control Circuit Low" address="421d7" scaling="DTC enabled b5 mFF f00 sDF" />
- <table name="(P0453) Evaporative Emission System Pressure Sensor High" address="421d7" scaling="DTC enabled b6 mFF f00 sBF" />
- <table name="(P0452) Evaporative Emission System Pressure Sensor Low" address="421d7" scaling="DTC enabled b7 mFF f00 s7F" />
- <table name="(P015B) O2 Sensor Delayed Response - Lean to Rich (Bank 1 Sensor 1)" address="421d8" />
- <table name="(P015A) O2 Sensor Delayed Response - Rich to Lean (Bank 1 Sensor 1)" address="421d8" />
- <table name="(P014D) O2 Sensor Slow Response - Lean to Rich (Bank 1 Sensor 1)" address="421d8" />
- <table name="(P014C) O2 Sensor Slow Response - Rich to Lean (Bank 1 Sensor 1)" address="421d8" />
- <table name="(P1451) manufacturer-specific / not named" address="421d9" />
- <table name="(P1449) manufacturer-specific / not named" address="421d9" />
- <table name="(P0455) Evaporative Emission System Leak Detected (Large Leak)" address="421d9" />
- <table name="(P0451) Evaporative Emission System Pressure Sensor Range/Performance" address="421d9" />
- <table name="(P0441) Evaporative Emission System Incorrect Purge Flow" address="421d9" />
- <table name="(P219A) Bank 1 Air-Fuel Ratio Imbalance" address="421d9" />
- <table name="(P2404) Evaporative Emission System Leak Detection Pump Sense Circuit Range/Performance" address="421da" />
- <table name="(P2402) Evaporative Emission System Leak Detection Pump Control Circuit High" address="421da" />
- <table name="(P013F) O2 Sensor Delayed Response - Lean to Rich (Bank 1 Sensor 2)" address="421db" />
- <table name="(P013E) O2 Sensor Delayed Response - Rich to Lean (Bank 1 Sensor 2)" address="421db" />
- <table name="(P013B) O2 Sensor Slow Response - Lean to Rich (Bank 1 Sensor 2)" address="421db" />
- <table name="(P013A) O2 Sensor Slow Response - Rich to Lean (Bank 1 Sensor 2)" address="421db" />
- <table name="(U0423) Invalid Data Received from Instrument Panel Control Module" address="421dd" />
- <table name="(U0155) Lost Communication with Instrument Panel Cluster Control Module" address="421dd" />
- <table name="(P0354) Ignition Coil D Primary/Secondary Circuit" address="421df" />
- <table name="(P0353) Ignition Coil C Primary/Secondary Circuit" address="421df" />
- <table name="(P0352) Ignition Coil B Primary/Secondary Circuit" address="421df" />
- <table name="(P0351) Ignition Coil A Primary/Secondary Circuit" address="421df" />
  <table name="(P000A) Intake Camshaft Position Slow Response (Bank 1)" address="421e0" />
- <table name="(P000B) Exhaust Camshaft Position Slow Response (Bank 1)" address="421e0" />
- <table name="(P000C) Intake Camshaft Position Slow Response (Bank 2)" address="421e0" />
- <table name="(P000D) Exhaust Camshaft Position Slow Response (Bank 2)" address="421e0" />
- <table name="(P0558) Brake Booster Pressure Sensor Circuit High" address="421e0" />
- <table name="(P0557) Brake Booster Pressure Sensor Circuit Low" address="421e0" />
- <table name="(P0512) Starter Request Circuit" address="421e1" scaling="DTC enabled b0 mFF f00 sFE" />
- <table name="(P0616) Starter Relay Circuit Low" address="421e1" scaling="DTC enabled b1 mFF f00 sFD" />
- <table name="(P0617) Starter Relay Circuit High" address="421e1" scaling="DTC enabled b2 mFF f00 sFB" />
- <table name="(P2195) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 1)" address="421e1" scaling="DTC enabled b3 mFF f00 sF7" />
- <table name="(P2196) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 1)" address="421e1" scaling="DTC enabled b4 mFF f00 sEF" />
- <table name="(P0560) System Voltage" address="421e1" scaling="DTC enabled b5 mFF f00 sDF" />
- <table name="(P0116) Engine Coolant Temperature Circuit Range/Performance" address="421e1" scaling="DTC enabled b6 mFF f00 sBF" />
- <table name="(P081A) Starter Disable Circuit Low" address="421e1" scaling="DTC enabled b7 mFF f00 s7F" />
- <table name="(P062F) Internal Control Module EEPROM Error" address="421e3" />
- <table name="(P060B) Internal Control Module A/D Processing Performance" address="421e3" />
- <table name="(P060A) Internal Control Module Monitoring Processor Performance" address="421e3" />
- <table name="(P0606) Control Module Processor" address="421e3" />
- <table name="(P2119) Throttle Actuator Control Throttle Body Range/Performance" address="421e3" />
- <table name="(P0403) Exhaust Gas Recirculation Control Circuit" address="421e4" />
- <table name="(P0391) Camshaft Position Sensor B Circuit Range/Performance (Bank 2)" address="421e4" />
- <table name="(P0366) Camshaft Position Sensor B Circuit Range/Performance (Bank 1)" address="421e4" />
- <table name="(P0346) Camshaft Position Sensor A Circuit Range/Performance (Bank 2)" address="421e4" />
- <table name="(P0341) Camshaft Position Sensor A Circuit Range/Performance (Bank 1)" address="421e4" />
- <table name="(P0300) Random/Multiple Cylinder Misfire Detected" address="421e4" />
- <table name="(P2530) Ignition Switch Run Position Circuit" address="421e5" />
- <table name="(P04AC) Evaporative Emission System Purge Control Valve 'B' Circuit Low" address="421e5" />
- <table name="(P04AD) Evaporative Emission System Purge Control Valve 'B' Circuit High" address="421e5" />
- <table name="(P0072) Ambient Air Temperature Sensor Circuit Low" address="421ed" />
- <table name="(P0073) Ambient Air Temperature Sensor Circuit High" address="421ed" />
- <table name="(P0071) Ambient Air Temperature Sensor Range/Performance" address="421ed" />
- <table name="(P0500) Vehicle Speed Sensor A [slot 779]" address="421ed" />
- <table name="(P2158) Vehicle Speed Sensor B" address="421ed" />
- <table name="(P0010) Intake Camshaft Position Actuator Circuit (Bank 1)" address="421ef" scaling="DTC enabled b0 mFF f00 sDE" />
- <table name="(P0020) Intake Camshaft Position Actuator Circuit (Bank 2)" address="421ef" scaling="DTC enabled b1 mFF f00 sDD" />
- <table name="(P0013) Exhaust Camshaft Position Actuator Circuit (Bank 1)" address="421ef" scaling="DTC enabled b2 mFF f00 sDB" />
- <table name="(P0023) Exhaust Camshaft Position Actuator Circuit (Bank 2)" address="421ef" scaling="DTC enabled b3 mFF f00 sD7" />
- <table name="(P0685) ECM/PCM Power Relay Control Circuit/Open" address="421ef" />
- <table name="(P2A01) O2 Sensor Circuit Range/Performance (Bank 1 Sensor 2)" address="421ef" scaling="DTC enabled b5 mFF f00 sDF" />
- <table name="(P2270) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 2)" address="421ef" scaling="DTC enabled b6 mFF f00 s9F" />
- <table name="(P2271) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 2)" address="421ef" scaling="DTC enabled b7 mFF f00 s5F" />
- <table name="(P0087) Fuel Rail/System Pressure Too Low" address="421f0" scaling="DTC enabled b0 mFF f00 sFE">
-  <description>Bit 0 of byte 0x421F0 ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
- </table>
- <table name="(P0088) Fuel Rail/System Pressure Too High" address="421f0" scaling="DTC enabled b1 mFF f00 sFD">
-  <description>Bit 1 of byte 0x421F0 ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
- </table>
- <table name="(P062D) Fuel Injector Driver Circuit Performance (Bank 1)" address="421f0" scaling="DTC enabled b2 mFF f00 sFB">
-  <description>Bit 2 of byte 0x421F0 ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
- </table>
- <table name="(P1261) manufacturer-specific / not named" address="421f0" scaling="DTC enabled b3 mFF f00 sF7">
-  <description>Bit 3 of byte 0x421F0 ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
- </table>
- <table name="(P1262) manufacturer-specific / not named" address="421f0" scaling="DTC enabled b4 mFF f00 sEF">
-  <description>Bit 4 of byte 0x421F0 ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
- </table>
- <table name="(P1263) manufacturer-specific / not named" address="421f0" scaling="DTC enabled b5 mFF f00 sDF">
-  <description>Bit 5 of byte 0x421F0 ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
- </table>
- <table name="(P1264) manufacturer-specific / not named" address="421f0" scaling="DTC enabled b6 mFF f00 sBF">
-  <description>Bit 6 of byte 0x421F0 ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
- </table>
- <table name="(P0191) Fuel Rail Pressure Sensor A Circuit Range/Performance" address="421f0" />
- <table name="(P0192) Fuel Rail Pressure Sensor A Circuit Low" address="421f1" scaling="DTC enabled b0 mFF f00 sC6" />
- <table name="(P0193) Fuel Rail Pressure Sensor A Circuit High" address="421f1" scaling="DTC enabled b1 mFF f00 sC5" />
- <table name="(P1191) manufacturer-specific / not named" address="421f1" />
- <table name="(P0627) Fuel Pump A Control Circuit/Open" address="421f1" scaling="DTC enabled b3 mFF f00 sC7" />
- <table name="(P0628) Fuel Pump A Control Circuit Low" address="421f1" scaling="DTC enabled b4 mFF f00 sC7" />
- <table name="(P0629) Fuel Pump A Control Circuit High" address="421f1" scaling="DTC enabled b5 mFF f00 sC7" />
- <table name="(P023F) manufacturer-specific / not named" address="421f1" scaling="DTC enabled b6 mFF f00 s87" />
- <table name="(P0130) O2 Sensor Circuit (Bank 1 Sensor 1)" address="421f1" scaling="DTC enabled b7 mFF f00 s47" />
- <table name="(P0097) Intake Air Temperature Sensor 2 Circuit Low" address="421f2" scaling="DTC enabled b0 mFF f00 s72" />
- <table name="(P0098) Intake Air Temperature Sensor 2 Circuit High" address="421f2" scaling="DTC enabled b1 mFF f00 s71" />
- <table name="(P2627) O2 Sensor Pumping Current Trim Circuit/Open (Bank 1 Sensor 1)" address="421f2" scaling="DTC enabled b2 mFF f00 s73" />
- <table name="(P2628) O2 Sensor Pumping Current Trim Circuit Low (Bank 1 Sensor 1)" address="421f2" scaling="DTC enabled b3 mFF f00 s73" />
- <table name="(P0096) Intake Air Temperature Sensor 2 Circuit Range/Performance" address="421f2" scaling="DTC enabled b4 mFF f00 s63">
-  <description>Bit 4 of byte 0x421F2 ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
- </table>
- <table name="(P1134) manufacturer-specific / not named" address="421f2" scaling="DTC enabled b5 mFF f00 s53" />
- <table name="(P2146) Fuel Injector Group A Supply Voltage Circuit/Open" address="421f2" scaling="DTC enabled b6 mFF f00 s33" />
- <table name="(P113A) manufacturer-specific / not named" address="421f2" scaling="DTC enabled b7 mFF f00 s73" />
- <table name="(P0335) Crankshaft Position Sensor A Circuit [Fail-Safe]" address="57bd4" />
- <table name="(P0336) Crankshaft Position Sensor A Circuit Range/Performance [Fail-Safe]" address="57bd4" />
- <table name="(P0604) Internal Control Module RAM Error [Fail-Safe]" address="57bd4" />
- <table name="(P0102) Mass Air Flow Circuit Low [Fail-Safe]" address="57bd5" />
- <table name="(P0103) Mass Air Flow Circuit High [Fail-Safe]" address="57bd5" />
- <table name="(P0500) Vehicle Speed Sensor A [slot 12] [Fail-Safe]" address="57bd5" />
- <table name="(P0332) Knock Sensor 2 Circuit Low (Bank 2) [Fail-Safe]" address="57bd5" />
- <table name="(P0333) Knock Sensor 2 Circuit High (Bank 2) [Fail-Safe]" address="57bd5" />
- <table name="(P0327) Knock Sensor 1 Circuit Low (Bank 1) [Fail-Safe]" address="57bd6" />
- <table name="(P0328) Knock Sensor 1 Circuit High (Bank 1) [Fail-Safe]" address="57bd6" />
- <table name="(P0122) Throttle Position Sensor A Circuit Low [Fail-Safe]" address="57bd6" />
- <table name="(P0123) Throttle Position Sensor A Circuit High [Fail-Safe]" address="57bd6" />
- <table name="(P0117) Engine Coolant Temperature Circuit Low [Fail-Safe]" address="57bd7" />
- <table name="(P0118) Engine Coolant Temperature Circuit High [Fail-Safe]" address="57bd7" />
- <table name="(P0125) Insufficient Coolant Temperature for Closed Loop Fuel Control [Fail-Safe]" address="57bd7" />
- <table name="(P0462) Fuel Level Sensor A Circuit Low [Fail-Safe]" address="57bd7" />
- <table name="(P0463) Fuel Level Sensor A Circuit High [Fail-Safe]" address="57bd7" />
- <table name="(P0461) Fuel Level Sensor A Circuit Range/Performance [Fail-Safe]" address="57bd7" />
- <table name="(P0851) Park/Neutral Switch Input Circuit Low [Fail-Safe]" address="57bda" />
- <table name="(P0852) Park/Neutral Switch Input Circuit High [Fail-Safe]" address="57bda" />
- <table name="(P1492) manufacturer-specific / not named [Fail-Safe]" address="57bdc" />
- <table name="(P1493) manufacturer-specific / not named [Fail-Safe]" address="57bdc" />
- <table name="(P1494) manufacturer-specific / not named [Fail-Safe]" address="57bdc" />
- <table name="(P1495) manufacturer-specific / not named [Fail-Safe]" address="57bdc" />
- <table name="(P1496) manufacturer-specific / not named [Fail-Safe]" address="57bdc" />
- <table name="(P1497) manufacturer-specific / not named [Fail-Safe]" address="57bdc" />
- <table name="(P1498) manufacturer-specific / not named [Fail-Safe]" address="57bdc" />
- <table name="(P1499) manufacturer-specific / not named [Fail-Safe]" address="57bdc" />
- <table name="(P0506) Idle Control System RPM Lower Than Expected [Fail-Safe]" address="57bde" />
- <table name="(P0507) Idle Control System RPM Higher Than Expected [Fail-Safe]" address="57bde" />
- <table name="(P0011) Intake Camshaft Timing Over-Advanced or System Performance (Bank 1) [Fail-Safe]" address="57be0" />
- <table name="(P0021) Intake Camshaft Timing Over-Advanced or System Performance (Bank 2) [Fail-Safe]" address="57be0" />
- <table name="(P0458) Evaporative Emission System Purge Control Valve Circuit Low [Fail-Safe]" address="57be0" />
- <table name="(P0459) Evaporative Emission System Purge Control Valve Circuit High [Fail-Safe]" address="57be0" />
- <table name="(P0141) O2 Sensor Heater Circuit (Bank 1 Sensor 2) [Fail-Safe]" address="57be4" />
- <table name="(P0133) O2 Sensor Circuit Slow Response (Bank 1 Sensor 1) [Fail-Safe]" address="57be5" />
- <table name="(P0420) Catalyst System Efficiency Below Threshold (Bank 1) [Fail-Safe]" address="57be6" />
- <table name="(P0456) Evaporative Emission System Leak Detected (Very Small Leak) [Fail-Safe]" address="57be6" />
- <table name="(P0400) Exhaust Gas Recirculation Flow [Fail-Safe]" address="57be6" />
- <table name="(P0171) System Too Lean (Bank 1) [Fail-Safe]" address="57be6" />
- <table name="(P0172) System Too Rich (Bank 1) [Fail-Safe]" address="57be6" />
- <table name="(P0301) Cylinder 1 Misfire Detected [Fail-Safe]" address="57be7" />
- <table name="(P0302) Cylinder 2 Misfire Detected [Fail-Safe]" address="57be7" />
- <table name="(P0303) Cylinder 3 Misfire Detected [Fail-Safe]" address="57be7" />
- <table name="(P0304) Cylinder 4 Misfire Detected [Fail-Safe]" address="57be7" />
- <table name="(P0137) O2 Sensor Circuit Low Voltage (Bank 1 Sensor 2) [Fail-Safe]" address="57be9" />
- <table name="(P0131) O2 Sensor Circuit Low Voltage (Bank 1 Sensor 1) [Fail-Safe]" address="57be9" />
- <table name="(P0132) O2 Sensor Circuit High Voltage (Bank 1 Sensor 1) [Fail-Safe]" address="57be9" />
- <table name="(P0138) O2 Sensor Circuit High Voltage (Bank 1 Sensor 2) [Fail-Safe]" address="57be9" />
- <table name="(P0112) Intake Air Temperature Sensor 1 Circuit Low [Fail-Safe]" address="57bea" />
- <table name="(P0113) Intake Air Temperature Sensor 1 Circuit High [Fail-Safe]" address="57bea" />
- <table name="(P0111) Intake Air Temperature Sensor 1 Circuit Range/Performance [Fail-Safe]" address="57bea" />
- <table name="(P0038) HO2S Heater Control Circuit High (Bank 1 Sensor 2) [Fail-Safe]" address="57bea" />
- <table name="(P0032) HO2S Heater Control Circuit High (Bank 1 Sensor 1) [Fail-Safe]" address="57bea" />
- <table name="(P0037) HO2S Heater Control Circuit Low (Bank 1 Sensor 2) [Fail-Safe]" address="57bea" />
- <table name="(P0031) HO2S Heater Control Circuit Low (Bank 1 Sensor 1) [Fail-Safe]" address="57bea" />
- <table name="(P0107) Manifold Absolute Pressure Circuit Low [Fail-Safe]" address="57beb" />
- <table name="(P0108) Manifold Absolute Pressure Circuit High [Fail-Safe]" address="57beb" />
- <table name="(P0128) Coolant Thermostat (Below Regulating Temperature) [Fail-Safe]" address="57bee" />
- <table name="(P0562) System Voltage Low [Fail-Safe]" address="57bef" />
- <table name="(P0563) System Voltage High [Fail-Safe]" address="57bef" />
- <table name="(P0245) Turbocharger Wastegate Solenoid A Low [Fail-Safe]" address="57bf0" />
- <table name="(P0246) Turbocharger Wastegate Solenoid A High [Fail-Safe]" address="57bf0" />
- <table name="(P0244) Turbocharger Wastegate Solenoid A Range/Performance [Fail-Safe]" address="57bf0" />
- <table name="(P0230) Fuel Pump Primary Circuit [Fail-Safe]" address="57bfb" />
- <table name="(P0068) MAP/MAF - Throttle Position Correlation [Fail-Safe]" address="57bfb" />
- <table name="(P0101) Mass Air Flow Circuit Range/Performance [Fail-Safe]" address="57bfb" />
- <table name="(P0134) O2 Sensor Circuit No Activity Detected (Bank 1 Sensor 1) [Fail-Safe]" address="57bfc" />
- <table name="(P0030) HO2S Heater Control Circuit (Bank 1 Sensor 1) [Fail-Safe]" address="57bfc" />
- <table name="(P2109) Throttle/Pedal Position Sensor A Minimum Stop Performance [Fail-Safe]" address="57bff" />
- <table name="(P0222) Throttle Position Sensor B Circuit Low [Fail-Safe]" address="57c00" />
- <table name="(P0223) Throttle Position Sensor B Circuit High [Fail-Safe]" address="57c00" />
- <table name="(P1160) manufacturer-specific / not named [Fail-Safe]" address="57c00" />
- <table name="(P2102) Throttle Actuator Control Motor Circuit Low [Fail-Safe]" address="57c00" />
- <table name="(P2103) Throttle Actuator Control Motor Circuit High [Fail-Safe]" address="57c00" />
- <table name="(P2101) Throttle Actuator Control Motor Circuit Range/Performance [Fail-Safe]" address="57c00" />
- <table name="(P2096) Post Catalyst Fuel Trim System Too Lean (Bank 1) [Fail-Safe]" address="57c00" />
- <table name="(P2138) Throttle/Pedal Position Sensor/Switch D/E Voltage Correlation [Fail-Safe]" address="57c01" />
- <table name="(P2127) Throttle/Pedal Position Sensor/Switch E Circuit Low [Fail-Safe]" address="57c01" />
- <table name="(P2128) Throttle/Pedal Position Sensor/Switch E Circuit High [Fail-Safe]" address="57c01" />
- <table name="(P2122) Throttle/Pedal Position Sensor/Switch D Circuit Low [Fail-Safe]" address="57c01" />
- <table name="(P2123) Throttle/Pedal Position Sensor/Switch D Circuit High [Fail-Safe]" address="57c01" />
- <table name="(P2135) Throttle/Pedal Position Sensor/Switch A/B Voltage Correlation [Fail-Safe]" address="57c01" />
- <table name="(P2097) Post Catalyst Fuel Trim System Too Rich (Bank 1) [Fail-Safe]" address="57c01" />
- <table name="(P0390) Camshaft Position Sensor B Circuit (Bank 2) [Fail-Safe]" address="57c02" />
- <table name="(P0365) Camshaft Position Sensor B Circuit (Bank 1) [Fail-Safe]" address="57c02" />
- <table name="(P0345) Camshaft Position Sensor A Circuit (Bank 2) [Fail-Safe]" address="57c02" />
- <table name="(P0340) Camshaft Position Sensor A Circuit (Bank 1) [Fail-Safe]" address="57c02" />
- <table name="(P0605) Internal Control Module ROM Error [Fail-Safe]" address="57c02" />
- <table name="(P2095) B Camshaft Position Actuator Control Circuit High (Bank 2) [Fail-Safe]" address="57c03" />
- <table name="(P2094) B Camshaft Position Actuator Control Circuit Low (Bank 2) [Fail-Safe]" address="57c03" />
- <table name="(P2091) B Camshaft Position Actuator Control Circuit High (Bank 1) [Fail-Safe]" address="57c03" />
- <table name="(P2090) B Camshaft Position Actuator Control Circuit Low (Bank 1) [Fail-Safe]" address="57c03" />
- <table name="(P2093) A Camshaft Position Actuator Control Circuit High (Bank 2) [Fail-Safe]" address="57c03" />
- <table name="(P2092) A Camshaft Position Actuator Control Circuit Low (Bank 2) [Fail-Safe]" address="57c03" />
- <table name="(P2089) A Camshaft Position Actuator Control Circuit High (Bank 1) [Fail-Safe]" address="57c03" />
- <table name="(P2088) A Camshaft Position Actuator Control Circuit Low (Bank 1) [Fail-Safe]" address="57c03" />
- <table name="(P0197) Engine Oil Temperature Sensor Low [Fail-Safe]" address="57c04" />
- <table name="(P0700) Transmission Control System (MIL Request) [Fail-Safe]" address="57c04" />
- <table name="(P0196) Engine Oil Temperature Sensor Range/Performance [Fail-Safe]" address="57c05" />
- <table name="(P0198) Engine Oil Temperature Sensor High [Fail-Safe]" address="57c05" />
- <table name="(P2004) Intake Manifold Runner Control Stuck Open (Bank 1) [Fail-Safe]" address="57c08" />
- <table name="(P2006) Intake Manifold Runner Control Stuck Closed (Bank 1) [Fail-Safe]" address="57c08" />
- <table name="(P2005) Intake Manifold Runner Control Stuck Open (Bank 2) [Fail-Safe]" address="57c08" />
- <table name="(P2007) Intake Manifold Runner Control Stuck Closed (Bank 2) [Fail-Safe]" address="57c08" />
- <table name="(P2227) Barometric Pressure Sensor A Circuit Range/Performance [Fail-Safe]" address="57c08" />
- <table name="(P2229) Barometric Pressure Sensor A Circuit High [Fail-Safe]" address="57c08" />
- <table name="(P2228) Barometric Pressure Sensor A Circuit Low [Fail-Safe]" address="57c08" />
- <table name="(P2016) Intake Manifold Runner Position Sensor/Switch Circuit Low (Bank 1) [Fail-Safe]" address="57c09" />
- <table name="(P2017) Intake Manifold Runner Position Sensor/Switch Circuit High (Bank 1) [Fail-Safe]" address="57c09" />
- <table name="(P2021) Intake Manifold Runner Position Sensor/Switch Circuit Low (Bank 2) [Fail-Safe]" address="57c09" />
- <table name="(P2022) Intake Manifold Runner Position Sensor/Switch Circuit High (Bank 2) [Fail-Safe]" address="57c09" />
- <table name="(P2009) Intake Manifold Runner Control Circuit Low (Bank 1) [Fail-Safe]" address="57c09" />
- <table name="(P2012) Intake Manifold Runner Control Circuit Low (Bank 2) [Fail-Safe]" address="57c09" />
- <table name="(P0018) Crankshaft/Camshaft Position Correlation (Bank 2 Sensor A) [Fail-Safe]" address="57c0d" />
- <table name="(P0016) Crankshaft/Camshaft Position Correlation (Bank 1 Sensor A) [Fail-Safe]" address="57c0d" />
- <table name="(P0024) Exhaust Camshaft Timing Over-Advanced or System Performance (Bank 2) [Fail-Safe]" address="57c0f" />
- <table name="(P0014) Exhaust Camshaft Timing Over-Advanced or System Performance (Bank 1) [Fail-Safe]" address="57c0f" />
- <table name="(P04F0) Evaporative Emission System High Pressure Purge Line Performance [Fail-Safe]" address="57c0f" />
- <table name="(P1458) manufacturer-specific / not named [Fail-Safe]" address="57c0f" />
- <table name="(P1459) manufacturer-specific / not named [Fail-Safe]" address="57c0f" />
- <table name="(P050E) Cold Start Engine Exhaust Temperature Too Low [Fail-Safe]" address="57c10" />
- <table name="(P0019) Crankshaft/Camshaft Position Correlation (Bank 2 Sensor B) [Fail-Safe]" address="57c10" />
- <table name="(P0017) Crankshaft/Camshaft Position Correlation (Bank 1 Sensor B) [Fail-Safe]" address="57c10" />
- <table name="(U0422) Invalid Data Received from Body Control Module [Fail-Safe]" address="57c1c" />
- <table name="(U0140) Lost Communication with Body Control Module [Fail-Safe]" address="57c1c" />
- <table name="(U0402) Invalid Data Received from TCM [Fail-Safe]" address="57c1c" />
- <table name="(U0101) Lost Communication with TCM [Fail-Safe]" address="57c1c" />
- <table name="(U0416) Invalid Data Received from Vehicle Dynamics Control Module [Fail-Safe]" address="57c1c" />
- <table name="(U0122) Lost Communication with Vehicle Dynamics Control Module [Fail-Safe]" address="57c1c" />
- <table name="(U0073) Control Module Communication Bus Off [Fail-Safe]" address="57c1c" />
- <table name="(P050B) Cold Start Ignition Timing Performance [Fail-Safe]" address="57c1f" />
- <table name="(P050A) Cold Start Idle Air Control System Performance [Fail-Safe]" address="57c1f" />
- <table name="(P2610) ECM/PCM Internal Engine Off Timer Performance [Fail-Safe]" address="57c1f" />
- <table name="(P2420) Evaporative Emission System Switching Valve Control Circuit High [Fail-Safe]" address="57c1f" />
- <table name="(P2419) Evaporative Emission System Switching Valve Control Circuit Low [Fail-Safe]" address="57c1f" />
- <table name="(P2401) Evaporative Emission System Leak Detection Pump Control Circuit Low [Fail-Safe]" address="57c1f" />
- <table name="(P0453) Evaporative Emission System Pressure Sensor High [Fail-Safe]" address="57c1f" />
- <table name="(P0452) Evaporative Emission System Pressure Sensor Low [Fail-Safe]" address="57c1f" />
- <table name="(P015B) O2 Sensor Delayed Response - Lean to Rich (Bank 1 Sensor 1) [Fail-Safe]" address="57c20" />
- <table name="(P015A) O2 Sensor Delayed Response - Rich to Lean (Bank 1 Sensor 1) [Fail-Safe]" address="57c20" />
- <table name="(P014D) O2 Sensor Slow Response - Lean to Rich (Bank 1 Sensor 1) [Fail-Safe]" address="57c20" />
- <table name="(P014C) O2 Sensor Slow Response - Rich to Lean (Bank 1 Sensor 1) [Fail-Safe]" address="57c20" />
- <table name="(P1451) manufacturer-specific / not named [Fail-Safe]" address="57c21" />
- <table name="(P1449) manufacturer-specific / not named [Fail-Safe]" address="57c21" />
- <table name="(P0455) Evaporative Emission System Leak Detected (Large Leak) [Fail-Safe]" address="57c21" />
- <table name="(P0451) Evaporative Emission System Pressure Sensor Range/Performance [Fail-Safe]" address="57c21" />
- <table name="(P0441) Evaporative Emission System Incorrect Purge Flow [Fail-Safe]" address="57c21" />
- <table name="(P219A) Bank 1 Air-Fuel Ratio Imbalance [Fail-Safe]" address="57c21" />
- <table name="(P2404) Evaporative Emission System Leak Detection Pump Sense Circuit Range/Performance [Fail-Safe]" address="57c22" />
- <table name="(P2402) Evaporative Emission System Leak Detection Pump Control Circuit High [Fail-Safe]" address="57c22" />
- <table name="(P013F) O2 Sensor Delayed Response - Lean to Rich (Bank 1 Sensor 2) [Fail-Safe]" address="57c23" />
- <table name="(P013E) O2 Sensor Delayed Response - Rich to Lean (Bank 1 Sensor 2) [Fail-Safe]" address="57c23" />
- <table name="(P013B) O2 Sensor Slow Response - Lean to Rich (Bank 1 Sensor 2) [Fail-Safe]" address="57c23" />
- <table name="(P013A) O2 Sensor Slow Response - Rich to Lean (Bank 1 Sensor 2) [Fail-Safe]" address="57c23" />
- <table name="(U0423) Invalid Data Received from Instrument Panel Control Module [Fail-Safe]" address="57c25" />
- <table name="(U0155) Lost Communication with Instrument Panel Cluster Control Module [Fail-Safe]" address="57c25" />
- <table name="(P0354) Ignition Coil D Primary/Secondary Circuit [Fail-Safe]" address="57c27" />
- <table name="(P0353) Ignition Coil C Primary/Secondary Circuit [Fail-Safe]" address="57c27" />
- <table name="(P0352) Ignition Coil B Primary/Secondary Circuit [Fail-Safe]" address="57c27" />
- <table name="(P0351) Ignition Coil A Primary/Secondary Circuit [Fail-Safe]" address="57c27" />
  <table name="(P000A) Intake Camshaft Position Slow Response (Bank 1) [Fail-Safe]" address="57c28" />
+ <table name="(P000B) Exhaust Camshaft Position Slow Response (Bank 1)" address="421e0" />
  <table name="(P000B) Exhaust Camshaft Position Slow Response (Bank 1) [Fail-Safe]" address="57c28" />
+ <table name="(P000C) Intake Camshaft Position Slow Response (Bank 2)" address="421e0" />
  <table name="(P000C) Intake Camshaft Position Slow Response (Bank 2) [Fail-Safe]" address="57c28" />
+ <table name="(P000D) Exhaust Camshaft Position Slow Response (Bank 2)" address="421e0" />
  <table name="(P000D) Exhaust Camshaft Position Slow Response (Bank 2) [Fail-Safe]" address="57c28" />
- <table name="(P0558) Brake Booster Pressure Sensor Circuit High [Fail-Safe]" address="57c28" />
- <table name="(P0557) Brake Booster Pressure Sensor Circuit Low [Fail-Safe]" address="57c28" />
- <table name="(P0512) Starter Request Circuit [Fail-Safe]" address="57c29" />
- <table name="(P0616) Starter Relay Circuit Low [Fail-Safe]" address="57c29" />
- <table name="(P0617) Starter Relay Circuit High [Fail-Safe]" address="57c29" />
- <table name="(P2195) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 1) [Fail-Safe]" address="57c29" />
- <table name="(P2196) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 1) [Fail-Safe]" address="57c29" />
- <table name="(P0560) System Voltage [Fail-Safe]" address="57c29" />
- <table name="(P0116) Engine Coolant Temperature Circuit Range/Performance [Fail-Safe]" address="57c29" />
- <table name="(P081A) Starter Disable Circuit Low [Fail-Safe]" address="57c29" />
- <table name="(P062F) Internal Control Module EEPROM Error [Fail-Safe]" address="57c2b" />
- <table name="(P060B) Internal Control Module A/D Processing Performance [Fail-Safe]" address="57c2b" />
- <table name="(P060A) Internal Control Module Monitoring Processor Performance [Fail-Safe]" address="57c2b" />
- <table name="(P0606) Control Module Processor [Fail-Safe]" address="57c2b" />
- <table name="(P2119) Throttle Actuator Control Throttle Body Range/Performance [Fail-Safe]" address="57c2b" />
- <table name="(P0403) Exhaust Gas Recirculation Control Circuit [Fail-Safe]" address="57c2c" />
- <table name="(P0391) Camshaft Position Sensor B Circuit Range/Performance (Bank 2) [Fail-Safe]" address="57c2c" />
- <table name="(P0366) Camshaft Position Sensor B Circuit Range/Performance (Bank 1) [Fail-Safe]" address="57c2c" />
- <table name="(P0346) Camshaft Position Sensor A Circuit Range/Performance (Bank 2) [Fail-Safe]" address="57c2c" />
- <table name="(P0341) Camshaft Position Sensor A Circuit Range/Performance (Bank 1) [Fail-Safe]" address="57c2c" />
- <table name="(P0300) Random/Multiple Cylinder Misfire Detected [Fail-Safe]" address="57c2c" />
- <table name="(P2530) Ignition Switch Run Position Circuit [Fail-Safe]" address="57c2d" />
- <table name="(P04AC) Evaporative Emission System Purge Control Valve 'B' Circuit Low [Fail-Safe]" address="57c2d" />
- <table name="(P04AD) Evaporative Emission System Purge Control Valve 'B' Circuit High [Fail-Safe]" address="57c2d" />
- <table name="(P0072) Ambient Air Temperature Sensor Circuit Low [Fail-Safe]" address="57c35" />
- <table name="(P0073) Ambient Air Temperature Sensor Circuit High [Fail-Safe]" address="57c35" />
- <table name="(P0071) Ambient Air Temperature Sensor Range/Performance [Fail-Safe]" address="57c35" />
- <table name="(P0500) Vehicle Speed Sensor A [slot 779] [Fail-Safe]" address="57c35" />
- <table name="(P2158) Vehicle Speed Sensor B [Fail-Safe]" address="57c35" />
+ <table name="(P0010) Intake Camshaft Position Actuator Circuit (Bank 1)" address="421ef" scaling="DTC enabled b0 mFF f00 sDE" />
  <table name="(P0010) Intake Camshaft Position Actuator Circuit (Bank 1) [Fail-Safe]" address="57c37" />
- <table name="(P0020) Intake Camshaft Position Actuator Circuit (Bank 2) [Fail-Safe]" address="57c37" />
+ <table name="(P0011) Intake Camshaft Timing Over-Advanced or System Performance (Bank 1)" address="42198" />
+ <table name="(P0011) Intake Camshaft Timing Over-Advanced or System Performance (Bank 1) [Fail-Safe]" address="57be0" />
+ <table name="(P0013) Exhaust Camshaft Position Actuator Circuit (Bank 1)" address="421ef" scaling="DTC enabled b2 mFF f00 sDB" />
  <table name="(P0013) Exhaust Camshaft Position Actuator Circuit (Bank 1) [Fail-Safe]" address="57c37" />
+ <table name="(P0014) Exhaust Camshaft Timing Over-Advanced or System Performance (Bank 1)" address="421c7" />
+ <table name="(P0014) Exhaust Camshaft Timing Over-Advanced or System Performance (Bank 1) [Fail-Safe]" address="57c0f" />
+ <table name="(P0016) Crankshaft/Camshaft Position Correlation (Bank 1 Sensor A)" address="421c5" />
+ <table name="(P0016) Crankshaft/Camshaft Position Correlation (Bank 1 Sensor A) [Fail-Safe]" address="57c0d" />
+ <table name="(P0017) Crankshaft/Camshaft Position Correlation (Bank 1 Sensor B)" address="421c8" />
+ <table name="(P0017) Crankshaft/Camshaft Position Correlation (Bank 1 Sensor B) [Fail-Safe]" address="57c10" />
+ <table name="(P0018) Crankshaft/Camshaft Position Correlation (Bank 2 Sensor A)" address="421c5" />
+ <table name="(P0018) Crankshaft/Camshaft Position Correlation (Bank 2 Sensor A) [Fail-Safe]" address="57c0d" />
+ <table name="(P0019) Crankshaft/Camshaft Position Correlation (Bank 2 Sensor B)" address="421c8" />
+ <table name="(P0019) Crankshaft/Camshaft Position Correlation (Bank 2 Sensor B) [Fail-Safe]" address="57c10" />
+ <table name="(P0020) Intake Camshaft Position Actuator Circuit (Bank 2)" address="421ef" scaling="DTC enabled b1 mFF f00 sDD" />
+ <table name="(P0020) Intake Camshaft Position Actuator Circuit (Bank 2) [Fail-Safe]" address="57c37" />
+ <table name="(P0021) Intake Camshaft Timing Over-Advanced or System Performance (Bank 2)" address="42198" />
+ <table name="(P0021) Intake Camshaft Timing Over-Advanced or System Performance (Bank 2) [Fail-Safe]" address="57be0" />
+ <table name="(P0023) Exhaust Camshaft Position Actuator Circuit (Bank 2)" address="421ef" scaling="DTC enabled b3 mFF f00 sD7" />
  <table name="(P0023) Exhaust Camshaft Position Actuator Circuit (Bank 2) [Fail-Safe]" address="57c37" />
- <table name="(P0685) ECM/PCM Power Relay Control Circuit/Open [Fail-Safe]" address="57c37" />
- <table name="(P2A01) O2 Sensor Circuit Range/Performance (Bank 1 Sensor 2) [Fail-Safe]" address="57c37" />
- <table name="(P2270) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 2) [Fail-Safe]" address="57c37" />
- <table name="(P2271) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 2) [Fail-Safe]" address="57c37" />
+ <table name="(P0024) Exhaust Camshaft Timing Over-Advanced or System Performance (Bank 2)" address="421c7" />
+ <table name="(P0024) Exhaust Camshaft Timing Over-Advanced or System Performance (Bank 2) [Fail-Safe]" address="57c0f" />
+ <table name="(P0030) HO2S Heater Control Circuit (Bank 1 Sensor 1)" address="421b4" />
+ <table name="(P0030) HO2S Heater Control Circuit (Bank 1 Sensor 1) [Fail-Safe]" address="57bfc" />
+ <table name="(P0031) HO2S Heater Control Circuit Low (Bank 1 Sensor 1)" address="421a2" />
+ <table name="(P0031) HO2S Heater Control Circuit Low (Bank 1 Sensor 1) [Fail-Safe]" address="57bea" />
+ <table name="(P0032) HO2S Heater Control Circuit High (Bank 1 Sensor 1)" address="421a2" />
+ <table name="(P0032) HO2S Heater Control Circuit High (Bank 1 Sensor 1) [Fail-Safe]" address="57bea" />
+ <table name="(P0037) HO2S Heater Control Circuit Low (Bank 1 Sensor 2)" address="421a2" />
+ <table name="(P0037) HO2S Heater Control Circuit Low (Bank 1 Sensor 2) [Fail-Safe]" address="57bea" />
+ <table name="(P0038) HO2S Heater Control Circuit High (Bank 1 Sensor 2)" address="421a2" />
+ <table name="(P0038) HO2S Heater Control Circuit High (Bank 1 Sensor 2) [Fail-Safe]" address="57bea" />
+ <table name="(P0068) MAP/MAF - Throttle Position Correlation" address="421b3" />
+ <table name="(P0068) MAP/MAF - Throttle Position Correlation [Fail-Safe]" address="57bfb" />
+ <table name="(P0071) Ambient Air Temperature Sensor Range/Performance" address="421ed" />
+ <table name="(P0071) Ambient Air Temperature Sensor Range/Performance [Fail-Safe]" address="57c35" />
+ <table name="(P0072) Ambient Air Temperature Sensor Circuit Low" address="421ed" />
+ <table name="(P0072) Ambient Air Temperature Sensor Circuit Low [Fail-Safe]" address="57c35" />
+ <table name="(P0073) Ambient Air Temperature Sensor Circuit High" address="421ed" />
+ <table name="(P0073) Ambient Air Temperature Sensor Circuit High [Fail-Safe]" address="57c35" />
+ <table name="(P0087) Fuel Rail/System Pressure Too Low" address="421f0" scaling="DTC enabled b0 mFF f00 sFE" />
  <table name="(P0087) Fuel Rail/System Pressure Too Low [Fail-Safe]" address="57c38" />
+ <table name="(P0088) Fuel Rail/System Pressure Too High" address="421f0" scaling="DTC enabled b1 mFF f00 sFD" />
  <table name="(P0088) Fuel Rail/System Pressure Too High [Fail-Safe]" address="57c38" />
- <table name="(P062D) Fuel Injector Driver Circuit Performance (Bank 1) [Fail-Safe]" address="57c38" />
- <table name="(P1261) manufacturer-specific / not named [Fail-Safe]" address="57c38" />
- <table name="(P1262) manufacturer-specific / not named [Fail-Safe]" address="57c38" />
- <table name="(P1263) manufacturer-specific / not named [Fail-Safe]" address="57c38" />
- <table name="(P1264) manufacturer-specific / not named [Fail-Safe]" address="57c38" />
- <table name="(P0191) Fuel Rail Pressure Sensor A Circuit Range/Performance [Fail-Safe]" address="57c38" />
- <table name="(P0192) Fuel Rail Pressure Sensor A Circuit Low [Fail-Safe]" address="57c39" />
- <table name="(P0193) Fuel Rail Pressure Sensor A Circuit High [Fail-Safe]" address="57c39" />
- <table name="(P1191) manufacturer-specific / not named [Fail-Safe]" address="57c39" />
- <table name="(P0627) Fuel Pump A Control Circuit/Open [Fail-Safe]" address="57c39" />
- <table name="(P0628) Fuel Pump A Control Circuit Low [Fail-Safe]" address="57c39" />
- <table name="(P0629) Fuel Pump A Control Circuit High [Fail-Safe]" address="57c39" />
- <table name="(P023F) manufacturer-specific / not named [Fail-Safe]" address="57c39" />
- <table name="(P0130) O2 Sensor Circuit (Bank 1 Sensor 1) [Fail-Safe]" address="57c39" />
- <table name="(P0097) Intake Air Temperature Sensor 2 Circuit Low [Fail-Safe]" address="57c3a" />
- <table name="(P0098) Intake Air Temperature Sensor 2 Circuit High [Fail-Safe]" address="57c3a" />
- <table name="(P2627) O2 Sensor Pumping Current Trim Circuit/Open (Bank 1 Sensor 1) [Fail-Safe]" address="57c3a" />
- <table name="(P2628) O2 Sensor Pumping Current Trim Circuit Low (Bank 1 Sensor 1) [Fail-Safe]" address="57c3a" />
+ <table name="(P0096) Intake Air Temperature Sensor 2 Circuit Range/Performance" address="421f2" scaling="DTC enabled b4 mFF f00 s63" />
  <table name="(P0096) Intake Air Temperature Sensor 2 Circuit Range/Performance [Fail-Safe]" address="57c3a" />
+ <table name="(P0097) Intake Air Temperature Sensor 2 Circuit Low" address="421f2" scaling="DTC enabled b0 mFF f00 s72" />
+ <table name="(P0097) Intake Air Temperature Sensor 2 Circuit Low [Fail-Safe]" address="57c3a" />
+ <table name="(P0098) Intake Air Temperature Sensor 2 Circuit High" address="421f2" scaling="DTC enabled b1 mFF f00 s71" />
+ <table name="(P0098) Intake Air Temperature Sensor 2 Circuit High [Fail-Safe]" address="57c3a" />
+ <table name="(P0101) Mass Air Flow Circuit Range/Performance" address="421b3" />
+ <table name="(P0101) Mass Air Flow Circuit Range/Performance [Fail-Safe]" address="57bfb" />
+ <table name="(P0102) Mass Air Flow Circuit Low" address="4218d" />
+ <table name="(P0102) Mass Air Flow Circuit Low [Fail-Safe]" address="57bd5" />
+ <table name="(P0103) Mass Air Flow Circuit High" address="4218d" />
+ <table name="(P0103) Mass Air Flow Circuit High [Fail-Safe]" address="57bd5" />
+ <table name="(P0107) Manifold Absolute Pressure Circuit Low" address="421a3" />
+ <table name="(P0107) Manifold Absolute Pressure Circuit Low [Fail-Safe]" address="57beb" />
+ <table name="(P0108) Manifold Absolute Pressure Circuit High" address="421a3" />
+ <table name="(P0108) Manifold Absolute Pressure Circuit High [Fail-Safe]" address="57beb" />
+ <table name="(P0111) Intake Air Temperature Sensor 1 Circuit Range/Performance" address="421a2" />
+ <table name="(P0111) Intake Air Temperature Sensor 1 Circuit Range/Performance [Fail-Safe]" address="57bea" />
+ <table name="(P0112) Intake Air Temperature Sensor 1 Circuit Low" address="421a2" />
+ <table name="(P0112) Intake Air Temperature Sensor 1 Circuit Low [Fail-Safe]" address="57bea" />
+ <table name="(P0113) Intake Air Temperature Sensor 1 Circuit High" address="421a2" />
+ <table name="(P0113) Intake Air Temperature Sensor 1 Circuit High [Fail-Safe]" address="57bea" />
+ <table name="(P0116) Engine Coolant Temperature Circuit Range/Performance" address="421e1" scaling="DTC enabled b6 mFF f00 sBF" />
+ <table name="(P0116) Engine Coolant Temperature Circuit Range/Performance [Fail-Safe]" address="57c29" />
+ <table name="(P0117) Engine Coolant Temperature Circuit Low" address="4218f" />
+ <table name="(P0117) Engine Coolant Temperature Circuit Low [Fail-Safe]" address="57bd7" />
+ <table name="(P0118) Engine Coolant Temperature Circuit High" address="4218f" />
+ <table name="(P0118) Engine Coolant Temperature Circuit High [Fail-Safe]" address="57bd7" />
+ <table name="(P0122) Throttle Position Sensor A Circuit Low" address="4218e" />
+ <table name="(P0122) Throttle Position Sensor A Circuit Low [Fail-Safe]" address="57bd6" />
+ <table name="(P0123) Throttle Position Sensor A Circuit High" address="4218e" />
+ <table name="(P0123) Throttle Position Sensor A Circuit High [Fail-Safe]" address="57bd6" />
+ <table name="(P0125) Insufficient Coolant Temperature for Closed Loop Fuel Control" address="4218f" />
+ <table name="(P0125) Insufficient Coolant Temperature for Closed Loop Fuel Control [Fail-Safe]" address="57bd7" />
+ <table name="(P0128) Coolant Thermostat (Below Regulating Temperature)" address="421a6" />
+ <table name="(P0128) Coolant Thermostat (Below Regulating Temperature) [Fail-Safe]" address="57bee" />
+ <table name="(P0130) O2 Sensor Circuit (Bank 1 Sensor 1)" address="421f1" scaling="DTC enabled b7 mFF f00 s47" />
+ <table name="(P0130) O2 Sensor Circuit (Bank 1 Sensor 1) [Fail-Safe]" address="57c39" />
+ <table name="(P0131) O2 Sensor Circuit Low Voltage (Bank 1 Sensor 1)" address="421a1" />
+ <table name="(P0131) O2 Sensor Circuit Low Voltage (Bank 1 Sensor 1) [Fail-Safe]" address="57be9" />
+ <table name="(P0132) O2 Sensor Circuit High Voltage (Bank 1 Sensor 1)" address="421a1" />
+ <table name="(P0132) O2 Sensor Circuit High Voltage (Bank 1 Sensor 1) [Fail-Safe]" address="57be9" />
+ <table name="(P0133) O2 Sensor Circuit Slow Response (Bank 1 Sensor 1)" address="4219d" />
+ <table name="(P0133) O2 Sensor Circuit Slow Response (Bank 1 Sensor 1) [Fail-Safe]" address="57be5" />
+ <table name="(P0134) O2 Sensor Circuit No Activity Detected (Bank 1 Sensor 1)" address="421b4" />
+ <table name="(P0134) O2 Sensor Circuit No Activity Detected (Bank 1 Sensor 1) [Fail-Safe]" address="57bfc" />
+ <table name="(P0137) O2 Sensor Circuit Low Voltage (Bank 1 Sensor 2)" address="421a1" />
+ <table name="(P0137) O2 Sensor Circuit Low Voltage (Bank 1 Sensor 2) [Fail-Safe]" address="57be9" />
+ <table name="(P0138) O2 Sensor Circuit High Voltage (Bank 1 Sensor 2)" address="421a1" />
+ <table name="(P0138) O2 Sensor Circuit High Voltage (Bank 1 Sensor 2) [Fail-Safe]" address="57be9" />
+ <table name="(P013A) O2 Sensor Slow Response - Rich to Lean (Bank 1 Sensor 2)" address="421db" />
+ <table name="(P013A) O2 Sensor Slow Response - Rich to Lean (Bank 1 Sensor 2) [Fail-Safe]" address="57c23" />
+ <table name="(P013B) O2 Sensor Slow Response - Lean to Rich (Bank 1 Sensor 2)" address="421db" />
+ <table name="(P013B) O2 Sensor Slow Response - Lean to Rich (Bank 1 Sensor 2) [Fail-Safe]" address="57c23" />
+ <table name="(P013E) O2 Sensor Delayed Response - Rich to Lean (Bank 1 Sensor 2)" address="421db" />
+ <table name="(P013E) O2 Sensor Delayed Response - Rich to Lean (Bank 1 Sensor 2) [Fail-Safe]" address="57c23" />
+ <table name="(P013F) O2 Sensor Delayed Response - Lean to Rich (Bank 1 Sensor 2)" address="421db" />
+ <table name="(P013F) O2 Sensor Delayed Response - Lean to Rich (Bank 1 Sensor 2) [Fail-Safe]" address="57c23" />
+ <table name="(P0141) O2 Sensor Heater Circuit (Bank 1 Sensor 2)" address="4219c" />
+ <table name="(P0141) O2 Sensor Heater Circuit (Bank 1 Sensor 2) [Fail-Safe]" address="57be4" />
+ <table name="(P014C) O2 Sensor Slow Response - Rich to Lean (Bank 1 Sensor 1)" address="421d8" />
+ <table name="(P014C) O2 Sensor Slow Response - Rich to Lean (Bank 1 Sensor 1) [Fail-Safe]" address="57c20" />
+ <table name="(P014D) O2 Sensor Slow Response - Lean to Rich (Bank 1 Sensor 1)" address="421d8" />
+ <table name="(P014D) O2 Sensor Slow Response - Lean to Rich (Bank 1 Sensor 1) [Fail-Safe]" address="57c20" />
+ <table name="(P015A) O2 Sensor Delayed Response - Rich to Lean (Bank 1 Sensor 1)" address="421d8" />
+ <table name="(P015A) O2 Sensor Delayed Response - Rich to Lean (Bank 1 Sensor 1) [Fail-Safe]" address="57c20" />
+ <table name="(P015B) O2 Sensor Delayed Response - Lean to Rich (Bank 1 Sensor 1)" address="421d8" />
+ <table name="(P015B) O2 Sensor Delayed Response - Lean to Rich (Bank 1 Sensor 1) [Fail-Safe]" address="57c20" />
+ <table name="(P0171) System Too Lean (Bank 1)" address="4219e" />
+ <table name="(P0171) System Too Lean (Bank 1) [Fail-Safe]" address="57be6" />
+ <table name="(P0172) System Too Rich (Bank 1)" address="4219e" />
+ <table name="(P0172) System Too Rich (Bank 1) [Fail-Safe]" address="57be6" />
+ <table name="(P0191) Fuel Rail Pressure Sensor A Circuit Range/Performance" address="421f0" />
+ <table name="(P0191) Fuel Rail Pressure Sensor A Circuit Range/Performance [Fail-Safe]" address="57c38" />
+ <table name="(P0192) Fuel Rail Pressure Sensor A Circuit Low" address="421f1" scaling="DTC enabled b0 mFF f00 sC6" />
+ <table name="(P0192) Fuel Rail Pressure Sensor A Circuit Low [Fail-Safe]" address="57c39" />
+ <table name="(P0193) Fuel Rail Pressure Sensor A Circuit High" address="421f1" scaling="DTC enabled b1 mFF f00 sC5" />
+ <table name="(P0193) Fuel Rail Pressure Sensor A Circuit High [Fail-Safe]" address="57c39" />
+ <table name="(P0196) Engine Oil Temperature Sensor Range/Performance" address="421bd" />
+ <table name="(P0196) Engine Oil Temperature Sensor Range/Performance [Fail-Safe]" address="57c05" />
+ <table name="(P0197) Engine Oil Temperature Sensor Low" address="421bc" />
+ <table name="(P0197) Engine Oil Temperature Sensor Low [Fail-Safe]" address="57c04" />
+ <table name="(P0198) Engine Oil Temperature Sensor High" address="421bd" />
+ <table name="(P0198) Engine Oil Temperature Sensor High [Fail-Safe]" address="57c05" />
+ <table name="(P0222) Throttle Position Sensor B Circuit Low" address="421b8" />
+ <table name="(P0222) Throttle Position Sensor B Circuit Low [Fail-Safe]" address="57c00" />
+ <table name="(P0223) Throttle Position Sensor B Circuit High" address="421b8" />
+ <table name="(P0223) Throttle Position Sensor B Circuit High [Fail-Safe]" address="57c00" />
+ <table name="(P0230) Fuel Pump Primary Circuit" address="421b3" />
+ <table name="(P0230) Fuel Pump Primary Circuit [Fail-Safe]" address="57bfb" />
+ <table name="(P023F) manufacturer-specific / not named" address="421f1" scaling="DTC enabled b6 mFF f00 s87" />
+ <table name="(P023F) manufacturer-specific / not named [Fail-Safe]" address="57c39" />
+ <table name="(P0244) Turbocharger Wastegate Solenoid A Range/Performance" address="421a8" />
+ <table name="(P0244) Turbocharger Wastegate Solenoid A Range/Performance [Fail-Safe]" address="57bf0" />
+ <table name="(P0245) Turbocharger Wastegate Solenoid A Low" address="421a8" />
+ <table name="(P0245) Turbocharger Wastegate Solenoid A Low [Fail-Safe]" address="57bf0" />
+ <table name="(P0246) Turbocharger Wastegate Solenoid A High" address="421a8" />
+ <table name="(P0246) Turbocharger Wastegate Solenoid A High [Fail-Safe]" address="57bf0" />
+ <table name="(P0300) Random/Multiple Cylinder Misfire Detected" address="421e4" />
+ <table name="(P0300) Random/Multiple Cylinder Misfire Detected [Fail-Safe]" address="57c2c" />
+ <table name="(P0301) Cylinder 1 Misfire Detected" address="4219f" />
+ <table name="(P0301) Cylinder 1 Misfire Detected [Fail-Safe]" address="57be7" />
+ <table name="(P0302) Cylinder 2 Misfire Detected" address="4219f" />
+ <table name="(P0302) Cylinder 2 Misfire Detected [Fail-Safe]" address="57be7" />
+ <table name="(P0303) Cylinder 3 Misfire Detected" address="4219f" />
+ <table name="(P0303) Cylinder 3 Misfire Detected [Fail-Safe]" address="57be7" />
+ <table name="(P0304) Cylinder 4 Misfire Detected" address="4219f" />
+ <table name="(P0304) Cylinder 4 Misfire Detected [Fail-Safe]" address="57be7" />
+ <table name="(P0327) Knock Sensor 1 Circuit Low (Bank 1)" address="4218e" />
+ <table name="(P0327) Knock Sensor 1 Circuit Low (Bank 1) [Fail-Safe]" address="57bd6" />
+ <table name="(P0328) Knock Sensor 1 Circuit High (Bank 1)" address="4218e" />
+ <table name="(P0328) Knock Sensor 1 Circuit High (Bank 1) [Fail-Safe]" address="57bd6" />
+ <table name="(P0332) Knock Sensor 2 Circuit Low (Bank 2)" address="4218d" />
+ <table name="(P0332) Knock Sensor 2 Circuit Low (Bank 2) [Fail-Safe]" address="57bd5" />
+ <table name="(P0333) Knock Sensor 2 Circuit High (Bank 2)" address="4218d" />
+ <table name="(P0333) Knock Sensor 2 Circuit High (Bank 2) [Fail-Safe]" address="57bd5" />
+ <table name="(P0335) Crankshaft Position Sensor A Circuit" address="4218c" />
+ <table name="(P0335) Crankshaft Position Sensor A Circuit [Fail-Safe]" address="57bd4" />
+ <table name="(P0336) Crankshaft Position Sensor A Circuit Range/Performance" address="4218c" />
+ <table name="(P0336) Crankshaft Position Sensor A Circuit Range/Performance [Fail-Safe]" address="57bd4" />
+ <table name="(P0340) Camshaft Position Sensor A Circuit (Bank 1)" address="421ba" />
+ <table name="(P0340) Camshaft Position Sensor A Circuit (Bank 1) [Fail-Safe]" address="57c02" />
+ <table name="(P0341) Camshaft Position Sensor A Circuit Range/Performance (Bank 1)" address="421e4" />
+ <table name="(P0341) Camshaft Position Sensor A Circuit Range/Performance (Bank 1) [Fail-Safe]" address="57c2c" />
+ <table name="(P0345) Camshaft Position Sensor A Circuit (Bank 2)" address="421ba" />
+ <table name="(P0345) Camshaft Position Sensor A Circuit (Bank 2) [Fail-Safe]" address="57c02" />
+ <table name="(P0346) Camshaft Position Sensor A Circuit Range/Performance (Bank 2)" address="421e4" />
+ <table name="(P0346) Camshaft Position Sensor A Circuit Range/Performance (Bank 2) [Fail-Safe]" address="57c2c" />
+ <table name="(P0351) Ignition Coil A Primary/Secondary Circuit" address="421df" />
+ <table name="(P0351) Ignition Coil A Primary/Secondary Circuit [Fail-Safe]" address="57c27" />
+ <table name="(P0352) Ignition Coil B Primary/Secondary Circuit" address="421df" />
+ <table name="(P0352) Ignition Coil B Primary/Secondary Circuit [Fail-Safe]" address="57c27" />
+ <table name="(P0353) Ignition Coil C Primary/Secondary Circuit" address="421df" />
+ <table name="(P0353) Ignition Coil C Primary/Secondary Circuit [Fail-Safe]" address="57c27" />
+ <table name="(P0354) Ignition Coil D Primary/Secondary Circuit" address="421df" />
+ <table name="(P0354) Ignition Coil D Primary/Secondary Circuit [Fail-Safe]" address="57c27" />
+ <table name="(P0365) Camshaft Position Sensor B Circuit (Bank 1)" address="421ba" />
+ <table name="(P0365) Camshaft Position Sensor B Circuit (Bank 1) [Fail-Safe]" address="57c02" />
+ <table name="(P0366) Camshaft Position Sensor B Circuit Range/Performance (Bank 1)" address="421e4" />
+ <table name="(P0366) Camshaft Position Sensor B Circuit Range/Performance (Bank 1) [Fail-Safe]" address="57c2c" />
+ <table name="(P0390) Camshaft Position Sensor B Circuit (Bank 2)" address="421ba" />
+ <table name="(P0390) Camshaft Position Sensor B Circuit (Bank 2) [Fail-Safe]" address="57c02" />
+ <table name="(P0391) Camshaft Position Sensor B Circuit Range/Performance (Bank 2)" address="421e4" />
+ <table name="(P0391) Camshaft Position Sensor B Circuit Range/Performance (Bank 2) [Fail-Safe]" address="57c2c" />
+ <table name="(P0400) Exhaust Gas Recirculation Flow" address="4219e" />
+ <table name="(P0400) Exhaust Gas Recirculation Flow [Fail-Safe]" address="57be6" />
+ <table name="(P0403) Exhaust Gas Recirculation Control Circuit" address="421e4" />
+ <table name="(P0403) Exhaust Gas Recirculation Control Circuit [Fail-Safe]" address="57c2c" />
+ <table name="(P0420) Catalyst System Efficiency Below Threshold (Bank 1)" address="4219e" />
+ <table name="(P0420) Catalyst System Efficiency Below Threshold (Bank 1) [Fail-Safe]" address="57be6" />
+ <table name="(P0441) Evaporative Emission System Incorrect Purge Flow" address="421d9" />
+ <table name="(P0441) Evaporative Emission System Incorrect Purge Flow [Fail-Safe]" address="57c21" />
+ <table name="(P0451) Evaporative Emission System Pressure Sensor Range/Performance" address="421d9" />
+ <table name="(P0451) Evaporative Emission System Pressure Sensor Range/Performance [Fail-Safe]" address="57c21" />
+ <table name="(P0452) Evaporative Emission System Pressure Sensor Low" address="421d7" scaling="DTC enabled b7 mFF f00 s7F" />
+ <table name="(P0452) Evaporative Emission System Pressure Sensor Low [Fail-Safe]" address="57c1f" />
+ <table name="(P0453) Evaporative Emission System Pressure Sensor High" address="421d7" scaling="DTC enabled b6 mFF f00 sBF" />
+ <table name="(P0453) Evaporative Emission System Pressure Sensor High [Fail-Safe]" address="57c1f" />
+ <table name="(P0455) Evaporative Emission System Leak Detected (Large Leak)" address="421d9" />
+ <table name="(P0455) Evaporative Emission System Leak Detected (Large Leak) [Fail-Safe]" address="57c21" />
+ <table name="(P0456) Evaporative Emission System Leak Detected (Very Small Leak)" address="4219e" />
+ <table name="(P0456) Evaporative Emission System Leak Detected (Very Small Leak) [Fail-Safe]" address="57be6" />
+ <table name="(P0458) Evaporative Emission System Purge Control Valve Circuit Low" address="42198" />
+ <table name="(P0458) Evaporative Emission System Purge Control Valve Circuit Low [Fail-Safe]" address="57be0" />
+ <table name="(P0459) Evaporative Emission System Purge Control Valve Circuit High" address="42198" />
+ <table name="(P0459) Evaporative Emission System Purge Control Valve Circuit High [Fail-Safe]" address="57be0" />
+ <table name="(P0461) Fuel Level Sensor A Circuit Range/Performance" address="4218f" />
+ <table name="(P0461) Fuel Level Sensor A Circuit Range/Performance [Fail-Safe]" address="57bd7" />
+ <table name="(P0462) Fuel Level Sensor A Circuit Low" address="4218f" />
+ <table name="(P0462) Fuel Level Sensor A Circuit Low [Fail-Safe]" address="57bd7" />
+ <table name="(P0463) Fuel Level Sensor A Circuit High" address="4218f" />
+ <table name="(P0463) Fuel Level Sensor A Circuit High [Fail-Safe]" address="57bd7" />
+ <table name="(P04AC) Evaporative Emission System Purge Control Valve 'B' Circuit Low" address="421e5" />
+ <table name="(P04AC) Evaporative Emission System Purge Control Valve 'B' Circuit Low [Fail-Safe]" address="57c2d" />
+ <table name="(P04AD) Evaporative Emission System Purge Control Valve 'B' Circuit High" address="421e5" />
+ <table name="(P04AD) Evaporative Emission System Purge Control Valve 'B' Circuit High [Fail-Safe]" address="57c2d" />
+ <table name="(P04F0) Evaporative Emission System High Pressure Purge Line Performance" address="421c7" />
+ <table name="(P04F0) Evaporative Emission System High Pressure Purge Line Performance [Fail-Safe]" address="57c0f" />
+ <table name="(P0500) Vehicle Speed Sensor A [slot 12]" address="4218d" />
+ <table name="(P0500) Vehicle Speed Sensor A [slot 12] [Fail-Safe]" address="57bd5" />
+ <table name="(P0500) Vehicle Speed Sensor A [slot 779]" address="421ed" />
+ <table name="(P0500) Vehicle Speed Sensor A [slot 779] [Fail-Safe]" address="57c35" />
+ <table name="(P0506) Idle Control System RPM Lower Than Expected" address="42196" />
+ <table name="(P0506) Idle Control System RPM Lower Than Expected [Fail-Safe]" address="57bde" />
+ <table name="(P0507) Idle Control System RPM Higher Than Expected" address="42196" />
+ <table name="(P0507) Idle Control System RPM Higher Than Expected [Fail-Safe]" address="57bde" />
+ <table name="(P050A) Cold Start Idle Air Control System Performance" address="421d7" scaling="DTC enabled b1 mFF f00 sFD" />
+ <table name="(P050A) Cold Start Idle Air Control System Performance [Fail-Safe]" address="57c1f" />
+ <table name="(P050B) Cold Start Ignition Timing Performance" address="421d7" scaling="DTC enabled b0 mFF f00 sFE" />
+ <table name="(P050B) Cold Start Ignition Timing Performance [Fail-Safe]" address="57c1f" />
+ <table name="(P050E) Cold Start Engine Exhaust Temperature Too Low" address="421c8" />
+ <table name="(P050E) Cold Start Engine Exhaust Temperature Too Low [Fail-Safe]" address="57c10" />
+ <table name="(P0512) Starter Request Circuit" address="421e1" scaling="DTC enabled b0 mFF f00 sFE" />
+ <table name="(P0512) Starter Request Circuit [Fail-Safe]" address="57c29" />
+ <table name="(P0557) Brake Booster Pressure Sensor Circuit Low" address="421e0" />
+ <table name="(P0557) Brake Booster Pressure Sensor Circuit Low [Fail-Safe]" address="57c28" />
+ <table name="(P0558) Brake Booster Pressure Sensor Circuit High" address="421e0" />
+ <table name="(P0558) Brake Booster Pressure Sensor Circuit High [Fail-Safe]" address="57c28" />
+ <table name="(P0560) System Voltage" address="421e1" scaling="DTC enabled b5 mFF f00 sDF" />
+ <table name="(P0560) System Voltage [Fail-Safe]" address="57c29" />
+ <table name="(P0562) System Voltage Low" address="421a7" />
+ <table name="(P0562) System Voltage Low [Fail-Safe]" address="57bef" />
+ <table name="(P0563) System Voltage High" address="421a7" />
+ <table name="(P0563) System Voltage High [Fail-Safe]" address="57bef" />
+ <table name="(P0604) Internal Control Module RAM Error" address="4218c" />
+ <table name="(P0604) Internal Control Module RAM Error [Fail-Safe]" address="57bd4" />
+ <table name="(P0605) Internal Control Module ROM Error" address="421ba" />
+ <table name="(P0605) Internal Control Module ROM Error [Fail-Safe]" address="57c02" />
+ <table name="(P0606) Control Module Processor" address="421e3" />
+ <table name="(P0606) Control Module Processor [Fail-Safe]" address="57c2b" />
+ <table name="(P060A) Internal Control Module Monitoring Processor Performance" address="421e3" />
+ <table name="(P060A) Internal Control Module Monitoring Processor Performance [Fail-Safe]" address="57c2b" />
+ <table name="(P060B) Internal Control Module A/D Processing Performance" address="421e3" />
+ <table name="(P060B) Internal Control Module A/D Processing Performance [Fail-Safe]" address="57c2b" />
+ <table name="(P0616) Starter Relay Circuit Low" address="421e1" scaling="DTC enabled b1 mFF f00 sFD" />
+ <table name="(P0616) Starter Relay Circuit Low [Fail-Safe]" address="57c29" />
+ <table name="(P0617) Starter Relay Circuit High" address="421e1" scaling="DTC enabled b2 mFF f00 sFB" />
+ <table name="(P0617) Starter Relay Circuit High [Fail-Safe]" address="57c29" />
+ <table name="(P0627) Fuel Pump A Control Circuit/Open" address="421f1" scaling="DTC enabled b3 mFF f00 sC7" />
+ <table name="(P0627) Fuel Pump A Control Circuit/Open [Fail-Safe]" address="57c39" />
+ <table name="(P0628) Fuel Pump A Control Circuit Low" address="421f1" scaling="DTC enabled b4 mFF f00 sC7" />
+ <table name="(P0628) Fuel Pump A Control Circuit Low [Fail-Safe]" address="57c39" />
+ <table name="(P0629) Fuel Pump A Control Circuit High" address="421f1" scaling="DTC enabled b5 mFF f00 sC7" />
+ <table name="(P0629) Fuel Pump A Control Circuit High [Fail-Safe]" address="57c39" />
+ <table name="(P062D) Fuel Injector Driver Circuit Performance (Bank 1)" address="421f0" scaling="DTC enabled b2 mFF f00 sFB" />
+ <table name="(P062D) Fuel Injector Driver Circuit Performance (Bank 1) [Fail-Safe]" address="57c38" />
+ <table name="(P062F) Internal Control Module EEPROM Error" address="421e3" />
+ <table name="(P062F) Internal Control Module EEPROM Error [Fail-Safe]" address="57c2b" />
+ <table name="(P0685) ECM/PCM Power Relay Control Circuit/Open" address="421ef" />
+ <table name="(P0685) ECM/PCM Power Relay Control Circuit/Open [Fail-Safe]" address="57c37" />
+ <table name="(P0700) Transmission Control System (MIL Request)" address="421bc" />
+ <table name="(P0700) Transmission Control System (MIL Request) [Fail-Safe]" address="57c04" />
+ <table name="(P081A) Starter Disable Circuit Low" address="421e1" scaling="DTC enabled b7 mFF f00 s7F" />
+ <table name="(P081A) Starter Disable Circuit Low [Fail-Safe]" address="57c29" />
+ <table name="(P0851) Park/Neutral Switch Input Circuit Low" address="42192" />
+ <table name="(P0851) Park/Neutral Switch Input Circuit Low [Fail-Safe]" address="57bda" />
+ <table name="(P0852) Park/Neutral Switch Input Circuit High" address="42192" />
+ <table name="(P0852) Park/Neutral Switch Input Circuit High [Fail-Safe]" address="57bda" />
+ <table name="(P1134) manufacturer-specific / not named" address="421f2" scaling="DTC enabled b5 mFF f00 s53" />
  <table name="(P1134) manufacturer-specific / not named [Fail-Safe]" address="57c3a" />
- <table name="(P2146) Fuel Injector Group A Supply Voltage Circuit/Open [Fail-Safe]" address="57c3a" />
+ <table name="(P113A) manufacturer-specific / not named" address="421f2" scaling="DTC enabled b7 mFF f00 s73" />
  <table name="(P113A) manufacturer-specific / not named [Fail-Safe]" address="57c3a" />
- <table name="(P0335) Crankshaft Position Sensor A Circuit [Circuit Class]" address="421f3" />
- <table name="(P0336) Crankshaft Position Sensor A Circuit Range/Performance [Circuit Class]" address="421f3" />
- <table name="(P0604) Internal Control Module RAM Error [Circuit Class]" address="421f3" />
- <table name="(P0102) Mass Air Flow Circuit Low [Circuit Class]" address="421f4" />
- <table name="(P0103) Mass Air Flow Circuit High [Circuit Class]" address="421f4" />
- <table name="(P0500) Vehicle Speed Sensor A [slot 12] [Circuit Class]" address="421f4" />
- <table name="(P0332) Knock Sensor 2 Circuit Low (Bank 2) [Circuit Class]" address="421f4" />
- <table name="(P0333) Knock Sensor 2 Circuit High (Bank 2) [Circuit Class]" address="421f4" />
- <table name="(P0327) Knock Sensor 1 Circuit Low (Bank 1) [Circuit Class]" address="421f5" />
- <table name="(P0328) Knock Sensor 1 Circuit High (Bank 1) [Circuit Class]" address="421f5" />
- <table name="(P0122) Throttle Position Sensor A Circuit Low [Circuit Class]" address="421f5" />
- <table name="(P0123) Throttle Position Sensor A Circuit High [Circuit Class]" address="421f5" />
- <table name="(P0117) Engine Coolant Temperature Circuit Low [Circuit Class]" address="421f6" />
- <table name="(P0118) Engine Coolant Temperature Circuit High [Circuit Class]" address="421f6" />
- <table name="(P0125) Insufficient Coolant Temperature for Closed Loop Fuel Control [Circuit Class]" address="421f6" />
- <table name="(P0462) Fuel Level Sensor A Circuit Low [Circuit Class]" address="421f6" />
- <table name="(P0463) Fuel Level Sensor A Circuit High [Circuit Class]" address="421f6" />
- <table name="(P0461) Fuel Level Sensor A Circuit Range/Performance [Circuit Class]" address="421f6" />
- <table name="(P0851) Park/Neutral Switch Input Circuit Low [Circuit Class]" address="421f9" />
- <table name="(P0852) Park/Neutral Switch Input Circuit High [Circuit Class]" address="421f9" />
- <table name="(P1492) manufacturer-specific / not named [Circuit Class]" address="421fb" />
- <table name="(P1493) manufacturer-specific / not named [Circuit Class]" address="421fb" />
- <table name="(P1494) manufacturer-specific / not named [Circuit Class]" address="421fb" />
- <table name="(P1495) manufacturer-specific / not named [Circuit Class]" address="421fb" />
- <table name="(P1496) manufacturer-specific / not named [Circuit Class]" address="421fb" />
- <table name="(P1497) manufacturer-specific / not named [Circuit Class]" address="421fb" />
- <table name="(P1498) manufacturer-specific / not named [Circuit Class]" address="421fb" />
- <table name="(P1499) manufacturer-specific / not named [Circuit Class]" address="421fb" />
- <table name="(P0506) Idle Control System RPM Lower Than Expected [Circuit Class]" address="421fd" />
- <table name="(P0507) Idle Control System RPM Higher Than Expected [Circuit Class]" address="421fd" />
- <table name="(P0011) Intake Camshaft Timing Over-Advanced or System Performance (Bank 1) [Circuit Class]" address="421ff" />
- <table name="(P0021) Intake Camshaft Timing Over-Advanced or System Performance (Bank 2) [Circuit Class]" address="421ff" />
- <table name="(P0458) Evaporative Emission System Purge Control Valve Circuit Low [Circuit Class]" address="421ff" />
- <table name="(P0459) Evaporative Emission System Purge Control Valve Circuit High [Circuit Class]" address="421ff" />
- <table name="(P0141) O2 Sensor Heater Circuit (Bank 1 Sensor 2) [Circuit Class]" address="42203" />
- <table name="(P0133) O2 Sensor Circuit Slow Response (Bank 1 Sensor 1) [Circuit Class]" address="42204" />
- <table name="(P0420) Catalyst System Efficiency Below Threshold (Bank 1) [Circuit Class]" address="42205" />
- <table name="(P0456) Evaporative Emission System Leak Detected (Very Small Leak) [Circuit Class]" address="42205" />
- <table name="(P0400) Exhaust Gas Recirculation Flow [Circuit Class]" address="42205" />
- <table name="(P0171) System Too Lean (Bank 1) [Circuit Class]" address="42205" />
- <table name="(P0172) System Too Rich (Bank 1) [Circuit Class]" address="42205" />
- <table name="(P0301) Cylinder 1 Misfire Detected [Circuit Class]" address="42206" />
- <table name="(P0302) Cylinder 2 Misfire Detected [Circuit Class]" address="42206" />
- <table name="(P0303) Cylinder 3 Misfire Detected [Circuit Class]" address="42206" />
- <table name="(P0304) Cylinder 4 Misfire Detected [Circuit Class]" address="42206" />
- <table name="(P0137) O2 Sensor Circuit Low Voltage (Bank 1 Sensor 2) [Circuit Class]" address="42208" />
- <table name="(P0131) O2 Sensor Circuit Low Voltage (Bank 1 Sensor 1) [Circuit Class]" address="42208" />
- <table name="(P0132) O2 Sensor Circuit High Voltage (Bank 1 Sensor 1) [Circuit Class]" address="42208" />
- <table name="(P0138) O2 Sensor Circuit High Voltage (Bank 1 Sensor 2) [Circuit Class]" address="42208" />
- <table name="(P0112) Intake Air Temperature Sensor 1 Circuit Low [Circuit Class]" address="42209" />
- <table name="(P0113) Intake Air Temperature Sensor 1 Circuit High [Circuit Class]" address="42209" />
- <table name="(P0111) Intake Air Temperature Sensor 1 Circuit Range/Performance [Circuit Class]" address="42209" />
- <table name="(P0038) HO2S Heater Control Circuit High (Bank 1 Sensor 2) [Circuit Class]" address="42209" />
- <table name="(P0032) HO2S Heater Control Circuit High (Bank 1 Sensor 1) [Circuit Class]" address="42209" />
- <table name="(P0037) HO2S Heater Control Circuit Low (Bank 1 Sensor 2) [Circuit Class]" address="42209" />
- <table name="(P0031) HO2S Heater Control Circuit Low (Bank 1 Sensor 1) [Circuit Class]" address="42209" />
- <table name="(P0107) Manifold Absolute Pressure Circuit Low [Circuit Class]" address="4220a" />
- <table name="(P0108) Manifold Absolute Pressure Circuit High [Circuit Class]" address="4220a" />
- <table name="(P0128) Coolant Thermostat (Below Regulating Temperature) [Circuit Class]" address="4220d" />
- <table name="(P0562) System Voltage Low [Circuit Class]" address="4220e" />
- <table name="(P0563) System Voltage High [Circuit Class]" address="4220e" />
- <table name="(P0245) Turbocharger Wastegate Solenoid A Low [Circuit Class]" address="4220f" />
- <table name="(P0246) Turbocharger Wastegate Solenoid A High [Circuit Class]" address="4220f" />
- <table name="(P0244) Turbocharger Wastegate Solenoid A Range/Performance [Circuit Class]" address="4220f" />
- <table name="(P0230) Fuel Pump Primary Circuit [Circuit Class]" address="4221a" />
- <table name="(P0068) MAP/MAF - Throttle Position Correlation [Circuit Class]" address="4221a" />
- <table name="(P0101) Mass Air Flow Circuit Range/Performance [Circuit Class]" address="4221a" />
- <table name="(P0134) O2 Sensor Circuit No Activity Detected (Bank 1 Sensor 1) [Circuit Class]" address="4221b" />
- <table name="(P0030) HO2S Heater Control Circuit (Bank 1 Sensor 1) [Circuit Class]" address="4221b" />
- <table name="(P2109) Throttle/Pedal Position Sensor A Minimum Stop Performance [Circuit Class]" address="4221e" />
- <table name="(P0222) Throttle Position Sensor B Circuit Low [Circuit Class]" address="4221f" />
- <table name="(P0223) Throttle Position Sensor B Circuit High [Circuit Class]" address="4221f" />
- <table name="(P1160) manufacturer-specific / not named [Circuit Class]" address="4221f" />
- <table name="(P2102) Throttle Actuator Control Motor Circuit Low [Circuit Class]" address="4221f" />
- <table name="(P2103) Throttle Actuator Control Motor Circuit High [Circuit Class]" address="4221f" />
- <table name="(P2101) Throttle Actuator Control Motor Circuit Range/Performance [Circuit Class]" address="4221f" />
- <table name="(P2096) Post Catalyst Fuel Trim System Too Lean (Bank 1) [Circuit Class]" address="4221f" />
- <table name="(P2138) Throttle/Pedal Position Sensor/Switch D/E Voltage Correlation [Circuit Class]" address="42220" />
- <table name="(P2127) Throttle/Pedal Position Sensor/Switch E Circuit Low [Circuit Class]" address="42220" />
- <table name="(P2128) Throttle/Pedal Position Sensor/Switch E Circuit High [Circuit Class]" address="42220" />
- <table name="(P2122) Throttle/Pedal Position Sensor/Switch D Circuit Low [Circuit Class]" address="42220" />
- <table name="(P2123) Throttle/Pedal Position Sensor/Switch D Circuit High [Circuit Class]" address="42220" />
- <table name="(P2135) Throttle/Pedal Position Sensor/Switch A/B Voltage Correlation [Circuit Class]" address="42220" />
- <table name="(P2097) Post Catalyst Fuel Trim System Too Rich (Bank 1) [Circuit Class]" address="42220" />
- <table name="(P0390) Camshaft Position Sensor B Circuit (Bank 2) [Circuit Class]" address="42221" />
- <table name="(P0365) Camshaft Position Sensor B Circuit (Bank 1) [Circuit Class]" address="42221" />
- <table name="(P0345) Camshaft Position Sensor A Circuit (Bank 2) [Circuit Class]" address="42221" />
- <table name="(P0340) Camshaft Position Sensor A Circuit (Bank 1) [Circuit Class]" address="42221" />
- <table name="(P0605) Internal Control Module ROM Error [Circuit Class]" address="42221" />
- <table name="(P2095) B Camshaft Position Actuator Control Circuit High (Bank 2) [Circuit Class]" address="42222" />
- <table name="(P2094) B Camshaft Position Actuator Control Circuit Low (Bank 2) [Circuit Class]" address="42222" />
- <table name="(P2091) B Camshaft Position Actuator Control Circuit High (Bank 1) [Circuit Class]" address="42222" />
- <table name="(P2090) B Camshaft Position Actuator Control Circuit Low (Bank 1) [Circuit Class]" address="42222" />
- <table name="(P2093) A Camshaft Position Actuator Control Circuit High (Bank 2) [Circuit Class]" address="42222" />
- <table name="(P2092) A Camshaft Position Actuator Control Circuit Low (Bank 2) [Circuit Class]" address="42222" />
- <table name="(P2089) A Camshaft Position Actuator Control Circuit High (Bank 1) [Circuit Class]" address="42222" />
- <table name="(P2088) A Camshaft Position Actuator Control Circuit Low (Bank 1) [Circuit Class]" address="42222" />
- <table name="(P0197) Engine Oil Temperature Sensor Low [Circuit Class]" address="42223" />
- <table name="(P0700) Transmission Control System (MIL Request) [Circuit Class]" address="42223" />
- <table name="(P0196) Engine Oil Temperature Sensor Range/Performance [Circuit Class]" address="42224" />
- <table name="(P0198) Engine Oil Temperature Sensor High [Circuit Class]" address="42224" />
- <table name="(P2004) Intake Manifold Runner Control Stuck Open (Bank 1) [Circuit Class]" address="42227" />
- <table name="(P2006) Intake Manifold Runner Control Stuck Closed (Bank 1) [Circuit Class]" address="42227" />
- <table name="(P2005) Intake Manifold Runner Control Stuck Open (Bank 2) [Circuit Class]" address="42227" />
- <table name="(P2007) Intake Manifold Runner Control Stuck Closed (Bank 2) [Circuit Class]" address="42227" />
- <table name="(P2227) Barometric Pressure Sensor A Circuit Range/Performance [Circuit Class]" address="42227" />
- <table name="(P2229) Barometric Pressure Sensor A Circuit High [Circuit Class]" address="42227" />
- <table name="(P2228) Barometric Pressure Sensor A Circuit Low [Circuit Class]" address="42227" />
- <table name="(P2016) Intake Manifold Runner Position Sensor/Switch Circuit Low (Bank 1) [Circuit Class]" address="42228" />
- <table name="(P2017) Intake Manifold Runner Position Sensor/Switch Circuit High (Bank 1) [Circuit Class]" address="42228" />
- <table name="(P2021) Intake Manifold Runner Position Sensor/Switch Circuit Low (Bank 2) [Circuit Class]" address="42228" />
- <table name="(P2022) Intake Manifold Runner Position Sensor/Switch Circuit High (Bank 2) [Circuit Class]" address="42228" />
- <table name="(P2009) Intake Manifold Runner Control Circuit Low (Bank 1) [Circuit Class]" address="42228" />
- <table name="(P2012) Intake Manifold Runner Control Circuit Low (Bank 2) [Circuit Class]" address="42228" />
- <table name="(P0018) Crankshaft/Camshaft Position Correlation (Bank 2 Sensor A) [Circuit Class]" address="4222c" />
- <table name="(P0016) Crankshaft/Camshaft Position Correlation (Bank 1 Sensor A) [Circuit Class]" address="4222c" />
- <table name="(P0024) Exhaust Camshaft Timing Over-Advanced or System Performance (Bank 2) [Circuit Class]" address="4222e" />
- <table name="(P0014) Exhaust Camshaft Timing Over-Advanced or System Performance (Bank 1) [Circuit Class]" address="4222e" />
- <table name="(P04F0) Evaporative Emission System High Pressure Purge Line Performance [Circuit Class]" address="4222e" />
- <table name="(P1458) manufacturer-specific / not named [Circuit Class]" address="4222e" />
- <table name="(P1459) manufacturer-specific / not named [Circuit Class]" address="4222e" />
- <table name="(P050E) Cold Start Engine Exhaust Temperature Too Low [Circuit Class]" address="4222f" />
- <table name="(P0019) Crankshaft/Camshaft Position Correlation (Bank 2 Sensor B) [Circuit Class]" address="4222f" />
- <table name="(P0017) Crankshaft/Camshaft Position Correlation (Bank 1 Sensor B) [Circuit Class]" address="4222f" />
- <table name="(U0422) Invalid Data Received from Body Control Module [Circuit Class]" address="4223b" />
- <table name="(U0140) Lost Communication with Body Control Module [Circuit Class]" address="4223b" />
- <table name="(U0402) Invalid Data Received from TCM [Circuit Class]" address="4223b" />
- <table name="(U0101) Lost Communication with TCM [Circuit Class]" address="4223b" />
- <table name="(U0416) Invalid Data Received from Vehicle Dynamics Control Module [Circuit Class]" address="4223b" />
- <table name="(U0122) Lost Communication with Vehicle Dynamics Control Module [Circuit Class]" address="4223b" />
- <table name="(U0073) Control Module Communication Bus Off [Circuit Class]" address="4223b" />
- <table name="(P050B) Cold Start Ignition Timing Performance [Circuit Class]" address="4223e" />
- <table name="(P050A) Cold Start Idle Air Control System Performance [Circuit Class]" address="4223e" />
- <table name="(P2610) ECM/PCM Internal Engine Off Timer Performance [Circuit Class]" address="4223e" />
- <table name="(P2420) Evaporative Emission System Switching Valve Control Circuit High [Circuit Class]" address="4223e" />
- <table name="(P2419) Evaporative Emission System Switching Valve Control Circuit Low [Circuit Class]" address="4223e" />
- <table name="(P2401) Evaporative Emission System Leak Detection Pump Control Circuit Low [Circuit Class]" address="4223e" />
- <table name="(P0453) Evaporative Emission System Pressure Sensor High [Circuit Class]" address="4223e" />
- <table name="(P0452) Evaporative Emission System Pressure Sensor Low [Circuit Class]" address="4223e" />
- <table name="(P015B) O2 Sensor Delayed Response - Lean to Rich (Bank 1 Sensor 1) [Circuit Class]" address="4223f" />
- <table name="(P015A) O2 Sensor Delayed Response - Rich to Lean (Bank 1 Sensor 1) [Circuit Class]" address="4223f" />
- <table name="(P014D) O2 Sensor Slow Response - Lean to Rich (Bank 1 Sensor 1) [Circuit Class]" address="4223f" />
- <table name="(P014C) O2 Sensor Slow Response - Rich to Lean (Bank 1 Sensor 1) [Circuit Class]" address="4223f" />
- <table name="(P1451) manufacturer-specific / not named [Circuit Class]" address="42240" />
- <table name="(P1449) manufacturer-specific / not named [Circuit Class]" address="42240" />
- <table name="(P0455) Evaporative Emission System Leak Detected (Large Leak) [Circuit Class]" address="42240" />
- <table name="(P0451) Evaporative Emission System Pressure Sensor Range/Performance [Circuit Class]" address="42240" />
- <table name="(P0441) Evaporative Emission System Incorrect Purge Flow [Circuit Class]" address="42240" />
- <table name="(P219A) Bank 1 Air-Fuel Ratio Imbalance [Circuit Class]" address="42240" />
- <table name="(P2404) Evaporative Emission System Leak Detection Pump Sense Circuit Range/Performance [Circuit Class]" address="42241" />
- <table name="(P2402) Evaporative Emission System Leak Detection Pump Control Circuit High [Circuit Class]" address="42241" />
- <table name="(P013F) O2 Sensor Delayed Response - Lean to Rich (Bank 1 Sensor 2) [Circuit Class]" address="42242" />
- <table name="(P013E) O2 Sensor Delayed Response - Rich to Lean (Bank 1 Sensor 2) [Circuit Class]" address="42242" />
- <table name="(P013B) O2 Sensor Slow Response - Lean to Rich (Bank 1 Sensor 2) [Circuit Class]" address="42242" />
- <table name="(P013A) O2 Sensor Slow Response - Rich to Lean (Bank 1 Sensor 2) [Circuit Class]" address="42242" />
- <table name="(U0423) Invalid Data Received from Instrument Panel Control Module [Circuit Class]" address="42244" />
- <table name="(U0155) Lost Communication with Instrument Panel Cluster Control Module [Circuit Class]" address="42244" />
- <table name="(P0354) Ignition Coil D Primary/Secondary Circuit [Circuit Class]" address="42246" />
- <table name="(P0353) Ignition Coil C Primary/Secondary Circuit [Circuit Class]" address="42246" />
- <table name="(P0352) Ignition Coil B Primary/Secondary Circuit [Circuit Class]" address="42246" />
- <table name="(P0351) Ignition Coil A Primary/Secondary Circuit [Circuit Class]" address="42246" />
- <table name="(P000A) Intake Camshaft Position Slow Response (Bank 1) [Circuit Class]" address="42247" />
- <table name="(P000B) Exhaust Camshaft Position Slow Response (Bank 1) [Circuit Class]" address="42247" />
- <table name="(P000C) Intake Camshaft Position Slow Response (Bank 2) [Circuit Class]" address="42247" />
- <table name="(P000D) Exhaust Camshaft Position Slow Response (Bank 2) [Circuit Class]" address="42247" />
- <table name="(P0558) Brake Booster Pressure Sensor Circuit High [Circuit Class]" address="42247" />
- <table name="(P0557) Brake Booster Pressure Sensor Circuit Low [Circuit Class]" address="42247" />
- <table name="(P0512) Starter Request Circuit [Circuit Class]" address="42248" />
- <table name="(P0616) Starter Relay Circuit Low [Circuit Class]" address="42248" />
- <table name="(P0617) Starter Relay Circuit High [Circuit Class]" address="42248" />
- <table name="(P2195) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 1) [Circuit Class]" address="42248" />
- <table name="(P2196) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 1) [Circuit Class]" address="42248" />
- <table name="(P0560) System Voltage [Circuit Class]" address="42248" />
- <table name="(P0116) Engine Coolant Temperature Circuit Range/Performance [Circuit Class]" address="42248" />
- <table name="(P081A) Starter Disable Circuit Low [Circuit Class]" address="42248" />
- <table name="(P062F) Internal Control Module EEPROM Error [Circuit Class]" address="4224a" />
- <table name="(P060B) Internal Control Module A/D Processing Performance [Circuit Class]" address="4224a" />
- <table name="(P060A) Internal Control Module Monitoring Processor Performance [Circuit Class]" address="4224a" />
- <table name="(P0606) Control Module Processor [Circuit Class]" address="4224a" />
- <table name="(P2119) Throttle Actuator Control Throttle Body Range/Performance [Circuit Class]" address="4224a" />
- <table name="(P0403) Exhaust Gas Recirculation Control Circuit [Circuit Class]" address="4224b" />
- <table name="(P0391) Camshaft Position Sensor B Circuit Range/Performance (Bank 2) [Circuit Class]" address="4224b" />
- <table name="(P0366) Camshaft Position Sensor B Circuit Range/Performance (Bank 1) [Circuit Class]" address="4224b" />
- <table name="(P0346) Camshaft Position Sensor A Circuit Range/Performance (Bank 2) [Circuit Class]" address="4224b" />
- <table name="(P0341) Camshaft Position Sensor A Circuit Range/Performance (Bank 1) [Circuit Class]" address="4224b" />
- <table name="(P0300) Random/Multiple Cylinder Misfire Detected [Circuit Class]" address="4224b" />
- <table name="(P2530) Ignition Switch Run Position Circuit [Circuit Class]" address="4224c" />
- <table name="(P04AC) Evaporative Emission System Purge Control Valve 'B' Circuit Low [Circuit Class]" address="4224c" />
- <table name="(P04AD) Evaporative Emission System Purge Control Valve 'B' Circuit High [Circuit Class]" address="4224c" />
- <table name="(P0072) Ambient Air Temperature Sensor Circuit Low [Circuit Class]" address="42254" />
- <table name="(P0073) Ambient Air Temperature Sensor Circuit High [Circuit Class]" address="42254" />
- <table name="(P0071) Ambient Air Temperature Sensor Range/Performance [Circuit Class]" address="42254" />
- <table name="(P0500) Vehicle Speed Sensor A [slot 779] [Circuit Class]" address="42254" />
- <table name="(P2158) Vehicle Speed Sensor B [Circuit Class]" address="42254" />
- <table name="(P0010) Intake Camshaft Position Actuator Circuit (Bank 1) [Circuit Class]" address="42256" />
- <table name="(P0020) Intake Camshaft Position Actuator Circuit (Bank 2) [Circuit Class]" address="42256" />
- <table name="(P0013) Exhaust Camshaft Position Actuator Circuit (Bank 1) [Circuit Class]" address="42256" />
- <table name="(P0023) Exhaust Camshaft Position Actuator Circuit (Bank 2) [Circuit Class]" address="42256" />
- <table name="(P0685) ECM/PCM Power Relay Control Circuit/Open [Circuit Class]" address="42256" />
- <table name="(P2A01) O2 Sensor Circuit Range/Performance (Bank 1 Sensor 2) [Circuit Class]" address="42256" />
- <table name="(P2270) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 2) [Circuit Class]" address="42256" />
- <table name="(P2271) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 2) [Circuit Class]" address="42256" />
- <table name="(P0087) Fuel Rail/System Pressure Too Low [Circuit Class]" address="42257" />
- <table name="(P0088) Fuel Rail/System Pressure Too High [Circuit Class]" address="42257" />
- <table name="(P062D) Fuel Injector Driver Circuit Performance (Bank 1) [Circuit Class]" address="42257" />
- <table name="(P1261) manufacturer-specific / not named [Circuit Class]" address="42257" />
- <table name="(P1262) manufacturer-specific / not named [Circuit Class]" address="42257" />
- <table name="(P1263) manufacturer-specific / not named [Circuit Class]" address="42257" />
- <table name="(P1264) manufacturer-specific / not named [Circuit Class]" address="42257" />
- <table name="(P0191) Fuel Rail Pressure Sensor A Circuit Range/Performance [Circuit Class]" address="42257" />
- <table name="(P0192) Fuel Rail Pressure Sensor A Circuit Low [Circuit Class]" address="42258" />
- <table name="(P0193) Fuel Rail Pressure Sensor A Circuit High [Circuit Class]" address="42258" />
- <table name="(P1191) manufacturer-specific / not named [Circuit Class]" address="42258" />
- <table name="(P0627) Fuel Pump A Control Circuit/Open [Circuit Class]" address="42258" />
- <table name="(P0628) Fuel Pump A Control Circuit Low [Circuit Class]" address="42258" />
- <table name="(P0629) Fuel Pump A Control Circuit High [Circuit Class]" address="42258" />
- <table name="(P023F) manufacturer-specific / not named [Circuit Class]" address="42258" />
- <table name="(P0130) O2 Sensor Circuit (Bank 1 Sensor 1) [Circuit Class]" address="42258" />
- <table name="(P0097) Intake Air Temperature Sensor 2 Circuit Low [Circuit Class]" address="42259" />
- <table name="(P0098) Intake Air Temperature Sensor 2 Circuit High [Circuit Class]" address="42259" />
- <table name="(P2627) O2 Sensor Pumping Current Trim Circuit/Open (Bank 1 Sensor 1) [Circuit Class]" address="42259" />
- <table name="(P2628) O2 Sensor Pumping Current Trim Circuit Low (Bank 1 Sensor 1) [Circuit Class]" address="42259" />
- <table name="(P0096) Intake Air Temperature Sensor 2 Circuit Range/Performance [Circuit Class]" address="42259" />
- <table name="(P1134) manufacturer-specific / not named [Circuit Class]" address="42259" />
- <table name="(P2146) Fuel Injector Group A Supply Voltage Circuit/Open [Circuit Class]" address="42259" />
- <table name="(P113A) manufacturer-specific / not named [Circuit Class]" address="42259" />
- <table name="(P0335) Crankshaft Position Sensor A Circuit [Performance Class]" address="4225a" />
- <table name="(P0336) Crankshaft Position Sensor A Circuit Range/Performance [Performance Class]" address="4225a" />
- <table name="(P0604) Internal Control Module RAM Error [Performance Class]" address="4225a" />
- <table name="(P0102) Mass Air Flow Circuit Low [Performance Class]" address="4225b" />
- <table name="(P0103) Mass Air Flow Circuit High [Performance Class]" address="4225b" />
- <table name="(P0500) Vehicle Speed Sensor A [slot 12] [Performance Class]" address="4225b" />
- <table name="(P0332) Knock Sensor 2 Circuit Low (Bank 2) [Performance Class]" address="4225b" />
- <table name="(P0333) Knock Sensor 2 Circuit High (Bank 2) [Performance Class]" address="4225b" />
- <table name="(P0327) Knock Sensor 1 Circuit Low (Bank 1) [Performance Class]" address="4225c" />
- <table name="(P0328) Knock Sensor 1 Circuit High (Bank 1) [Performance Class]" address="4225c" />
- <table name="(P0122) Throttle Position Sensor A Circuit Low [Performance Class]" address="4225c" />
- <table name="(P0123) Throttle Position Sensor A Circuit High [Performance Class]" address="4225c" />
- <table name="(P0117) Engine Coolant Temperature Circuit Low [Performance Class]" address="4225d" />
- <table name="(P0118) Engine Coolant Temperature Circuit High [Performance Class]" address="4225d" />
- <table name="(P0125) Insufficient Coolant Temperature for Closed Loop Fuel Control [Performance Class]" address="4225d" />
- <table name="(P0462) Fuel Level Sensor A Circuit Low [Performance Class]" address="4225d" />
- <table name="(P0463) Fuel Level Sensor A Circuit High [Performance Class]" address="4225d" />
- <table name="(P0461) Fuel Level Sensor A Circuit Range/Performance [Performance Class]" address="4225d" />
- <table name="(P0851) Park/Neutral Switch Input Circuit Low [Performance Class]" address="42260" />
- <table name="(P0852) Park/Neutral Switch Input Circuit High [Performance Class]" address="42260" />
- <table name="(P1492) manufacturer-specific / not named [Performance Class]" address="42262" />
- <table name="(P1493) manufacturer-specific / not named [Performance Class]" address="42262" />
- <table name="(P1494) manufacturer-specific / not named [Performance Class]" address="42262" />
- <table name="(P1495) manufacturer-specific / not named [Performance Class]" address="42262" />
- <table name="(P1496) manufacturer-specific / not named [Performance Class]" address="42262" />
- <table name="(P1497) manufacturer-specific / not named [Performance Class]" address="42262" />
- <table name="(P1498) manufacturer-specific / not named [Performance Class]" address="42262" />
- <table name="(P1499) manufacturer-specific / not named [Performance Class]" address="42262" />
- <table name="(P0506) Idle Control System RPM Lower Than Expected [Performance Class]" address="42264" />
- <table name="(P0507) Idle Control System RPM Higher Than Expected [Performance Class]" address="42264" />
- <table name="(P0011) Intake Camshaft Timing Over-Advanced or System Performance (Bank 1) [Performance Class]" address="42266" />
- <table name="(P0021) Intake Camshaft Timing Over-Advanced or System Performance (Bank 2) [Performance Class]" address="42266" />
- <table name="(P0458) Evaporative Emission System Purge Control Valve Circuit Low [Performance Class]" address="42266" />
- <table name="(P0459) Evaporative Emission System Purge Control Valve Circuit High [Performance Class]" address="42266" />
- <table name="(P0141) O2 Sensor Heater Circuit (Bank 1 Sensor 2) [Performance Class]" address="4226a" />
- <table name="(P0133) O2 Sensor Circuit Slow Response (Bank 1 Sensor 1) [Performance Class]" address="4226b" />
- <table name="(P0420) Catalyst System Efficiency Below Threshold (Bank 1) [Performance Class]" address="4226c" />
- <table name="(P0456) Evaporative Emission System Leak Detected (Very Small Leak) [Performance Class]" address="4226c" />
- <table name="(P0400) Exhaust Gas Recirculation Flow [Performance Class]" address="4226c" />
- <table name="(P0171) System Too Lean (Bank 1) [Performance Class]" address="4226c" />
- <table name="(P0172) System Too Rich (Bank 1) [Performance Class]" address="4226c" />
- <table name="(P0301) Cylinder 1 Misfire Detected [Performance Class]" address="4226d" />
- <table name="(P0302) Cylinder 2 Misfire Detected [Performance Class]" address="4226d" />
- <table name="(P0303) Cylinder 3 Misfire Detected [Performance Class]" address="4226d" />
- <table name="(P0304) Cylinder 4 Misfire Detected [Performance Class]" address="4226d" />
- <table name="(P0137) O2 Sensor Circuit Low Voltage (Bank 1 Sensor 2) [Performance Class]" address="4226f" />
- <table name="(P0131) O2 Sensor Circuit Low Voltage (Bank 1 Sensor 1) [Performance Class]" address="4226f" />
- <table name="(P0132) O2 Sensor Circuit High Voltage (Bank 1 Sensor 1) [Performance Class]" address="4226f" />
- <table name="(P0138) O2 Sensor Circuit High Voltage (Bank 1 Sensor 2) [Performance Class]" address="4226f" />
- <table name="(P0112) Intake Air Temperature Sensor 1 Circuit Low [Performance Class]" address="42270" />
- <table name="(P0113) Intake Air Temperature Sensor 1 Circuit High [Performance Class]" address="42270" />
- <table name="(P0111) Intake Air Temperature Sensor 1 Circuit Range/Performance [Performance Class]" address="42270" />
- <table name="(P0038) HO2S Heater Control Circuit High (Bank 1 Sensor 2) [Performance Class]" address="42270" />
- <table name="(P0032) HO2S Heater Control Circuit High (Bank 1 Sensor 1) [Performance Class]" address="42270" />
- <table name="(P0037) HO2S Heater Control Circuit Low (Bank 1 Sensor 2) [Performance Class]" address="42270" />
- <table name="(P0031) HO2S Heater Control Circuit Low (Bank 1 Sensor 1) [Performance Class]" address="42270" />
- <table name="(P0107) Manifold Absolute Pressure Circuit Low [Performance Class]" address="42271" />
- <table name="(P0108) Manifold Absolute Pressure Circuit High [Performance Class]" address="42271" />
- <table name="(P0128) Coolant Thermostat (Below Regulating Temperature) [Performance Class]" address="42274" />
- <table name="(P0562) System Voltage Low [Performance Class]" address="42275" />
- <table name="(P0563) System Voltage High [Performance Class]" address="42275" />
- <table name="(P0245) Turbocharger Wastegate Solenoid A Low [Performance Class]" address="42276" />
- <table name="(P0246) Turbocharger Wastegate Solenoid A High [Performance Class]" address="42276" />
- <table name="(P0244) Turbocharger Wastegate Solenoid A Range/Performance [Performance Class]" address="42276" />
- <table name="(P0230) Fuel Pump Primary Circuit [Performance Class]" address="42281" />
- <table name="(P0068) MAP/MAF - Throttle Position Correlation [Performance Class]" address="42281" />
- <table name="(P0101) Mass Air Flow Circuit Range/Performance [Performance Class]" address="42281" />
- <table name="(P0134) O2 Sensor Circuit No Activity Detected (Bank 1 Sensor 1) [Performance Class]" address="42282" />
- <table name="(P0030) HO2S Heater Control Circuit (Bank 1 Sensor 1) [Performance Class]" address="42282" />
- <table name="(P2109) Throttle/Pedal Position Sensor A Minimum Stop Performance [Performance Class]" address="42285" />
- <table name="(P0222) Throttle Position Sensor B Circuit Low [Performance Class]" address="42286" />
- <table name="(P0223) Throttle Position Sensor B Circuit High [Performance Class]" address="42286" />
- <table name="(P1160) manufacturer-specific / not named [Performance Class]" address="42286" />
- <table name="(P2102) Throttle Actuator Control Motor Circuit Low [Performance Class]" address="42286" />
- <table name="(P2103) Throttle Actuator Control Motor Circuit High [Performance Class]" address="42286" />
- <table name="(P2101) Throttle Actuator Control Motor Circuit Range/Performance [Performance Class]" address="42286" />
- <table name="(P2096) Post Catalyst Fuel Trim System Too Lean (Bank 1) [Performance Class]" address="42286" />
- <table name="(P2138) Throttle/Pedal Position Sensor/Switch D/E Voltage Correlation [Performance Class]" address="42287" />
- <table name="(P2127) Throttle/Pedal Position Sensor/Switch E Circuit Low [Performance Class]" address="42287" />
- <table name="(P2128) Throttle/Pedal Position Sensor/Switch E Circuit High [Performance Class]" address="42287" />
- <table name="(P2122) Throttle/Pedal Position Sensor/Switch D Circuit Low [Performance Class]" address="42287" />
- <table name="(P2123) Throttle/Pedal Position Sensor/Switch D Circuit High [Performance Class]" address="42287" />
- <table name="(P2135) Throttle/Pedal Position Sensor/Switch A/B Voltage Correlation [Performance Class]" address="42287" />
- <table name="(P2097) Post Catalyst Fuel Trim System Too Rich (Bank 1) [Performance Class]" address="42287" />
- <table name="(P0390) Camshaft Position Sensor B Circuit (Bank 2) [Performance Class]" address="42288" />
- <table name="(P0365) Camshaft Position Sensor B Circuit (Bank 1) [Performance Class]" address="42288" />
- <table name="(P0345) Camshaft Position Sensor A Circuit (Bank 2) [Performance Class]" address="42288" />
- <table name="(P0340) Camshaft Position Sensor A Circuit (Bank 1) [Performance Class]" address="42288" />
- <table name="(P0605) Internal Control Module ROM Error [Performance Class]" address="42288" />
- <table name="(P2095) B Camshaft Position Actuator Control Circuit High (Bank 2) [Performance Class]" address="42289" />
- <table name="(P2094) B Camshaft Position Actuator Control Circuit Low (Bank 2) [Performance Class]" address="42289" />
- <table name="(P2091) B Camshaft Position Actuator Control Circuit High (Bank 1) [Performance Class]" address="42289" />
- <table name="(P2090) B Camshaft Position Actuator Control Circuit Low (Bank 1) [Performance Class]" address="42289" />
- <table name="(P2093) A Camshaft Position Actuator Control Circuit High (Bank 2) [Performance Class]" address="42289" />
- <table name="(P2092) A Camshaft Position Actuator Control Circuit Low (Bank 2) [Performance Class]" address="42289" />
- <table name="(P2089) A Camshaft Position Actuator Control Circuit High (Bank 1) [Performance Class]" address="42289" />
- <table name="(P2088) A Camshaft Position Actuator Control Circuit Low (Bank 1) [Performance Class]" address="42289" />
- <table name="(P0197) Engine Oil Temperature Sensor Low [Performance Class]" address="4228a" />
- <table name="(P0700) Transmission Control System (MIL Request) [Performance Class]" address="4228a" />
- <table name="(P0196) Engine Oil Temperature Sensor Range/Performance [Performance Class]" address="4228b" />
- <table name="(P0198) Engine Oil Temperature Sensor High [Performance Class]" address="4228b" />
- <table name="(P2004) Intake Manifold Runner Control Stuck Open (Bank 1) [Performance Class]" address="4228e" />
- <table name="(P2006) Intake Manifold Runner Control Stuck Closed (Bank 1) [Performance Class]" address="4228e" />
- <table name="(P2005) Intake Manifold Runner Control Stuck Open (Bank 2) [Performance Class]" address="4228e" />
- <table name="(P2007) Intake Manifold Runner Control Stuck Closed (Bank 2) [Performance Class]" address="4228e" />
- <table name="(P2227) Barometric Pressure Sensor A Circuit Range/Performance [Performance Class]" address="4228e" />
- <table name="(P2229) Barometric Pressure Sensor A Circuit High [Performance Class]" address="4228e" />
- <table name="(P2228) Barometric Pressure Sensor A Circuit Low [Performance Class]" address="4228e" />
- <table name="(P2016) Intake Manifold Runner Position Sensor/Switch Circuit Low (Bank 1) [Performance Class]" address="4228f" />
- <table name="(P2017) Intake Manifold Runner Position Sensor/Switch Circuit High (Bank 1) [Performance Class]" address="4228f" />
- <table name="(P2021) Intake Manifold Runner Position Sensor/Switch Circuit Low (Bank 2) [Performance Class]" address="4228f" />
- <table name="(P2022) Intake Manifold Runner Position Sensor/Switch Circuit High (Bank 2) [Performance Class]" address="4228f" />
- <table name="(P2009) Intake Manifold Runner Control Circuit Low (Bank 1) [Performance Class]" address="4228f" />
- <table name="(P2012) Intake Manifold Runner Control Circuit Low (Bank 2) [Performance Class]" address="4228f" />
- <table name="(P0018) Crankshaft/Camshaft Position Correlation (Bank 2 Sensor A) [Performance Class]" address="42293" />
- <table name="(P0016) Crankshaft/Camshaft Position Correlation (Bank 1 Sensor A) [Performance Class]" address="42293" />
- <table name="(P0024) Exhaust Camshaft Timing Over-Advanced or System Performance (Bank 2) [Performance Class]" address="42295" />
- <table name="(P0014) Exhaust Camshaft Timing Over-Advanced or System Performance (Bank 1) [Performance Class]" address="42295" />
- <table name="(P04F0) Evaporative Emission System High Pressure Purge Line Performance [Performance Class]" address="42295" />
- <table name="(P1458) manufacturer-specific / not named [Performance Class]" address="42295" />
- <table name="(P1459) manufacturer-specific / not named [Performance Class]" address="42295" />
- <table name="(P050E) Cold Start Engine Exhaust Temperature Too Low [Performance Class]" address="42296" />
- <table name="(P0019) Crankshaft/Camshaft Position Correlation (Bank 2 Sensor B) [Performance Class]" address="42296" />
- <table name="(P0017) Crankshaft/Camshaft Position Correlation (Bank 1 Sensor B) [Performance Class]" address="42296" />
- <table name="(U0422) Invalid Data Received from Body Control Module [Performance Class]" address="422a2" />
- <table name="(U0140) Lost Communication with Body Control Module [Performance Class]" address="422a2" />
- <table name="(U0402) Invalid Data Received from TCM [Performance Class]" address="422a2" />
- <table name="(U0101) Lost Communication with TCM [Performance Class]" address="422a2" />
- <table name="(U0416) Invalid Data Received from Vehicle Dynamics Control Module [Performance Class]" address="422a2" />
- <table name="(U0122) Lost Communication with Vehicle Dynamics Control Module [Performance Class]" address="422a2" />
- <table name="(U0073) Control Module Communication Bus Off [Performance Class]" address="422a2" />
- <table name="(P050B) Cold Start Ignition Timing Performance [Performance Class]" address="422a5" />
- <table name="(P050A) Cold Start Idle Air Control System Performance [Performance Class]" address="422a5" />
- <table name="(P2610) ECM/PCM Internal Engine Off Timer Performance [Performance Class]" address="422a5" />
- <table name="(P2420) Evaporative Emission System Switching Valve Control Circuit High [Performance Class]" address="422a5" />
- <table name="(P2419) Evaporative Emission System Switching Valve Control Circuit Low [Performance Class]" address="422a5" />
- <table name="(P2401) Evaporative Emission System Leak Detection Pump Control Circuit Low [Performance Class]" address="422a5" />
- <table name="(P0453) Evaporative Emission System Pressure Sensor High [Performance Class]" address="422a5" />
- <table name="(P0452) Evaporative Emission System Pressure Sensor Low [Performance Class]" address="422a5" />
- <table name="(P015B) O2 Sensor Delayed Response - Lean to Rich (Bank 1 Sensor 1) [Performance Class]" address="422a6" />
- <table name="(P015A) O2 Sensor Delayed Response - Rich to Lean (Bank 1 Sensor 1) [Performance Class]" address="422a6" />
- <table name="(P014D) O2 Sensor Slow Response - Lean to Rich (Bank 1 Sensor 1) [Performance Class]" address="422a6" />
- <table name="(P014C) O2 Sensor Slow Response - Rich to Lean (Bank 1 Sensor 1) [Performance Class]" address="422a6" />
- <table name="(P1451) manufacturer-specific / not named [Performance Class]" address="422a7" />
- <table name="(P1449) manufacturer-specific / not named [Performance Class]" address="422a7" />
- <table name="(P0455) Evaporative Emission System Leak Detected (Large Leak) [Performance Class]" address="422a7" />
- <table name="(P0451) Evaporative Emission System Pressure Sensor Range/Performance [Performance Class]" address="422a7" />
- <table name="(P0441) Evaporative Emission System Incorrect Purge Flow [Performance Class]" address="422a7" />
- <table name="(P219A) Bank 1 Air-Fuel Ratio Imbalance [Performance Class]" address="422a7" />
- <table name="(P2404) Evaporative Emission System Leak Detection Pump Sense Circuit Range/Performance [Performance Class]" address="422a8" />
- <table name="(P2402) Evaporative Emission System Leak Detection Pump Control Circuit High [Performance Class]" address="422a8" />
- <table name="(P013F) O2 Sensor Delayed Response - Lean to Rich (Bank 1 Sensor 2) [Performance Class]" address="422a9" />
- <table name="(P013E) O2 Sensor Delayed Response - Rich to Lean (Bank 1 Sensor 2) [Performance Class]" address="422a9" />
- <table name="(P013B) O2 Sensor Slow Response - Lean to Rich (Bank 1 Sensor 2) [Performance Class]" address="422a9" />
- <table name="(P013A) O2 Sensor Slow Response - Rich to Lean (Bank 1 Sensor 2) [Performance Class]" address="422a9" />
- <table name="(U0423) Invalid Data Received from Instrument Panel Control Module [Performance Class]" address="422ab" />
- <table name="(U0155) Lost Communication with Instrument Panel Cluster Control Module [Performance Class]" address="422ab" />
- <table name="(P0354) Ignition Coil D Primary/Secondary Circuit [Performance Class]" address="422ad" />
- <table name="(P0353) Ignition Coil C Primary/Secondary Circuit [Performance Class]" address="422ad" />
- <table name="(P0352) Ignition Coil B Primary/Secondary Circuit [Performance Class]" address="422ad" />
- <table name="(P0351) Ignition Coil A Primary/Secondary Circuit [Performance Class]" address="422ad" />
- <table name="(P000A) Intake Camshaft Position Slow Response (Bank 1) [Performance Class]" address="422ae" />
- <table name="(P000B) Exhaust Camshaft Position Slow Response (Bank 1) [Performance Class]" address="422ae" />
- <table name="(P000C) Intake Camshaft Position Slow Response (Bank 2) [Performance Class]" address="422ae" />
- <table name="(P000D) Exhaust Camshaft Position Slow Response (Bank 2) [Performance Class]" address="422ae" />
- <table name="(P0558) Brake Booster Pressure Sensor Circuit High [Performance Class]" address="422ae" />
- <table name="(P0557) Brake Booster Pressure Sensor Circuit Low [Performance Class]" address="422ae" />
- <table name="(P0512) Starter Request Circuit [Performance Class]" address="422af" />
- <table name="(P0616) Starter Relay Circuit Low [Performance Class]" address="422af" />
- <table name="(P0617) Starter Relay Circuit High [Performance Class]" address="422af" />
- <table name="(P2195) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 1) [Performance Class]" address="422af" />
- <table name="(P2196) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 1) [Performance Class]" address="422af" />
- <table name="(P0560) System Voltage [Performance Class]" address="422af" />
- <table name="(P0116) Engine Coolant Temperature Circuit Range/Performance [Performance Class]" address="422af" />
- <table name="(P081A) Starter Disable Circuit Low [Performance Class]" address="422af" />
- <table name="(P062F) Internal Control Module EEPROM Error [Performance Class]" address="422b1" />
- <table name="(P060B) Internal Control Module A/D Processing Performance [Performance Class]" address="422b1" />
- <table name="(P060A) Internal Control Module Monitoring Processor Performance [Performance Class]" address="422b1" />
- <table name="(P0606) Control Module Processor [Performance Class]" address="422b1" />
- <table name="(P2119) Throttle Actuator Control Throttle Body Range/Performance [Performance Class]" address="422b1" />
- <table name="(P0403) Exhaust Gas Recirculation Control Circuit [Performance Class]" address="422b2" />
- <table name="(P0391) Camshaft Position Sensor B Circuit Range/Performance (Bank 2) [Performance Class]" address="422b2" />
- <table name="(P0366) Camshaft Position Sensor B Circuit Range/Performance (Bank 1) [Performance Class]" address="422b2" />
- <table name="(P0346) Camshaft Position Sensor A Circuit Range/Performance (Bank 2) [Performance Class]" address="422b2" />
- <table name="(P0341) Camshaft Position Sensor A Circuit Range/Performance (Bank 1) [Performance Class]" address="422b2" />
- <table name="(P0300) Random/Multiple Cylinder Misfire Detected [Performance Class]" address="422b2" />
- <table name="(P2530) Ignition Switch Run Position Circuit [Performance Class]" address="422b3" />
- <table name="(P04AC) Evaporative Emission System Purge Control Valve 'B' Circuit Low [Performance Class]" address="422b3" />
- <table name="(P04AD) Evaporative Emission System Purge Control Valve 'B' Circuit High [Performance Class]" address="422b3" />
- <table name="(P0072) Ambient Air Temperature Sensor Circuit Low [Performance Class]" address="422bb" />
- <table name="(P0073) Ambient Air Temperature Sensor Circuit High [Performance Class]" address="422bb" />
- <table name="(P0071) Ambient Air Temperature Sensor Range/Performance [Performance Class]" address="422bb" />
- <table name="(P0500) Vehicle Speed Sensor A [slot 779] [Performance Class]" address="422bb" />
- <table name="(P2158) Vehicle Speed Sensor B [Performance Class]" address="422bb" />
- <table name="(P0010) Intake Camshaft Position Actuator Circuit (Bank 1) [Performance Class]" address="422bd" />
- <table name="(P0020) Intake Camshaft Position Actuator Circuit (Bank 2) [Performance Class]" address="422bd" />
- <table name="(P0013) Exhaust Camshaft Position Actuator Circuit (Bank 1) [Performance Class]" address="422bd" />
- <table name="(P0023) Exhaust Camshaft Position Actuator Circuit (Bank 2) [Performance Class]" address="422bd" />
- <table name="(P0685) ECM/PCM Power Relay Control Circuit/Open [Performance Class]" address="422bd" />
- <table name="(P2A01) O2 Sensor Circuit Range/Performance (Bank 1 Sensor 2) [Performance Class]" address="422bd" />
- <table name="(P2270) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 2) [Performance Class]" address="422bd" />
- <table name="(P2271) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 2) [Performance Class]" address="422bd" />
- <table name="(P0087) Fuel Rail/System Pressure Too Low [Performance Class]" address="422be" />
- <table name="(P0088) Fuel Rail/System Pressure Too High [Performance Class]" address="422be" />
- <table name="(P062D) Fuel Injector Driver Circuit Performance (Bank 1) [Performance Class]" address="422be" />
- <table name="(P1261) manufacturer-specific / not named [Performance Class]" address="422be" />
- <table name="(P1262) manufacturer-specific / not named [Performance Class]" address="422be" />
- <table name="(P1263) manufacturer-specific / not named [Performance Class]" address="422be" />
- <table name="(P1264) manufacturer-specific / not named [Performance Class]" address="422be" />
- <table name="(P0191) Fuel Rail Pressure Sensor A Circuit Range/Performance [Performance Class]" address="422be" />
- <table name="(P0192) Fuel Rail Pressure Sensor A Circuit Low [Performance Class]" address="422bf" />
- <table name="(P0193) Fuel Rail Pressure Sensor A Circuit High [Performance Class]" address="422bf" />
- <table name="(P1191) manufacturer-specific / not named [Performance Class]" address="422bf" />
- <table name="(P0627) Fuel Pump A Control Circuit/Open [Performance Class]" address="422bf" />
- <table name="(P0628) Fuel Pump A Control Circuit Low [Performance Class]" address="422bf" />
- <table name="(P0629) Fuel Pump A Control Circuit High [Performance Class]" address="422bf" />
- <table name="(P023F) manufacturer-specific / not named [Performance Class]" address="422bf" />
- <table name="(P0130) O2 Sensor Circuit (Bank 1 Sensor 1) [Performance Class]" address="422bf" />
- <table name="(P0097) Intake Air Temperature Sensor 2 Circuit Low [Performance Class]" address="422c0" />
- <table name="(P0098) Intake Air Temperature Sensor 2 Circuit High [Performance Class]" address="422c0" />
- <table name="(P2627) O2 Sensor Pumping Current Trim Circuit/Open (Bank 1 Sensor 1) [Performance Class]" address="422c0" />
- <table name="(P2628) O2 Sensor Pumping Current Trim Circuit Low (Bank 1 Sensor 1) [Performance Class]" address="422c0" />
- <table name="(P0096) Intake Air Temperature Sensor 2 Circuit Range/Performance [Performance Class]" address="422c0" />
- <table name="(P1134) manufacturer-specific / not named [Performance Class]" address="422c0" />
- <table name="(P2146) Fuel Injector Group A Supply Voltage Circuit/Open [Performance Class]" address="422c0" />
- <table name="(P113A) manufacturer-specific / not named [Performance Class]" address="422c0" />
- <table name="Class (Circuit) Mask (bit per DTC)" address="421f3" />
- <table name="Class (Performance) Mask (bit per DTC)" address="4225a" />
+ <table name="(P1160) manufacturer-specific / not named" address="421b8" />
+ <table name="(P1160) manufacturer-specific / not named [Fail-Safe]" address="57c00" />
+ <table name="(P1191) manufacturer-specific / not named" address="421f1" />
+ <table name="(P1191) manufacturer-specific / not named [Fail-Safe]" address="57c39" />
+ <table name="(P1261) manufacturer-specific / not named" address="421f0" scaling="DTC enabled b3 mFF f00 sF7" />
+ <table name="(P1261) manufacturer-specific / not named [Fail-Safe]" address="57c38" />
+ <table name="(P1262) manufacturer-specific / not named" address="421f0" scaling="DTC enabled b4 mFF f00 sEF" />
+ <table name="(P1262) manufacturer-specific / not named [Fail-Safe]" address="57c38" />
+ <table name="(P1263) manufacturer-specific / not named" address="421f0" scaling="DTC enabled b5 mFF f00 sDF" />
+ <table name="(P1263) manufacturer-specific / not named [Fail-Safe]" address="57c38" />
+ <table name="(P1264) manufacturer-specific / not named" address="421f0" scaling="DTC enabled b6 mFF f00 sBF" />
+ <table name="(P1264) manufacturer-specific / not named [Fail-Safe]" address="57c38" />
+ <table name="(P1449) manufacturer-specific / not named" address="421d9" />
+ <table name="(P1449) manufacturer-specific / not named [Fail-Safe]" address="57c21" />
+ <table name="(P1451) manufacturer-specific / not named" address="421d9" />
+ <table name="(P1451) manufacturer-specific / not named [Fail-Safe]" address="57c21" />
+ <table name="(P1458) manufacturer-specific / not named" address="421c7" />
+ <table name="(P1458) manufacturer-specific / not named [Fail-Safe]" address="57c0f" />
+ <table name="(P1459) manufacturer-specific / not named" address="421c7" />
+ <table name="(P1459) manufacturer-specific / not named [Fail-Safe]" address="57c0f" />
+ <table name="(P1492) manufacturer-specific / not named" address="42194" />
+ <table name="(P1492) manufacturer-specific / not named [Fail-Safe]" address="57bdc" />
+ <table name="(P1493) manufacturer-specific / not named" address="42194" />
+ <table name="(P1493) manufacturer-specific / not named [Fail-Safe]" address="57bdc" />
+ <table name="(P1494) manufacturer-specific / not named" address="42194" />
+ <table name="(P1494) manufacturer-specific / not named [Fail-Safe]" address="57bdc" />
+ <table name="(P1495) manufacturer-specific / not named" address="42194" />
+ <table name="(P1495) manufacturer-specific / not named [Fail-Safe]" address="57bdc" />
+ <table name="(P1496) manufacturer-specific / not named" address="42194" />
+ <table name="(P1496) manufacturer-specific / not named [Fail-Safe]" address="57bdc" />
+ <table name="(P1497) manufacturer-specific / not named" address="42194" />
+ <table name="(P1497) manufacturer-specific / not named [Fail-Safe]" address="57bdc" />
+ <table name="(P1498) manufacturer-specific / not named" address="42194" />
+ <table name="(P1498) manufacturer-specific / not named [Fail-Safe]" address="57bdc" />
+ <table name="(P1499) manufacturer-specific / not named" address="42194" />
+ <table name="(P1499) manufacturer-specific / not named [Fail-Safe]" address="57bdc" />
+ <table name="(P2004) Intake Manifold Runner Control Stuck Open (Bank 1)" address="421c0" />
+ <table name="(P2004) Intake Manifold Runner Control Stuck Open (Bank 1) [Fail-Safe]" address="57c08" />
+ <table name="(P2005) Intake Manifold Runner Control Stuck Open (Bank 2)" address="421c0" />
+ <table name="(P2005) Intake Manifold Runner Control Stuck Open (Bank 2) [Fail-Safe]" address="57c08" />
+ <table name="(P2006) Intake Manifold Runner Control Stuck Closed (Bank 1)" address="421c0" />
+ <table name="(P2006) Intake Manifold Runner Control Stuck Closed (Bank 1) [Fail-Safe]" address="57c08" />
+ <table name="(P2007) Intake Manifold Runner Control Stuck Closed (Bank 2)" address="421c0" />
+ <table name="(P2007) Intake Manifold Runner Control Stuck Closed (Bank 2) [Fail-Safe]" address="57c08" />
+ <table name="(P2009) Intake Manifold Runner Control Circuit Low (Bank 1)" address="421c1" />
+ <table name="(P2009) Intake Manifold Runner Control Circuit Low (Bank 1) [Fail-Safe]" address="57c09" />
+ <table name="(P2012) Intake Manifold Runner Control Circuit Low (Bank 2)" address="421c1" />
+ <table name="(P2012) Intake Manifold Runner Control Circuit Low (Bank 2) [Fail-Safe]" address="57c09" />
+ <table name="(P2016) Intake Manifold Runner Position Sensor/Switch Circuit Low (Bank 1)" address="421c1" />
+ <table name="(P2016) Intake Manifold Runner Position Sensor/Switch Circuit Low (Bank 1) [Fail-Safe]" address="57c09" />
+ <table name="(P2017) Intake Manifold Runner Position Sensor/Switch Circuit High (Bank 1)" address="421c1" />
+ <table name="(P2017) Intake Manifold Runner Position Sensor/Switch Circuit High (Bank 1) [Fail-Safe]" address="57c09" />
+ <table name="(P2021) Intake Manifold Runner Position Sensor/Switch Circuit Low (Bank 2)" address="421c1" />
+ <table name="(P2021) Intake Manifold Runner Position Sensor/Switch Circuit Low (Bank 2) [Fail-Safe]" address="57c09" />
+ <table name="(P2022) Intake Manifold Runner Position Sensor/Switch Circuit High (Bank 2)" address="421c1" />
+ <table name="(P2022) Intake Manifold Runner Position Sensor/Switch Circuit High (Bank 2) [Fail-Safe]" address="57c09" />
+ <table name="(P2088) A Camshaft Position Actuator Control Circuit Low (Bank 1)" address="421bb" />
+ <table name="(P2088) A Camshaft Position Actuator Control Circuit Low (Bank 1) [Fail-Safe]" address="57c03" />
+ <table name="(P2089) A Camshaft Position Actuator Control Circuit High (Bank 1)" address="421bb" />
+ <table name="(P2089) A Camshaft Position Actuator Control Circuit High (Bank 1) [Fail-Safe]" address="57c03" />
+ <table name="(P2090) B Camshaft Position Actuator Control Circuit Low (Bank 1)" address="421bb" />
+ <table name="(P2090) B Camshaft Position Actuator Control Circuit Low (Bank 1) [Fail-Safe]" address="57c03" />
+ <table name="(P2091) B Camshaft Position Actuator Control Circuit High (Bank 1)" address="421bb" />
+ <table name="(P2091) B Camshaft Position Actuator Control Circuit High (Bank 1) [Fail-Safe]" address="57c03" />
+ <table name="(P2092) A Camshaft Position Actuator Control Circuit Low (Bank 2)" address="421bb" />
+ <table name="(P2092) A Camshaft Position Actuator Control Circuit Low (Bank 2) [Fail-Safe]" address="57c03" />
+ <table name="(P2093) A Camshaft Position Actuator Control Circuit High (Bank 2)" address="421bb" />
+ <table name="(P2093) A Camshaft Position Actuator Control Circuit High (Bank 2) [Fail-Safe]" address="57c03" />
+ <table name="(P2094) B Camshaft Position Actuator Control Circuit Low (Bank 2)" address="421bb" />
+ <table name="(P2094) B Camshaft Position Actuator Control Circuit Low (Bank 2) [Fail-Safe]" address="57c03" />
+ <table name="(P2095) B Camshaft Position Actuator Control Circuit High (Bank 2)" address="421bb" />
+ <table name="(P2095) B Camshaft Position Actuator Control Circuit High (Bank 2) [Fail-Safe]" address="57c03" />
+ <table name="(P2096) Post Catalyst Fuel Trim System Too Lean (Bank 1)" address="421b8" />
+ <table name="(P2096) Post Catalyst Fuel Trim System Too Lean (Bank 1) [Fail-Safe]" address="57c00" />
+ <table name="(P2097) Post Catalyst Fuel Trim System Too Rich (Bank 1)" address="421b9" />
+ <table name="(P2097) Post Catalyst Fuel Trim System Too Rich (Bank 1) [Fail-Safe]" address="57c01" />
+ <table name="(P2101) Throttle Actuator Control Motor Circuit Range/Performance" address="421b8" />
+ <table name="(P2101) Throttle Actuator Control Motor Circuit Range/Performance [Fail-Safe]" address="57c00" />
+ <table name="(P2102) Throttle Actuator Control Motor Circuit Low" address="421b8" />
+ <table name="(P2102) Throttle Actuator Control Motor Circuit Low [Fail-Safe]" address="57c00" />
+ <table name="(P2103) Throttle Actuator Control Motor Circuit High" address="421b8" />
+ <table name="(P2103) Throttle Actuator Control Motor Circuit High [Fail-Safe]" address="57c00" />
+ <table name="(P2109) Throttle/Pedal Position Sensor A Minimum Stop Performance" address="421b7" />
+ <table name="(P2109) Throttle/Pedal Position Sensor A Minimum Stop Performance [Fail-Safe]" address="57bff" />
+ <table name="(P2119) Throttle Actuator Control Throttle Body Range/Performance" address="421e3" />
+ <table name="(P2119) Throttle Actuator Control Throttle Body Range/Performance [Fail-Safe]" address="57c2b" />
+ <table name="(P2122) Throttle/Pedal Position Sensor/Switch D Circuit Low" address="421b9" />
+ <table name="(P2122) Throttle/Pedal Position Sensor/Switch D Circuit Low [Fail-Safe]" address="57c01" />
+ <table name="(P2123) Throttle/Pedal Position Sensor/Switch D Circuit High" address="421b9" />
+ <table name="(P2123) Throttle/Pedal Position Sensor/Switch D Circuit High [Fail-Safe]" address="57c01" />
+ <table name="(P2127) Throttle/Pedal Position Sensor/Switch E Circuit Low" address="421b9" />
+ <table name="(P2127) Throttle/Pedal Position Sensor/Switch E Circuit Low [Fail-Safe]" address="57c01" />
+ <table name="(P2128) Throttle/Pedal Position Sensor/Switch E Circuit High" address="421b9" />
+ <table name="(P2128) Throttle/Pedal Position Sensor/Switch E Circuit High [Fail-Safe]" address="57c01" />
+ <table name="(P2135) Throttle/Pedal Position Sensor/Switch A/B Voltage Correlation" address="421b9" />
+ <table name="(P2135) Throttle/Pedal Position Sensor/Switch A/B Voltage Correlation [Fail-Safe]" address="57c01" />
+ <table name="(P2138) Throttle/Pedal Position Sensor/Switch D/E Voltage Correlation" address="421b9" />
+ <table name="(P2138) Throttle/Pedal Position Sensor/Switch D/E Voltage Correlation [Fail-Safe]" address="57c01" />
+ <table name="(P2146) Fuel Injector Group A Supply Voltage Circuit/Open" address="421f2" scaling="DTC enabled b6 mFF f00 s33" />
+ <table name="(P2146) Fuel Injector Group A Supply Voltage Circuit/Open [Fail-Safe]" address="57c3a" />
+ <table name="(P2158) Vehicle Speed Sensor B" address="421ed" />
+ <table name="(P2158) Vehicle Speed Sensor B [Fail-Safe]" address="57c35" />
+ <table name="(P2195) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 1)" address="421e1" scaling="DTC enabled b3 mFF f00 sF7" />
+ <table name="(P2195) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 1) [Fail-Safe]" address="57c29" />
+ <table name="(P2196) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 1)" address="421e1" scaling="DTC enabled b4 mFF f00 sEF" />
+ <table name="(P2196) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 1) [Fail-Safe]" address="57c29" />
+ <table name="(P219A) Bank 1 Air-Fuel Ratio Imbalance" address="421d9" />
+ <table name="(P219A) Bank 1 Air-Fuel Ratio Imbalance [Fail-Safe]" address="57c21" />
+ <table name="(P2227) Barometric Pressure Sensor A Circuit Range/Performance" address="421c0" />
+ <table name="(P2227) Barometric Pressure Sensor A Circuit Range/Performance [Fail-Safe]" address="57c08" />
+ <table name="(P2228) Barometric Pressure Sensor A Circuit Low" address="421c0" />
+ <table name="(P2228) Barometric Pressure Sensor A Circuit Low [Fail-Safe]" address="57c08" />
+ <table name="(P2229) Barometric Pressure Sensor A Circuit High" address="421c0" />
+ <table name="(P2229) Barometric Pressure Sensor A Circuit High [Fail-Safe]" address="57c08" />
+ <table name="(P2270) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 2)" address="421ef" scaling="DTC enabled b6 mFF f00 s9F" />
+ <table name="(P2270) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 2) [Fail-Safe]" address="57c37" />
+ <table name="(P2271) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 2)" address="421ef" scaling="DTC enabled b7 mFF f00 s5F" />
+ <table name="(P2271) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 2) [Fail-Safe]" address="57c37" />
+ <table name="(P2401) Evaporative Emission System Leak Detection Pump Control Circuit Low" address="421d7" scaling="DTC enabled b5 mFF f00 sDF" />
+ <table name="(P2401) Evaporative Emission System Leak Detection Pump Control Circuit Low [Fail-Safe]" address="57c1f" />
+ <table name="(P2402) Evaporative Emission System Leak Detection Pump Control Circuit High" address="421da" />
+ <table name="(P2402) Evaporative Emission System Leak Detection Pump Control Circuit High [Fail-Safe]" address="57c22" />
+ <table name="(P2404) Evaporative Emission System Leak Detection Pump Sense Circuit Range/Performance" address="421da" />
+ <table name="(P2404) Evaporative Emission System Leak Detection Pump Sense Circuit Range/Performance [Fail-Safe]" address="57c22" />
+ <table name="(P2419) Evaporative Emission System Switching Valve Control Circuit Low" address="421d7" scaling="DTC enabled b4 mFF f00 sEF" />
+ <table name="(P2419) Evaporative Emission System Switching Valve Control Circuit Low [Fail-Safe]" address="57c1f" />
+ <table name="(P2420) Evaporative Emission System Switching Valve Control Circuit High" address="421d7" scaling="DTC enabled b3 mFF f00 sF7" />
+ <table name="(P2420) Evaporative Emission System Switching Valve Control Circuit High [Fail-Safe]" address="57c1f" />
+ <table name="(P2530) Ignition Switch Run Position Circuit" address="421e5" />
+ <table name="(P2530) Ignition Switch Run Position Circuit [Fail-Safe]" address="57c2d" />
+ <table name="(P2610) ECM/PCM Internal Engine Off Timer Performance" address="421d7" scaling="DTC enabled b2 mFF f00 sFB" />
+ <table name="(P2610) ECM/PCM Internal Engine Off Timer Performance [Fail-Safe]" address="57c1f" />
+ <table name="(P2627) O2 Sensor Pumping Current Trim Circuit/Open (Bank 1 Sensor 1)" address="421f2" scaling="DTC enabled b2 mFF f00 s73" />
+ <table name="(P2627) O2 Sensor Pumping Current Trim Circuit/Open (Bank 1 Sensor 1) [Fail-Safe]" address="57c3a" />
+ <table name="(P2628) O2 Sensor Pumping Current Trim Circuit Low (Bank 1 Sensor 1)" address="421f2" scaling="DTC enabled b3 mFF f00 s73" />
+ <table name="(P2628) O2 Sensor Pumping Current Trim Circuit Low (Bank 1 Sensor 1) [Fail-Safe]" address="57c3a" />
+ <table name="(P2A01) O2 Sensor Circuit Range/Performance (Bank 1 Sensor 2)" address="421ef" scaling="DTC enabled b5 mFF f00 sDF" />
+ <table name="(P2A01) O2 Sensor Circuit Range/Performance (Bank 1 Sensor 2) [Fail-Safe]" address="57c37" />
+ <table name="(U0073) Control Module Communication Bus Off" address="421d4" />
+ <table name="(U0073) Control Module Communication Bus Off [Fail-Safe]" address="57c1c" />
+ <table name="(U0101) Lost Communication with TCM" address="421d4" />
+ <table name="(U0101) Lost Communication with TCM [Fail-Safe]" address="57c1c" />
+ <table name="(U0122) Lost Communication with Vehicle Dynamics Control Module" address="421d4" />
+ <table name="(U0122) Lost Communication with Vehicle Dynamics Control Module [Fail-Safe]" address="57c1c" />
+ <table name="(U0140) Lost Communication with Body Control Module" address="421d4" />
+ <table name="(U0140) Lost Communication with Body Control Module [Fail-Safe]" address="57c1c" />
+ <table name="(U0155) Lost Communication with Instrument Panel Cluster Control Module" address="421dd" />
+ <table name="(U0155) Lost Communication with Instrument Panel Cluster Control Module [Fail-Safe]" address="57c25" />
+ <table name="(U0402) Invalid Data Received from TCM" address="421d4" />
+ <table name="(U0402) Invalid Data Received from TCM [Fail-Safe]" address="57c1c" />
+ <table name="(U0416) Invalid Data Received from Vehicle Dynamics Control Module" address="421d4" />
+ <table name="(U0416) Invalid Data Received from Vehicle Dynamics Control Module [Fail-Safe]" address="57c1c" />
+ <table name="(U0422) Invalid Data Received from Body Control Module" address="421d4" />
+ <table name="(U0422) Invalid Data Received from Body Control Module [Fail-Safe]" address="57c1c" />
+ <table name="(U0423) Invalid Data Received from Instrument Panel Control Module" address="421dd" />
+ <table name="(U0423) Invalid Data Received from Instrument Panel Control Module [Fail-Safe]" address="57c25" />
  <table name="Enable Mask (bit per DTC)" address="4218c" />
  <table name="Fail-Safe Trigger Mask (bit per DTC)" address="57bd4" />
 </rom>

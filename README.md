@@ -1,15 +1,15 @@
 # subaru-dit-defs
 
 RomRaider and EcuFlash definitions, logging tools and a tuning guide for Subaru's **FA20DIT** engine ECU
-(Hitachi SH72543R / SH72544R). Supported now: the 2015–2018 WRX, WRX S4 and Forester XT / tS, and the 2019 Levorg
-STI 2.0. Support for other 2019 and later cars is in progress.
+(Hitachi SH72543R / SH72544R). Supported now: the 2015–2018 WRX, WRX S4 and Forester XT / tS, and the
+2014–2019 Levorg 2.0. Support for other 2019 and later cars is in progress.
 
 The definitions were built from scratch from my own analysis of the stock ROMs. No existing community definition was
 used as a source, so table names, scalings and descriptions are my own. Every table carries a plain-English summary
 and a description of what the ECU does with it.
 
 Across the supported ROMs, each definition averages roughly **1,200 entries**: about 1,000 maps and curves and
-about 140 single values and switches. On top of that, each has about 900 DTC enable switches. The exact count for
+about 140 single values and switches. On top of that, each has a table for every trouble code (about 225), with its enable and fail-safe settings. The exact count for
 each ROM is in the [table below](#supported-roms).
 
 > **Status: beta.** The definitions have been checked table by table against the ECU code and load cleanly in
@@ -18,33 +18,41 @@ each ROM is in the [table below](#supported-roms).
 
 ## Supported ROMs
 
-| Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTC switches | Logging patch |
+| Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
-| WRX | 2015 | 6MT | USDM | **LF75404S** | 1189 | 904 | yes |
-| WRX | 2015 | 6MT | USDM | **LF75300S** | 1189 | 904 | yes |
-| WRX | 2015 | 6MT | Middle East | **LF75301P** | 1189 | 904 | yes |
-| WRX (early software) | 2015 | 6MT | Australia | **LV9N100F** | 1123 | 888 | yes |
-| WRX (early software) | 2015 | 6MT | Gulf (GCC) | **LV9N101I** | 1123 | 888 | yes |
-| WRX (early software) | 2015 | 6MT | not confirmed | **LV9N101F** | 1123 | 888 | yes |
-| WRX (early software) | 2015 | CVT | USDM | **LV9N101C** | 1123 | 888 | yes |
-| WRX S4 (early software) | 2015 | CVT | Japan | **LV9N100B** | 1123 | 888 | yes |
-| WRX S4 | 2015 | CVT | Japan | **LF75300F** | 1189 | 904 | yes |
-| WRX | 2015 | CVT | Canada | **LF75200T** | 1167 | 904 | yes |
-| WRX | 2015–2016 (not stated) | CVT | not confirmed | **LF75300L** | 1189 | 904 | yes |
-| Forester XT (early software; briefly also the WRX CVT) — *outdated* | early 2015 | CVT | USDM | **LV9N000C** | 1123 | 888 | yes |
-| WRX | 2016 | 6MT | not confirmed | **LF75300H** | 1189 | 904 | yes |
-| WRX | 2016 | 6MT | Singapore | **LF75301K** | 1189 | 904 | yes |
-| Forester tS (STI) | 2016 | CVT | Australia | **LF78001H** | 1198 | 908 | yes |
-| WRX | 2017 | 6MT | not confirmed | **LF79002P** | 1207 | 912 | yes |
-| WRX | 2017 | 6MT (later revision) | not confirmed | **LF79100P** | 1207 | 912 | yes |
-| WRX | 2017 | CVT | not confirmed | **LF79100N** | 1207 | 912 | yes |
-| Forester XT | 2017 | CVT | USDM | **LF78103B** | 1195 | 912 | yes |
-| Forester XT | 2017 | CVT | Europe | **LF9C000C** | 1212 | 912 | yes |
-| Forester XT | 2018 | CVT | Malaysia | **LF9C000a** | 1212 | 912 | yes |
-| WRX | 2018 | 6MT | not confirmed | **LF9C100P** | 1212 | 912 | yes |
-| WRX | 2018 | 6MT | USDM | **LF9C001P** | 1212 | 912 | yes |
-| WRX S4 | 2018 | CVT | Japan | **LF9C001K** | 1212 | 912 | yes |
-| Levorg STI 2.0 (2.5 MB ECU) | 2019 | CVT | Japan | **LF9F000R** | 1211 | 924 | yes |
+| WRX | 2014 (as supplied) | 6MT | Middle East | **LF75401P** | 1189 | 226 | yes |
+| WRX | 2015 | 6MT | USDM | **LF75404S** | 1189 | 226 | yes |
+| WRX | 2015 | 6MT | USDM | **LF75300S** | 1189 | 226 | yes |
+| WRX | 2015 | 6MT | Middle East | **LF75301P** | 1189 | 226 | yes |
+| WRX (early software) | 2015 | 6MT | Australia | **LV9N100F** | 1123 | 222 | yes |
+| WRX (early software) | 2015 | 6MT | Gulf (GCC) | **LV9N101I** | 1123 | 222 | yes |
+| WRX (early software) | 2015 | 6MT | not confirmed | **LV9N101F** | 1123 | 222 | yes |
+| WRX (early software) | 2015 | CVT | USDM | **LV9N101C** | 1123 | 222 | yes |
+| WRX S4 (early software) | 2015 | CVT | Japan | **LV9N100B** | 1123 | 222 | yes |
+| WRX S4 | 2015 | CVT | Japan | **LF75300F** | 1189 | 226 | yes |
+| WRX | 2015 | CVT | Canada | **LF75200T** | 1167 | 226 | yes |
+| WRX | 2015–2016 (not stated) | CVT | not confirmed | **LF75300L** | 1189 | 226 | yes |
+| Forester XT (early software; briefly also the WRX CVT) — *outdated* | early 2015 | CVT | USDM | **LV9N000C** | 1123 | 222 | yes |
+| WRX | 2016 | 6MT | not confirmed | **LF75300H** | 1189 | 226 | yes |
+| WRX | 2016 | 6MT | Singapore | **LF75301K** | 1189 | 226 | yes |
+| Forester tS (STI) | 2016 | CVT | Australia | **LF78001H** | 1198 | 227 | yes |
+| WRX | 2017 | 6MT | not confirmed | **LF79002P** | 1207 | 228 | yes |
+| WRX | 2017 | 6MT (later revision) | not confirmed | **LF79100P** | 1207 | 228 | yes |
+| WRX | 2017 | CVT | not confirmed | **LF79100N** | 1207 | 228 | yes |
+| Forester XT | 2017 | CVT | USDM | **LF78103B** | 1195 | 228 | yes |
+| Forester XT | 2017 | CVT | Europe | **LF9C000C** | 1212 | 228 | yes |
+| Forester XT | 2018 | CVT | Malaysia | **LF9C000a** | 1212 | 228 | yes |
+| WRX | 2018 | 6MT | not confirmed | **LF9C100P** | 1212 | 228 | yes |
+| WRX | 2018 | 6MT | USDM | **LF9C001P** | 1212 | 228 | yes |
+| WRX S4 | 2018 | CVT | Japan | **LF9C001K** | 1212 | 228 | yes |
+| Levorg 2.0GT-S (early software) | 2014 | CVT | Japan | **LV9N100A** | 1123 | 222 | yes |
+| Levorg 2.0 (early software) | 2014 | CVT | Japan | **LV9N301A** | 1145 | 222 | yes |
+| Levorg 2.0 (early software) | 2014 | CVT | Japan | **LV9N302A** | 1145 | 222 | yes |
+| Levorg 2.0 | 2015 | CVT | Japan | **LF75401D** | 1189 | 226 | yes |
+| Levorg 2.0 STI | 2017 | CVT | Japan | **LF79100K** | 1207 | 228 | yes |
+| Levorg 2.0 STI | 2017 | CVT | Japan | **LF79101K** | 1207 | 228 | yes |
+| Levorg 2.0GT-S | 2017 | CVT | Australia | **LF79100S** | 1207 | 228 | yes |
+| Levorg STI 2.0 (2.5 MB ECU) | 2019 | CVT | Japan | **LF9F000R** | 1211 | 231 | yes |
 
 *2019 Levorg STI (LF9F000R):* this is the first 2019+ ROM (Hitachi SH72544R, 2.5 MB). The calibration is almost the
 same as the 2018 WRX S4's, but the code and layout are new, so check it carefully. Logging (SSM, OBD, the logging
@@ -55,6 +63,10 @@ the checksum tool (below). Writing a 2.5 MB ECU isn't supported by any open tool
 
 *Malaysian Forester XT (LF9C000a):* the ID really ends in a lowercase "a". The code and table layout are the same
 as LF9C000C's; only a few calibration bytes differ. Thanks to Hafiez STi for the ROM.
+
+*Levorg 2.0 (2014–2017):* the seven Levorg ROMs came from reokov and the RomRaider forum. Six run the same code as a
+WRX ROM in this table; LV9N301A / LV9N302A are a build of their own, ported and checked like the others. Thanks to
+reokov for the ROMs.
 
 *Outdated:* LV9N000C is an early calibration that Subaru superseded (its tune is 99.7% the same as LV9N101C's). It
 is still fully supported. When you open it, RomRaider shows its "ECU Revision is Obsolete" notice ("A newer version of
@@ -85,7 +97,7 @@ same model year; flashing with a definition for another ID will corrupt the cali
 | `tools/checksum.py`, `tools/checksum.ps1` | Check and fix the ROM checksum of 2 MB and 2.5 MB ROMs (Python, or PowerShell for Windows). **Required for ROMs edited in RomRaider**, and `verify` before any flash (see below). |
 | `tools/logpatch/` | The logging patch: `make_logpatch.py` and one spec per supported ROM. |
 | `docs/guide/` | [The tuning guide](docs/guide/README.md): workflows, how the logic works, appendices and a table reference. |
-| `extras/can/` | The CAN dictionary: every frame the ECU receives and sends, for 33 ROMs, with a DBC for CAN tools and each signal's RAM address per ROM. |
+| `extras/can/` | The CAN dictionary: every frame the ECU receives and sends, for 37 ROMs, with a DBC for CAN tools and each signal's RAM address per ROM. |
 
 ## Quick start
 
@@ -96,6 +108,12 @@ same model year; flashing with a definition for another ID will corrupt the cali
    normal tuning; **Debug** shows tables that are off in stock, unused, or only used by the other transmission. Also
    untick "List tables that are above my userlevel" if you want higher-level tables hidden rather than greyed out.
 
+**Trouble codes (DTCs)** are in Diagnostics & Switches → DTC Switches, one table per code, in code order. Each has
+two cells: **Enabled** (1 = the code can set and report, 0 = it never sets) and **Fail-Safe** (1 = a failed test of
+this code raises the ECU's fail-safe request; what that request limits isn't decoded yet). **These tables need
+RomRaider 1.0.0 or later.** Older versions don't understand how the second cell is located and would show and change
+the wrong bit.
+
 ### Editing with EcuFlash
 Pick a unit system: `definitions/ecuflash/Imperial/` (psi, °F, ft-lb, mph) or `definitions/ecuflash/Metric/` (kPa /
 MPa, °C, Nm, km/h). Copy that folder's base file (`FA20DIT_BASE_EcuFlash.xml`, or `FA20DIT_BASE_METRIC_EcuFlash.xml`)
@@ -105,8 +123,9 @@ the ROM file only its addresses. Install only one of the two sets: both use the 
 (`01.02 Fueling - …`). EcuFlash starts at the Beginner user level, which greys out most tables; raise it in the
 options (gear icon) → User Level.
 
-Each DTC has its own table in each class, as in RomRaider. To flip one, select its value and press **Increment
-( `]` ) once**; don't use Decrement. The [EcuFlash README](definitions/ecuflash/README.md) explains why.
+Each DTC has two tables next to each other, in code order: the code itself (enabled or not) and `[Fail-Safe]`
+(whether it triggers fail-safe). To flip one, select its value and press **Increment ( `]` ) once**; don't use
+Decrement. The [EcuFlash README](definitions/ecuflash/README.md) explains why.
 
 ### Fix the checksum before every flash
 
@@ -195,6 +214,8 @@ Every table whose unit depends on the system has both an imperial and a metric s
 - **Writing with EcuFlash** has not been tested on this ECU.
 - **2019+ (2.5 MB) ROMs:** EcuFlash doesn't correct their checksum (use the checksum tool), and no open tool writes
   these ECUs yet.
+- **RomRaider older than 1.0.0** must not be used with this definition: the Fail-Safe cell of each DTC table would
+  point at another code's enable bit.
 - **EcuFlash DTC tables:** EcuFlash's bit tables can't start partway through a byte, and each DTC is one bit inside
   a byte it shares with other codes. So each DTC's own table is a list of whole-byte values arranged so that
   Increment flips only that code. Decrement doesn't, and a byte with many changed codes can show

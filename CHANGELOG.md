@@ -4,6 +4,13 @@
 
 First public release.
 
+- New: eight more ROMs. 2014 Middle East WRX (LF75401P) and seven Levorg 2.0 ROMs, 2014–2017 (LV9N100A, LV9N301A,
+  LV9N302A, LF75401D, LF79100K, LF79101K, LF79100S): RomRaider and EcuFlash definitions, logger, logging patch, CAN
+  dictionary (now 37 ROMs). Thanks to reokov for the ROMs.
+- DTCs reorganised: one folder (DTC Switches), in code order. RomRaider: one table per code with two cells, Enabled
+  and Fail-Safe (needs RomRaider 1.0.0 or later). EcuFlash: the code's table and its `[Fail-Safe]` table side by side.
+  The two "class" folders are gone: they only recorded what kind of code each one is.
+- Fixed: on LV9N000C, Injector 2/4 Rail Pressure Offset and its axes were defined 4 bytes too high.
 - Units: the EcuFlash definitions now come in two sets, `definitions/ecuflash/Imperial/` (psi, °F, ft-lb, mph) and
   `definitions/ecuflash/Metric/` (kPa / MPa, °C, Nm, km/h); install one. The RomRaider definition has an imperial and
   a metric scale on every table whose unit depends on the system (added: MAP sensor gain and offset in psi, throttle

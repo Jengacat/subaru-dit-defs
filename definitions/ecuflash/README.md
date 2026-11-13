@@ -23,8 +23,10 @@ first.
 - Table folders are numbered in tuning order (`01.02 Fueling - …`).
 - EcuFlash opens at the **Beginner** user level, where most tables are greyed out. Set the level under the options
   (gear icon) → User Level: **Intermediate** or **Advanced** for normal tuning, **Developer** to see everything.
-- **DTCs:** every code has its own table in each of the four classes (Enable, Circuit, Performance, Fail-Safe), named
-  as in RomRaider, e.g. `(P0420) Catalyst System Efficiency Below Threshold (Bank 1)`. The value shows the state and,
+- **DTCs:** folder `11.03 Diagnostics & Switches - DTC Switches`, in code order. Every code has two tables next to
+  each other: `(P0420) Catalyst System Efficiency Below Threshold (Bank 1)` (enabled or disabled) and the same name
+  with `[Fail-Safe]` (whether a failed test of this code triggers fail-safe). EcuFlash can't show both in one table,
+  as RomRaider does, because the two bits are in different parts of the ROM. The value shows the state and,
   in brackets, the whole byte the code shares with up to seven others, e.g. `enabled [41]`. **To flip a code, select
   the value and press Increment ( `]` ) once.** Don't use Decrement: from "enabled" it steps to a different byte and
   would change another code. If a table shows `(no match)`, too many of the other codes in its byte have been changed

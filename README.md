@@ -111,7 +111,10 @@ The calibration ID is the ROM's identifier, stored in the ROM itself; RomRaider/
 pick the matching definition from it automatically. A ROM with a different ID is **not supported**, even if it is the
 same model year; flashing with a definition for another ID will corrupt the calibration.
 
-### Not supported yet
+### Missing definitions
+
+<details>
+<summary><b>ROMs without a definition yet</b>, and why</summary>
 
 | ROM | Why |
 |---|---|
@@ -119,6 +122,11 @@ same model year; flashing with a definition for another ID will corrupt the cali
 | Other 2015–2018 WRX and Forester XT calibrations (e.g. LF75403T, LF75404H, LF75403G, LF79103P, LF79102N, LF9C102P, LF9C002N, LF61803B, LF75403A, LF78106B, LF9C002B) | I don't have these ROMs. [Submit one](#submitting-a-rom) and I can add it. |
 | 2019+ WRX (LF9D…, LF9G…) and other 2019+ calibrations | These ECUs have 2.5 MB of flash and a newer boot block, like the supported 2019 Levorg STI (LF9F000R), so a complete read makes them supportable. EcuFlash can open 2.5 MB files with its SH72544R memory model, but reading or writing these ECUs with it is untested (see [Reading your ECU](#reading-your-ecu)). FastECU can now read them in full (read only, not yet tested on a car) and PCMFlash may too; writing them isn't supported by an open tool yet. |
 | 2022+ WRX (FA24DIT) | Different engine and ECU generation; not started. |
+
+</details>
+
+A list of the calibration IDs known for these ECUs, and how each relates to the supported ROMs, is in
+[docs/ROM_IDS.md](docs/ROM_IDS.md).
 
 ## What's included
 

@@ -80,7 +80,7 @@ same model year; flashing with a definition for another ID will corrupt the cali
 | Folder | Contents |
 |---|---|
 | `definitions/romraider/` | `FA20DIT_RomRaider.xml`: one file covering every supported ROM. |
-| `definitions/ecuflash/` | `FA20DIT_BASE_EcuFlash.xml` (every table) plus one small file per ROM; keep them in one folder. |
+| `definitions/ecuflash/Imperial/`, `definitions/ecuflash/Metric/` | The same EcuFlash definitions in two unit systems (EcuFlash can't switch units itself). Each folder has a base file (every table) plus one small file per ROM; install one of the two. |
 | `logger/` | `FA20DIT_Logger.xml` (stock SSM and OBD parameters, trouble codes) and `FA20DIT_Logger_LogPatch.xml` (stock plus the logging-patch parameters). `FA20DIT_Logger_LogPatch_only.xml` holds only the new parameters, for merging into your own logger file. |
 | `tools/checksum.py`, `tools/checksum.ps1` | Check and fix the ROM checksum of 2 MB and 2.5 MB ROMs (Python, or PowerShell for Windows). **Required for ROMs edited in RomRaider**, and `verify` before any flash (see below). |
 | `tools/logpatch/` | The logging patch: `make_logpatch.py` and one spec per supported ROM. |
@@ -97,9 +97,11 @@ same model year; flashing with a definition for another ID will corrupt the cali
    untick "List tables that are above my userlevel" if you want higher-level tables hidden rather than greyed out.
 
 ### Editing with EcuFlash
-Copy `FA20DIT_BASE_EcuFlash.xml` and the file for your ROM from `definitions/ecuflash/` into one folder under your
-EcuFlash metadata folder (for example `rommetadata/subaru/FA20DIT/`) and restart EcuFlash. The base file is required:
-it holds the table definitions, and the ROM file only its addresses. Table folders are numbered in tuning order
+Pick a unit system: `definitions/ecuflash/Imperial/` (psi, °F, ft-lb, mph) or `definitions/ecuflash/Metric/` (kPa /
+MPa, °C, Nm, km/h). Copy that folder's base file (`FA20DIT_BASE_EcuFlash.xml`, or `FA20DIT_BASE_METRIC_EcuFlash.xml`)
+and the file for your ROM into one folder under your EcuFlash metadata folder (for example
+`rommetadata/subaru/FA20DIT/`) and restart EcuFlash. The base file is required: it holds the table definitions, and
+the ROM file only its addresses. Install only one of the two sets: both use the same ROM IDs. Table folders are numbered in tuning order
 (`01.02 Fueling - …`). EcuFlash starts at the Beginner user level, which greys out most tables; raise it in the
 options (gear icon) → User Level.
 
@@ -168,10 +170,18 @@ please [open an issue](../../issues/new/choose) with how it went.
 
 ## Units
 
-The definitions default to: engine load in **g/rev** (% available as an alternate scale; 100 % = 1.293 g/rev), torque in
-**ft-lb** (Nm alternate), boost in **psi gauge**, manifold pressure in psia, rail pressure in **psi** (MPa alternate),
-temperatures in **°F** (°C alternate), AFR (λ alternate), timing in degrees BTDC, injector size as flow in g/s.
-Switch scales from the table's View menu in RomRaider.
+Every table whose unit depends on the system has both an imperial and a metric scale.
+
+- **RomRaider:** one file with both. Tables open in: engine load in **g/rev** (% available as an alternate scale;
+  100 % = 1.293 g/rev), torque in **ft-lb** (Nm), boost in **psi gauge** (kPa absolute, psia), manifold pressure in
+  psia (kPa absolute), rail pressure in **psi** (MPa, kPa), temperatures in **°F** (°C), vehicle speed in **km/h** as
+  stored (mph), AFR (λ), timing in degrees BTDC, injector size as flow in g/s. Switch scales from the table's View
+  menu. Exception: about 40 tables (mostly coolant-temperature compensations) have a fixed list of temperatures as
+  their axis, which RomRaider can't rescale; those labels are in °F.
+- **EcuFlash:** has one scale per table, so there are two sets. **Imperial**: psi, °F, ft-lb, mph. **Metric**: kPa
+  (absolute for boost and manifold pressure), MPa for rail pressure, °C, Nm, km/h. Units that both systems use (g/rev,
+  RPM, %, AFR, degrees, g/s) are the same in both.
+- **Logger:** every parameter with a unit-specific value already offers both (choose in RomRaider's logger).
 
 ## Known issues
 
@@ -214,7 +224,7 @@ myself, so treat it as an alternative to EcuFlash rather than a recommendation.
 
 The 2019 and later WRX ECUs (and presumably other DIT cars) have 2.5 MB of flash. A 2 MB read of one of those is
 incomplete. EcuFlash has a 2.5 MB memory model, SH72544R: with the read template
-[`definitions/ecuflash/read_subaruhitachish72544.xml`](definitions/ecuflash/read_subaruhitachish72544.xml) in your
+`read_subaruhitachish72544.xml` (in both [`Imperial`](definitions/ecuflash/Imperial/read_subaruhitachish72544.xml) and `Metric`) in your
 EcuFlash definitions folder, EcuFlash offers a 2560k read for these ECUs and can open 2.5 MB files (thanks to reokov for the tip):
 
 ![EcuFlash read templates: the 2048k SH72543R entry and the new 2560k SH72544R entry](docs/images/ecuflash_sh72544r_read_template.png)

@@ -4,6 +4,10 @@
 
 First public release.
 
+- Units: the EcuFlash definitions now come in two sets, `definitions/ecuflash/Imperial/` (psi, °F, ft-lb, mph) and
+  `definitions/ecuflash/Metric/` (kPa / MPa, °C, Nm, km/h); install one. The RomRaider definition has an imperial and
+  a metric scale on every table whose unit depends on the system (added: MAP sensor gain and offset in psi, throttle
+  area in in², mph per 1000 rpm, mph per s, purge flow in CFM). EcuFlash axis titles no longer show the unit twice.
 - Licensed under the GNU General Public License, version 3 (GPL-3.0); see LICENSE.
 - Reading 2019+ ECUs: the README now covers FastECU's read-only 2.5 MB protocol (in FastECU's source since
   miikasyvanen/FastECU#159, not yet tested on a car) alongside PCMFlash.

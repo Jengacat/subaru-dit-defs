@@ -2614,6 +2614,7 @@ Details: When used: every 80 ms pass of the purge module (0x0D44DC, read): FFF8A
   <table type="2D" name="Purge Valve Maximum Flow" category="Fueling//Evap Purge" storagetype="uint16" endian="big" sizey="8" userlevel="4" storageaddress="0x02498c">
    <scaling category="Default" units="L/s (air volume)" expression="x/300" to_byte="x*300" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
    <scaling category="L/min" units="L/min" expression="x/5" to_byte="x*5" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="CFM" units="CFM (air volume)" expression="x/300*2.118880" to_byte="x/2.118880*300" format="0.000" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Manifold Vacuum" storagetype="uint16" endian="big" storageaddress="0x02497c">
     <scaling category="Default" units="psi" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.25" coarseincrement="1.0" />
     <scaling category="kPa" units="kPa" expression="x/256" to_byte="x*256" format="0.0" fineincrement="1" coarseincrement="4.0" />
@@ -5165,7 +5166,8 @@ Details: When used: as the original, in the throttle monitor. 0x18A790 (from 0x1
   <table type="2D" name="Throttle Opening (Required Area)" category="Torque &amp; Throttle//Throttle Control &amp; Throttle Model" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x024358">
    <scaling units="% throttle" expression="x*400/706/256" to_byte="x*256*706/400" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <table type="Y Axis" name="Required Throttle Area FFF8AFB4" storagetype="uint16" endian="big" storageaddress="0x024378">
-    <scaling units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
+    <scaling category="Default" units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
+    <scaling category="in^2" units="in^2 (effective throttle area)" expression="x/10/645.16" to_byte="x*645.16*10" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    </table>
    <description>Converts the required throttle area into commanded throttle opening (%). It is the exact inverse of Throttle Area from Opening; keep the two consistent, and edit Throttle Opening (Monitor) too. Leave alone unless the throttle body changes. Area is in mm^2 of effective throttle opening (about 2,150 mm^2 wide open).
 
@@ -5174,14 +5176,16 @@ Details: 0x0C326C (read): commanded throttle FFF8AF84 = this(max(Throttle Requir
   <table type="2D" name="Throttle Opening (Monitor)" category="Torque &amp; Throttle//Throttle Control &amp; Throttle Model" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x048ee6">
    <scaling units="% throttle" expression="x*400/706/256" to_byte="x*256*706/400" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x048f06">
-    <scaling units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
+    <scaling category="Default" units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
+    <scaling category="in^2" units="in^2 (effective throttle area)" expression="x/10/645.16" to_byte="x*645.16*10" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    </table>
    <description>Throttle-monitor copy of Throttle Opening (Required Area). Identical in stock; edit both together. Area is in mm^2 of effective throttle opening (about 2,150 mm^2 wide open).
 
 Details: 0x185DD8 (read): separate copy (data 0x048EE6, axis 0x048F06) of Throttle Opening 05A0BC with its own divisor cal 0x48F5A (706); identical in stock. Edit together with 05A0BC. Part of the torque-to-throttle model; see my research notes (Phase 13). Confidence: read.</description>
   </table>
   <table type="3D" name="Throttle Required Area" category="Torque &amp; Throttle//Throttle Control &amp; Throttle Model" storagetype="uint16" endian="big" sizex="24" sizey="26" userlevel="4" storageaddress="0x0108d2">
-   <scaling units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="in^2" units="in^2 (effective throttle area)" expression="x/10/645.16" to_byte="x*645.16*10" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <table type="X Axis" name="Throttle Request FFF8AFA8" storagetype="uint16" endian="big" storageaddress="0x024398">
     <scaling units="multiplier" expression="x/32768" to_byte="x*32768" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    </table>
@@ -5193,7 +5197,8 @@ Details: 0x185DD8 (read): separate copy (data 0x048EE6, axis 0x048F06) of Thrott
 Details: Columns: FFF8AFA8 = (torque request + losses) / (full-load reference torque) x spark compensation (0x0C37D8, read), i.e. the requested fraction of full-load torque (1.0 = full load). 0x0C3408 multiplies the same value by the Boost Limit to form the model's pressure AF8A (read). Rows: rpm. 0x0C4D84 (read): FFF8AFB4 = this(rpm, AFA8) in engine states 1/3/4; during cranking (FFF8906B = 2) FFF8AFB4 = FFF8AED6 instead. AFB4 goes through Throttle Opening (Required Area) in 0x0C326C to the commanded throttle FFF8AF84. The last column (AFA8 = 1.0) is 21468 = wide open in every row. At part throttle this table and Torque Fraction from Throttle Area cancel (one is the inverse of the other within interpolation), so the opening is set by the Throttle Opening from Target Torque tables. If you edit it at all, edit it with Torque Fraction from Throttle Area. The same data is also read as 05A15C. The monitor copy Throttle Required Area (Monitor) (05F3E8, data 0x049552) must be edited too. See my research notes. Confidence: inferred.</description>
   </table>
   <table type="3D" name="Throttle Required Area (Monitor)" category="Torque &amp; Throttle//Throttle Control &amp; Throttle Model" storagetype="uint16" endian="big" sizex="24" sizey="26" userlevel="4" storageaddress="0x049552">
-   <scaling units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="in^2" units="in^2 (effective throttle area)" expression="x/10/645.16" to_byte="x*645.16*10" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <table type="X Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x048f26">
     <scaling units="multiplier" expression="x/32768" to_byte="x*32768" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    </table>
@@ -5205,7 +5210,8 @@ Details: Columns: FFF8AFA8 = (torque request + losses) / (full-load reference to
 Details: 0x185DD8 in the throttle monitor 0x186290 (read): separate copy (data 0x049552, axes 0x049A32/0x048F26) of Throttle Required Area 05A148, identical in stock. Edit together with 05A148. Part of the torque-to-throttle model; see my research notes (Phase 13). Confidence: read.</description>
   </table>
   <table type="2D" name="Throttle Area from Opening" category="Torque &amp; Throttle//Throttle Control &amp; Throttle Model" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x01d194">
-   <scaling units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="in^2" units="in^2 (effective throttle area)" expression="x/10/645.16" to_byte="x*645.16*10" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x01d1b4">
     <scaling units="% throttle" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    </table>
@@ -5214,7 +5220,8 @@ Details: 0x185DD8 in the throttle monitor 0x186290 (read): separate copy (data 0
 Details: 0x0BD5CC (read): FFF8AED6 = FFF8AE00 + this(FFF8AF12), FFF8ADFC = this(AF12). Its axis in % equals the Throttle Opening data and its data equals the Throttle Opening axis, point for point: it is the exact inverse of 05A0BC. AED6 is the required area used during cranking (0x0C4D84). AF12 comes from 0x0C0010 (inferred: a torque-model opening). Keep consistent with 05A0BC. Part of the torque-to-throttle model; see my research notes (Phase 13). Confidence: read.</description>
   </table>
   <table type="2D" name="Throttle Area from Opening (Monitor)" category="Torque &amp; Throttle//Throttle Control &amp; Throttle Model" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x044a04">
-   <scaling units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="in^2" units="in^2 (effective throttle area)" expression="x/10/645.16" to_byte="x*645.16*10" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x044a24">
     <scaling units="% throttle" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    </table>
@@ -5225,7 +5232,8 @@ Details: When used: always, in the throttle monitor. 0x189458 (read): FFF8BBCA =
   <table type="3D" name="Torque Fraction from Throttle Area" category="Torque &amp; Throttle//Throttle Control &amp; Throttle Model" storagetype="uint16" endian="big" sizex="24" sizey="24" userlevel="4" storageaddress="0x01c6f4">
    <scaling units="multiplier" expression="x/32768" to_byte="x*32768" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <table type="X Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x01cba4">
-    <scaling units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
+    <scaling category="Default" units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
+    <scaling category="in^2" units="in^2 (effective throttle area)" expression="x/10/645.16" to_byte="x*645.16*10" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    </table>
    <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x01cb74">
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
@@ -5237,7 +5245,8 @@ Details: 0x0BDB00: FFF8AEE8 = AF64 x this(rpm, AED6), where AED6 = idle area AE0
   <table type="3D" name="Torque Fraction from Throttle Area (Monitor)" category="Torque &amp; Throttle//Throttle Control &amp; Throttle Model" storagetype="uint16" endian="big" sizex="24" sizey="24" userlevel="4" storageaddress="0x046e84">
    <scaling units="multiplier" expression="x/32768" to_byte="x*32768" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <table type="X Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x047334">
-    <scaling units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
+    <scaling category="Default" units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
+    <scaling category="in^2" units="in^2 (effective throttle area)" expression="x/10/645.16" to_byte="x*645.16*10" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    </table>
    <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x047304">
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
@@ -5257,7 +5266,8 @@ Details: When used: always, in the throttle monitor. 0x189500 (read): FFF8BBD2 =
 Details: 0x0B9394 (read): FFF8AE00 = 0594F0(min(FFF8B202, this(coolant))). Stock 65533 (no limit) up to 0 degC, falling to 29854 at 100 degC. B202 is written by the idle module (call in seg 0x0E0000) and read as the idle airflow request (inferred). Part of the torque-to-throttle model; see my research notes (Phase 13). Confidence: inferred.</description>
   </table>
   <table type="2D" name="Idle Air Request to Throttle Area" category="Torque &amp; Throttle//Throttle Control &amp; Throttle Model" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x01d154">
-   <scaling units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="in^2" units="in^2 (effective throttle area)" expression="x/10/645.16" to_byte="x*645.16*10" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x01d134">
     <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -5266,7 +5276,8 @@ Details: 0x0B9394 (read): FFF8AE00 = 0594F0(min(FFF8B202, this(coolant))). Stock
 Details: 0x0B9394: FFF8AE00 = this(min(B202, Idle Air Request Limit)). Stock 0-2982 in the required-area unit. AE00 adds to the pedal area (AED6), forms the idle-only area (AED8) and gives the idle throttle floor FFF8AFB8 via 05A170 (0x0C4E18). Part of the torque-to-throttle model; see my research notes (Phase 13). Confidence: inferred.</description>
   </table>
   <table type="2D" name="Idle Air Request to Throttle Area (Monitor)" category="Torque &amp; Throttle//Throttle Control &amp; Throttle Model" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x045380">
-   <scaling units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="in^2" units="in^2 (effective throttle area)" expression="x/10/645.16" to_byte="x*645.16*10" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x045360">
     <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -5754,7 +5765,8 @@ Details: When used: every model pass. Input FFF8A8FF = estimated charge air temp
 Details: When used: every model pass. C24C = new x w + previous x (1 - w) with w = this(r)/65536 (65535 = 1.0) (read). Stock 1.0 below r = 0.62, falling to 0.09 at r = 1.0: near-equal pressures (small, noisy flow) are filtered more. 0x11DD04 (read), enabled by FFF8A8FB bit 0 (0x11E43C): the modelled throttle flow FFF8C24C = (P_up/101325) x flow function(r) x throttle area FFF8ADEC (= table 0594CC(FFF8CD74), 0x0B8940) x temperature factor x cal 0x2B06C/0x2B06D/64 x 60000 x 2.98e-15, with P_up = FFF8C244 and r = FFF8C240/FFF8C244 (inverted for reverse flow) clamped at 0.53 (choked), then filtered with the ratio-dependent weight. C24C feeds the manifold/airflow observer 0x11DB50, which corrects the estimated pre-throttle pressure C244 so the modelled flow matches the MAF (read). Physical constants of the orifice equation (inferred from the stock values); a tuner should normally leave them alone. Confidence: read.</description>
   </table>
   <table type="2D" name="Throttle Area from Throttle Position (Airflow Model)" category="Airflow &amp; Engine Model//Airflow / Load Model" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x0349c8">
-   <scaling units="mm^2 (effective throttle area)" expression="x/20" to_byte="x*20" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="mm^2 (effective throttle area)" expression="x/20" to_byte="x*20" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="in^2" units="in^2 (effective throttle area)" expression="x/20/645.16" to_byte="x*645.16*20" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x0349e8">
     <scaling units="% throttle" expression="x/7.06" to_byte="x*7.06" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    </table>
@@ -6964,7 +6976,8 @@ Details: 0x0ECDF0 (read): while FFF88E2E bit6 is set, B1B4 = this(FFF8A8BF) if c
   <table type="2D" name="Idle Air from Throttle Area (Torque Request)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x025b70">
    <scaling units="idle air (raw)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
    <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x025b90">
-    <scaling units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
+    <scaling category="Default" units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
+    <scaling category="in^2" units="in^2 (effective throttle area)" expression="x/10/645.16" to_byte="x*645.16*10" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    </table>
    <description>Converts a throttle area back into idle air units when another module requests torque over CAN. Stock is the exact inverse of Idle Air Request to Throttle Area: if you edit that table, edit this one to stay its inverse. Area is in mm^2 of effective throttle opening (about 2,150 mm^2 wide open).
 
@@ -7854,6 +7867,7 @@ Details: Cruise module 0x165AC4/0x1663AC, 20 ms task (read). Cruise runs on this
    <table type="Y Axis" name="Acceleration" storagetype="int16" endian="big" storageaddress="0x040a9c">
     <scaling category="Default" units="km/h per s" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
     <scaling category="m/s2" units="m/s2" expression="x/128/3.6" to_byte="x*3.6*128" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="mph/s" units="mph per s" expression="x/128*0.621371" to_byte="x/0.621371*128" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    </table>
    <description>Main cruise controller gain by acceleration and speed error, used while holding speed and in all states without their own table. Higher = more aggressive throttle response; stock gains are small near zero error and large where speed is moving away from target.
 
@@ -7868,6 +7882,7 @@ Details: Cruise module 0x165AC4/0x1663AC, 20 ms task (read). Cruise runs on this
    <table type="Y Axis" name="Acceleration" storagetype="int16" endian="big" storageaddress="0x040a64">
     <scaling category="Default" units="km/h per s" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
     <scaling category="m/s2" units="m/s2" expression="x/128/3.6" to_byte="x*3.6*128" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="mph/s" units="mph per s" expression="x/128*0.621371" to_byte="x/0.621371*128" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    </table>
    <description>Cruise controller gain by acceleration and speed error used after a short tap of the raise (accelerate) switch (tap meaning inferred). Higher = more aggressive throttle response. Stock mostly small gains.
 
@@ -7882,6 +7897,7 @@ Details: Cruise module 0x165AC4/0x1663AC, 20 ms task (read). Cruise runs on this
    <table type="Y Axis" name="Acceleration" storagetype="int16" endian="big" storageaddress="0x040ad4">
     <scaling category="Default" units="km/h per s" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
     <scaling category="m/s2" units="m/s2" expression="x/128/3.6" to_byte="x*3.6*128" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="mph/s" units="mph per s" expression="x/128*0.621371" to_byte="x/0.621371*128" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    </table>
    <description>Cruise controller gain by acceleration and speed error used after a short tap of the lowering (coast) switch (tap meaning inferred). Stock 640 everywhere except 0 at zero error.
 
@@ -7896,6 +7912,7 @@ Details: Cruise module 0x165AC4/0x1663AC, 20 ms task (read). Cruise runs on this
    <table type="Y Axis" name="Acceleration" storagetype="int16" endian="big" storageaddress="0x040b0c">
     <scaling category="Default" units="km/h per s" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
     <scaling category="m/s2" units="m/s2" expression="x/128/3.6" to_byte="x*3.6*128" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="mph/s" units="mph per s" expression="x/128*0.621371" to_byte="x/0.621371*128" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    </table>
    <description>Cruise controller gain by acceleration and speed error, used while the car catches up to a set speed changed by holding a switch (inferred). Higher = more aggressive throttle response.
 
@@ -7910,6 +7927,7 @@ Details: Cruise module 0x165AC4/0x1663AC, 20 ms task (read). Cruise runs on this
    <table type="Y Axis" name="Acceleration" storagetype="int16" endian="big" storageaddress="0x041aa4">
     <scaling category="Default" units="km/h per s" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
     <scaling category="m/s2" units="m/s2" expression="x/128/3.6" to_byte="x*3.6*128" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="mph/s" units="mph per s" expression="x/128*0.621371" to_byte="x/0.621371*128" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    </table>
    <description>Cruise controller gain by acceleration and speed error used after the raise switch, while not within 2 km/h of the maximum cruise speed. Higher = more aggressive throttle response. Stock 96, higher for small errors at low acceleration.
 
@@ -7924,6 +7942,7 @@ Details: Cruise module 0x165AC4/0x1663AC, 20 ms task (read). Cruise runs on this
    <table type="Y Axis" name="Acceleration" storagetype="int16" endian="big" storageaddress="0x041c62">
     <scaling category="Default" units="km/h per s" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
     <scaling category="m/s2" units="m/s2" expression="x/128/3.6" to_byte="x*3.6*128" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="mph/s" units="mph per s" expression="x/128*0.621371" to_byte="x/0.621371*128" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    </table>
    <description>Cruise controller gain by acceleration and speed error while approaching a new set speed, until within about 3 km/h of it. Stock high for small errors at low acceleration, small elsewhere.
 
@@ -7934,6 +7953,7 @@ Details: Cruise module 0x165AC4/0x1663AC, 20 ms task (read). Cruise runs on this
    <table type="X Axis" name="Acceleration" storagetype="int16" endian="big" storageaddress="0x041e32">
     <scaling category="Default" units="km/h per s" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
     <scaling category="m/s2" units="m/s2" expression="x/128/3.6" to_byte="x*3.6*128" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="mph/s" units="mph per s" expression="x/128*0.621371" to_byte="x/0.621371*128" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    </table>
    <table type="Y Axis" name="Speed" storagetype="uint16" endian="big" storageaddress="0x041e20">
     <scaling category="Default" units="km/h" expression="x/128" to_byte="x*128" format="0.0" fineincrement="1" coarseincrement="4.0" />
@@ -7948,6 +7968,7 @@ Details: Cruise module 0x165AC4/0x1663AC, 20 ms task (read). Cruise runs on this
    <table type="X Axis" name="Acceleration" storagetype="int16" endian="big" storageaddress="0x041ef8">
     <scaling category="Default" units="km/h per s" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
     <scaling category="m/s2" units="m/s2" expression="x/128/3.6" to_byte="x*3.6*128" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="mph/s" units="mph per s" expression="x/128*0.621371" to_byte="x/0.621371*128" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    </table>
    <table type="Y Axis" name="Speed" storagetype="uint16" endian="big" storageaddress="0x041ee6">
     <scaling category="Default" units="km/h" expression="x/128" to_byte="x*128" format="0.0" fineincrement="1" coarseincrement="4.0" />
@@ -7988,6 +8009,7 @@ Details: Cruise module 0x165AC4/0x1663AC, 20 ms task (read). Cruise runs on this
   <table type="2D" name="Cruise Excess Acceleration Threshold (Meter Cruise Option, Alternate)" category="Vehicle Functions//Cruise Control" storagetype="int16" endian="big" sizey="5" userlevel="4" storageaddress="0x040a1e">
    <scaling category="Default" units="km/h per s" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <scaling category="m/s2" units="m/s2" expression="x/128/3.6" to_byte="x*3.6*128" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+   <scaling category="mph/s" units="mph per s" expression="x/128*0.621371" to_byte="x/0.621371*128" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Speed" storagetype="uint16" endian="big" storageaddress="0x040a14">
     <scaling category="Default" units="km/h" expression="x/128" to_byte="x*128" format="0.0" fineincrement="1" coarseincrement="4.0" />
     <scaling category="mph" units="mph" expression="x/128*0.621371" to_byte="x/0.621371*128" format="0.0" fineincrement="1" coarseincrement="4.0" />
@@ -8016,6 +8038,7 @@ Details: When used: only with the meter flag FFF811E1 bit 4 ('Meter Cruise Optio
    <table type="Y Axis" name="Acceleration" storagetype="int16" endian="big" storageaddress="0x0418e6">
     <scaling category="Default" units="km/h per s" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
     <scaling category="m/s2" units="m/s2" expression="x/128/3.6" to_byte="x*3.6*128" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="mph/s" units="mph per s" expression="x/128*0.621371" to_byte="x/0.621371*128" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    </table>
    <description>Cruise controller gain used in a cruise state probably linked to the lowering switch (inferred), when Cruise Speed Error Gain (Set-Speed Approach) is not active. Stock flat 160.
 
@@ -8076,7 +8099,8 @@ Details: When used: at the start of recovery (rising FFF8AC90 bit 7), latched in
 Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4, set after cal 0x435D6 = 100 passes with no CAN/VDC fault, 0x181978 / 0x1839B8). Brake override module 0x181B38 (10 ms task 0x1DFE3C, read): it limits the accelerator pedal that feeds the torque request, FFF88A5E = min(pedal FFF88EE6, limit FFF8BAFA) (0x09E800, read), when the brake is applied while the accelerator is held. Brake detection: VDC CAN frame 0x0D1 byte 2 (FFF88DF9, slew-limited 8/pass into FFF8AC94; brake pressure, inferred) against a threshold, or discrete input FFF88E2F bit 3 (pin PF10; brake switch, inferred) when the pressure signal is not valid (FFF8AC8F bit 4 clear). Vehicle speed FFF8AC95 = km/h from the wheel speeds or FFF88BE8 x 9/160 (0x182E34, read). The module sets no DTC (no DTC monitor record points at its RAM, read). 0x183178 (read, args checked in the assembly): brake applied FFF8AC90 bit 0 is set when FFF8AC94 &gt;= this(brake booster vacuum FFF8BAFC, speed FFF8AC95) and cleared when FFF8AC94 &lt;= cal 0x43442 (1); without a valid pressure signal the brake switch FFF88E2F bit 3 is used instead. FFF8BAFC = max(0, baro - FFF88D10) with FFF88D10 the filtered analog pressure input FFF88D0C (raw x 29888/65536 + 416, kPa x 256 absolute) while cal 0x57585 bit 5 is set (stock; 0x182B28, read); brake booster vacuum sensor inferred. Axis 1 is that vacuum (0-30 kPa = 0-4.35 psi). Stock 5/9/14/25/35 at 10-30 km/h, falling to 1/4/9/19/31 from 100 km/h (rows 0, 5, 10, 20, 30 kPa vacuum): more booster vacuum or less speed = higher threshold. Confidence: inferred.</description>
   </table>
   <table type="3D" name="Brake Override Deceleration Threshold (No Pressure Signal)" category="Vehicle Functions//Brake Override &amp; VDC" storagetype="uint16" endian="big" sizex="4" sizey="3" userlevel="4" storageaddress="0x0435e6">
-   <scaling units="ms per km/h of speed drop" expression="x" to_byte="x" format="0" fineincrement="10" coarseincrement="40.0" />
+   <scaling category="Default" units="ms per km/h of speed drop" expression="x" to_byte="x" format="0" fineincrement="10" coarseincrement="40.0" />
+   <scaling category="ms per mph" units="ms per mph of speed drop" expression="x/0.621371" to_byte="x*0.621371" format="0" fineincrement="10" coarseincrement="40.0" />
    <table type="X Axis" name="Vehicle Speed" storagetype="uint8" endian="big" storageaddress="0x0435e2">
     <scaling category="Default" units="km/h" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
     <scaling category="mph" units="mph" expression="x*0.621371" to_byte="x/0.621371" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -8317,13 +8341,15 @@ Details: When used: always while running, 10 ms (0x10ED6C from 0x111AB8, task 0x
 Details: When used: always (4 ms task prefix 0x1E2CB4, read). ADC channel 2 (0xFFFFE844) -&gt; FFF8C990 (10-bit) x ADC trim FFF82038 / 32768, capped at 1023, x 64 -&gt; FFF8CA48 -&gt; FFF88A1A (0x1D87C8, read). FFF82038 is a per-unit gain trim copied at start from a stored data block (FFF81050, 0x1CF324) and used only within 125/128...131/128, else 1.0 (cals 0x28BA2 / 0x28BA3 / 0x28BA0, read); 65536 = 5 V (inferred). 0x06CA98 subtracts a start-up correction (only while FFF88CE5 is set) and floors at MAF Sensor Voltage Floor -&gt; FFF88CFA; 0x06C9F8 looks up FFF88CFA &gt;&gt; 2 in this 64-point u32 table (boot routine 0x68EC: index = input / 256 with linear interpolation, input capped at 0x3F00, so above 4.92 V the last point holds) -&gt; FFF8921C -&gt; FFF88820 (the cal 0x57585 bit 7 filter is off in stock). g/s = value / 76800 (OBD PID 0x10 chain, read). The axis is implicit: point n is at n x 0.078125 V (0...4.92 V). FFF88820 feeds the manifold/airflow model 0x11D704 / 0x11D4E4, which the load and fuel calculations use, and the torque model 0x0C3E34 (read). Stock 1.4 g/s up to 0.47 V, 312.6 g/s at 4.77 V, 355.3 g/s at 4.92 V. For a bigger housing or another MAF, rescale every point to the new g/s at that voltage and keep peak flow below MAF Sensor Voltage High Limit (stock 4.79 V = 318 g/s on the stock curve; P0103 after 13 passes). Limits elsewhere (read): the scan-tool/OBD MAF value FFF88A4A saturates at 300 g/s, and FFF8B4D6, a u16 copy of the model's air quantity (g/s x 300), saturates at 218 g/s (0x11DEE0). That 218 g/s cap does not limit fuel, load, ignition or boost. The base fuel quantity (0x0B8030) and engine load (0x0B7EFC) are computed from the unsaturated cylinder flow FFF8C250, and no ignition routine reads FFF8B4D6. Its readers are: the evap purge module (0x0D4C14, 0x0D4E78: purge flow = purge rate x air) and the evap monitor 0x18C3B0; TGV request logic and TGV transition fuel (0x10D93C, 0x0CA144); the EGR fresh-air option (0x0FA7C4, off in stock); the torque model's air-path lag lookup (0x0C34F8, axis ends at 208 g/s); the exhaust temperature model's filter and fuel-cut terms (0x0C9878, axis ends at 210 g/s); catalyst/rear-O2 heater energy and OBD monitor enables (0x101CF0, 0x134374, 0x1B3280, 0x1B3A48, 0x1259EC, 0x09FE44); charging control (0x136CD8, 0x13741C); the 'air since start' sum 0x10A270; and the CAN full-load air estimate 0x110444. All of these use thresholds far below 218 g/s, or axes whose last breakpoint is below it. The only one that can still change above 218 g/s is the CAN estimate, which takes the larger of FFF8B4D6 and its own value (inferred: little effect). The limits that matter at high airflow are the 4.92 V end of this table, MAF Sensor Voltage High Limit, the 256 % (3.31 g/rev) ceiling of engine load (0x0B7EFC) and Base Fuel Quantity Limit; the model's cylinder flow FFF8C250 itself does not saturate. Identical in both images. Confidence: read.</description>
   </table>
   <table type="1D" name="MAP Sensor Multiplier" category="Sensors" storagetype="uint16" endian="big" userlevel="2" storageaddress="0x058ea0">
-   <scaling units="kPa per V" expression="x/5" to_byte="x*5" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="kPa per V" expression="x/5" to_byte="x*5" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="psi per V" units="psi per V" expression="x/5*0.1450377" to_byte="x/0.1450377*5" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <description>Gain of the manifold pressure sensor conversion, in kPa per volt (stock 63 kPa per volt). For a 3-bar or larger sensor set it to the new sensor's slope and set MAP Sensor Offset to match. The ECU's MAP value cannot go above 256 kPa absolute (about 22 psi boost at sea level) whatever sensor is fitted, so anything higher reads as 256 kPa.
 
 Details: When used: always (2 ms task prefix 0x1E2AA2; also 0x1E220A / 0x1E4D00 at start-up, read). MAP (kPa x 256) = ADC channel 18 sample FFF88D3A (16-bit left-justified 10-bit value, not corrected by the ADC trim FFF82038) x this &gt;&gt; 8 + MAP Sensor Offset, limited to 0...65535 (0x6E00, read) -&gt; FFF8913C, the MAP the engine uses (-&gt; FFF88A34 -&gt; FFF88666; FFF8869C for the airflow model) and FFF89040 / FFF89A32 (OBD MAP). FFF89140 = the same minus 0xD4C (13.3 kPa), limited the same way, is the boost-control pressure FFF88FF4. With 65536 = 5 V (inferred) the unit is kPa per volt = value / 5: stock 315 = 63 kPa/V, so with the stock offset 0.5 V = 7.9 kPa and 4.5 V = 259.9 kPa. Hard limit (read): the MAP value cannot exceed 255.99 kPa absolute (about 22.3 psi gauge at sea level) whatever sensor is fitted; with stock scaling that is reached at 4.44 V, and the boost-control copy saturates at 269.3 kPa actual MAP. To fit a different (e.g. 3-bar) sensor: this = sensor slope in kPa per V x 5, and MAP Sensor Offset = sensor kPa at 0 V x 256; example 0.5 V = 20 kPa, 4.5 V = 300 kPa -&gt; 70 kPa/V -&gt; 350, offset -15 kPa -&gt; -3840. Readings above 256 kPa are still clipped. Range faults use raw voltage: P0107 below MAP Sensor Voltage Low Limit, P0108 above MAP Sensor Voltage High Limit; while the MAP fault flag FFF88E28 bit 3 is set MAP = cal 0x58EA4 x FFF8ADF0 / 32768 instead (read). The TMAP's temperature element is probably Intake Air Temp Sensor 2 (change that table too if the new sensor's thermistor differs). Confidence: inferred.</description>
   </table>
   <table type="1D" name="MAP Sensor Offset" category="Sensors" storagetype="int16" endian="big" userlevel="2" storageaddress="0x058ea2">
-   <scaling units="kPa" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <scaling category="Default" units="kPa" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <scaling category="psi" units="psi" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
    <description>Offset of the manifold pressure sensor conversion (stock -23.6 kPa), i.e. the sensor's reading extrapolated to 0 V. Set it together with MAP Sensor Multiplier when fitting a different MAP sensor. The result is still limited to 256 kPa absolute.
 
 Details: When used: always (2 ms task prefix 0x1E2AA2, read): offset of the MAP conversion in kPa x 256, added to sample x MAP Sensor Multiplier &gt;&gt; 8 before the result is limited to 0...65535 (255.99 kPa). Equals the sensor's (extrapolated) reading at 0 V. Stock -6048 = -23.6 kPa. For a different sensor: offset = kPa at 0 V x 256 = (kPa at V1 - slope x V1) x 256; example 0.5 V = 20 kPa, 4.5 V = 300 kPa -&gt; -15 kPa -&gt; -3840. Confidence: read.</description>
@@ -8448,13 +8474,15 @@ Details: When used: always (0x06D43A, read): the converted rail pressure is limi
 Details: When used: while FFF88E2C bit 2 or FFF88EDA bit 7 is set (rail pressure sensor fault, inferred from the flags' use) the converted rail pressure is replaced by this (0x06D43A, read). Stock 574 = 0.35 MPa (51 psi). Normally leave alone. Confidence: read.</description>
   </table>
   <table type="1D" name="Barometric Sensor Multiplier" category="Sensors" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x028cdc">
-   <scaling units="kPa per V" expression="x/5" to_byte="x*5" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="kPa per V" expression="x/5" to_byte="x*5" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="psi per V" units="psi per V" expression="x/5*0.1450377" to_byte="x/0.1450377*5" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <description>Gain of the ECU's barometric pressure sensor conversion, in kPa per volt. Stock 22.2 kPa per volt. This sensor is probably inside the ECU; leave alone.
 
 Details: When used: always (0x1D886A, read). Barometric pressure FFF8D060 (kPa x 256) = filtered sample FFF8D062 x this &gt;&gt; 8 + Barometric Sensor Offset, limited to 0...65535; FFF8D062 is a 3:1 running average of multiplexer channel 3 of ADC channel 12 (FFF8CA32, untrimmed). With 65536 = 5 V (inferred) the unit is kPa per volt = value / 5. Stock 111 = 22.2 kPa/V, so 101.3 kPa reads at 4.08 V. FFF8D060 -&gt; FFF8CE60 -&gt; FFF88668 (rate-limited by cals 0x1D0B2 / 0x1D0B4 = 34 per pass), the barometric pressure every baro table and gauge-pressure conversion uses (read). The sensor is not one of the externally wired inputs (inferred: no harness connector was identified); normally leave alone. Confidence: read.</description>
   </table>
   <table type="1D" name="Barometric Sensor Offset" category="Sensors" storagetype="int16" endian="big" userlevel="4" storageaddress="0x028cde">
-   <scaling units="kPa" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <scaling category="Default" units="kPa" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <scaling category="psi" units="psi" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
    <description>Offset of the barometric pressure sensor conversion. Stock 10.8 kPa. Leave alone.
 
 Details: When used: always (0x1D886A, read): offset of the barometric pressure conversion in kPa x 256 (see Barometric Sensor Multiplier). Stock 2767 = 10.8 kPa. While the barometric sensor fault flag FFF88E2A bit 0 is set (passed to the driver as FFF8CA4C bit 7 by 0x1D766E, read) FFF8D060 is forced to 0x654C = 101.3 kPa. Confidence: read.</description>
@@ -16582,7 +16610,8 @@ Details: When used: Only while FFF899D7 bit 0 is set (warm-up fallback latch gat
 Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4); 05F2E0 (200 = 2 s, flat) replaces it otherwise. Brake override module 0x181B38 (10 ms task 0x1DFE3C, read): it limits the accelerator pedal that feeds the torque request, FFF88A5E = min(pedal FFF88EE6, limit FFF8BAFA) (0x09E800, read), when the brake is applied while the accelerator is held. Brake detection: VDC CAN frame 0x0D1 byte 2 (FFF88DF9, slew-limited 8/pass into FFF8AC94; brake pressure, inferred) against a threshold, or discrete input FFF88E2F bit 3 (pin PF10; brake switch, inferred) when the pressure signal is not valid (FFF8AC8F bit 4 clear). Vehicle speed FFF8AC95 = km/h from the wheel speeds or FFF88BE8 x 9/160 (0x182E34, read). The module sets no DTC (no DTC monitor record points at its RAM, read). 0x1832C4 (read, args checked in the assembly): override request FFF8AC91 bit 1 sets when the time FFF8BADA since the brake was applied while the accelerator was already pressed (FFF8AC90 bit 6, 0x1831EC) reaches this(pedal FFF88EE6, speed FFF8AC95), with speed &gt;= cal 0x43472 (7 km/h) and either pedal &gt;= 05F2C0 (1.1 %) or a deceleration-confirmed brake (FFF8AC91 bit 2). FFF8AC91 bit 1 (or bit 0, the brake-switch path 0x183680) sets the active flag FFF8AC8F bit 0 (0x183B68), which starts the pedal-limit ramp. Stock 200 passes (2.0 s) at 11 % pedal; 1.25-1.5 s at 23 %; 0.75-1.0 s at 40 %; 0.5 s from 60 % pedal. Descriptor 05F2CC. Confidence: inferred.</description>
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM (Off in Stock)" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x037872">
-   <scaling units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="mph per 1000 RPM" units="mph per 1000 RPM" expression="x/100*0.621371" to_byte="x/0.621371*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Gear" storagetype="uint8" endian="big" storageaddress="0x036e82">
     <scaling units="gear index" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -16591,7 +16620,8 @@ Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4
 Details: When used: never in stock (cal 0x57585 bit 3 clear). Same data block as descriptor 05D468 (one entry). Road speed per 1000 rpm for gear index 1-8: stock 11.3, 16.3, 22.6, 29.7, 37.5, 53.9, 53.9, 53.9. 0x11031C (read; called at seg_0x110000.c:1175 with cal 0x57585 bit 3, gear FFF8A8BA, speed FFF88BE8, selector FFF8A8C3): only when cal 0x57585 bit 3 is set, FFF8558A = this(gear) (the Alternate table when FFF8A8C3 = 2) and FFF85588 = speed x 28800 / FFF8558A -&gt; FFF8B434. 0x110398 does the same with the second gear index FFF8A8BC (0x1143CC) through the shared descriptors -&gt; FFF8B436. 0x116A0C (gear advice, gated by the same bit) uses B436/B434 as rpm x 0.1953125 to convert the current power to torque at those engine speeds (read). Stock cal 0x57585 = 0x73 (bit 3 clear): the block 0x11031C / 0x110398 / 0x114360 / 0x116A0C keeps its outputs at their reset values and never reads these tables. The values (11.3 to 53.9 km/h per 1000 rpm over 6 steps here, 11.0 to 53.9 over 8 in the Alternate table) do not fit the 6MT, so this belongs to another transmission (inferred). Descriptor 05D450. Confidence: inferred.</description>
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM (Alternate, Off in Stock)" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x037882">
-   <scaling units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="mph per 1000 RPM" units="mph per 1000 RPM" expression="x/100*0.621371" to_byte="x/0.621371*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Gear" storagetype="uint8" endian="big" storageaddress="0x036e82">
     <scaling units="gear index" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -24359,7 +24389,8 @@ Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4
    <table type="Y Axis" storageaddress="0x03df06" />
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM (Off in Stock)" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x03f28e">
-   <scaling units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="mph per 1000 RPM" units="mph per 1000 RPM" expression="x/100*0.621371" to_byte="x/0.621371*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Gear" storagetype="uint8" endian="big" storageaddress="0x03e89e">
     <scaling units="gear index" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -24368,7 +24399,8 @@ Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4
 Details: When used: never in stock (cal 0x57585 bit 3 clear). Same data block as descriptor 05D468 (one entry). Road speed per 1000 rpm for gear index 1-8: stock 11.3, 16.3, 22.6, 29.7, 37.5, 53.9, 53.9, 53.9. 0x11031C (read; called at seg_0x110000.c:1175 with cal 0x57585 bit 3, gear FFF8A8BA, speed FFF88BE8, selector FFF8A8C3): only when cal 0x57585 bit 3 is set, FFF8558A = this(gear) (the Alternate table when FFF8A8C3 = 2) and FFF85588 = speed x 28800 / FFF8558A -&gt; FFF8B434. 0x110398 does the same with the second gear index FFF8A8BC (0x1143CC) through the shared descriptors -&gt; FFF8B436. 0x116A0C (gear advice, gated by the same bit) uses B436/B434 as rpm x 0.1953125 to convert the current power to torque at those engine speeds (read). Stock cal 0x57585 = 0x73 (bit 3 clear): the block 0x11031C / 0x110398 / 0x114360 / 0x116A0C keeps its outputs at their reset values and never reads these tables. The values (11.3 to 53.9 km/h per 1000 rpm over 6 steps here, 11.0 to 53.9 over 8 in the Alternate table) do not fit the 6MT, so this belongs to another transmission (inferred). LF79002P: located from LF75404S 05D450 by the code that reads it (read). Descriptor 06822C. Confidence: inferred.</description>
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM (Alternate, Off in Stock)" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x03f29e">
-   <scaling units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="mph per 1000 RPM" units="mph per 1000 RPM" expression="x/100*0.621371" to_byte="x/0.621371*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Gear" storagetype="uint8" endian="big" storageaddress="0x03e89e">
     <scaling units="gear index" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -33089,7 +33121,8 @@ Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4
    <table type="Y Axis" storageaddress="0x03f3e6" />
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM (Off in Stock)" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x04076e">
-   <scaling units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="mph per 1000 RPM" units="mph per 1000 RPM" expression="x/100*0.621371" to_byte="x/0.621371*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Gear" storagetype="uint8" endian="big" storageaddress="0x03fd7e">
     <scaling units="gear index" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -33098,7 +33131,8 @@ Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4
 Details: When used: never in stock (cal 0x57585 bit 3 clear). Same data block as descriptor 05D468 (one entry). Road speed per 1000 rpm for gear index 1-8: stock 11.3, 16.3, 22.6, 29.7, 37.5, 53.9, 53.9, 53.9. 0x11031C (read; called at seg_0x110000.c:1175 with cal 0x57585 bit 3, gear FFF8A8BA, speed FFF88BE8, selector FFF8A8C3): only when cal 0x57585 bit 3 is set, FFF8558A = this(gear) (the Alternate table when FFF8A8C3 = 2) and FFF85588 = speed x 28800 / FFF8558A -&gt; FFF8B434. 0x110398 does the same with the second gear index FFF8A8BC (0x1143CC) through the shared descriptors -&gt; FFF8B436. 0x116A0C (gear advice, gated by the same bit) uses B436/B434 as rpm x 0.1953125 to convert the current power to torque at those engine speeds (read). Stock cal 0x57585 = 0x73 (bit 3 clear): the block 0x11031C / 0x110398 / 0x114360 / 0x116A0C keeps its outputs at their reset values and never reads these tables. The values (11.3 to 53.9 km/h per 1000 rpm over 6 steps here, 11.0 to 53.9 over 8 in the Alternate table) do not fit the 6MT, so this belongs to another transmission (inferred). LF9C100P: located from LF75404S 05D450 by the code that reads it (read). Descriptor 00C310. Confidence: inferred.</description>
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM (Alternate, Off in Stock)" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x04077e">
-   <scaling units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="mph per 1000 RPM" units="mph per 1000 RPM" expression="x/100*0.621371" to_byte="x/0.621371*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Gear" storagetype="uint8" endian="big" storageaddress="0x03fd7e">
     <scaling units="gear index" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -41700,7 +41734,8 @@ Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4
    <table type="Y Axis" storageaddress="0x03efa2" />
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM (Off in Stock)" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x04032a">
-   <scaling units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="mph per 1000 RPM" units="mph per 1000 RPM" expression="x/100*0.621371" to_byte="x/0.621371*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Gear" storagetype="uint8" endian="big" storageaddress="0x03f93a">
     <scaling units="gear index" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -41709,7 +41744,8 @@ Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4
 Details: When used: never in stock (cal 0x57585 bit 3 clear). Same data block as descriptor 05D468 (one entry). Road speed per 1000 rpm for gear index 1-8: stock 11.3, 16.3, 22.6, 29.7, 37.5, 53.9, 53.9, 53.9. 0x11031C (read; called at seg_0x110000.c:1175 with cal 0x57585 bit 3, gear FFF8A8BA, speed FFF88BE8, selector FFF8A8C3): only when cal 0x57585 bit 3 is set, FFF8558A = this(gear) (the Alternate table when FFF8A8C3 = 2) and FFF85588 = speed x 28800 / FFF8558A -&gt; FFF8B434. 0x110398 does the same with the second gear index FFF8A8BC (0x1143CC) through the shared descriptors -&gt; FFF8B436. 0x116A0C (gear advice, gated by the same bit) uses B436/B434 as rpm x 0.1953125 to convert the current power to torque at those engine speeds (read). Stock cal 0x57585 = 0x73 (bit 3 clear): the block 0x11031C / 0x110398 / 0x114360 / 0x116A0C keeps its outputs at their reset values and never reads these tables. The values (11.3 to 53.9 km/h per 1000 rpm over 6 steps here, 11.0 to 53.9 over 8 in the Alternate table) do not fit the 6MT, so this belongs to another transmission (inferred). LF79100P: located from LF75404S 05D450 by the code that reads it (read). Descriptor 0698FC. Confidence: inferred.</description>
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM (Alternate, Off in Stock)" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x04033a">
-   <scaling units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="mph per 1000 RPM" units="mph per 1000 RPM" expression="x/100*0.621371" to_byte="x/0.621371*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Gear" storagetype="uint8" endian="big" storageaddress="0x03f93a">
     <scaling units="gear index" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -50224,7 +50260,8 @@ Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4
    <table type="Y Axis" storageaddress="0x03ae96" />
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM (Off in Stock)" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x03c21e">
-   <scaling units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="mph per 1000 RPM" units="mph per 1000 RPM" expression="x/100*0.621371" to_byte="x/0.621371*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Gear" storagetype="uint8" endian="big" storageaddress="0x03b82e">
     <scaling units="gear index" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -50233,7 +50270,8 @@ Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4
 Details: When used: never in stock (cal 0x57585 bit 3 clear). Same data block as descriptor 05D468 (one entry). Road speed per 1000 rpm for gear index 1-8: stock 11.3, 16.3, 22.6, 29.7, 37.5, 53.9, 53.9, 53.9. 0x11031C (read; called at seg_0x110000.c:1175 with cal 0x57585 bit 3, gear FFF8A8BA, speed FFF88BE8, selector FFF8A8C3): only when cal 0x57585 bit 3 is set, FFF8558A = this(gear) (the Alternate table when FFF8A8C3 = 2) and FFF85588 = speed x 28800 / FFF8558A -&gt; FFF8B434. 0x110398 does the same with the second gear index FFF8A8BC (0x1143CC) through the shared descriptors -&gt; FFF8B436. 0x116A0C (gear advice, gated by the same bit) uses B436/B434 as rpm x 0.1953125 to convert the current power to torque at those engine speeds (read). Stock cal 0x57585 = 0x73 (bit 3 clear): the block 0x11031C / 0x110398 / 0x114360 / 0x116A0C keeps its outputs at their reset values and never reads these tables. The values (11.3 to 53.9 km/h per 1000 rpm over 6 steps here, 11.0 to 53.9 over 8 in the Alternate table) do not fit the 6MT, so this belongs to another transmission (inferred). LF78001H: located from LF75404S 05D450 by the code that reads it (read). Descriptor 063EA0. Confidence: inferred.</description>
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM (Alternate, Off in Stock)" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x03c22e">
-   <scaling units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="mph per 1000 RPM" units="mph per 1000 RPM" expression="x/100*0.621371" to_byte="x/0.621371*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Gear" storagetype="uint8" endian="big" storageaddress="0x03b82e">
     <scaling units="gear index" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -73916,7 +73954,8 @@ Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4
    <table type="Y Axis" storageaddress="0x03f3e6" />
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM (Off in Stock)" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x04076e">
-   <scaling units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="mph per 1000 RPM" units="mph per 1000 RPM" expression="x/100*0.621371" to_byte="x/0.621371*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Gear" storagetype="uint8" endian="big" storageaddress="0x03fd7e">
     <scaling units="gear index" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -73925,7 +73964,8 @@ Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4
 Details: When used: never in stock (cal 0x57585 bit 3 clear). Same data block as descriptor 05D468 (one entry). Road speed per 1000 rpm for gear index 1-8: stock 11.3, 16.3, 22.6, 29.7, 37.5, 53.9, 53.9, 53.9. 0x11031C (read; called at seg_0x110000.c:1175 with cal 0x57585 bit 3, gear FFF8A8BA, speed FFF88BE8, selector FFF8A8C3): only when cal 0x57585 bit 3 is set, FFF8558A = this(gear) (the Alternate table when FFF8A8C3 = 2) and FFF85588 = speed x 28800 / FFF8558A -&gt; FFF8B434. 0x110398 does the same with the second gear index FFF8A8BC (0x1143CC) through the shared descriptors -&gt; FFF8B436. 0x116A0C (gear advice, gated by the same bit) uses B436/B434 as rpm x 0.1953125 to convert the current power to torque at those engine speeds (read). Stock cal 0x57585 = 0x73 (bit 3 clear): the block 0x11031C / 0x110398 / 0x114360 / 0x116A0C keeps its outputs at their reset values and never reads these tables. The values (11.3 to 53.9 km/h per 1000 rpm over 6 steps here, 11.0 to 53.9 over 8 in the Alternate table) do not fit the 6MT, so this belongs to another transmission (inferred). LF9C000C: located from LF75404S 05D450 by the code that reads it (read). Descriptor 00C310. Confidence: inferred.</description>
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM (Alternate, Off in Stock)" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x04077e">
-   <scaling units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="mph per 1000 RPM" units="mph per 1000 RPM" expression="x/100*0.621371" to_byte="x/0.621371*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Gear" storagetype="uint8" endian="big" storageaddress="0x03fd7e">
     <scaling units="gear index" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -97505,7 +97545,8 @@ Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4
    <table type="Y Axis" storageaddress="0x03efa2" />
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM (Off in Stock)" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x04032a">
-   <scaling units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="mph per 1000 RPM" units="mph per 1000 RPM" expression="x/100*0.621371" to_byte="x/0.621371*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Gear" storagetype="uint8" endian="big" storageaddress="0x03f93a">
     <scaling units="gear index" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -97514,7 +97555,8 @@ Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4
 Details: When used: never in stock (cal 0x57585 bit 3 clear). Same data block as descriptor 05D468 (one entry). Road speed per 1000 rpm for gear index 1-8: stock 11.3, 16.3, 22.6, 29.7, 37.5, 53.9, 53.9, 53.9. 0x11031C (read; called at seg_0x110000.c:1175 with cal 0x57585 bit 3, gear FFF8A8BA, speed FFF88BE8, selector FFF8A8C3): only when cal 0x57585 bit 3 is set, FFF8558A = this(gear) (the Alternate table when FFF8A8C3 = 2) and FFF85588 = speed x 28800 / FFF8558A -&gt; FFF8B434. 0x110398 does the same with the second gear index FFF8A8BC (0x1143CC) through the shared descriptors -&gt; FFF8B436. 0x116A0C (gear advice, gated by the same bit) uses B436/B434 as rpm x 0.1953125 to convert the current power to torque at those engine speeds (read). Stock cal 0x57585 = 0x73 (bit 3 clear): the block 0x11031C / 0x110398 / 0x114360 / 0x116A0C keeps its outputs at their reset values and never reads these tables. The values (11.3 to 53.9 km/h per 1000 rpm over 6 steps here, 11.0 to 53.9 over 8 in the Alternate table) do not fit the 6MT, so this belongs to another transmission (inferred). LF79100P: located from LF75404S 05D450 by the code that reads it (read). Descriptor 0698FC. Confidence: inferred.</description>
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM (Alternate, Off in Stock)" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x04033a">
-   <scaling units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="mph per 1000 RPM" units="mph per 1000 RPM" expression="x/100*0.621371" to_byte="x/0.621371*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Gear" storagetype="uint8" endian="big" storageaddress="0x03f93a">
     <scaling units="gear index" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -106235,7 +106277,8 @@ Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4
    <table type="Y Axis" storageaddress="0x03f3e6" />
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM (Off in Stock)" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x04076e">
-   <scaling units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="mph per 1000 RPM" units="mph per 1000 RPM" expression="x/100*0.621371" to_byte="x/0.621371*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Gear" storagetype="uint8" endian="big" storageaddress="0x03fd7e">
     <scaling units="gear index" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -106244,7 +106287,8 @@ Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4
 Details: When used: never in stock (cal 0x57585 bit 3 clear). Same data block as descriptor 05D468 (one entry). Road speed per 1000 rpm for gear index 1-8: stock 11.3, 16.3, 22.6, 29.7, 37.5, 53.9, 53.9, 53.9. 0x11031C (read; called at seg_0x110000.c:1175 with cal 0x57585 bit 3, gear FFF8A8BA, speed FFF88BE8, selector FFF8A8C3): only when cal 0x57585 bit 3 is set, FFF8558A = this(gear) (the Alternate table when FFF8A8C3 = 2) and FFF85588 = speed x 28800 / FFF8558A -&gt; FFF8B434. 0x110398 does the same with the second gear index FFF8A8BC (0x1143CC) through the shared descriptors -&gt; FFF8B436. 0x116A0C (gear advice, gated by the same bit) uses B436/B434 as rpm x 0.1953125 to convert the current power to torque at those engine speeds (read). Stock cal 0x57585 = 0x73 (bit 3 clear): the block 0x11031C / 0x110398 / 0x114360 / 0x116A0C keeps its outputs at their reset values and never reads these tables. The values (11.3 to 53.9 km/h per 1000 rpm over 6 steps here, 11.0 to 53.9 over 8 in the Alternate table) do not fit the 6MT, so this belongs to another transmission (inferred). LF9C000C: located from LF75404S 05D450 by the code that reads it (read). Descriptor 00C310. Confidence: inferred.</description>
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM (Alternate, Off in Stock)" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x04077e">
-   <scaling units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="mph per 1000 RPM" units="mph per 1000 RPM" expression="x/100*0.621371" to_byte="x/0.621371*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Gear" storagetype="uint8" endian="big" storageaddress="0x03fd7e">
     <scaling units="gear index" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -112171,7 +112215,8 @@ Details: When used: Only while FFF899D7 bit 0 is set (warm-up fallback latch gat
 Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4); 05F2E0 (200 = 2 s, flat) replaces it otherwise. Brake override module 0x181B38 (10 ms task 0x1DFE3C, read): it limits the accelerator pedal that feeds the torque request, FFF88A5E = min(pedal FFF88EE6, limit FFF8BAFA) (0x09E800, read), when the brake is applied while the accelerator is held. Brake detection: VDC CAN frame 0x0D1 byte 2 (FFF88DF9, slew-limited 8/pass into FFF8AC94; brake pressure, inferred) against a threshold, or discrete input FFF88E2F bit 3 (pin PF10; brake switch, inferred) when the pressure signal is not valid (FFF8AC8F bit 4 clear). Vehicle speed FFF8AC95 = km/h from the wheel speeds or FFF88BE8 x 9/160 (0x182E34, read). The module sets no DTC (no DTC monitor record points at its RAM, read). 0x1832C4 (read, args checked in the assembly): override request FFF8AC91 bit 1 sets when the time FFF8BADA since the brake was applied while the accelerator was already pressed (FFF8AC90 bit 6, 0x1831EC) reaches this(pedal FFF88EE6, speed FFF8AC95), with speed &gt;= cal 0x43472 (7 km/h) and either pedal &gt;= 05F2C0 (1.1 %) or a deceleration-confirmed brake (FFF8AC91 bit 2). FFF8AC91 bit 1 (or bit 0, the brake-switch path 0x183680) sets the active flag FFF8AC8F bit 0 (0x183B68), which starts the pedal-limit ramp. Stock 200 passes (2.0 s) at 11 % pedal; 1.25-1.5 s at 23 %; 0.75-1.0 s at 40 %; 0.5 s from 60 % pedal. Descriptor 05F2CC. Confidence: inferred.</description>
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM (Off in Stock)" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x037872">
-   <scaling units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="mph per 1000 RPM" units="mph per 1000 RPM" expression="x/100*0.621371" to_byte="x/0.621371*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Gear" storagetype="uint8" endian="big" storageaddress="0x036e82">
     <scaling units="gear index" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -112180,7 +112225,8 @@ Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4
 Details: When used: never in stock (cal 0x57585 bit 3 clear). Same data block as descriptor 05D468 (one entry). Road speed per 1000 rpm for gear index 1-8: stock 11.3, 16.3, 22.6, 29.7, 37.5, 53.9, 53.9, 53.9. 0x11031C (read; called at seg_0x110000.c:1175 with cal 0x57585 bit 3, gear FFF8A8BA, speed FFF88BE8, selector FFF8A8C3): only when cal 0x57585 bit 3 is set, FFF8558A = this(gear) (the Alternate table when FFF8A8C3 = 2) and FFF85588 = speed x 28800 / FFF8558A -&gt; FFF8B434. 0x110398 does the same with the second gear index FFF8A8BC (0x1143CC) through the shared descriptors -&gt; FFF8B436. 0x116A0C (gear advice, gated by the same bit) uses B436/B434 as rpm x 0.1953125 to convert the current power to torque at those engine speeds (read). Stock cal 0x57585 = 0x73 (bit 3 clear): the block 0x11031C / 0x110398 / 0x114360 / 0x116A0C keeps its outputs at their reset values and never reads these tables. The values (11.3 to 53.9 km/h per 1000 rpm over 6 steps here, 11.0 to 53.9 over 8 in the Alternate table) do not fit the 6MT, so this belongs to another transmission (inferred). Descriptor 05D450. Confidence: inferred.</description>
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM (Alternate, Off in Stock)" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x037882">
-   <scaling units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="mph per 1000 RPM" units="mph per 1000 RPM" expression="x/100*0.621371" to_byte="x/0.621371*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Gear" storagetype="uint8" endian="big" storageaddress="0x036e82">
     <scaling units="gear index" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -119973,7 +120019,8 @@ Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4
    <table type="Y Axis" storageaddress="0x042bc6" />
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM (Off in Stock)" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x043f4e">
-   <scaling units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="mph per 1000 RPM" units="mph per 1000 RPM" expression="x/100*0.621371" to_byte="x/0.621371*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Gear" storagetype="uint8" endian="big" storageaddress="0x04355e">
     <scaling units="gear index" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -119982,7 +120029,8 @@ Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4
 Details: When used: never in stock (cal 0x57585 bit 3 clear). Same data block as descriptor 05D468 (one entry). Road speed per 1000 rpm for gear index 1-8: stock 11.3, 16.3, 22.6, 29.7, 37.5, 53.9, 53.9, 53.9. 0x11031C (read; called at seg_0x110000.c:1175 with cal 0x57585 bit 3, gear FFF8A8BA, speed FFF88BE8, selector FFF8A8C3): only when cal 0x57585 bit 3 is set, FFF8558A = this(gear) (the Alternate table when FFF8A8C3 = 2) and FFF85588 = speed x 28800 / FFF8558A -&gt; FFF8B434. 0x110398 does the same with the second gear index FFF8A8BC (0x1143CC) through the shared descriptors -&gt; FFF8B436. 0x116A0C (gear advice, gated by the same bit) uses B436/B434 as rpm x 0.1953125 to convert the current power to torque at those engine speeds (read). Stock cal 0x57585 = 0x73 (bit 3 clear): the block 0x11031C / 0x110398 / 0x114360 / 0x116A0C keeps its outputs at their reset values and never reads these tables. The values (11.3 to 53.9 km/h per 1000 rpm over 6 steps here, 11.0 to 53.9 over 8 in the Alternate table) do not fit the 6MT, so this belongs to another transmission (inferred). LF9F000R: located from LF75404S 05D450 by the code that reads it (read). Descriptor 06D7F8. Confidence: inferred.</description>
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM (Alternate, Off in Stock)" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x043f5e">
-   <scaling units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="mph per 1000 RPM" units="mph per 1000 RPM" expression="x/100*0.621371" to_byte="x/0.621371*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Gear" storagetype="uint8" endian="big" storageaddress="0x04355e">
     <scaling units="gear index" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -128480,7 +128528,8 @@ Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4
    <table type="Y Axis" storageaddress="0x03d06e" />
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM (Off in Stock)" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x03e3f6">
-   <scaling units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="mph per 1000 RPM" units="mph per 1000 RPM" expression="x/100*0.621371" to_byte="x/0.621371*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Gear" storagetype="uint8" endian="big" storageaddress="0x03da06">
     <scaling units="gear index" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -128489,7 +128538,8 @@ Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4
 Details: When used: never in stock (cal 0x57585 bit 3 clear). Same data block as descriptor 05D468 (one entry). Road speed per 1000 rpm for gear index 1-8: stock 11.3, 16.3, 22.6, 29.7, 37.5, 53.9, 53.9, 53.9. 0x11031C (read; called at seg_0x110000.c:1175 with cal 0x57585 bit 3, gear FFF8A8BA, speed FFF88BE8, selector FFF8A8C3): only when cal 0x57585 bit 3 is set, FFF8558A = this(gear) (the Alternate table when FFF8A8C3 = 2) and FFF85588 = speed x 28800 / FFF8558A -&gt; FFF8B434. 0x110398 does the same with the second gear index FFF8A8BC (0x1143CC) through the shared descriptors -&gt; FFF8B436. 0x116A0C (gear advice, gated by the same bit) uses B436/B434 as rpm x 0.1953125 to convert the current power to torque at those engine speeds (read). Stock cal 0x57585 = 0x73 (bit 3 clear): the block 0x11031C / 0x110398 / 0x114360 / 0x116A0C keeps its outputs at their reset values and never reads these tables. The values (11.3 to 53.9 km/h per 1000 rpm over 6 steps here, 11.0 to 53.9 over 8 in the Alternate table) do not fit the 6MT, so this belongs to another transmission (inferred). LF78103B: located from LF75404S 05D450 by the code that reads it (read). Descriptor 06720C. Confidence: inferred.</description>
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM (Alternate, Off in Stock)" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x03e406">
-   <scaling units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="mph per 1000 RPM" units="mph per 1000 RPM" expression="x/100*0.621371" to_byte="x/0.621371*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Gear" storagetype="uint8" endian="big" storageaddress="0x03da06">
     <scaling units="gear index" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -136563,7 +136613,8 @@ Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4
    <table type="Y Axis" storageaddress="0x0345e2" />
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM (Off in Stock)" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x03596a">
-   <scaling units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="mph per 1000 RPM" units="mph per 1000 RPM" expression="x/100*0.621371" to_byte="x/0.621371*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Gear" storagetype="uint8" endian="big" storageaddress="0x034f7a">
     <scaling units="gear index" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -136572,7 +136623,8 @@ Details: When used: while the VDC brake-pressure signal is valid (FFF8AC8F bit 4
 Details: When used: never in stock (cal 0x57585 bit 3 clear). Same data block as descriptor 05D468 (one entry). Road speed per 1000 rpm for gear index 1-8: stock 11.3, 16.3, 22.6, 29.7, 37.5, 53.9, 53.9, 53.9. 0x11031C (read; called at seg_0x110000.c:1175 with cal 0x57585 bit 3, gear FFF8A8BA, speed FFF88BE8, selector FFF8A8C3): only when cal 0x57585 bit 3 is set, FFF8558A = this(gear) (the Alternate table when FFF8A8C3 = 2) and FFF85588 = speed x 28800 / FFF8558A -&gt; FFF8B434. 0x110398 does the same with the second gear index FFF8A8BC (0x1143CC) through the shared descriptors -&gt; FFF8B436. 0x116A0C (gear advice, gated by the same bit) uses B436/B434 as rpm x 0.1953125 to convert the current power to torque at those engine speeds (read). Stock cal 0x57585 = 0x73 (bit 3 clear): the block 0x11031C / 0x110398 / 0x114360 / 0x116A0C keeps its outputs at their reset values and never reads these tables. The values (11.3 to 53.9 km/h per 1000 rpm over 6 steps here, 11.0 to 53.9 over 8 in the Alternate table) do not fit the 6MT, so this belongs to another transmission (inferred). LF75200T: located from LF75404S 05D450 by the code that reads it (read). Descriptor 05AAEC. Confidence: inferred.</description>
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM (Alternate, Off in Stock)" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x03597a">
-   <scaling units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="mph per 1000 RPM" units="mph per 1000 RPM" expression="x/100*0.621371" to_byte="x/0.621371*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="Y Axis" name="Gear" storagetype="uint8" endian="big" storageaddress="0x034f7a">
     <scaling units="gear index" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>

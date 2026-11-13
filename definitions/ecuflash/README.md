@@ -1,12 +1,23 @@
 # EcuFlash definitions
 
-`FA20DIT_BASE_EcuFlash.xml` defines every table once; each ROM has a small file named by calibration ID
+EcuFlash shows each table in one unit, so the definitions come in two sets with the same tables:
+
+| Folder | Base file | Units |
+|---|---|---|
+| `Imperial/` | `FA20DIT_BASE_EcuFlash.xml` | psi (gauge for boost), psia, °F, ft-lb, mph |
+| `Metric/` | `FA20DIT_BASE_METRIC_EcuFlash.xml` | kPa (absolute for boost and manifold pressure), MPa (rail pressure), °C, Nm, km/h |
+
+Units both systems use (g/rev, RPM, %, AFR, degrees, g/s) are the same in both. **Install one set only:** the ROM
+files in both have the same IDs, and EcuFlash would load whichever it finds first.
+
+In each set the base file defines every table once; each ROM has a small file named by calibration ID
 (`FA20DIT_<calibration ID>_EcuFlash.xml`) that gives that ROM's addresses and whatever differs. EcuFlash picks the ROM
 file by the ID inside your ROM, and the ROM file pulls in the base.
 
-**Install:** copy `FA20DIT_BASE_EcuFlash.xml` **and** the file(s) for your ROM(s) into the same folder under your
-EcuFlash metadata folder (for example `rommetadata\subaru\FA20DIT\`), then restart EcuFlash. Copying the whole folder
-is fine too. Without the base file, the ROM files don't load.
+**Install:** from the folder you chose, copy the base file **and** the file(s) for your ROM(s) into the same folder
+under your EcuFlash metadata folder (for example `rommetadata\subaru\FA20DIT\`), then restart EcuFlash. Copying the
+whole folder is fine too. Without the base file, the ROM files don't load. To switch sets later, delete the old files
+first.
 
 **Using it:**
 - Table folders are numbered in tuning order (`01.02 Fueling - …`).

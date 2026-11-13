@@ -5325,6 +5325,30 @@ Details: 0x1080E4: feedback (P and I) runs only while target minus barometric pr
 
 Details: 0x1080E4: feedback runs only above this rpm (FFF8CD54), hysteresis cal 0x28FDC (read). Confidence: read.</description>
   </table>
+  <table type="1D" name="Low-DAM Boost Cut Arming Count" category="Boost Control//Boost Feedback &amp; Compensations" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x029080">
+   <scaling units="cells" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Cells, counted in one pass over the fine-learning knock cells, with learned correction below the Cell Threshold. Reaching this arms the cut for the next pass. Above 34 it can never arm.
+
+Details: One FLKC cell is checked per run of the boost routine; the count restarts when the cell index reaches 35, or at once while the knock-learning state flag is clear. Armed when the count reaches this value (the count reached in one pass is at most 34). (read) Confidence: read.</description>
+  </table>
+  <table type="1D" name="Low-DAM Boost Cut Cell Threshold" category="Boost Control//Boost Feedback &amp; Compensations" storagetype="int16" endian="big" userlevel="4" storageaddress="0x029084">
+   <scaling units="degrees (FLKC)" expression="x/256*0.3515625" to_byte="x*256/0.3515625" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <description>Learned FLKC below this counts toward arming.
+
+Details: Compared with the learned FLKC value of the cell being checked (signed, same unit as the learned value); cells below it are counted toward the Arming Count. (read) Confidence: read.</description>
+  </table>
+  <table type="1D" name="Low-DAM Boost Cut DAM Threshold" category="Boost Control//Boost Feedback &amp; Compensations" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x029081">
+   <scaling units="DAM" expression="x/16" to_byte="x*16" format="0.00" fineincrement="0.0625" coarseincrement="0.25" />
+   <description>While armed, DAM below this cuts boost: wastegate duty goes to 0%. 0 disables the cut.
+
+Details: Sets the cut latch when DAM is below this while armed. The latch is one of the inhibit inputs of the boost mode selector; in that mode the wastegate duty output is 0 % (wastegate spring pressure). (read) Confidence: read.</description>
+  </table>
+  <table type="1D" name="Low-DAM Boost Cut DAM Release" category="Boost Control//Boost Feedback &amp; Compensations" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x029082">
+   <scaling units="DAM" expression="x/16" to_byte="x*16" format="0.00" fineincrement="0.0625" coarseincrement="0.25" />
+   <description>Once cut, boost stays cut while DAM is below this.
+
+Details: The cut latch stays set while DAM is below this, armed or not; at or above it the latch clears. (read) Confidence: read.</description>
+  </table>
   <table type="3D" name="Requested Torque (Drive Mode 1, Default)" category="Torque &amp; Throttle//Requested Torque" storagetype="uint16" endian="big" sizex="20" sizey="21" userlevel="1" storageaddress="0x01e6fc">
    <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
@@ -18847,6 +18871,10 @@ Details: 0x1080E4: lower clamp of the integral FFF85370 (read). Evidence: (read)
 
 Details: 0x1080E4: feedback runs only above this rpm (FFF8CD54), hysteresis cal 0x28FDC (read). Evidence: (read) Counterpart reader(s) 0x1080E4-&gt;0x1166DC (ref 1 access(es), target 2, size [2]); decompile token alignment puts this cal at the position of LF75404S 0x028FDA (2 reference(s), votes {'0302CE': 2}); machine-code effective addresses of the target function confirm 0x0302CE is accessed as u16. Matches the layout address. Confidence: read.</description>
   </table>
+  <table name="Low-DAM Boost Cut Arming Count" storageaddress="0x030374" />
+  <table name="Low-DAM Boost Cut Cell Threshold" storageaddress="0x030378" />
+  <table name="Low-DAM Boost Cut DAM Threshold" storageaddress="0x030375" />
+  <table name="Low-DAM Boost Cut DAM Release" storageaddress="0x030376" />
   <table name="Requested Torque (Drive Mode 1, Default)" storageaddress="0x02442c">
    <table type="X Axis" storageaddress="0x023d74" />
    <table type="Y Axis" storageaddress="0x023d4a" />
@@ -26724,6 +26752,10 @@ Details: 0x1080E4: lower clamp of the integral FFF85370 (read). Evidence: (read)
 
 Details: 0x1080E4: feedback runs only above this rpm (FFF8CD54), hysteresis cal 0x28FDC (read). Evidence: (read) Counterpart reader(s) 0x1080E4-&gt;0x110764 (ref 1 access(es), target 2, size [2]); decompile token alignment puts this cal at the position of LF75404S 0x028FDA (2 reference(s), votes {'03151A': 2}); machine-code effective addresses of the target function confirm 0x03151A is accessed as u16. Matches the layout address. Confidence: read.</description>
   </table>
+  <table name="Low-DAM Boost Cut Arming Count" storageaddress="0x0315c0" />
+  <table name="Low-DAM Boost Cut Cell Threshold" storageaddress="0x0315c4" />
+  <table name="Low-DAM Boost Cut DAM Threshold" storageaddress="0x0315c1" />
+  <table name="Low-DAM Boost Cut DAM Release" storageaddress="0x0315c2" />
   <table name="Requested Torque (Drive Mode 1, Default)" storageaddress="0x024c2c">
    <table type="X Axis" storageaddress="0x024574" />
    <table type="Y Axis" storageaddress="0x02454a" />
@@ -37839,6 +37871,10 @@ Details: 0x1080E4: lower clamp of the integral FFF85370 (read). Evidence: (read)
 
 Details: 0x1080E4: feedback runs only above this rpm (FFF8CD54), hysteresis cal 0x28FDC (read). Evidence: (read) Counterpart reader(s) 0x1080E4-&gt;0x11654C (ref 1 access(es), target 2, size [2]); decompile token alignment puts this cal at the position of LF75404S 0x028FDA (2 reference(s), votes {'031362': 2}); machine-code effective addresses of the target function confirm 0x031362 is accessed as u16. Matches the layout address. Confidence: read.</description>
   </table>
+  <table name="Low-DAM Boost Cut Arming Count" storageaddress="0x031408" />
+  <table name="Low-DAM Boost Cut Cell Threshold" storageaddress="0x03140c" />
+  <table name="Low-DAM Boost Cut DAM Threshold" storageaddress="0x031409" />
+  <table name="Low-DAM Boost Cut DAM Release" storageaddress="0x03140a" />
   <table name="Requested Torque (Drive Mode 1, Default)" storageaddress="0x024bec">
    <table type="X Axis" storageaddress="0x024534" />
    <table type="Y Axis" storageaddress="0x02450a" />
@@ -46021,6 +46057,10 @@ Details: 0x1080E4: lower clamp of the integral FFF85370 (read). Evidence: 0x10E7
 
 Details: 0x1080E4: feedback runs only above this rpm (FFF8CD54), hysteresis cal 0x28FDC (read). Evidence: 0x10E754, pair of 0x1080E4 (ratio 0.96): rpm enable with hysteresis cal 0x2D4EC (= ref 0x28FDC) (read). In the function's literal/displacement set. Confidence: read.</description>
   </table>
+  <table name="Low-DAM Boost Cut Arming Count" storageaddress="0x02d590" />
+  <table name="Low-DAM Boost Cut Cell Threshold" storageaddress="0x02d594" />
+  <table name="Low-DAM Boost Cut DAM Threshold" storageaddress="0x02d591" />
+  <table name="Low-DAM Boost Cut DAM Release" storageaddress="0x02d592" />
   <table name="Requested Torque (Drive Mode 1, Default)" storageaddress="0x021f88">
    <table type="X Axis" storageaddress="0x0218d0" />
    <table type="Y Axis" storageaddress="0x0218a6" />
@@ -53408,6 +53448,10 @@ Details: When used: FFF8A7E2 bit 0 clear, FFF899D7 bit 0 clear. 0x108BAC (cataly
    <table type="Y Axis" storageaddress="0x02577c" />
   </table>
   <table name="Boost Feedback Minimum RPM" storageaddress="0x024f4e" />
+  <table name="Low-DAM Boost Cut Arming Count" storageaddress="0x024ff4" />
+  <table name="Low-DAM Boost Cut Cell Threshold" storageaddress="0x024ff8" />
+  <table name="Low-DAM Boost Cut DAM Threshold" storageaddress="0x024ff5" />
+  <table name="Low-DAM Boost Cut DAM Release" storageaddress="0x024ff6" />
   <table name="Requested Torque (Drive Mode 1, Default)" storageaddress="0x01b1b8">
    <table type="X Axis" storageaddress="0x01ab00" />
    <table type="Y Axis" storageaddress="0x01aad6" />
@@ -60371,6 +60415,10 @@ Details: When used: FFF8A7E2 bit 0 clear, FFF899D7 bit 0 clear. 0x108BAC (cataly
    <table type="Y Axis" storageaddress="0x02577c" />
   </table>
   <table name="Boost Feedback Minimum RPM" storageaddress="0x024f4e" />
+  <table name="Low-DAM Boost Cut Arming Count" storageaddress="0x024ff4" />
+  <table name="Low-DAM Boost Cut Cell Threshold" storageaddress="0x024ff8" />
+  <table name="Low-DAM Boost Cut DAM Threshold" storageaddress="0x024ff5" />
+  <table name="Low-DAM Boost Cut DAM Release" storageaddress="0x024ff6" />
   <table name="Requested Torque (Drive Mode 1, Default)" storageaddress="0x01b1b8">
    <table type="X Axis" storageaddress="0x01ab00" />
    <table type="Y Axis" storageaddress="0x01aad6" />
@@ -67068,6 +67116,10 @@ Details: 0x1080E4: lower clamp of the integral FFF85370 (read). Confidence: infe
 
 Details: 0x1080E4: feedback runs only above this rpm (FFF8CD54), hysteresis cal 0x28FDC (read). Confidence: inferred.</description>
   </table>
+  <table name="Low-DAM Boost Cut Arming Count" storageaddress="0x033778" />
+  <table name="Low-DAM Boost Cut Cell Threshold" storageaddress="0x03377c" />
+  <table name="Low-DAM Boost Cut DAM Threshold" storageaddress="0x033779" />
+  <table name="Low-DAM Boost Cut DAM Release" storageaddress="0x03377a" />
   <table name="Requested Torque (Drive Mode 1, Default)" storageaddress="0x026218">
    <table type="X Axis" storageaddress="0x025b60" />
    <table type="Y Axis" storageaddress="0x025b36" />
@@ -74497,6 +74549,10 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
    <table type="Y Axis" storageaddress="0x0277d4" />
   </table>
   <table name="Boost Feedback Minimum RPM" storageaddress="0x026fa6" />
+  <table name="Low-DAM Boost Cut Arming Count" storageaddress="0x02704c" />
+  <table name="Low-DAM Boost Cut Cell Threshold" storageaddress="0x027050" />
+  <table name="Low-DAM Boost Cut DAM Threshold" storageaddress="0x02704d" />
+  <table name="Low-DAM Boost Cut DAM Release" storageaddress="0x02704e" />
   <table name="Requested Torque (Drive Mode 1, Default)" storageaddress="0x01c040">
    <table type="X Axis" storageaddress="0x01b988" />
    <table type="Y Axis" storageaddress="0x01b95e" />
@@ -81259,6 +81315,10 @@ Details: 0x1080E4: lower clamp of the integral FFF85370 (read). Confidence: infe
 
 Details: 0x1080E4: feedback runs only above this rpm (FFF8CD54), hysteresis cal 0x28FDC (read). Confidence: inferred.</description>
   </table>
+  <table name="Low-DAM Boost Cut Arming Count" storageaddress="0x02f55c" />
+  <table name="Low-DAM Boost Cut Cell Threshold" storageaddress="0x02f560" />
+  <table name="Low-DAM Boost Cut DAM Threshold" storageaddress="0x02f55d" />
+  <table name="Low-DAM Boost Cut DAM Release" storageaddress="0x02f55e" />
   <table name="Requested Torque (Drive Mode 1, Default)" storageaddress="0x023f54">
    <table type="X Axis" storageaddress="0x02389c" />
    <table type="Y Axis" storageaddress="0x023872" />
@@ -88473,6 +88533,10 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 7 of 8 (index 6 of FFF
    <table type="Y Axis" storageaddress="0x028488" />
   </table>
   <table name="Boost Feedback Minimum RPM" storageaddress="0x027c5a" />
+  <table name="Low-DAM Boost Cut Arming Count" storageaddress="0x027d00" />
+  <table name="Low-DAM Boost Cut Cell Threshold" storageaddress="0x027d04" />
+  <table name="Low-DAM Boost Cut DAM Threshold" storageaddress="0x027d01" />
+  <table name="Low-DAM Boost Cut DAM Release" storageaddress="0x027d02" />
   <table name="Requested Torque (Drive Mode 1, Default)" storageaddress="0x01dc78">
    <table type="X Axis" storageaddress="0x01d5c0" />
    <table type="Y Axis" storageaddress="0x01d596" />

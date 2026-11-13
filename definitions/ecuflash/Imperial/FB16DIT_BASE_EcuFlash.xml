@@ -151,6 +151,7 @@
  <scaling name="WGDC % int16" units="WGDC %" toexpr="x/256" frexpr="x*256" format="%0.1f" min="-128" max="127.996" inc="0.5" storagetype="int16" endian="big" />
  <scaling name="psi int16 #2" units="psi" toexpr="x/256*0.1450377" frexpr="x/0.1450377*256" format="%0.2f" min="-18.5648" max="18.5643" inc="0.1" storagetype="int16" endian="big" />
  <scaling name="WGDC % per 20 ms int16" units="WGDC % per 20 ms" toexpr="x/256" frexpr="x*256" format="%0.2f" min="-128" max="127.996" inc="0.05" storagetype="int16" endian="big" />
+ <scaling name="cells uint8" units="cells" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
  <scaling name="V uint16" units="V" toexpr="x/13107.2" frexpr="x*13107.2" format="%0.3f" min="0" max="4.99992" inc="0.01" storagetype="uint16" endian="big" />
  <scaling name="ft-lb per 10 ms uint16" units="ft-lb per 10 ms" toexpr="(x/80-200)*0.7375621" frexpr="((x/0.7375621)+200)*80" format="%0.2f" min="-147.512" max="456.689" inc="0.05" storagetype="uint16" endian="big" />
  <scaling name="multiplier uint16 #3" units="multiplier" toexpr="x/255" frexpr="x*255" format="%0.2f" min="0" max="257" inc="0.01" storagetype="uint16" endian="big" />
@@ -48148,6 +48149,26 @@ Details: 0x1080E4: feedback (P and I) runs only while target minus barometric pr
   <description>Boost feedback (proportional and integral) only runs above this rpm.
 
 Details: 0x1080E4: feedback runs only above this rpm (FFF8CD54), hysteresis cal 0x28FDC (read). Confidence: read.</description>
+ </table>
+ <table name="Low-DAM Boost Cut Arming Count" category="03.03 Boost Control - Boost Feedback &amp; Compensations" type="1D" level="4" scaling="cells uint8">
+  <description>Cells, counted in one pass over the fine-learning knock cells, with learned correction below the Cell Threshold. Reaching this arms the cut for the next pass. Above 34 it can never arm.
+
+Details: One FLKC cell is checked per run of the boost routine; the count restarts when the cell index reaches 35, or at once while the knock-learning state flag is clear. Armed when the count reaches this value (the count reached in one pass is at most 34). (read) Confidence: read.</description>
+ </table>
+ <table name="Low-DAM Boost Cut Cell Threshold" category="03.03 Boost Control - Boost Feedback &amp; Compensations" type="1D" level="4" scaling="degrees (FLKC) int16">
+  <description>Learned FLKC below this counts toward arming.
+
+Details: Compared with the learned FLKC value of the cell being checked (signed, same unit as the learned value); cells below it are counted toward the Arming Count. (read) Confidence: read.</description>
+ </table>
+ <table name="Low-DAM Boost Cut DAM Threshold" category="03.03 Boost Control - Boost Feedback &amp; Compensations" type="1D" level="4" scaling="DAM uint8">
+  <description>While armed, DAM below this cuts boost: wastegate duty goes to 0%. 0 disables the cut.
+
+Details: Sets the cut latch when DAM is below this while armed. The latch is one of the inhibit inputs of the boost mode selector; in that mode the wastegate duty output is 0 % (wastegate spring pressure). (read) Confidence: read.</description>
+ </table>
+ <table name="Low-DAM Boost Cut DAM Release" category="03.03 Boost Control - Boost Feedback &amp; Compensations" type="1D" level="4" scaling="DAM uint8">
+  <description>Once cut, boost stays cut while DAM is below this.
+
+Details: The cut latch stays set while DAM is below this, armed or not; at or above it the latch clears. (read) Confidence: read.</description>
  </table>
  <table name="Requested Torque (Drive Mode 1, Default)" category="04.01 Torque &amp; Throttle - Requested Torque" type="3D" level="1" scaling="ft-lb uint16">
   <table name="Accelerator Pedal" type="X Axis" elements="20" scaling="% uint16" />

@@ -4,6 +4,9 @@
 
 First public release.
 
+- New: **Low-DAM boost cut** (Boost Feedback & Compensations, Advanced level), all ROMs: four values for a latch that
+  forces wastegate duty to 0 % when DAM drops below a threshold, armed by a pass over the fine-learning knock cells
+  (Arming Count, Cell Threshold, DAM Threshold, DAM Release). Switched off in every stock calibration.
 - New: **Levorg 1.6 (FB16DIT)**, 19 ROMs, 2014–2020: `FB16DIT_RomRaider.xml` and Imperial / Metric EcuFlash sets. The
   1.6's ECU runs the same software as the 2.0's, so the tables and descriptions are shared; the stock logger file works
   for it too. No logging patch for these ROMs yet. Thanks to reokov for the ROMs.

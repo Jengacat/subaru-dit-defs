@@ -252,36 +252,12 @@ Every table whose unit depends on the system has both an imperial and a metric s
 
 - **Untested on hardware.** No ROM edited with these definitions has been flashed and driven yet. Start from a known
   good stock read, change little at a time and log everything.
-- **Checksum.** EcuFlash corrects it on save (checked in EcuFlash 1.44.4870), and PCMFlash is reported to correct it
-  when it flashes (not tested by me). RomRaider can't load a
-  checksum module from a definition folder in versions 1.0.0 and 1.1.0; my fix is in
-  [RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248), and once it is merged and released the RomRaider definition will correct the
-  checksum on save. Until then, use `tools/checksum.py` or `tools/checksum.ps1` (above) on ROMs edited in RomRaider
-  and on 2.5 MB ROMs.
-- **Writing with EcuFlash** has not been tested on this ECU.
-- **2019+ (2.5 MB) ROMs:** EcuFlash doesn't correct their checksum (use the checksum tool), and no open tool writes
-  these ECUs yet.
-- **RomRaider older than 1.0.0** must not be used with this definition: the Fail-Safe cell of each DTC table would
-  point at another code's enable bit.
-- **EcuFlash DTC tables:** EcuFlash's bit tables can't start partway through a byte, and each DTC is one bit inside
-  a byte it shares with other codes. So each DTC's own table is a list of whole-byte values arranged so that
-  Increment flips only that code. Decrement doesn't, and a byte with many changed codes can show
-  `(no match)`; see the [EcuFlash README](definitions/ecuflash/README.md).
-- **Inferred items.** Everything is decoded from the ECU code; where the code doesn't settle a meaning, the description
-  says "inferred". In particular, the **SI-Drive positions** of the drive-mode maps (mode 4 = Sport Sharp, 2 = Sport,
-  3 = Intelligent, 1 = default) are inferred from the stock maps.
-- **Hard limits in the code** that no table changes: manifold pressure reads at most 256 kPa absolute (about 22.4 psi
-  boost at sea level); the overboost cut can't trigger above about 236 kPa absolute; engine load is clamped at
-  3.31 g/rev. See the guide's [hard limits chapter](docs/guide/C11.md).
-- **Levorg 1.6 (FB16DIT).** These ECUs run the same software as the 2.0 ROM of the same version, and their
-  definitions were carried over from it through the identical code, then checked where the code differs. The
-  descriptions were written on the 2.0, and I have not re-read every one against the 1.6. There is no logging patch for
-  them yet, and the CAN dictionary covers only three of them.
-- **User levels are set per ROM.** A table that one ROM's calibration switches off is at Debug level there and at
-  Advanced on a ROM that uses it. On the 2016 and later 2.0 ROMs about 150 such tables could not be checked
-  individually and stay at Debug.
-- **Partial ports.** LF78001H and the LV9N images have fewer tables than the WRX images; tables I could not place with
-  confidence are left out rather than guessed.
+- **Checksum.** A ROM with a bad checksum won't run, so check it before every flash
+  ([how](#fix-the-checksum-before-every-flash)). EcuFlash corrects it on save for 2 MB ROMs, and PCMFlash is reported
+  to correct it when it flashes (not tested by me). RomRaider (1.0.0, 1.1.0) and EcuFlash with 2.5 MB ROMs don't:
+  use `tools/checksum.py` or `tools/checksum.ps1`.
+- **Use RomRaider 1.0.0 or later.** Older versions read the DTC tables wrong.
+- **Inferred items** are marked "inferred" in their descriptions; everything else is read from the ECU code.
 
 ## Reading your ECU
 

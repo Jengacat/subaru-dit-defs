@@ -4,6 +4,7 @@
 
 First public release.
 
+- README: shorter Known issues section (the details are in the definitions README, the EcuFlash README and the guide).
 - README: PCMFlash is reported to read and write these ECUs and to correct the checksum when it flashes (not
   tested by me).
 - New: **Low-DAM boost cut** (Boost Feedback & Compensations, Advanced level), all ROMs: four values for a latch that

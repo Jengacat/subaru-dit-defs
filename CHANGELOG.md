@@ -29,7 +29,7 @@ Since the first draft of this release:
   press Increment to flip a code. The mask tables remain as an overview.
 - EcuFlash: the definitions use EcuFlash's `subaruhitachi` checksum module, which corrects the checksum on save
   (byte-identical to the checksum tool in EcuFlash 1.44.4870).
-- EcuFlash: one shared base file plus a small file per ROM (about 17 MB in total instead of 55 MB). Copy the base file
+- EcuFlash: one shared base file plus a small file per ROM (about 17 MB in total instead of 118 MB). Copy the base file
   along with your ROM's file.
 - Axis names fixed: "Spark Air Compensation Limiter Baro Factor" on LF79100N/LF79100P (was labelled coolant), "A/F
   Sensor Exhaust Model Condensate at Start" (coolant × intake air temperature) and "Cruise Vehicle Speed Filter Weight"

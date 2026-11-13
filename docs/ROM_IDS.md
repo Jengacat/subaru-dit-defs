@@ -4,9 +4,9 @@ The calibration IDs known for Subaru DIT engine ECUs, as collected by reokov (is
 to the ROMs this repo has definitions for. 338 IDs are listed; two supported ROMs (LF76500R, LF9F100Q) were not on his list.
 
 An ID only says which software a ROM belongs to. **A definition is published only for ROMs I have a complete read
-of**, because the same software version is sometimes built more than once: of the ROMs I hold that share the first five
-characters of their ID, about nine in ten run exactly the same code and one in ten does not (for example LF78001H and
-LF78002H, or LV9N101C and LV9N101F). Using a definition on a ROM with other code corrupts the calibration. If your
+of**, because the same software version is sometimes built more than once: of the twelve software versions I hold more than
+one ROM of, nine run exactly the same code in every ROM and three do not (for example LF78001H and LF78002H, or
+LV9N101C and LV9N101F). Using a definition on a ROM with other code corrupts the calibration. If your
 ROM is in the second or third group, [send it](../README.md#submitting-a-rom): it can probably be added quickly.
 
 ## Supported (50)
@@ -15,7 +15,7 @@ LF75200T, LF75300F, LF75300H, LF75300L, LF75300S, LF75301K, LF75301P, LF75401D, 
 
 ## Same software version as a supported ROM, no read yet (138)
 
-These share the first five characters of the ID with a supported ROM. Most will use that ROM's table layout unchanged.
+These share the first five characters of the ID with a supported ROM. Most will use that ROM's table layout unchanged. (LF78002H is in hand but has other code than LF78001H and is not ported yet.)
 
 | Version | Supported ROMs | Listed, no read yet |
 |---|---|---|

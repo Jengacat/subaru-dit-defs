@@ -4,6 +4,10 @@
 
 First public release.
 
+- docs/ROM_IDS.md made more accurate: an ID's first five characters group related ROMs but are not a software version.
+  The page now gives each group's engine (2.0 or 1.6) and how many code builds my ROMs of it contain, flags the
+  three groups with more than one build, marks the IDs I have only partial reads of, and lists all 53 supported ROMs.
+  README: the 2013–2015 Forester XT IDs (LF61…, AF5G… and others) are marked as an older ECU this repo doesn't cover.
 - New: **the speed limiter that the stock calibrations actually use**, in every definition (folder 04.02). It limits
   the pedal request by vehicle speed (about 180 km/h on the JDM cars, 228–232 km/h on the USDM WRX): four
   Vehicle Speed Limit (Pedal) tables, their minimum rpm, an rpm-based fallback for when the speed signal is lost, and

@@ -3,67 +3,80 @@
 The calibration IDs known for Subaru DIT engine ECUs, as collected by reokov (issue #2), sorted by how each relates
 to the ROMs this repo has definitions for. 338 IDs are listed; two supported ROMs (LF76500R, LF9F100Q) were not on his list.
 
-An ID only says which software a ROM belongs to. **A definition is published only for ROMs I have a complete read
-of**, because the same software version is sometimes built more than once: of the twelve software versions I hold more than
-one ROM of, nine run exactly the same code in every ROM and three do not (for example LF78001H and LF78002H, which now each have their own definition, or
-LV9N101C and LV9N101F). Using a definition on a ROM with other code corrupts the calibration. If your
-ROM is in the second or third group, [send it](../README.md#submitting-a-rom): it can probably be added quickly.
+**A definition is published only for ROMs I have a complete read of.** The first five characters of an ID group
+related ROMs, but they are not a software version: within a group the code can differ, and one group (LV9N3…) holds
+both 2.0 (FA20DIT) and 1.6 (FB16DIT) ROMs. Of the nine groups where I have more than one complete ROM, six run exactly
+the same code in every ROM and three do not:
 
-## Supported (51)
+* **LF780…:** LF78001H and LF78002H are separate builds (each now has its own definition).
+* **LV9N1…:** LV9N101C differs from the other five.
+* **LV9N3…:** three builds: the 2.0 Levorg (LV9N301A, LV9N302A) and two different 1.6 builds (LV9N303J, LV9N340J).
 
-LF75200T, LF75300F, LF75300H, LF75300L, LF75300S, LF75301K, LF75301P, LF75401D, LF75401P, LF75404S, LF76400Q, LF76401R, LF76500Q, LF76600R, LF78001H, LF78002H, LF78103B, LF79002P, LF79100K, LF79100N, LF79100P, LF79100S, LF79101K, LF79200T, LF79201U, LF79202U, LF79300T, LF79400U, LF9B003U, LF9B100G, LF9B200U, LF9C000C, LF9C000a, LF9C001K, LF9C001P, LF9C100P, LF9D000d, LF9D100e, LF9F000R, LF9F100P, LV9N000C, LV9N100A, LV9N100B, LV9N100F, LV9N101C, LV9N101F, LV9N101I, LV9N301A, LV9N302A, LV9N303J, LV9N340J
+Using a definition on a ROM with other code corrupts the calibration. If your ROM is in the second or third list
+below, [send it](../README.md#submitting-a-rom): it can probably be added quickly.
 
-## Same software version as a supported ROM, no read yet (137)
+## Supported (51 of the listed IDs, 53 in all)
 
-These share the first five characters of the ID with a supported ROM. Most will use that ROM's table layout unchanged.
+LF75200T, LF75300F, LF75300H, LF75300L, LF75300S, LF75301K, LF75301P, LF75401D, LF75401P, LF75404S, LF76400Q (1.6), LF76401R (1.6), LF76500Q (1.6), LF76500R (1.6), LF76600R (1.6), LF78001H, LF78002H, LF78103B, LF79002P, LF79100K, LF79100N, LF79100P, LF79100S, LF79101K, LF79200T (1.6), LF79201U (1.6), LF79202U (1.6), LF79300T (1.6), LF79400U (1.6), LF9B003U (1.6), LF9B100G (1.6), LF9B200U (1.6), LF9C000a, LF9C000C, LF9C001K, LF9C001P, LF9C100P, LF9D000d (1.6), LF9D100e (1.6), LF9F000R, LF9F100P (1.6), LF9F100Q (1.6), LV9N000C, LV9N100A, LV9N100B, LV9N100F, LV9N101C, LV9N101F, LV9N101I, LV9N301A, LV9N302A, LV9N303J (1.6), LV9N340J (1.6)
 
-| Version | Supported ROMs | Listed, no read yet |
+(1.6) = Levorg 1.6 (FB16DIT); the rest are 2.0 (FA20DIT). LF76500R and LF9F100Q are not on the list.
+
+## Same first five characters as a supported ROM, no complete read yet (137)
+
+These share the first five characters of the ID with a supported ROM. Where all my ROMs of the group run the same code
+(one build), an unread ROM is likely to as well, but it is not certain until I see it; where the group already has
+more than one build, any unread ROM could be a new one. *Engine* is that of my ROMs in the group; *Builds* is how many different code builds those ROMs contain ("1 ROM" when I
+have only one). (partial) = I have
+an incomplete read, not enough for a definition.
+
+| Group | Engine | Builds | Supported ROMs | Listed, no complete read |
+|---|---|---|---|---|
+| LF752… | 2.0 | 1 ROM | LF75200T | LF75200A, LF75200S |
+| LF753… | 2.0 | 1 | LF75300F, LF75300H, LF75300L, LF75300S, LF75301K, LF75301P | LF75300D, LF75300E, LF75300G (partial), LF75300J, LF75300K, LF75300M, LF75300T (partial), LF75301A, LF75301J, LF75301L |
+| LF754… | 2.0 | 1 | LF75401D, LF75401P, LF75404S | LF75400K, LF75400N, LF75400S, LF75401E, LF75401F, LF75401G, LF75401J, LF75401K, LF75401L, LF75401N, LF75402A, LF75402H, LF75402S, LF75402T, LF75403G, LF75403S, LF75403T, LF75404H |
+| LF764… | 1.6 | 1 | LF76400Q, LF76401R | LF76400R, LF76402R |
+| LF780… | 2.0 | 2 | LF78001H, LF78002H | LF78000D, LF78000F, LF78001C, LF78001E, LF78001F, LF78001G, LF78001Z, LF78002C, LF78002E, LF78002G, LF78002J, LF78002Z, LF78003A, LF780Z2E |
+| LF781… | 2.0 | 1 ROM | LF78103B | LF78101B, LF78102B, LF78104B, LF78106B |
+| LF790… | 2.0 | 1 ROM | LF79002P | LF79001K, LF79001L, LF79001M, LF79001R, LF79002N, LF79002Q, LF79002S |
+| LF791… | 2.0 | 1 | LF79100K, LF79100N, LF79100P, LF79100S, LF79101K | LF79100L, LF79100M, LF79100Q, LF79100R, LF79101L, LF79101M, LF79101P, LF79101T, LF79101U, LF79102N, LF79110N, LF79120P, LF79130P |
+| LF792… | 1.6 | 1 | LF79200T, LF79201U, LF79202U | LF79200U |
+| LF793… | 1.6 | 1 ROM | LF79300T | LF79300U |
+| LF9B0… | 1.6 | 1 ROM | LF9B003U | LF9B002G |
+| LF9C0… | 2.0 | 1 | LF9C000C, LF9C000a, LF9C001K, LF9C001P | LF9C000A, LF9C000b, LF9C000B, LF9C000E, LF9C000F, LF9C000L, LF9C000Q, LF9C000R, LF9C000Y, LF9C000Z, LF9C001D, LF9C001N, LF9C002B |
+| LF9C1… | 2.0 | 1 ROM | LF9C100P | LF9C100R, LF9C101P |
+| LF9D0… | 1.6 (Subaru's service bulletin gives LF9D012h for the 2019 WRX, a 2.0) | 1 ROM | LF9D000d | LF9D000f, LF9D000i, LF9D000j, LF9D000k, LF9D000m, LF9D000n, LF9D001e, LF9D010g, LF9D010h, LF9D012h, LF9D030g, LF9D040h, LF9D050h |
+| LF9F0… | 2.0 | 1 ROM | LF9F000R | LF9F000P, LF9F000Q, LF9F000U, LF9F000V, LF9F000W, LF9F000Y, LF9F000Z |
+| LV9N0… | 2.0 | 1 ROM | LV9N000C | LV9N000A, LV9N001D, LV9N001E, LV9N002D, LV9N002E, LV9N002F (partial), LV9N002I |
+| LV9N1… | 2.0 | 2 | LV9N100A, LV9N100B, LV9N100F, LV9N101C, LV9N101F, LV9N101I | LV9N100D, LV9N100E, LV9N100J, LV9N101D (partial), LV9N101E, LV9N101G, LV9N101H |
+| LV9N3… | 2.0 and 1.6 | 3 | LV9N301A, LV9N302A, LV9N303J (1.6), LV9N340J (1.6) | LV9N300E, LV9N300F, LV9N300H, LV9N300I, LV9N300L, LV9N301B, LV9N301E, LV9N301F, LV9N301J, LV9N301K, LV9N302B, LV9N302E, LV9N302F, LV9N302H, LV9N302J |
+
+## Same family (first four characters), a group I have no ROM of (23)
+
+These need a read and a port, like the supported ROMs of their family. *My ROMs* gives the engine of the ROMs I have
+from that family, which says nothing certain about these.
+
+| Group | My ROMs of the family | IDs |
 |---|---|---|
-| LF752… | LF75200T | LF75200A, LF75200S |
-| LF753… | LF75300F, LF75300H, LF75300L, LF75300S, LF75301K, LF75301P | LF75300D, LF75300E, LF75300G, LF75300J, LF75300K, LF75300M, LF75300T, LF75301A, LF75301J, LF75301L |
-| LF754… | LF75401D, LF75401P, LF75404S | LF75400K, LF75400N, LF75400S, LF75401E, LF75401F, LF75401G, LF75401J, LF75401K, LF75401L, LF75401N, LF75402A, LF75402H, LF75402S, LF75402T, LF75403G, LF75403S, LF75403T, LF75404H |
-| LF764… | LF76400Q, LF76401R | LF76400R, LF76402R |
-| LF780… | LF78001H, LF78002H | LF78000D, LF78000F, LF78001C, LF78001E, LF78001F, LF78001G, LF78001Z, LF78002C, LF78002E, LF78002G, LF78002J, LF78002Z, LF78003A, LF780Z2E |
-| LF781… | LF78103B | LF78101B, LF78102B, LF78104B, LF78106B |
-| LF790… | LF79002P | LF79001K, LF79001L, LF79001M, LF79001R, LF79002N, LF79002Q, LF79002S |
-| LF791… | LF79100K, LF79100N, LF79100P, LF79100S, LF79101K | LF79100L, LF79100M, LF79100Q, LF79100R, LF79101L, LF79101M, LF79101P, LF79101T, LF79101U, LF79102N, LF79110N, LF79120P, LF79130P |
-| LF792… | LF79200T, LF79201U, LF79202U | LF79200U |
-| LF793… | LF79300T | LF79300U |
-| LF9B0… | LF9B003U | LF9B002G |
-| LF9C0… | LF9C000C, LF9C000a, LF9C001K, LF9C001P | LF9C000A, LF9C000b, LF9C000B, LF9C000E, LF9C000F, LF9C000L, LF9C000Q, LF9C000R, LF9C000Y, LF9C000Z, LF9C001D, LF9C001N, LF9C002B |
-| LF9C1… | LF9C100P | LF9C100R, LF9C101P |
-| LF9D0… | LF9D000d | LF9D000f, LF9D000i, LF9D000j, LF9D000k, LF9D000m, LF9D000n, LF9D001e, LF9D010g, LF9D010h, LF9D012h, LF9D030g, LF9D040h, LF9D050h |
-| LF9F0… | LF9F000R | LF9F000P, LF9F000Q, LF9F000U, LF9F000V, LF9F000W, LF9F000Y, LF9F000Z |
-| LV9N0… | LV9N000C | LV9N000A, LV9N001D, LV9N001E, LV9N002D, LV9N002E, LV9N002F, LV9N002I |
-| LV9N1… | LV9N100A, LV9N100B, LV9N100F, LV9N101C, LV9N101F, LV9N101I | LV9N100D, LV9N100E, LV9N100J, LV9N101D, LV9N101E, LV9N101G, LV9N101H |
-| LV9N3… | LV9N301A, LV9N302A, LV9N303J, LV9N340J | LV9N300E, LV9N300F, LV9N300H, LV9N300I, LV9N300L, LV9N301B, LV9N301E, LV9N301F, LV9N301J, LV9N301K, LV9N302B, LV9N302E, LV9N302F, LV9N302H, LV9N302J |
-
-## Same software family, a version I have no ROM of (23)
-
-These need a read and a port, like the supported ROMs of their family.
-
-| Version | IDs |
-|---|---|
-| LF751… | LF75100D |
-| LF755… | LF75500A, LF75500G |
-| LF756… | LF75600H, LF75600S |
-| LF760… | LF76000C |
-| LF761… | LF76100R |
-| LF762… | LF76200Q, LF76200R |
-| LF763… | LF76301Q, LF76301R |
-| LF782… | LF78200B |
-| LF9C2… | LF9C200B |
-| LF9C3… | LF9C300P |
-| LF9C4… | LF9C400P |
-| LF9D2… | LF9D200d |
-| LF9F2… | LF9F200P |
-| LV9N2… | LV9N200J, LV9N201J, LV9N202J |
-| LV9N6… | LV9N600M, LV9N601M, LV9N601N |
+| LF751… | 2.0 | LF75100D |
+| LF755… | 2.0 | LF75500A, LF75500G |
+| LF756… | 2.0 | LF75600H, LF75600S |
+| LF760… | 1.6 | LF76000C |
+| LF761… | 1.6 | LF76100R |
+| LF762… | 1.6 | LF76200Q, LF76200R |
+| LF763… | 1.6 | LF76301Q, LF76301R |
+| LF782… | 2.0 | LF78200B |
+| LF9C2… | 2.0 | LF9C200B |
+| LF9C3… | 2.0 | LF9C300P |
+| LF9C4… | 2.0 | LF9C400P |
+| LF9D2… | 1.6 | LF9D200d |
+| LF9F2… | 2.0 and 1.6 | LF9F200P |
+| LV9N2… | 2.0 and 1.6 | LV9N200J, LV9N201J, LV9N202J |
+| LV9N6… | 2.0 and 1.6 | LV9N600M, LV9N601M, LV9N601N |
 
 ## Other families (127)
 
 No supported ROM shares these prefixes. The AF5G, AF56, LF6A and LF61 ROMs I have seen (2013–2015 Forester XT) are
-from an older 1.5 MB ECU with different software, not covered here. LF9G is the 2020 WRX (2.5 MB); I only have an
+from an older 1.5 MB ECU (SH705x) with different software, not covered here. LF9G is the 2020 WRX (2.5 MB); I only have an
 incomplete read. I have not seen a ROM of the others.
 
 | Family | IDs |

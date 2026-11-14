@@ -120,7 +120,8 @@ same model year; flashing with a definition for another ID will corrupt the cali
 | ROM | Why |
 |---|---|
 | LF75300G (2016 WRX CVT), LF75300T (2015 WRX CVT), LV9N101D (2015 USDM WRX), LV9N002F (2014 Australian WRX) | The only copies I have are incomplete (1.5 MB) reads. A complete read would make them supportable quickly. |
-| Other 2015–2018 WRX and Forester XT calibrations (e.g. LF75403T, LF75404H, LF75403G, LF79103P, LF79102N, LF9C102P, LF9C002N, LF61803B, LF75403A, LF78106B, LF9C002B) | I don't have these ROMs. [Submit one](#submitting-a-rom) and I can add it. |
+| Other 2015–2018 WRX and Forester XT calibrations (e.g. LF75403T, LF75404H, LF75403G, LF79103P, LF79102N, LF9C102P, LF9C002N, LF75403A, LF78106B, LF9C002B) | I don't have these ROMs. [Submit one](#submitting-a-rom) and I can add it. |
+| 2013–2015 Forester XT with an AF5G…, AF56…, LF6A… or LF61… ID (e.g. LF61803B) | An older 1.5 MB ECU (SH705x) with different software; not covered by these definitions. |
 | 2019+ WRX (LF9D…, LF9G…) and other 2019+ calibrations | These ECUs have 2.5 MB of flash and a newer boot block, like the supported 2019 Levorg STI (LF9F000R), so a complete read makes them supportable. EcuFlash can open 2.5 MB files with its SH72544R memory model, but reading or writing these ECUs with it is untested (see [Reading your ECU](#reading-your-ecu)). FastECU can now read them in full (read only, not yet tested on a car) and PCMFlash may too; writing them isn't supported by an open tool yet. |
 | 2022+ WRX (FA24DIT) | Different engine and ECU generation; not started. |
 

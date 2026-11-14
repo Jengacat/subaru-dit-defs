@@ -4,6 +4,11 @@
 
 First public release.
 
+- New: **the speed limiter that the stock calibrations actually use**, in every definition (folder 04.02). It limits
+  the pedal request by vehicle speed (about 180 km/h on the JDM cars, 228–232 km/h on the USDM WRX): four
+  Vehicle Speed Limit (Pedal) tables, their minimum rpm, an rpm-based fallback for when the speed signal is lost, and
+  a Pedal Limits Disable switch. The fuel-cut Vehicle Speed Limit set, which is off in every stock ROM, is a separate
+  limiter. Tuning guide chapter 9 updated.
 - EcuFlash: the calibration switches (folder 11.02: EGR Enable, transmission coding and the rest) are on/off toggles
   instead of whole-byte numbers. Select the value and press Increment to flip one. In RomRaider they were already
   checkboxes; their descriptions no longer give the bit number.

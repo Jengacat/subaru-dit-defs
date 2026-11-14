@@ -159,6 +159,7 @@
  <scaling name="kPa uint16 #2" units="kPa" toexpr="x/256" frexpr="x*256" format="%0.1f" min="0" max="255.996" inc="0.5" storagetype="uint16" endian="big" />
  <scaling name="s uint8 #2" units="s" toexpr="x/100" frexpr="x*100" format="%0.2f" min="0" max="2.55" inc="0.01" storagetype="uint8" endian="big" />
  <scaling name="km/h uint8" units="km/h" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
+ <scaling name="% of pedal request uint8" units="% of pedal request" toexpr="x/2.55" frexpr="x*2.55" format="%0.0f" min="0" max="100" inc="1" storagetype="uint8" endian="big" />
  <scaling name="multiplier uint16 #4" units="multiplier" toexpr="x/16384" frexpr="x*16384" format="%0.3f" min="0" max="3.99994" inc="0.01" storagetype="uint16" endian="big" />
  <scaling name="% of unreduced torque uint8" units="% of unreduced torque" toexpr="x/2.56" frexpr="x*2.56" format="%0.1f" min="0" max="99.6094" inc="0.4" storagetype="uint8" endian="big" />
  <scaling name="% throttle uint16 #2" units="% throttle" toexpr="x/655.35" frexpr="x*655.35" format="%0.1f" min="0" max="100" inc="0.5" storagetype="uint16" endian="big" />
@@ -287,6 +288,10 @@
   <data name="off" value="00" />
   <data name="on" value="01" />
  </scaling>
+ <scaling name="Switch b7 f00" storagetype="bloblist">
+  <data name="off" value="00" />
+  <data name="on" value="80" />
+ </scaling>
  <scaling name="Switch on b6 mC0 f30" storagetype="bloblist">
   <data name="on [70]" value="70" />
   <data name="off [30]" value="30" />
@@ -302,10 +307,6 @@
   <data name="on [F0]" value="F0" />
   <data name="off [70]" value="70" />
   <data name="on [F0]+" value="F0" />
- </scaling>
- <scaling name="Switch b7 f00" storagetype="bloblist">
-  <data name="off" value="00" />
-  <data name="on" value="80" />
  </scaling>
  <scaling name="Switch on b5 m60 f00" storagetype="bloblist">
   <data name="on [20]" value="20" />
@@ -52863,11 +52864,44 @@ Drive mode 4 with AT/CVT Coding. Step2B of Path B, by gear x rpm (0-4000 rpm), b
  <table name="Vehicle Speed Limit Reset Maximum MAP Hysteresis" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="1D" level="3" scaling="kPa uint16 #2">
   <description>Hysteresis on Vehicle Speed Limit Reset Maximum MAP.</description>
  </table>
+ <table name="Pedal Limits Disable" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="1D" level="2" scaling="Switch b7 f00">
+  <description>On: the pedal speed limiter is skipped, with its speed-signal-fault fallback and two other pedal limits whose purpose is not decoded, so the pedal request is never cut back by them. On/off switch: select the value and press Increment ( ] ) to flip it.</description>
+ </table>
+ <table name="Vehicle Speed Limit (Pedal)" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="2D" level="2" scaling="% of pedal request uint8">
+  <table name="Speed" type="Y Axis" elements="4" scaling="km/h uint16" />
+  <description>The speed limiter in use: the share of the driver's pedal request allowed (100 % = no limit) by vehicle speed. It works above Vehicle Speed Limit (Pedal) Minimum RPM. The other three speed tables are variants for drive mode 3 (Intelligent) and for a VDC flag: to move or remove the limit, edit all four, or turn on Pedal Limits Disable. The fuel-cut Vehicle Speed Limit set is a separate limiter.</description>
+ </table>
+ <table name="Vehicle Speed Limit (Pedal, Drive Mode 3, Intelligent)" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="2D" level="3" scaling="% of pedal request uint8">
+  <table name="Speed" type="Y Axis" elements="4" scaling="km/h uint16" />
+  <description>As Vehicle Speed Limit (Pedal), in drive mode 3 (Intelligent). Edit it together with the other three.</description>
+ </table>
  <table name="Rev Limit Full Cut Speed Threshold" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="1D" level="3" scaling="km/h uint8">
   <description>Vehicle speed above which the rev-limit fuel cut uses the Stage 1 / Stage 2 rpm values instead of the Full Cut pair.</description>
  </table>
+ <table name="Vehicle Speed Limit (Pedal, VDC Flag)" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="2D" level="3" scaling="% of pedal request uint8">
+  <table name="Speed" type="Y Axis" elements="4" scaling="km/h uint16" />
+  <description>As Vehicle Speed Limit (Pedal), while a status flag from the VDC unit is set (its meaning is not decoded). Edit it together with the other three.</description>
+ </table>
+ <table name="Vehicle Speed Limit (Pedal, VDC Flag, Drive Mode 3, Intelligent)" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="2D" level="3" scaling="% of pedal request uint8">
+  <table name="Speed" type="Y Axis" elements="4" scaling="km/h uint16" />
+  <description>As Vehicle Speed Limit (Pedal, VDC Flag), in drive mode 3 (Intelligent). Edit it together with the other three.</description>
+ </table>
+ <table name="Vehicle Speed Limit (Pedal) Minimum RPM" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="1D" level="3" scaling="RPM uint16">
+  <description>Below this engine speed the pedal speed limit does not apply. Used with the two tables without the VDC flag.</description>
+ </table>
+ <table name="Vehicle Speed Limit (Pedal, VDC Flag) Minimum RPM" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="1D" level="3" scaling="RPM uint16">
+  <description>As Vehicle Speed Limit (Pedal) Minimum RPM, with the two VDC flag tables.</description>
+ </table>
+ <table name="Vehicle Speed Limit (Pedal) Speed Signal Fault RPM Limit" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="2D" level="4" scaling="% of pedal request uint8">
+  <table name="Engine Speed" type="Y Axis" elements="4" scaling="RPM uint16" />
+  <description>Takes over from the speed tables when the vehicle speed cannot be trusted (a speed sensor fault, or CAN messages from the transmission or VDC missing): the pedal request is then limited by engine speed. Leave it as it is unless you know you need to change it.</description>
+ </table>
  <table name="Rev Limit Full Cut Speed Threshold Hysteresis" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="1D" level="3" scaling="km/h uint8">
   <description>Extra speed needed above Rev Limit Full Cut Speed Threshold before the switch.</description>
+ </table>
+ <table name="Vehicle Speed Limit (Pedal, VDC Flag) Speed Signal Fault RPM Limit" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="2D" level="4" scaling="% of pedal request uint8">
+  <table name="Engine Speed" type="Y Axis" elements="4" scaling="RPM uint16" />
+  <description>As Vehicle Speed Limit (Pedal) Speed Signal Fault RPM Limit, while the VDC flag is set.</description>
  </table>
  <table name="Fail-Safe Rev Limit (Rail Pressure Fault)" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="1D" level="2" scaling="RPM uint16">
   <description>Rev limit used only while a fuel-rail pressure fault is active: above it fuel to all cylinders is cut.</description>

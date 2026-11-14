@@ -180,6 +180,8 @@ Every Beginner (level 1) and Intermediate (level 2) table, in the definition's f
 | **Vehicle Speed Limit Minimum RPM** | Intermediate | The speed limiter only starts at or above this engine speed. |
 | **Vehicle Speed Limit Full Cut Speed** | Intermediate | Speed at which the active speed limiter cuts fuel to all cylinders; without it the limiter does nothing. |
 | **Vehicle Speed Limit Offset** | Intermediate | Subtracted from Vehicle Speed Limit to give the speed where the limiter state starts; it is not a release hysteresis. |
+| **Pedal Limits Disable** | Intermediate | On: the pedal speed limiter is skipped, with its speed-signal-fault fallback and two other pedal limits whose purpose is not decoded, so the pedal request is never cut back by them. |
+| **Vehicle Speed Limit (Pedal)** | Intermediate | The speed limiter in use: the share of the driver's pedal request allowed (100 % = no limit) by vehicle speed. It works above Vehicle Speed Limit (Pedal) Minimum RPM. The other three speed tables are variants for drive mode 3 (Intelligent) and for a VDC flag: to move or remove the limit, edit all four, or turn on Pedal Limits Disable. The fuel-cut Vehicle Speed Limit set is a separate limiter. |
 | **Fail-Safe Rev Limit (Rail Pressure Fault)** | Intermediate | Rev limit used only while a fuel-rail pressure fault is active: above it fuel to all cylinders is cut. |
 | **Fail-Safe Rev Limit (Injector Driver Fault)** | Intermediate | Rev limit used only while an injector-driver fault has put the fuel system in its low-pressure fail-safe: above it fuel to all cylinders is cut. |
 

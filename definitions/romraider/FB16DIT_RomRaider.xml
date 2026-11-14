@@ -5554,15 +5554,73 @@ Knock-detection background step for event slot 4, frequency channel 8.</descript
    <scaling category="kPa" units="kPa" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <description>Hysteresis on Vehicle Speed Limit Reset Maximum MAP.</description>
   </table>
+  <table type="BitwiseSwitch" name="Pedal Limits Disable" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storageaddress="0x04eb7b" userlevel="2">
+   <bit position="7" name="Disabled" />
+   <description>On: the pedal speed limiter is skipped, with its speed-signal-fault fallback and two other pedal limits whose purpose is not decoded, so the pedal request is never cut back by them.</description>
+  </table>
+  <table type="2D" name="Vehicle Speed Limit (Pedal)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint8" endian="big" sizey="4" userlevel="2" storageaddress="0x04f0ca">
+   <scaling units="% of pedal request" expression="x/2.55" to_byte="x*2.55" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Speed" storagetype="uint16" endian="big" storageaddress="0x04f0ce">
+    <scaling category="Default" units="km/h" expression="x*0.05625" to_byte="x/0.05625" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling category="mph" units="mph" expression="x*0.05625*0.621371" to_byte="x/0.05625/0.621371" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>The speed limiter in use: the share of the driver's pedal request allowed (100 % = no limit) by vehicle speed. It works above Vehicle Speed Limit (Pedal) Minimum RPM. The other three speed tables are variants for drive mode 3 (Intelligent) and for a VDC flag: to move or remove the limit, edit all four, or turn on Pedal Limits Disable. The fuel-cut Vehicle Speed Limit set is a separate limiter.</description>
+  </table>
+  <table type="2D" name="Vehicle Speed Limit (Pedal, Drive Mode 3, Intelligent)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint8" endian="big" sizey="4" userlevel="3" storageaddress="0x04f0be">
+   <scaling units="% of pedal request" expression="x/2.55" to_byte="x*2.55" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Speed" storagetype="uint16" endian="big" storageaddress="0x04f0c2">
+    <scaling category="Default" units="km/h" expression="x*0.05625" to_byte="x/0.05625" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling category="mph" units="mph" expression="x*0.05625*0.621371" to_byte="x/0.05625/0.621371" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>As Vehicle Speed Limit (Pedal), in drive mode 3 (Intelligent). Edit it together with the other three.</description>
+  </table>
   <table type="1D" name="Rev Limit Full Cut Speed Threshold" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint8" endian="big" userlevel="3" storageaddress="0x01b82e">
    <scaling category="Default" units="km/h" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <scaling category="mph" units="mph" expression="x*0.621371" to_byte="x/0.621371" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Vehicle speed above which the rev-limit fuel cut uses the Stage 1 / Stage 2 rpm values instead of the Full Cut pair.</description>
   </table>
+  <table type="2D" name="Vehicle Speed Limit (Pedal, VDC Flag)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint8" endian="big" sizey="4" userlevel="3" storageaddress="0x04f0e2">
+   <scaling units="% of pedal request" expression="x/2.55" to_byte="x*2.55" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Speed" storagetype="uint16" endian="big" storageaddress="0x04f0e6">
+    <scaling category="Default" units="km/h" expression="x*0.05625" to_byte="x/0.05625" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling category="mph" units="mph" expression="x*0.05625*0.621371" to_byte="x/0.05625/0.621371" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>As Vehicle Speed Limit (Pedal), while a status flag from the VDC unit is set (its meaning is not decoded). Edit it together with the other three.</description>
+  </table>
+  <table type="2D" name="Vehicle Speed Limit (Pedal, VDC Flag, Drive Mode 3, Intelligent)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint8" endian="big" sizey="4" userlevel="3" storageaddress="0x04f0d6">
+   <scaling units="% of pedal request" expression="x/2.55" to_byte="x*2.55" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Speed" storagetype="uint16" endian="big" storageaddress="0x04f0da">
+    <scaling category="Default" units="km/h" expression="x*0.05625" to_byte="x/0.05625" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling category="mph" units="mph" expression="x*0.05625*0.621371" to_byte="x/0.05625/0.621371" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>As Vehicle Speed Limit (Pedal, VDC Flag), in drive mode 3 (Intelligent). Edit it together with the other three.</description>
+  </table>
+  <table type="1D" name="Vehicle Speed Limit (Pedal) Minimum RPM" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x04f042">
+   <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   <description>Below this engine speed the pedal speed limit does not apply. Used with the two tables without the VDC flag.</description>
+  </table>
+  <table type="1D" name="Vehicle Speed Limit (Pedal, VDC Flag) Minimum RPM" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x04f044">
+   <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   <description>As Vehicle Speed Limit (Pedal) Minimum RPM, with the two VDC flag tables.</description>
+  </table>
+  <table type="2D" name="Vehicle Speed Limit (Pedal) Speed Signal Fault RPM Limit" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint8" endian="big" sizey="4" userlevel="4" storageaddress="0x04f0a6">
+   <scaling units="% of pedal request" expression="x/2.55" to_byte="x*2.55" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x04f0aa">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Takes over from the speed tables when the vehicle speed cannot be trusted (a speed sensor fault, or CAN messages from the transmission or VDC missing): the pedal request is then limited by engine speed. Leave it as it is unless you know you need to change it.</description>
+  </table>
   <table type="1D" name="Rev Limit Full Cut Speed Threshold Hysteresis" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint8" endian="big" userlevel="3" storageaddress="0x01b82f">
    <scaling category="Default" units="km/h" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <scaling category="mph" units="mph" expression="x*0.621371" to_byte="x/0.621371" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Extra speed needed above Rev Limit Full Cut Speed Threshold before the switch.</description>
+  </table>
+  <table type="2D" name="Vehicle Speed Limit (Pedal, VDC Flag) Speed Signal Fault RPM Limit" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint8" endian="big" sizey="4" userlevel="4" storageaddress="0x04f0b2">
+   <scaling units="% of pedal request" expression="x/2.55" to_byte="x*2.55" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x04f0b6">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>As Vehicle Speed Limit (Pedal) Speed Signal Fault RPM Limit, while the VDC flag is set.</description>
   </table>
   <table type="1D" name="Fail-Safe Rev Limit (Rail Pressure Fault)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" userlevel="2" storageaddress="0x0107d0">
    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
@@ -18913,8 +18971,29 @@ Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B0
   <table name="Vehicle Speed Limit Offset" storageaddress="0x01dcc2" />
   <table name="Vehicle Speed Limit Reset Maximum MAP" storageaddress="0x01dcce" />
   <table name="Vehicle Speed Limit Reset Maximum MAP Hysteresis" storageaddress="0x01dcd0" />
+  <table name="Pedal Limits Disable" storageaddress="0x057aff" />
+  <table name="Vehicle Speed Limit (Pedal)" storageaddress="0x058066">
+   <table type="Y Axis" storageaddress="0x05806a" />
+  </table>
+  <table name="Vehicle Speed Limit (Pedal, Drive Mode 3, Intelligent)" storageaddress="0x05805a">
+   <table type="Y Axis" storageaddress="0x05805e" />
+  </table>
   <table name="Rev Limit Full Cut Speed Threshold" storageaddress="0x01dcca" />
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag)" storageaddress="0x05807e">
+   <table type="Y Axis" storageaddress="0x058082" />
+  </table>
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag, Drive Mode 3, Intelligent)" storageaddress="0x058072">
+   <table type="Y Axis" storageaddress="0x058076" />
+  </table>
+  <table name="Vehicle Speed Limit (Pedal) Minimum RPM" storageaddress="0x057fde" />
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag) Minimum RPM" storageaddress="0x057fe0" />
+  <table name="Vehicle Speed Limit (Pedal) Speed Signal Fault RPM Limit" storageaddress="0x058042">
+   <table type="Y Axis" storageaddress="0x058046" />
+  </table>
   <table name="Rev Limit Full Cut Speed Threshold Hysteresis" storageaddress="0x01dccb" />
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag) Speed Signal Fault RPM Limit" storageaddress="0x05804e">
+   <table type="Y Axis" storageaddress="0x058052" />
+  </table>
   <table name="Limit-State Spark: Normal Target in Speed Limit" storageaddress="0x023f5a" />
   <table name="Limit-State Spark: Normal Target in Rev/Overboost Cut" storageaddress="0x023f5a" />
   <table name="External Torque Limit Baro Factor" storageaddress="0x020cb4">
@@ -25754,8 +25833,29 @@ Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B0
   <table name="Vehicle Speed Limit Offset" storageaddress="0x0243d2" />
   <table name="Vehicle Speed Limit Reset Maximum MAP" storageaddress="0x0243de" />
   <table name="Vehicle Speed Limit Reset Maximum MAP Hysteresis" storageaddress="0x0243e0" />
+  <table name="Pedal Limits Disable" storageaddress="0x062603" />
+  <table name="Vehicle Speed Limit (Pedal)" storageaddress="0x062b6a">
+   <table type="Y Axis" storageaddress="0x062b6e" />
+  </table>
+  <table name="Vehicle Speed Limit (Pedal, Drive Mode 3, Intelligent)" storageaddress="0x062b5e">
+   <table type="Y Axis" storageaddress="0x062b62" />
+  </table>
   <table name="Rev Limit Full Cut Speed Threshold" storageaddress="0x0243da" />
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag)" storageaddress="0x062b82">
+   <table type="Y Axis" storageaddress="0x062b86" />
+  </table>
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag, Drive Mode 3, Intelligent)" storageaddress="0x062b76">
+   <table type="Y Axis" storageaddress="0x062b7a" />
+  </table>
+  <table name="Vehicle Speed Limit (Pedal) Minimum RPM" storageaddress="0x062ae2" />
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag) Minimum RPM" storageaddress="0x062ae4" />
+  <table name="Vehicle Speed Limit (Pedal) Speed Signal Fault RPM Limit" storageaddress="0x062b46">
+   <table type="Y Axis" storageaddress="0x062b4a" />
+  </table>
   <table name="Rev Limit Full Cut Speed Threshold Hysteresis" storageaddress="0x0243db" />
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag) Speed Signal Fault RPM Limit" storageaddress="0x062b52">
+   <table type="Y Axis" storageaddress="0x062b56" />
+  </table>
   <table name="Limit-State Spark: Normal Target in Speed Limit" storageaddress="0x02aaaa" />
   <table name="Limit-State Spark: Normal Target in Rev/Overboost Cut" storageaddress="0x02aaaa" />
   <table name="External Torque Limit Baro Factor" storageaddress="0x0273c4">
@@ -32924,8 +33024,29 @@ Details: Feedback knock correction (0x0E2BE4, read): FFF8A79A is an s8 integrato
   <table name="Vehicle Speed Limit Offset" storageaddress="0x024412" />
   <table name="Vehicle Speed Limit Reset Maximum MAP" storageaddress="0x02441e" />
   <table name="Vehicle Speed Limit Reset Maximum MAP Hysteresis" storageaddress="0x024420" />
+  <table name="Pedal Limits Disable" storageaddress="0x060b6f" />
+  <table name="Vehicle Speed Limit (Pedal)" storageaddress="0x0610d6">
+   <table type="Y Axis" storageaddress="0x0610da" />
+  </table>
+  <table name="Vehicle Speed Limit (Pedal, Drive Mode 3, Intelligent)" storageaddress="0x0610ca">
+   <table type="Y Axis" storageaddress="0x0610ce" />
+  </table>
   <table name="Rev Limit Full Cut Speed Threshold" storageaddress="0x02441a" />
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag)" storageaddress="0x0610ee">
+   <table type="Y Axis" storageaddress="0x0610f2" />
+  </table>
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag, Drive Mode 3, Intelligent)" storageaddress="0x0610e2">
+   <table type="Y Axis" storageaddress="0x0610e6" />
+  </table>
+  <table name="Vehicle Speed Limit (Pedal) Minimum RPM" storageaddress="0x06104e" />
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag) Minimum RPM" storageaddress="0x061050" />
+  <table name="Vehicle Speed Limit (Pedal) Speed Signal Fault RPM Limit" storageaddress="0x0610b2">
+   <table type="Y Axis" storageaddress="0x0610b6" />
+  </table>
   <table name="Rev Limit Full Cut Speed Threshold Hysteresis" storageaddress="0x02441b" />
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag) Speed Signal Fault RPM Limit" storageaddress="0x0610be">
+   <table type="Y Axis" storageaddress="0x0610c2" />
+  </table>
   <table name="Limit-State Spark: Normal Target in Speed Limit" storageaddress="0x02ac62" />
   <table name="Limit-State Spark: Normal Target in Rev/Overboost Cut" storageaddress="0x02ac62" />
   <table name="External Torque Limit Baro Factor" storageaddress="0x027404">
@@ -40089,8 +40210,29 @@ Details: Feedback knock correction (0x0E2BE4, read): FFF8A79A is an s8 integrato
   <table name="Vehicle Speed Limit Offset" storageaddress="0x02579e" />
   <table name="Vehicle Speed Limit Reset Maximum MAP" storageaddress="0x0257aa" />
   <table name="Vehicle Speed Limit Reset Maximum MAP Hysteresis" storageaddress="0x0257ac" />
+  <table name="Pedal Limits Disable" storageaddress="0x06282f" />
+  <table name="Vehicle Speed Limit (Pedal)" storageaddress="0x062d96">
+   <table type="Y Axis" storageaddress="0x062d9a" />
+  </table>
+  <table name="Vehicle Speed Limit (Pedal, Drive Mode 3, Intelligent)" storageaddress="0x062d8a">
+   <table type="Y Axis" storageaddress="0x062d8e" />
+  </table>
   <table name="Rev Limit Full Cut Speed Threshold" storageaddress="0x0257a6" />
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag)" storageaddress="0x062dae">
+   <table type="Y Axis" storageaddress="0x062db2" />
+  </table>
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag, Drive Mode 3, Intelligent)" storageaddress="0x062da2">
+   <table type="Y Axis" storageaddress="0x062da6" />
+  </table>
+  <table name="Vehicle Speed Limit (Pedal) Minimum RPM" storageaddress="0x062d0e" />
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag) Minimum RPM" storageaddress="0x062d10" />
+  <table name="Vehicle Speed Limit (Pedal) Speed Signal Fault RPM Limit" storageaddress="0x062d72">
+   <table type="Y Axis" storageaddress="0x062d76" />
+  </table>
   <table name="Rev Limit Full Cut Speed Threshold Hysteresis" storageaddress="0x0257a7" />
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag) Speed Signal Fault RPM Limit" storageaddress="0x062d7e">
+   <table type="Y Axis" storageaddress="0x062d82" />
+  </table>
   <table name="Limit-State Spark: Normal Target in Speed Limit" storageaddress="0x02c162" />
   <table name="Limit-State Spark: Normal Target in Rev/Overboost Cut" storageaddress="0x02c162" />
   <table name="External Torque Limit Baro Factor" storageaddress="0x028790">
@@ -47227,8 +47369,29 @@ Details: Feedback knock correction (0x0E2BE4, read): FFF8A79A is an s8 integrato
   <table name="Vehicle Speed Limit Offset" storageaddress="0x0259fe" />
   <table name="Vehicle Speed Limit Reset Maximum MAP" storageaddress="0x025a0a" />
   <table name="Vehicle Speed Limit Reset Maximum MAP Hysteresis" storageaddress="0x025a0c" />
+  <table name="Pedal Limits Disable" storageaddress="0x065d37" />
+  <table name="Vehicle Speed Limit (Pedal)" storageaddress="0x06629e">
+   <table type="Y Axis" storageaddress="0x0662a2" />
+  </table>
+  <table name="Vehicle Speed Limit (Pedal, Drive Mode 3, Intelligent)" storageaddress="0x066292">
+   <table type="Y Axis" storageaddress="0x066296" />
+  </table>
   <table name="Rev Limit Full Cut Speed Threshold" storageaddress="0x025a06" />
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag)" storageaddress="0x0662b6">
+   <table type="Y Axis" storageaddress="0x0662ba" />
+  </table>
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag, Drive Mode 3, Intelligent)" storageaddress="0x0662aa">
+   <table type="Y Axis" storageaddress="0x0662ae" />
+  </table>
+  <table name="Vehicle Speed Limit (Pedal) Minimum RPM" storageaddress="0x066216" />
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag) Minimum RPM" storageaddress="0x066218" />
+  <table name="Vehicle Speed Limit (Pedal) Speed Signal Fault RPM Limit" storageaddress="0x06627a">
+   <table type="Y Axis" storageaddress="0x06627e" />
+  </table>
   <table name="Rev Limit Full Cut Speed Threshold Hysteresis" storageaddress="0x025a07" />
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag) Speed Signal Fault RPM Limit" storageaddress="0x066286">
+   <table type="Y Axis" storageaddress="0x06628a" />
+  </table>
   <table name="Limit-State Spark: Normal Target in Speed Limit" storageaddress="0x02c3c2" />
   <table name="Limit-State Spark: Normal Target in Rev/Overboost Cut" storageaddress="0x02c3c2" />
   <table name="External Torque Limit Baro Factor" storageaddress="0x0289f0">

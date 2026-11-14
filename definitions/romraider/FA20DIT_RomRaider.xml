@@ -5681,7 +5681,7 @@ Drive mode 4 with AT/CVT Coding. Step2B of Path B, by gear x rpm (0-4000 rpm), b
   </table>
   <table type="BitwiseSwitch" name="Rev/Boost Limit Torque Caps Enable" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storageaddress="0x023cea" userlevel="3">
    <bit position="0" name="Enabled" />
-   <description>Lets the rev limiter and overboost cut close the throttle (the Rev/Boost Limit Torque tables). Bit 0 (value 1).</description>
+   <description>Lets the rev limiter and overboost cut close the throttle (the Rev/Boost Limit Torque tables).</description>
   </table>
   <table type="1D" name="Overboost Margin" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" userlevel="2" storageaddress="0x01def4">
    <scaling category="Default" units="psi" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
@@ -5776,11 +5776,11 @@ Details: When used: only while FFF88F4A bit 2 is set. Otherwise as Fail-Safe Rev
   </table>
   <table type="BitwiseSwitch" name="Limit-State Spark: Normal Target in Speed Limit" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storageaddress="0x0239ae" userlevel="4">
    <bit position="6" name="Normal target" />
-   <description>Keeps normal spark timing during the vehicle-speed limiter. Bit 6 (value 64).</description>
+   <description>Keeps normal spark timing during the vehicle-speed limiter.</description>
   </table>
   <table type="BitwiseSwitch" name="Limit-State Spark: Normal Target in Rev/Overboost Cut" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storageaddress="0x0239ae" userlevel="4">
    <bit position="7" name="Normal target" />
-   <description>Keeps normal spark timing during the rev limiter and overboost cut instead of retarding it. Bit 7 (value 128).</description>
+   <description>Keeps normal spark timing during the rev limiter and overboost cut instead of retarding it.</description>
   </table>
   <table type="2D" name="External Torque Limit Baro Factor" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x020ed4">
    <scaling units="multiplier" expression="x/16384" to_byte="x*16384" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
@@ -10345,7 +10345,7 @@ With cal 0x1D0AE bit 0 set, 0x0F70B4 (read) sets B270 = 0 below FFF88B8F 68 (54 
   </table>
   <table type="BitwiseSwitch" name="Barometric Sensor Enable" category="Sensors" storageaddress="0x01d0bd" userlevel="4">
    <bit position="7" name="Enabled" />
-   <description>When set, the ECU uses its barometric pressure sensor. When cleared, it assumes sea-level pressure (101.3 kPa) everywhere, so altitude compensation stops working. Bit 7 (value 128).</description>
+   <description>When set, the ECU uses its barometric pressure sensor. When cleared, it assumes sea-level pressure (101.3 kPa) everywhere, so altitude compensation stops working.</description>
   </table>
   <table type="1D" name="P0088 Rail Pressure High Limit" category="Diagnostics &amp; Switches//Monitor Thresholds" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x0574dc">
    <scaling category="Default" units="psi" expression="x*0.0884730" to_byte="x/0.0884730" format="0" fineincrement="25" coarseincrement="100.0" />
@@ -10406,43 +10406,43 @@ With cal 0x1D0AE bit 0 set, 0x0F70B4 (read) sets B270 = 0 below FFF88B8F 68 (54 
   </table>
   <table type="BitwiseSwitch" name="EGR Enable" category="Diagnostics &amp; Switches//Calibration Switches" storageaddress="0x02f796" userlevel="4">
    <bit position="5" name="Enabled" />
-   <description>Master switch for EGR. Clearing it is expected to keep EGR off, so the EGR-off variants of base timing, closed loop target and throttle tables become the live ones (inferred). Bit 5 (value 32).</description>
+   <description>Master switch for EGR. Clearing it is expected to keep EGR off, so the EGR-off variants of base timing, closed loop target and throttle tables become the live ones (inferred).</description>
   </table>
   <table type="BitwiseSwitch" name="Transmission Coding: Automatic/CVT" category="Diagnostics &amp; Switches//Calibration Switches" storageaddress="0x02f794" userlevel="4">
    <bit position="1" name="Automatic/CVT" />
-   <description>Tells the ECU whether it is in a manual or an AT/CVT car (clear = manual in every manual image). It decides gear calculation, the gear torque limits and whether the AT/CVT Coding table variants are used. Do not change on a manual car. Bit 1 (value 2).</description>
+   <description>Tells the ECU whether it is in a manual or an AT/CVT car (clear = manual in every manual image). It decides gear calculation, the gear torque limits and whether the AT/CVT Coding table variants are used. Do not change on a manual car.</description>
   </table>
   <table type="BitwiseSwitch" name="Transmission Coding: From Input Port" category="Diagnostics &amp; Switches//Calibration Switches" storageaddress="0x02f796" userlevel="4">
    <bit position="6" name="From input port" />
-   <description>When set, the manual/automatic coding is read from a hardware input instead of Transmission Coding: Automatic/CVT. Bit 6 (value 64).</description>
+   <description>When set, the manual/automatic coding is read from a hardware input instead of Transmission Coding: Automatic/CVT.</description>
   </table>
   <table type="BitwiseSwitch" name="Target Torque Rise: Enable Path B" category="Diagnostics &amp; Switches//Calibration Switches" storageaddress="0x023704" userlevel="4">
    <bit position="6" name="Path B enabled" />
-   <description>Enables the second (Path B) tip-in torque shaping. Leave clear unless you calibrate the whole Path B set. Bit 6 (value 64).</description>
+   <description>Enables the second (Path B) tip-in torque shaping. Leave clear unless you calibrate the whole Path B set.</description>
   </table>
   <table type="BitwiseSwitch" name="Open Loop Fueling: Use Alternate Map" category="Diagnostics &amp; Switches//Calibration Switches" storageaddress="0x02f79a" userlevel="4">
    <bit position="4" name="Alternate map" />
-   <description>When set, Primary Open Loop Fueling (Alternate) probably replaces the normal open loop fueling strategy. Bit 4 (value 16).</description>
+   <description>When set, Primary Open Loop Fueling (Alternate) probably replaces the normal open loop fueling strategy.</description>
   </table>
   <table type="BitwiseSwitch" name="VE: Use AVCS-Not-Ready Table" category="Diagnostics &amp; Switches//Calibration Switches" storageaddress="0x02c4d0" userlevel="4">
    <bit position="0" name="Enabled" />
-   <description>When set, Volumetric Efficiency (AVCS Not Ready) is used while the cams are probably not yet under control. Bit 0 (value 1).</description>
+   <description>When set, Volumetric Efficiency (AVCS Not Ready) is used while the cams are probably not yet under control.</description>
   </table>
   <table type="BitwiseSwitch" name="Base Timing: Pedal-Released Tables Enable" category="Diagnostics &amp; Switches//Calibration Switches" storageaddress="0x01071e" userlevel="4">
    <bit position="0" name="Enabled" />
-   <description>Clear it to use the normal base timing tables off-throttle too. Bit 0 (value 1).</description>
+   <description>Clear it to use the normal base timing tables off-throttle too.</description>
   </table>
   <table type="BitwiseSwitch" name="Multi-Injection Allowed During High-Pedal Latch 1" category="Diagnostics &amp; Switches//Calibration Switches" storageaddress="0x02996d" userlevel="4">
    <bit position="0" name="Allowed" />
-   <description>Allows double/triple injection while one of the high-pedal latches is set. Bit 0 (value 1).</description>
+   <description>Allows double/triple injection while one of the high-pedal latches is set.</description>
   </table>
   <table type="BitwiseSwitch" name="Multi-Injection Allowed During High-Pedal Latch 2" category="Diagnostics &amp; Switches//Calibration Switches" storageaddress="0x02996d" userlevel="4">
    <bit position="1" name="Allowed" />
-   <description>Allows double/triple injection while a second high-pedal latch is set. Bit 1 (value 2).</description>
+   <description>Allows double/triple injection while a second high-pedal latch is set.</description>
   </table>
   <table type="BitwiseSwitch" name="Multi-Injection Allowed During High-Pedal Latch 3" category="Diagnostics &amp; Switches//Calibration Switches" storageaddress="0x02996d" userlevel="4">
    <bit position="2" name="Allowed" />
-   <description>Allows double/triple injection while a third high-pedal latch is set. Bit 2 (value 4).</description>
+   <description>Allows double/triple injection while a third high-pedal latch is set.</description>
   </table>
  </rom>
  <rom base="FA20DIT_BASE">

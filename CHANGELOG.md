@@ -4,6 +4,9 @@
 
 First public release.
 
+- EcuFlash: the calibration switches (folder 11.02: EGR Enable, transmission coding and the rest) are on/off toggles
+  instead of whole-byte numbers. Select the value and press Increment to flip one. In RomRaider they were already
+  checkboxes; their descriptions no longer give the bit number.
 - New: **2017 Australian Forester XT (LF78002H)**: RomRaider and EcuFlash definitions (1,202 entries, 227 DTCs),
   logging patch and CAN dictionary. It runs nearly the same code as the Forester tS (LF78001H) but is a separate build,
   so it has its own definition.

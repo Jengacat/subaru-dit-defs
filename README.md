@@ -170,7 +170,8 @@ options (gear icon) → User Level.
 
 Each DTC has two tables next to each other, in code order: the code itself (enabled or not) and `[Fail-Safe]`
 (whether it triggers fail-safe). To flip one, select its value and press **Increment ( `]` ) once**; don't use
-Decrement. The [EcuFlash README](definitions/ecuflash/README.md) explains why.
+Decrement. The calibration switches (folder 11.02, EGR Enable and the like) show as on/off and flip the same way.
+The [EcuFlash README](definitions/ecuflash/README.md) explains why.
 
 ### Fix the checksum before every flash
 

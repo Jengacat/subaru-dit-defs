@@ -156,7 +156,6 @@
  <scaling name="ft-lb per 10 ms uint16" units="ft-lb per 10 ms" toexpr="(x/80-200)*0.7375621" frexpr="((x/0.7375621)+200)*80" format="%0.2f" min="-147.512" max="456.689" inc="0.05" storagetype="uint16" endian="big" />
  <scaling name="multiplier uint16 #3" units="multiplier" toexpr="x/255" frexpr="x*255" format="%0.2f" min="0" max="257" inc="0.01" storagetype="uint16" endian="big" />
  <scaling name="degrees F (difference) uint16" units="degrees F (difference)" toexpr="(x/409.6-40)*1.8" frexpr="(x/1.8+40)*409.6" format="%0.0f" min="-72" max="215.996" inc="2" storagetype="uint16" endian="big" />
- <scaling name="bits uint8" units="bits" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
  <scaling name="psi uint16 #3" units="psi" toexpr="x/256*0.1450377" frexpr="x/0.1450377*256" format="%0.2f" min="0" max="37.1291" inc="0.1" storagetype="uint16" endian="big" />
  <scaling name="s uint8 #2" units="s" toexpr="x/100" frexpr="x*100" format="%0.2f" min="0" max="2.55" inc="0.01" storagetype="uint8" endian="big" />
  <scaling name="mph uint8" units="mph" toexpr="x*0.621371" frexpr="x/0.621371" format="%0.0f" min="0" max="158.45" inc="1" storagetype="uint8" endian="big" />
@@ -286,6 +285,100 @@
  <scaling name="psi per V uint8" units="psi per V" toexpr="x*9.05965" frexpr="x/9.05965" format="%0.0f" min="0" max="2310.21" inc="50" storagetype="uint8" endian="big" />
  <scaling name="lambda per pass uint32" units="lambda per pass" toexpr="x/8192" frexpr="x*8192" format="%0.4f" min="0" max="524288" inc="0.001" storagetype="uint32" endian="big" />
  <scaling name="crank roughness (raw) uint16" units="crank roughness (raw)" toexpr="x" frexpr="x" format="%0.0f" min="0" max="65535" inc="10" storagetype="uint16" endian="big" />
+ <scaling name="Switch b0 f00" storagetype="bloblist">
+  <data name="off" value="00" />
+  <data name="on" value="01" />
+ </scaling>
+ <scaling name="Switch on b6 mC0 f30" storagetype="bloblist">
+  <data name="on [70]" value="70" />
+  <data name="off [30]" value="30" />
+  <data name="on [70]+" value="70" />
+  <data name="on [F0]" value="F0" />
+  <data name="off [B0]" value="B0" />
+  <data name="on [F0]+" value="F0" />
+ </scaling>
+ <scaling name="Switch on b7 mC0 f30" storagetype="bloblist">
+  <data name="on [B0]" value="B0" />
+  <data name="off [30]" value="30" />
+  <data name="on [B0]+" value="B0" />
+  <data name="on [F0]" value="F0" />
+  <data name="off [70]" value="70" />
+  <data name="on [F0]+" value="F0" />
+ </scaling>
+ <scaling name="Switch b7 f00" storagetype="bloblist">
+  <data name="off" value="00" />
+  <data name="on" value="80" />
+ </scaling>
+ <scaling name="Switch on b5 m60 f00" storagetype="bloblist">
+  <data name="on [20]" value="20" />
+  <data name="off [00]" value="00" />
+  <data name="on [20]+" value="20" />
+  <data name="on [60]" value="60" />
+  <data name="off [40]" value="40" />
+  <data name="on [60]+" value="60" />
+ </scaling>
+ <scaling name="Switch b1 fF9" storagetype="bloblist">
+  <data name="off" value="F9" />
+  <data name="on" value="FB" />
+ </scaling>
+ <scaling name="Switch on b6 m60 f00" storagetype="bloblist">
+  <data name="on [40]" value="40" />
+  <data name="off [00]" value="00" />
+  <data name="on [40]+" value="40" />
+  <data name="on [60]" value="60" />
+  <data name="off [20]" value="20" />
+  <data name="on [60]+" value="60" />
+ </scaling>
+ <scaling name="Switch b6 f01" storagetype="bloblist">
+  <data name="off" value="01" />
+  <data name="on" value="41" />
+ </scaling>
+ <scaling name="Switch b4 f8F" storagetype="bloblist">
+  <data name="off" value="8F" />
+  <data name="on" value="9F" />
+ </scaling>
+ <scaling name="Switch on b0 m07 fE0" storagetype="bloblist">
+  <data name="on [E1]" value="E1" />
+  <data name="off [E0]" value="E0" />
+  <data name="on [E1]+" value="E1" />
+  <data name="on [E3]" value="E3" />
+  <data name="off [E2]" value="E2" />
+  <data name="on [E3]+" value="E3" />
+  <data name="on [E5]" value="E5" />
+  <data name="off [E4]" value="E4" />
+  <data name="on [E5]+" value="E5" />
+  <data name="on [E7]" value="E7" />
+  <data name="off [E6]" value="E6" />
+  <data name="on [E7]+" value="E7" />
+ </scaling>
+ <scaling name="Switch on b1 m07 fE0" storagetype="bloblist">
+  <data name="on [E2]" value="E2" />
+  <data name="off [E0]" value="E0" />
+  <data name="on [E2]+" value="E2" />
+  <data name="on [E3]" value="E3" />
+  <data name="off [E1]" value="E1" />
+  <data name="on [E3]+" value="E3" />
+  <data name="on [E6]" value="E6" />
+  <data name="off [E4]" value="E4" />
+  <data name="on [E6]+" value="E6" />
+  <data name="on [E7]" value="E7" />
+  <data name="off [E5]" value="E5" />
+  <data name="on [E7]+" value="E7" />
+ </scaling>
+ <scaling name="Switch on b2 m07 fE0" storagetype="bloblist">
+  <data name="on [E4]" value="E4" />
+  <data name="off [E0]" value="E0" />
+  <data name="on [E4]+" value="E4" />
+  <data name="on [E5]" value="E5" />
+  <data name="off [E1]" value="E1" />
+  <data name="on [E5]+" value="E5" />
+  <data name="on [E6]" value="E6" />
+  <data name="off [E2]" value="E2" />
+  <data name="on [E6]+" value="E6" />
+  <data name="on [E7]" value="E7" />
+  <data name="off [E3]" value="E3" />
+  <data name="on [E7]+" value="E7" />
+ </scaling>
  <scaling name="DTC enabled b0 m6F f00" storagetype="bloblist">
   <data name="enabled [01]" value="01" />
   <data name="disabled [00]" value="00" />
@@ -38242,6 +38335,7 @@
   <data name="no [08]" value="08" />
   <data name="yes [0C]+" value="0C" />
  </scaling>
+ <scaling name="bits uint8" units="bits" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
  <scaling name="DTC enabled b0 mFF f00 sCE" storagetype="bloblist">
   <data name="enabled [CF]" value="CF" />
   <data name="disabled [CE]" value="CE" />
@@ -45031,6 +45125,10 @@
   <data name="enabled [3F]" value="3F" />
   <data name="disabled [1F]" value="1F" />
   <data name="enabled [3F]+" value="3F" />
+ </scaling>
+ <scaling name="Switch b1 fFD" storagetype="bloblist">
+  <data name="off" value="FD" />
+  <data name="on" value="FF" />
  </scaling>
  <scaling name="DTC enabled b3 m99 f00" storagetype="bloblist">
   <data name="enabled [08]" value="08" />
@@ -52728,8 +52826,8 @@ Drive mode 4 with AT/CVT Coding. Step2B of Path B, by gear x rpm (0-4000 rpm), b
  <table name="Rev/Boost Limit Torque Stage 2 Hold MAP" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="1D" level="2" scaling="psi (gauge) uint16">
   <description>Stage 2 throttle cap stays on while manifold pressure is above this.</description>
  </table>
- <table name="Rev/Boost Limit Torque Caps Enable [byte, bit 0 = 1]" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="1D" level="3" scaling="bits uint8">
-  <description>Bit 0 of this byte (value 1) is the switch: add 1 to set it, subtract 1 to clear it; leave the other bits as they are. Lets the rev limiter and overboost cut close the throttle (the Rev/Boost Limit Torque tables). Bit 0 (value 1).</description>
+ <table name="Rev/Boost Limit Torque Caps Enable" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="1D" level="3" scaling="Switch b0 f00">
+  <description>Lets the rev limiter and overboost cut close the throttle (the Rev/Boost Limit Torque tables). On/off switch: select the value and press Increment ( ] ) to flip it.</description>
  </table>
  <table name="Overboost Margin" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="1D" level="2" scaling="psi uint16 #3">
   <description>How far above Overboost Limit boost must be before overboost time is counted toward the overboost flag, which makes the overboost cut a full fuel cut.</description>
@@ -52790,11 +52888,11 @@ Details: When used: only while FFF88F4A bit 2 is set. Otherwise as Fail-Safe Rev
  <table name="Fail-Safe Rev Limit Minimum Above Idle Target" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="1D" level="3" scaling="RPM uint16">
   <description>A fail-safe rev limit is never set lower than the idle target plus this.</description>
  </table>
- <table name="Limit-State Spark: Normal Target in Speed Limit [byte, bit 6 = 64]" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="1D" level="4" scaling="bits uint8">
-  <description>Bit 6 of this byte (value 64) is the switch: add 64 to set it, subtract 64 to clear it; leave the other bits as they are. Keeps normal spark timing during the vehicle-speed limiter. Bit 6 (value 64).</description>
+ <table name="Limit-State Spark: Normal Target in Speed Limit" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="1D" level="4" scaling="Switch on b6 mC0 f30">
+  <description>Keeps normal spark timing during the vehicle-speed limiter. On/off switch: select the value and press Increment ( ] ) to flip it; do not use Decrement. [XX] is the whole byte, which it shares with other switches.</description>
  </table>
- <table name="Limit-State Spark: Normal Target in Rev/Overboost Cut [byte, bit 7 = 128]" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="1D" level="4" scaling="bits uint8">
-  <description>Bit 7 of this byte (value 128) is the switch: add 128 to set it, subtract 128 to clear it; leave the other bits as they are. Keeps normal spark timing during the rev limiter and overboost cut instead of retarding it. Bit 7 (value 128).</description>
+ <table name="Limit-State Spark: Normal Target in Rev/Overboost Cut" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="1D" level="4" scaling="Switch on b7 mC0 f30">
+  <description>Keeps normal spark timing during the rev limiter and overboost cut instead of retarding it. On/off switch: select the value and press Increment ( ] ) to flip it; do not use Decrement. [XX] is the whole byte, which it shares with other switches.</description>
  </table>
  <table name="External Torque Limit Baro Factor" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="2D" level="5" scaling="multiplier uint16 #4">
   <table name="Barometric Pressure" type="Y Axis" elements="8" scaling="psia uint16" />
@@ -55870,8 +55968,8 @@ With cal 0x1D0AE bit 0 set, 0x0F70B4 (read) sets B270 = 0 below FFF88B8F 68 (54 
  <table name="Barometric Sensor Offset" category="10 Sensors" type="1D" level="4" scaling="psi int16 #3">
   <description>Offset of the barometric pressure sensor conversion. Leave alone.</description>
  </table>
- <table name="Barometric Sensor Enable [byte, bit 7 = 128]" category="10 Sensors" type="1D" level="4" scaling="bits uint8">
-  <description>Bit 7 of this byte (value 128) is the switch: add 128 to set it, subtract 128 to clear it; leave the other bits as they are. When set, the ECU uses its barometric pressure sensor. When cleared, it assumes sea-level pressure (101.3 kPa) everywhere, so altitude compensation stops working. Bit 7 (value 128).</description>
+ <table name="Barometric Sensor Enable" category="10 Sensors" type="1D" level="4" scaling="Switch b7 f00">
+  <description>When set, the ECU uses its barometric pressure sensor. When cleared, it assumes sea-level pressure (101.3 kPa) everywhere, so altitude compensation stops working. On/off switch: select the value and press Increment ( ] ) to flip it.</description>
  </table>
  <table name="P0088 Rail Pressure High Limit" category="11.01 Diagnostics &amp; Switches - Monitor Thresholds" type="1D" level="3" scaling="psi uint16">
   <description>Fuel rail pressure limit for P0088 (rail pressure too high): the code trips when actual pressure exceeds this value plus a 2.5 MPa hysteresis for about 2 seconds, and also triggers fail-safe; after a trip, pressure must drop back to this value to recover. If you raise target rail pressure, keep peak actual pressure below this plus 2.5 MPa.</description>
@@ -55910,35 +56008,35 @@ With cal 0x1D0AE bit 0 set, 0x0F70B4 (read) sets B270 = 0 below FFF88B8F 68 (54 
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
   <description>Crankshaft roughness level that confirms channel 2 of the P219A monitor (paired with A/F Imbalance Monitor Swing Threshold 2). Lower than Threshold 1, so more sensitive. Sets no code by itself; raising cells makes a fault harder (the maximum value = never).</description>
  </table>
- <table name="EGR Enable [byte, bit 5 = 32]" category="11.02 Diagnostics &amp; Switches - Calibration Switches" type="1D" level="4" scaling="bits uint8">
-  <description>Bit 5 of this byte (value 32) is the switch: add 32 to set it, subtract 32 to clear it; leave the other bits as they are. Master switch for EGR. Clearing it is expected to keep EGR off, so the EGR-off variants of base timing, closed loop target and throttle tables become the live ones (inferred). Bit 5 (value 32).</description>
+ <table name="EGR Enable" category="11.02 Diagnostics &amp; Switches - Calibration Switches" type="1D" level="4" scaling="Switch on b5 m60 f00">
+  <description>Master switch for EGR. Clearing it is expected to keep EGR off, so the EGR-off variants of base timing, closed loop target and throttle tables become the live ones (inferred). On/off switch: select the value and press Increment ( ] ) to flip it; do not use Decrement. [XX] is the whole byte, which it shares with other switches.</description>
  </table>
- <table name="Transmission Coding: Automatic/CVT [byte, bit 1 = 2]" category="11.02 Diagnostics &amp; Switches - Calibration Switches" type="1D" level="4" scaling="bits uint8">
-  <description>Bit 1 of this byte (value 2) is the switch: add 2 to set it, subtract 2 to clear it; leave the other bits as they are. Tells the ECU whether it is in a manual or an AT/CVT car (clear = manual in every manual image). It decides gear calculation, the gear torque limits and whether the AT/CVT Coding table variants are used. Do not change on a manual car. Bit 1 (value 2).</description>
+ <table name="Transmission Coding: Automatic/CVT" category="11.02 Diagnostics &amp; Switches - Calibration Switches" type="1D" level="4" scaling="Switch b1 fF9">
+  <description>Tells the ECU whether it is in a manual or an AT/CVT car (clear = manual in every manual image). It decides gear calculation, the gear torque limits and whether the AT/CVT Coding table variants are used. Do not change on a manual car. On/off switch: select the value and press Increment ( ] ) to flip it.</description>
  </table>
- <table name="Transmission Coding: From Input Port [byte, bit 6 = 64]" category="11.02 Diagnostics &amp; Switches - Calibration Switches" type="1D" level="4" scaling="bits uint8">
-  <description>Bit 6 of this byte (value 64) is the switch: add 64 to set it, subtract 64 to clear it; leave the other bits as they are. When set, the manual/automatic coding is read from a hardware input instead of Transmission Coding: Automatic/CVT. Bit 6 (value 64).</description>
+ <table name="Transmission Coding: From Input Port" category="11.02 Diagnostics &amp; Switches - Calibration Switches" type="1D" level="4" scaling="Switch on b6 m60 f00">
+  <description>When set, the manual/automatic coding is read from a hardware input instead of Transmission Coding: Automatic/CVT. On/off switch: select the value and press Increment ( ] ) to flip it; do not use Decrement. [XX] is the whole byte, which it shares with other switches.</description>
  </table>
- <table name="Target Torque Rise: Enable Path B [byte, bit 6 = 64]" category="11.02 Diagnostics &amp; Switches - Calibration Switches" type="1D" level="4" scaling="bits uint8">
-  <description>Bit 6 of this byte (value 64) is the switch: add 64 to set it, subtract 64 to clear it; leave the other bits as they are. Enables the second (Path B) tip-in torque shaping. Leave clear unless you calibrate the whole Path B set. Bit 6 (value 64).</description>
+ <table name="Target Torque Rise: Enable Path B" category="11.02 Diagnostics &amp; Switches - Calibration Switches" type="1D" level="4" scaling="Switch b6 f01">
+  <description>Enables the second (Path B) tip-in torque shaping. Leave clear unless you calibrate the whole Path B set. On/off switch: select the value and press Increment ( ] ) to flip it.</description>
  </table>
- <table name="Open Loop Fueling: Use Alternate Map [byte, bit 4 = 16]" category="11.02 Diagnostics &amp; Switches - Calibration Switches" type="1D" level="4" scaling="bits uint8">
-  <description>Bit 4 of this byte (value 16) is the switch: add 16 to set it, subtract 16 to clear it; leave the other bits as they are. When set, Primary Open Loop Fueling (Alternate) probably replaces the normal open loop fueling strategy. Bit 4 (value 16).</description>
+ <table name="Open Loop Fueling: Use Alternate Map" category="11.02 Diagnostics &amp; Switches - Calibration Switches" type="1D" level="4" scaling="Switch b4 f8F">
+  <description>When set, Primary Open Loop Fueling (Alternate) probably replaces the normal open loop fueling strategy. On/off switch: select the value and press Increment ( ] ) to flip it.</description>
  </table>
- <table name="VE: Use AVCS-Not-Ready Table [byte, bit 0 = 1]" category="11.02 Diagnostics &amp; Switches - Calibration Switches" type="1D" level="4" scaling="bits uint8">
-  <description>Bit 0 of this byte (value 1) is the switch: add 1 to set it, subtract 1 to clear it; leave the other bits as they are. When set, Volumetric Efficiency (AVCS Not Ready) is used while the cams are probably not yet under control. Bit 0 (value 1).</description>
+ <table name="VE: Use AVCS-Not-Ready Table" category="11.02 Diagnostics &amp; Switches - Calibration Switches" type="1D" level="4" scaling="Switch b0 f00">
+  <description>When set, Volumetric Efficiency (AVCS Not Ready) is used while the cams are probably not yet under control. On/off switch: select the value and press Increment ( ] ) to flip it.</description>
  </table>
- <table name="Base Timing: Pedal-Released Tables Enable [byte, bit 0 = 1]" category="11.02 Diagnostics &amp; Switches - Calibration Switches" type="1D" level="4" scaling="bits uint8">
-  <description>Bit 0 of this byte (value 1) is the switch: add 1 to set it, subtract 1 to clear it; leave the other bits as they are. Clear it to use the normal base timing tables off-throttle too. Bit 0 (value 1).</description>
+ <table name="Base Timing: Pedal-Released Tables Enable" category="11.02 Diagnostics &amp; Switches - Calibration Switches" type="1D" level="4" scaling="Switch b0 f00">
+  <description>Clear it to use the normal base timing tables off-throttle too. On/off switch: select the value and press Increment ( ] ) to flip it.</description>
  </table>
- <table name="Multi-Injection Allowed During High-Pedal Latch 1 [byte, bit 0 = 1]" category="11.02 Diagnostics &amp; Switches - Calibration Switches" type="1D" level="4" scaling="bits uint8">
-  <description>Bit 0 of this byte (value 1) is the switch: add 1 to set it, subtract 1 to clear it; leave the other bits as they are. Allows double/triple injection while one of the high-pedal latches is set. Bit 0 (value 1).</description>
+ <table name="Multi-Injection Allowed During High-Pedal Latch 1" category="11.02 Diagnostics &amp; Switches - Calibration Switches" type="1D" level="4" scaling="Switch on b0 m07 fE0">
+  <description>Allows double/triple injection while one of the high-pedal latches is set. On/off switch: select the value and press Increment ( ] ) to flip it; do not use Decrement. [XX] is the whole byte, which it shares with other switches.</description>
  </table>
- <table name="Multi-Injection Allowed During High-Pedal Latch 2 [byte, bit 1 = 2]" category="11.02 Diagnostics &amp; Switches - Calibration Switches" type="1D" level="4" scaling="bits uint8">
-  <description>Bit 1 of this byte (value 2) is the switch: add 2 to set it, subtract 2 to clear it; leave the other bits as they are. Allows double/triple injection while a second high-pedal latch is set. Bit 1 (value 2).</description>
+ <table name="Multi-Injection Allowed During High-Pedal Latch 2" category="11.02 Diagnostics &amp; Switches - Calibration Switches" type="1D" level="4" scaling="Switch on b1 m07 fE0">
+  <description>Allows double/triple injection while a second high-pedal latch is set. On/off switch: select the value and press Increment ( ] ) to flip it; do not use Decrement. [XX] is the whole byte, which it shares with other switches.</description>
  </table>
- <table name="Multi-Injection Allowed During High-Pedal Latch 3 [byte, bit 2 = 4]" category="11.02 Diagnostics &amp; Switches - Calibration Switches" type="1D" level="4" scaling="bits uint8">
-  <description>Bit 2 of this byte (value 4) is the switch: add 4 to set it, subtract 4 to clear it; leave the other bits as they are. Allows double/triple injection while a third high-pedal latch is set. Bit 2 (value 4).</description>
+ <table name="Multi-Injection Allowed During High-Pedal Latch 3" category="11.02 Diagnostics &amp; Switches - Calibration Switches" type="1D" level="4" scaling="Switch on b2 m07 fE0">
+  <description>Allows double/triple injection while a third high-pedal latch is set. On/off switch: select the value and press Increment ( ] ) to flip it; do not use Decrement. [XX] is the whole byte, which it shares with other switches.</description>
  </table>
  <table name="(P000A) Intake Camshaft Position Slow Response (Bank 1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b0 m6F f00">
   <description>Bit 0 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>

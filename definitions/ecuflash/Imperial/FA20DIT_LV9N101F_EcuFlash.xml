@@ -2146,7 +2146,7 @@ Details: When used: drive mode 4 with FFF88ADA bit 7 clear and FFF8AE0A &gt;= ca
  <table name="Rev/Boost Limit Torque Stage 1 MAP" address="01a944" />
  <table name="Rev/Boost Limit Torque Stage 1 Reset MAP" address="01a942" />
  <table name="Rev/Boost Limit Torque Stage 2 Hold MAP" address="01a9a0" />
- <table name="Rev/Boost Limit Torque Caps Enable [byte, bit 0 = 1]" address="0202de" />
+ <table name="Rev/Boost Limit Torque Caps Enable" address="0202de" />
  <table name="Overboost Margin" address="01a9b0" />
  <table name="Overboost Delay" address="01a9b4" />
  <table name="Overboost Flag Reset Margin" address="01a9b2" />
@@ -2166,8 +2166,8 @@ Details: When used: drive mode 4 with FFF88ADA bit 7 clear and FFF8AE0A &gt;= ca
  <table name="Fail-Safe Rev Limit (Unused Fault Flag)" address="0107d4" />
  <table name="Fail-Safe Rev Limit Hysteresis" address="0107cc" />
  <table name="Fail-Safe Rev Limit Minimum Above Idle Target" address="0107ce" />
- <table name="Limit-State Spark: Normal Target in Speed Limit [byte, bit 6 = 64]" address="01ffa2" />
- <table name="Limit-State Spark: Normal Target in Rev/Overboost Cut [byte, bit 7 = 128]" address="01ffa2" />
+ <table name="Limit-State Spark: Normal Target in Speed Limit" address="01ffa2" />
+ <table name="Limit-State Spark: Normal Target in Rev/Overboost Cut" address="01ffa2" />
  <table name="External Torque Limit Baro Factor" address="01d990">
   <table name="Barometric Pressure" address="01d980" />
  </table>
@@ -3578,7 +3578,7 @@ Details: When used: AT/CVT codings, in neutral/park. Input FFF88A44 (coolant). 0
  <table name="Rail Pressure Sensor Fault Value" address="04bd20" />
  <table name="Barometric Sensor Multiplier" address="024c50" />
  <table name="Barometric Sensor Offset" address="024c52" />
- <table name="Barometric Sensor Enable [byte, bit 7 = 128]" address="019b79" />
+ <table name="Barometric Sensor Enable" address="019b79" />
  <table name="P0088 Rail Pressure High Limit" address="04b7ac" />
  <table name="P0087 Rail Pressure Deviation Limit" address="04b7bc" />
  <table name="P0088 Rail Pressure Deviation Limit" address="04b7be" />
@@ -3604,16 +3604,16 @@ Details: When used: AT/CVT codings, in neutral/park. Input FFF88A44 (coolant). 0
   <table name="Engine Load" address="03c8e2" />
   <table name="Engine Speed" address="03c8c2" />
  </table>
- <table name="EGR Enable [byte, bit 5 = 32]" address="02a9da" />
- <table name="Transmission Coding: Automatic/CVT [byte, bit 1 = 2]" address="02a9d8" />
- <table name="Transmission Coding: From Input Port [byte, bit 6 = 64]" address="02a9da" />
- <table name="Target Torque Rise: Enable Path B [byte, bit 6 = 64]" address="01fcf8" />
- <table name="Open Loop Fueling: Use Alternate Map [byte, bit 4 = 16]" address="02a9de" />
- <table name="VE: Use AVCS-Not-Ready Table [byte, bit 0 = 1]" address="027cc4" />
- <table name="Base Timing: Pedal-Released Tables Enable [byte, bit 0 = 1]" address="01071e" />
- <table name="Multi-Injection Allowed During High-Pedal Latch 1 [byte, bit 0 = 1]" address="0258e1" />
- <table name="Multi-Injection Allowed During High-Pedal Latch 2 [byte, bit 1 = 2]" address="0258e1" />
- <table name="Multi-Injection Allowed During High-Pedal Latch 3 [byte, bit 2 = 4]" address="0258e1" />
+ <table name="EGR Enable" address="02a9da" />
+ <table name="Transmission Coding: Automatic/CVT" address="02a9d8" scaling="Switch b1 fFD" />
+ <table name="Transmission Coding: From Input Port" address="02a9da" />
+ <table name="Target Torque Rise: Enable Path B" address="01fcf8" />
+ <table name="Open Loop Fueling: Use Alternate Map" address="02a9de" />
+ <table name="VE: Use AVCS-Not-Ready Table" address="027cc4" />
+ <table name="Base Timing: Pedal-Released Tables Enable" address="01071e" />
+ <table name="Multi-Injection Allowed During High-Pedal Latch 1" address="0258e1" />
+ <table name="Multi-Injection Allowed During High-Pedal Latch 2" address="0258e1" />
+ <table name="Multi-Injection Allowed During High-Pedal Latch 3" address="0258e1" />
  <table name="(P000A) Intake Camshaft Position Slow Response (Bank 1)" address="3b35c" />
  <table name="(P000A) Intake Camshaft Position Slow Response (Bank 1) [Fail-Safe]" address="4bef8" />
  <table name="(P000B) Exhaust Camshaft Position Slow Response (Bank 1)" address="3b35c" />

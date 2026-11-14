@@ -33,6 +33,11 @@ first.
   would change another code. If a table shows `(no match)`, too many of the other codes in its byte have been changed
   for the list to cover; use the 103-byte mask table in the same folder instead (each row lists the code on each bit;
   bit values 1, 2, 4 … 128).
+- **Calibration switches:** folder `11.02 Diagnostics & Switches - Calibration Switches` (EGR Enable, the
+  transmission coding and the rest). Each shows **on** or **off**; to flip one, select the value and press
+  Increment ( `]` ). Most switches have their byte to themselves. Where a byte holds several (EGR Enable, for
+  example), the value also shows the whole byte in brackets, `on [20]`, and the DTC rule applies: Increment once,
+  no Decrement. The byte's other bits belong to other functions and are left as the ROM has them.
 - **Checksum:** the 2015–2018 (2 MB) definitions use EcuFlash's built-in `subaruhitachi` checksum module, which
   corrects the checksum when you save. I checked it in EcuFlash 1.44.4870: the result is byte-identical to the
   checksum tool's. The 2.5 MB definitions (2019 Levorg STI LF9F000R and the 2019–2020 Levorg 1.6 ROMs) have no checksum module, because that module gets

@@ -76,9 +76,6 @@
  <table name="Injector 2/4 Rail Pressure Offset" address="058c6c">
   <table name="Engine Load" address="058c5c" />
   <table name="Engine Speed" address="058c3c" />
-  <description>Pressure offset added to measured rail pressure before looking up Injector Flow Compensation (Injectors 2/4), by rpm and load; probably the pressure difference of the rail without the sensor.
-
-Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8CE9C, load FFF8A616)), interpolated by 0x00671C (descriptor 0x0608E4: data, u16 axis, u8 axis, 16, 16; row = rpm, read). FFF89222 indexes the injector flow compensation 05A844 used only for injectors 2 and 4 (0x0CB0C8, read); injectors 1 and 3 use 05A838 with FFF88886. Likely the pressure difference of the rail without the sensor (inferred from the boxer layout). Signed, in the rail-pressure unit. Descriptor boot 0608E4. Confidence: inferred.</description>
  </table>
  <table name="Target Rail Pressure" address="03f168">
   <table name="Engine Speed" address="03f268" />
@@ -376,6 +373,9 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  </table>
  <table name="Transient Fuel Throttle-Rate Gain (AT/CVT)" address="0344cb" level="5">
   <table name="Coolant Temp" address="03834c" />
+  <description>AT/CVT version of Transient Fuel Throttle-Rate Gain; only used with an automatic/CVT coding, no effect on a manual car.
+
+Details: When used: AT/CVT codings only, while FFF8A618 bit 0 is clear. Same role as Transient Fuel Throttle-Rate Gain (0x0F6D98, read). Selection: Transient Fuel Throttle-Rate Gain is used while FFF8A618 bit 0 is set, which is always on the manual coding (cal 0x2F794 bit 1 clear, 0x0B8544, read); the (AT/CVT) table is used on AT/CVT codings while FFF8A618 bit 0 is clear (FFF886B0 bit 6 set after the first cal 0x34978 passes, not identified); the table when the manual flag FFF886AB bit 7 is set and either bit 0 is clear or cal 0x2F794 bit 2 is clear (rule: (A618 b0 = 0 or (0x2F794 b2 = 0 and 886AB b7)) ?: this one, read). Confidence: read.</description>
  </table>
  <table name="Transient Fuel Throttle-Rate RPM Multiplier" address="0344b6">
   <table name="Engine Speed" address="03841c" />
@@ -466,6 +466,9 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  </table>
  <table name="Transient Fuel Throttle-Rate Gain (MT Coding)" address="0344db" level="5">
   <table name="Coolant Temp" address="03834c" />
+  <description>Alternate version of Transient Fuel Throttle-Rate Gain used only when a transmission-coding switch is changed.
+
+Same role as Transient Fuel Throttle-Rate Gain (0x0F6D98, read). Selection: Transient Fuel Throttle-Rate Gain is used while FFF8A618 bit 0 is set, which is always on the manual coding (cal 0x2F794 bit 1 clear, 0x0B8544, read); the (AT/CVT) table is used on AT/CVT codings while FFF8A618 bit 0 is clear (FFF886B0 bit 6 set after the first cal 0x34978 passes, not identified); the table when the manual flag FFF886AB bit 7 is set and either bit 0 is clear or cal 0x2F794 bit 2 is clear (rule: (A618 b0 = 0 or (0x2F794 b2 = 0 and 886AB b7)) ?: this one, read). Confidence: read.</description>
  </table>
  <table name="Tip-In Extra Pulse Angle" address="014dda">
   <table name="Engine Speed" address="014dea" />
@@ -1528,21 +1531,39 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  </table>
  <table name="Surge Damping Timing Curve (AT/CVT Gear 1)" address="0307bd" level="5">
   <table name="Y Axis" address="030706" />
+  <description>AT/CVT version of Surge Damping Timing Curve (Gear 1).
+
+Details: When used: AT/CVT only (FFF88ADA bit 7 clear; it is always set on this manual coding), gear FFF88FCE = 1 (0x0DBB20, read: the AT/CVT curve branch, mirrored by the MT branch that reads Surge Damping Timing Curve (Gear 1); the MT coding flag s4 picks the MT curve). Full-scale timing correction (degrees, negative = retard) by the largest throttle-flow change FFF8B0EE since the trigger FFF8A7A1 bit 2 set (0x0DBB20 holds the maximum in FFF8B0F0 and resets it to 0 while the trigger is clear, read), before the phase, coolant, mode and cal factors (read). Surge damping term FFF8A758 (0x0DBB20, called from the 10 ms module 0x0DE0E0; stack args verified with callers.py: s0 = gear FFF88FCE, s4 = MT coding FFF88ADA bit 7, s8 = FFF8B0EE, s12 = rpm FFF8CE9C, s16 = FFF88C64 bit 5, s20 = combustion mode FFF8A85C, read): A758 = Curve(FFF8B0EE) x PhaseFactor(FFF8A75E) x CoolantFactor FFF8A75C x ModeFactor(A85C) x cal factor (MT coding: cal 0x306E5 = 254, or cal 0x306E7 = 128 once FFF88C64 bit 5 has been clear for cal 0x306E8 = 150 passes) / 255^4, in 0.5-degree units, capped at +63.5 degrees, and 0 when the trigger FFF8A7A1 bit 2 is clear or when the current swing count has lasted longer than its time cal 0x306EA..0x306FA (100/20/100/10/100/5/100/100/100 passes of 10 ms for counts 0..8) (read). A758 is added to the final timing sum in 0x0D9E40 (read), so negative values retard. Trigger (read): 0x0DC1E8 counts passes while FFF8A7A1 bit 3 is set, the throttle-flow change FFF8B0EE &gt;= cal 0x3084E (131 = 0.4 % per 20 ms, MT; hysteresis 0x3084C) and FFF8B112 (0x0E0D14 of FFF88A3A) &lt;= cal 0x30842; 0x0E1350 sets FFF8A7A1 bit 2 when that count exceeds a per-gear, per-rpm-band threshold (cals 0x30F62..0x30FAC); it is dropped after cal 0x30850 (90) active passes. FFF8A75E counts rpm swings (0x0DC324, see p17p_surge_phase). FFF88FCE is the gear: on the MT coding 0x08254C copies FFF8A8B6, which 0x11422C derives from the ratio gear FFF8A623 (read). Reading: a timing intervention after a throttle step that retards while rpm swings up and releases while it swings down, i.e. driveline surge (shuffle) damping. Confidence: read.</description>
  </table>
  <table name="Surge Damping Timing Curve (AT/CVT Gear 2)" address="0307cd" level="5">
   <table name="Y Axis" address="030706" />
+  <description>AT/CVT version of Surge Damping Timing Curve (Gear 2).
+
+Details: When used: AT/CVT only (FFF88ADA bit 7 clear; it is always set on this manual coding), gear FFF88FCE = 2 (0x0DBB20, read: the AT/CVT curve branch, mirrored by the MT branch that reads Surge Damping Timing Curve (Gear 2); the MT coding flag s4 picks the MT curve). Full-scale timing correction (degrees, negative = retard) by the largest throttle-flow change FFF8B0EE since the trigger FFF8A7A1 bit 2 set (0x0DBB20 holds the maximum in FFF8B0F0 and resets it to 0 while the trigger is clear, read), before the phase, coolant, mode and cal factors (read). Surge damping term FFF8A758 (0x0DBB20, called from the 10 ms module 0x0DE0E0; stack args verified with callers.py: s0 = gear FFF88FCE, s4 = MT coding FFF88ADA bit 7, s8 = FFF8B0EE, s12 = rpm FFF8CE9C, s16 = FFF88C64 bit 5, s20 = combustion mode FFF8A85C, read): A758 = Curve(FFF8B0EE) x PhaseFactor(FFF8A75E) x CoolantFactor FFF8A75C x ModeFactor(A85C) x cal factor (MT coding: cal 0x306E5 = 254, or cal 0x306E7 = 128 once FFF88C64 bit 5 has been clear for cal 0x306E8 = 150 passes) / 255^4, in 0.5-degree units, capped at +63.5 degrees, and 0 when the trigger FFF8A7A1 bit 2 is clear or when the current swing count has lasted longer than its time cal 0x306EA..0x306FA (100/20/100/10/100/5/100/100/100 passes of 10 ms for counts 0..8) (read). A758 is added to the final timing sum in 0x0D9E40 (read), so negative values retard. Trigger (read): 0x0DC1E8 counts passes while FFF8A7A1 bit 3 is set, the throttle-flow change FFF8B0EE &gt;= cal 0x3084E (131 = 0.4 % per 20 ms, MT; hysteresis 0x3084C) and FFF8B112 (0x0E0D14 of FFF88A3A) &lt;= cal 0x30842; 0x0E1350 sets FFF8A7A1 bit 2 when that count exceeds a per-gear, per-rpm-band threshold (cals 0x30F62..0x30FAC); it is dropped after cal 0x30850 (90) active passes. FFF8A75E counts rpm swings (0x0DC324, see p17p_surge_phase). FFF88FCE is the gear: on the MT coding 0x08254C copies FFF8A8B6, which 0x11422C derives from the ratio gear FFF8A623 (read). Reading: a timing intervention after a throttle step that retards while rpm swings up and releases while it swings down, i.e. driveline surge (shuffle) damping. Confidence: read.</description>
  </table>
  <table name="Surge Damping Timing Curve (AT/CVT Gear 3)" address="0307dd" level="5">
   <table name="Y Axis" address="030706" />
+  <description>AT/CVT version of Surge Damping Timing Curve (Gear 3).
+
+Details: When used: AT/CVT only (FFF88ADA bit 7 clear; it is always set on this manual coding), gear FFF88FCE = 3 (0x0DBB20, read: the AT/CVT curve branch, mirrored by the MT branch that reads Surge Damping Timing Curve (Gear 3); the MT coding flag s4 picks the MT curve). Full-scale timing correction (degrees, negative = retard) by the largest throttle-flow change FFF8B0EE since the trigger FFF8A7A1 bit 2 set (0x0DBB20 holds the maximum in FFF8B0F0 and resets it to 0 while the trigger is clear, read), before the phase, coolant, mode and cal factors (read). Surge damping term FFF8A758 (0x0DBB20, called from the 10 ms module 0x0DE0E0; stack args verified with callers.py: s0 = gear FFF88FCE, s4 = MT coding FFF88ADA bit 7, s8 = FFF8B0EE, s12 = rpm FFF8CE9C, s16 = FFF88C64 bit 5, s20 = combustion mode FFF8A85C, read): A758 = Curve(FFF8B0EE) x PhaseFactor(FFF8A75E) x CoolantFactor FFF8A75C x ModeFactor(A85C) x cal factor (MT coding: cal 0x306E5 = 254, or cal 0x306E7 = 128 once FFF88C64 bit 5 has been clear for cal 0x306E8 = 150 passes) / 255^4, in 0.5-degree units, capped at +63.5 degrees, and 0 when the trigger FFF8A7A1 bit 2 is clear or when the current swing count has lasted longer than its time cal 0x306EA..0x306FA (100/20/100/10/100/5/100/100/100 passes of 10 ms for counts 0..8) (read). A758 is added to the final timing sum in 0x0D9E40 (read), so negative values retard. Trigger (read): 0x0DC1E8 counts passes while FFF8A7A1 bit 3 is set, the throttle-flow change FFF8B0EE &gt;= cal 0x3084E (131 = 0.4 % per 20 ms, MT; hysteresis 0x3084C) and FFF8B112 (0x0E0D14 of FFF88A3A) &lt;= cal 0x30842; 0x0E1350 sets FFF8A7A1 bit 2 when that count exceeds a per-gear, per-rpm-band threshold (cals 0x30F62..0x30FAC); it is dropped after cal 0x30850 (90) active passes. FFF8A75E counts rpm swings (0x0DC324, see p17p_surge_phase). FFF88FCE is the gear: on the MT coding 0x08254C copies FFF8A8B6, which 0x11422C derives from the ratio gear FFF8A623 (read). Reading: a timing intervention after a throttle step that retards while rpm swings up and releases while it swings down, i.e. driveline surge (shuffle) damping. Confidence: read.</description>
  </table>
  <table name="Surge Damping Timing Curve (AT/CVT Gear 4)" address="0307ed" level="5">
   <table name="Y Axis" address="030706" />
+  <description>AT/CVT version of Surge Damping Timing Curve (Gear 4).
+
+Details: When used: AT/CVT only (FFF88ADA bit 7 clear; it is always set on this manual coding), gear FFF88FCE = 4 (0x0DBB20, read: the AT/CVT curve branch, mirrored by the MT branch that reads Surge Damping Timing Curve (Gear 4); the MT coding flag s4 picks the MT curve). Full-scale timing correction (degrees, negative = retard) by the largest throttle-flow change FFF8B0EE since the trigger FFF8A7A1 bit 2 set (0x0DBB20 holds the maximum in FFF8B0F0 and resets it to 0 while the trigger is clear, read), before the phase, coolant, mode and cal factors (read). Surge damping term FFF8A758 (0x0DBB20, called from the 10 ms module 0x0DE0E0; stack args verified with callers.py: s0 = gear FFF88FCE, s4 = MT coding FFF88ADA bit 7, s8 = FFF8B0EE, s12 = rpm FFF8CE9C, s16 = FFF88C64 bit 5, s20 = combustion mode FFF8A85C, read): A758 = Curve(FFF8B0EE) x PhaseFactor(FFF8A75E) x CoolantFactor FFF8A75C x ModeFactor(A85C) x cal factor (MT coding: cal 0x306E5 = 254, or cal 0x306E7 = 128 once FFF88C64 bit 5 has been clear for cal 0x306E8 = 150 passes) / 255^4, in 0.5-degree units, capped at +63.5 degrees, and 0 when the trigger FFF8A7A1 bit 2 is clear or when the current swing count has lasted longer than its time cal 0x306EA..0x306FA (100/20/100/10/100/5/100/100/100 passes of 10 ms for counts 0..8) (read). A758 is added to the final timing sum in 0x0D9E40 (read), so negative values retard. Trigger (read): 0x0DC1E8 counts passes while FFF8A7A1 bit 3 is set, the throttle-flow change FFF8B0EE &gt;= cal 0x3084E (131 = 0.4 % per 20 ms, MT; hysteresis 0x3084C) and FFF8B112 (0x0E0D14 of FFF88A3A) &lt;= cal 0x30842; 0x0E1350 sets FFF8A7A1 bit 2 when that count exceeds a per-gear, per-rpm-band threshold (cals 0x30F62..0x30FAC); it is dropped after cal 0x30850 (90) active passes. FFF8A75E counts rpm swings (0x0DC324, see p17p_surge_phase). FFF88FCE is the gear: on the MT coding 0x08254C copies FFF8A8B6, which 0x11422C derives from the ratio gear FFF8A623 (read). Reading: a timing intervention after a throttle step that retards while rpm swings up and releases while it swings down, i.e. driveline surge (shuffle) damping. Confidence: read.</description>
  </table>
  <table name="Surge Damping Timing Curve (AT/CVT Gear 5)" address="0307fd" level="5">
   <table name="Y Axis" address="030706" />
+  <description>AT/CVT version of Surge Damping Timing Curve (Gear 5).
+
+Details: When used: AT/CVT only (FFF88ADA bit 7 clear; it is always set on this manual coding), gear FFF88FCE = 5 (0x0DBB20, read: the AT/CVT curve branch, mirrored by the MT branch that reads Surge Damping Timing Curve (Gear 5); the MT coding flag s4 picks the MT curve). Full-scale timing correction (degrees, negative = retard) by the largest throttle-flow change FFF8B0EE since the trigger FFF8A7A1 bit 2 set (0x0DBB20 holds the maximum in FFF8B0F0 and resets it to 0 while the trigger is clear, read), before the phase, coolant, mode and cal factors (read). Surge damping term FFF8A758 (0x0DBB20, called from the 10 ms module 0x0DE0E0; stack args verified with callers.py: s0 = gear FFF88FCE, s4 = MT coding FFF88ADA bit 7, s8 = FFF8B0EE, s12 = rpm FFF8CE9C, s16 = FFF88C64 bit 5, s20 = combustion mode FFF8A85C, read): A758 = Curve(FFF8B0EE) x PhaseFactor(FFF8A75E) x CoolantFactor FFF8A75C x ModeFactor(A85C) x cal factor (MT coding: cal 0x306E5 = 254, or cal 0x306E7 = 128 once FFF88C64 bit 5 has been clear for cal 0x306E8 = 150 passes) / 255^4, in 0.5-degree units, capped at +63.5 degrees, and 0 when the trigger FFF8A7A1 bit 2 is clear or when the current swing count has lasted longer than its time cal 0x306EA..0x306FA (100/20/100/10/100/5/100/100/100 passes of 10 ms for counts 0..8) (read). A758 is added to the final timing sum in 0x0D9E40 (read), so negative values retard. Trigger (read): 0x0DC1E8 counts passes while FFF8A7A1 bit 3 is set, the throttle-flow change FFF8B0EE &gt;= cal 0x3084E (131 = 0.4 % per 20 ms, MT; hysteresis 0x3084C) and FFF8B112 (0x0E0D14 of FFF88A3A) &lt;= cal 0x30842; 0x0E1350 sets FFF8A7A1 bit 2 when that count exceeds a per-gear, per-rpm-band threshold (cals 0x30F62..0x30FAC); it is dropped after cal 0x30850 (90) active passes. FFF8A75E counts rpm swings (0x0DC324, see p17p_surge_phase). FFF88FCE is the gear: on the MT coding 0x08254C copies FFF8A8B6, which 0x11422C derives from the ratio gear FFF8A623 (read). Reading: a timing intervention after a throttle step that retards while rpm swings up and releases while it swings down, i.e. driveline surge (shuffle) damping. Confidence: read.</description>
  </table>
  <table name="Surge Damping Timing Curve (AT/CVT Gear 6)" address="03080d" level="5">
   <table name="Y Axis" address="030706" />
+  <description>AT/CVT version of Surge Damping Timing Curve (Gear 6).
+
+Details: When used: AT/CVT only (FFF88ADA bit 7 clear; it is always set on this manual coding), gear FFF88FCE = 6 (0x0DBB20, read: the AT/CVT curve branch, mirrored by the MT branch that reads Surge Damping Timing Curve (Gear 6); the MT coding flag s4 picks the MT curve). Full-scale timing correction (degrees, negative = retard) by the largest throttle-flow change FFF8B0EE since the trigger FFF8A7A1 bit 2 set (0x0DBB20 holds the maximum in FFF8B0F0 and resets it to 0 while the trigger is clear, read), before the phase, coolant, mode and cal factors (read). Surge damping term FFF8A758 (0x0DBB20, called from the 10 ms module 0x0DE0E0; stack args verified with callers.py: s0 = gear FFF88FCE, s4 = MT coding FFF88ADA bit 7, s8 = FFF8B0EE, s12 = rpm FFF8CE9C, s16 = FFF88C64 bit 5, s20 = combustion mode FFF8A85C, read): A758 = Curve(FFF8B0EE) x PhaseFactor(FFF8A75E) x CoolantFactor FFF8A75C x ModeFactor(A85C) x cal factor (MT coding: cal 0x306E5 = 254, or cal 0x306E7 = 128 once FFF88C64 bit 5 has been clear for cal 0x306E8 = 150 passes) / 255^4, in 0.5-degree units, capped at +63.5 degrees, and 0 when the trigger FFF8A7A1 bit 2 is clear or when the current swing count has lasted longer than its time cal 0x306EA..0x306FA (100/20/100/10/100/5/100/100/100 passes of 10 ms for counts 0..8) (read). A758 is added to the final timing sum in 0x0D9E40 (read), so negative values retard. Trigger (read): 0x0DC1E8 counts passes while FFF8A7A1 bit 3 is set, the throttle-flow change FFF8B0EE &gt;= cal 0x3084E (131 = 0.4 % per 20 ms, MT; hysteresis 0x3084C) and FFF8B112 (0x0E0D14 of FFF88A3A) &lt;= cal 0x30842; 0x0E1350 sets FFF8A7A1 bit 2 when that count exceeds a per-gear, per-rpm-band threshold (cals 0x30F62..0x30FAC); it is dropped after cal 0x30850 (90) active passes. FFF8A75E counts rpm swings (0x0DC324, see p17p_surge_phase). FFF88FCE is the gear: on the MT coding 0x08254C copies FFF8A8B6, which 0x11422C derives from the ratio gear FFF8A623 (read). Reading: a timing intervention after a throttle step that retards while rpm swings up and releases while it swings down, i.e. driveline surge (shuffle) damping. Confidence: read.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 1, Below 1800 RPM)" address="030724">
   <table name="Y Axis" address="0306fc" />
@@ -1582,21 +1603,39 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  </table>
  <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 1)" address="03071b" level="5">
   <table name="Y Axis" address="0306fc" />
+  <description>AT/CVT version of the surge damping phase factor for gear 1.
+
+Details: When used: AT/CVT only (FFF88ADA bit 7 clear; it is always set on this manual coding), gear FFF88FCE = 1 (0x0DBB20, read: the gear-1 branch of the AT/CVT phase-factor lookup). Phase factor (x/255) by the rpm swing count FFF8A75E. With gear FFF88FCE = 0 or above 6 no table is read and the last factor is held (read). Surge damping term FFF8A758 (0x0DBB20, called from the 10 ms module 0x0DE0E0; stack args verified with callers.py: s0 = gear FFF88FCE, s4 = MT coding FFF88ADA bit 7, s8 = FFF8B0EE, s12 = rpm FFF8CE9C, s16 = FFF88C64 bit 5, s20 = combustion mode FFF8A85C, read): A758 = Curve(FFF8B0EE) x PhaseFactor(FFF8A75E) x CoolantFactor FFF8A75C x ModeFactor(A85C) x cal factor (MT coding: cal 0x306E5 = 254, or cal 0x306E7 = 128 once FFF88C64 bit 5 has been clear for cal 0x306E8 = 150 passes) / 255^4, in 0.5-degree units, capped at +63.5 degrees, and 0 when the trigger FFF8A7A1 bit 2 is clear or when the current swing count has lasted longer than its time cal 0x306EA..0x306FA (100/20/100/10/100/5/100/100/100 passes of 10 ms for counts 0..8) (read). A758 is added to the final timing sum in 0x0D9E40 (read), so negative values retard. Trigger (read): 0x0DC1E8 counts passes while FFF8A7A1 bit 3 is set, the throttle-flow change FFF8B0EE &gt;= cal 0x3084E (131 = 0.4 % per 20 ms, MT; hysteresis 0x3084C) and FFF8B112 (0x0E0D14 of FFF88A3A) &lt;= cal 0x30842; 0x0E1350 sets FFF8A7A1 bit 2 when that count exceeds a per-gear, per-rpm-band threshold (cals 0x30F62..0x30FAC); it is dropped after cal 0x30850 (90) active passes. FFF8A75E counts rpm swings (0x0DC324, see p17p_surge_phase). FFF88FCE is the gear: on the MT coding 0x08254C copies FFF8A8B6, which 0x11422C derives from the ratio gear FFF8A623 (read). Reading: a timing intervention after a throttle step that retards while rpm swings up and releases while it swings down, i.e. driveline surge (shuffle) damping. Confidence: inferred.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 2)" address="030736" level="5">
   <table name="Y Axis" address="0306fc" />
+  <description>AT/CVT version of the surge damping phase factor for gear 2.
+
+Details: When used: AT/CVT only (FFF88ADA bit 7 clear; it is always set on this manual coding), gear FFF88FCE = 2 (0x0DBB20, read). Phase factor (x/255) by the rpm swing count FFF8A75E. With gear FFF88FCE = 0 or above 6 no table is read and the last factor is held (read). Surge damping term FFF8A758 (0x0DBB20, called from the 10 ms module 0x0DE0E0; stack args verified with callers.py: s0 = gear FFF88FCE, s4 = MT coding FFF88ADA bit 7, s8 = FFF8B0EE, s12 = rpm FFF8CE9C, s16 = FFF88C64 bit 5, s20 = combustion mode FFF8A85C, read): A758 = Curve(FFF8B0EE) x PhaseFactor(FFF8A75E) x CoolantFactor FFF8A75C x ModeFactor(A85C) x cal factor (MT coding: cal 0x306E5 = 254, or cal 0x306E7 = 128 once FFF88C64 bit 5 has been clear for cal 0x306E8 = 150 passes) / 255^4, in 0.5-degree units, capped at +63.5 degrees, and 0 when the trigger FFF8A7A1 bit 2 is clear or when the current swing count has lasted longer than its time cal 0x306EA..0x306FA (100/20/100/10/100/5/100/100/100 passes of 10 ms for counts 0..8) (read). A758 is added to the final timing sum in 0x0D9E40 (read), so negative values retard. Trigger (read): 0x0DC1E8 counts passes while FFF8A7A1 bit 3 is set, the throttle-flow change FFF8B0EE &gt;= cal 0x3084E (131 = 0.4 % per 20 ms, MT; hysteresis 0x3084C) and FFF8B112 (0x0E0D14 of FFF88A3A) &lt;= cal 0x30842; 0x0E1350 sets FFF8A7A1 bit 2 when that count exceeds a per-gear, per-rpm-band threshold (cals 0x30F62..0x30FAC); it is dropped after cal 0x30850 (90) active passes. FFF8A75E counts rpm swings (0x0DC324, see p17p_surge_phase). FFF88FCE is the gear: on the MT coding 0x08254C copies FFF8A8B6, which 0x11422C derives from the ratio gear FFF8A623 (read). Reading: a timing intervention after a throttle step that retards while rpm swings up and releases while it swings down, i.e. driveline surge (shuffle) damping. Confidence: inferred.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 3)" address="030751" level="5">
   <table name="Y Axis" address="0306fc" />
+  <description>AT/CVT version of the surge damping phase factor for gear 3.
+
+Details: When used: AT/CVT only (FFF88ADA bit 7 clear; it is always set on this manual coding), gear FFF88FCE = 3 (0x0DBB20, read). Phase factor (x/255) by the rpm swing count FFF8A75E. With gear FFF88FCE = 0 or above 6 no table is read and the last factor is held (read). Surge damping term FFF8A758 (0x0DBB20, called from the 10 ms module 0x0DE0E0; stack args verified with callers.py: s0 = gear FFF88FCE, s4 = MT coding FFF88ADA bit 7, s8 = FFF8B0EE, s12 = rpm FFF8CE9C, s16 = FFF88C64 bit 5, s20 = combustion mode FFF8A85C, read): A758 = Curve(FFF8B0EE) x PhaseFactor(FFF8A75E) x CoolantFactor FFF8A75C x ModeFactor(A85C) x cal factor (MT coding: cal 0x306E5 = 254, or cal 0x306E7 = 128 once FFF88C64 bit 5 has been clear for cal 0x306E8 = 150 passes) / 255^4, in 0.5-degree units, capped at +63.5 degrees, and 0 when the trigger FFF8A7A1 bit 2 is clear or when the current swing count has lasted longer than its time cal 0x306EA..0x306FA (100/20/100/10/100/5/100/100/100 passes of 10 ms for counts 0..8) (read). A758 is added to the final timing sum in 0x0D9E40 (read), so negative values retard. Trigger (read): 0x0DC1E8 counts passes while FFF8A7A1 bit 3 is set, the throttle-flow change FFF8B0EE &gt;= cal 0x3084E (131 = 0.4 % per 20 ms, MT; hysteresis 0x3084C) and FFF8B112 (0x0E0D14 of FFF88A3A) &lt;= cal 0x30842; 0x0E1350 sets FFF8A7A1 bit 2 when that count exceeds a per-gear, per-rpm-band threshold (cals 0x30F62..0x30FAC); it is dropped after cal 0x30850 (90) active passes. FFF8A75E counts rpm swings (0x0DC324, see p17p_surge_phase). FFF88FCE is the gear: on the MT coding 0x08254C copies FFF8A8B6, which 0x11422C derives from the ratio gear FFF8A623 (read). Reading: a timing intervention after a throttle step that retards while rpm swings up and releases while it swings down, i.e. driveline surge (shuffle) damping. Confidence: inferred.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 4)" address="03076c" level="5">
   <table name="Y Axis" address="0306fc" />
+  <description>AT/CVT version of the surge damping phase factor for gear 4.
+
+Details: When used: AT/CVT only (FFF88ADA bit 7 clear; it is always set on this manual coding), gear FFF88FCE = 4 (0x0DBB20, read). Phase factor (x/255) by the rpm swing count FFF8A75E. With gear FFF88FCE = 0 or above 6 no table is read and the last factor is held (read). Surge damping term FFF8A758 (0x0DBB20, called from the 10 ms module 0x0DE0E0; stack args verified with callers.py: s0 = gear FFF88FCE, s4 = MT coding FFF88ADA bit 7, s8 = FFF8B0EE, s12 = rpm FFF8CE9C, s16 = FFF88C64 bit 5, s20 = combustion mode FFF8A85C, read): A758 = Curve(FFF8B0EE) x PhaseFactor(FFF8A75E) x CoolantFactor FFF8A75C x ModeFactor(A85C) x cal factor (MT coding: cal 0x306E5 = 254, or cal 0x306E7 = 128 once FFF88C64 bit 5 has been clear for cal 0x306E8 = 150 passes) / 255^4, in 0.5-degree units, capped at +63.5 degrees, and 0 when the trigger FFF8A7A1 bit 2 is clear or when the current swing count has lasted longer than its time cal 0x306EA..0x306FA (100/20/100/10/100/5/100/100/100 passes of 10 ms for counts 0..8) (read). A758 is added to the final timing sum in 0x0D9E40 (read), so negative values retard. Trigger (read): 0x0DC1E8 counts passes while FFF8A7A1 bit 3 is set, the throttle-flow change FFF8B0EE &gt;= cal 0x3084E (131 = 0.4 % per 20 ms, MT; hysteresis 0x3084C) and FFF8B112 (0x0E0D14 of FFF88A3A) &lt;= cal 0x30842; 0x0E1350 sets FFF8A7A1 bit 2 when that count exceeds a per-gear, per-rpm-band threshold (cals 0x30F62..0x30FAC); it is dropped after cal 0x30850 (90) active passes. FFF8A75E counts rpm swings (0x0DC324, see p17p_surge_phase). FFF88FCE is the gear: on the MT coding 0x08254C copies FFF8A8B6, which 0x11422C derives from the ratio gear FFF8A623 (read). Reading: a timing intervention after a throttle step that retards while rpm swings up and releases while it swings down, i.e. driveline surge (shuffle) damping. Confidence: inferred.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 5)" address="030787" level="5">
   <table name="Y Axis" address="0306fc" />
+  <description>AT/CVT version of the surge damping phase factor for gear 5.
+
+Details: When used: AT/CVT only (FFF88ADA bit 7 clear; it is always set on this manual coding), gear FFF88FCE = 5 (0x0DBB20, read). Phase factor (x/255) by the rpm swing count FFF8A75E. With gear FFF88FCE = 0 or above 6 no table is read and the last factor is held (read). Surge damping term FFF8A758 (0x0DBB20, called from the 10 ms module 0x0DE0E0; stack args verified with callers.py: s0 = gear FFF88FCE, s4 = MT coding FFF88ADA bit 7, s8 = FFF8B0EE, s12 = rpm FFF8CE9C, s16 = FFF88C64 bit 5, s20 = combustion mode FFF8A85C, read): A758 = Curve(FFF8B0EE) x PhaseFactor(FFF8A75E) x CoolantFactor FFF8A75C x ModeFactor(A85C) x cal factor (MT coding: cal 0x306E5 = 254, or cal 0x306E7 = 128 once FFF88C64 bit 5 has been clear for cal 0x306E8 = 150 passes) / 255^4, in 0.5-degree units, capped at +63.5 degrees, and 0 when the trigger FFF8A7A1 bit 2 is clear or when the current swing count has lasted longer than its time cal 0x306EA..0x306FA (100/20/100/10/100/5/100/100/100 passes of 10 ms for counts 0..8) (read). A758 is added to the final timing sum in 0x0D9E40 (read), so negative values retard. Trigger (read): 0x0DC1E8 counts passes while FFF8A7A1 bit 3 is set, the throttle-flow change FFF8B0EE &gt;= cal 0x3084E (131 = 0.4 % per 20 ms, MT; hysteresis 0x3084C) and FFF8B112 (0x0E0D14 of FFF88A3A) &lt;= cal 0x30842; 0x0E1350 sets FFF8A7A1 bit 2 when that count exceeds a per-gear, per-rpm-band threshold (cals 0x30F62..0x30FAC); it is dropped after cal 0x30850 (90) active passes. FFF8A75E counts rpm swings (0x0DC324, see p17p_surge_phase). FFF88FCE is the gear: on the MT coding 0x08254C copies FFF8A8B6, which 0x11422C derives from the ratio gear FFF8A623 (read). Reading: a timing intervention after a throttle step that retards while rpm swings up and releases while it swings down, i.e. driveline surge (shuffle) damping. Confidence: inferred.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 6)" address="0307a2" level="5">
   <table name="Y Axis" address="0306fc" />
+  <description>AT/CVT version of the surge damping phase factor for gear 6.
+
+Details: When used: AT/CVT only (FFF88ADA bit 7 clear; it is always set on this manual coding), gear FFF88FCE = 6 (0x0DBB20, read). Phase factor (x/255) by the rpm swing count FFF8A75E. With gear FFF88FCE = 0 or above 6 no table is read and the last factor is held (read). Surge damping term FFF8A758 (0x0DBB20, called from the 10 ms module 0x0DE0E0; stack args verified with callers.py: s0 = gear FFF88FCE, s4 = MT coding FFF88ADA bit 7, s8 = FFF8B0EE, s12 = rpm FFF8CE9C, s16 = FFF88C64 bit 5, s20 = combustion mode FFF8A85C, read): A758 = Curve(FFF8B0EE) x PhaseFactor(FFF8A75E) x CoolantFactor FFF8A75C x ModeFactor(A85C) x cal factor (MT coding: cal 0x306E5 = 254, or cal 0x306E7 = 128 once FFF88C64 bit 5 has been clear for cal 0x306E8 = 150 passes) / 255^4, in 0.5-degree units, capped at +63.5 degrees, and 0 when the trigger FFF8A7A1 bit 2 is clear or when the current swing count has lasted longer than its time cal 0x306EA..0x306FA (100/20/100/10/100/5/100/100/100 passes of 10 ms for counts 0..8) (read). A758 is added to the final timing sum in 0x0D9E40 (read), so negative values retard. Trigger (read): 0x0DC1E8 counts passes while FFF8A7A1 bit 3 is set, the throttle-flow change FFF8B0EE &gt;= cal 0x3084E (131 = 0.4 % per 20 ms, MT; hysteresis 0x3084C) and FFF8B112 (0x0E0D14 of FFF88A3A) &lt;= cal 0x30842; 0x0E1350 sets FFF8A7A1 bit 2 when that count exceeds a per-gear, per-rpm-band threshold (cals 0x30F62..0x30FAC); it is dropped after cal 0x30850 (90) active passes. FFF8A75E counts rpm swings (0x0DC324, see p17p_surge_phase). FFF88FCE is the gear: on the MT coding 0x08254C copies FFF8A8B6, which 0x11422C derives from the ratio gear FFF8A623 (read). Reading: a timing intervention after a throttle step that retards while rpm swings up and releases while it swings down, i.e. driveline surge (shuffle) damping. Confidence: inferred.</description>
  </table>
  <table name="Surge Damping Timing Combustion Mode Factor" address="03081d">
   <table name="Y Axis" address="030716" />
@@ -1606,6 +1645,9 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  </table>
  <table name="Surge Damping Timing Coolant Factor (AT/CVT)" address="030822" level="5">
   <table name="Coolant Temp" address="03834c" />
+  <description>AT/CVT version of Surge Damping Timing Coolant Factor.
+
+Details: When used: AT/CVT only (FFF88ADA bit 7 clear): 0x0DE0BC / 0x0DC170 use this table instead of Surge Damping Timing Coolant Factor (read). Surge damping term FFF8A758 (0x0DBB20, called from the 10 ms module 0x0DE0E0; stack args verified with callers.py: s0 = gear FFF88FCE, s4 = MT coding FFF88ADA bit 7, s8 = FFF8B0EE, s12 = rpm FFF8CE9C, s16 = FFF88C64 bit 5, s20 = combustion mode FFF8A85C, read): A758 = Curve(FFF8B0EE) x PhaseFactor(FFF8A75E) x CoolantFactor FFF8A75C x ModeFactor(A85C) x cal factor (MT coding: cal 0x306E5 = 254, or cal 0x306E7 = 128 once FFF88C64 bit 5 has been clear for cal 0x306E8 = 150 passes) / 255^4, in 0.5-degree units, capped at +63.5 degrees, and 0 when the trigger FFF8A7A1 bit 2 is clear or when the current swing count has lasted longer than its time cal 0x306EA..0x306FA (100/20/100/10/100/5/100/100/100 passes of 10 ms for counts 0..8) (read). A758 is added to the final timing sum in 0x0D9E40 (read), so negative values retard. Trigger (read): 0x0DC1E8 counts passes while FFF8A7A1 bit 3 is set, the throttle-flow change FFF8B0EE &gt;= cal 0x3084E (131 = 0.4 % per 20 ms, MT; hysteresis 0x3084C) and FFF8B112 (0x0E0D14 of FFF88A3A) &lt;= cal 0x30842; 0x0E1350 sets FFF8A7A1 bit 2 when that count exceeds a per-gear, per-rpm-band threshold (cals 0x30F62..0x30FAC); it is dropped after cal 0x30850 (90) active passes. FFF8A75E counts rpm swings (0x0DC324, see p17p_surge_phase). FFF88FCE is the gear: on the MT coding 0x08254C copies FFF8A8B6, which 0x11422C derives from the ratio gear FFF8A623 (read). Reading: a timing intervention after a throttle step that retards while rpm swings up and releases while it swings down, i.e. driveline surge (shuffle) damping. Confidence: inferred.</description>
  </table>
  <table name="Surge Damping Throttle Flow Map" address="030894">
   <table name="Engine Speed" address="030880" />
@@ -1638,6 +1680,9 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  </table>
  <table name="Closed-Pedal Timing Target (AT Drive Range)" address="0237f4" level="5">
   <table name="Engine Speed" address="023814" />
+  <description>AT version of Closed-Pedal Timing Target, used with the pedal released while the transmission is probably in a drive range.
+
+Details: When used: only with the automatic coding (FFF886AB bit 7 clear), while the debounced range state FFF8A7D9 (0x0EA0E0 from FFF8CE63, which 0x06B68C builds from the discrete inputs FFF8A2A1) is 1 or 2 (in a drive range, inferred). Never on a manual car (read). Same role as Closed-Pedal Timing Target. Confidence: inferred.</description>
  </table>
  <table name="Closed-Pedal Timing Coolant Compensation" address="023968">
   <table name="Coolant Temp" address="03834c" />
@@ -1655,10 +1700,16 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  <table name="Start Spark Target Base (Mode 1, AT/CVT)" address="029cc0" level="5">
   <table name="Coolant Temp" address="02a11a" />
   <table name="Y Axis" address="02a102" />
+  <description>AT/CVT copy of Start Spark Target Base (Mode 1).
+
+Details: When used: FFF8A7E2 bit 0 clear (never on the manual coding), FFF899D7 bit 0 clear. 0x108BAC (catalyst-heating module, read) writes FFF8A854, which 0x0C3200 selects as the spark target FFF8A647 in fuel mode FFF8A852 = 2 (combustion mode FFF8A85C 1 or 3, 0x108B08). A647 is the spark the torque model compensates for (0x0C2514, 0x0C1EA8) and the reference of the cold-start retard monitors (0x1CB70C, 0x132568: A72A - A854) (read); the fired spark in this mode follows FFF8A74C/FFF8A76B (0x0DA428), not A854 (read). In combustion mode 1 (A85C &lt; 2), at &lt;= 4000 rpm (cal 0x1CBD8), with the pedal released (FFF886AB bit 5) and speed below cal 0x2A0C1 (2 km/h): A854 = Base(rpm FFF8CD5C, coolant) + Torque Adder(FFF8A85E, coolant) + Run-Time Adder(passes since the engine state became running, coolant) + Re-Entry Adder(passes since mode 1 was re-entered from normal mode 4, coolant), saturated to a byte; the set is chosen by FFF8A7E2 bit 0 (set = the manual tables, clear = the "AT/CVT" tables; always set on the manual coding, Phase 14) and FFF899D7 bit 0 (set = the "Warm-Up Fallback" tables): a once-per-drive warm-up fallback latch set by 0x081EFC only when cal 0x59134 bit 0 is set. Otherwise in mode 1 A854 = 05D0BC x 05D0A8 / 256 + FFF8A789 - 32; in mode 3 A854 = A72A (normal target) (read). with cal 0x2996C bit 6 set A854 is forced to cal 0x2A0C0. Units: A854 is compared with A72A and final timing in 0.5 degree units (inferred). Confidence: inferred.</description>
  </table>
  <table name="Start Spark Target Base (Mode 1, AT/CVT, Warm-Up Fallback)" address="02a826" level="5">
   <table name="Coolant Temp" address="02a11a" />
   <table name="Y Axis" address="02a102" />
+  <description>AT/CVT warm-up fallback copy of Start Spark Target Base (Mode 1).
+
+Details: When used: FFF8A7E2 bit 0 clear, FFF899D7 bit 0 set. 0x108BAC (catalyst-heating module, read) writes FFF8A854, which 0x0C3200 selects as the spark target FFF8A647 in fuel mode FFF8A852 = 2 (combustion mode FFF8A85C 1 or 3, 0x108B08). A647 is the spark the torque model compensates for (0x0C2514, 0x0C1EA8) and the reference of the cold-start retard monitors (0x1CB70C, 0x132568: A72A - A854) (read); the fired spark in this mode follows FFF8A74C/FFF8A76B (0x0DA428), not A854 (read). In combustion mode 1 (A85C &lt; 2), at &lt;= 4000 rpm (cal 0x1CBD8), with the pedal released (FFF886AB bit 5) and speed below cal 0x2A0C1 (2 km/h): A854 = Base(rpm FFF8CD5C, coolant) + Torque Adder(FFF8A85E, coolant) + Run-Time Adder(passes since the engine state became running, coolant) + Re-Entry Adder(passes since mode 1 was re-entered from normal mode 4, coolant), saturated to a byte; the set is chosen by FFF8A7E2 bit 0 (set = the manual tables, clear = the "AT/CVT" tables; always set on the manual coding, Phase 14) and FFF899D7 bit 0 (set = the "Warm-Up Fallback" tables): a once-per-drive warm-up fallback latch set by 0x081EFC only when cal 0x59134 bit 0 is set. Otherwise in mode 1 A854 = 05D0BC x 05D0A8 / 256 + FFF8A789 - 32; in mode 3 A854 = A72A (normal target) (read). with cal 0x2996C bit 6 set A854 is forced to cal 0x2A0C0. Units: A854 is compared with A72A and final timing in 0.5 degree units (inferred). Confidence: inferred.</description>
  </table>
  <table name="Start Spark Target Torque Adder (Mode 1)" address="029dc0">
   <table name="Coolant Temp" address="02a11a" />
@@ -1671,10 +1722,16 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  <table name="Start Spark Target Run-Time Adder (Mode 1, AT/CVT)" address="029fc0" level="5">
   <table name="Coolant Temp" address="02a11a" />
   <table name="Count" address="02a13a" />
+  <description>AT/CVT copy of Start Spark Target Run-Time Adder (Mode 1).
+
+Details: When used: FFF8A7E2 bit 0 clear, FFF899D7 bit 0 clear. 0x108BAC (catalyst-heating module, read) writes FFF8A854, which 0x0C3200 selects as the spark target FFF8A647 in fuel mode FFF8A852 = 2 (combustion mode FFF8A85C 1 or 3, 0x108B08). A647 is the spark the torque model compensates for (0x0C2514, 0x0C1EA8) and the reference of the cold-start retard monitors (0x1CB70C, 0x132568: A72A - A854) (read); the fired spark in this mode follows FFF8A74C/FFF8A76B (0x0DA428), not A854 (read). In combustion mode 1 (A85C &lt; 2), at &lt;= 4000 rpm (cal 0x1CBD8), with the pedal released (FFF886AB bit 5) and speed below cal 0x2A0C1 (2 km/h): A854 = Base(rpm FFF8CD5C, coolant) + Torque Adder(FFF8A85E, coolant) + Run-Time Adder(passes since the engine state became running, coolant) + Re-Entry Adder(passes since mode 1 was re-entered from normal mode 4, coolant), saturated to a byte; the set is chosen by FFF8A7E2 bit 0 (set = the manual tables, clear = the "AT/CVT" tables; always set on the manual coding, Phase 14) and FFF899D7 bit 0 (set = the "Warm-Up Fallback" tables): a once-per-drive warm-up fallback latch set by 0x081EFC only when cal 0x59134 bit 0 is set. Otherwise in mode 1 A854 = 05D0BC x 05D0A8 / 256 + FFF8A789 - 32; in mode 3 A854 = A72A (normal target) (read). with cal 0x2996C bit 6 set A854 is forced to cal 0x2A0C0. Units: A854 is compared with A72A and final timing in 0.5 degree units (inferred). Confidence: inferred.</description>
  </table>
  <table name="Start Spark Target Run-Time Adder (Mode 1, AT/CVT, Warm-Up Fallback)" address="02ad66" level="5">
   <table name="Coolant Temp" address="02a11a" />
   <table name="Count" address="02a13a" />
+  <description>AT/CVT warm-up fallback copy of Start Spark Target Run-Time Adder (Mode 1).
+
+Details: When used: FFF8A7E2 bit 0 clear, FFF899D7 bit 0 set. 0x108BAC (catalyst-heating module, read) writes FFF8A854, which 0x0C3200 selects as the spark target FFF8A647 in fuel mode FFF8A852 = 2 (combustion mode FFF8A85C 1 or 3, 0x108B08). A647 is the spark the torque model compensates for (0x0C2514, 0x0C1EA8) and the reference of the cold-start retard monitors (0x1CB70C, 0x132568: A72A - A854) (read); the fired spark in this mode follows FFF8A74C/FFF8A76B (0x0DA428), not A854 (read). In combustion mode 1 (A85C &lt; 2), at &lt;= 4000 rpm (cal 0x1CBD8), with the pedal released (FFF886AB bit 5) and speed below cal 0x2A0C1 (2 km/h): A854 = Base(rpm FFF8CD5C, coolant) + Torque Adder(FFF8A85E, coolant) + Run-Time Adder(passes since the engine state became running, coolant) + Re-Entry Adder(passes since mode 1 was re-entered from normal mode 4, coolant), saturated to a byte; the set is chosen by FFF8A7E2 bit 0 (set = the manual tables, clear = the "AT/CVT" tables; always set on the manual coding, Phase 14) and FFF899D7 bit 0 (set = the "Warm-Up Fallback" tables): a once-per-drive warm-up fallback latch set by 0x081EFC only when cal 0x59134 bit 0 is set. Otherwise in mode 1 A854 = 05D0BC x 05D0A8 / 256 + FFF8A789 - 32; in mode 3 A854 = A72A (normal target) (read). with cal 0x2996C bit 6 set A854 is forced to cal 0x2A0C0. Units: A854 is compared with A72A and final timing in 0.5 degree units (inferred). Confidence: inferred.</description>
  </table>
  <table name="Start Spark Target Re-Entry Adder (Mode 1)" address="02a41e">
   <table name="Coolant Temp" address="03834c" />
@@ -1683,10 +1740,16 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  <table name="Start Spark Target Re-Entry Adder (Mode 1, AT/CVT)" address="02a53e" level="5">
   <table name="Coolant Temp" address="03834c" />
   <table name="Count" address="02a51e" />
+  <description>AT/CVT copy of Start Spark Target Re-Entry Adder (Mode 1).
+
+Details: When used: FFF8A7E2 bit 0 clear, FFF899D7 bit 0 clear. 0x108BAC (catalyst-heating module, read) writes FFF8A854, which 0x0C3200 selects as the spark target FFF8A647 in fuel mode FFF8A852 = 2 (combustion mode FFF8A85C 1 or 3, 0x108B08). A647 is the spark the torque model compensates for (0x0C2514, 0x0C1EA8) and the reference of the cold-start retard monitors (0x1CB70C, 0x132568: A72A - A854) (read); the fired spark in this mode follows FFF8A74C/FFF8A76B (0x0DA428), not A854 (read). In combustion mode 1 (A85C &lt; 2), at &lt;= 4000 rpm (cal 0x1CBD8), with the pedal released (FFF886AB bit 5) and speed below cal 0x2A0C1 (2 km/h): A854 = Base(rpm FFF8CD5C, coolant) + Torque Adder(FFF8A85E, coolant) + Run-Time Adder(passes since the engine state became running, coolant) + Re-Entry Adder(passes since mode 1 was re-entered from normal mode 4, coolant), saturated to a byte; the set is chosen by FFF8A7E2 bit 0 (set = the manual tables, clear = the "AT/CVT" tables; always set on the manual coding, Phase 14) and FFF899D7 bit 0 (set = the "Warm-Up Fallback" tables): a once-per-drive warm-up fallback latch set by 0x081EFC only when cal 0x59134 bit 0 is set. Otherwise in mode 1 A854 = 05D0BC x 05D0A8 / 256 + FFF8A789 - 32; in mode 3 A854 = A72A (normal target) (read). with cal 0x2996C bit 6 set A854 is forced to cal 0x2A0C0. Units: A854 is compared with A72A and final timing in 0.5 degree units (inferred). Confidence: inferred.</description>
  </table>
  <table name="Start Spark Target Re-Entry Adder (Mode 1, AT/CVT, Warm-Up Fallback)" address="02ab66" level="5">
   <table name="Coolant Temp" address="03834c" />
   <table name="Count" address="02ab46" />
+  <description>AT/CVT warm-up fallback copy of Start Spark Target Re-Entry Adder (Mode 1).
+
+Details: When used: FFF8A7E2 bit 0 clear, FFF899D7 bit 0 set. 0x108BAC (catalyst-heating module, read) writes FFF8A854, which 0x0C3200 selects as the spark target FFF8A647 in fuel mode FFF8A852 = 2 (combustion mode FFF8A85C 1 or 3, 0x108B08). A647 is the spark the torque model compensates for (0x0C2514, 0x0C1EA8) and the reference of the cold-start retard monitors (0x1CB70C, 0x132568: A72A - A854) (read); the fired spark in this mode follows FFF8A74C/FFF8A76B (0x0DA428), not A854 (read). In combustion mode 1 (A85C &lt; 2), at &lt;= 4000 rpm (cal 0x1CBD8), with the pedal released (FFF886AB bit 5) and speed below cal 0x2A0C1 (2 km/h): A854 = Base(rpm FFF8CD5C, coolant) + Torque Adder(FFF8A85E, coolant) + Run-Time Adder(passes since the engine state became running, coolant) + Re-Entry Adder(passes since mode 1 was re-entered from normal mode 4, coolant), saturated to a byte; the set is chosen by FFF8A7E2 bit 0 (set = the manual tables, clear = the "AT/CVT" tables; always set on the manual coding, Phase 14) and FFF899D7 bit 0 (set = the "Warm-Up Fallback" tables): a once-per-drive warm-up fallback latch set by 0x081EFC only when cal 0x59134 bit 0 is set. Otherwise in mode 1 A854 = 05D0BC x 05D0A8 / 256 + FFF8A789 - 32; in mode 3 A854 = A72A (normal target) (read). with cal 0x2996C bit 6 set A854 is forced to cal 0x2A0C0. Units: A854 is compared with A72A and final timing in 0.5 degree units (inferred). Confidence: inferred.</description>
  </table>
  <table name="Start Spark Target Base (Mode 1, Warm-Up Fallback)" address="02a726">
   <table name="Coolant Temp" address="02a11a" />
@@ -1787,34 +1850,58 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  <table name="Requested Torque (Drive Mode 1, Default, AT/CVT)" address="01f0d4" level="5">
   <table name="Accelerator Pedal" address="01e044" />
   <table name="Engine Speed" address="01e01a" />
+  <description>Drive mode 1: the default set (used when no SI-Drive request is received; the only set on cars without SI-Drive). On the AT/CVT coding this is the whole requested-torque map for this drive mode (Requested Torque (Drive Mode 1, Default) is then ignored); unused on manual cars. Edit it, and its Monitor copy, when tuning an AT/CVT car.
+
+Details: When used: whenever FFF88ADA bit 7 (manual-transmission coding) is clear, i.e. on the AT/CVT coding. The A/B weight FFF8AE26 (0x0B9C78) starts at 0 and its step cals 0x22FBE/0x22FC0 are 0, so it stays 0 and the output is this table alone; the matching non-AT/CVT table is then ignored (read). FFF88ADA bit 7 is set on the manual coding, so this table is unused on manual cars. Driver-requested torque from rpm and pedal (0x0BB670, read): FFF8AEB4 = A x FFF8AE26/32768 + B x (1 - FFF8AE26/32768), torque above the zero point, into FFF8AEB4; FFF8AE26 ramps between 0 and 32768 under a condition (0x0B9C78). Table B of map set 2 = Drive Mode 1, Default (0x0BDBD8 combines the four sets by the drive-mode byte FFF8A8C1 and per-mode scale cals 0x1FAFE-0x1FB00; SI-Drive positions: mode 4 = Sport Sharp, mode 2 = Sport, mode 3 = Intelligent (least torque for a given pedal in both images), mode 1 = the default used when no valid SI-Drive request is received, and the only set on cars without SI-Drive). KEEP Requested Torque (Drive Mode 1, Default, AT/CVT, Monitor) identical (inferred safety copy). Confidence: inferred.</description>
  </table>
  <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Monitor)" address="04645a" level="5">
   <table name="Accelerator Pedal (Monitor)" address="0453ca" />
   <table name="Engine Speed" address="0453a0" />
+  <description>Monitor copy of Requested Torque (Drive Mode 1, Default, AT/CVT): keep identical to it or expect a throttle plausibility fault. Used only on the AT/CVT coding.
+
+Details: When used: Monitor copy; keep identical. Byte-for-byte copy of Requested Torque (Drive Mode 1, Default, AT/CVT) (data and axes) in separate storage, read by a second module (0x1873C4/0x1874BC/0x1875BC/0x1876BC, rpm x FFF88FE2, same A-then-B lookup order and weight structure, into FFF8BBAE/BBB2/BBB6/BBBA). Almost certainly the electronic-throttle torque monitor: change it together with the primary map or expect a throttle/torque plausibility fault (inferred). Confidence: inferred.</description>
  </table>
  <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT)" address="01ea44" level="5">
   <table name="Accelerator Pedal" address="01e044" />
   <table name="Engine Speed" address="01e01a" />
+  <description>Drive mode 2: SI-Drive Sport (S). On the AT/CVT coding this is the whole requested-torque map for this drive mode (Requested Torque (Drive Mode 2, Sport) is then ignored); unused on manual cars. Edit it, and its Monitor copy, when tuning an AT/CVT car.
+
+Details: When used: whenever FFF88ADA bit 7 (manual-transmission coding) is clear, i.e. on the AT/CVT coding. The A/B weight FFF8AE26 (0x0B9C78) starts at 0 and its step cals 0x22FBE/0x22FC0 are 0, so it stays 0 and the output is this table alone; the matching non-AT/CVT table is then ignored (read). FFF88ADA bit 7 is set on the manual coding, so this table is unused on manual cars. Driver-requested torque from rpm and pedal (0x0BB770, read): FFF8AEB8 = A x FFF8AE26/32768 + B x (1 - FFF8AE26/32768), torque above the zero point, into FFF8AEB8; FFF8AE26 ramps between 0 and 32768 under a condition (0x0B9C78). Table B of map set 3 = Drive Mode 2 (0x0BDBD8 combines the four sets by the drive-mode byte FFF8A8C1 and per-mode scale cals 0x1FAFE-0x1FB00; SI-Drive positions: mode 4 = Sport Sharp, mode 2 = Sport, mode 3 = Intelligent (least torque for a given pedal in both images), mode 1 = the default used when no valid SI-Drive request is received, and the only set on cars without SI-Drive). KEEP Requested Torque (Drive Mode 2, Sport, AT/CVT, Monitor) identical (inferred safety copy). Confidence: inferred.</description>
  </table>
  <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Monitor)" address="045dca" level="5">
   <table name="Accelerator Pedal (Monitor)" address="0453ca" />
   <table name="Engine Speed" address="0453a0" />
+  <description>Monitor copy of Requested Torque (Drive Mode 2, Sport, AT/CVT): keep identical to it or expect a throttle plausibility fault. Used only on the AT/CVT coding.
+
+Details: When used: Monitor copy; keep identical. Byte-for-byte copy of Requested Torque (Drive Mode 2, Sport, AT/CVT) (data and axes) in separate storage, read by a second module (0x1873C4/0x1874BC/0x1875BC/0x1876BC, rpm x FFF88FE2, same A-then-B lookup order and weight structure, into FFF8BBAE/BBB2/BBB6/BBBA). Almost certainly the electronic-throttle torque monitor: change it together with the primary map or expect a throttle/torque plausibility fault (inferred). Confidence: inferred.</description>
  </table>
  <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT)" address="01ed8c" level="5">
   <table name="Accelerator Pedal" address="01e044" />
   <table name="Engine Speed" address="01e01a" />
+  <description>Drive mode 3: SI-Drive Intelligent (I). On the AT/CVT coding this is the whole requested-torque map for this drive mode (Requested Torque (Drive Mode 3, Intelligent) is then ignored); unused on manual cars. Edit it, and its Monitor copy, when tuning an AT/CVT car.
+
+Details: When used: whenever FFF88ADA bit 7 (manual-transmission coding) is clear, i.e. on the AT/CVT coding. The A/B weight FFF8AE26 (0x0B9C78) starts at 0 and its step cals 0x22FBE/0x22FC0 are 0, so it stays 0 and the output is this table alone; the matching non-AT/CVT table is then ignored (read). FFF88ADA bit 7 is set on the manual coding, so this table is unused on manual cars. Driver-requested torque from rpm and pedal (0x0BB588, read): FFF8AEB0 = A x FFF8AE26/32768 + B x (1 - FFF8AE26/32768), torque above the zero point, into FFF8AEB0; FFF8AE26 ramps between 0 and 32768 under a condition (0x0B9C78). Table B of map set 1 = Drive Mode 3 (0x0BDBD8 combines the four sets by the drive-mode byte FFF8A8C1 and per-mode scale cals 0x1FAFE-0x1FB00; SI-Drive positions: mode 4 = Sport Sharp, mode 2 = Sport, mode 3 = Intelligent (least torque for a given pedal in both images), mode 1 = the default used when no valid SI-Drive request is received, and the only set on cars without SI-Drive). KEEP Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Monitor) identical (inferred safety copy). Confidence: inferred.</description>
  </table>
  <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Monitor)" address="046112" level="5">
   <table name="Accelerator Pedal (Monitor)" address="0453ca" />
   <table name="Engine Speed" address="0453a0" />
+  <description>Monitor copy of Requested Torque (Drive Mode 3, Intelligent, AT/CVT): keep identical to it or expect a throttle plausibility fault. Used only on the AT/CVT coding.
+
+Details: When used: Monitor copy; keep identical. Byte-for-byte copy of Requested Torque (Drive Mode 3, Intelligent, AT/CVT) (data and axes) in separate storage, read by a second module (0x1873C4/0x1874BC/0x1875BC/0x1876BC, rpm x FFF88FE2, same A-then-B lookup order and weight structure, into FFF8BBAE/BBB2/BBB6/BBBA). Almost certainly the electronic-throttle torque monitor: change it together with the primary map or expect a throttle/torque plausibility fault (inferred). Confidence: inferred.</description>
  </table>
  <table name="Requested Torque (Drive Mode 4, Sport Sharp, AT/CVT)" address="01f46e" level="5">
   <table name="Accelerator Pedal" address="01f446" />
   <table name="Engine Speed" address="01f41c" />
+  <description>Drive mode 4: SI-Drive Sport Sharp (S#). On the AT/CVT coding this is the whole requested-torque map for this drive mode (Requested Torque (Drive Mode 4, Sport Sharp) is then ignored); unused on manual cars. Edit it, and its Monitor copy, when tuning an AT/CVT car.
+
+Details: When used: whenever FFF88ADA bit 7 (manual-transmission coding) is clear, i.e. on the AT/CVT coding. The A/B weight FFF8AE26 (0x0B9C78) starts at 0 and its step cals 0x22FBE/0x22FC0 are 0, so it stays 0 and the output is this table alone; the matching non-AT/CVT table is then ignored (read). FFF88ADA bit 7 is set on the manual coding, so this table is unused on manual cars. Driver-requested torque from rpm and pedal (0x0BB870, read): FFF8AEBC = A x FFF8AE26/32768 + B x (1 - FFF8AE26/32768), torque above the zero point, into FFF8AEBC; FFF8AE26 ramps between 0 and 32768 under a condition (0x0B9C78). Table B of map set 4 = Drive Mode 4 (0x0BDBD8 combines the four sets by the drive-mode byte FFF8A8C1 and per-mode scale cals 0x1FAFE-0x1FB00; SI-Drive positions: mode 4 = Sport Sharp, mode 2 = Sport, mode 3 = Intelligent (least torque for a given pedal in both images), mode 1 = the default used when no valid SI-Drive request is received, and the only set on cars without SI-Drive). KEEP Requested Torque (Drive Mode 4, Sport Sharp, AT/CVT, Monitor) identical (inferred safety copy). Confidence: inferred.</description>
  </table>
  <table name="Requested Torque (Drive Mode 4, Sport Sharp, AT/CVT, Monitor)" address="0467f4" level="5">
   <table name="Accelerator Pedal (Monitor)" address="0467cc" />
   <table name="Engine Speed" address="0467a2" />
+  <description>Monitor copy of Requested Torque (Drive Mode 4, Sport Sharp, AT/CVT): keep identical to it or expect a throttle plausibility fault. Used only on the AT/CVT coding.
+
+Details: When used: Monitor copy; keep identical. Byte-for-byte copy of Requested Torque (Drive Mode 4, Sport Sharp, AT/CVT) (data and axes) in separate storage, read by a second module (0x1873C4/0x1874BC/0x1875BC/0x1876BC, rpm x FFF88FE2, same A-then-B lookup order and weight structure, into FFF8BBAE/BBB2/BBB6/BBBA). Almost certainly the electronic-throttle torque monitor: change it together with the primary map or expect a throttle/torque plausibility fault (inferred). Confidence: inferred.</description>
  </table>
  <table name="Accelerator Pedal Scaling" address="0573ca">
   <table name="Accelerator Pedal Position" address="0573ea" />
@@ -1839,18 +1926,30 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  <table name="Target Torque Rise Step Stage 1 (Drive Mode 1, Default, AT/CVT Coding)" address="0200e6" level="5">
   <table name="Engine Speed" address="02000a" />
   <table name="Gear" address="020004" />
+  <description>AT/CVT version of Target Torque Rise Step Stage 1 (Drive Mode 1, Default). Only used on an AT/CVT-coded car, so it has no effect on a manual.
+
+Details: When used: drive mode other than 2/3/4 (1, default) with AT/CVT Coding. AT/CVT Coding set = FFF88ADA bit 7 clear and FFF8AE0A &gt;= cal 0x1FC96 (5). Replaces Target Torque Rise Step Stage 1 (Drive Mode 1, Default) (0598F8) as Step1 (read: the selection at 0x0BCB12..0x0BCC20). 0x0BB958 (read; called from the torque module 0x0BE694 at 0x0BF612 with the limited request FFF8AEC2, the previous output FFF8AEC6, gear FFF8A621, rpm FFF8CD54, drive mode FFF8A8C1, pedal FFF8AF00 and, as stack argument 11, cal 0x23704 bit 6; argument order checked in the disassembly). Main path: with prev = FFF8AEC6, if prev + Step1 &lt; Stage 2 Torque the shaped value is max(Start Torque, prev + Step1), otherwise max(Stage 2 Torque, prev + Step2); Step2 the same with cal 0x1FCA2.. (1, 2, 5, 5, 5) and the Stage 2 Pedal Multiplier; the gear factors apply only while FFF8A63D bit 4 is set (else x1). FFF8AEBE = min(request FFF8AEC2, shaped value). No shaping (FFF8AEBE = request) while the request is below Start Torque, vehicle speed FFF88BE8 is below cal 0x1FCAC (hysteresis 0x1FCAE), or FFF88ADA bit 6 / FFF88E62 bit 0 is set. FFF8AEBE goes on through FFF8AEC6 = max(FFF8AEBE, FFF8AEA8) (0x0BD3F0) to the target torque FFF8AECA (boost target / wastegate duty axis). Its rpm axis (0x2000A) differs from the manual table's. The torque monitor 0x1877B4 reads the same data bytes through its own descriptor (05F674), so it stays consistent. Confidence: inferred.</description>
  </table>
  <table name="Target Torque Rise Step Stage 1 (Drive Mode 2, Sport, AT/CVT Coding)" address="02001e" level="5">
   <table name="Engine Speed" address="02000a" />
   <table name="Gear" address="020004" />
+  <description>AT/CVT version of Target Torque Rise Step Stage 1 (Drive Mode 2, Sport). Only used on an AT/CVT-coded car, so it has no effect on a manual.
+
+Details: When used: drive mode 2 with AT/CVT Coding. AT/CVT Coding set = FFF88ADA bit 7 clear and FFF8AE0A &gt;= cal 0x1FC96 (5). Replaces Target Torque Rise Step Stage 1 (Drive Mode 2, Sport) (0598D0) as Step1 (read: the selection at 0x0BCB12..0x0BCC20). 0x0BB958 (read; called from the torque module 0x0BE694 at 0x0BF612 with the limited request FFF8AEC2, the previous output FFF8AEC6, gear FFF8A621, rpm FFF8CD54, drive mode FFF8A8C1, pedal FFF8AF00 and, as stack argument 11, cal 0x23704 bit 6; argument order checked in the disassembly). Main path: with prev = FFF8AEC6, if prev + Step1 &lt; Stage 2 Torque the shaped value is max(Start Torque, prev + Step1), otherwise max(Stage 2 Torque, prev + Step2); Step2 the same with cal 0x1FCA2.. (1, 2, 5, 5, 5) and the Stage 2 Pedal Multiplier; the gear factors apply only while FFF8A63D bit 4 is set (else x1). FFF8AEBE = min(request FFF8AEC2, shaped value). No shaping (FFF8AEBE = request) while the request is below Start Torque, vehicle speed FFF88BE8 is below cal 0x1FCAC (hysteresis 0x1FCAE), or FFF88ADA bit 6 / FFF88E62 bit 0 is set. FFF8AEBE goes on through FFF8AEC6 = max(FFF8AEBE, FFF8AEA8) (0x0BD3F0) to the target torque FFF8AECA (boost target / wastegate duty axis). Its rpm axis (0x2000A) differs from the manual table's. The torque monitor 0x1877B4 reads the same data bytes through its own descriptor (05F64C), so it stays consistent. Confidence: inferred.</description>
  </table>
  <table name="Target Torque Rise Step Stage 1 (Drive Mode 3, Intelligent, AT/CVT Coding)" address="020082" level="5">
   <table name="Engine Speed" address="02000a" />
   <table name="Gear" address="020004" />
+  <description>AT/CVT version of Target Torque Rise Step Stage 1 (Drive Mode 3, Intelligent). Only used on an AT/CVT-coded car, so it has no effect on a manual.
+
+Details: When used: drive mode 3 with AT/CVT Coding. AT/CVT Coding set = FFF88ADA bit 7 clear and FFF8AE0A &gt;= cal 0x1FC96 (5). Replaces Target Torque Rise Step Stage 1 (Drive Mode 3, Intelligent) (0598E4) as Step1 (read: the selection at 0x0BCB12..0x0BCC20). 0x0BB958 (read; called from the torque module 0x0BE694 at 0x0BF612 with the limited request FFF8AEC2, the previous output FFF8AEC6, gear FFF8A621, rpm FFF8CD54, drive mode FFF8A8C1, pedal FFF8AF00 and, as stack argument 11, cal 0x23704 bit 6; argument order checked in the disassembly). Main path: with prev = FFF8AEC6, if prev + Step1 &lt; Stage 2 Torque the shaped value is max(Start Torque, prev + Step1), otherwise max(Stage 2 Torque, prev + Step2); Step2 the same with cal 0x1FCA2.. (1, 2, 5, 5, 5) and the Stage 2 Pedal Multiplier; the gear factors apply only while FFF8A63D bit 4 is set (else x1). FFF8AEBE = min(request FFF8AEC2, shaped value). No shaping (FFF8AEBE = request) while the request is below Start Torque, vehicle speed FFF88BE8 is below cal 0x1FCAC (hysteresis 0x1FCAE), or FFF88ADA bit 6 / FFF88E62 bit 0 is set. FFF8AEBE goes on through FFF8AEC6 = max(FFF8AEBE, FFF8AEA8) (0x0BD3F0) to the target torque FFF8AECA (boost target / wastegate duty axis). Its rpm axis (0x2000A) differs from the manual table's. The torque monitor 0x1877B4 reads the same data bytes through its own descriptor (05F660), so it stays consistent. Confidence: inferred.</description>
  </table>
  <table name="Target Torque Rise Step Stage 1 (Drive Mode 4, Sport Sharp, AT/CVT Coding)" address="02014a" level="5">
   <table name="Engine Speed" address="02000a" />
   <table name="Gear" address="020004" />
+  <description>AT/CVT version of Target Torque Rise Step Stage 1 (Drive Mode 4, Sport Sharp). Only used on an AT/CVT-coded car, so it has no effect on a manual.
+
+Details: When used: drive mode 4 with AT/CVT Coding. AT/CVT Coding set = FFF88ADA bit 7 clear and FFF8AE0A &gt;= cal 0x1FC96 (5). Replaces Target Torque Rise Step Stage 1 (Drive Mode 4, Sport Sharp) (059920) as Step1 (read: the selection at 0x0BCB12..0x0BCC20). 0x0BB958 (read; called from the torque module 0x0BE694 at 0x0BF612 with the limited request FFF8AEC2, the previous output FFF8AEC6, gear FFF8A621, rpm FFF8CD54, drive mode FFF8A8C1, pedal FFF8AF00 and, as stack argument 11, cal 0x23704 bit 6; argument order checked in the disassembly). Main path: with prev = FFF8AEC6, if prev + Step1 &lt; Stage 2 Torque the shaped value is max(Start Torque, prev + Step1), otherwise max(Stage 2 Torque, prev + Step2); Step2 the same with cal 0x1FCA2.. (1, 2, 5, 5, 5) and the Stage 2 Pedal Multiplier; the gear factors apply only while FFF8A63D bit 4 is set (else x1). FFF8AEBE = min(request FFF8AEC2, shaped value). No shaping (FFF8AEBE = request) while the request is below Start Torque, vehicle speed FFF88BE8 is below cal 0x1FCAC (hysteresis 0x1FCAE), or FFF88ADA bit 6 / FFF88E62 bit 0 is set. FFF8AEBE goes on through FFF8AEC6 = max(FFF8AEBE, FFF8AEA8) (0x0BD3F0) to the target torque FFF8AECA (boost target / wastegate duty axis). Its rpm axis (0x2000A) differs from the manual table's. The torque monitor 0x1877B4 reads the same data bytes through its own descriptor (05F6C4), so it stays consistent. Confidence: inferred.</description>
  </table>
  <table name="Target Torque Rise Step Stage 2 (Drive Mode 1, Default)" address="0205e4">
   <table name="Engine Speed" address="020508" />
@@ -1871,18 +1970,30 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  <table name="Target Torque Rise Step Stage 2 (Drive Mode 1, Default, AT/CVT Coding)" address="02043a" level="5">
   <table name="Engine Speed" address="02035e" />
   <table name="Gear" address="020358" />
+  <description>AT/CVT version of Target Torque Rise Step Stage 2 (Drive Mode 1, Default). Only used on an AT/CVT-coded car, so it has no effect on a manual.
+
+Details: When used: drive mode other than 2/3/4 with FFF88ADA bit 7 clear and FFF8AE0A &gt;= cal 0x1FC96 (5). Replaces Target Torque Rise Step Stage 2. 0x0BB958 (read; called from the torque module with the limited request FFF8AEC2, the previous output FFF8AEC6, gear FFF8A621, rpm FFF8CD54, drive mode FFF8A8C1 and pedal FFF8AF00): with prev = FFF8AEC6, if prev + Step1 &lt; Stage 2 Torque the shaped value is max(Start Torque, prev + Step1), otherwise max(Stage 2 Torque, prev + Step2); Step2 the same with cal 0x1FCA2.. (1, 2, 5, 5, 5) and the Stage 2 Pedal Multiplier; the gear factors apply only while FFF8A63D bit 4 is set (else 255 = x1). FFF8AEBE = min(request FFF8AEC2, shaped value). No shaping (FFF8AEBE = request) while the request is below Start Torque, vehicle speed FFF88BE8 is below cal 0x1FCAC (89, about 5 km/h, hysteresis 0x1FCAE), or FFF88ADA bit 6 / FFF88E62 bit 0 is set. So these limit how fast the driver's torque request may rise (tip-in), in two stages. FFF8AEBE goes on through FFF8AEC6 = max(FFF8AEBE, FFF8AEA8) (0x0BD3F0) to the target torque FFF8AECA that indexes boost target and wastegate duty (my research notes). The torque monitor (0x1877B4) reads the same bytes through its own descriptor, so it stays consistent. Drive mode = FFF8A8C1 (2, 3, 4 or other; which value is which SI-Drive position: see the Requested Torque entries, see my research notes). Same data bytes are also referenced by descriptor(s) 05F714. Confidence: inferred.</description>
  </table>
  <table name="Target Torque Rise Step Stage 2 (Drive Mode 2, Sport, AT/CVT Coding)" address="020372" level="5">
   <table name="Engine Speed" address="02035e" />
   <table name="Gear" address="020358" />
+  <description>AT/CVT version of Target Torque Rise Step Stage 2 (Drive Mode 2, Sport). Only used on an AT/CVT-coded car, so it has no effect on a manual.
+
+Details: When used: drive mode 2 with FFF88ADA bit 7 clear and FFF8AE0A &gt;= cal 0x1FC96 (5). Replaces Target Torque Rise Step Stage 2. 0x0BB958 (read; called from the torque module with the limited request FFF8AEC2, the previous output FFF8AEC6, gear FFF8A621, rpm FFF8CD54, drive mode FFF8A8C1 and pedal FFF8AF00): with prev = FFF8AEC6, if prev + Step1 &lt; Stage 2 Torque the shaped value is max(Start Torque, prev + Step1), otherwise max(Stage 2 Torque, prev + Step2); Step2 the same with cal 0x1FCA2.. (1, 2, 5, 5, 5) and the Stage 2 Pedal Multiplier; the gear factors apply only while FFF8A63D bit 4 is set (else 255 = x1). FFF8AEBE = min(request FFF8AEC2, shaped value). No shaping (FFF8AEBE = request) while the request is below Start Torque, vehicle speed FFF88BE8 is below cal 0x1FCAC (89, about 5 km/h, hysteresis 0x1FCAE), or FFF88ADA bit 6 / FFF88E62 bit 0 is set. So these limit how fast the driver's torque request may rise (tip-in), in two stages. FFF8AEBE goes on through FFF8AEC6 = max(FFF8AEBE, FFF8AEA8) (0x0BD3F0) to the target torque FFF8AECA that indexes boost target and wastegate duty (my research notes). The torque monitor (0x1877B4) reads the same bytes through its own descriptor, so it stays consistent. Drive mode = FFF8A8C1 (2, 3, 4 or other; which value is which SI-Drive position: see the Requested Torque entries, see my research notes). Same data bytes are also referenced by descriptor(s) 05F6EC. Confidence: inferred.</description>
  </table>
  <table name="Target Torque Rise Step Stage 2 (Drive Mode 3, Intelligent, AT/CVT Coding)" address="0203d6" level="5">
   <table name="Engine Speed" address="02035e" />
   <table name="Gear" address="020358" />
+  <description>AT/CVT version of Target Torque Rise Step Stage 2 (Drive Mode 3, Intelligent). Only used on an AT/CVT-coded car, so it has no effect on a manual.
+
+Details: When used: drive mode 3 with FFF88ADA bit 7 clear and FFF8AE0A &gt;= cal 0x1FC96 (5). Replaces Target Torque Rise Step Stage 2. 0x0BB958 (read; called from the torque module with the limited request FFF8AEC2, the previous output FFF8AEC6, gear FFF8A621, rpm FFF8CD54, drive mode FFF8A8C1 and pedal FFF8AF00): with prev = FFF8AEC6, if prev + Step1 &lt; Stage 2 Torque the shaped value is max(Start Torque, prev + Step1), otherwise max(Stage 2 Torque, prev + Step2); Step2 the same with cal 0x1FCA2.. (1, 2, 5, 5, 5) and the Stage 2 Pedal Multiplier; the gear factors apply only while FFF8A63D bit 4 is set (else 255 = x1). FFF8AEBE = min(request FFF8AEC2, shaped value). No shaping (FFF8AEBE = request) while the request is below Start Torque, vehicle speed FFF88BE8 is below cal 0x1FCAC (89, about 5 km/h, hysteresis 0x1FCAE), or FFF88ADA bit 6 / FFF88E62 bit 0 is set. So these limit how fast the driver's torque request may rise (tip-in), in two stages. FFF8AEBE goes on through FFF8AEC6 = max(FFF8AEBE, FFF8AEA8) (0x0BD3F0) to the target torque FFF8AECA that indexes boost target and wastegate duty (my research notes). The torque monitor (0x1877B4) reads the same bytes through its own descriptor, so it stays consistent. Drive mode = FFF8A8C1 (2, 3, 4 or other; which value is which SI-Drive position: see the Requested Torque entries, see my research notes). Same data bytes are also referenced by descriptor(s) 05F700. Confidence: inferred.</description>
  </table>
  <table name="Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp, AT/CVT Coding)" address="02049e" level="5">
   <table name="Engine Speed" address="02035e" />
   <table name="Gear" address="020358" />
+  <description>AT/CVT version of Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp). Only used on an AT/CVT-coded car, so it has no effect on a manual.
+
+Details: When used: drive mode 4 with FFF88ADA bit 7 clear and FFF8AE0A &gt;= cal 0x1FC96 (5). Replaces Target Torque Rise Step Stage 2. 0x0BB958 (read; called from the torque module with the limited request FFF8AEC2, the previous output FFF8AEC6, gear FFF8A621, rpm FFF8CD54, drive mode FFF8A8C1 and pedal FFF8AF00): with prev = FFF8AEC6, if prev + Step1 &lt; Stage 2 Torque the shaped value is max(Start Torque, prev + Step1), otherwise max(Stage 2 Torque, prev + Step2); Step2 the same with cal 0x1FCA2.. (1, 2, 5, 5, 5) and the Stage 2 Pedal Multiplier; the gear factors apply only while FFF8A63D bit 4 is set (else 255 = x1). FFF8AEBE = min(request FFF8AEC2, shaped value). No shaping (FFF8AEBE = request) while the request is below Start Torque, vehicle speed FFF88BE8 is below cal 0x1FCAC (89, about 5 km/h, hysteresis 0x1FCAE), or FFF88ADA bit 6 / FFF88E62 bit 0 is set. So these limit how fast the driver's torque request may rise (tip-in), in two stages. FFF8AEBE goes on through FFF8AEC6 = max(FFF8AEBE, FFF8AEA8) (0x0BD3F0) to the target torque FFF8AECA that indexes boost target and wastegate duty (my research notes). The torque monitor (0x1877B4) reads the same bytes through its own descriptor, so it stays consistent. Drive mode = FFF8A8C1 (2, 3, 4 or other; which value is which SI-Drive position: see the Requested Torque entries, see my research notes). Same data bytes are also referenced by descriptor(s) 05F764. Confidence: inferred.</description>
  </table>
  <table name="Target Torque Rise Step Stage 1 Pedal Multiplier" address="0206ac">
   <table name="Accelerator Pedal" address="0206b8" />
@@ -2892,13 +3003,24 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
   <table name="Engine Speed" address="0298ca" />
  </table>
  <table name="Idle Speed Target (Warm Idle, Mode 5)" address="024b10" />
- <table name="Idle Speed Target (Warm Idle, AT/CVT, Mode 6)" address="024b30" level="5" />
+ <table name="Idle Speed Target (Warm Idle, AT/CVT, Mode 6)" address="024b30" level="5">
+  <description>Warm idle speed target by coolant for automatic/CVT cars only; a manual car never uses this table.
+
+Details: When used: only with the automatic/CVT transmission coding. With the manual coding the idle mode never becomes 6 (0x0F2BCC passes the mode through unchanged while FFF88ADA bit 7 is set, and 0x0F354C produces only modes 1-5 and 7, read), so on a manual car edit Mode 5. 0x0F1BCC selects this boot-format table by idle mode FFF8A7F0 = 6 and coolant; the result B238 is ramped (0x0F1D00) and becomes the idle target FFF8B236 through the minimum-speed max() in 0x0F2274. Implicit coolant axis -40..110 degC in 10 degC steps (lookup 0x7414, read). Confidence: read.</description>
+ </table>
  <table name="Idle Speed Target (Post-Start, Modes 1/2)" address="024ab0" />
  <table name="Idle Speed Target (Warm Start, Mode 3)" address="024ad0" />
  <table name="Idle Speed Target (Warm-Up Drive-Off, Mode 7)" address="024b50" />
- <table name="Idle Speed Target (Warm-Up Drive-Off, AT/CVT, Mode 8)" address="024b70" level="5" />
+ <table name="Idle Speed Target (Warm-Up Drive-Off, AT/CVT, Mode 8)" address="024b70" level="5">
+  <description>Automatic/CVT version of Idle Speed Target (Warm-Up Drive-Off, Mode 7): idle speed by coolant once the car has moved off before the engine is warm. Never used on a manual car.
+
+Details: When used: only with the automatic/CVT coding: mode 7 is mapped to 8 while FFF8A7E2 bit 0 is clear (read, 0x0F2BCC). Never on a manual car. 0x0F1BCC selects this boot-format table by idle mode FFF8A7F0 = 8 and coolant; the result B238 is ramped (0x0F1D00) and becomes the idle target FFF8B236 through the minimum-speed max() in 0x0F2274 (read). Implicit coolant axis -40..110 C in 10 C steps (lookup 0x7414). Confidence: read.</description>
+ </table>
  <table name="Idle Speed Target (In Drive, AT/CVT)" address="025a85" level="5">
   <table name="Coolant Temp" address="03834c" />
+  <description>Idle speed target by coolant while an automatic/CVT car idles in Drive with the brake on (pedal released, slow). Never used on a manual car (inferred).
+
+Details: When used: only with the automatic/CVT coding, while the in-Drive idle condition FFF8A7E4 bit 0 is set (see Idle Air Reduction In Drive (Coolant): automatic coding, neutral input clear, pedal released, slow) and afterwards until the in-Drive idle air reduction FFF8B160 has ramped back to its target. Never on a manual car (inferred from that chain). 0x0F2248 (read): when FFF8A7E4 bit 4 is set, B242 = this(coolant) &lt;&lt; 6 (12.5 rpm per count) replaces the idle-mode target chain. Confidence: read.</description>
  </table>
  <table name="Idle Speed Minimum (Baro, Oil Temp)" address="025c3c">
   <table name="Oil Temp" address="034f0a" />
@@ -2933,45 +3055,81 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  </table>
  <table name="Idle Target Ramp Rate (AT/CVT, Mode 1 to 6)" address="024e70" level="5">
   <table name="Coolant Temp" address="03834c" />
+  <description>How fast the idle speed target moves (by coolant) when idle switches from mode 1 (engine stopped) to mode 6 (AT/CVT warm idle). Larger = quicker change. Automatic/CVT only: these modes never occur on a manual car, so this table has no effect there.
+
+Details: 0x0F1DD0 (read; selection checked in the disassembly 0x0F1DD0..0x0F2148): the target ramp step B23E is chosen on a change of idle mode FFF8A7F0 (previous -&gt; new) and kept while the mode stays the same; the target B23C (4 x B238) moves toward the new mode's Idle Speed Target by this step every pass (0x0F1D00). Coolant FFF88A44 axis. Mode 1 -&gt; 1 uses step 0. This table: mode 1 -&gt; 6. Modes 6/8 only occur with the AT/CVT coding: 0x0F2BCC passes A7F6 through when FFF88ADA bit7 is set and 0x0F354C itself only yields 1-5/7, so this step is never used by this MT calibration (read). p16 (read): 0x0F1D00 runs every 10 ms (module 0x0EE338), so rpm/s = shown rpm-per-pass x 100. Confidence: read.</description>
  </table>
  <table name="Idle Target Ramp Rate (AT/CVT, Mode 2 to 6)" address="024c70" level="5">
   <table name="Coolant Temp" address="03834c" />
+  <description>How fast the idle speed target moves (by coolant) when idle switches from mode 2 (cold post-start) to mode 6 (AT/CVT warm idle). Larger = quicker change. Automatic/CVT only: these modes never occur on a manual car, so this table has no effect there.
+
+Details: 0x0F1DD0 (read; selection checked in the disassembly 0x0F1DD0..0x0F2148): the target ramp step B23E is chosen on a change of idle mode FFF8A7F0 (previous -&gt; new) and kept while the mode stays the same; the target B23C (4 x B238) moves toward the new mode's Idle Speed Target by this step every pass (0x0F1D00). Coolant FFF88A44 axis. Mode 1 -&gt; 1 uses step 0. This table: mode 2 -&gt; 6. Modes 6/8 only occur with the AT/CVT coding: 0x0F2BCC passes A7F6 through when FFF88ADA bit7 is set and 0x0F354C itself only yields 1-5/7, so this step is never used by this MT calibration (read). p16 (read): 0x0F1D00 runs every 10 ms (module 0x0EE338), so rpm/s = shown rpm-per-pass x 100. Confidence: read.</description>
  </table>
  <table name="Idle Target Ramp Rate (AT/CVT, Mode 2 to 8)" address="024c90" level="5">
   <table name="Coolant Temp" address="03834c" />
+  <description>How fast the idle speed target moves (by coolant) when idle switches from mode 2 (cold post-start) to mode 8 (AT/CVT warm-up drive-off). Larger = quicker change. Automatic/CVT only: these modes never occur on a manual car, so this table has no effect there.
+
+Details: 0x0F1DD0 (read; selection checked in the disassembly 0x0F1DD0..0x0F2148): the target ramp step B23E is chosen on a change of idle mode FFF8A7F0 (previous -&gt; new) and kept while the mode stays the same; the target B23C (4 x B238) moves toward the new mode's Idle Speed Target by this step every pass (0x0F1D00). Coolant FFF88A44 axis. Mode 1 -&gt; 1 uses step 0. This table: mode 2 -&gt; 8. Modes 6/8 only occur with the AT/CVT coding: 0x0F2BCC passes A7F6 through when FFF88ADA bit7 is set and 0x0F354C itself only yields 1-5/7, so this step is never used by this MT calibration (read). p16 (read): 0x0F1D00 runs every 10 ms (module 0x0EE338), so rpm/s = shown rpm-per-pass x 100. Confidence: read.</description>
  </table>
  <table name="Idle Target Ramp Rate (AT/CVT, Mode 3 to 6)" address="024cb0" level="5">
   <table name="Coolant Temp" address="03834c" />
+  <description>How fast the idle speed target moves (by coolant) when idle switches from mode 3 (warm-start) to mode 6 (AT/CVT warm idle). Larger = quicker change. Automatic/CVT only: these modes never occur on a manual car, so this table has no effect there.
+
+Details: 0x0F1DD0 (read; selection checked in the disassembly 0x0F1DD0..0x0F2148): the target ramp step B23E is chosen on a change of idle mode FFF8A7F0 (previous -&gt; new) and kept while the mode stays the same; the target B23C (4 x B238) moves toward the new mode's Idle Speed Target by this step every pass (0x0F1D00). Coolant FFF88A44 axis. Mode 1 -&gt; 1 uses step 0. This table: mode 3 -&gt; 6. Modes 6/8 only occur with the AT/CVT coding: 0x0F2BCC passes A7F6 through when FFF88ADA bit7 is set and 0x0F354C itself only yields 1-5/7, so this step is never used by this MT calibration (read). p16 (read): 0x0F1D00 runs every 10 ms (module 0x0EE338), so rpm/s = shown rpm-per-pass x 100. Confidence: read.</description>
  </table>
  <table name="Idle Target Ramp Rate (AT/CVT, Mode 3 to 8)" address="024cd0" level="5">
   <table name="Coolant Temp" address="03834c" />
+  <description>How fast the idle speed target moves (by coolant) when idle switches from mode 3 (warm-start) to mode 8 (AT/CVT warm-up drive-off). Larger = quicker change. Automatic/CVT only: these modes never occur on a manual car, so this table has no effect there.
+
+Details: 0x0F1DD0 (read; selection checked in the disassembly 0x0F1DD0..0x0F2148): the target ramp step B23E is chosen on a change of idle mode FFF8A7F0 (previous -&gt; new) and kept while the mode stays the same; the target B23C (4 x B238) moves toward the new mode's Idle Speed Target by this step every pass (0x0F1D00). Coolant FFF88A44 axis. Mode 1 -&gt; 1 uses step 0. This table: mode 3 -&gt; 8. Modes 6/8 only occur with the AT/CVT coding: 0x0F2BCC passes A7F6 through when FFF88ADA bit7 is set and 0x0F354C itself only yields 1-5/7, so this step is never used by this MT calibration (read). p16 (read): 0x0F1D00 runs every 10 ms (module 0x0EE338), so rpm/s = shown rpm-per-pass x 100. Confidence: read.</description>
  </table>
  <table name="Idle Target Ramp Rate (AT/CVT, Mode 4 to 6)" address="024cf0">
   <table name="Coolant Temp" address="03834c" />
  </table>
  <table name="Idle Target Ramp Rate (AT/CVT, Mode 5 to 6)" address="024d10" level="5">
   <table name="Coolant Temp" address="03834c" />
+  <description>How fast the idle speed target moves (by coolant) when idle switches from mode 5 (warm idle) to mode 6 (AT/CVT warm idle). Larger = quicker change. Automatic/CVT only: these modes never occur on a manual car, so this table has no effect there.
+
+Details: 0x0F1DD0 (read; selection checked in the disassembly 0x0F1DD0..0x0F2148): the target ramp step B23E is chosen on a change of idle mode FFF8A7F0 (previous -&gt; new) and kept while the mode stays the same; the target B23C (4 x B238) moves toward the new mode's Idle Speed Target by this step every pass (0x0F1D00). Coolant FFF88A44 axis. Mode 1 -&gt; 1 uses step 0. This table: mode 5 -&gt; 6. Modes 6/8 only occur with the AT/CVT coding: 0x0F2BCC passes A7F6 through when FFF88ADA bit7 is set and 0x0F354C itself only yields 1-5/7, so this step is never used by this MT calibration (read). p16 (read): 0x0F1D00 runs every 10 ms (module 0x0EE338), so rpm/s = shown rpm-per-pass x 100. Confidence: read.</description>
  </table>
  <table name="Idle Target Ramp Rate (AT/CVT, Mode 6 to 4)" address="024d30">
   <table name="Coolant Temp" address="03834c" />
  </table>
  <table name="Idle Target Ramp Rate (AT/CVT, Mode 6 to 5)" address="024d50" level="5">
   <table name="Coolant Temp" address="03834c" />
+  <description>How fast the idle speed target moves (by coolant) when idle switches from mode 6 (AT/CVT warm idle) to mode 5 (warm idle). Larger = quicker change. Automatic/CVT only: these modes never occur on a manual car, so this table has no effect there.
+
+Details: 0x0F1DD0 (read; selection checked in the disassembly 0x0F1DD0..0x0F2148): the target ramp step B23E is chosen on a change of idle mode FFF8A7F0 (previous -&gt; new) and kept while the mode stays the same; the target B23C (4 x B238) moves toward the new mode's Idle Speed Target by this step every pass (0x0F1D00). Coolant FFF88A44 axis. Mode 1 -&gt; 1 uses step 0. This table: mode 6 -&gt; 5. Modes 6/8 only occur with the AT/CVT coding: 0x0F2BCC passes A7F6 through when FFF88ADA bit7 is set and 0x0F354C itself only yields 1-5/7, so this step is never used by this MT calibration (read). p16 (read): 0x0F1D00 runs every 10 ms (module 0x0EE338), so rpm/s = shown rpm-per-pass x 100. Confidence: read.</description>
  </table>
  <table name="Idle Target Ramp Rate (AT/CVT, Mode 7 to 6)" address="024d70" level="5">
   <table name="Coolant Temp" address="03834c" />
+  <description>How fast the idle speed target moves (by coolant) when idle switches from mode 7 (warm-up drive-off) to mode 6 (AT/CVT warm idle). Larger = quicker change. Automatic/CVT only: these modes never occur on a manual car, so this table has no effect there.
+
+Details: 0x0F1DD0 (read; selection checked in the disassembly 0x0F1DD0..0x0F2148): the target ramp step B23E is chosen on a change of idle mode FFF8A7F0 (previous -&gt; new) and kept while the mode stays the same; the target B23C (4 x B238) moves toward the new mode's Idle Speed Target by this step every pass (0x0F1D00). Coolant FFF88A44 axis. Mode 1 -&gt; 1 uses step 0. This table: mode 7 -&gt; 6. Modes 6/8 only occur with the AT/CVT coding: 0x0F2BCC passes A7F6 through when FFF88ADA bit7 is set and 0x0F354C itself only yields 1-5/7, so this step is never used by this MT calibration (read). p16 (read): 0x0F1D00 runs every 10 ms (module 0x0EE338), so rpm/s = shown rpm-per-pass x 100. Confidence: read.</description>
  </table>
  <table name="Idle Target Ramp Rate (AT/CVT, Mode 7 to 8)" address="024d90" level="5">
   <table name="Coolant Temp" address="03834c" />
+  <description>How fast the idle speed target moves (by coolant) when idle switches from mode 7 (warm-up drive-off) to mode 8 (AT/CVT warm-up drive-off). Larger = quicker change. Automatic/CVT only: these modes never occur on a manual car, so this table has no effect there.
+
+Details: 0x0F1DD0 (read; selection checked in the disassembly 0x0F1DD0..0x0F2148): the target ramp step B23E is chosen on a change of idle mode FFF8A7F0 (previous -&gt; new) and kept while the mode stays the same; the target B23C (4 x B238) moves toward the new mode's Idle Speed Target by this step every pass (0x0F1D00). Coolant FFF88A44 axis. Mode 1 -&gt; 1 uses step 0. This table: mode 7 -&gt; 8. Modes 6/8 only occur with the AT/CVT coding: 0x0F2BCC passes A7F6 through when FFF88ADA bit7 is set and 0x0F354C itself only yields 1-5/7, so this step is never used by this MT calibration (read). p16 (read): 0x0F1D00 runs every 10 ms (module 0x0EE338), so rpm/s = shown rpm-per-pass x 100. Confidence: read.</description>
  </table>
  <table name="Idle Target Ramp Rate (AT/CVT, Mode 8 to 5)" address="024db0" level="5">
   <table name="Coolant Temp" address="03834c" />
+  <description>How fast the idle speed target moves (by coolant) when idle switches from mode 8 (AT/CVT warm-up drive-off) to mode 5 (warm idle). Larger = quicker change. Automatic/CVT only: these modes never occur on a manual car, so this table has no effect there.
+
+Details: 0x0F1DD0 (read; selection checked in the disassembly 0x0F1DD0..0x0F2148): the target ramp step B23E is chosen on a change of idle mode FFF8A7F0 (previous -&gt; new) and kept while the mode stays the same; the target B23C (4 x B238) moves toward the new mode's Idle Speed Target by this step every pass (0x0F1D00). Coolant FFF88A44 axis. Mode 1 -&gt; 1 uses step 0. This table: mode 8 -&gt; 5. Modes 6/8 only occur with the AT/CVT coding: 0x0F2BCC passes A7F6 through when FFF88ADA bit7 is set and 0x0F354C itself only yields 1-5/7, so this step is never used by this MT calibration (read). p16 (read): 0x0F1D00 runs every 10 ms (module 0x0EE338), so rpm/s = shown rpm-per-pass x 100. Confidence: read.</description>
  </table>
  <table name="Idle Target Ramp Rate (AT/CVT, Mode 8 to 6)" address="024dd0" level="5">
   <table name="Coolant Temp" address="03834c" />
+  <description>How fast the idle speed target moves (by coolant) when idle switches from mode 8 (AT/CVT warm-up drive-off) to mode 6 (AT/CVT warm idle). Larger = quicker change. Automatic/CVT only: these modes never occur on a manual car, so this table has no effect there.
+
+Details: 0x0F1DD0 (read; selection checked in the disassembly 0x0F1DD0..0x0F2148): the target ramp step B23E is chosen on a change of idle mode FFF8A7F0 (previous -&gt; new) and kept while the mode stays the same; the target B23C (4 x B238) moves toward the new mode's Idle Speed Target by this step every pass (0x0F1D00). Coolant FFF88A44 axis. Mode 1 -&gt; 1 uses step 0. This table: mode 8 -&gt; 6. Modes 6/8 only occur with the AT/CVT coding: 0x0F2BCC passes A7F6 through when FFF88ADA bit7 is set and 0x0F354C itself only yields 1-5/7, so this step is never used by this MT calibration (read). p16 (read): 0x0F1D00 runs every 10 ms (module 0x0EE338), so rpm/s = shown rpm-per-pass x 100. Confidence: read.</description>
  </table>
  <table name="Idle Target Ramp Rate (AT/CVT, Mode 8 to 7)" address="024df0" level="5">
   <table name="Coolant Temp" address="03834c" />
+  <description>How fast the idle speed target moves (by coolant) when idle switches from mode 8 (AT/CVT warm-up drive-off) to mode 7 (warm-up drive-off). Larger = quicker change. Automatic/CVT only: these modes never occur on a manual car, so this table has no effect there.
+
+Details: 0x0F1DD0 (read; selection checked in the disassembly 0x0F1DD0..0x0F2148): the target ramp step B23E is chosen on a change of idle mode FFF8A7F0 (previous -&gt; new) and kept while the mode stays the same; the target B23C (4 x B238) moves toward the new mode's Idle Speed Target by this step every pass (0x0F1D00). Coolant FFF88A44 axis. Mode 1 -&gt; 1 uses step 0. This table: mode 8 -&gt; 7. Modes 6/8 only occur with the AT/CVT coding: 0x0F2BCC passes A7F6 through when FFF88ADA bit7 is set and 0x0F354C itself only yields 1-5/7, so this step is never used by this MT calibration (read). p16 (read): 0x0F1D00 runs every 10 ms (module 0x0EE338), so rpm/s = shown rpm-per-pass x 100. Confidence: read.</description>
  </table>
  <table name="Idle Speed Target (Cold Idle, Mode 4)" address="024af0" />
  <table name="Idle Target Ramp Rate (Fallback Latch)" address="026e12">
@@ -3001,12 +3159,28 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  <table name="Idle Base Air (Post-Start, Modes 1/2, TGV Closed)" address="024efe" />
  <table name="Idle Base Air (Warm Start, Mode 3)" address="024ffe" />
  <table name="Idle Base Air (Warm Start, Mode 3, TGV Closed)" address="024f1e" />
- <table name="Idle Base Air (AT/CVT, Mode 6)" address="02505e" level="5" />
- <table name="Idle Base Air (AT/CVT, Mode 6, TGV Closed)" address="024f7e" level="5" />
+ <table name="Idle Base Air (AT/CVT, Mode 6)" address="02505e" level="5">
+  <description>Base (open-loop) idle air by coolant in warm idle on automatic/CVT cars only (never used on a manual car), used while the TGVs are commanded open. Change it together with the matching Idle Speed Target so idle feedback does not have to make up the difference. The TGV Closed table is used whenever the TGVs are commanded closed, which is the normal state at low torque, so change both together.
+
+Details: When used: only with the automatic/CVT coding: mode 5 is mapped to 6 while FFF8A7E2 bit 0 is clear (AT state code FFF8A7DD = 0 or 5, 0x0EC7A4; physical meaning not settled). Never on a manual car (read, 0x0F2BCC). 0x0F0D24: base idle air B20C by idle mode FFF8A7F0 and coolant, this table while FFF8A881 bit 4 (TGVs closed) is clear (read). Scale as Idle Base Air (Mode 5). Raise it with this mode's idle speed target so the feedback need not cover the difference (inferred). Implicit coolant axis -40..110 C in 10 C steps (lookup 0x7414). Confidence: read.</description>
+ </table>
+ <table name="Idle Base Air (AT/CVT, Mode 6, TGV Closed)" address="024f7e" level="5">
+  <description>Base (open-loop) idle air by coolant in warm idle on automatic/CVT cars only (never used on a manual car), used while the TGVs are commanded closed (the normal state at low torque, probably including warm idle). Change it together with the matching Idle Speed Target and the normal Idle Base Air table for this mode.
+
+Details: When used: only with the automatic/CVT coding: mode 5 is mapped to 6 while FFF8A7E2 bit 0 is clear (AT state code FFF8A7DD = 0 or 5, 0x0EC7A4; physical meaning not settled). Never on a manual car (read, 0x0F2BCC). 0x0F0D24: base idle air B20C by idle mode FFF8A7F0 and coolant, this table while FFF8A881 bit 4 (TGV close command) is set (read). Scale as Idle Base Air (Mode 5). Raise it with this mode's idle speed target so the feedback need not cover the difference (inferred). Implicit coolant axis -40..110 C in 10 C steps (lookup 0x7414). FFF8A881 bit 4 is the normal TGV-close command (0x10DEFC, set mainly by the timed close request FFF8A883 bit 5 from 0x10E180 when requested torque, coolant and air flow are below the TGV thresholds; the same bit selects every TGV-closed table), not a forced or fault state (read). At a settled warm idle the request conditions hold, so the TGVs are normally commanded closed and the TGV Closed table is probably the one in use (inferred). Confidence: read.</description>
+ </table>
  <table name="Idle Base Air (Warm-Up Drive-Off, Mode 7)" address="02507e" />
  <table name="Idle Base Air (Warm-Up Drive-Off, Mode 7, TGV Closed)" address="024f9e" />
- <table name="Idle Base Air (Warm-Up Drive-Off, AT/CVT, Mode 8)" address="02509e" level="5" />
- <table name="Idle Base Air (Warm-Up Drive-Off, AT/CVT, Mode 8, TGV Closed)" address="024fbe" level="5" />
+ <table name="Idle Base Air (Warm-Up Drive-Off, AT/CVT, Mode 8)" address="02509e" level="5">
+  <description>Base (open-loop) idle air by coolant after a cold-start drive-off on automatic/CVT cars only (never used on a manual car), used while the TGVs are commanded open. Change it together with the matching Idle Speed Target so idle feedback does not have to make up the difference. The TGV Closed table is used whenever the TGVs are commanded closed, which is the normal state at low torque, so change both together.
+
+Details: When used: only with the automatic/CVT coding: mode 7 is mapped to 8 while FFF8A7E2 bit 0 is clear (read, 0x0F2BCC). Never on a manual car. 0x0F0D24: base idle air B20C by idle mode FFF8A7F0 and coolant, this table while FFF8A881 bit 4 (TGVs closed) is clear (read). Scale as Idle Base Air (Mode 5). Raise it with this mode's idle speed target so the feedback need not cover the difference (inferred). Implicit coolant axis -40..110 C in 10 C steps (lookup 0x7414). Confidence: read.</description>
+ </table>
+ <table name="Idle Base Air (Warm-Up Drive-Off, AT/CVT, Mode 8, TGV Closed)" address="024fbe" level="5">
+  <description>Base (open-loop) idle air by coolant after a cold-start drive-off on automatic/CVT cars only (never used on a manual car), used while the TGVs are commanded closed (the normal state at low torque, probably including warm idle). Change it together with the matching Idle Speed Target and the normal Idle Base Air table for this mode.
+
+Details: When used: only with the automatic/CVT coding: mode 7 is mapped to 8 while FFF8A7E2 bit 0 is clear (read, 0x0F2BCC). Never on a manual car. 0x0F0D24: base idle air B20C by idle mode FFF8A7F0 and coolant, this table while FFF8A881 bit 4 (TGV close command) is set (read). Scale as Idle Base Air (Mode 5). Raise it with this mode's idle speed target so the feedback need not cover the difference (inferred). Implicit coolant axis -40..110 C in 10 C steps (lookup 0x7414). FFF8A881 bit 4 is the normal TGV-close command (0x10DEFC, set mainly by the timed close request FFF8A883 bit 5 from 0x10E180 when requested torque, coolant and air flow are below the TGV thresholds; the same bit selects every TGV-closed table), not a forced or fault state (read). At a settled warm idle the request conditions hold, so the TGVs are normally commanded closed and the TGV Closed table is probably the one in use (inferred). Confidence: read.</description>
+ </table>
  <table name="Post-Start Idle Air (Initial)" address="025dca">
   <table name="Coolant Temp" address="03834c" />
   <table name="Start Type FFF8A6E7" address="025eca" />
@@ -3101,10 +3275,16 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  </table>
  <table name="Idle Air Reduction In Drive (AT/CVT, Coolant)" address="025866" level="5">
   <table name="Coolant Temp" address="03834c" />
+  <description>Idle air taken away, by coolant, while an automatic/CVT car idles in Drive (pedal released, slow) to offset the load of the transmission. Never used on a manual car.
+
+Details: When used: only while FFF8A7E4 bit 0 is set (0x0F38D0, read): automatic coding (FFF886AB bit 7 clear) and the neutral input FFF88ADA bit 6 clear, accelerator released, speed FFF99835 within cals 0x2583F..0x25841, rpm below cal 0x25842 and below @025886(coolant), no speed-sensor/CAN faults; so never on a manual car (read). 0x0EAA40 (read): FFF8B162 = this(coolant) + Idle Air Reduction In Drive (RPM Error)(rpm - target rpm FFF8B236, coolant) + a ramp term (cals 0x25838..0x2583C), &gt;= 0, capped by @025846(coolant); FFF8B160 follows it at cal 0x25834/0x25836 (86) per pass and is subtracted at half weight from the idle air FFF8B200 (0x0F0AF8, read). Confidence: inferred.</description>
  </table>
  <table name="Idle Air Reduction In Drive (AT/CVT, RPM Error)" address="0258b6" level="5">
   <table name="Coolant Temp" address="03834c" />
   <table name="Y Axis" address="0258a6" />
+  <description>Correction to Idle Air Reduction In Drive by rpm error (actual minus target) and coolant, for automatic/CVT cars idling in Drive. Never used on a manual car.
+
+Details: When used: see Idle Air Reduction In Drive (Coolant) (automatic coding only). 0x0EAA40 (read): added to the coolant term with the rpm error FFF8CE9C - FFF8B236 (s16, rpm x 5.12) and coolant FFF88A44 as axes. Confidence: inferred.</description>
  </table>
  <table name="Minimum Idle Air (Moving in Gear)" address="0250d8">
   <table name="Coolant Temp" address="02523d" />
@@ -3127,6 +3307,9 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  </table>
  <table name="Idle Air Target-Change Feed-Forward (AT/CVT, State 0/5)" address="0259f0" level="5">
   <table name="Y Axis" address="0259de" />
+  <description>Automatic/CVT version of Idle Air Target-Change Feed-Forward, used in two transmission states only: extra or less idle air applied immediately when the idle speed target changes, by the size of the step.
+
+Details: 0x0ECA08 (read; call 0x0ECA88/0x0ECA94 R5 checked): while FFF88A26 bit0 (idle, inferred), engine running (FFF88A27 bit0 clear) and FFF99835 below cal 0x259C8 (255, i.e. always), B1AE = this(new target - ramped target = B236 - B23C/4, capped at cal 0x259CA = 1000 rpm); B1AE enters the idle air at half weight. A positive step (target raised) adds air ahead of the ramp. Used when FFF8A7E2 bit0 is clear (bit0 = FFF8A7DD in 1..4 or 6, 0x0F38B0). Confidence: read.</description>
  </table>
  <table name="Idle Air Target-Change Feed-Forward" address="0259cc">
   <table name="Y Axis" address="0259de" />
@@ -3172,6 +3355,9 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  </table>
  <table name="Low Voltage Idle Request Threshold (Alternator Command)" address="034eea" level="5">
   <table name="Y Axis" address="034ef0" />
+  <description>Battery voltage threshold, by alternator command, for a low-voltage idle-up request. Unused in this ROM: its result is never read, so editing it has no effect.
+
+Details: Unused in this ROM: 0x0F2274 (read; stack arguments checked against the push order at 0x0EF0FE..0x0EF110) compares module voltage FFF88A7E with this(alternator command FFF8B718) when cal 0x57584 bit 6 is set (else with cal 0x34EE0 = 12.0 V), while time since start FFF88A76 &gt;= cal 0x34EE6 (10 s). Low for cal 0x34EE8 (15 s) gives cal 0x34EE2 (67), recovered after cal 0x34EE4 (300 s); the result goes only to FFF8A7F4, which nothing reads (ram_xref: one writer, no reader; its address appears only in the init 0x0ED850 and in this call). Editing it has no effect. Confidence: read.</description>
  </table>
  <table name="Idle Speed Feedback Map (Target MAP Offset)" address="025392">
   <table name="X Axis" address="025360" />
@@ -3208,9 +3394,15 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  </table>
  <table name="Idle Converter Slip Threshold (In Gear, AT/CVT)" address="02566a" level="5">
   <table name="Coolant Temp" address="03834c" />
+  <description>Automatic/CVT only: converter slip, by coolant, needed for the ECU to treat the car as stopped in gear for idle control (probably torque-converter slip). Never used on a manual car.
+
+Details: When used: AT/CVT codings, standstill in gear. Input FFF88A44 (coolant, read in the disassembly by the same R5). 0x0EC7A4 (read; called from 0x0EE338 with FFF886AB bit 7, neutral FFF88ADA bit 6, CAN fault FFF88E2B bit 1, FFF8A7E2 bit 1, FFF8B140, coolant FFF88A44, time since start FFF88A76, speed FFF99835): on the manual coding FFF8A7DD is always 1, so these tables are AT/CVT only. FFF8B140 = engine rpm FFF8CD54 - FFF888AC x 128/25 (0x0E9EE8, read); FFF888AC comes from the TCM frame 0x148 (signals_rates_can.md, read), so B140 is the torque-converter slip in rpm (inferred). State 4 (stopped in gear) needs slip &gt;= Idle Converter Slip Threshold (In Gear) (hysteresis cal 0x25648), state 6 (neutral/park) needs slip &gt; Idle Converter Slip Threshold (Neutral) (hysteresis cal 0x25646) and FFF88A76 &gt; cal 0x25642 (read). FFF8A7DD selects the idle table sets named "(AT/CVT, State...)" through FFF8A7E2 bit 0 (0x0F38B0). Confidence: inferred.</description>
  </table>
  <table name="Idle Converter Slip Threshold (Neutral, AT/CVT)" address="02564a" level="5">
   <table name="Coolant Temp" address="03834c" />
+  <description>Automatic/CVT only: converter slip, by coolant, needed for the ECU to treat the car as in neutral/park for idle control (probably torque-converter slip). Never used on a manual car.
+
+Details: When used: AT/CVT codings, in neutral/park. Input FFF88A44 (coolant). 0x0EC7A4 (read; called from 0x0EE338 with FFF886AB bit 7, neutral FFF88ADA bit 6, CAN fault FFF88E2B bit 1, FFF8A7E2 bit 1, FFF8B140, coolant FFF88A44, time since start FFF88A76, speed FFF99835): on the manual coding FFF8A7DD is always 1, so these tables are AT/CVT only. FFF8B140 = engine rpm FFF8CD54 - FFF888AC x 128/25 (0x0E9EE8, read); FFF888AC comes from the TCM frame 0x148 (signals_rates_can.md, read), so B140 is the torque-converter slip in rpm (inferred). State 4 (stopped in gear) needs slip &gt;= Idle Converter Slip Threshold (In Gear) (hysteresis cal 0x25648), state 6 (neutral/park) needs slip &gt; Idle Converter Slip Threshold (Neutral) (hysteresis cal 0x25646) and FFF88A76 &gt; cal 0x25642 (read). FFF8A7DD selects the idle table sets named "(AT/CVT, State...)" through FFF8A7E2 bit 0 (0x0F38B0). Confidence: inferred.</description>
  </table>
  <table name="Idle Learn Filter Gain (Before First Transfer)" address="025b5e">
   <table name="Time" address="025b52" />
@@ -3538,9 +3730,15 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  </table>
  <table name="Brake Booster Vacuum Model Maximum" address="043412" level="5">
   <table name="Barometric Pressure" address="043408" />
+  <description>Upper limit, by barometric pressure, of a modelled brake-booster vacuum.
+
+Brake override module 0x181B38 (10 ms task 0x1DFE3C, read): it limits the accelerator pedal that feeds the torque request, FFF88A5E = min(pedal FFF88EE6, limit FFF8BAFA) (0x09E800, read), when the brake is applied while the accelerator is held. Brake detection: VDC CAN frame 0x0D1 byte 2 (FFF88DF9, slew-limited 8/pass into FFF8AC94; brake pressure, inferred) against a threshold, or discrete input FFF88E2F bit 3 (pin PF10; brake switch, inferred) when the pressure signal is not valid (FFF8AC8F bit 4 clear). Vehicle speed FFF8AC95 = km/h from the wheel speeds or FFF88BE8 x 9/160 (0x182E34, read). The module sets no DTC (no DTC monitor record points at its RAM, read). 0x182B28 (read, all stack args checked in the assembly) has three sources for the booster vacuum FFF8BAFC: cal 0x57585 bit 5 set = baro - analog pressure input FFF88D10; else bit 6 = fixed cal 0x43402 (50 kPa); else a model from manifold vacuum baro FFF88668 - MAP FFF88A34: while not braking at low manifold vacuum (FFF8AC90 bit 3 clear) the estimate is filtered (cal 0x43406) up towards the manifold vacuum as long as it is below this(baro); during braking it is reduced by 253 x 13/100 per count of brake-pressure rise (FFF8AC93 - FFF8AC92). Confidence: read.</description>
  </table>
  <table name="Brake Booster Vacuum Model Manifold Threshold" address="0435ca" level="5">
   <table name="Barometric Pressure" address="0435c0" />
+  <description>Manifold-vacuum threshold, by barometric pressure, for a brake-booster vacuum model.
+
+Brake override module 0x181B38 (10 ms task 0x1DFE3C, read): it limits the accelerator pedal that feeds the torque request, FFF88A5E = min(pedal FFF88EE6, limit FFF8BAFA) (0x09E800, read), when the brake is applied while the accelerator is held. Brake detection: VDC CAN frame 0x0D1 byte 2 (FFF88DF9, slew-limited 8/pass into FFF8AC94; brake pressure, inferred) against a threshold, or discrete input FFF88E2F bit 3 (pin PF10; brake switch, inferred) when the pressure signal is not valid (FFF8AC8F bit 4 clear). Vehicle speed FFF8AC95 = km/h from the wheel speeds or FFF88BE8 x 9/160 (0x182E34, read). The module sets no DTC (no DTC monitor record points at its RAM, read). 0x18390C (read): FFF8AC90 bit 3 = brake pressure FFF8AC94 &gt;= cal 0x435BD (1) and FFF88A38 &gt;= this(baro FFF88668) - 12800 (FFF88A38 = (MAP - baro)/2, so MAP - baro &gt;= (this - 12800)/128 kPa), i.e. braking with too little manifold vacuum to recharge the booster. Bit 3 feeds only the brake-pressure latches FFF8AC92 / FFF8AC93 / FFF8BAFE and the manifold-vacuum model of 0x182B28, whose results are unused while cal 0x57585 bit 5 is set and FFF8BB00 has no reader (read, grep). Confidence: read.</description>
  </table>
  <table name="Alternator Command from Target Voltage" address="039994">
   <table name="Y Axis" address="039854" />
@@ -3582,24 +3780,42 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  </table>
  <table name="Gear Road Speed per 1000 RPM" address="037872" level="5">
   <table name="Gear" address="036e82" />
+  <description>Road speed per 1000 rpm for each gear, used only by the gear advice function. The values do not match the 6MT and probably belong to another transmission.
+
+Same data block as descriptor 05D468 (one entry). Road speed per 1000 rpm for gear index 1-8. 0x11031C (read; called at seg_0x110000.c:1175 with cal 0x57585 bit 3, gear FFF8A8BA, speed FFF88BE8, selector FFF8A8C3): only when cal 0x57585 bit 3 is set, FFF8558A = this(gear) (the Alternate table when FFF8A8C3 = 2) and FFF85588 = speed x 28800 / FFF8558A -&gt; FFF8B434. 0x110398 does the same with the second gear index FFF8A8BC (0x1143CC) through the shared descriptors -&gt; FFF8B436. 0x116A0C (gear advice, gated by the same bit) uses B436/B434 as rpm x 0.1953125 to convert the current power to torque at those engine speeds (read). The values (11.3 to 53.9 km/h per 1000 rpm over 6 steps here, 11.0 to 53.9 over 8 in the Alternate table) do not fit the 6MT, so this belongs to another transmission (inferred). Confidence: inferred.</description>
  </table>
  <table name="Gear Road Speed per 1000 RPM (Alternate)" address="037882" level="5">
   <table name="Gear" address="036e82" />
+  <description>Alternate road speed per 1000 rpm for each gear, used only by the gear advice function. The values do not match the 6MT and probably belong to another transmission.
+
+Details: When used: used instead of Gear Road Speed per 1000 RPM when FFF8A8C3 = 2. Same data block as descriptor 05D474 (one entry). 0x11031C (read; called at seg_0x110000.c:1175 with cal 0x57585 bit 3, gear FFF8A8BA, speed FFF88BE8, selector FFF8A8C3): only when cal 0x57585 bit 3 is set, FFF8558A = this(gear) (the Alternate table when FFF8A8C3 = 2) and FFF85588 = speed x 28800 / FFF8558A -&gt; FFF8B434. 0x110398 does the same with the second gear index FFF8A8BC (0x1143CC) through the shared descriptors -&gt; FFF8B436. 0x116A0C (gear advice, gated by the same bit) uses B436/B434 as rpm x 0.1953125 to convert the current power to torque at those engine speeds (read). The values (11.0 to 53.9 km/h per 1000 rpm over 8 steps here, 11.3 to 53.9 over 6 in the normal table) do not fit the 6MT, so this belongs to another transmission (inferred). Confidence: inferred.</description>
  </table>
  <table name="Gear Advice Consumption Map" address="037352" level="5">
   <table name="Engine Speed" address="036eca" />
   <table name="Y Axis" address="036ea2" />
+  <description>Fuel consumption map by torque and rpm (probably g/kWh) for a gear-shift advice function that picks the most economical gear. One table edits all three copies.
+
+Gear advice module 0x116A0C. With the bit set it takes the current power (torque x rpm / 9549.3), the engine speed in the gear below (FFF8B434, gear FFF8A8BA = gear - 1, 0x114360) and in the gear above (FFF8B436, gear FFF8A8BC = gear + 1, 0x1143CC), looks up the consumption map at the three points and advises the gear with the lowest value (FFF85678 / FFF85679, biases cal 0x36E4E/0x36E50 = 3 %). 'Alternate' tables are used when FFF8A8C3 = 2. Descriptors 05D4D8, 05D504 and 05D518 share this data block (037352): 05D4D8 at the current torque FFF8B468 = DAM-blended torque FFF8B48A - FFF8A8CC x 128 (0x1161DC) and rpm, 05D504 / 05D518 at the torque needed for the same power in the lower / upper gear (read). One entry edits all three. Confidence: inferred.</description>
  </table>
  <table name="Gear Advice Downshift Maximum RPM (Alternate)" address="0378f2" level="5">
   <table name="Gear" address="036f1a" />
+  <description>Alternate rpm limit, by gear, below which a downshift may be advised by the gear advice function.
+
+Details: When used: instead of 05D5B8 when FFF8A8C3 = 2. Gear advice module 0x116A0C. With the bit set it takes the current power (torque x rpm / 9549.3), the engine speed in the gear below (FFF8B434, gear FFF8A8BA = gear - 1, 0x114360) and in the gear above (FFF8B436, gear FFF8A8BC = gear + 1, 0x1143CC), looks up the consumption map at the three points and advises the gear with the lowest value (FFF85678 / FFF85679, biases cal 0x36E4E/0x36E50 = 3 %). 'Alternate' tables are used when FFF8A8C3 = 2. 0x116A0C (read): FFF85648 = this(lower gear FFF8A8BA); the lower gear is advised (FFF85679 = 1) only if its engine speed FFF8B434 &lt;= FFF85648. 05D5B8 (normal) is 31232 = 6100 rpm for every gear. Confidence: inferred.</description>
  </table>
  <table name="Gear Advice Upshift Minimum RPM" address="037672" level="5">
   <table name="Gear" address="036f12" />
   <table name="Accelerator Pedal" address="036e8a" />
+  <description>Minimum rpm in the next gear up, by pedal and gear, for an upshift to be advised by the gear advice function.
+
+Details: When used: 05D5E4 replaces it when FFF8A8C3 = 2. Gear advice module 0x116A0C. With the bit set it takes the current power (torque x rpm / 9549.3), the engine speed in the gear below (FFF8B434, gear FFF8A8BA = gear - 1, 0x114360) and in the gear above (FFF8B436, gear FFF8A8BC = gear + 1, 0x1143CC), looks up the consumption map at the three points and advises the gear with the lowest value (FFF85678 / FFF85679, biases cal 0x36E4E/0x36E50 = 3 %). 'Alternate' tables are used when FFF8A8C3 = 2. 0x116A0C (read, lookup by pedal FFF88A5E and upper gear FFF8A8BC): FFF85646 = this; the upper gear is advised only if its engine speed FFF8B436 &gt;= FFF85646. Confidence: inferred.</description>
  </table>
  <table name="Gear Advice Upshift Minimum RPM (Alternate)" address="0376f2" level="5">
   <table name="Gear" address="036f12" />
   <table name="Accelerator Pedal" address="036e8a" />
+  <description>Alternate minimum rpm in the next gear up, by pedal and gear, for an upshift to be advised by the gear advice function.
+
+Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x116A0C. With the bit set it takes the current power (torque x rpm / 9549.3), the engine speed in the gear below (FFF8B434, gear FFF8A8BA = gear - 1, 0x114360) and in the gear above (FFF8B436, gear FFF8A8BC = gear + 1, 0x1143CC), looks up the consumption map at the three points and advises the gear with the lowest value (FFF85678 / FFF85679, biases cal 0x36E4E/0x36E50 = 3 %). 'Alternate' tables are used when FFF8A8C3 = 2. 0x116A0C (read): FFF85646 = this(pedal FFF88A5E, upper gear FFF8A8BC); the upper gear is advised only if its engine speed FFF8B436 &gt;= FFF85646. Confidence: inferred.</description>
  </table>
  <table name="MAF Sensor Scaling" address="028bdc" />
  <table name="MAP Sensor Multiplier" address="058ea0" />
@@ -3914,10 +4130,10 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  <table name="(P0462) Fuel Level Sensor A Circuit Low [Fail-Safe]" address="57bd7" />
  <table name="(P0463) Fuel Level Sensor A Circuit High" address="4218f" />
  <table name="(P0463) Fuel Level Sensor A Circuit High [Fail-Safe]" address="57bd7" />
- <table name="(P04AC) Evaporative Emission System Purge Control Valve 'B' Circuit Low" address="421e5" />
- <table name="(P04AC) Evaporative Emission System Purge Control Valve 'B' Circuit Low [Fail-Safe]" address="57c2d" />
- <table name="(P04AD) Evaporative Emission System Purge Control Valve 'B' Circuit High" address="421e5" />
- <table name="(P04AD) Evaporative Emission System Purge Control Valve 'B' Circuit High [Fail-Safe]" address="57c2d" />
+ <table name="(P04AC) Evaporative Emission System Purge Control Valve 'B' Circuit Low" address="421e5" scaling="DTC enabled b3 m19 f00" />
+ <table name="(P04AC) Evaporative Emission System Purge Control Valve 'B' Circuit Low [Fail-Safe]" address="57c2d" scaling="DTC yes b3 m19 f00" />
+ <table name="(P04AD) Evaporative Emission System Purge Control Valve 'B' Circuit High" address="421e5" scaling="DTC enabled b4 m19 f00" />
+ <table name="(P04AD) Evaporative Emission System Purge Control Valve 'B' Circuit High [Fail-Safe]" address="57c2d" scaling="DTC yes b4 m19 f00" />
  <table name="(P04F0) Evaporative Emission System High Pressure Purge Line Performance" address="421c7" />
  <table name="(P04F0) Evaporative Emission System High Pressure Purge Line Performance [Fail-Safe]" address="57c0f" />
  <table name="(P0500) Vehicle Speed Sensor A [slot 12]" address="4218d" />
@@ -4112,8 +4328,8 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  <table name="(P2419) Evaporative Emission System Switching Valve Control Circuit Low [Fail-Safe]" address="57c1f" />
  <table name="(P2420) Evaporative Emission System Switching Valve Control Circuit High" address="421d7" scaling="DTC enabled b3 mFF f00 sF7" />
  <table name="(P2420) Evaporative Emission System Switching Valve Control Circuit High [Fail-Safe]" address="57c1f" />
- <table name="(P2530) Ignition Switch Run Position Circuit" address="421e5" />
- <table name="(P2530) Ignition Switch Run Position Circuit [Fail-Safe]" address="57c2d" />
+ <table name="(P2530) Ignition Switch Run Position Circuit" address="421e5" scaling="DTC enabled b0 m19 f00" />
+ <table name="(P2530) Ignition Switch Run Position Circuit [Fail-Safe]" address="57c2d" scaling="DTC yes b0 m19 f00" />
  <table name="(P2610) ECM/PCM Internal Engine Off Timer Performance" address="421d7" scaling="DTC enabled b2 mFF f00 sFB" />
  <table name="(P2610) ECM/PCM Internal Engine Off Timer Performance [Fail-Safe]" address="57c1f" />
  <table name="(P2627) O2 Sensor Pumping Current Trim Circuit/Open (Bank 1 Sensor 1)" address="421f2" scaling="DTC enabled b2 mFF f00 s73" />
@@ -4140,6 +4356,218 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  <table name="(U0422) Invalid Data Received from Body Control Module [Fail-Safe]" address="57c1c" />
  <table name="(U0423) Invalid Data Received from Instrument Panel Control Module" address="421dd" />
  <table name="(U0423) Invalid Data Received from Instrument Panel Control Module [Fail-Safe]" address="57c25" />
- <table name="Enable Mask (bit per DTC)" address="4218c" />
- <table name="Fail-Safe Trigger Mask (bit per DTC)" address="57bd4" />
+ <table name="Enable Mask (bit per DTC)" address="4218c">
+  <table name="Byte: codes by bit">
+   <data>+0: b0=P0335 b2=P0336 b6=P0604</data>
+   <data>+1: b0=P0102 b1=P0103 b4=P0500 b6=P0332 b7=P0333</data>
+   <data>+2: b2=P0327 b3=P0328 b4=P0122 b5=P0123</data>
+   <data>+3: b0=P0117 b1=P0118 b3=P0125 b4=P0462 b5=P0463 b6=P0461</data>
+   <data>+4: -</data>
+   <data>+5: -</data>
+   <data>+6: b3=P0851 b7=P0852</data>
+   <data>+7: -</data>
+   <data>+8: b0=P1492 b1=P1493 b2=P1494 b3=P1495 b4=P1496 b5=P1497 b6=P1498 b7=P1499</data>
+   <data>+9: -</data>
+   <data>+10: b3=P0506 b4=P0507</data>
+   <data>+11: -</data>
+   <data>+12: b2=P0011 b3=P0021 b6=P0458 b7=P0459</data>
+   <data>+13: -</data>
+   <data>+14: -</data>
+   <data>+15: -</data>
+   <data>+16: b5=P0141</data>
+   <data>+17: b0=P0133</data>
+   <data>+18: b0=P0420 b3=P0456 b4=P0400 b6=P0171 b7=P0172</data>
+   <data>+19: b0=P0301 b1=P0302 b2=P0303 b3=P0304</data>
+   <data>+20: -</data>
+   <data>+21: b0=P0137 b2=P0131 b4=P0132 b6=P0138</data>
+   <data>+22: b0=P0112 b1=P0113 b2=P0111 b4=P0038 b5=P0032 b6=P0037 b7=P0031</data>
+   <data>+23: b4=P0107 b5=P0108</data>
+   <data>+24: -</data>
+   <data>+25: -</data>
+   <data>+26: b0=P0128</data>
+   <data>+27: b6=P0562 b7=P0563</data>
+   <data>+28: b0=P0245 b1=P0246 b3=P0244</data>
+   <data>+29: -</data>
+   <data>+30: -</data>
+   <data>+31: -</data>
+   <data>+32: -</data>
+   <data>+33: -</data>
+   <data>+34: -</data>
+   <data>+35: -</data>
+   <data>+36: -</data>
+   <data>+37: -</data>
+   <data>+38: -</data>
+   <data>+39: b1=P0230 b3=P0068 b7=P0101</data>
+   <data>+40: b1=P0134 b5=P0030</data>
+   <data>+41: -</data>
+   <data>+42: -</data>
+   <data>+43: b0=P2109</data>
+   <data>+44: b0=P0222 b1=P0223 b2=P1160 b3=P2102 b4=P2103 b5=P2101 b6=P2096</data>
+   <data>+45: b1=P2138 b2=P2127 b3=P2128 b4=P2122 b5=P2123 b6=P2135 b7=P2097</data>
+   <data>+46: b1=P0390 b2=P0365 b3=P0345 b4=P0340 b5=P0605</data>
+   <data>+47: b0=P2095 b1=P2094 b2=P2091 b3=P2090 b4=P2093 b5=P2092 b6=P2089 b7=P2088</data>
+   <data>+48: b0=P0197 b7=P0700</data>
+   <data>+49: b6=P0196 b7=P0198</data>
+   <data>+50: -</data>
+   <data>+51: -</data>
+   <data>+52: b0=P2004 b1=P2006 b2=P2005 b3=P2007 b4=P2227 b6=P2229 b7=P2228</data>
+   <data>+53: b0=P2016 b1=P2017 b2=P2021 b3=P2022 b4=P2009 b5=P2012</data>
+   <data>+54: -</data>
+   <data>+55: -</data>
+   <data>+56: -</data>
+   <data>+57: b6=P0018 b7=P0016</data>
+   <data>+58: -</data>
+   <data>+59: b0=P0024 b1=P0014 b5=P04F0 b6=P1458 b7=P1459</data>
+   <data>+60: b2=P050E b6=P0019 b7=P0017</data>
+   <data>+61: -</data>
+   <data>+62: -</data>
+   <data>+63: -</data>
+   <data>+64: -</data>
+   <data>+65: -</data>
+   <data>+66: -</data>
+   <data>+67: -</data>
+   <data>+68: -</data>
+   <data>+69: -</data>
+   <data>+70: -</data>
+   <data>+71: -</data>
+   <data>+72: b0=U0422 b1=U0140 b2=U0402 b3=U0101 b4=U0416 b5=U0122 b6=U0073</data>
+   <data>+73: -</data>
+   <data>+74: -</data>
+   <data>+75: b0=P050B b1=P050A b2=P2610 b3=P2420 b4=P2419 b5=P2401 b6=P0453 b7=P0452</data>
+   <data>+76: b2=P015B b3=P015A b6=P014D b7=P014C</data>
+   <data>+77: b1=P1451 b2=P1449 b3=P0455 b4=P0451 b5=P0441 b7=P219A</data>
+   <data>+78: b5=P2404 b6=P2402</data>
+   <data>+79: b2=P013F b3=P013E b6=P013B b7=P013A</data>
+   <data>+80: -</data>
+   <data>+81: b2=U0423 b3=U0155</data>
+   <data>+82: -</data>
+   <data>+83: b2=P0354 b3=P0353 b4=P0352 b5=P0351</data>
+   <data>+84: b0=P000A b1=P000B b2=P000C b3=P000D b5=P0558 b6=P0557</data>
+   <data>+85: b0=P0512 b1=P0616 b2=P0617 b3=P2195 b4=P2196 b5=P0560 b6=P0116 b7=P081A</data>
+   <data>+86: -</data>
+   <data>+87: b2=P062F b3=P060B b4=P060A b6=P0606 b7=P2119</data>
+   <data>+88: b2=P0403 b3=P0391 b4=P0366 b5=P0346 b6=P0341 b7=P0300</data>
+   <data>+89: b0=P2530 b3=P04AC b4=P04AD</data>
+   <data>+90: -</data>
+   <data>+91: -</data>
+   <data>+92: -</data>
+   <data>+93: -</data>
+   <data>+94: -</data>
+   <data>+95: -</data>
+   <data>+96: -</data>
+   <data>+97: b0=P0072 b1=P0073 b2=P0071 b3=P0500 b4=P2158</data>
+   <data>+98: -</data>
+   <data>+99: b0=P0010 b1=P0020 b2=P0013 b3=P0023 b4=P0685 b5=P2A01 b6=P2270 b7=P2271</data>
+   <data>+100: b0=P0087 b1=P0088 b2=P062D b3=P1261 b4=P1262 b5=P1263 b6=P1264 b7=P0191</data>
+   <data>+101: b0=P0192 b1=P0193 b2=P1191 b3=P0627 b4=P0628 b5=P0629 b6=P023F b7=P0130</data>
+   <data>+102: b0=P0097 b1=P0098 b2=P2627 b3=P2628 b4=P0096 b5=P1134 b6=P2146 b7=P113A</data>
+  </table>
+ </table>
+ <table name="Fail-Safe Trigger Mask (bit per DTC)" address="57bd4">
+  <table name="Byte: codes by bit">
+   <data>+0: b0=P0335 b2=P0336 b6=P0604</data>
+   <data>+1: b0=P0102 b1=P0103 b4=P0500 b6=P0332 b7=P0333</data>
+   <data>+2: b2=P0327 b3=P0328 b4=P0122 b5=P0123</data>
+   <data>+3: b0=P0117 b1=P0118 b3=P0125 b4=P0462 b5=P0463 b6=P0461</data>
+   <data>+4: -</data>
+   <data>+5: -</data>
+   <data>+6: b3=P0851 b7=P0852</data>
+   <data>+7: -</data>
+   <data>+8: b0=P1492 b1=P1493 b2=P1494 b3=P1495 b4=P1496 b5=P1497 b6=P1498 b7=P1499</data>
+   <data>+9: -</data>
+   <data>+10: b3=P0506 b4=P0507</data>
+   <data>+11: -</data>
+   <data>+12: b2=P0011 b3=P0021 b6=P0458 b7=P0459</data>
+   <data>+13: -</data>
+   <data>+14: -</data>
+   <data>+15: -</data>
+   <data>+16: b5=P0141</data>
+   <data>+17: b0=P0133</data>
+   <data>+18: b0=P0420 b3=P0456 b4=P0400 b6=P0171 b7=P0172</data>
+   <data>+19: b0=P0301 b1=P0302 b2=P0303 b3=P0304</data>
+   <data>+20: -</data>
+   <data>+21: b0=P0137 b2=P0131 b4=P0132 b6=P0138</data>
+   <data>+22: b0=P0112 b1=P0113 b2=P0111 b4=P0038 b5=P0032 b6=P0037 b7=P0031</data>
+   <data>+23: b4=P0107 b5=P0108</data>
+   <data>+24: -</data>
+   <data>+25: -</data>
+   <data>+26: b0=P0128</data>
+   <data>+27: b6=P0562 b7=P0563</data>
+   <data>+28: b0=P0245 b1=P0246 b3=P0244</data>
+   <data>+29: -</data>
+   <data>+30: -</data>
+   <data>+31: -</data>
+   <data>+32: -</data>
+   <data>+33: -</data>
+   <data>+34: -</data>
+   <data>+35: -</data>
+   <data>+36: -</data>
+   <data>+37: -</data>
+   <data>+38: -</data>
+   <data>+39: b1=P0230 b3=P0068 b7=P0101</data>
+   <data>+40: b1=P0134 b5=P0030</data>
+   <data>+41: -</data>
+   <data>+42: -</data>
+   <data>+43: b0=P2109</data>
+   <data>+44: b0=P0222 b1=P0223 b2=P1160 b3=P2102 b4=P2103 b5=P2101 b6=P2096</data>
+   <data>+45: b1=P2138 b2=P2127 b3=P2128 b4=P2122 b5=P2123 b6=P2135 b7=P2097</data>
+   <data>+46: b1=P0390 b2=P0365 b3=P0345 b4=P0340 b5=P0605</data>
+   <data>+47: b0=P2095 b1=P2094 b2=P2091 b3=P2090 b4=P2093 b5=P2092 b6=P2089 b7=P2088</data>
+   <data>+48: b0=P0197 b7=P0700</data>
+   <data>+49: b6=P0196 b7=P0198</data>
+   <data>+50: -</data>
+   <data>+51: -</data>
+   <data>+52: b0=P2004 b1=P2006 b2=P2005 b3=P2007 b4=P2227 b6=P2229 b7=P2228</data>
+   <data>+53: b0=P2016 b1=P2017 b2=P2021 b3=P2022 b4=P2009 b5=P2012</data>
+   <data>+54: -</data>
+   <data>+55: -</data>
+   <data>+56: -</data>
+   <data>+57: b6=P0018 b7=P0016</data>
+   <data>+58: -</data>
+   <data>+59: b0=P0024 b1=P0014 b5=P04F0 b6=P1458 b7=P1459</data>
+   <data>+60: b2=P050E b6=P0019 b7=P0017</data>
+   <data>+61: -</data>
+   <data>+62: -</data>
+   <data>+63: -</data>
+   <data>+64: -</data>
+   <data>+65: -</data>
+   <data>+66: -</data>
+   <data>+67: -</data>
+   <data>+68: -</data>
+   <data>+69: -</data>
+   <data>+70: -</data>
+   <data>+71: -</data>
+   <data>+72: b0=U0422 b1=U0140 b2=U0402 b3=U0101 b4=U0416 b5=U0122 b6=U0073</data>
+   <data>+73: -</data>
+   <data>+74: -</data>
+   <data>+75: b0=P050B b1=P050A b2=P2610 b3=P2420 b4=P2419 b5=P2401 b6=P0453 b7=P0452</data>
+   <data>+76: b2=P015B b3=P015A b6=P014D b7=P014C</data>
+   <data>+77: b1=P1451 b2=P1449 b3=P0455 b4=P0451 b5=P0441 b7=P219A</data>
+   <data>+78: b5=P2404 b6=P2402</data>
+   <data>+79: b2=P013F b3=P013E b6=P013B b7=P013A</data>
+   <data>+80: -</data>
+   <data>+81: b2=U0423 b3=U0155</data>
+   <data>+82: -</data>
+   <data>+83: b2=P0354 b3=P0353 b4=P0352 b5=P0351</data>
+   <data>+84: b0=P000A b1=P000B b2=P000C b3=P000D b5=P0558 b6=P0557</data>
+   <data>+85: b0=P0512 b1=P0616 b2=P0617 b3=P2195 b4=P2196 b5=P0560 b6=P0116 b7=P081A</data>
+   <data>+86: -</data>
+   <data>+87: b2=P062F b3=P060B b4=P060A b6=P0606 b7=P2119</data>
+   <data>+88: b2=P0403 b3=P0391 b4=P0366 b5=P0346 b6=P0341 b7=P0300</data>
+   <data>+89: b0=P2530 b3=P04AC b4=P04AD</data>
+   <data>+90: -</data>
+   <data>+91: -</data>
+   <data>+92: -</data>
+   <data>+93: -</data>
+   <data>+94: -</data>
+   <data>+95: -</data>
+   <data>+96: -</data>
+   <data>+97: b0=P0072 b1=P0073 b2=P0071 b3=P0500 b4=P2158</data>
+   <data>+98: -</data>
+   <data>+99: b0=P0010 b1=P0020 b2=P0013 b3=P0023 b4=P0685 b5=P2A01 b6=P2270 b7=P2271</data>
+   <data>+100: b0=P0087 b1=P0088 b2=P062D b3=P1261 b4=P1262 b5=P1263 b6=P1264 b7=P0191</data>
+   <data>+101: b0=P0192 b1=P0193 b2=P1191 b3=P0627 b4=P0628 b5=P0629 b6=P023F b7=P0130</data>
+   <data>+102: b0=P0097 b1=P0098 b2=P2627 b3=P2628 b4=P0096 b5=P1134 b6=P2146 b7=P113A</data>
+  </table>
+ </table>
 </rom>

@@ -4,6 +4,9 @@
 
 First public release.
 
+- Descriptions: below the Debug level every table now shows only a short plain-English description (no addresses or
+  code references); Debug tables keep the full engineering detail. The RomRaider files are smaller (FA20DIT 7.8 MB,
+  FB16DIT 4.5 MB).
 - Tuning guide updated and renamed **Subaru DIT Tuning Guide**: it covers the Levorg 1.6 (new section 1.10), quotes
   stock values as the reference ROM's (LF75404S) and says "unused on the reference ROM" where a table is gated out
   there, uses the current table names, and adds the low-DAM boost cut (C14, A14), the 1.6-only tables, the logging

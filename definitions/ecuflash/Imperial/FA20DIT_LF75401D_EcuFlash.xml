@@ -76,9 +76,6 @@
  <table name="Injector 2/4 Rail Pressure Offset" address="058c6c">
   <table name="Engine Load" address="058c5c" />
   <table name="Engine Speed" address="058c3c" />
-  <description>Pressure offset added to measured rail pressure before looking up Injector Flow Compensation (Injectors 2/4), by rpm and load; probably the pressure difference of the rail without the sensor.
-
-Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8CE9C, load FFF8A616)), interpolated by 0x00671C (descriptor 0x0608E4: data, u16 axis, u8 axis, 16, 16; row = rpm, read). FFF89222 indexes the injector flow compensation 05A844 used only for injectors 2 and 4 (0x0CB0C8, read); injectors 1 and 3 use 05A838 with FFF88886. Likely the pressure difference of the rail without the sensor (inferred from the boxer layout). Signed, in the rail-pressure unit. Descriptor boot 0608E4. Confidence: inferred.</description>
  </table>
  <table name="Target Rail Pressure" address="03f168">
   <table name="Engine Speed" address="03f268" />
@@ -269,13 +266,16 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  <table name="Additional Enrichment A" address="0155ea" level="4">
   <table name="Engine Load" address="011cb4" />
   <table name="Engine Speed" address="011cc8" />
+  <description>Extra enrichment added to the open-loop enrichment at higher coolant and lower rpm.</description>
  </table>
  <table name="Additional Enrichment B" address="0159aa" level="4">
   <table name="Engine Load" address="011cb4" />
   <table name="Engine Speed" address="011cc8" />
+  <description>Second table of the additional enrichment, used at low coolant or high rpm.</description>
  </table>
  <table name="Additional Enrichment Throttle Threshold" address="013e3c" level="4">
   <table name="Engine Speed" address="013e1c" />
+  <description>Throttle opening above idle, by rpm, needed to enable Additional Enrichment A/B.</description>
  </table>
  <table name="Closed Loop Target (TGVs Open, EGR Off)" address="02e2fe">
   <table name="Engine Load" address="04b41c" />
@@ -1054,13 +1054,16 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C Off)" address="020e88" level="4">
   <table name="Cut Count" address="020c14" />
   <table name="Y Axis" address="020c0e" />
+  <description>Alternate decel fuel cut staging (A/C off).</description>
  </table>
  <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C On)" address="020d38" level="4">
   <table name="Cut Count" address="020c14" />
   <table name="Y Axis" address="020c0e" />
+  <description>Alternate decel fuel cut staging (A/C on).</description>
  </table>
  <table name="Decel Fuel Cut Full-Cut Shortcut Hold" address="0228e0" level="4">
   <table name="Engine Speed" address="0228f0" />
+  <description>Time, by rpm, after which all cylinders would be cut at once under unidentified conditions.</description>
  </table>
  <table name="Purge Rate Limit (Off-Idle)" address="02488a">
   <table name="Y Axis" address="02486a" />
@@ -1613,6 +1616,7 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  </table>
  <table name="A/C Cut Timing Retard Step (Alternate Logic)" address="02feaa" level="4">
   <table name="Y Axis" address="02fe91" />
+  <description>Alternate A/C-switch timing retard amount, by an unidentified input.</description>
  </table>
  <table name="Torque Reduction Spark Retard" address="02fdd4">
   <table name="Y Axis" address="02fdb4" />
@@ -1691,18 +1695,22 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  <table name="Start Spark Target Base (Mode 1, Warm-Up Fallback)" address="02a726" level="4">
   <table name="Coolant Temp" address="02a11a" />
   <table name="Y Axis" address="02a102" />
+  <description>Warm-up fallback copy of Start Spark Target Base (Mode 1) for the manual car.</description>
  </table>
  <table name="Start Spark Target Torque Adder (Mode 1, Warm-Up Fallback)" address="02a926" level="4">
   <table name="Coolant Temp" address="02a11a" />
   <table name="Y Axis" address="02a112" />
+  <description>Warm-up fallback copy of Start Spark Target Torque Adder (Mode 1) for the manual car.</description>
  </table>
  <table name="Start Spark Target Run-Time Adder (Mode 1, Warm-Up Fallback)" address="02ac66" level="4">
   <table name="Coolant Temp" address="02a11a" />
   <table name="Count" address="02a13a" />
+  <description>Warm-up fallback copy of Start Spark Target Run-Time Adder (Mode 1) for the manual car.</description>
  </table>
  <table name="Start Spark Target Re-Entry Adder (Mode 1, Warm-Up Fallback)" address="02aa46" level="4">
   <table name="Coolant Temp" address="03834c" />
   <table name="Count" address="02aa26" />
+  <description>Warm-up fallback copy of Start Spark Target Re-Entry Adder (Mode 1) for the manual car.</description>
  </table>
  <table name="Target Boost" address="0294e0">
   <table name="Target Torque" address="029086" />
@@ -2135,9 +2143,11 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  <table name="Limit-State Spark: Normal Target in Rev/Overboost Cut [byte, bit 7 = 128]" address="0239ae" />
  <table name="External Torque Limit Baro Factor" address="020ed4" level="4">
   <table name="Barometric Pressure" address="020ec4" />
+  <description>Air-density correction (barometric part) applied to a torque limit received over CAN, probably from the transmission controller.</description>
  </table>
  <table name="External Torque Limit IAT Factor" address="020ef4" level="4">
   <table name="Intake Air Temp" address="020ee4" />
+  <description>Air-density correction (intake temperature part) applied to a torque limit received over CAN, probably from the transmission controller.</description>
  </table>
  <table name="Cylinder Cut Torque Ratio (1 Cylinder)" address="023d53" />
  <table name="Cylinder Cut Torque Ratio (2 Cylinders)" address="023d54" />
@@ -3159,10 +3169,12 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  <table name="A/C Idle Air (Alternate, Target RPM)" address="035478" level="4">
   <table name="Engine Speed" address="0353dc" />
   <table name="Y Axis" address="0353c4" />
+  <description>A/C idle air by an unidentified CAN load value and idle target rpm, for an alternate A/C idle-air path.</description>
  </table>
  <table name="A/C Idle Air (Alternate, Engine Speed)" address="0353e8" level="4">
   <table name="Engine Speed" address="0353d0" />
   <table name="Y Axis" address="0353c4" />
+  <description>A/C idle air by an unidentified CAN load value and engine speed, for an alternate A/C idle-air path.</description>
  </table>
  <table name="A/C Idle Air Initial Kick (Alternate)" address="03539e">
   <table name="Y Axis" address="0353ba" />
@@ -3914,10 +3926,10 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  <table name="(P0462) Fuel Level Sensor A Circuit Low [Fail-Safe]" address="57bd7" />
  <table name="(P0463) Fuel Level Sensor A Circuit High" address="4218f" />
  <table name="(P0463) Fuel Level Sensor A Circuit High [Fail-Safe]" address="57bd7" />
- <table name="(P04AC) Evaporative Emission System Purge Control Valve 'B' Circuit Low" address="421e5" />
- <table name="(P04AC) Evaporative Emission System Purge Control Valve 'B' Circuit Low [Fail-Safe]" address="57c2d" />
- <table name="(P04AD) Evaporative Emission System Purge Control Valve 'B' Circuit High" address="421e5" />
- <table name="(P04AD) Evaporative Emission System Purge Control Valve 'B' Circuit High [Fail-Safe]" address="57c2d" />
+ <table name="(P04AC) Evaporative Emission System Purge Control Valve 'B' Circuit Low" address="421e5" scaling="DTC enabled b3 m19 f00" />
+ <table name="(P04AC) Evaporative Emission System Purge Control Valve 'B' Circuit Low [Fail-Safe]" address="57c2d" scaling="DTC yes b3 m19 f00" />
+ <table name="(P04AD) Evaporative Emission System Purge Control Valve 'B' Circuit High" address="421e5" scaling="DTC enabled b4 m19 f00" />
+ <table name="(P04AD) Evaporative Emission System Purge Control Valve 'B' Circuit High [Fail-Safe]" address="57c2d" scaling="DTC yes b4 m19 f00" />
  <table name="(P04F0) Evaporative Emission System High Pressure Purge Line Performance" address="421c7" />
  <table name="(P04F0) Evaporative Emission System High Pressure Purge Line Performance [Fail-Safe]" address="57c0f" />
  <table name="(P0500) Vehicle Speed Sensor A [slot 12]" address="4218d" />
@@ -4112,8 +4124,8 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  <table name="(P2419) Evaporative Emission System Switching Valve Control Circuit Low [Fail-Safe]" address="57c1f" />
  <table name="(P2420) Evaporative Emission System Switching Valve Control Circuit High" address="421d7" />
  <table name="(P2420) Evaporative Emission System Switching Valve Control Circuit High [Fail-Safe]" address="57c1f" />
- <table name="(P2530) Ignition Switch Run Position Circuit" address="421e5" />
- <table name="(P2530) Ignition Switch Run Position Circuit [Fail-Safe]" address="57c2d" />
+ <table name="(P2530) Ignition Switch Run Position Circuit" address="421e5" scaling="DTC enabled b0 m19 f00" />
+ <table name="(P2530) Ignition Switch Run Position Circuit [Fail-Safe]" address="57c2d" scaling="DTC yes b0 m19 f00" />
  <table name="(P2610) ECM/PCM Internal Engine Off Timer Performance" address="421d7" />
  <table name="(P2610) ECM/PCM Internal Engine Off Timer Performance [Fail-Safe]" address="57c1f" />
  <table name="(P2627) O2 Sensor Pumping Current Trim Circuit/Open (Bank 1 Sensor 1)" address="421f2" />
@@ -4140,6 +4152,218 @@ Details: 0x06D43A (read): FFF89222 = sat(rail pressure FFF88886 + this(rpm FFF8C
  <table name="(U0422) Invalid Data Received from Body Control Module [Fail-Safe]" address="57c1c" />
  <table name="(U0423) Invalid Data Received from Instrument Panel Control Module" address="421dd" />
  <table name="(U0423) Invalid Data Received from Instrument Panel Control Module [Fail-Safe]" address="57c25" />
- <table name="Enable Mask (bit per DTC)" address="4218c" />
- <table name="Fail-Safe Trigger Mask (bit per DTC)" address="57bd4" />
+ <table name="Enable Mask (bit per DTC)" address="4218c">
+  <table name="Byte: codes by bit">
+   <data>+0: b0=P0335 b2=P0336 b6=P0604</data>
+   <data>+1: b0=P0102 b1=P0103 b4=P0500 b6=P0332 b7=P0333</data>
+   <data>+2: b2=P0327 b3=P0328 b4=P0122 b5=P0123</data>
+   <data>+3: b0=P0117 b1=P0118 b3=P0125 b4=P0462 b5=P0463 b6=P0461</data>
+   <data>+4: -</data>
+   <data>+5: -</data>
+   <data>+6: b3=P0851 b7=P0852</data>
+   <data>+7: -</data>
+   <data>+8: b0=P1492 b1=P1493 b2=P1494 b3=P1495 b4=P1496 b5=P1497 b6=P1498 b7=P1499</data>
+   <data>+9: -</data>
+   <data>+10: b3=P0506 b4=P0507</data>
+   <data>+11: -</data>
+   <data>+12: b2=P0011 b3=P0021 b6=P0458 b7=P0459</data>
+   <data>+13: -</data>
+   <data>+14: -</data>
+   <data>+15: -</data>
+   <data>+16: b5=P0141</data>
+   <data>+17: b0=P0133</data>
+   <data>+18: b0=P0420 b3=P0456 b4=P0400 b6=P0171 b7=P0172</data>
+   <data>+19: b0=P0301 b1=P0302 b2=P0303 b3=P0304</data>
+   <data>+20: -</data>
+   <data>+21: b0=P0137 b2=P0131 b4=P0132 b6=P0138</data>
+   <data>+22: b0=P0112 b1=P0113 b2=P0111 b4=P0038 b5=P0032 b6=P0037 b7=P0031</data>
+   <data>+23: b4=P0107 b5=P0108</data>
+   <data>+24: -</data>
+   <data>+25: -</data>
+   <data>+26: b0=P0128</data>
+   <data>+27: b6=P0562 b7=P0563</data>
+   <data>+28: b0=P0245 b1=P0246 b3=P0244</data>
+   <data>+29: -</data>
+   <data>+30: -</data>
+   <data>+31: -</data>
+   <data>+32: -</data>
+   <data>+33: -</data>
+   <data>+34: -</data>
+   <data>+35: -</data>
+   <data>+36: -</data>
+   <data>+37: -</data>
+   <data>+38: -</data>
+   <data>+39: b1=P0230 b3=P0068 b7=P0101</data>
+   <data>+40: b1=P0134 b5=P0030</data>
+   <data>+41: -</data>
+   <data>+42: -</data>
+   <data>+43: b0=P2109</data>
+   <data>+44: b0=P0222 b1=P0223 b2=P1160 b3=P2102 b4=P2103 b5=P2101 b6=P2096</data>
+   <data>+45: b1=P2138 b2=P2127 b3=P2128 b4=P2122 b5=P2123 b6=P2135 b7=P2097</data>
+   <data>+46: b1=P0390 b2=P0365 b3=P0345 b4=P0340 b5=P0605</data>
+   <data>+47: b0=P2095 b1=P2094 b2=P2091 b3=P2090 b4=P2093 b5=P2092 b6=P2089 b7=P2088</data>
+   <data>+48: b0=P0197 b7=P0700</data>
+   <data>+49: b6=P0196 b7=P0198</data>
+   <data>+50: -</data>
+   <data>+51: -</data>
+   <data>+52: b0=P2004 b1=P2006 b2=P2005 b3=P2007 b4=P2227 b6=P2229 b7=P2228</data>
+   <data>+53: b0=P2016 b1=P2017 b2=P2021 b3=P2022 b4=P2009 b5=P2012</data>
+   <data>+54: -</data>
+   <data>+55: -</data>
+   <data>+56: -</data>
+   <data>+57: b6=P0018 b7=P0016</data>
+   <data>+58: -</data>
+   <data>+59: b0=P0024 b1=P0014 b5=P04F0 b6=P1458 b7=P1459</data>
+   <data>+60: b2=P050E b6=P0019 b7=P0017</data>
+   <data>+61: -</data>
+   <data>+62: -</data>
+   <data>+63: -</data>
+   <data>+64: -</data>
+   <data>+65: -</data>
+   <data>+66: -</data>
+   <data>+67: -</data>
+   <data>+68: -</data>
+   <data>+69: -</data>
+   <data>+70: -</data>
+   <data>+71: -</data>
+   <data>+72: b0=U0422 b1=U0140 b2=U0402 b3=U0101 b4=U0416 b5=U0122 b6=U0073</data>
+   <data>+73: -</data>
+   <data>+74: -</data>
+   <data>+75: b0=P050B b1=P050A b2=P2610 b3=P2420 b4=P2419 b5=P2401 b6=P0453 b7=P0452</data>
+   <data>+76: b2=P015B b3=P015A b6=P014D b7=P014C</data>
+   <data>+77: b1=P1451 b2=P1449 b3=P0455 b4=P0451 b5=P0441 b7=P219A</data>
+   <data>+78: b5=P2404 b6=P2402</data>
+   <data>+79: b2=P013F b3=P013E b6=P013B b7=P013A</data>
+   <data>+80: -</data>
+   <data>+81: b2=U0423 b3=U0155</data>
+   <data>+82: -</data>
+   <data>+83: b2=P0354 b3=P0353 b4=P0352 b5=P0351</data>
+   <data>+84: b0=P000A b1=P000B b2=P000C b3=P000D b5=P0558 b6=P0557</data>
+   <data>+85: b0=P0512 b1=P0616 b2=P0617 b3=P2195 b4=P2196 b5=P0560 b6=P0116 b7=P081A</data>
+   <data>+86: -</data>
+   <data>+87: b2=P062F b3=P060B b4=P060A b6=P0606 b7=P2119</data>
+   <data>+88: b2=P0403 b3=P0391 b4=P0366 b5=P0346 b6=P0341 b7=P0300</data>
+   <data>+89: b0=P2530 b3=P04AC b4=P04AD</data>
+   <data>+90: -</data>
+   <data>+91: -</data>
+   <data>+92: -</data>
+   <data>+93: -</data>
+   <data>+94: -</data>
+   <data>+95: -</data>
+   <data>+96: -</data>
+   <data>+97: b0=P0072 b1=P0073 b2=P0071 b3=P0500 b4=P2158</data>
+   <data>+98: -</data>
+   <data>+99: b0=P0010 b1=P0020 b2=P0013 b3=P0023 b4=P0685 b5=P2A01 b6=P2270 b7=P2271</data>
+   <data>+100: b0=P0087 b1=P0088 b2=P062D b3=P1261 b4=P1262 b5=P1263 b6=P1264 b7=P0191</data>
+   <data>+101: b0=P0192 b1=P0193 b2=P1191 b3=P0627 b4=P0628 b5=P0629 b6=P023F b7=P0130</data>
+   <data>+102: b0=P0097 b1=P0098 b2=P2627 b3=P2628 b4=P0096 b5=P1134 b6=P2146 b7=P113A</data>
+  </table>
+ </table>
+ <table name="Fail-Safe Trigger Mask (bit per DTC)" address="57bd4">
+  <table name="Byte: codes by bit">
+   <data>+0: b0=P0335 b2=P0336 b6=P0604</data>
+   <data>+1: b0=P0102 b1=P0103 b4=P0500 b6=P0332 b7=P0333</data>
+   <data>+2: b2=P0327 b3=P0328 b4=P0122 b5=P0123</data>
+   <data>+3: b0=P0117 b1=P0118 b3=P0125 b4=P0462 b5=P0463 b6=P0461</data>
+   <data>+4: -</data>
+   <data>+5: -</data>
+   <data>+6: b3=P0851 b7=P0852</data>
+   <data>+7: -</data>
+   <data>+8: b0=P1492 b1=P1493 b2=P1494 b3=P1495 b4=P1496 b5=P1497 b6=P1498 b7=P1499</data>
+   <data>+9: -</data>
+   <data>+10: b3=P0506 b4=P0507</data>
+   <data>+11: -</data>
+   <data>+12: b2=P0011 b3=P0021 b6=P0458 b7=P0459</data>
+   <data>+13: -</data>
+   <data>+14: -</data>
+   <data>+15: -</data>
+   <data>+16: b5=P0141</data>
+   <data>+17: b0=P0133</data>
+   <data>+18: b0=P0420 b3=P0456 b4=P0400 b6=P0171 b7=P0172</data>
+   <data>+19: b0=P0301 b1=P0302 b2=P0303 b3=P0304</data>
+   <data>+20: -</data>
+   <data>+21: b0=P0137 b2=P0131 b4=P0132 b6=P0138</data>
+   <data>+22: b0=P0112 b1=P0113 b2=P0111 b4=P0038 b5=P0032 b6=P0037 b7=P0031</data>
+   <data>+23: b4=P0107 b5=P0108</data>
+   <data>+24: -</data>
+   <data>+25: -</data>
+   <data>+26: b0=P0128</data>
+   <data>+27: b6=P0562 b7=P0563</data>
+   <data>+28: b0=P0245 b1=P0246 b3=P0244</data>
+   <data>+29: -</data>
+   <data>+30: -</data>
+   <data>+31: -</data>
+   <data>+32: -</data>
+   <data>+33: -</data>
+   <data>+34: -</data>
+   <data>+35: -</data>
+   <data>+36: -</data>
+   <data>+37: -</data>
+   <data>+38: -</data>
+   <data>+39: b1=P0230 b3=P0068 b7=P0101</data>
+   <data>+40: b1=P0134 b5=P0030</data>
+   <data>+41: -</data>
+   <data>+42: -</data>
+   <data>+43: b0=P2109</data>
+   <data>+44: b0=P0222 b1=P0223 b2=P1160 b3=P2102 b4=P2103 b5=P2101 b6=P2096</data>
+   <data>+45: b1=P2138 b2=P2127 b3=P2128 b4=P2122 b5=P2123 b6=P2135 b7=P2097</data>
+   <data>+46: b1=P0390 b2=P0365 b3=P0345 b4=P0340 b5=P0605</data>
+   <data>+47: b0=P2095 b1=P2094 b2=P2091 b3=P2090 b4=P2093 b5=P2092 b6=P2089 b7=P2088</data>
+   <data>+48: b0=P0197 b7=P0700</data>
+   <data>+49: b6=P0196 b7=P0198</data>
+   <data>+50: -</data>
+   <data>+51: -</data>
+   <data>+52: b0=P2004 b1=P2006 b2=P2005 b3=P2007 b4=P2227 b6=P2229 b7=P2228</data>
+   <data>+53: b0=P2016 b1=P2017 b2=P2021 b3=P2022 b4=P2009 b5=P2012</data>
+   <data>+54: -</data>
+   <data>+55: -</data>
+   <data>+56: -</data>
+   <data>+57: b6=P0018 b7=P0016</data>
+   <data>+58: -</data>
+   <data>+59: b0=P0024 b1=P0014 b5=P04F0 b6=P1458 b7=P1459</data>
+   <data>+60: b2=P050E b6=P0019 b7=P0017</data>
+   <data>+61: -</data>
+   <data>+62: -</data>
+   <data>+63: -</data>
+   <data>+64: -</data>
+   <data>+65: -</data>
+   <data>+66: -</data>
+   <data>+67: -</data>
+   <data>+68: -</data>
+   <data>+69: -</data>
+   <data>+70: -</data>
+   <data>+71: -</data>
+   <data>+72: b0=U0422 b1=U0140 b2=U0402 b3=U0101 b4=U0416 b5=U0122 b6=U0073</data>
+   <data>+73: -</data>
+   <data>+74: -</data>
+   <data>+75: b0=P050B b1=P050A b2=P2610 b3=P2420 b4=P2419 b5=P2401 b6=P0453 b7=P0452</data>
+   <data>+76: b2=P015B b3=P015A b6=P014D b7=P014C</data>
+   <data>+77: b1=P1451 b2=P1449 b3=P0455 b4=P0451 b5=P0441 b7=P219A</data>
+   <data>+78: b5=P2404 b6=P2402</data>
+   <data>+79: b2=P013F b3=P013E b6=P013B b7=P013A</data>
+   <data>+80: -</data>
+   <data>+81: b2=U0423 b3=U0155</data>
+   <data>+82: -</data>
+   <data>+83: b2=P0354 b3=P0353 b4=P0352 b5=P0351</data>
+   <data>+84: b0=P000A b1=P000B b2=P000C b3=P000D b5=P0558 b6=P0557</data>
+   <data>+85: b0=P0512 b1=P0616 b2=P0617 b3=P2195 b4=P2196 b5=P0560 b6=P0116 b7=P081A</data>
+   <data>+86: -</data>
+   <data>+87: b2=P062F b3=P060B b4=P060A b6=P0606 b7=P2119</data>
+   <data>+88: b2=P0403 b3=P0391 b4=P0366 b5=P0346 b6=P0341 b7=P0300</data>
+   <data>+89: b0=P2530 b3=P04AC b4=P04AD</data>
+   <data>+90: -</data>
+   <data>+91: -</data>
+   <data>+92: -</data>
+   <data>+93: -</data>
+   <data>+94: -</data>
+   <data>+95: -</data>
+   <data>+96: -</data>
+   <data>+97: b0=P0072 b1=P0073 b2=P0071 b3=P0500 b4=P2158</data>
+   <data>+98: -</data>
+   <data>+99: b0=P0010 b1=P0020 b2=P0013 b3=P0023 b4=P0685 b5=P2A01 b6=P2270 b7=P2271</data>
+   <data>+100: b0=P0087 b1=P0088 b2=P062D b3=P1261 b4=P1262 b5=P1263 b6=P1264 b7=P0191</data>
+   <data>+101: b0=P0192 b1=P0193 b2=P1191 b3=P0627 b4=P0628 b5=P0629 b6=P023F b7=P0130</data>
+   <data>+102: b0=P0097 b1=P0098 b2=P2627 b3=P2628 b4=P0096 b5=P1134 b6=P2146 b7=P113A</data>
+  </table>
+ </table>
 </rom>

@@ -5,8 +5,7 @@
 First public release.
 
 - Descriptions: below the Debug level every table now shows only a short plain-English description (no addresses or
-  code references); Debug tables keep the full engineering detail. The RomRaider files are smaller (FA20DIT 7.8 MB,
-  FB16DIT 4.5 MB).
+  code references); Debug tables keep the full engineering detail.
 - Tuning guide updated and renamed **Subaru DIT Tuning Guide**: it covers the Levorg 1.6 (new section 1.10), quotes
   stock values as the reference ROM's (LF75404S) and says "unused on the reference ROM" where a table is gated out
   there, uses the current table names, and adds the low-DAM boost cut (C14, A14), the 1.6-only tables, the logging
@@ -24,7 +23,7 @@ First public release.
   were true for one calibration only (about 500 tables differ between the USDM and JDM ROMs). Whether a table is
   switched off now sets its user level per ROM: Debug where the ROM's own calibration switches it off, Advanced where
   it doesn't. "Transient Fuel Throttle-Rate Gain (Off in Stock)" is now "(MT Coding)".
-- The RomRaider file is smaller (12 MB, was 24 MB): ROMs that share a layout list only what differs.
+- The RomRaider file is smaller (7.8 MB, was 24 MB): ROMs that share a layout list only what differs, and descriptions below the Debug level are short.
 - README: the supported ROMs are listed per model; per-ROM notes and credits moved to `definitions/README.md`.
 - New: eight more ROMs. 2014 Middle East WRX (LF75401P) and seven Levorg 2.0 ROMs, 2014–2017 (LV9N100A, LV9N301A,
   LV9N302A, LF75401D, LF79100K, LF79101K, LF79100S): RomRaider and EcuFlash definitions, logger, logging patch, CAN

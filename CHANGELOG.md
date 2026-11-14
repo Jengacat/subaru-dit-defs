@@ -4,6 +4,14 @@
 
 First public release.
 
+- New: **2017 Australian Forester XT (LF78002H)**: RomRaider and EcuFlash definitions (1,202 entries, 227 DTCs),
+  logging patch and CAN dictionary. It runs nearly the same code as the Forester tS (LF78001H) but is a separate build,
+  so it has its own definition.
+- New: **logging patch for the Levorg 1.6 ROMs**: a spec for each of the 19, checked against each ROM's own code. The
+  existing `FA20DIT_Logger_LogPatch.xml` works with them unchanged (same slots).
+- CAN dictionary: now 53 ROMs, all the Levorg 1.6 ROMs included. They behave exactly like the 2.0 ROMs of the same
+  software.
+- README: the entry counts per ROM include the four low-DAM boost cut values.
 - Descriptions: below the Debug level every table now shows only a short plain-English description (no addresses or
   code references); Debug tables keep the full engineering detail.
 - Tuning guide updated and renamed **Subaru DIT Tuning Guide**: it covers the Levorg 1.6 (new section 1.10), quotes
@@ -18,7 +26,7 @@ First public release.
   (Arming Count, Cell Threshold, DAM Threshold, DAM Release). Switched off in every stock calibration.
 - New: **Levorg 1.6 (FB16DIT)**, 19 ROMs, 2014–2020: `FB16DIT_RomRaider.xml` and Imperial / Metric EcuFlash sets. The
   1.6's ECU runs the same software as the 2.0's, so the tables and descriptions are shared; the stock logger file works
-  for it too. No logging patch for these ROMs yet. Thanks to reokov for the ROMs.
+  for it too. Thanks to reokov for the ROMs.
 - Table names no longer carry "(Off in Stock)" or "(Unused)", and the descriptions no longer quote stock values: those
   were true for one calibration only (about 500 tables differ between the USDM and JDM ROMs). Whether a table is
   switched off now sets its user level per ROM: Debug where the ROM's own calibration switches it off, Advanced where

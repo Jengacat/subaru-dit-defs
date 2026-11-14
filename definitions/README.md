@@ -47,10 +47,15 @@ Clear Step (Event 1–4). The 2019 and 2020 ROMs are 2.5 MB: EcuFlash can't corr
 tool), and no open tool writes those ECUs yet. Model years and markets are as the ROMs were supplied. The
 descriptions were written on the 2.0 and have not all been re-read against the 1.6.
 
+*2017 Australian Forester XT (LF78002H):* the same software version as the Forester tS (LF78001H), and nearly the same
+code (its ID shares the LF780 prefix, but the two are separate builds, so neither definition fits the other ROM). Its
+definition was moved from LF78001H instruction for instruction, with the 2017 USDM Forester XT (LF78103B) as a second
+reference.
+
 *User levels differ between ROMs:* a table that a ROM's own calibration switches off is at the Debug level in that
 ROM and at Advanced in a ROM that uses it.
 
-*Partial ports:* LF78001H and the LV9N ROMs have fewer tables than the WRX ROMs; tables I could not place with
+*Partial ports:* LF78001H, LF78002H and the LV9N ROMs have fewer tables than the WRX ROMs; tables I could not place with
 confidence are left out rather than guessed.
 
 ## Credits

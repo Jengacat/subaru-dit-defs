@@ -21,7 +21,7 @@ powershell -ExecutionPolicy Bypass -File make_logpatch.ps1 -Verify specs\logpatc
 It works on a stock or tuned ROM, as long as the calibration ID matches the spec. Only the 41 table entries and the
 checksum correction word change, and the checksum is fixed for you. The tool refuses to patch if:
 
-- the ROM is not 2 MB, or its calibration ID doesn't match the spec;
+- the ROM is not 2 MB (or 2.5 MB for the 2019+ ROMs), or its calibration ID doesn't match the spec;
 - the ROM's checksum is already bad (fix it first with `../checksum.py` or `../checksum.ps1`);
 - any slot to patch is already in use.
 

@@ -4,6 +4,10 @@
 
 First public release.
 
+- docs/ROM_IDS.md corrected against the code of every complete ROM: LF791… has two builds (LF79110N is separate) and
+  LF9D0… three (LF9D012h and LF9D030g are different WRX builds); 18 groups have more than one ROM, 13 of them a single
+  build. The groups table now lists every group with a supported ROM (seven Levorg 1.6 groups were missing), and the
+  page notes that no two groups share code so far.
 - New: **two submitted Levorg 1.6 ROMs**, 97 in all: LF76402R (2016 JDM) and LF79200U (2017 JDM). Each runs the same
   code as a supported Levorg 1.6 (LF76401R, LF79201U), so its tables sit at the same addresses; LF76402R's calibration
   differs from LF76401R's mainly in the EGR Valve Flow Model. Thanks for the reads.

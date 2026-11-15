@@ -73,7 +73,10 @@ confidence are left out rather than guessed.
 
 ## Credits
 
-- **reokov**: the seven Levorg 2.0 ROMs and sixteen of the nineteen Levorg 1.6 ROMs, the ECU ID and model-revision information,
-  the EcuFlash SH72544R read-template tip for 2.5 MB ECUs, and the suggestion to list the supported ROMs per model.
+- **reokov**: a large share of the ROMs here (the Levorg 2.0 ROMs, most of the Levorg 1.6 ROMs and other submitted
+  reads), the list of known calibration IDs behind [ROM_IDS](../docs/ROM_IDS.md), the ECU ID and model-revision
+  information, testing of the definitions and tools on real cars, and many suggestions: the EcuFlash SH72544R
+  read-template tip for 2.5 MB ECUs, listing the supported ROMs per model, and leads on tables to add (the engine-speed
+  limit in P and N on the CVT ROMs, the alternator charge control).
 - **Hafiez STi**: the Malaysian Forester XT ROM (LF9C000a).
 - The RomRaider forum, where several of the ROMs were posted.

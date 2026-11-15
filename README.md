@@ -131,7 +131,7 @@ patch has not been ported to that ROM yet.
 </details>
 
 <details>
-<summary><b>Levorg 1.6 (FB16DIT)</b>: 22 ROMs, 2014–2020</summary>
+<summary><b>Levorg 1.6 (FB16DIT)</b>: 24 ROMs, 2014–2020</summary>
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
@@ -155,8 +155,10 @@ patch has not been ported to that ROM yet.
 | Levorg 1.6 | 2018 | CVT | not confirmed | **LV3C100T** | 1139 | 228 | not yet |
 | Levorg 1.6 | 2019 (2.5 MB ECU) | CVT | Japan | **LF9D000d** | 1225 | 229 | yes |
 | Levorg 1.6 | 2019 (2.5 MB ECU) | CVT | Europe | **LF9D100e** | 1225 | 229 | yes |
+| Levorg 1.6 | 2019 (2.5 MB ECU) | CVT | Japan | **LF9D200d** | 1225 | 229 | not yet |
 | Levorg 1.6 | 2020 (2.5 MB ECU) | CVT | Japan | **LF9F100P** | 1224 | 231 | yes |
 | Levorg 1.6 | 2020 (2.5 MB ECU) | CVT | Europe | **LF9F100Q** | 1224 | 231 | yes |
+| Levorg 1.6 | 2020 (2.5 MB ECU) | CVT | Japan | **LF9F200P** | 1224 | 231 | not yet |
 
 </details>
 

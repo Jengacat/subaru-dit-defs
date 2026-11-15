@@ -26,6 +26,16 @@ and P0453, so in the logger's DTC tab those four names also give its code. EcuFl
 the checksum tool. Writing a 2.5 MB ECU isn't supported by any open tool yet; see
 [Reading your ECU](../README.md#reading-your-ecu).
 
+*ROMs from Subaru's dealer software (added 2026-11):* 33 ROMs (LF75401J–N, LF75404H, LF755…, LF78001F, LF78002D–Z,
+LF78200B, LF79100Q/R, LF79103P, LF9C100M/R/X, LF9C102P, LF9D030g, LV9N302E–L, LV9N303K, LV9N601M/N) come from the
+full images in Subaru's dealer reflash packages rather than from a read of a car. 26 of them run exactly the same code
+as a ROM already supported, so they use its table list at the same addresses. The other seven (LF75500A/G/T,
+LF78200B, LF9D030g, LV9N601M/N) are builds of their own, ported and checked like the others; I compared every table
+against the ROM it was ported from. Model, year and market come from the package names: where marked "(unconfirmed)"
+or "not confirmed" I could not check them, and LF75500A's package says Forester XT although its software is from the
+WRX family. The logging patch and the CAN dictionary do not cover these ROMs yet. The 2019 WRX (LF9D030g) is a 2.5 MB
+ECU: EcuFlash can't correct its checksum (use the checksum tool), and no open tool writes those ECUs yet.
+
 *Malaysian Forester XT (LF9C000a):* the ID really ends in a lowercase "a". The code and table layout are the same
 as LF9C000C's; only a few calibration bytes differ.
 

@@ -41,7 +41,7 @@
  <scaling name="V uint8" units="V" toexpr="x/12.8" frexpr="x*12.8" format="%0.1f" min="0" max="19.9219" inc="0.5" storagetype="uint8" endian="big" />
  <scaling name="AFR (gasoline) uint8" units="AFR (gasoline)" toexpr="3763.2/(256+x)" frexpr="3763.2/x-256" format="%0.2f" min="7.36438" max="14.7" inc="0.1" storagetype="uint8" endian="big" />
  <scaling name="% enrichment uint8" units="% enrichment" toexpr="x/2.56" frexpr="x*2.56" format="%0.1f" min="0" max="99.6094" inc="0.4" storagetype="uint8" endian="big" />
- <scaling name="DAM uint8" units="DAM" toexpr="x/16" frexpr="x*16" format="%0.2f" min="0" max="15.9375" inc="0.0625" storagetype="uint8" endian="big" />
+ <scaling name="DAM uint8" units="DAM" toexpr="x/16" frexpr="x*16" format="%0.3f" min="0" max="1" inc="0.0625" storagetype="uint8" endian="big" />
  <scaling name="% enrichment int16" units="% enrichment" toexpr="x/2.56" frexpr="x*2.56" format="%0.1f" min="-12800" max="12799.6" inc="0.4" storagetype="int16" endian="big" />
  <scaling name="% enrichment uint16" units="% enrichment" toexpr="x/327.68" frexpr="x*327.68" format="%0.1f" min="0" max="199.997" inc="0.5" storagetype="uint16" endian="big" />
  <scaling name="% enrichment uint16 #2" units="% enrichment" toexpr="x/2.56" frexpr="x*2.56" format="%0.1f" min="0" max="25599.6" inc="0.4" storagetype="uint16" endian="big" />
@@ -57386,13 +57386,13 @@ With cal 0x1D0AE bit 0 set, 0x0F70B4 (read) sets B270 = 0 below FFF88B8F 68 (54 
  <table name="(P24B9) manufacturer-specific / not named [Fail-Safe]" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="4" scaling="DTC yes b4 mBF f00">
   <description>Bit 4 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P24BA) manufacturer-specific / not named" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b7 mFF f00 s00">
+ <table name="(P24BA) manufacturer-specific / not named" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b7 mFF f00 s7F">
   <description>Bit 7 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
  <table name="(P24BA) manufacturer-specific / not named [Fail-Safe]" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="4" scaling="DTC yes b7 mFF f00 s50">
   <description>Bit 7 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P24BB) manufacturer-specific / not named" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b6 mFF f00 s00">
+ <table name="(P24BB) manufacturer-specific / not named" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b6 mFF f00 sBF">
   <description>Bit 6 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
  <table name="(P24BB) manufacturer-specific / not named [Fail-Safe]" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="4" scaling="DTC yes b6 mFF f00 s90">

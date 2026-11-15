@@ -4,11 +4,10 @@
 
 First public release.
 
-- New: **33 more ROMs**, 86 in all: 2015–2019 WRX, 2016–2017 Forester XT and 2015–2017 Legacy/Outback
-  calibrations taken from Subaru's dealer reflash packages, including the 2019 WRX (LF9D030g, 2.5 MB). 26 run the same
-  code as a ROM already supported; seven are separate builds, ported and checked table by table against their source
-  ROM. Nine more (2017–2021 USDM WRX and Forester XT, one Levorg 1.6) are built but held back while a few tables are
-  reviewed; see the README's Missing definitions. The logging patch and CAN dictionary don't cover the new ROMs yet.
+- New: **42 more ROMs**, 95 in all: 2015–2021 WRX, 2016–2018 Forester XT, 2015–2017 Legacy/Outback and a 2018
+  Levorg 1.6, calibrations taken from Subaru's dealer reflash packages, including the 2019–2021 WRX (2.5 MB ECUs).
+  26 run the same code as a ROM already supported; 16 are separate builds, ported and checked table by table against
+  their source ROM and against the decompiled code. The logging patch and CAN dictionary don't cover the new ROMs yet.
 - Dynamic Advance Multiplier tables show 0 to 1 with three decimals (they were raw numbers up to 16).
 - README: the table counts per ROM include the nine pedal speed limiter entries added earlier.
 - docs/ROM_IDS.md made more accurate: an ID's first five characters group related ROMs but are not a software version.

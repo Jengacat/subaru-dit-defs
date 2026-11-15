@@ -25,7 +25,7 @@ confirmed" mark the ones I could not check. "Logging patch: not yet" means the d
 patch has not been ported to that ROM yet.
 
 <details>
-<summary><b>WRX and WRX S4</b>: 41 ROMs, 2014–2019</summary>
+<summary><b>WRX and WRX S4</b>: 48 ROMs, 2014–2021</summary>
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
@@ -62,6 +62,7 @@ patch has not been ported to that ROM yet.
 | WRX | 2017 | CVT | not confirmed | **LF79100Q** | 1220 | 228 | not yet |
 | WRX | 2017 | 6MT | not confirmed | **LF79100R** | 1220 | 228 | not yet |
 | WRX | 2017 | 6MT | USDM | **LF79103P** | 1220 | 228 | not yet |
+| WRX | 2017 | CVT | USDM | **LF79110N** | 1220 | 228 | not yet |
 | WRX | 2017 | 6MT | not confirmed | **LF9C100M** | 1225 | 228 | not yet |
 | WRX | 2017 | 6MT | not confirmed | **LF9C100R** | 1225 | 228 | not yet |
 | WRX | 2017 | 6MT | not confirmed | **LF9C100X** | 1225 | 228 | not yet |
@@ -69,12 +70,18 @@ patch has not been ported to that ROM yet.
 | WRX | 2018 | 6MT | USDM | **LF9C001P** | 1225 | 228 | yes |
 | WRX | 2018 | 6MT | not confirmed | **LF9C100P** | 1225 | 228 | yes |
 | WRX | 2018 | 6MT | USDM | **LF9C102P** | 1225 | 228 | not yet |
-| WRX | 2019 | CVT | USDM | **LF9D030g** | 1225 | 229 | not yet |
+| WRX | 2018 | CVT | USDM | **LF9C200N** | 1225 | 228 | not yet |
+| WRX | 2019 (2.5 MB ECU) | 6MT | USDM | **LF9D012h** | 1225 | 229 | not yet |
+| WRX | 2019 (2.5 MB ECU) | CVT | USDM | **LF9D030g** | 1225 | 229 | not yet |
+| WRX | 2020 (2.5 MB ECU) | CVT | USDM | **LF9G002S** | 1224 | 231 | not yet |
+| WRX | 2020 (2.5 MB ECU) | 6MT | USDM | **LF9G003T** | 1224 | 231 | not yet |
+| WRX | 2021 (2.5 MB ECU) | CVT | USDM | **LF9K000D** | 1224 | 231 | not yet |
+| WRX | 2021 (2.5 MB ECU) | 6MT | USDM | **LF9K000E** | 1224 | 231 | not yet |
 
 </details>
 
 <details>
-<summary><b>Forester XT and tS</b>: 14 ROMs, 2015–2018</summary>
+<summary><b>Forester XT and tS</b>: 15 ROMs, 2015–2018</summary>
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
@@ -92,6 +99,7 @@ patch has not been ported to that ROM yet.
 | Forester XT | 2017 | CVT | USDM | **LF78200B** | 1211 | 228 | not yet |
 | Forester XT | 2017 | CVT | Europe | **LF9C000C** | 1225 | 228 | yes |
 | Forester XT | 2018 | CVT | Malaysia | **LF9C000a** | 1225 | 228 | yes |
+| Forester XT | 2018 | CVT | USDM | **LF9C200B** | 1225 | 228 | not yet |
 
 </details>
 
@@ -124,7 +132,7 @@ patch has not been ported to that ROM yet.
 </details>
 
 <details>
-<summary><b>Levorg 1.6 (FB16DIT)</b>: 19 ROMs, 2014–2020</summary>
+<summary><b>Levorg 1.6 (FB16DIT)</b>: 20 ROMs, 2014–2020</summary>
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
@@ -141,8 +149,9 @@ patch has not been ported to that ROM yet.
 | Levorg 1.6 | 2017 | CVT | Europe | **LF79200T** | 1224 | 228 | yes |
 | Levorg 1.6 | 2017 | CVT | Europe | **LF79300T** | 1224 | 228 | yes |
 | Levorg 1.6 | 2017 (facelift) | CVT | Japan | **LF9B003U** | 1229 | 228 | yes |
-| Levorg 1.6 | 2017 (facelift) | CVT | Japan | **LF9B200U** | 1229 | 228 | yes |
 | Levorg 1.6 | 2017 (facelift) | CVT | Europe | **LF9B100G** | 1229 | 228 | yes |
+| Levorg 1.6 | 2017 (facelift) | CVT | Japan | **LF9B200U** | 1229 | 228 | yes |
+| Levorg 1.6 | 2018 | CVT | not confirmed | **LV3C100T** | 1139 | 228 | not yet |
 | Levorg 1.6 | 2019 (2.5 MB ECU) | CVT | Japan | **LF9D000d** | 1225 | 229 | yes |
 | Levorg 1.6 | 2019 (2.5 MB ECU) | CVT | Europe | **LF9D100e** | 1225 | 229 | yes |
 | Levorg 1.6 | 2020 (2.5 MB ECU) | CVT | Japan | **LF9F100P** | 1224 | 231 | yes |
@@ -163,11 +172,10 @@ same model year; flashing with a definition for another ID will corrupt the cali
 
 | ROM | Why |
 |---|---|
-| LF79110N (2017 USDM WRX CVT), LF9C200B, LF9C200N (2018 USDM Forester XT / WRX CVT), LF9D012h (2019 USDM WRX 6MT), LF9G002S, LF9G003T (2020 USDM WRX), LF9K000D, LF9K000E (2021 USDM WRX), LV3C100T (2018 Levorg 1.6) | Definitions are built, but a few tables are still under review. They will be added once that is done. |
 | LF75300G (2016 WRX CVT), LF75300T (2015 WRX CVT), LV9N101D (2015 USDM WRX), LV9N002F (2014 Australian WRX) | The only copies I have are incomplete (1.5 MB) reads. A complete read would make them supportable quickly. |
 | Other 2015–2018 WRX and Forester XT calibrations (e.g. LF75403T, LF75403G, LF79102N, LF9C002N, LF75403A, LF78106B, LF9C002B) | I don't have these ROMs. [Submit one](#submitting-a-rom) and I can add it. |
 | 2013–2015 Forester XT with an AF5G…, AF56…, LF6A… or LF61… ID (e.g. LF61803B) | An older 1.5 MB ECU (SH705x) with different software; not covered by these definitions. |
-| Other 2019+ calibrations | These ECUs have 2.5 MB of flash and a newer boot block, like the supported 2019 WRX (LF9D030g) and Levorg STI (LF9F000R), so a complete read makes them supportable. EcuFlash can open 2.5 MB ROMs. |
+| Other 2019+ calibrations | These ECUs have 2.5 MB of flash and a newer boot block, like the supported 2019–2021 WRX (LF9D…, LF9G…, LF9K…) and Levorg STI (LF9F000R), so a complete read makes them supportable. EcuFlash can open 2.5 MB ROMs. |
 | 2022+ WRX (FA24DIT) | Different engine and ECU generation; not started. |
 
 </details>

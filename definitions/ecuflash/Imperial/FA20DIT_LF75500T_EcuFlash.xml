@@ -2561,7 +2561,11 @@
   <table name="Engine Speed" address="02b0ec" />
  </table>
  <table name="Throttle Flow Coefficient (Forward Flow)" address="02b06c" />
- <table name="Throttle Flow Coefficient (Reverse Flow)" address="02b06d" />
+ <table name="Throttle Flow Coefficient (Reverse Flow)" address="02b06d">
+  <description>Coefficient of the throttle airflow model when the manifold is above the pre-throttle pressure. Leave alone.
+
+Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-throttle pressure; the ratio is inverted). 0x11DD04 (read), enabled by FFF8A8FB bit 0 (0x11E43C): modelled throttle flow FFF8C24C [g/min] = (P_up/101325) x Throttle Flow Function(r) x FFF8ADEC (Throttle Area from Throttle Position, 0.05 mm^2) x Throttle Flow Temperature Correction x this x 60000 x 2.98e-15, which feeds the manifold/airflow observer 0x11DB50 / 0x11D938. Normally leave alone. Confidence: read.</description>
+ </table>
  <table name="Exhaust Temperature Model Map A (No Enrichment)" address="019908">
   <table name="Engine Load" address="0132f0" />
   <table name="Engine Speed" address="0132fc" />
@@ -2997,7 +3001,11 @@
  <table name="Idle Target Ramp Rate (AT/CVT, Mode 8 to 7)" address="024df0">
   <table name="Coolant Temp" address="03834c" />
  </table>
- <table name="Idle Speed Target (Cold Idle, Mode 4)" address="024af0" />
+ <table name="Idle Speed Target (Cold Idle, Mode 4)" address="024af0">
+  <description>Idle speed target by coolant for a cold-idle mode used when stopped below a coolant threshold.
+
+Details: When used: idle mode 4, entered from mode 5 when stopped with coolant below cal 0x24E94 for cal 0x24E96 passes. 0x0F1BCC selects this boot-format table by idle mode FFF8A7F0 = 4 and coolant; the result B238 is ramped (0x0F1D00) and becomes the idle target FFF8B236 through the minimum-speed max() in 0x0F2274 (read). Implicit coolant axis -40..110 C in 10 C steps (lookup 0x7414). Confidence: read.</description>
+ </table>
  <table name="Idle Target Ramp Rate (Fallback Latch)" address="026e12">
   <table name="Coolant Temp" address="03834c" />
  </table>

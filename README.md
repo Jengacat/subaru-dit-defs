@@ -28,7 +28,7 @@ patch has not been ported to that ROM yet.
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
-| WRX | 2014 (as supplied) | 6MT | Middle East | **LF75401P** | 1204 | 226 | yes |
+| WRX | 2016 (supplied as 2014) | 6MT | Middle East | **LF75401P** | 1204 | 226 | yes |
 | WRX | 2015 | CVT | Canada | **LF75200T** | 1182 | 226 | yes |
 | WRX S4 | 2015 | CVT | Japan | **LF75300F** | 1204 | 226 | yes |
 | WRX | 2015–2016 (not stated) | CVT | not confirmed | **LF75300L** | 1204 | 226 | yes |
@@ -94,7 +94,7 @@ patch has not been ported to that ROM yet.
 | Forester XT | 2016 | CVT | not confirmed | **LF78002G** | 1213 | 227 | not yet |
 | Forester XT | 2016 | CVT | not confirmed | **LF78002J** | 1213 | 227 | not yet |
 | Forester XT | 2016 | CVT | not confirmed | **LF78002Z** | 1213 | 227 | not yet |
-| Forester XT | 2017 | CVT | Australia | **LF78002H** | 1213 | 227 | yes |
+| Forester XT | 2016 (supplied as 2017) | CVT | Australia | **LF78002H** | 1213 | 227 | yes |
 | Forester XT | 2017 | CVT | USDM | **LF78103B** | 1210 | 228 | yes |
 | Forester XT | 2017 | CVT | USDM | **LF78200B** | 1213 | 228 | not yet |
 | Forester XT | 2017 | CVT | Europe | **LF9C000C** | 1227 | 228 | yes |
@@ -140,7 +140,7 @@ patch has not been ported to that ROM yet.
 | Levorg 1.6 | 2014 | CVT | Japan | **LV9N340J** | 1163 | 222 | yes |
 | Levorg 1.6 | 2015 | CVT | Europe | **LF76400Q** | 1196 | 226 | yes |
 | Levorg 1.6 | 2015 | CVT | Japan | **LF76401R** | 1196 | 226 | yes |
-| Levorg 1.6 | 2015 | CVT | Europe | **LF76500Q** | 1196 | 226 | yes |
+| Levorg 1.6 | 2016 (supplied as 2015) | CVT | Europe | **LF76500Q** | 1196 | 226 | yes |
 | Levorg 1.6 | 2015 | CVT | Japan | **LF76500R** | 1196 | 226 | yes |
 | Levorg 1.6 | 2015 | CVT | Japan | **LF76600R** | 1196 | 226 | yes |
 | Levorg 1.6 | 2016 | CVT | Japan | **LF76402R** | 1196 | 226 | not yet |
@@ -151,7 +151,7 @@ patch has not been ported to that ROM yet.
 | Levorg 1.6 | 2017 | CVT | Japan | **LF79200U** | 1226 | 228 | not yet |
 | Levorg 1.6 | 2017 | CVT | Europe | **LF79300T** | 1226 | 228 | yes |
 | Levorg 1.6 | 2017 (facelift) | CVT | Japan | **LF9B003U** | 1231 | 228 | yes |
-| Levorg 1.6 | 2017 (facelift) | CVT | Europe | **LF9B100G** | 1231 | 228 | yes |
+| Levorg 1.6 | 2018 (facelift; supplied as 2017) | CVT | Europe | **LF9B100G** | 1231 | 228 | yes |
 | Levorg 1.6 | 2017 (facelift) | CVT | Japan | **LF9B200U** | 1231 | 228 | yes |
 | Levorg 1.6 | 2018 | CVT | not confirmed | **LV3C100T** | 1141 | 228 | not yet |
 | Levorg 1.6 | 2019 (2.5 MB ECU) | CVT | Japan | **LF9D000d** | 1227 | 229 | yes |

@@ -5707,6 +5707,18 @@ Drive mode 4 with AT/CVT Coding. Step2B of Path B, by gear x rpm (0-4000 rpm), b
    <scaling category="kPa" units="kPa" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <description>How far boost must fall below the overboost cut level before the overboost cut state ends.</description>
   </table>
+  <table type="1D" name="Park/Neutral RPM Limit (AT/CVT)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" userlevel="5" storageaddress="0x01e016">
+   <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.
+
+Details: u16 rpm x 0.1953125. Latch FFF8A63B bit 0 (0x0C07F8): set while FFF8A63B bit 1 and rpm FFF8CE9C &gt;= this; held down to this - the hysteresis. FFF8A63B bit 1 (0x0C0850): P/N switch FFF88ADA bit 6 (or fault flag FFF88E2B bit 2), manual coding FFF88ADA bit 7 clear, TCM range code FFF8A8DC 5 or 7 (or TCM-data fault flag FFF88E2B bit 1). The latch lets the cut level FFF8A64F through to the cylinder-cut thresholds in 0x0C1AC8, as the limit states do. Addresses are LF75404S. (read; that range codes 5 and 7 are P and N is inferred: the switch input must agree) Confidence: read.</description>
+  </table>
+  <table type="1D" name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" userlevel="5" storageaddress="0x01e018">
+   <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.
+
+Details: u16 rpm x 0.1953125, subtracted from the limit while the latch FFF8A63B bit 0 is set (0x0C07F8, saturating at 0). (read) Confidence: read.</description>
+  </table>
   <table type="1D" name="Vehicle Speed Limit" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint8" endian="big" userlevel="2" storageaddress="0x01dedc">
    <scaling category="Default" units="km/h" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <scaling category="mph" units="mph" expression="x*0.621371" to_byte="x/0.621371" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -14322,6 +14334,12 @@ Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x11
   <table name="Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp, AT/CVT Coding)" storageaddress="0x02049e" userlevel="3">
    <description>AT/CVT version of Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp). Only used on an AT/CVT-coded car, so it has no effect on a manual.</description>
   </table>
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x01e016" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x01e018" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
+  </table>
   <table name="External Torque Limit Baro Factor" storageaddress="0x020ed4" userlevel="4">
    <description>Air-density correction (barometric part) applied to a torque limit received over CAN, probably from the transmission controller.</description>
   </table>
@@ -14588,6 +14606,12 @@ Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x11
   </table>
   <table name="Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp, AT/CVT Coding)" storageaddress="0x02049e" userlevel="3">
    <description>AT/CVT version of Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp). Only used on an AT/CVT-coded car, so it has no effect on a manual.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x01e016" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x01e018" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
   </table>
   <table name="External Torque Limit Baro Factor" storageaddress="0x020ed4" userlevel="4">
    <description>Air-density correction (barometric part) applied to a torque limit received over CAN, probably from the transmission controller.</description>
@@ -14997,6 +15021,12 @@ Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x11
   <table name="Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp, AT/CVT Coding)" storageaddress="0x02049e" userlevel="3">
    <description>AT/CVT version of Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp). Only used on an AT/CVT-coded car, so it has no effect on a manual.</description>
   </table>
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x01e016" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x01e018" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
+  </table>
   <table name="External Torque Limit Baro Factor" storageaddress="0x020ed4" userlevel="4">
    <description>Air-density correction (barometric part) applied to a torque limit received over CAN, probably from the transmission controller.</description>
   </table>
@@ -15332,6 +15362,12 @@ Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x11
   </table>
   <table name="Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp, AT/CVT Coding)" storageaddress="0x02049e" userlevel="3">
    <description>AT/CVT version of Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp). Only used on an AT/CVT-coded car, so it has no effect on a manual.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x01e016" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x01e018" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
   </table>
   <table name="External Torque Limit Baro Factor" storageaddress="0x020ed4" userlevel="4">
    <description>Air-density correction (barometric part) applied to a torque limit received over CAN, probably from the transmission controller.</description>
@@ -15678,6 +15714,12 @@ Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x11
   <table name="Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp, AT/CVT Coding)" storageaddress="0x02049e" userlevel="3">
    <description>AT/CVT version of Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp). Only used on an AT/CVT-coded car, so it has no effect on a manual.</description>
   </table>
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x01e016" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x01e018" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
+  </table>
   <table name="External Torque Limit Baro Factor" storageaddress="0x020ed4" userlevel="4">
    <description>Air-density correction (barometric part) applied to a torque limit received over CAN, probably from the transmission controller.</description>
   </table>
@@ -16022,6 +16064,12 @@ Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x11
   </table>
   <table name="Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp, AT/CVT Coding)" storageaddress="0x02049e" userlevel="3">
    <description>AT/CVT version of Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp). Only used on an AT/CVT-coded car, so it has no effect on a manual.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x01e016" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x01e018" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
   </table>
   <table name="External Torque Limit Baro Factor" storageaddress="0x020ed4" userlevel="4">
    <description>Air-density correction (barometric part) applied to a torque limit received over CAN, probably from the transmission controller.</description>
@@ -18715,6 +18763,8 @@ Details: When used: whenever FFF88ADA bit 7 (manual-transmission coding) is clea
   <table name="Overboost Flag Reset Margin" storageaddress="0x023c26" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x023c16" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x023c18" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x023d46" />
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x023d48" />
   <table name="Vehicle Speed Limit" storageaddress="0x023c0c" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x023c1c" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x023c29" />
@@ -25832,6 +25882,8 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   <table name="Overboost Flag Reset Margin" storageaddress="0x024426" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x024416" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x024418" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x024546" />
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x024548" />
   <table name="Vehicle Speed Limit" storageaddress="0x02440c" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x02441c" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x024429" />
@@ -30689,6 +30741,12 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   <table name="Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp, AT/CVT Coding)" storageaddress="0x0269ce" userlevel="3">
    <description>AT/CVT version of Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp). Only used on an AT/CVT-coded car, so it has no effect on a manual.</description>
   </table>
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x024546" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x024548" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
+  </table>
   <table name="Idle Speed Target (Warm Idle, AT/CVT, Mode 6)" storageaddress="0x02bec4" userlevel="2">
    <description>Warm idle speed target by coolant for automatic/CVT cars only; a manual car never uses this table.</description>
   </table>
@@ -30976,6 +31034,12 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   </table>
   <table name="Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp, AT/CVT Coding)" storageaddress="0x0269ce" userlevel="3">
    <description>AT/CVT version of Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp). Only used on an AT/CVT-coded car, so it has no effect on a manual.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x024546" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x024548" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
   </table>
   <table name="Idle Speed Target (Warm Idle, AT/CVT, Mode 6)" storageaddress="0x02bec4" userlevel="2">
    <description>Warm idle speed target by coolant for automatic/CVT cars only; a manual car never uses this table.</description>
@@ -31360,6 +31424,12 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   </table>
   <table name="Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp, AT/CVT Coding)" storageaddress="0x0269ce" userlevel="3">
    <description>AT/CVT version of Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp). Only used on an AT/CVT-coded car, so it has no effect on a manual.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x024546" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x024548" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
   </table>
   <table name="Idle Speed Target (Warm Idle, AT/CVT, Mode 6)" storageaddress="0x02bec4" userlevel="2">
    <description>Warm idle speed target by coolant for automatic/CVT cars only; a manual car never uses this table.</description>
@@ -34179,6 +34249,8 @@ Details: When used: whenever FFF88ADA bit 7 (manual-transmission coding) is clea
   <table name="Overboost Flag Reset Margin" storageaddress="0x0243e6" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x0243d6" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x0243d8" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x024506" />
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x024508" />
   <table name="Vehicle Speed Limit" storageaddress="0x0243cc" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x0243dc" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x0243e9" />
@@ -38925,6 +38997,12 @@ Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x11
   <table name="Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp, AT/CVT Coding)" storageaddress="0x02698e" userlevel="3">
    <description>AT/CVT version of Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp). Only used on an AT/CVT-coded car, so it has no effect on a manual.</description>
   </table>
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x024506" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x024508" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
+  </table>
   <table name="Idle Speed Target (Warm Idle, AT/CVT, Mode 6)" storageaddress="0x02bd0c" userlevel="2">
    <description>Warm idle speed target by coolant for automatic/CVT cars only; a manual car never uses this table.</description>
   </table>
@@ -39140,6 +39218,12 @@ Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x11
   </table>
   <table name="Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp, AT/CVT Coding)" storageaddress="0x02698e" userlevel="3">
    <description>AT/CVT version of Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp). Only used on an AT/CVT-coded car, so it has no effect on a manual.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x024506" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x024508" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
   </table>
   <table name="Idle Speed Target (Warm Idle, AT/CVT, Mode 6)" storageaddress="0x02bd0c" userlevel="2">
    <description>Warm idle speed target by coolant for automatic/CVT cars only; a manual car never uses this table.</description>
@@ -39380,6 +39464,12 @@ Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x11
   </table>
   <table name="Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp, AT/CVT Coding)" storageaddress="0x02698e" userlevel="3">
    <description>AT/CVT version of Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp). Only used on an AT/CVT-coded car, so it has no effect on a manual.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x024506" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x024508" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
   </table>
   <table name="Idle Speed Target (Warm Idle, AT/CVT, Mode 6)" storageaddress="0x02bd0c" userlevel="2">
    <description>Warm idle speed target by coolant for automatic/CVT cars only; a manual car never uses this table.</description>
@@ -39632,6 +39722,12 @@ Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x11
   </table>
   <table name="Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp, AT/CVT Coding)" storageaddress="0x02698e" userlevel="3">
    <description>AT/CVT version of Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp). Only used on an AT/CVT-coded car, so it has no effect on a manual.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x024506" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x024508" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
   </table>
   <table name="Idle Speed Target (Warm Idle, AT/CVT, Mode 6)" storageaddress="0x02bd0c" userlevel="2">
    <description>Warm idle speed target by coolant for automatic/CVT cars only; a manual car never uses this table.</description>
@@ -39893,6 +39989,12 @@ Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x11
   </table>
   <table name="Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp, AT/CVT Coding)" storageaddress="0x02698e" userlevel="3">
    <description>AT/CVT version of Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp). Only used on an AT/CVT-coded car, so it has no effect on a manual.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x024506" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x024508" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
   </table>
   <table name="Idle Speed Target (Warm Idle, AT/CVT, Mode 6)" storageaddress="0x02bd0c" userlevel="2">
    <description>Warm idle speed target by coolant for automatic/CVT cars only; a manual car never uses this table.</description>
@@ -42593,6 +42695,12 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   <table name="Overboost Flag Reset Margin" storageaddress="0x021782" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x021772" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x021774" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x0218a2" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x0218a4" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
+  </table>
   <table name="Vehicle Speed Limit" storageaddress="0x021768" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x021778" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x021785" />
@@ -49403,6 +49511,12 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF
   <table name="Overboost Flag Reset Margin" storageaddress="0x01a9b2" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x01a9a2" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x01a9a4" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x01aad2" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x01aad4" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
+  </table>
   <table name="Vehicle Speed Limit" storageaddress="0x01a998" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x01a9a8" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x01a9b5" />
@@ -53479,6 +53593,16 @@ Details: When used: drive mode 3 with FFF88ADA bit 7 clear and FFF8AE0A &gt;= ca
 
 Details: When used: drive mode 4 with FFF88ADA bit 7 clear and FFF8AE0A &gt;= cal 0x1FC96 (5). Replaces Target Torque Rise Step Stage 2. 0x0BB958 (read; called from the torque module with the limited request FFF8AEC2, the previous output FFF8AEC6, gear FFF8A621, rpm FFF8CD54, drive mode FFF8A8C1 and pedal FFF8AF00): with prev = FFF8AEC6, if prev + Step1 &lt; Stage 2 Torque the shaped value is max(Start Torque, prev + Step1), otherwise max(Stage 2 Torque, prev + Step2); Step2 the same with cal 0x1FCA2.. (1, 2, 5, 5, 5) and the Stage 2 Pedal Multiplier; the gear factors apply only while FFF8A63D bit 4 is set (else 255 = x1). FFF8AEBE = min(request FFF8AEC2, shaped value). No shaping (FFF8AEBE = request) while the request is below Start Torque, vehicle speed FFF88BE8 is below cal 0x1FCAC (89, about 5 km/h, hysteresis 0x1FCAE), or FFF88ADA bit 6 / FFF88E62 bit 0 is set. So these limit how fast the driver's torque request may rise (tip-in), in two stages. FFF8AEBE goes on through FFF8AEC6 = max(FFF8AEBE, FFF8AEA8) (0x0BD3F0) to the target torque FFF8AECA that indexes boost target and wastegate duty (my research notes). The torque monitor (0x1877B4) reads the same bytes through its own descriptor, so it stays consistent. Drive mode = FFF8A8C1 (2, 3, 4 or other; which value is which SI-Drive position: see the Requested Torque entries, see my research notes). Same data bytes are also referenced by descriptor(s) 05F764. Confidence: inferred.</description>
   </table>
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x01aad2" userlevel="5">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.
+
+Details: u16 rpm x 0.1953125. Latch FFF8A63B bit 0 (0x0C07F8): set while FFF8A63B bit 1 and rpm FFF8CE9C &gt;= this; held down to this - the hysteresis. FFF8A63B bit 1 (0x0C0850): P/N switch FFF88ADA bit 6 (or fault flag FFF88E2B bit 2), manual coding FFF88ADA bit 7 clear, TCM range code FFF8A8DC 5 or 7 (or TCM-data fault flag FFF88E2B bit 1). The latch lets the cut level FFF8A64F through to the cylinder-cut thresholds in 0x0C1AC8, as the limit states do. Addresses are LF75404S. (read; that range codes 5 and 7 are P and N is inferred: the switch input must agree) Confidence: read.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x01aad4" userlevel="5">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.
+
+Details: u16 rpm x 0.1953125, subtracted from the limit while the latch FFF8A63B bit 0 is set (0x0C07F8, saturating at 0). (read) Confidence: read.</description>
+  </table>
   <table name="External Torque Limit Baro Factor" storageaddress="0x01d990" userlevel="5">
    <description>Air-density correction (barometric part) applied to a torque limit received over CAN, probably from the transmission controller.
 
@@ -53841,6 +53965,16 @@ Details: When used: drive mode 3 with FFF88ADA bit 7 clear and FFF8AE0A &gt;= ca
 
 Details: When used: drive mode 4 with FFF88ADA bit 7 clear and FFF8AE0A &gt;= cal 0x1FC96 (5). Replaces Target Torque Rise Step Stage 2. 0x0BB958 (read; called from the torque module with the limited request FFF8AEC2, the previous output FFF8AEC6, gear FFF8A621, rpm FFF8CD54, drive mode FFF8A8C1 and pedal FFF8AF00): with prev = FFF8AEC6, if prev + Step1 &lt; Stage 2 Torque the shaped value is max(Start Torque, prev + Step1), otherwise max(Stage 2 Torque, prev + Step2); Step2 the same with cal 0x1FCA2.. (1, 2, 5, 5, 5) and the Stage 2 Pedal Multiplier; the gear factors apply only while FFF8A63D bit 4 is set (else 255 = x1). FFF8AEBE = min(request FFF8AEC2, shaped value). No shaping (FFF8AEBE = request) while the request is below Start Torque, vehicle speed FFF88BE8 is below cal 0x1FCAC (89, about 5 km/h, hysteresis 0x1FCAE), or FFF88ADA bit 6 / FFF88E62 bit 0 is set. So these limit how fast the driver's torque request may rise (tip-in), in two stages. FFF8AEBE goes on through FFF8AEC6 = max(FFF8AEBE, FFF8AEA8) (0x0BD3F0) to the target torque FFF8AECA that indexes boost target and wastegate duty (my research notes). The torque monitor (0x1877B4) reads the same bytes through its own descriptor, so it stays consistent. Drive mode = FFF8A8C1 (2, 3, 4 or other; which value is which SI-Drive position: see the Requested Torque entries, see my research notes). Same data bytes are also referenced by descriptor(s) 05F764. Confidence: inferred.</description>
   </table>
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x01aad2" userlevel="5">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.
+
+Details: u16 rpm x 0.1953125. Latch FFF8A63B bit 0 (0x0C07F8): set while FFF8A63B bit 1 and rpm FFF8CE9C &gt;= this; held down to this - the hysteresis. FFF8A63B bit 1 (0x0C0850): P/N switch FFF88ADA bit 6 (or fault flag FFF88E2B bit 2), manual coding FFF88ADA bit 7 clear, TCM range code FFF8A8DC 5 or 7 (or TCM-data fault flag FFF88E2B bit 1). The latch lets the cut level FFF8A64F through to the cylinder-cut thresholds in 0x0C1AC8, as the limit states do. Addresses are LF75404S. (read; that range codes 5 and 7 are P and N is inferred: the switch input must agree) Confidence: read.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x01aad4" userlevel="5">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.
+
+Details: u16 rpm x 0.1953125, subtracted from the limit while the latch FFF8A63B bit 0 is set (0x0C07F8, saturating at 0). (read) Confidence: read.</description>
+  </table>
   <table name="External Torque Limit Baro Factor" storageaddress="0x01d990" userlevel="5">
    <description>Air-density correction (barometric part) applied to a torque limit received over CAN, probably from the transmission controller.
 
@@ -54202,6 +54336,16 @@ Details: When used: drive mode 3 with FFF88ADA bit 7 clear and FFF8AE0A &gt;= ca
    <description>AT/CVT version of Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp). Only used on an AT/CVT-coded car, so it has no effect on a manual.
 
 Details: When used: drive mode 4 with FFF88ADA bit 7 clear and FFF8AE0A &gt;= cal 0x1FC96 (5). Replaces Target Torque Rise Step Stage 2. 0x0BB958 (read; called from the torque module with the limited request FFF8AEC2, the previous output FFF8AEC6, gear FFF8A621, rpm FFF8CD54, drive mode FFF8A8C1 and pedal FFF8AF00): with prev = FFF8AEC6, if prev + Step1 &lt; Stage 2 Torque the shaped value is max(Start Torque, prev + Step1), otherwise max(Stage 2 Torque, prev + Step2); Step2 the same with cal 0x1FCA2.. (1, 2, 5, 5, 5) and the Stage 2 Pedal Multiplier; the gear factors apply only while FFF8A63D bit 4 is set (else 255 = x1). FFF8AEBE = min(request FFF8AEC2, shaped value). No shaping (FFF8AEBE = request) while the request is below Start Torque, vehicle speed FFF88BE8 is below cal 0x1FCAC (89, about 5 km/h, hysteresis 0x1FCAE), or FFF88ADA bit 6 / FFF88E62 bit 0 is set. So these limit how fast the driver's torque request may rise (tip-in), in two stages. FFF8AEBE goes on through FFF8AEC6 = max(FFF8AEBE, FFF8AEA8) (0x0BD3F0) to the target torque FFF8AECA that indexes boost target and wastegate duty (my research notes). The torque monitor (0x1877B4) reads the same bytes through its own descriptor, so it stays consistent. Drive mode = FFF8A8C1 (2, 3, 4 or other; which value is which SI-Drive position: see the Requested Torque entries, see my research notes). Same data bytes are also referenced by descriptor(s) 05F764. Confidence: inferred.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x01aad2" userlevel="5">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.
+
+Details: u16 rpm x 0.1953125. Latch FFF8A63B bit 0 (0x0C07F8): set while FFF8A63B bit 1 and rpm FFF8CE9C &gt;= this; held down to this - the hysteresis. FFF8A63B bit 1 (0x0C0850): P/N switch FFF88ADA bit 6 (or fault flag FFF88E2B bit 2), manual coding FFF88ADA bit 7 clear, TCM range code FFF8A8DC 5 or 7 (or TCM-data fault flag FFF88E2B bit 1). The latch lets the cut level FFF8A64F through to the cylinder-cut thresholds in 0x0C1AC8, as the limit states do. Addresses are LF75404S. (read; that range codes 5 and 7 are P and N is inferred: the switch input must agree) Confidence: read.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x01aad4" userlevel="5">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.
+
+Details: u16 rpm x 0.1953125, subtracted from the limit while the latch FFF8A63B bit 0 is set (0x0C07F8, saturating at 0). (read) Confidence: read.</description>
   </table>
   <table name="External Torque Limit Baro Factor" storageaddress="0x01d990" userlevel="5">
    <description>Air-density correction (barometric part) applied to a torque limit received over CAN, probably from the transmission controller.
@@ -56684,6 +56828,12 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF
   <table name="Overboost Flag Reset Margin" storageaddress="0x01a9b2" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x01a9a2" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x01a9a4" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x01aad2" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x01aad4" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
+  </table>
   <table name="Vehicle Speed Limit" storageaddress="0x01a998" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x01a9a8" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x01a9b5" />
@@ -60548,6 +60698,83 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
    <description>Left cell, Enabled: 1 = this code can set and report, 0 = it never sets (its monitor still runs and other logic that reads the raw result may still react). Right cell, Fail-Safe: 1 = a failed test of this code raises the fail-safe request (what that request limits is not yet decoded). Needs RomRaider 1.0.0 or later.</description>
   </table>
  </rom>
+ <rom base="LV9N000C">
+  <romid>
+   <xmlid>LV9N002E</xmlid>
+   <internalidaddress>2aa1c</internalidaddress>
+   <internalidstring>LV9N002E</internalidstring>
+   <ecuid />
+   <year>2015</year>
+   <market>not confirmed</market>
+   <make>Subaru</make>
+   <model>WRX</model>
+   <submodel>2.0 DIT</submodel>
+   <transmission>AT/CVT</transmission>
+   <memmodel>SH72543</memmodel>
+   <flashmethod />
+   <filesize>2048kb</filesize>
+   <obsolete>false</obsolete>
+  </romid>
+  <table name="Primary Open Loop Fueling (Alternate)" storageaddress="0x013845">
+   <description>Replacement for Primary Open Loop Fueling plus its knock additive, used only when the calibration switch 'Open Loop Fueling. Edit with Primary Open Loop Fueling (TGV/AVCS Group, Alternate) if you enable it.
+
+Details: When used: only when cal 0x2F79A bit 4 is set (read; 2017 0x36B76, 2018 0x37FF2). The bit is the first argument of 0x0CE854 (call in 0x0C589C, read). With it set, 0x0CE854 uses this table + cal 0x18DDC in place of the base table plus the DAM-scaled additive, while DAM16 FFF811AE &lt; cal 0x18DDD; otherwise Primary Open Loop Fueling + cal 0x18DDC (read). The TGV/AVCS group has its own alternate (Primary Open Loop Fueling (TGV/AVCS Group, Alternate)); edit both if you enable the switch. Confidence: inferred.</description>
+  </table>
+  <table name="Cranking Fuel Pedal Multiplier (Special Start)" storageaddress="0x0161e8">
+   <description>Special-start copy of Cranking Fuel Pedal Multiplier.
+
+Details: When used: start type FFF8A6E7 = 3. 0x0CD7E4 (read): FFF8A67E = this(accelerator FFF88A5E), updated only while rpm FFF8CD54 &lt;= cal 0x1CBD8 (4000 rpm). FFF8A67E is the first factor of both cranking pulses (0x0C8A28 -&gt; FFF8AFC4, 0x0C9038 -&gt; FFF8AFC6, read). Confidence: inferred.</description>
+  </table>
+  <table name="Knock Background Window Step (Event 1, Channel 8)" storageaddress="0x023e92">
+   <description>Knock-detection background step for event slot 1, frequency channel 8.
+
+Details: event slot FFF8CDC0 = 1 (Event 1), knock channel 8 of 8 (index 7 of FFF8CDB0), which is masked: bit 7 of cal 0x1B97C is set (0xC1 = channels 1, 7 and 8 off for every slot). 0x0E51E4 (read) then writes a fixed ratio for the channel instead of 256 x measured/reference, and the reference ref_7 (the only place this step enters, statics FFF84AB4..FFF84AD0 read only by 0x0E51E4, ram_xref) is not used; the reference copies FFF8C130.. have no reader. So editing it has no effect unless that cal bit is cleared, which would make the channel count (then this would be the background step for FFF8C180[7] when FFF8A7C2 changes; overlap flag FFF8A7D2, gain curve cal 0x26F6F). Knock signal processing 0x0E51E4 (read; called once per knock window from 0x0E43B8 with load FFF8A616, after the event chain 0x0E433C): for the event slot FFF8CDC0 (1-4, the slot of the Knock Threshold tables) each of 8 knock channels i gets a reference ref_i = 32 x step_i + g x background_i, and the channel ratio is 256 x FFF8CDB0[i] / (ref_i / 32), i.e. measured / reference with 256 = equal (0x0E51E4 tail, read). Channels with their bit set in cal 0x1B97C..0x1B97F give 0; a channel flagged in FFF8CEED (driver flag, value at its lower limit, inferred) gives 256. The ratios are sorted and the largest min(cal 0x1B988, 5) = 3 are summed into the knock intensity FFF8C1C0[slot], which 0x0E80B4/0x0E8654 compare with Knock Threshold (read). The measured channels come from the knock sensor ADC: 0x1E7868 DMA-collects 32-sample blocks, 0x1E725A runs FFT-style butterflies, 0x1E73A4 takes sqrt(re^2+im^2) of 8 selected bins (pointer tables 0x34A88/0x34AA8), and 0x1E7724 sums them over the window into FFF8D1D4[8] -&gt; FFF8CDB0[8] (read), so the 8 channels are 8 frequency bins of the knock sensor signal (inferred). background_i is the per-slot channel background FFF8C180.. (slot 1) / C190.. / C1A0.. / C1B0.. (slot 4), a lag filter of the measured channel kept by 0x0E4500 when the event is not knocking, floored at the per-channel rpm curve FFF8C0D8 (0x0E22A4) (read). step_i is this table family: it is non-zero only on the one event where the slot's window-length flag changes: +table when the flag goes 0 -&gt; 1 (window switched to the extended length) and -table when it goes 1 -&gt; 0 (back to the nominal length); on that event the reference is also floored at 32 x FFF8C0D8[i] (read). The flag is set when the extended knock window is used (0x0E20E0, read: B11A = nominal + Knock Window Length Extension only while timing FFF8A744 &lt;= Knock Window Extension Timing Threshold and the extended window ends before the event angle). The step is skipped (0) and g is changed instead when the slot's overlap flag (FFF8A7D2..D5) changes while the window is nominal: g = gain curve cal (implicit rpm axis, x/32) on 0 -&gt; 1 and min(1024 / gain, cal 0x26FAF = 64) on 1 -&gt; 0, else g = 32 (x1.0) (read). On the event after a flag change 0x0E4500 resets the background almost fully to the new measurement (filter weight 255/256 while FFF8A7BC is set, read), so the step only bridges that single event: a larger value raises that channel's reference when the window lengthens (lower intensity, less likely to count as knock on that event) and lowers it when the window shortens (read). Axes: rpm FFF8CDC2 (x 31.25 + 500, 500-4000 rpm) x load FFF8A616 (read). Confidence: read.</description>
+  </table>
+  <table name="Knock Background Window Step (Event 2, Channel 1)" storageaddress="0x023f12">
+   <description>Knock-detection background step for event slot 2, frequency channel 1.
+
+Details: event slot FFF8CDC0 = 2 (Event 2), knock channel 1 of 8 (index 0 of FFF8CDB0), which is masked: bit 0 of cal 0x1B97D is set (0xC1 = channels 1, 7 and 8 off for every slot). 0x0E51E4 (read) then writes a fixed ratio for the channel instead of 256 x measured/reference, and the reference ref_0 (the only place this step enters, statics FFF84AB4..FFF84AD0 read only by 0x0E51E4, ram_xref) is not used; the reference copies FFF8C130.. have no reader. So editing it has no effect unless that cal bit is cleared, which would make the channel count (then this would be the background step for FFF8C190[0] when FFF8A7C3 changes; overlap flag FFF8A7D3, gain curve cal 0x26F7F). Knock signal processing 0x0E51E4 (read; called once per knock window from 0x0E43B8 with load FFF8A616, after the event chain 0x0E433C): for the event slot FFF8CDC0 (1-4, the slot of the Knock Threshold tables) each of 8 knock channels i gets a reference ref_i = 32 x step_i + g x background_i, and the channel ratio is 256 x FFF8CDB0[i] / (ref_i / 32), i.e. measured / reference with 256 = equal (0x0E51E4 tail, read). Channels with their bit set in cal 0x1B97C..0x1B97F give 0; a channel flagged in FFF8CEED (driver flag, value at its lower limit, inferred) gives 256. The ratios are sorted and the largest min(cal 0x1B988, 5) = 3 are summed into the knock intensity FFF8C1C0[slot], which 0x0E80B4/0x0E8654 compare with Knock Threshold (read). The measured channels come from the knock sensor ADC: 0x1E7868 DMA-collects 32-sample blocks, 0x1E725A runs FFT-style butterflies, 0x1E73A4 takes sqrt(re^2+im^2) of 8 selected bins (pointer tables 0x34A88/0x34AA8), and 0x1E7724 sums them over the window into FFF8D1D4[8] -&gt; FFF8CDB0[8] (read), so the 8 channels are 8 frequency bins of the knock sensor signal (inferred). background_i is the per-slot channel background FFF8C180.. (slot 1) / C190.. / C1A0.. / C1B0.. (slot 4), a lag filter of the measured channel kept by 0x0E4500 when the event is not knocking, floored at the per-channel rpm curve FFF8C0D8 (0x0E22A4) (read). step_i is this table family: it is non-zero only on the one event where the slot's window-length flag changes: +table when the flag goes 0 -&gt; 1 (window switched to the extended length) and -table when it goes 1 -&gt; 0 (back to the nominal length); on that event the reference is also floored at 32 x FFF8C0D8[i] (read). The flag is set when the extended knock window is used (0x0E20E0, read: B11A = nominal + Knock Window Length Extension only while timing FFF8A744 &lt;= Knock Window Extension Timing Threshold and the extended window ends before the event angle). The step is skipped (0) and g is changed instead when the slot's overlap flag (FFF8A7D2..D5) changes while the window is nominal: g = gain curve cal (implicit rpm axis, x/32) on 0 -&gt; 1 and min(1024 / gain, cal 0x26FAF = 64) on 1 -&gt; 0, else g = 32 (x1.0) (read). On the event after a flag change 0x0E4500 resets the background almost fully to the new measurement (filter weight 255/256 while FFF8A7BC is set, read), so the step only bridges that single event: a larger value raises that channel's reference when the window lengthens (lower intensity, less likely to count as knock on that event) and lowers it when the window shortens (read). Axes: rpm FFF8CDC2 (x 31.25 + 500, 500-4000 rpm) x load FFF8A616 (read). Confidence: read.</description>
+  </table>
+  <table name="Knock Background Window Step (Event 2, Channel 8)" storageaddress="0x024292">
+   <description>Knock-detection background step for event slot 2, frequency channel 8.
+
+Details: event slot FFF8CDC0 = 2 (Event 2), knock channel 8 of 8 (index 7 of FFF8CDB0), which is masked: bit 7 of cal 0x1B97D is set (0xC1 = channels 1, 7 and 8 off for every slot). 0x0E51E4 (read) then writes a fixed ratio for the channel instead of 256 x measured/reference, and the reference ref_7 (the only place this step enters, statics FFF84AB4..FFF84AD0 read only by 0x0E51E4, ram_xref) is not used; the reference copies FFF8C130.. have no reader. So editing it has no effect unless that cal bit is cleared, which would make the channel count (then this would be the background step for FFF8C190[7] when FFF8A7C3 changes; overlap flag FFF8A7D3, gain curve cal 0x26F7F). Knock signal processing 0x0E51E4 (read; called once per knock window from 0x0E43B8 with load FFF8A616, after the event chain 0x0E433C): for the event slot FFF8CDC0 (1-4, the slot of the Knock Threshold tables) each of 8 knock channels i gets a reference ref_i = 32 x step_i + g x background_i, and the channel ratio is 256 x FFF8CDB0[i] / (ref_i / 32), i.e. measured / reference with 256 = equal (0x0E51E4 tail, read). Channels with their bit set in cal 0x1B97C..0x1B97F give 0; a channel flagged in FFF8CEED (driver flag, value at its lower limit, inferred) gives 256. The ratios are sorted and the largest min(cal 0x1B988, 5) = 3 are summed into the knock intensity FFF8C1C0[slot], which 0x0E80B4/0x0E8654 compare with Knock Threshold (read). The measured channels come from the knock sensor ADC: 0x1E7868 DMA-collects 32-sample blocks, 0x1E725A runs FFT-style butterflies, 0x1E73A4 takes sqrt(re^2+im^2) of 8 selected bins (pointer tables 0x34A88/0x34AA8), and 0x1E7724 sums them over the window into FFF8D1D4[8] -&gt; FFF8CDB0[8] (read), so the 8 channels are 8 frequency bins of the knock sensor signal (inferred). background_i is the per-slot channel background FFF8C180.. (slot 1) / C190.. / C1A0.. / C1B0.. (slot 4), a lag filter of the measured channel kept by 0x0E4500 when the event is not knocking, floored at the per-channel rpm curve FFF8C0D8 (0x0E22A4) (read). step_i is this table family: it is non-zero only on the one event where the slot's window-length flag changes: +table when the flag goes 0 -&gt; 1 (window switched to the extended length) and -table when it goes 1 -&gt; 0 (back to the nominal length); on that event the reference is also floored at 32 x FFF8C0D8[i] (read). The flag is set when the extended knock window is used (0x0E20E0, read: B11A = nominal + Knock Window Length Extension only while timing FFF8A744 &lt;= Knock Window Extension Timing Threshold and the extended window ends before the event angle). The step is skipped (0) and g is changed instead when the slot's overlap flag (FFF8A7D2..D5) changes while the window is nominal: g = gain curve cal (implicit rpm axis, x/32) on 0 -&gt; 1 and min(1024 / gain, cal 0x26FAF = 64) on 1 -&gt; 0, else g = 32 (x1.0) (read). On the event after a flag change 0x0E4500 resets the background almost fully to the new measurement (filter weight 255/256 while FFF8A7BC is set, read), so the step only bridges that single event: a larger value raises that channel's reference when the window lengthens (lower intensity, less likely to count as knock on that event) and lowers it when the window shortens (read). Axes: rpm FFF8CDC2 (x 31.25 + 500, 500-4000 rpm) x load FFF8A616 (read). Confidence: read.</description>
+  </table>
+  <table name="Knock Background Window Step (Event 3, Channel 1)" storageaddress="0x024312">
+   <description>Knock-detection background step for event slot 3, frequency channel 1.
+
+Details: event slot FFF8CDC0 = 3 (Event 3), knock channel 1 of 8 (index 0 of FFF8CDB0), which is masked: bit 0 of cal 0x1B97E is set (0xC1 = channels 1, 7 and 8 off for every slot). 0x0E51E4 (read) then writes a fixed ratio for the channel instead of 256 x measured/reference, and the reference ref_0 (the only place this step enters, statics FFF84AB4..FFF84AD0 read only by 0x0E51E4, ram_xref) is not used; the reference copies FFF8C130.. have no reader. So editing it has no effect unless that cal bit is cleared, which would make the channel count (then this would be the background step for FFF8C1A0[0] when FFF8A7C4 changes; overlap flag FFF8A7D4, gain curve cal 0x26F8F). Knock signal processing 0x0E51E4 (read; called once per knock window from 0x0E43B8 with load FFF8A616, after the event chain 0x0E433C): for the event slot FFF8CDC0 (1-4, the slot of the Knock Threshold tables) each of 8 knock channels i gets a reference ref_i = 32 x step_i + g x background_i, and the channel ratio is 256 x FFF8CDB0[i] / (ref_i / 32), i.e. measured / reference with 256 = equal (0x0E51E4 tail, read). Channels with their bit set in cal 0x1B97C..0x1B97F give 0; a channel flagged in FFF8CEED (driver flag, value at its lower limit, inferred) gives 256. The ratios are sorted and the largest min(cal 0x1B988, 5) = 3 are summed into the knock intensity FFF8C1C0[slot], which 0x0E80B4/0x0E8654 compare with Knock Threshold (read). The measured channels come from the knock sensor ADC: 0x1E7868 DMA-collects 32-sample blocks, 0x1E725A runs FFT-style butterflies, 0x1E73A4 takes sqrt(re^2+im^2) of 8 selected bins (pointer tables 0x34A88/0x34AA8), and 0x1E7724 sums them over the window into FFF8D1D4[8] -&gt; FFF8CDB0[8] (read), so the 8 channels are 8 frequency bins of the knock sensor signal (inferred). background_i is the per-slot channel background FFF8C180.. (slot 1) / C190.. / C1A0.. / C1B0.. (slot 4), a lag filter of the measured channel kept by 0x0E4500 when the event is not knocking, floored at the per-channel rpm curve FFF8C0D8 (0x0E22A4) (read). step_i is this table family: it is non-zero only on the one event where the slot's window-length flag changes: +table when the flag goes 0 -&gt; 1 (window switched to the extended length) and -table when it goes 1 -&gt; 0 (back to the nominal length); on that event the reference is also floored at 32 x FFF8C0D8[i] (read). The flag is set when the extended knock window is used (0x0E20E0, read: B11A = nominal + Knock Window Length Extension only while timing FFF8A744 &lt;= Knock Window Extension Timing Threshold and the extended window ends before the event angle). The step is skipped (0) and g is changed instead when the slot's overlap flag (FFF8A7D2..D5) changes while the window is nominal: g = gain curve cal (implicit rpm axis, x/32) on 0 -&gt; 1 and min(1024 / gain, cal 0x26FAF = 64) on 1 -&gt; 0, else g = 32 (x1.0) (read). On the event after a flag change 0x0E4500 resets the background almost fully to the new measurement (filter weight 255/256 while FFF8A7BC is set, read), so the step only bridges that single event: a larger value raises that channel's reference when the window lengthens (lower intensity, less likely to count as knock on that event) and lowers it when the window shortens (read). Axes: rpm FFF8CDC2 (x 31.25 + 500, 500-4000 rpm) x load FFF8A616 (read). Confidence: read.</description>
+  </table>
+  <table name="Knock Background Window Step (Event 4, Channel 8)" storageaddress="0x024a92">
+   <description>Knock-detection background step for event slot 4, frequency channel 8.
+
+Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF8CDB0), which is masked: bit 7 of cal 0x1B97F is set (0xC1 = channels 1, 7 and 8 off for every slot). 0x0E51E4 (read) then writes a fixed ratio for the channel instead of 256 x measured/reference, and the reference ref_7 (the only place this step enters, statics FFF84AB4..FFF84AD0 read only by 0x0E51E4, ram_xref) is not used; the reference copies FFF8C130.. have no reader. So editing it has no effect unless that cal bit is cleared, which would make the channel count (then this would be the background step for FFF8C1B0[7] when FFF8A7C5 changes; overlap flag FFF8A7D5, gain curve cal 0x26F9F). Knock signal processing 0x0E51E4 (read; called once per knock window from 0x0E43B8 with load FFF8A616, after the event chain 0x0E433C): for the event slot FFF8CDC0 (1-4, the slot of the Knock Threshold tables) each of 8 knock channels i gets a reference ref_i = 32 x step_i + g x background_i, and the channel ratio is 256 x FFF8CDB0[i] / (ref_i / 32), i.e. measured / reference with 256 = equal (0x0E51E4 tail, read). Channels with their bit set in cal 0x1B97C..0x1B97F give 0; a channel flagged in FFF8CEED (driver flag, value at its lower limit, inferred) gives 256. The ratios are sorted and the largest min(cal 0x1B988, 5) = 3 are summed into the knock intensity FFF8C1C0[slot], which 0x0E80B4/0x0E8654 compare with Knock Threshold (read). The measured channels come from the knock sensor ADC: 0x1E7868 DMA-collects 32-sample blocks, 0x1E725A runs FFT-style butterflies, 0x1E73A4 takes sqrt(re^2+im^2) of 8 selected bins (pointer tables 0x34A88/0x34AA8), and 0x1E7724 sums them over the window into FFF8D1D4[8] -&gt; FFF8CDB0[8] (read), so the 8 channels are 8 frequency bins of the knock sensor signal (inferred). background_i is the per-slot channel background FFF8C180.. (slot 1) / C190.. / C1A0.. / C1B0.. (slot 4), a lag filter of the measured channel kept by 0x0E4500 when the event is not knocking, floored at the per-channel rpm curve FFF8C0D8 (0x0E22A4) (read). step_i is this table family: it is non-zero only on the one event where the slot's window-length flag changes: +table when the flag goes 0 -&gt; 1 (window switched to the extended length) and -table when it goes 1 -&gt; 0 (back to the nominal length); on that event the reference is also floored at 32 x FFF8C0D8[i] (read). The flag is set when the extended knock window is used (0x0E20E0, read: B11A = nominal + Knock Window Length Extension only while timing FFF8A744 &lt;= Knock Window Extension Timing Threshold and the extended window ends before the event angle). The step is skipped (0) and g is changed instead when the slot's overlap flag (FFF8A7D2..D5) changes while the window is nominal: g = gain curve cal (implicit rpm axis, x/32) on 0 -&gt; 1 and min(1024 / gain, cal 0x26FAF = 64) on 1 -&gt; 0, else g = 32 (x1.0) (read). On the event after a flag change 0x0E4500 resets the background almost fully to the new measurement (filter weight 255/256 while FFF8A7BC is set, read), so the step only bridges that single event: a larger value raises that channel's reference when the window lengthens (lower intensity, less likely to count as knock on that event) and lowers it when the window shortens (read). Axes: rpm FFF8CDC2 (x 31.25 + 500, 500-4000 rpm) x load FFF8A616 (read). Confidence: read.</description>
+  </table>
+  <table name="Idle Speed Target (Cold Idle, Mode 4)" storageaddress="0x020fd4">
+   <description>Idle speed target by coolant for a cold-idle mode used when stopped below a coolant threshold.
+
+Details: When used: idle mode 4, entered from mode 5 when stopped with coolant below cal 0x24E94 for cal 0x24E96 passes. 0x0F1BCC selects this boot-format table by idle mode FFF8A7F0 = 4 and coolant; the result B238 is ramped (0x0F1D00) and becomes the idle target FFF8B236 through the minimum-speed max() in 0x0F2274 (read). Implicit coolant axis -40..110 C in 10 C steps (lookup 0x7414). Confidence: read.</description>
+  </table>
+  <table name="Idle Base Air (Cold Idle, Mode 4)" storageaddress="0x021502">
+   <description>Base idle air by coolant for the cold-idle mode 4.
+
+Details: When used: idle mode 4, entered from mode 5 when stopped with coolant below cal 0x24E94 for cal 0x24E96 passes. 0x0F0D24: base idle air B20C by idle mode FFF8A7F0 and coolant, this table while FFF8A881 bit 4 (TGVs closed) is clear (read). Scale as Idle Base Air (Mode 5). Raise it with this mode's idle speed target so the feedback need not cover the difference (inferred). Implicit coolant axis -40..110 C in 10 C steps (lookup 0x7414). Confidence: read.</description>
+  </table>
+  <table name="Idle Base Air (Cold Idle, Mode 4, TGV Closed)" storageaddress="0x021422">
+   <description>Base idle air by coolant for the cold-idle mode 4 with the TGVs commanded closed.
+
+Details: When used: idle mode 4, entered from mode 5 when stopped with coolant below cal 0x24E94 for cal 0x24E96 passes. 0x0F0D24: base idle air B20C by idle mode FFF8A7F0 and coolant, this table while FFF8A881 bit 4 (TGV close command) is set (read). Scale as Idle Base Air (Mode 5). Raise it with this mode's idle speed target so the feedback need not cover the difference (inferred). Implicit coolant axis -40..110 C in 10 C steps (lookup 0x7414). FFF8A881 bit 4 is the normal TGV-close command (0x10DEFC, set mainly by the timed close request FFF8A883 bit 5 from 0x10E180 when requested torque, coolant and air flow are below the TGV thresholds; the same bit selects every TGV-closed table), not a forced or fault state (read). At a settled warm idle the request conditions hold, so the TGVs are normally commanded closed and the TGV Closed table is probably the one in use (inferred). Confidence: read.</description>
+  </table>
+  <table name="Low Voltage Idle Request Threshold (Alternator Command)" storageaddress="0x03062e" userlevel="4">
+   <description>Battery voltage threshold, by alternator command, for a low-voltage idle-up request. Unused in this ROM: its result is never read, so editing it has no effect.</description>
+  </table>
+  <table name="Brake Booster Vacuum Model Maximum" storageaddress="0x03c4f2" userlevel="4">
+   <description>Upper limit, by barometric pressure, of a modelled brake-booster vacuum.</description>
+  </table>
+  <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x03c6aa" userlevel="4">
+   <description>Manifold-vacuum threshold, by barometric pressure, for a brake-booster vacuum model.</description>
+  </table>
+ </rom>
  <rom base="FA20DIT_BASE">
   <romid>
    <xmlid>LF9F000R</xmlid>
@@ -63062,6 +63289,12 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   <table name="Overboost Flag Reset Margin" storageaddress="0x025a12" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x025a02" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x025a04" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x025b32" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x025b34" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
+  </table>
   <table name="Vehicle Speed Limit" storageaddress="0x0259f8" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x025a08" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x025a15" />
@@ -70132,6 +70365,12 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 7 of 8 (index 6 of FFF
   <table name="Overboost Flag Reset Margin" storageaddress="0x01b83a" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x01b82a" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x01b82c" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x01b95a" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x01b95c" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
+  </table>
   <table name="Vehicle Speed Limit" storageaddress="0x01b820" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x01b830" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x01b83d" />
@@ -74437,6 +74676,16 @@ Details: When used: drive mode 3 with FFF88ADA bit 7 clear and FFF8AE0A &gt;= ca
 
 Details: When used: drive mode 4 with FFF88ADA bit 7 clear and FFF8AE0A &gt;= cal 0x1FC96 (5). Replaces Target Torque Rise Step Stage 2. 0x0BB958 (read; called from the torque module with the limited request FFF8AEC2, the previous output FFF8AEC6, gear FFF8A621, rpm FFF8CD54, drive mode FFF8A8C1 and pedal FFF8AF00): with prev = FFF8AEC6, if prev + Step1 &lt; Stage 2 Torque the shaped value is max(Start Torque, prev + Step1), otherwise max(Stage 2 Torque, prev + Step2); Step2 the same with cal 0x1FCA2.. (1, 2, 5, 5, 5) and the Stage 2 Pedal Multiplier; the gear factors apply only while FFF8A63D bit 4 is set (else 255 = x1). FFF8AEBE = min(request FFF8AEC2, shaped value). No shaping (FFF8AEBE = request) while the request is below Start Torque, vehicle speed FFF88BE8 is below cal 0x1FCAC (89, about 5 km/h, hysteresis 0x1FCAE), or FFF88ADA bit 6 / FFF88E62 bit 0 is set. So these limit how fast the driver's torque request may rise (tip-in), in two stages. FFF8AEBE goes on through FFF8AEC6 = max(FFF8AEBE, FFF8AEA8) (0x0BD3F0) to the target torque FFF8AECA that indexes boost target and wastegate duty (my research notes). The torque monitor (0x1877B4) reads the same bytes through its own descriptor, so it stays consistent. Drive mode = FFF8A8C1 (2, 3, 4 or other; which value is which SI-Drive position: see the Requested Torque entries, see my research notes). Same data bytes are also referenced by descriptor(s) 05F764. Confidence: inferred.</description>
   </table>
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x01b95a" userlevel="5">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.
+
+Details: u16 rpm x 0.1953125. Latch FFF8A63B bit 0 (0x0C07F8): set while FFF8A63B bit 1 and rpm FFF8CE9C &gt;= this; held down to this - the hysteresis. FFF8A63B bit 1 (0x0C0850): P/N switch FFF88ADA bit 6 (or fault flag FFF88E2B bit 2), manual coding FFF88ADA bit 7 clear, TCM range code FFF8A8DC 5 or 7 (or TCM-data fault flag FFF88E2B bit 1). The latch lets the cut level FFF8A64F through to the cylinder-cut thresholds in 0x0C1AC8, as the limit states do. Addresses are LF75404S. (read; that range codes 5 and 7 are P and N is inferred: the switch input must agree) Confidence: read.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x01b95c" userlevel="5">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.
+
+Details: u16 rpm x 0.1953125, subtracted from the limit while the latch FFF8A63B bit 0 is set (0x0C07F8, saturating at 0). (read) Confidence: read.</description>
+  </table>
   <table name="External Torque Limit Baro Factor" storageaddress="0x01e818" userlevel="5">
    <description>Air-density correction (barometric part) applied to a torque limit received over CAN, probably from the transmission controller.
 
@@ -74873,6 +75122,16 @@ Details: When used: drive mode 3 with FFF88ADA bit 7 clear and FFF8AE0A &gt;= ca
    <description>AT/CVT version of Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp). Only used on an AT/CVT-coded car, so it has no effect on a manual.
 
 Details: When used: drive mode 4 with FFF88ADA bit 7 clear and FFF8AE0A &gt;= cal 0x1FC96 (5). Replaces Target Torque Rise Step Stage 2. 0x0BB958 (read; called from the torque module with the limited request FFF8AEC2, the previous output FFF8AEC6, gear FFF8A621, rpm FFF8CD54, drive mode FFF8A8C1 and pedal FFF8AF00): with prev = FFF8AEC6, if prev + Step1 &lt; Stage 2 Torque the shaped value is max(Start Torque, prev + Step1), otherwise max(Stage 2 Torque, prev + Step2); Step2 the same with cal 0x1FCA2.. (1, 2, 5, 5, 5) and the Stage 2 Pedal Multiplier; the gear factors apply only while FFF8A63D bit 4 is set (else 255 = x1). FFF8AEBE = min(request FFF8AEC2, shaped value). No shaping (FFF8AEBE = request) while the request is below Start Torque, vehicle speed FFF88BE8 is below cal 0x1FCAC (89, about 5 km/h, hysteresis 0x1FCAE), or FFF88ADA bit 6 / FFF88E62 bit 0 is set. So these limit how fast the driver's torque request may rise (tip-in), in two stages. FFF8AEBE goes on through FFF8AEC6 = max(FFF8AEBE, FFF8AEA8) (0x0BD3F0) to the target torque FFF8AECA that indexes boost target and wastegate duty (my research notes). The torque monitor (0x1877B4) reads the same bytes through its own descriptor, so it stays consistent. Drive mode = FFF8A8C1 (2, 3, 4 or other; which value is which SI-Drive position: see the Requested Torque entries, see my research notes). Same data bytes are also referenced by descriptor(s) 05F764. Confidence: inferred.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x01b95a" userlevel="5">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.
+
+Details: u16 rpm x 0.1953125. Latch FFF8A63B bit 0 (0x0C07F8): set while FFF8A63B bit 1 and rpm FFF8CE9C &gt;= this; held down to this - the hysteresis. FFF8A63B bit 1 (0x0C0850): P/N switch FFF88ADA bit 6 (or fault flag FFF88E2B bit 2), manual coding FFF88ADA bit 7 clear, TCM range code FFF8A8DC 5 or 7 (or TCM-data fault flag FFF88E2B bit 1). The latch lets the cut level FFF8A64F through to the cylinder-cut thresholds in 0x0C1AC8, as the limit states do. Addresses are LF75404S. (read; that range codes 5 and 7 are P and N is inferred: the switch input must agree) Confidence: read.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x01b95c" userlevel="5">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.
+
+Details: u16 rpm x 0.1953125, subtracted from the limit while the latch FFF8A63B bit 0 is set (0x0C07F8, saturating at 0). (read) Confidence: read.</description>
   </table>
   <table name="External Torque Limit Baro Factor" storageaddress="0x01e818" userlevel="5">
    <description>Air-density correction (barometric part) applied to a torque limit received over CAN, probably from the transmission controller.
@@ -77632,6 +77891,12 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   <table name="Overboost Flag Reset Margin" storageaddress="0x02374e" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x02373e" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x023740" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x02386e" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x023870" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
+  </table>
   <table name="Vehicle Speed Limit" storageaddress="0x023734" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x023744" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x023751" />
@@ -84630,6 +84895,12 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   <table name="Overboost Flag Reset Margin" storageaddress="0x021f42" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x021f32" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x021f34" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x022062" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x022064" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
+  </table>
   <table name="Vehicle Speed Limit" storageaddress="0x021f28" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x021f38" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x021f45" />
@@ -90084,6 +90355,12 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   </table>
   <table name="Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp, AT/CVT Coding)" storageaddress="0x02049e" userlevel="3">
    <description>AT/CVT version of Target Torque Rise Step Stage 2 (Drive Mode 4, Sport Sharp). Only used on an AT/CVT-coded car, so it has no effect on a manual.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x01e016" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x01e018" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
   </table>
   <table name="Pedal Limits Disable" storageaddress="0x056f0b" />
   <table name="Vehicle Speed Limit (Pedal)" storageaddress="0x057472">
@@ -96078,6 +96355,12 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   <table name="Overboost Flag Reset Margin" storageaddress="0x02374e" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x02373e" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x023740" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x02386e" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x023870" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
+  </table>
   <table name="Vehicle Speed Limit" storageaddress="0x023734" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x023744" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x023751" />
@@ -103152,6 +103435,12 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   <table name="Overboost Flag Reset Margin" storageaddress="0x0243e6" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x0243d6" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x0243d8" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x024506" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x024508" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
+  </table>
   <table name="Vehicle Speed Limit" storageaddress="0x0243cc" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x0243dc" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x0243e9" />
@@ -110281,6 +110570,12 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   <table name="Overboost Flag Reset Margin" storageaddress="0x024426" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x024416" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x024418" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x024546" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x024548" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
+  </table>
   <table name="Vehicle Speed Limit" storageaddress="0x02440c" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x02441c" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x024429" />
@@ -117496,6 +117791,12 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   <table name="Overboost Flag Reset Margin" storageaddress="0x0257b2" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x0257a2" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x0257a4" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x0258d2" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x0258d4" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
+  </table>
   <table name="Vehicle Speed Limit" storageaddress="0x025798" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x0257a8" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x0257b5" />
@@ -124676,6 +124977,8 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   <table name="Overboost Flag Reset Margin" storageaddress="0x0257b2" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x0257a2" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x0257a4" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x0258d2" />
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x0258d4" />
   <table name="Vehicle Speed Limit" storageaddress="0x025798" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x0257a8" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x0257b5" />
@@ -131842,6 +132145,12 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   <table name="Overboost Flag Reset Margin" storageaddress="0x025a12" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x025a02" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x025a04" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x025b32" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x025b34" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
+  </table>
   <table name="Vehicle Speed Limit" storageaddress="0x0259f8" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x025a08" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x025a15" />
@@ -136758,6 +137067,16 @@ Details: When used: drive mode 3 with FFF88ADA bit 7 clear and FFF8AE0A &gt;= ca
 
 Details: When used: drive mode 4 with FFF88ADA bit 7 clear and FFF8AE0A &gt;= cal 0x1FC96 (5). Replaces Target Torque Rise Step Stage 2. 0x0BB958 (read; called from the torque module with the limited request FFF8AEC2, the previous output FFF8AEC6, gear FFF8A621, rpm FFF8CD54, drive mode FFF8A8C1 and pedal FFF8AF00): with prev = FFF8AEC6, if prev + Step1 &lt; Stage 2 Torque the shaped value is max(Start Torque, prev + Step1), otherwise max(Stage 2 Torque, prev + Step2); Step2 the same with cal 0x1FCA2.. (1, 2, 5, 5, 5) and the Stage 2 Pedal Multiplier; the gear factors apply only while FFF8A63D bit 4 is set (else 255 = x1). FFF8AEBE = min(request FFF8AEC2, shaped value). No shaping (FFF8AEBE = request) while the request is below Start Torque, vehicle speed FFF88BE8 is below cal 0x1FCAC (89, about 5 km/h, hysteresis 0x1FCAE), or FFF88ADA bit 6 / FFF88E62 bit 0 is set. So these limit how fast the driver's torque request may rise (tip-in), in two stages. FFF8AEBE goes on through FFF8AEC6 = max(FFF8AEBE, FFF8AEA8) (0x0BD3F0) to the target torque FFF8AECA that indexes boost target and wastegate duty (my research notes). The torque monitor (0x1877B4) reads the same bytes through its own descriptor, so it stays consistent. Drive mode = FFF8A8C1 (2, 3, 4 or other; which value is which SI-Drive position: see the Requested Torque entries, see my research notes). Same data bytes are also referenced by descriptor(s) 05F764. Confidence: inferred.</description>
   </table>
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x025b32" userlevel="5">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.
+
+Details: u16 rpm x 0.1953125. Latch FFF8A63B bit 0 (0x0C07F8): set while FFF8A63B bit 1 and rpm FFF8CE9C &gt;= this; held down to this - the hysteresis. FFF8A63B bit 1 (0x0C0850): P/N switch FFF88ADA bit 6 (or fault flag FFF88E2B bit 2), manual coding FFF88ADA bit 7 clear, TCM range code FFF8A8DC 5 or 7 (or TCM-data fault flag FFF88E2B bit 1). The latch lets the cut level FFF8A64F through to the cylinder-cut thresholds in 0x0C1AC8, as the limit states do. Addresses are LF75404S. (read; that range codes 5 and 7 are P and N is inferred: the switch input must agree) Confidence: read.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x025b34" userlevel="5">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.
+
+Details: u16 rpm x 0.1953125, subtracted from the limit while the latch FFF8A63B bit 0 is set (0x0C07F8, saturating at 0). (read) Confidence: read.</description>
+  </table>
   <table name="Idle Speed Target (Warm Idle, AT/CVT, Mode 6)" storageaddress="0x02d624" userlevel="5">
    <description>Warm idle speed target by coolant for automatic/CVT cars only; a manual car never uses this table.
 
@@ -139395,6 +139714,12 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   <table name="Overboost Flag Reset Margin" storageaddress="0x025a12" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x025a02" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x025a04" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x025b32" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x025b34" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
+  </table>
   <table name="Vehicle Speed Limit" storageaddress="0x0259f8" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x025a08" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x025a15" />
@@ -144311,6 +144636,16 @@ Details: When used: drive mode 3 with FFF88ADA bit 7 clear and FFF8AE0A &gt;= ca
 
 Details: When used: drive mode 4 with FFF88ADA bit 7 clear and FFF8AE0A &gt;= cal 0x1FC96 (5). Replaces Target Torque Rise Step Stage 2. 0x0BB958 (read; called from the torque module with the limited request FFF8AEC2, the previous output FFF8AEC6, gear FFF8A621, rpm FFF8CD54, drive mode FFF8A8C1 and pedal FFF8AF00): with prev = FFF8AEC6, if prev + Step1 &lt; Stage 2 Torque the shaped value is max(Start Torque, prev + Step1), otherwise max(Stage 2 Torque, prev + Step2); Step2 the same with cal 0x1FCA2.. (1, 2, 5, 5, 5) and the Stage 2 Pedal Multiplier; the gear factors apply only while FFF8A63D bit 4 is set (else 255 = x1). FFF8AEBE = min(request FFF8AEC2, shaped value). No shaping (FFF8AEBE = request) while the request is below Start Torque, vehicle speed FFF88BE8 is below cal 0x1FCAC (89, about 5 km/h, hysteresis 0x1FCAE), or FFF88ADA bit 6 / FFF88E62 bit 0 is set. So these limit how fast the driver's torque request may rise (tip-in), in two stages. FFF8AEBE goes on through FFF8AEC6 = max(FFF8AEBE, FFF8AEA8) (0x0BD3F0) to the target torque FFF8AECA that indexes boost target and wastegate duty (my research notes). The torque monitor (0x1877B4) reads the same bytes through its own descriptor, so it stays consistent. Drive mode = FFF8A8C1 (2, 3, 4 or other; which value is which SI-Drive position: see the Requested Torque entries, see my research notes). Same data bytes are also referenced by descriptor(s) 05F764. Confidence: inferred.</description>
   </table>
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x025b32" userlevel="5">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.
+
+Details: u16 rpm x 0.1953125. Latch FFF8A63B bit 0 (0x0C07F8): set while FFF8A63B bit 1 and rpm FFF8CE9C &gt;= this; held down to this - the hysteresis. FFF8A63B bit 1 (0x0C0850): P/N switch FFF88ADA bit 6 (or fault flag FFF88E2B bit 2), manual coding FFF88ADA bit 7 clear, TCM range code FFF8A8DC 5 or 7 (or TCM-data fault flag FFF88E2B bit 1). The latch lets the cut level FFF8A64F through to the cylinder-cut thresholds in 0x0C1AC8, as the limit states do. Addresses are LF75404S. (read; that range codes 5 and 7 are P and N is inferred: the switch input must agree) Confidence: read.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x025b34" userlevel="5">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.
+
+Details: u16 rpm x 0.1953125, subtracted from the limit while the latch FFF8A63B bit 0 is set (0x0C07F8, saturating at 0). (read) Confidence: read.</description>
+  </table>
   <table name="Idle Speed Target (Warm Idle, AT/CVT, Mode 6)" storageaddress="0x02d624" userlevel="5">
    <description>Warm idle speed target by coolant for automatic/CVT cars only; a manual car never uses this table.
 
@@ -146816,6 +147151,12 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   <table name="Overboost Flag Reset Margin" storageaddress="0x01b83a" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x01b82a" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x01b82c" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x01b95a" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x01b95c" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
+  </table>
   <table name="Vehicle Speed Limit" storageaddress="0x01b820" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x01b830" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x01b83d" />
@@ -153252,6 +153593,12 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 7 of 8 (index 6 of FFF
   <table name="Overboost Flag Reset Margin" storageaddress="0x01d472" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x01d462" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x01d464" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x01d592" userlevel="2">
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x01d594" userlevel="3">
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
+  </table>
   <table name="Vehicle Speed Limit" storageaddress="0x01d458" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x01d468" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x01d475" />

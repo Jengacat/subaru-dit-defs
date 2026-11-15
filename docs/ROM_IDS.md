@@ -10,13 +10,14 @@ pair of ROMs I have with identical code has the same first five characters. ROMs
 calibration data (and the ID and checksum); a different build of the same family can still be close (the 2019–2020
 Levorg 1.6 builds differ from each other in 3 to 18 of about 8,300 functions), but its tables can move.
 
-Of the 18 groups where I have more than one complete ROM, 13 run exactly the same code in every ROM and 5 do not:
+Of the 19 groups where I have more than one complete ROM, 13 run exactly the same code in every ROM and 6 do not:
 
 * **LF780…:** LF78001H and LF78002H are separate builds (each has its own definition); the other six LF780 ROMs run
   LF78002H's code.
 * **LF791…:** LF79110N is a separate build from the other eight, which run LF79100P's code.
 * **LF9D0…:** three builds: LF9D000d is a Levorg 1.6 (FB16DIT) build, and LF9D012h and LF9D030g are two different
   2019 WRX (FA20DIT) builds.
+* **LV9N0…:** LV9N002E is a later build than LV9N000C (13 of about 7,600 functions differ).
 * **LV9N1…:** LV9N101C differs from the other five.
 * **LV9N3…:** three builds: the 2.0 ROMs (LV9N301A and the eight that run its code) and two different 1.6 builds
   (LV9N303J, LV9N340J).
@@ -24,13 +25,13 @@ Of the 18 groups where I have more than one complete ROM, 13 run exactly the sam
 Using a definition on a ROM with other code corrupts the calibration. If your ROM is in the second or third list
 below, [send it](../README.md#submitting-a-rom): it can probably be added quickly.
 
-## Supported (84 of the listed IDs, 99 in all)
+## Supported (85 of the listed IDs, 100 in all)
 
-LF75200T, LF75300F, LF75300H, LF75300L, LF75300S, LF75301K, LF75301P, LF75401D, LF75401J, LF75401K, LF75401L, LF75401M, LF75401N, LF75401P, LF75404H, LF75404S, LF75500A, LF75500G, LF75500T, LF76400Q (1.6), LF76401R (1.6), LF76402R (1.6), LF76500Q (1.6), LF76500R (1.6), LF76600R (1.6), LF78001F, LF78001H, LF78002D, LF78002E, LF78002G, LF78002H, LF78002J, LF78002Z, LF78103B, LF78200B, LF79002P, LF79100K, LF79100N, LF79100P, LF79100Q, LF79100R, LF79100S, LF79101K, LF79103P, LF79110N, LF79200T (1.6), LF79200U (1.6), LF79201U (1.6), LF79202U (1.6), LF79300T (1.6), LF79400U (1.6), LF9B003U (1.6), LF9B100G (1.6), LF9B200U (1.6), LF9C000C, LF9C000a, LF9C001K, LF9C001P, LF9C100M, LF9C100P, LF9C100R, LF9C100X, LF9C102P, LF9C200B, LF9C200N, LF9D000d (1.6), LF9D012h, LF9D030g, LF9D100e (1.6), LF9D200d (1.6), LF9F000R, LF9F100P (1.6), LF9F100Q (1.6), LF9F200P (1.6), LF9G002S, LF9G003T, LF9K000D, LF9K000E, LV3C100T (1.6), LV9N000C, LV9N100A, LV9N100B, LV9N100F, LV9N101C, LV9N101F, LV9N101I, LV9N301A, LV9N302A, LV9N302E, LV9N302F, LV9N302G, LV9N302H, LV9N302I, LV9N302L, LV9N303J (1.6), LV9N303K, LV9N340J (1.6), LV9N601M, LV9N601N
+LF75200T, LF75300F, LF75300H, LF75300L, LF75300S, LF75301K, LF75301P, LF75401D, LF75401J, LF75401K, LF75401L, LF75401M, LF75401N, LF75401P, LF75404H, LF75404S, LF75500A, LF75500G, LF75500T, LF76400Q (1.6), LF76401R (1.6), LF76402R (1.6), LF76500Q (1.6), LF76500R (1.6), LF76600R (1.6), LF78001F, LF78001H, LF78002D, LF78002E, LF78002G, LF78002H, LF78002J, LF78002Z, LF78103B, LF78200B, LF79002P, LF79100K, LF79100N, LF79100P, LF79100Q, LF79100R, LF79100S, LF79101K, LF79103P, LF79110N, LF79200T (1.6), LF79200U (1.6), LF79201U (1.6), LF79202U (1.6), LF79300T (1.6), LF79400U (1.6), LF9B003U (1.6), LF9B100G (1.6), LF9B200U (1.6), LF9C000C, LF9C000a, LF9C001K, LF9C001P, LF9C100M, LF9C100P, LF9C100R, LF9C100X, LF9C102P, LF9C200B, LF9C200N, LF9D000d (1.6), LF9D012h, LF9D030g, LF9D100e (1.6), LF9D200d (1.6), LF9F000R, LF9F100P (1.6), LF9F100Q (1.6), LF9F200P (1.6), LF9G002S, LF9G003T, LF9K000D, LF9K000E, LV3C100T (1.6), LV9N000C, LV9N002E, LV9N100A, LV9N100B, LV9N100F, LV9N101C, LV9N101F, LV9N101I, LV9N301A, LV9N302A, LV9N302E, LV9N302F, LV9N302G, LV9N302H, LV9N302I, LV9N302L, LV9N303J (1.6), LV9N303K, LV9N340J (1.6), LV9N601M, LV9N601N
 
 (1.6) = Levorg 1.6 (FB16DIT); the rest are 2.0 (FA20DIT). Not on the list: LF75401M, LF75500T, LF76500R, LF78002D, LF79103P, LF9C100M, LF9C100X, LF9C102P, LF9C200N, LF9F100Q, LV3C100T, LV9N302G, LV9N302I, LV9N302L, LV9N303K.
 
-## Same first five characters as a supported ROM, no complete read yet (119)
+## Same first five characters as a supported ROM, no complete read yet (118)
 
 These share the first five characters of the ID with a supported ROM. Where all my ROMs of the group run the same code
 (one build), an unread ROM is likely to as well, but it is not certain until I see it; where the group already has
@@ -70,7 +71,7 @@ an incomplete read, not enough for a definition.
 | LF9G0… | 2.0 | 1 | LF9G002S, LF9G003T | LF9G001T, LF9G002T |
 | LF9K0… | 2.0 | 1 | LF9K000D, LF9K000E |  |
 | LV3C1… | 1.6 | 1 ROM | LV3C100T (1.6) |  |
-| LV9N0… | 2.0 | 1 ROM | LV9N000C | LV9N000A, LV9N001D, LV9N001E, LV9N002D, LV9N002E, LV9N002F (partial), LV9N002I |
+| LV9N0… | 2.0 | 2 | LV9N000C, LV9N002E | LV9N000A, LV9N001D, LV9N001E, LV9N002D, LV9N002F (partial), LV9N002I |
 | LV9N1… | 2.0 | 2 | LV9N100A, LV9N100B, LV9N100F, LV9N101C, LV9N101F, LV9N101I | LV9N100D, LV9N100E, LV9N100J, LV9N101D (partial), LV9N101E, LV9N101G, LV9N101H |
 | LV9N3… | 2.0 and 1.6 | 3 | LV9N301A, LV9N302A, LV9N302E, LV9N302F, LV9N302G, LV9N302H, LV9N302I, LV9N302L, LV9N303J (1.6), LV9N303K, LV9N340J (1.6) | LV9N300E, LV9N300F, LV9N300H, LV9N300I, LV9N300L, LV9N301B, LV9N301E, LV9N301F, LV9N301J, LV9N301K, LV9N302B, LV9N302J |
 | LV9N6… | 2.0 | 1 | LV9N601M, LV9N601N | LV9N600M |

@@ -4924,6 +4924,14 @@ Knock-detection background step for event slot 4, frequency channel 8.</descript
    <scaling category="kPa" units="kPa" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <description>How far boost must fall below the overboost cut level before the overboost cut state ends.</description>
   </table>
+  <table type="1D" name="Park/Neutral RPM Limit (AT/CVT)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" userlevel="2" storageaddress="0x01b95a">
+   <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+  </table>
+  <table type="1D" name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x01b95c">
+   <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
+  </table>
   <table type="1D" name="Vehicle Speed Limit" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint8" endian="big" userlevel="2" storageaddress="0x01b820">
    <scaling category="Default" units="km/h" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <scaling category="mph" units="mph" expression="x*0.621371" to_byte="x/0.621371" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -20083,6 +20091,8 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Overboost Flag Reset Margin" storageaddress="0x01dcd6" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x01dcc6" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x01dcc8" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x01ddf6" />
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x01ddf8" />
   <table name="Vehicle Speed Limit" storageaddress="0x01dcbc" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x01dccc" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x01dcd9" />
@@ -27439,6 +27449,8 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Overboost Flag Reset Margin" storageaddress="0x0243e6" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x0243d6" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x0243d8" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x024506" />
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x024508" />
   <table name="Vehicle Speed Limit" storageaddress="0x0243cc" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x0243dc" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x0243e9" />
@@ -35124,6 +35136,8 @@ Details: Feedback knock correction (0x0E2BE4, read): FFF8A79A is an s8 integrato
   <table name="Overboost Flag Reset Margin" storageaddress="0x024426" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x024416" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x024418" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x024546" />
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x024548" />
   <table name="Vehicle Speed Limit" storageaddress="0x02440c" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x02441c" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x024429" />
@@ -42786,6 +42800,8 @@ Details: Feedback knock correction (0x0E2BE4, read): FFF8A79A is an s8 integrato
   <table name="Overboost Flag Reset Margin" storageaddress="0x0257b2" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x0257a2" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x0257a4" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x0258d2" />
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x0258d4" />
   <table name="Vehicle Speed Limit" storageaddress="0x025798" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x0257a8" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x0257b5" />
@@ -50439,6 +50455,8 @@ Details: Feedback knock correction (0x0E2BE4, read): FFF8A79A is an s8 integrato
   <table name="Overboost Flag Reset Margin" storageaddress="0x025a12" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x025a02" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x025a04" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x025b32" />
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x025b34" />
   <table name="Vehicle Speed Limit" storageaddress="0x0259f8" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x025a08" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x025a15" />
@@ -57404,6 +57422,8 @@ Details: When used: Used only while FFF899D7 bit 0 is set, a once-per-drive warm
   <table name="Overboost Flag Reset Margin" storageaddress="0x02a352" />
   <table name="Overboost Cut Margin (Limit State)" storageaddress="0x02a342" />
   <table name="Overboost Cut Hysteresis (Limit State)" storageaddress="0x02a344" />
+  <table name="Park/Neutral RPM Limit (AT/CVT)" storageaddress="0x02a472" />
+  <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" storageaddress="0x02a474" />
   <table name="Vehicle Speed Limit" storageaddress="0x02a338" />
   <table name="Vehicle Speed Limit Minimum RPM" storageaddress="0x02a348" />
   <table name="Vehicle Speed Limit Full Cut Speed" storageaddress="0x02a355" />

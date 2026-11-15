@@ -47688,6 +47688,12 @@ Knock-detection background step for event slot 4, frequency channel 8.</descript
  <table name="Overboost Cut Hysteresis (Limit State)" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="1D" level="3" scaling="psi uint16 #3">
   <description>How far boost must fall below the overboost cut level before the overboost cut state ends.</description>
  </table>
+ <table name="Park/Neutral RPM Limit (AT/CVT)" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="1D" level="2" scaling="RPM uint16">
+  <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.</description>
+ </table>
+ <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="1D" level="3" scaling="RPM uint16">
+  <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.</description>
+ </table>
  <table name="Vehicle Speed Limit" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="1D" level="2" scaling="mph uint8">
   <description>Vehicle speed limiter. It needs this speed, Vehicle Speed Limit Minimum RPM and Vehicle Speed Limit Full Cut Speed to act, and then cuts fuel to all cylinders without closing the throttle.</description>
  </table>

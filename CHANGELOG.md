@@ -4,6 +4,11 @@
 
 First public release.
 
+- New: **Park/Neutral RPM Limit (AT/CVT)** and its hysteresis, in every definition (folder 04.02). On an automatic/CVT
+  car the ECU cuts cylinders above this speed while the selector is in P or N (4,000 rpm, released 500 rpm lower, in
+  every stock calibration); it does nothing on a manual-coded ECU. Thanks to reokov, who found it in LF9F000R.
+- New: **LV9N002E** (2015 WRX), 100 ROMs in all: a later build of the LV9N000C software (13 changed functions); every
+  table placed by exact code match from LV9N000C and LV9N101C. Thanks for the read.
 - New: **two more submitted Levorg 1.6 ROMs**, 99 in all: LF9D200d (2019 JDM) and LF9F200P (2020 JDM), both 2.5 MB
   ECUs. Each is a separate build, close to a supported one (8 and 3 changed functions against LF9D100e and LF9F100P);
   every table was placed from two supported ROMs that agree, and the few placed by layout were confirmed against the

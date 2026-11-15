@@ -2152,6 +2152,16 @@ Details: When used: drive mode 4 with FFF88ADA bit 7 clear and FFF8AE0A &gt;= ca
  <table name="Overboost Flag Reset Margin" address="01a9b2" />
  <table name="Overboost Cut Margin (Limit State)" address="01a9a2" />
  <table name="Overboost Cut Hysteresis (Limit State)" address="01a9a4" />
+ <table name="Park/Neutral RPM Limit (AT/CVT)" address="01aad2" level="5">
+  <description>Automatic/CVT only: with the selector in P or N, cylinders are cut once the engine reaches this speed, so a parked car cannot be revved past it. The cut stays on until the engine drops by the hysteresis. It does nothing on a manual-coded ECU. Separate from the normal rev limit.
+
+Details: u16 rpm x 0.1953125. Latch FFF8A63B bit 0 (0x0C07F8): set while FFF8A63B bit 1 and rpm FFF8CE9C &gt;= this; held down to this - the hysteresis. FFF8A63B bit 1 (0x0C0850): P/N switch FFF88ADA bit 6 (or fault flag FFF88E2B bit 2), manual coding FFF88ADA bit 7 clear, TCM range code FFF8A8DC 5 or 7 (or TCM-data fault flag FFF88E2B bit 1). The latch lets the cut level FFF8A64F through to the cylinder-cut thresholds in 0x0C1AC8, as the limit states do. Addresses are LF75404S. (read; that range codes 5 and 7 are P and N is inferred: the switch input must agree) Confidence: read.</description>
+ </table>
+ <table name="Park/Neutral RPM Limit Hysteresis (AT/CVT)" address="01aad4" level="5">
+  <description>How far below the Park/Neutral RPM Limit the engine has to fall before the cut ends.
+
+Details: u16 rpm x 0.1953125, subtracted from the limit while the latch FFF8A63B bit 0 is set (0x0C07F8, saturating at 0). (read) Confidence: read.</description>
+ </table>
  <table name="Vehicle Speed Limit" address="01a998" />
  <table name="Vehicle Speed Limit Minimum RPM" address="01a9a8" />
  <table name="Vehicle Speed Limit Full Cut Speed" address="01a9b5" />
@@ -2577,11 +2587,7 @@ Details: When used: drive mode 4 with FFF88ADA bit 7 clear and FFF8AE0A &gt;= ca
   <table name="Engine Speed" address="0268e0" />
  </table>
  <table name="Throttle Flow Coefficient (Forward Flow)" address="026860" />
- <table name="Throttle Flow Coefficient (Reverse Flow)" address="026861">
-  <description>Coefficient of the throttle airflow model when the manifold is above the pre-throttle pressure. Leave alone.
-
-Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-throttle pressure; the ratio is inverted). 0x11DD04 (read), enabled by FFF8A8FB bit 0 (0x11E43C): modelled throttle flow FFF8C24C [g/min] = (P_up/101325) x Throttle Flow Function(r) x FFF8ADEC (Throttle Area from Throttle Position, 0.05 mm^2) x Throttle Flow Temperature Correction x this x 60000 x 2.98e-15, which feeds the manifold/airflow observer 0x11DB50 / 0x11D938. Normally leave alone. Confidence: read.</description>
- </table>
+ <table name="Throttle Flow Coefficient (Reverse Flow)" address="026861" />
  <table name="Exhaust Temperature Estimate 2 Map (No Enrichment)" address="0133a6">
   <table name="Engine Load" address="013128" />
   <table name="Engine Speed" address="013134" />
@@ -2956,11 +2962,7 @@ Details: 0x0F1DD0 (read; selection checked in the disassembly 0x0F1DD0..0x0F2148
 
 Details: 0x0F1DD0 (read; selection checked in the disassembly 0x0F1DD0..0x0F2148): the target ramp step B23E is chosen on a change of idle mode FFF8A7F0 (previous -&gt; new) and kept while the mode stays the same; the target B23C (4 x B238) moves toward the new mode's Idle Speed Target by this step every pass (0x0F1D00). Coolant FFF88A44 axis. Mode 1 -&gt; 1 uses step 0. This table: mode 8 -&gt; 7. Modes 6/8 only occur with the AT/CVT coding: 0x0F2BCC passes A7F6 through when FFF88ADA bit7 is set and 0x0F354C itself only yields 1-5/7, so this step is never used by this MT calibration (read). p16 (read): 0x0F1D00 runs every 10 ms (module 0x0EE338), so rpm/s = shown rpm-per-pass x 100. Confidence: read.</description>
  </table>
- <table name="Idle Speed Target (Cold Idle, Mode 4)" address="020fd4">
-  <description>Idle speed target by coolant for a cold-idle mode used when stopped below a coolant threshold.
-
-Details: When used: idle mode 4, entered from mode 5 when stopped with coolant below cal 0x24E94 for cal 0x24E96 passes. 0x0F1BCC selects this boot-format table by idle mode FFF8A7F0 = 4 and coolant; the result B238 is ramped (0x0F1D00) and becomes the idle target FFF8B236 through the minimum-speed max() in 0x0F2274 (read). Implicit coolant axis -40..110 C in 10 C steps (lookup 0x7414). Confidence: read.</description>
- </table>
+ <table name="Idle Speed Target (Cold Idle, Mode 4)" address="020fd4" />
  <table name="Idle Target Ramp Rate (Mode 4 to 5)" address="0210f4">
   <table name="Coolant Temp" address="032f98" />
  </table>

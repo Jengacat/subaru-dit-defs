@@ -4,6 +4,12 @@
 
 First public release.
 
+- New: **charging system target voltages**, in every definition (folder 09.03): the target for each charging mode
+  (normal 14.3 V, battery charged 12.2 V, accessory load 13.5 V), the adaptive mode's limits, the overall minimum and
+  maximum, the start value and the temperature correction. Once the ECU counts the battery as charged it aims for
+  the low "battery charged" target, so the alternator stops charging and the car runs on the battery down to about
+  12.2 V; raising that target to the normal one keeps it charging. The logic that decides when the battery counts
+  as charged is not defined yet. Thanks to reokov for the lead.
 - New: **Park/Neutral RPM Limit (AT/CVT)** and its hysteresis, in every definition (folder 04.02). On an automatic/CVT
   car the ECU cuts cylinders above this speed while the selector is in P or N (4,000 rpm, released 500 rpm lower, in
   every stock calibration); it does nothing on a manual-coded ECU. Thanks to reokov, who found it in LF9F000R.

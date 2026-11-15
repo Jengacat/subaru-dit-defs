@@ -265,6 +265,7 @@
  <scaling name="ft-lb uint16 #2" units="ft-lb" toexpr="(x-10000)/10*0.7375621" frexpr="x/0.7375621*10+10000" format="%0.1f" min="-737.562" max="4096.05" inc="1" storagetype="uint16" endian="big" />
  <scaling name="psi (MAP - baro) uint16" units="psi (MAP - baro)" toexpr="(x-12800)/128*0.1450377" frexpr="x/0.1450377*128+12800" format="%0.2f" min="-14.5038" max="59.7544" inc="0.1" storagetype="uint16" endian="big" />
  <scaling name="V uint16 #3" units="V" toexpr="x/1000" frexpr="x*1000" format="%0.2f" min="0" max="65.535" inc="0.1" storagetype="uint16" endian="big" />
+ <scaling name="V int16" units="V" toexpr="x/1000" frexpr="x*1000" format="%0.2f" min="-32.768" max="32.767" inc="0.05" storagetype="int16" endian="big" />
  <scaling name="% duty uint16 #3" units="% duty" toexpr="x/655.35" frexpr="x*655.35" format="%0.1f" min="0" max="100" inc="1" storagetype="uint16" endian="big" />
  <scaling name="ft-lb uint16 #3" units="ft-lb" toexpr="(x/10)*0.7375621" frexpr="(x/0.7375621)*10" format="%0.1f" min="0" max="4833.61" inc="1" storagetype="uint16" endian="big" />
  <scaling name="multiplier uint8 #7" units="multiplier" toexpr="x/51.2" frexpr="x*51.2" format="%0.2f" min="0" max="4.98047" inc="0.02" storagetype="uint8" endian="big" />
@@ -55749,9 +55750,45 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Barometric Pressure" type="Y Axis" elements="5" scaling="psia uint16" />
   <description>Manifold-vacuum threshold, by barometric pressure, for a brake-booster vacuum model.</description>
  </table>
+ <table name="Charging Target Voltage (Normal)" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="2" scaling="V uint16 #3">
+  <description>The charging voltage the ECU aims for in normal running.</description>
+ </table>
+ <table name="Charging Target Voltage (Battery Charged)" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="2" scaling="V uint16 #3">
+  <description>The charging voltage used once the ECU decides the battery is charged. Setting it to the normal target keeps the alternator charging.</description>
+ </table>
+ <table name="Charging Target Voltage (Accessory Load)" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="3" scaling="V uint16 #3">
+  <description>The charging voltage used while an accessory-load request is active.</description>
+ </table>
+ <table name="Charging Target Voltage (Mode 1)" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="5" scaling="V uint16 #3">
+  <description>
+
+Details: Mode 1 needs the cylinder-cut count FFF8A643 (a byte) &gt;= cal 0x39AFE (1024 in LF75404S), which cannot happen (0x1382E0, read). Confidence: read.</description>
+ </table>
+ <table name="Charging Target Voltage (Adaptive) Maximum" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="4" scaling="V uint16 #3">
+  <description>Upper limit of the charging voltage the ECU works out itself in its adaptive mode.</description>
+ </table>
+ <table name="Charging Target Voltage (Adaptive) Minimum" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="4" scaling="V uint16 #3">
+  <description>Lower limit of the charging voltage the ECU works out itself in its adaptive mode.</description>
+ </table>
+ <table name="Charging Target Voltage Maximum" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="3" scaling="V uint16 #3">
+  <description>The charging target is never set above this.</description>
+ </table>
+ <table name="Charging Target Voltage Minimum" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="3" scaling="V uint16 #3">
+  <description>The charging target is never set below this.</description>
+ </table>
  <table name="Alternator Command from Target Voltage" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="2D" level="4" scaling="% duty (alternator inferred) uint16">
   <table name="Y Axis" type="Y Axis" elements="16" scaling="V uint16 #3" />
   <description>Alternator control duty by target charging voltage (probably). Changing it changes the charging voltage the alternator actually reaches. Also feeds Idle Air Trim (Charging Command).</description>
+ </table>
+ <table name="Charging Target Temperature Correction Threshold" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="4" scaling="V uint16 #3">
+  <description>The temperature correction only applies to charging targets at or above this voltage.</description>
+ </table>
+ <table name="Charging Target Temperature Correction" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="2D" level="3" scaling="V int16">
+  <table name="Y Axis" type="Y Axis" elements="16" scaling="raw uint16" />
+  <description>Subtracted from the charging target (when that target is at or above the threshold): negative values raise the target. The axis is a raw value from the battery sensor, probably its temperature.</description>
+ </table>
+ <table name="Charging Target Voltage at Start" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="4" scaling="V uint16 #3">
+  <description>The charging target the ECU starts from before its normal logic takes over.</description>
  </table>
  <table name="Radiator Fan Duty (Coolant)" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="2D" level="5" scaling="% duty uint16 #3">
   <table name="Coolant Temp" type="Y Axis" elements="9" scaling="degrees F uint16" />

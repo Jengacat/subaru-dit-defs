@@ -9086,12 +9086,61 @@ Details: When used: with cal 0x1D0AE bit 0 set: the A/C idle-air kick (A/C Idle 
    </table>
    <description>Manifold-vacuum threshold, by barometric pressure, for a brake-booster vacuum model.</description>
   </table>
+  <table type="1D" name="Charging Target Voltage (Normal)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="2" storageaddress="0x03721a">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <description>The charging voltage the ECU aims for in normal running.</description>
+  </table>
+  <table type="1D" name="Charging Target Voltage (Battery Charged)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="2" storageaddress="0x037220">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <description>The charging voltage used once the ECU decides the battery is charged. Setting it to the normal target keeps the alternator charging.</description>
+  </table>
+  <table type="1D" name="Charging Target Voltage (Accessory Load)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x03745c">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <description>The charging voltage used while an accessory-load request is active.</description>
+  </table>
+  <table type="1D" name="Charging Target Voltage (Mode 1)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="5" storageaddress="0x03721c">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <description>
+
+Details: Mode 1 needs the cylinder-cut count FFF8A643 (a byte) &gt;= cal 0x39AFE (1024 in LF75404S), which cannot happen (0x1382E0, read). Confidence: read.</description>
+  </table>
+  <table type="1D" name="Charging Target Voltage (Adaptive) Maximum" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x0371ee">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <description>Upper limit of the charging voltage the ECU works out itself in its adaptive mode.</description>
+  </table>
+  <table type="1D" name="Charging Target Voltage (Adaptive) Minimum" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x0371f0">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <description>Lower limit of the charging voltage the ECU works out itself in its adaptive mode.</description>
+  </table>
+  <table type="1D" name="Charging Target Voltage Maximum" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x037460">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <description>The charging target is never set above this.</description>
+  </table>
+  <table type="1D" name="Charging Target Voltage Minimum" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x037462">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <description>The charging target is never set below this.</description>
+  </table>
   <table type="2D" name="Alternator Command from Target Voltage" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x0373e8">
    <scaling units="% duty (alternator, inferred)" expression="x/16.67" to_byte="x*16.67" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x0372a8">
     <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    </table>
    <description>Alternator control duty by target charging voltage (probably). Changing it changes the charging voltage the alternator actually reaches. Also feeds Idle Air Trim (Charging Command).</description>
+  </table>
+  <table type="1D" name="Charging Target Temperature Correction Threshold" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03721e">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <description>The temperature correction only applies to charging targets at or above this voltage.</description>
+  </table>
+  <table type="2D" name="Charging Target Temperature Correction" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int16" endian="big" sizey="16" userlevel="3" storageaddress="0x03735c">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x037288">
+    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>Subtracted from the charging target (when that target is at or above the threshold): negative values raise the target. The axis is a raw value from the battery sensor, probably its temperature.</description>
+  </table>
+  <table type="1D" name="Charging Target Voltage at Start" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03740c">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <description>The charging target the ECU starts from before its normal logic takes over.</description>
   </table>
   <table type="2D" name="Radiator Fan Duty (Coolant)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" sizey="9" userlevel="5" storageaddress="0x032836">
    <scaling units="% duty" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="1" coarseincrement="4.0" />
@@ -21727,9 +21776,24 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x0442be">
    <table type="Y Axis" storageaddress="0x0442b4" />
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x039a6a" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x039a70" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x039c9a" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x039a6c" userlevel="4">
+   <description />
+  </table>
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x039a3e" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x039a40" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x039c9e" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x039ca0" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x039c28">
    <table type="Y Axis" storageaddress="0x039af6" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x039a6e" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x039bac">
+   <table type="Y Axis" storageaddress="0x039ad6" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x039c4a" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x0345a2">
    <table type="Y Axis" storageaddress="0x0345d8" />
   </table>
@@ -29381,9 +29445,22 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x04df96">
    <table type="Y Axis" storageaddress="0x04df8c" />
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x0422ba" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x0422c0" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x0424ea" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x0422bc" />
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x04228e" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x042290" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x0424ee" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x0424f0" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x042478">
    <table type="Y Axis" storageaddress="0x042346" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x0422be" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x0423fc">
+   <table type="Y Axis" storageaddress="0x042326" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x04249a" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x03cdde">
    <table type="Y Axis" storageaddress="0x03ce14" />
   </table>
@@ -37148,9 +37225,24 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x05025a">
    <table type="Y Axis" storageaddress="0x050250" />
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x042702" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x042708" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x042932" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x042704" userlevel="4">
+   <description />
+  </table>
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x0426d6" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x0426d8" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x042936" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x042938" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x0428c0">
    <table type="Y Axis" storageaddress="0x04278e" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x042706" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x042844">
+   <table type="Y Axis" storageaddress="0x04276e" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x0428e2" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x03d222">
    <table type="Y Axis" storageaddress="0x03d258" />
   </table>
@@ -44804,9 +44896,22 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x051eee">
    <table type="Y Axis" storageaddress="0x051ee4" />
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x044392" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x044398" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x0445c2" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x044394" />
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x044366" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x044368" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x0445c6" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x0445c8" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x044550">
    <table type="Y Axis" storageaddress="0x04441e" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x044396" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x0444d4">
+   <table type="Y Axis" storageaddress="0x0443fe" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x044572" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x03eeb2">
    <table type="Y Axis" storageaddress="0x03eee8" />
   </table>
@@ -52459,9 +52564,22 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x053a1e">
    <table type="Y Axis" storageaddress="0x053a14" />
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x045ea2" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x045ea8" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x0460d2" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x045ea4" />
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x045e76" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x045e78" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x0460d6" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x0460d8" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x046060">
    <table type="Y Axis" storageaddress="0x045f2e" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x045ea6" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x045fe4">
+   <table type="Y Axis" storageaddress="0x045f0e" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x046082" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x0409c2">
    <table type="Y Axis" storageaddress="0x0409f8" />
   </table>
@@ -59323,9 +59441,22 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x058712">
    <table type="Y Axis" storageaddress="0x058708" />
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x04a912" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x04a918" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x04ab42" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x04a914" />
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x04a8e6" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x04a8e8" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x04ab46" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x04ab48" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x04aad0">
    <table type="Y Axis" storageaddress="0x04a99e" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x04a916" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x04aa54">
+   <table type="Y Axis" storageaddress="0x04a97e" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x04aaf2" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x0453fe">
    <table type="Y Axis" storageaddress="0x045434" />
   </table>

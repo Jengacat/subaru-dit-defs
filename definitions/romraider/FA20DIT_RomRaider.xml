@@ -10080,12 +10080,61 @@ Brake override module 0x181B38 (10 ms task 0x1DFE3C, read): it limits the accele
 
 Brake override module 0x181B38 (10 ms task 0x1DFE3C, read): it limits the accelerator pedal that feeds the torque request, FFF88A5E = min(pedal FFF88EE6, limit FFF8BAFA) (0x09E800, read), when the brake is applied while the accelerator is held. Brake detection: VDC CAN frame 0x0D1 byte 2 (FFF88DF9, slew-limited 8/pass into FFF8AC94; brake pressure, inferred) against a threshold, or discrete input FFF88E2F bit 3 (pin PF10; brake switch, inferred) when the pressure signal is not valid (FFF8AC8F bit 4 clear). Vehicle speed FFF8AC95 = km/h from the wheel speeds or FFF88BE8 x 9/160 (0x182E34, read). The module sets no DTC (no DTC monitor record points at its RAM, read). 0x18390C (read): FFF8AC90 bit 3 = brake pressure FFF8AC94 &gt;= cal 0x435BD (1) and FFF88A38 &gt;= this(baro FFF88668) - 12800 (FFF88A38 = (MAP - baro)/2, so MAP - baro &gt;= (this - 12800)/128 kPa), i.e. braking with too little manifold vacuum to recharge the booster. Bit 3 feeds only the brake-pressure latches FFF8AC92 / FFF8AC93 / FFF8BAFE and the manifold-vacuum model of 0x182B28, whose results are unused while cal 0x57585 bit 5 is set and FFF8BB00 has no reader (read, grep). Confidence: read.</description>
   </table>
+  <table type="1D" name="Charging Target Voltage (Normal)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="2" storageaddress="0x0397c6">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <description>The charging voltage the ECU aims for in normal running.</description>
+  </table>
+  <table type="1D" name="Charging Target Voltage (Battery Charged)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="2" storageaddress="0x0397cc">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <description>The charging voltage used once the ECU decides the battery is charged. Setting it to the normal target keeps the alternator charging.</description>
+  </table>
+  <table type="1D" name="Charging Target Voltage (Accessory Load)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x039a06">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <description>The charging voltage used while an accessory-load request is active.</description>
+  </table>
+  <table type="1D" name="Charging Target Voltage (Mode 1)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="5" storageaddress="0x0397c8">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <description>
+
+Details: Mode 1 needs the cylinder-cut count FFF8A643 (a byte) &gt;= cal 0x39AFE (1024 in LF75404S), which cannot happen (0x1382E0, read). Confidence: read.</description>
+  </table>
+  <table type="1D" name="Charging Target Voltage (Adaptive) Maximum" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03979a">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <description>Upper limit of the charging voltage the ECU works out itself in its adaptive mode.</description>
+  </table>
+  <table type="1D" name="Charging Target Voltage (Adaptive) Minimum" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03979c">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <description>Lower limit of the charging voltage the ECU works out itself in its adaptive mode.</description>
+  </table>
+  <table type="1D" name="Charging Target Voltage Maximum" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x039a0a">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <description>The charging target is never set above this.</description>
+  </table>
+  <table type="1D" name="Charging Target Voltage Minimum" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x039a0c">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <description>The charging target is never set below this.</description>
+  </table>
   <table type="2D" name="Alternator Command from Target Voltage" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x039994">
    <scaling units="% duty (alternator, inferred)" expression="x/16.67" to_byte="x*16.67" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x039854">
     <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    </table>
    <description>Alternator control duty by target charging voltage (probably). Changing it changes the charging voltage the alternator actually reaches. Also feeds Idle Air Trim (Charging Command).</description>
+  </table>
+  <table type="1D" name="Charging Target Temperature Correction Threshold" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x0397ca">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <description>The temperature correction only applies to charging targets at or above this voltage.</description>
+  </table>
+  <table type="2D" name="Charging Target Temperature Correction" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int16" endian="big" sizey="16" userlevel="3" storageaddress="0x039908">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x039834">
+    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>Subtracted from the charging target (when that target is at or above the threshold): negative values raise the target. The axis is a raw value from the battery sensor, probably its temperature.</description>
+  </table>
+  <table type="1D" name="Charging Target Voltage at Start" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x0399b6">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <description>The charging target the ECU starts from before its normal logic takes over.</description>
   </table>
   <table type="2D" name="Radiator Fan Duty (Coolant)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" sizey="9" userlevel="5" storageaddress="0x0342ee">
    <scaling units="% duty" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="1" coarseincrement="4.0" />
@@ -14706,6 +14755,9 @@ Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x11
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x0435ca" userlevel="4">
    <description>Manifold-vacuum threshold, by barometric pressure, for a brake-booster vacuum model.</description>
   </table>
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x0397c8" userlevel="4">
+   <description />
+  </table>
   <table name="Gear Road Speed per 1000 RPM" storageaddress="0x037872" userlevel="4">
    <description>Road speed per 1000 rpm for each gear, used only by the gear advice function. The values do not match the 6MT and probably belong to another transmission.</description>
   </table>
@@ -15471,6 +15523,9 @@ Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x11
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x0435ca" userlevel="4">
    <description>Manifold-vacuum threshold, by barometric pressure, for a brake-booster vacuum model.</description>
   </table>
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x0397c8" userlevel="4">
+   <description />
+  </table>
   <table name="Gear Road Speed per 1000 RPM" storageaddress="0x037872" userlevel="4">
    <description>Road speed per 1000 rpm for each gear, used only by the gear advice function. The values do not match the 6MT and probably belong to another transmission.</description>
   </table>
@@ -15822,6 +15877,9 @@ Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x11
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x0435ca" userlevel="4">
    <description>Manifold-vacuum threshold, by barometric pressure, for a brake-booster vacuum model.</description>
   </table>
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x0397c8" userlevel="4">
+   <description />
+  </table>
   <table name="Gear Road Speed per 1000 RPM" storageaddress="0x037872" userlevel="4">
    <description>Road speed per 1000 rpm for each gear, used only by the gear advice function. The values do not match the 6MT and probably belong to another transmission.</description>
   </table>
@@ -16172,6 +16230,9 @@ Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x11
   </table>
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x0435ca" userlevel="4">
    <description>Manifold-vacuum threshold, by barometric pressure, for a brake-booster vacuum model.</description>
+  </table>
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x0397c8" userlevel="4">
+   <description />
   </table>
   <table name="Gear Road Speed per 1000 RPM" storageaddress="0x037872" userlevel="4">
    <description>Road speed per 1000 rpm for each gear, used only by the gear advice function. The values do not match the 6MT and probably belong to another transmission.</description>
@@ -20648,9 +20709,22 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x04c95e">
    <table type="Y Axis" storageaddress="0x04c954" />
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x0411de" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x0411e4" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x04140e" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x0411e0" />
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x0411b2" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x0411b4" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x041412" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x041414" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x04139c">
    <table type="Y Axis" storageaddress="0x04126a" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x0411e2" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x041320">
+   <table type="Y Axis" storageaddress="0x04124a" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x0413be" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x03bd06">
    <table type="Y Axis" storageaddress="0x03bd3c" />
   </table>
@@ -27846,9 +27920,22 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x05021a">
    <table type="Y Axis" storageaddress="0x050210" />
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x0426c2" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x0426c8" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x0428f2" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x0426c4" />
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x042696" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x042698" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x0428f6" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x0428f8" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x042880">
    <table type="Y Axis" storageaddress="0x04274e" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x0426c6" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x042804">
+   <table type="Y Axis" storageaddress="0x04272e" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x0428a2" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x03d1e2">
    <table type="Y Axis" storageaddress="0x03d218" />
   </table>
@@ -36134,9 +36221,22 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x04df56">
    <table type="Y Axis" storageaddress="0x04df4c" />
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x04227a" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x042280" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x0424aa" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x04227c" />
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x04224e" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x042250" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x0424ae" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x0424b0" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x042438">
    <table type="Y Axis" storageaddress="0x042306" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x04227e" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x0423bc">
+   <table type="Y Axis" storageaddress="0x0422e6" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x04245a" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x03cd9e">
    <table type="Y Axis" storageaddress="0x03cdd4" />
   </table>
@@ -44531,9 +44631,22 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
    <table type="Y Axis" storageaddress="0x0497f8" />
    <description>Manifold-vacuum threshold, by barometric pressure, for a brake-booster vacuum model.</description>
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x03e162" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x03e168" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x03e392" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x03e164" />
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x03e136" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x03e138" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x03e396" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x03e398" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x03e320">
    <table type="Y Axis" storageaddress="0x03e1ee" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x03e166" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x03e2a4">
+   <table type="Y Axis" storageaddress="0x03e1ce" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x03e342" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x038c96">
    <table type="Y Axis" storageaddress="0x038ccc" />
   </table>
@@ -50806,9 +50919,24 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x03c6ae">
    <table type="Y Axis" storageaddress="0x03c6a4" />
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x03440e" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x034414" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x034650" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x034410" userlevel="4">
+   <description />
+  </table>
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x0343e2" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x0343e4" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x034654" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x034656" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x0345dc">
    <table type="Y Axis" storageaddress="0x03449c" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x034412" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x034550">
+   <table type="Y Axis" storageaddress="0x03447c" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x034600" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x02fa36">
    <table type="Y Axis" storageaddress="0x02fa6c" />
   </table>
@@ -53752,6 +53880,11 @@ Details: When used: AT/CVT codings, in neutral/park. Input FFF88A44 (coolant). 0
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x03c6ae" userlevel="4">
    <description>Manifold-vacuum threshold, by barometric pressure, for a brake-booster vacuum model.</description>
   </table>
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x034410" userlevel="5">
+   <description>
+
+Details: Mode 1 needs the cylinder-cut count FFF8A643 (a byte) &gt;= cal 0x39AFE (1024 in LF75404S), which cannot happen (0x1382E0, read). Confidence: read.</description>
+  </table>
  </rom>
  <rom base="LV9N101C">
   <romid>
@@ -54123,6 +54256,11 @@ Details: When used: AT/CVT codings, in neutral/park. Input FFF88A44 (coolant). 0
   </table>
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x03c6ae" userlevel="4">
    <description>Manifold-vacuum threshold, by barometric pressure, for a brake-booster vacuum model.</description>
+  </table>
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x034410" userlevel="5">
+   <description>
+
+Details: Mode 1 needs the cylinder-cut count FFF8A643 (a byte) &gt;= cal 0x39AFE (1024 in LF75404S), which cannot happen (0x1382E0, read). Confidence: read.</description>
   </table>
  </rom>
  <rom base="LV9N101C">
@@ -54496,6 +54634,11 @@ Details: When used: AT/CVT codings, in neutral/park. Input FFF88A44 (coolant). 0
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x03c6ae" userlevel="4">
    <description>Manifold-vacuum threshold, by barometric pressure, for a brake-booster vacuum model.</description>
   </table>
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x034410" userlevel="5">
+   <description>
+
+Details: Mode 1 needs the cylinder-cut count FFF8A643 (a byte) &gt;= cal 0x39AFE (1024 in LF75404S), which cannot happen (0x1382E0, read). Confidence: read.</description>
+  </table>
  </rom>
  <rom base="LV9N101C">
   <romid>
@@ -54523,6 +54666,11 @@ Details: When used: AT/CVT codings, in neutral/park. Input FFF88A44 (coolant). 0
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x03c6ae" userlevel="4">
    <description>Manifold-vacuum threshold, by barometric pressure, for a brake-booster vacuum model.</description>
   </table>
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x034410" userlevel="5">
+   <description>
+
+Details: Mode 1 needs the cylinder-cut count FFF8A643 (a byte) &gt;= cal 0x39AFE (1024 in LF75404S), which cannot happen (0x1382E0, read). Confidence: read.</description>
+  </table>
  </rom>
  <rom base="LV9N101C">
   <romid>
@@ -54549,6 +54697,11 @@ Details: When used: AT/CVT codings, in neutral/park. Input FFF88A44 (coolant). 0
   </table>
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x03c6ae" userlevel="4">
    <description>Manifold-vacuum threshold, by barometric pressure, for a brake-booster vacuum model.</description>
+  </table>
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x034410" userlevel="5">
+   <description>
+
+Details: Mode 1 needs the cylinder-cut count FFF8A643 (a byte) &gt;= cal 0x39AFE (1024 in LF75404S), which cannot happen (0x1382E0, read). Confidence: read.</description>
   </table>
  </rom>
  <rom base="FA20DIT_BASE">
@@ -58123,9 +58276,24 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x03c6aa">
    <table type="Y Axis" storageaddress="0x03c6a0" />
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x03440a" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x034410" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x03464c" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x03440c" userlevel="4">
+   <description />
+  </table>
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x0343de" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x0343e0" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x034650" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x034652" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x0345d8">
    <table type="Y Axis" storageaddress="0x034498" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x03440e" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x03454c">
+   <table type="Y Axis" storageaddress="0x034478" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x0345fc" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x02fa32">
    <table type="Y Axis" storageaddress="0x02fa68" />
   </table>
@@ -65265,9 +65433,22 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
    <table type="Y Axis" storageaddress="0x053a14" />
    <description>Manifold-vacuum threshold, by barometric pressure, for a brake-booster vacuum model.</description>
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x045ea2" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x045ea8" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x0460d2" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x045ea4" />
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x045e76" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x045e78" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x0460d6" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x0460d8" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x046060">
    <table type="Y Axis" storageaddress="0x045f2e" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x045ea6" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x045fe4">
+   <table type="Y Axis" storageaddress="0x045f0e" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x046082" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x0409c2">
    <table type="Y Axis" storageaddress="0x0409f8" />
   </table>
@@ -71823,9 +72004,22 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
    <table type="Y Axis" storageaddress="0x04000c" />
    <description>Manifold-vacuum threshold, by barometric pressure, for a brake-booster vacuum model.</description>
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x0371da" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x0371e0" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x03741c" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x0371dc" />
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x0371ae" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x0371b0" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x037420" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x037422" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x0373a8">
    <table type="Y Axis" storageaddress="0x037268" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x0371de" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x03731c">
+   <table type="Y Axis" storageaddress="0x037248" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x0373cc" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x0327f6">
    <table type="Y Axis" storageaddress="0x03282c" />
   </table>
@@ -74445,6 +74639,9 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="TGV Coolant Minimum (Warm-Up Fallback)" storageaddress="0x035458" userlevel="4">
    <description>Minimum coolant for TGV closing used only while a warm-up fallback flag is set.</description>
   </table>
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x0371dc" userlevel="4">
+   <description />
+  </table>
  </rom>
  <rom base="LV9N301A">
   <romid>
@@ -74862,6 +75059,9 @@ Details: When used: AT/CVT codings, in neutral/park. Input FFF88A44 (coolant). 0
   <table name="TGV Coolant Minimum (Warm-Up Fallback)" storageaddress="0x035458" userlevel="4">
    <description>Minimum coolant for TGV closing used only while a warm-up fallback flag is set.</description>
   </table>
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x0371dc" userlevel="4">
+   <description />
+  </table>
  </rom>
  <rom base="LV9N301A">
   <romid>
@@ -74891,6 +75091,9 @@ Details: When used: AT/CVT codings, in neutral/park. Input FFF88A44 (coolant). 0
   </table>
   <table name="TGV Coolant Minimum (Warm-Up Fallback)" storageaddress="0x035458" userlevel="4">
    <description>Minimum coolant for TGV closing used only while a warm-up fallback flag is set.</description>
+  </table>
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x0371dc" userlevel="4">
+   <description />
   </table>
  </rom>
  <rom base="LV9N301A">
@@ -75335,6 +75538,9 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   <table name="A/C Idle Air Kick Duration (Alternate)" storageaddress="0x0338b4" userlevel="4">
    <description>How long the alternate A/C idle air kick is held, by an unidentified CAN code.</description>
   </table>
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x0371dc" userlevel="4">
+   <description />
+  </table>
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x0327f6" userlevel="4">
    <description>Radiator fan duty by coolant for an alternate (duty-based) fan control path.</description>
   </table>
@@ -75394,6 +75600,9 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   </table>
   <table name="TGV Coolant Minimum (Warm-Up Fallback)" storageaddress="0x035458" userlevel="4">
    <description>Minimum coolant for TGV closing used only while a warm-up fallback flag is set.</description>
+  </table>
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x0371dc" userlevel="4">
+   <description />
   </table>
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x0327f6" userlevel="4">
    <description>Radiator fan duty by coolant for an alternate (duty-based) fan control path.</description>
@@ -79698,9 +79907,22 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x04ba46">
    <table type="Y Axis" storageaddress="0x04ba3c" />
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x040346" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x04034c" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x040576" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x040348" />
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x04031a" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x04031c" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x04057a" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x04057c" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x040504">
    <table type="Y Axis" storageaddress="0x0403d2" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x04034a" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x040488">
+   <table type="Y Axis" storageaddress="0x0403b2" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x040526" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x03ae6e">
    <table type="Y Axis" storageaddress="0x03aea4" />
   </table>
@@ -86731,9 +86953,22 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
    <table type="Y Axis" storageaddress="0x04adf8" />
    <description>Manifold-vacuum threshold, by barometric pressure, for a brake-booster vacuum model.</description>
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x03f1fe" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x03f204" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x03f42e" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x03f200" />
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x03f1d2" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x03f1d4" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x03f432" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x03f434" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x03f3bc">
    <table type="Y Axis" storageaddress="0x03f28a" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x03f202" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x03f340">
+   <table type="Y Axis" storageaddress="0x03f26a" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x03f3de" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x039d2e">
    <table type="Y Axis" storageaddress="0x039d64" />
   </table>
@@ -91145,6 +91380,9 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   </table>
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x0435ee">
    <table type="Y Axis" storageaddress="0x0435e4" />
+  </table>
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x0397c8" userlevel="4">
+   <description />
   </table>
   <table type="2D" name="Gear Road Speed per 1000 RPM" category="Vehicle Functions//CAN-side" storagetype="uint16" endian="big" sizey="8" userlevel="5" storageaddress="0x037872">
    <scaling category="Default" units="km/h per 1000 RPM" expression="x/100" to_byte="x*100" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
@@ -98195,9 +98433,22 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x04ba6a">
    <table type="Y Axis" storageaddress="0x04ba60" />
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x040346" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x04034c" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x040576" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x040348" />
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x04031a" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x04031c" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x04057a" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x04057c" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x040504">
    <table type="Y Axis" storageaddress="0x0403d2" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x04034a" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x040488">
+   <table type="Y Axis" storageaddress="0x0403b2" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x040526" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x03ae6e">
    <table type="Y Axis" storageaddress="0x03aea4" />
   </table>
@@ -105330,9 +105581,22 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x04df7a">
    <table type="Y Axis" storageaddress="0x04df70" />
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x04227a" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x042280" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x0424aa" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x04227c" />
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x04224e" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x042250" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x0424ae" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x0424b0" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x042438">
    <table type="Y Axis" storageaddress="0x042306" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x04227e" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x0423bc">
+   <table type="Y Axis" storageaddress="0x0422e6" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x04245a" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x03cd9e">
    <table type="Y Axis" storageaddress="0x03cdd4" />
   </table>
@@ -112544,9 +112808,22 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x05023a">
    <table type="Y Axis" storageaddress="0x050230" />
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x0426c2" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x0426c8" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x0428f2" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x0426c4" />
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x042696" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x042698" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x0428f6" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x0428f8" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x042880">
    <table type="Y Axis" storageaddress="0x04274e" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x0426c6" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x042804">
+   <table type="Y Axis" storageaddress="0x04272e" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x0428a2" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x03d1e2">
    <table type="Y Axis" storageaddress="0x03d218" />
   </table>
@@ -119757,9 +120034,22 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x051f0e">
    <table type="Y Axis" storageaddress="0x051f04" />
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x044392" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x044398" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x0445c2" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x044394" />
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x044366" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x044368" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x0445c6" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x0445c8" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x044550">
    <table type="Y Axis" storageaddress="0x04441e" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x044396" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x0444d4">
+   <table type="Y Axis" storageaddress="0x0443fe" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x044572" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x03eeb2">
    <table type="Y Axis" storageaddress="0x03eee8" />
   </table>
@@ -126917,9 +127207,22 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x051eee">
    <table type="Y Axis" storageaddress="0x051ee4" />
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x044392" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x044398" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x0445c2" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x044394" />
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x044366" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x044368" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x0445c6" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x0445c8" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x044550">
    <table type="Y Axis" storageaddress="0x04441e" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x044396" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x0444d4">
+   <table type="Y Axis" storageaddress="0x0443fe" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x044572" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x03eeb2">
    <table type="Y Axis" storageaddress="0x03eee8" />
   </table>
@@ -134111,9 +134414,22 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x05440e">
    <table type="Y Axis" storageaddress="0x054404" />
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x046892" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x046898" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x046ac2" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x046894" />
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x046866" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x046868" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x046ac6" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x046ac8" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x046a50">
    <table type="Y Axis" storageaddress="0x04691e" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x046896" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x0469d4">
+   <table type="Y Axis" storageaddress="0x0468fe" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x046a72" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x0409c2">
    <table type="Y Axis" storageaddress="0x0409f8" />
   </table>
@@ -141680,9 +141996,22 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x054426">
    <table type="Y Axis" storageaddress="0x05441c" />
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x046896" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x04689c" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x046ac6" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x046898" />
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x04686a" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x04686c" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x046aca" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x046acc" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x046a54">
    <table type="Y Axis" storageaddress="0x046922" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x04689a" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x0469d8">
+   <table type="Y Axis" storageaddress="0x046902" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x046a76" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x0409c6">
    <table type="Y Axis" storageaddress="0x0409fc" />
   </table>
@@ -148614,9 +148943,24 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
    <table type="Y Axis" storageaddress="0x03fff8" />
    <description>Manifold-vacuum threshold, by barometric pressure, for a brake-booster vacuum model.</description>
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x0371da" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x0371e0" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x03741c" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x0371dc" userlevel="4">
+   <description />
+  </table>
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x0371ae" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x0371b0" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x037420" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x037422" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x0373a8">
    <table type="Y Axis" storageaddress="0x037268" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x0371de" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x03731c">
+   <table type="Y Axis" storageaddress="0x037248" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x0373cc" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x0327f6" userlevel="4">
    <table type="Y Axis" storageaddress="0x03282c" />
    <description>Radiator fan duty by coolant for an alternate (duty-based) fan control path.</description>
@@ -155143,9 +155487,24 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 7 of 8 (index 6 of FFF
   <table name="Brake Booster Vacuum Model Manifold Threshold" storageaddress="0x04111e">
    <table type="Y Axis" storageaddress="0x041114" />
   </table>
+  <table name="Charging Target Voltage (Normal)" storageaddress="0x0378ba" />
+  <table name="Charging Target Voltage (Battery Charged)" storageaddress="0x0378c0" />
+  <table name="Charging Target Voltage (Accessory Load)" storageaddress="0x037afa" />
+  <table name="Charging Target Voltage (Mode 1)" storageaddress="0x0378bc" userlevel="4">
+   <description />
+  </table>
+  <table name="Charging Target Voltage (Adaptive) Maximum" storageaddress="0x03788e" />
+  <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x037890" />
+  <table name="Charging Target Voltage Maximum" storageaddress="0x037afe" />
+  <table name="Charging Target Voltage Minimum" storageaddress="0x037b00" />
   <table name="Alternator Command from Target Voltage" storageaddress="0x037a88">
    <table type="Y Axis" storageaddress="0x037948" />
   </table>
+  <table name="Charging Target Temperature Correction Threshold" storageaddress="0x0378be" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x0379fc">
+   <table type="Y Axis" storageaddress="0x037928" />
+  </table>
+  <table name="Charging Target Voltage at Start" storageaddress="0x037aaa" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x0323e6">
    <table type="Y Axis" storageaddress="0x03241c" />
   </table>

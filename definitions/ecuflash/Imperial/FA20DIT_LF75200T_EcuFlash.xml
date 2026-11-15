@@ -3479,9 +3479,22 @@ Brake override module 0x181B38 (10 ms task 0x1DFE3C, read): it limits the accele
 
 Brake override module 0x181B38 (10 ms task 0x1DFE3C, read): it limits the accelerator pedal that feeds the torque request, FFF88A5E = min(pedal FFF88EE6, limit FFF8BAFA) (0x09E800, read), when the brake is applied while the accelerator is held. Brake detection: VDC CAN frame 0x0D1 byte 2 (FFF88DF9, slew-limited 8/pass into FFF8AC94; brake pressure, inferred) against a threshold, or discrete input FFF88E2F bit 3 (pin PF10; brake switch, inferred) when the pressure signal is not valid (FFF8AC8F bit 4 clear). Vehicle speed FFF8AC95 = km/h from the wheel speeds or FFF88BE8 x 9/160 (0x182E34, read). The module sets no DTC (no DTC monitor record points at its RAM, read). 0x18390C (read): FFF8AC90 bit 3 = brake pressure FFF8AC94 &gt;= cal 0x435BD (1) and FFF88A38 &gt;= this(baro FFF88668) - 12800 (FFF88A38 = (MAP - baro)/2, so MAP - baro &gt;= (this - 12800)/128 kPa), i.e. braking with too little manifold vacuum to recharge the booster. Bit 3 feeds only the brake-pressure latches FFF8AC92 / FFF8AC93 / FFF8BAFE and the manifold-vacuum model of 0x182B28, whose results are unused while cal 0x57585 bit 5 is set and FFF8BB00 has no reader (read, grep). Confidence: read.</description>
  </table>
+ <table name="Charging Target Voltage (Normal)" address="0378ba" />
+ <table name="Charging Target Voltage (Battery Charged)" address="0378c0" />
+ <table name="Charging Target Voltage (Accessory Load)" address="037afa" />
+ <table name="Charging Target Voltage (Mode 1)" address="0378bc" level="4" />
+ <table name="Charging Target Voltage (Adaptive) Maximum" address="03788e" />
+ <table name="Charging Target Voltage (Adaptive) Minimum" address="037890" />
+ <table name="Charging Target Voltage Maximum" address="037afe" />
+ <table name="Charging Target Voltage Minimum" address="037b00" />
  <table name="Alternator Command from Target Voltage" address="037a88">
   <table name="Y Axis" address="037948" />
  </table>
+ <table name="Charging Target Temperature Correction Threshold" address="0378be" />
+ <table name="Charging Target Temperature Correction" address="0379fc">
+  <table name="Y Axis" address="037928" />
+ </table>
+ <table name="Charging Target Voltage at Start" address="037aaa" />
  <table name="Radiator Fan Duty (Coolant)" address="0323e6">
   <table name="Coolant Temp" address="03241c" />
  </table>

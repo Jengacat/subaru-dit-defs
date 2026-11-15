@@ -174,9 +174,9 @@ same model year; flashing with a definition for another ID will corrupt the cali
 |---|---|
 | LF75300G (2016 WRX CVT), LF75300T (2015 WRX CVT), LV9N101D (2015 USDM WRX), LV9N002F (2014 Australian WRX) | The only copies I have are incomplete (1.5 MB) reads. A complete read would make them supportable quickly. |
 | Other 2015–2018 WRX and Forester XT calibrations (e.g. LF75403T, LF75403G, LF79102N, LF9C002N, LF75403A, LF78106B, LF9C002B) | I don't have these ROMs. [Submit one](#submitting-a-rom) and I can add it. |
-| 2013–2015 Forester XT with an AF5G…, AF56…, LF6A… or LF61… ID (e.g. LF61803B) | An older 1.5 MB ECU (SH705x) with different software; not covered by these definitions. |
+| 2013–2015 Forester XT with an AF5G…, AF56…, AF6A…, LF61…, LF6A… or LF7B… ID (e.g. LF61803B) | An older 1.5 MB ECU (SH705x) with different software; not covered by these definitions. |
 | Other 2019+ calibrations | These ECUs have 2.5 MB of flash and a newer boot block, like the supported 2019–2021 WRX (LF9D…, LF9G…, LF9K…) and Levorg STI (LF9F000R), so a complete read makes them supportable. EcuFlash can open 2.5 MB ROMs. |
-| 2022+ WRX (FA24DIT) | Different engine and ECU generation; not started. |
+| 2022+ WRX and the Ascent (FA24DIT, LT8… IDs and newer) | Different engine and ECU generation; not started. |
 
 </details>
 
@@ -191,7 +191,7 @@ A list of the calibration IDs known for these ECUs, and how each relates to the 
 | `definitions/ecuflash/Imperial/`, `definitions/ecuflash/Metric/` | The same EcuFlash definitions in two unit systems (EcuFlash can't switch units itself). Each folder has a base file per engine (every table) plus one small file per ROM; install one of the two. |
 | `logger/` | `FA20DIT_Logger.xml` (stock SSM and OBD parameters, trouble codes; also for the Levorg 1.6) and `FA20DIT_Logger_LogPatch.xml` (stock plus the logging-patch parameters). `FA20DIT_Logger_LogPatch_only.xml` holds only the new parameters, for merging into your own logger file. |
 | `tools/checksum.py`, `tools/checksum.ps1` | Check and fix the ROM checksum of 2 MB and 2.5 MB ROMs (Python, or PowerShell for Windows). **Required for ROMs edited in RomRaider**, and `verify` before any flash (see below). |
-| `tools/logpatch/` | The logging patch: `make_logpatch.py` and one spec per supported ROM. |
+| `tools/logpatch/` | The logging patch: `make_logpatch.py` and a spec for 53 of the ROMs (not yet the ROMs added in November 2026: their table rows say "not yet"). |
 | `docs/guide/` | [The tuning guide](docs/guide/README.md): workflows, how the logic works, appendices and a table reference. |
 | `extras/can/` | The CAN dictionary: every frame the ECU receives and sends, for 53 ROMs, with a DBC for CAN tools and each signal's RAM address per ROM. |
 
@@ -257,7 +257,7 @@ needs only Python 3 (no extra packages).
 
 ### Logging
 
-`logger/FA20DIT_Logger.xml` works with every supported ROM in RomRaider Logger, the Levorg 1.6 included. Over SSM it has 46 parameters and
+`logger/FA20DIT_Logger.xml` works in RomRaider Logger with the ROMs I've checked it against, the Levorg 1.6 included (53 so far; the ROMs added in November 2026 run the same software and should work, but I haven't checked them yet). Over SSM it has 46 parameters and
 shows pending and stored trouble codes in the DTC tab. Switch the logger protocol to OBD for 32 standard OBD-II
 parameters, including actual fuel rail pressure. On a stock ROM some of the most useful values (feedback knock
 correction, target boost, target torque, combustion mode, the rail-pressure target) can't be read with RomRaider at
@@ -275,9 +275,9 @@ and the checksum is fixed for you. Patch your own (stock or tuned) ROM with the 
 python3 tools/logpatch/make_logpatch.py tools/logpatch/specs/logpatch_LF75404S.json your_rom.bin your_rom_logpatch.bin
 ```
 
-Every supported ROM has a spec, the Levorg 1.6 ROMs included. The tool refuses a ROM of another calibration ID, a ROM whose checksum is already bad, and any slot that is not
+53 ROMs have a spec, the Levorg 1.6 ROMs included; the ROMs added in November 2026 don't have one yet (the "Logging patch" column says which). The tool refuses a ROM of another calibration ID, a ROM whose checksum is already bad, and any slot that is not
 unused. Then log with `logger/FA20DIT_Logger_LogPatch.xml` (parameters L01–L24). The patch uses the same slots on
-every supported ROM, so one logger file covers all of them.
+every ROM with a spec, so one logger file covers all of them.
 
 ### In progress: logging without a patch (Subaru UDS in RomRaider)
 

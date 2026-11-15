@@ -163,8 +163,8 @@ patch has not been ported to that ROM yet.
 </details>
 
 Notes on individual ROMs and credits are in the [definitions README](definitions/README.md#notes-on-individual-roms).
-Special thanks to reokov for many of the ROMs, the calibration ID list, testing on real cars, and a steady stream of
-suggestions.
+Special thanks to reokov for many of the submitted ROMs, the calibration ID list, testing on real cars, and a steady
+stream of suggestions.
 
 The calibration ID is the ROM's identifier, stored in the ROM itself; RomRaider/EcuFlash
 pick the matching definition from it automatically. A ROM with a different ID is **not supported**, even if it is the

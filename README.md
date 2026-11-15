@@ -131,7 +131,7 @@ patch has not been ported to that ROM yet.
 </details>
 
 <details>
-<summary><b>Levorg 1.6 (FB16DIT)</b>: 20 ROMs, 2014–2020</summary>
+<summary><b>Levorg 1.6 (FB16DIT)</b>: 22 ROMs, 2014–2020</summary>
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
@@ -142,10 +142,12 @@ patch has not been ported to that ROM yet.
 | Levorg 1.6 | 2015 | CVT | Europe | **LF76500Q** | 1194 | 226 | yes |
 | Levorg 1.6 | 2015 | CVT | Japan | **LF76500R** | 1194 | 226 | yes |
 | Levorg 1.6 | 2015 | CVT | Japan | **LF76600R** | 1194 | 226 | yes |
+| Levorg 1.6 | 2016 | CVT | Japan | **LF76402R** | 1194 | 226 | not yet |
 | Levorg 1.6 | 2016 | CVT | Japan | **LF79201U** | 1224 | 228 | yes |
 | Levorg 1.6 | 2016 | CVT | Japan | **LF79202U** | 1224 | 228 | yes |
 | Levorg 1.6 | 2016 | CVT | Japan | **LF79400U** | 1224 | 228 | yes |
 | Levorg 1.6 | 2017 | CVT | Europe | **LF79200T** | 1224 | 228 | yes |
+| Levorg 1.6 | 2017 | CVT | Japan | **LF79200U** | 1224 | 228 | not yet |
 | Levorg 1.6 | 2017 | CVT | Europe | **LF79300T** | 1224 | 228 | yes |
 | Levorg 1.6 | 2017 (facelift) | CVT | Japan | **LF9B003U** | 1229 | 228 | yes |
 | Levorg 1.6 | 2017 (facelift) | CVT | Europe | **LF9B100G** | 1229 | 228 | yes |

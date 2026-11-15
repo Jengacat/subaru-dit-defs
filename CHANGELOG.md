@@ -4,6 +4,9 @@
 
 First public release.
 
+- New: **two submitted Levorg 1.6 ROMs**, 97 in all: LF76402R (2016 JDM) and LF79200U (2017 JDM). Each runs the same
+  code as a supported Levorg 1.6 (LF76401R, LF79201U), so its tables sit at the same addresses; LF76402R's calibration
+  differs from LF76401R's mainly in the EGR Valve Flow Model. Thanks for the reads.
 - New: **42 more ROMs**, 95 in all: 2015–2021 WRX, 2016–2018 Forester XT, 2015–2017 Legacy/Outback and a 2018
   Levorg 1.6, calibrations taken from Subaru's dealer reflash packages, including the 2019–2021 WRX (2.5 MB ECUs).
   26 run the same code as a ROM already supported; 16 are separate builds, ported and checked table by table against

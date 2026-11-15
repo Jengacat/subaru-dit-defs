@@ -1,8 +1,7 @@
 # subaru-dit-defs
 
 RomRaider and EcuFlash definitions, logging tools and a tuning guide for Subaru's **FA20DIT** and **FB16DIT** engine
-ECUs (Hitachi SH72543R / SH72544R). Supported now: the 2015–2018 WRX, WRX S4 and Forester XT / tS, the 2014–2019
-Levorg 2.0 and the 2014–2020 Levorg 1.6. Support for other 2019 and later cars is in progress.
+ECUs (Hitachi SH72543R / SH72544R). The list of supported ROM's is below.
 
 The definitions were built from scratch from my own analysis of the stock ROMs. No existing community definition was
 used as a source, so table names, scalings and descriptions are my own. Every table carries a plain-English summary

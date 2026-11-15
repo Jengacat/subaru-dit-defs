@@ -77,6 +77,6 @@ confidence are left out rather than guessed.
   calibration IDs behind [ROM_IDS](../docs/ROM_IDS.md), the ECU ID and model-revision information, testing of the
   definitions and tools on real cars, and many suggestions: the EcuFlash SH72544R read-template tip for 2.5 MB ECUs,
   listing the supported ROMs per model, and leads on tables to add (the engine-speed limit in P and N on the CVT ROMs,
-  the alternator charge control). The 42 ROMs from Subaru's dealer software are my own extraction.
+  the alternator charge control).
 - **Hafiez STi**: the Malaysian Forester XT ROM (LF9C000a).
 - The RomRaider forum, where several of the ROMs were posted.

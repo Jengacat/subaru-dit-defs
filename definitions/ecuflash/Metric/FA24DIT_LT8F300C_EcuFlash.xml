@@ -343,6 +343,7 @@
   <table name="Coolant Temp" address="03f37c" />
  </table>
  <table name="LTFT Load Range Boundary 1" address="055d42" />
+ <table name="LTFT Load Range Boundary 2" address="055d43" />
  <table name="LTFT Load Range Boundary 3" address="055d44" />
  <table name="LTFT Load Range Boundary 4" address="055d45" />
  <table name="LTFT RPM Range Boundary" address="055db8" />
@@ -2076,7 +2077,9 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
  </table>
  <table name="Cylinder Cut Torque Ratio (1 Cylinder)" address="025c4d" />
  <table name="Cylinder Cut Torque Ratio (2 Cylinders)" address="025c4e" />
- <table name="Cylinder Cut Torque Ratio (3 Cylinders)" address="025c50" />
+ <table name="Cylinder Cut Torque Ratio (3 Cylinders)" address="025c4f" />
+ <table name="Cylinder Cut Torque Ratio (4 Cylinders)" address="025c50" />
+ <table name="Cylinder Cut Torque Ratio Hysteresis" address="025c51" />
  <table name="Throttle Opening Map Reference Torque" address="01ec92">
   <table name="Engine Speed" address="01ec68" />
  </table>
@@ -2134,6 +2137,10 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
  <table name="Throttle Opening from Target Torque (Cruise, TGV Open, Monitor)" address="0511ac">
   <table name="X Axis" address="051a18" />
   <table name="Engine Speed" address="0519ec" />
+ </table>
+ <table name="Throttle Opening from Target Torque (Cruise, TGV Open, EGR)" address="0229a0">
+  <table name="X Axis" address="02320c" />
+  <table name="Engine Speed" address="0231e0" />
  </table>
  <table name="Throttle Opening from Target Torque (Cruise, TGV Open, EGR, Monitor)" address="0515cc">
   <table name="X Axis" address="051a5c" />
@@ -2572,6 +2579,7 @@ When that bit is set, 0x11E308 uses this table instead of the Volumetric Efficie
  <table name="High Pedal Entry Threshold" address="03c26c">
   <table name="Barometric Pressure" address="03c24c" />
  </table>
+ <table name="High Pedal Exit Threshold" address="03b914" />
  <table name="High Pedal Tip-In Rate Threshold" address="03b8f6">
   <table name="Accelerator Pedal" address="03b8de" />
  </table>
@@ -3055,6 +3063,7 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
  <table name="EGR Enable RPM Maximum" address="030e56" />
  <table name="EGR Enable Load Minimum" address="030e5a" />
  <table name="EGR Enable Load Maximum" address="031648" />
+ <table name="EGR Enable Intake Air Temp Minimum" address="032219" />
  <table name="EGR Enable Battery Voltage Minimum" address="030e5d" />
  <table name="EGR Enable Vehicle Speed Minimum" address="0317b2" />
  <table name="EGR Enable Exhaust Pressure Margin" address="031649" />
@@ -3179,6 +3188,7 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
  <table name="TGV IAT Threshold" address="03eac4">
   <table name="Vehicle Speed" address="03eabc" />
  </table>
+ <table name="TGV Coolant Minimum" address="03eab4" />
  <table name="TGV Air Quantity Maximum (Enter)" address="03eab8" />
  <table name="TGV Air Quantity Maximum (Exit)" address="03eab6" />
  <table name="TGV Close Delay" address="03eaa4">
@@ -3491,6 +3501,9 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
  <table name="Open Loop Fueling: Use Alternate Map" address="034d8a" />
  <table name="VE: Use AVCS-Not-Ready Table" address="030e48" />
  <table name="Base Timing: Pedal-Released Tables Enable" address="01071e" />
+ <table name="Multi-Injection Allowed During High-Pedal Latch 1" address="02e9b5" />
+ <table name="Multi-Injection Allowed During High-Pedal Latch 2" address="02e9b5" />
+ <table name="Multi-Injection Allowed During High-Pedal Latch 3" address="02e9b5" />
  <table name="P0299 Underboost Error Threshold" address="065dd6" />
  <table name="P0299 Underboost Time" address="065dd4" />
  <table name="(P000A) Intake Camshaft Position Slow Response (Bank 1)" address="4a774" />

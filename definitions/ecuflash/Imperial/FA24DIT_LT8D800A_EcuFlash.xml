@@ -343,6 +343,7 @@
   <table name="Coolant Temp" address="03e9f4" />
  </table>
  <table name="LTFT Load Range Boundary 1" address="05539a" />
+ <table name="LTFT Load Range Boundary 2" address="05539b" />
  <table name="LTFT Load Range Boundary 3" address="05539c" />
  <table name="LTFT Load Range Boundary 4" address="05539d" />
  <table name="LTFT RPM Range Boundary" address="055410" />
@@ -2028,7 +2029,9 @@
  </table>
  <table name="Cylinder Cut Torque Ratio (1 Cylinder)" address="025c4d" />
  <table name="Cylinder Cut Torque Ratio (2 Cylinders)" address="025c4e" />
- <table name="Cylinder Cut Torque Ratio (3 Cylinders)" address="025c50" />
+ <table name="Cylinder Cut Torque Ratio (3 Cylinders)" address="025c4f" />
+ <table name="Cylinder Cut Torque Ratio (4 Cylinders)" address="025c50" />
+ <table name="Cylinder Cut Torque Ratio Hysteresis" address="025c51" />
  <table name="Throttle Opening Map Reference Torque" address="01ec92">
   <table name="Engine Speed" address="01ec68" />
  </table>
@@ -2086,6 +2089,10 @@
  <table name="Throttle Opening from Target Torque (Cruise, TGV Open, Monitor)" address="0506a4">
   <table name="X Axis" address="050f10" />
   <table name="Engine Speed" address="050ee4" />
+ </table>
+ <table name="Throttle Opening from Target Torque (Cruise, TGV Open, EGR)" address="0229a0">
+  <table name="X Axis" address="02320c" />
+  <table name="Engine Speed" address="0231e0" />
  </table>
  <table name="Throttle Opening from Target Torque (Cruise, TGV Open, EGR, Monitor)" address="050ac4">
   <table name="X Axis" address="050f54" />
@@ -2525,6 +2532,7 @@ Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-th
  <table name="High Pedal Entry Threshold" address="03b8e4">
   <table name="Barometric Pressure" address="03b8c4" />
  </table>
+ <table name="High Pedal Exit Threshold" address="03af8c" />
  <table name="High Pedal Tip-In Rate Threshold" address="03af6e">
   <table name="Accelerator Pedal" address="03af56" />
  </table>
@@ -2996,6 +3004,7 @@ Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-th
  <table name="EGR Enable RPM Maximum" address="0308e6" />
  <table name="EGR Enable Load Minimum" address="0308ea" />
  <table name="EGR Enable Load Maximum" address="0310d8" />
+ <table name="EGR Enable Intake Air Temp Minimum" address="031ca9" />
  <table name="EGR Enable Battery Voltage Minimum" address="0308ed" />
  <table name="EGR Enable Vehicle Speed Minimum" address="031242" />
  <table name="EGR Enable Exhaust Pressure Margin" address="0310d9" />
@@ -3102,6 +3111,7 @@ Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-th
  <table name="TGV IAT Threshold" address="03e13c">
   <table name="Vehicle Speed" address="03e134" />
  </table>
+ <table name="TGV Coolant Minimum" address="03e12c" />
  <table name="TGV Air Quantity Maximum (Enter)" address="03e130" />
  <table name="TGV Air Quantity Maximum (Exit)" address="03e12e" />
  <table name="TGV Close Delay" address="03e11c">
@@ -3393,6 +3403,9 @@ Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-th
  <table name="P0088 Rail Pressure High Limit" address="061b30" />
  <table name="P0087 Rail Pressure Deviation Limit" address="061b40" />
  <table name="P0088 Rail Pressure Deviation Limit" address="061b42" />
+ <table name="P0087 Rail Pressure Low Limit" address="061b44">
+  <table name="Engine Speed" address="061b64" />
+ </table>
  <table name="Cold Start Timing Monitor Band (Coolant)" address="0552b2">
   <table name="Coolant Temp" address="05505a" />
  </table>
@@ -3411,6 +3424,9 @@ Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-th
  <table name="Open Loop Fueling: Use Alternate Map" address="034412" />
  <table name="VE: Use AVCS-Not-Ready Table" address="0308d8" />
  <table name="Base Timing: Pedal-Released Tables Enable" address="01071e" />
+ <table name="Multi-Injection Allowed During High-Pedal Latch 1" address="02e445" />
+ <table name="Multi-Injection Allowed During High-Pedal Latch 2" address="02e445" />
+ <table name="Multi-Injection Allowed During High-Pedal Latch 3" address="02e445" />
  <table name="P0299 Underboost Error Threshold" address="06543a" />
  <table name="P0299 Underboost Time" address="065438" />
  <table name="(P000A) Intake Camshaft Position Slow Response (Bank 1)" address="49dac" />

@@ -7,7 +7,7 @@ First public release.
 - New: **Ascent (FA24DIT)**, three ROMs: LT8D800A (2019), LT8F300C (2020) and LT8H300D (2021), all USDM CVT, in
   their own files (`FA24DIT_RomRaider.xml`, `FA24DIT_BASE_EcuFlash.xml` and its Metric twin), 103 ROMs in all. The
   Ascent runs a later build of the FA20DIT software, so most tables are carried over at its own addresses: about
-  1,100 entries on each ROM, placed from the 2020 WRX and from each other (wherever two sources place a table they
+  1,138 entries on each ROM (the same set on all three), placed from the 2020 WRX and from each other (wherever two sources place a table they
   agree), including the tip-in torque rise per drive mode, surge-damping timing and the rest of the torque model, plus the
   Park/Neutral rpm limit, the speed limiter and the charging system from each ROM's own code. Boost is new: the Ascent drives an electric
   wastegate, and its boost group covers the boost target and its IAT, baro and coolant corrections, the wastegate

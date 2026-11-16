@@ -913,6 +913,11 @@
    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Load boundary 1 of the 10 long-term fuel trim cells (5 load ranges x 2 rpm ranges); load range 1 is below this value.</description>
   </table>
+  <table type="1D" name="LTFT Load Range Boundary 2" category="Fueling//Closed Loop &amp; Fuel Trims" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x05539b">
+   <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+   <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Load boundary 2 of the 10 long-term fuel trim cells (5 load ranges x 2 rpm ranges); load range 2 is below this value.</description>
+  </table>
   <table type="1D" name="LTFT Load Range Boundary 3" category="Fueling//Closed Loop &amp; Fuel Trims" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x05539c">
    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -2574,6 +2579,20 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
     <scaling units="RPM" expression="x*25" to_byte="x/25" format="0" fineincrement="25" coarseincrement="100.0" />
    </table>
    <description>Purge capacity by rpm and load used instead of the vacuum-based capacity when one of several unidentified fault/status flags is set.</description>
+  </table>
+  <table type="2D" name="Purge Rate Ramp Step (Off-Idle)" category="Fueling//Evap Purge" storagetype="uint8" endian="big" sizey="4" userlevel="4" storageaddress="0x02684b">
+   <scaling units="% of intake air" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x026850">
+    <scaling units="% fuel removed at 100 % purge rate" expression="(x-32768)/655.36" to_byte="x*655.36+32768" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+   </table>
+   <description>How much the purge rate rises per learning update once vapour concentration has been learned, pedal pressed, by learned concentration.</description>
+  </table>
+  <table type="2D" name="Purge Rate Ramp Step (Idle)" category="Fueling//Evap Purge" storagetype="uint8" endian="big" sizey="4" userlevel="4" storageaddress="0x026847">
+   <scaling units="% of intake air" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x026850">
+    <scaling units="% fuel removed at 100 % purge rate" expression="(x-32768)/655.36" to_byte="x*655.36+32768" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+   </table>
+   <description>Purge-rate rise per learning update at idle (pedal released) after learning.</description>
   </table>
   <table type="2D" name="Purge Rate Cut Recovery Step (Off-Idle)" category="Fueling//Evap Purge" storagetype="uint16" endian="big" sizey="4" userlevel="4" storageaddress="0x03e320">
    <scaling units="% of purge rate per update" expression="x/655.36" to_byte="x*655.36" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -5629,9 +5648,17 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
    <scaling units="% of unreduced torque" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
    <description>Below this share of current torque, two cylinders in four are cut. Also sets the second decel fuel cut stage.</description>
   </table>
-  <table type="1D" name="Cylinder Cut Torque Ratio (3 Cylinders)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x025c50">
+  <table type="1D" name="Cylinder Cut Torque Ratio (3 Cylinders)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x025c4f">
    <scaling units="% of unreduced torque" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
    <description>Below this share of current torque, three cylinders in four are cut. Also sets the third decel fuel cut stage.</description>
+  </table>
+  <table type="1D" name="Cylinder Cut Torque Ratio (4 Cylinders)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x025c50">
+   <scaling units="% of unreduced torque" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
+   <description>Below this share of current torque all cylinders are cut. The rev limiter asks for zero torque, so it always cuts all four.</description>
+  </table>
+  <table type="1D" name="Cylinder Cut Torque Ratio Hysteresis" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x025c51">
+   <scaling units="% of unreduced torque" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
+   <description>Hysteresis on the cylinder-cut torque ratios and decel cut stages.</description>
   </table>
   <table type="2D" name="Throttle Opening Map Reference Torque" category="Torque &amp; Throttle//Throttle Control &amp; Throttle Model" storagetype="uint16" endian="big" sizey="21" userlevel="2" storageaddress="0x01ec92">
    <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
@@ -5778,6 +5805,16 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Throttle-monitor copy of Throttle Opening from Target Torque (Cruise, TGV Open). Make the same edit here as on the main table, or expect a plausibility fault (inferred).</description>
+  </table>
+  <table type="3D" name="Throttle Opening from Target Torque (Cruise, TGV Open, EGR)" category="Torque &amp; Throttle//Throttle Control &amp; Throttle Model" storagetype="uint16" endian="big" sizex="24" sizey="22" userlevel="3" storageaddress="0x0229a0">
+   <scaling units="% throttle" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Axis" storagetype="uint8" endian="big" storageaddress="0x02320c">
+    <scaling units="% of reference torque" expression="x/2.55" to_byte="x*2.55" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0231e0">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>This is where part-throttle feel is set: the commanded throttle opening is essentially this map (by rpm and target torque) plus the idle air. Probably used while cruise control is active; TGVs open, EGR active. Edit together with Throttle Opening from Target Torque (Cruise, TGV Open, EGR, Monitor).</description>
   </table>
   <table type="3D" name="Throttle Opening from Target Torque (Cruise, TGV Open, EGR, Monitor)" category="Torque &amp; Throttle//Throttle Control &amp; Throttle Model" storagetype="uint16" endian="big" sizex="24" sizey="22" userlevel="3" storageaddress="0x050ac4">
    <scaling units="% throttle" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -6968,6 +7005,10 @@ Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-th
     <scaling category="kPa absolute" units="kPa abs" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    </table>
    <description>Accelerator position, by barometric pressure, at or above which the ECU switches to the high-pedal cam targets (set 2), provided vehicle speed is steady. Lowering it uses the high-pedal cams earlier. Other functions also read this high-pedal flag.</description>
+  </table>
+  <table type="1D" name="High Pedal Exit Threshold" category="AVCS (Cam Timing)//AVCS Control &amp; Feedback" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x03af8c">
+   <scaling units="%" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>Accelerator position below which the high-pedal flag clears and the cams return to the normal (set 1) targets. Keep it below High Pedal Entry Threshold.</description>
   </table>
   <table type="2D" name="High Pedal Tip-In Rate Threshold" category="AVCS (Cam Timing)//AVCS Control &amp; Feedback" storagetype="uint16" endian="big" sizey="6" userlevel="3" storageaddress="0x03af6e">
    <scaling units="%" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -8727,6 +8768,11 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>EGR is only enabled when load is at or below this.</description>
   </table>
+  <table type="1D" name="EGR Enable Intake Air Temp Minimum" category="EGR &amp; TGV//EGR" storagetype="uint8" endian="big" userlevel="3" storageaddress="0x031ca9">
+   <scaling category="Default" units="degrees F" expression="(x-50)*1.8+32" to_byte="(x-32)/1.8+50" format="0" fineincrement="2" coarseincrement="8.0" />
+   <scaling category="degC" units="degrees C" expression="x-50" to_byte="x+50" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>EGR is only enabled when intake air temperature is at or above this.</description>
+  </table>
   <table type="1D" name="EGR Enable Battery Voltage Minimum" category="EGR &amp; TGV//EGR" storagetype="uint8" endian="big" userlevel="3" storageaddress="0x0308ed">
    <scaling units="V" expression="x/12.8" to_byte="x*12.8" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <description>EGR is only enabled when battery voltage is at or above this.</description>
@@ -9041,6 +9087,15 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
     <scaling category="mph" units="mph" expression="x*0.621371" to_byte="x/0.621371" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <description>Intake air temperature, by vehicle speed, below which the TGVs are kept open even when the torque, coolant and air-flow close conditions hold (the close request is replaced by a 'blocked' state that resets the close timer). Raise it to keep the TGVs open in cold air at speed.</description>
+  </table>
+  <table type="1D" name="TGV Coolant Minimum" category="EGR &amp; TGV//TGV" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x03e12c">
+   <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
+   <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Minimum coolant temperature for the TGVs to close (probably; part of the TGV close conditions).</description>
+  </table>
+  <table type="1D" name="TGV Air Quantity Maximum (Enter)" category="EGR &amp; TGV//TGV" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x03e130">
+   <scaling units="g/s" expression="x/300" to_byte="x*300" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>Air flow below which the TGVs may close (probably; part of the TGV close conditions together with torque and coolant). Raise it (with TGV Air Quantity Maximum (Exit)) to let the TGVs close at higher air flow; once closed they reopen above the Exit value.</description>
   </table>
   <table type="1D" name="TGV Air Quantity Maximum (Exit)" category="EGR &amp; TGV//TGV" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x03e12e">
    <scaling units="g/s" expression="x/300" to_byte="x*300" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -9996,6 +10051,15 @@ Details: Integral x this / 100 after the clamp (0x13866C, read). Confidence: rea
    <scaling category="kPa" units="kPa" expression="x*0.61" to_byte="x/0.61" format="0" fineincrement="100" coarseincrement="400.0" />
    <description>How far actual rail pressure may rise above target (in normal high-pressure pump operation) before P0088 sets, after about 10 seconds. Raising it makes the code harder to set.</description>
   </table>
+  <table type="2D" name="P0087 Rail Pressure Low Limit" category="Diagnostics &amp; Switches//Monitor Thresholds" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x061b44">
+   <scaling category="Default" units="psi" expression="x*0.0884730" to_byte="x/0.0884730" format="0" fineincrement="25" coarseincrement="100.0" />
+   <scaling category="MPa" units="MPa" expression="x*0.00061" to_byte="x/0.00061" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="kPa" units="kPa" expression="x*0.61" to_byte="x/0.61" format="0" fineincrement="100" coarseincrement="400.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint8" endian="big" storageaddress="0x061b64">
+    <scaling units="RPM" expression="x*50" to_byte="x/50" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Rail pressure floor by rpm for P0087 (rail pressure too low): the code counts a fault when actual pressure stays more than 0.30 MPa (hysteresis cal) below this value for about 10 seconds, and recovers when pressure is back at this value.</description>
+  </table>
   <table type="2D" name="Cold Start Timing Monitor Band (Coolant)" category="Diagnostics &amp; Switches//Monitor Thresholds" storagetype="int8" endian="big" sizey="16" userlevel="4" storageaddress="0x0552b2">
    <scaling units="degrees" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x05505a">
@@ -10054,6 +10118,18 @@ Details: Integral x this / 100 after the clamp (0x13866C, read). Confidence: rea
    <bit position="0" name="Enabled" />
    <description>Clear it to use the normal base timing tables off-throttle too.</description>
   </table>
+  <table type="BitwiseSwitch" name="Multi-Injection Allowed During High-Pedal Latch 1" category="Diagnostics &amp; Switches//Calibration Switches" storageaddress="0x02e445" userlevel="4">
+   <bit position="0" name="Allowed" />
+   <description>Allows double/triple injection while one of the high-pedal latches is set.</description>
+  </table>
+  <table type="BitwiseSwitch" name="Multi-Injection Allowed During High-Pedal Latch 2" category="Diagnostics &amp; Switches//Calibration Switches" storageaddress="0x02e445" userlevel="4">
+   <bit position="1" name="Allowed" />
+   <description>Allows double/triple injection while a second high-pedal latch is set.</description>
+  </table>
+  <table type="BitwiseSwitch" name="Multi-Injection Allowed During High-Pedal Latch 3" category="Diagnostics &amp; Switches//Calibration Switches" storageaddress="0x02e445" userlevel="4">
+   <bit position="2" name="Allowed" />
+   <description>Allows double/triple injection while a third high-pedal latch is set.</description>
+  </table>
  </rom>
  <rom base="FA24DIT_BASE">
   <romid>
@@ -10072,24 +10148,6 @@ Details: Integral x this / 100 after the clamp (0x13866C, read). Confidence: rea
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
-  <table type="2D" name="Purge Rate Ramp Step (Off-Idle)" category="Fueling//Evap Purge" storagetype="uint8" endian="big" sizey="4" userlevel="4" storageaddress="0x02684b">
-   <scaling units="% of intake air" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x026850">
-    <scaling units="% fuel removed at 100 % purge rate" expression="(x-32768)/655.36" to_byte="x*655.36+32768" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
-   </table>
-   <description>How much the purge rate rises per learning update once vapour concentration has been learned, pedal pressed, by learned concentration.</description>
-  </table>
-  <table type="2D" name="Purge Rate Ramp Step (Idle)" category="Fueling//Evap Purge" storagetype="uint8" endian="big" sizey="4" userlevel="4" storageaddress="0x026847">
-   <scaling units="% of intake air" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x026850">
-    <scaling units="% fuel removed at 100 % purge rate" expression="(x-32768)/655.36" to_byte="x*655.36+32768" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
-   </table>
-   <description>Purge-rate rise per learning update at idle (pedal released) after learning.</description>
-  </table>
-  <table type="1D" name="TGV Air Quantity Maximum (Enter)" category="EGR &amp; TGV//TGV" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x03e130">
-   <scaling units="g/s" expression="x/300" to_byte="x*300" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
-   <description>Air flow below which the TGVs may close (probably; part of the TGV close conditions together with torque and coolant). Raise it (with TGV Air Quantity Maximum (Exit)) to let the TGVs close at higher air flow; once closed they reopen above the Exit value.</description>
-  </table>
   <table type="1D" name="P0299 Underboost Error Threshold" category="Unsorted" storagetype="int16" endian="big" userlevel="3" storageaddress="0x06543a">
    <scaling category="Default" units="psi" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <scaling category="kPa" units="kPa" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -13027,6 +13085,7 @@ Details: Integral x this / 100 after the clamp (0x13866C, read). Confidence: rea
    <table type="Y Axis" storageaddress="0x03f37c" />
   </table>
   <table name="LTFT Load Range Boundary 1" storageaddress="0x055d42" />
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x055d43" />
   <table name="LTFT Load Range Boundary 3" storageaddress="0x055d44" />
   <table name="LTFT Load Range Boundary 4" storageaddress="0x055d45" />
   <table name="LTFT RPM Range Boundary" storageaddress="0x055db8" />
@@ -13403,20 +13462,6 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Catalyst Heating Readiness Idle Stability Time" storageaddress="0x02e9da">
    <table type="X Axis" storageaddress="0x02e9ca" />
    <table type="Y Axis" storageaddress="0x02e9ba" />
-  </table>
-  <table type="2D" name="Purge Rate Ramp Step (Off-Idle)" category="Fueling//Evap Purge" storagetype="uint8" endian="big" sizey="4" userlevel="4" storageaddress="0x02684b">
-   <scaling units="% of intake air" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x026850">
-    <scaling units="% fuel removed at 100 % purge rate" expression="(x-32768)/655.36" to_byte="x*655.36+32768" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
-   </table>
-   <description>How much the purge rate rises per learning update once vapour concentration has been learned, pedal pressed, by learned concentration.</description>
-  </table>
-  <table type="2D" name="Purge Rate Ramp Step (Idle)" category="Fueling//Evap Purge" storagetype="uint8" endian="big" sizey="4" userlevel="4" storageaddress="0x026847">
-   <scaling units="% of intake air" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x026850">
-    <scaling units="% fuel removed at 100 % purge rate" expression="(x-32768)/655.36" to_byte="x*655.36+32768" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
-   </table>
-   <description>Purge-rate rise per learning update at idle (pedal released) after learning.</description>
   </table>
   <table name="Purge Rate Cut Recovery Step (Off-Idle)" storageaddress="0x03eca8" />
   <table name="Purge Rate Cut Recovery Step (Idle)" storageaddress="0x03eca0" />
@@ -14299,6 +14344,7 @@ Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-th
   <table name="High Pedal Entry Threshold" storageaddress="0x03c26c">
    <table type="Y Axis" storageaddress="0x03c24c" />
   </table>
+  <table name="High Pedal Exit Threshold" storageaddress="0x03b914" />
   <table name="High Pedal Tip-In Rate Threshold" storageaddress="0x03b8f6">
    <table type="Y Axis" storageaddress="0x03b8de" />
   </table>
@@ -14755,6 +14801,7 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
   <table name="EGR Enable RPM Maximum" storageaddress="0x030e56" />
   <table name="EGR Enable Load Minimum" storageaddress="0x030e5a" />
   <table name="EGR Enable Load Maximum" storageaddress="0x031648" />
+  <table name="EGR Enable Intake Air Temp Minimum" storageaddress="0x032219" />
   <table name="EGR Enable Battery Voltage Minimum" storageaddress="0x030e5d" />
   <table name="EGR Enable Vehicle Speed Minimum" storageaddress="0x0317b2" />
   <table name="EGR Enable Exhaust Pressure Margin" storageaddress="0x031649" />
@@ -14863,10 +14910,8 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="TGV IAT Threshold" storageaddress="0x03eac4">
    <table type="Y Axis" storageaddress="0x03eabc" />
   </table>
-  <table type="1D" name="TGV Air Quantity Maximum (Enter)" category="EGR &amp; TGV//TGV" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x03eab8">
-   <scaling units="g/s" expression="x/300" to_byte="x*300" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
-   <description>Air flow below which the TGVs may close (probably; part of the TGV close conditions together with torque and coolant). Raise it (with TGV Air Quantity Maximum (Exit)) to let the TGVs close at higher air flow; once closed they reopen above the Exit value.</description>
-  </table>
+  <table name="TGV Coolant Minimum" storageaddress="0x03eab4" />
+  <table name="TGV Air Quantity Maximum (Enter)" storageaddress="0x03eab8" />
   <table name="TGV Air Quantity Maximum (Exit)" storageaddress="0x03eab6" />
   <table name="TGV Close Delay" storageaddress="0x03eaa4">
    <table type="Y Axis" storageaddress="0x03ea9c" />
@@ -15156,14 +15201,8 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="P0088 Rail Pressure High Limit" storageaddress="0x0624d8" />
   <table name="P0087 Rail Pressure Deviation Limit" storageaddress="0x0624e8" />
   <table name="P0088 Rail Pressure Deviation Limit" storageaddress="0x0624ea" />
-  <table type="2D" name="P0087 Rail Pressure Low Limit" category="Diagnostics &amp; Switches//Monitor Thresholds" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x0624ec">
-   <scaling category="Default" units="psi" expression="x*0.0884730" to_byte="x/0.0884730" format="0" fineincrement="25" coarseincrement="100.0" />
-   <scaling category="MPa" units="MPa" expression="x*0.00061" to_byte="x/0.00061" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
-   <scaling category="kPa" units="kPa" expression="x*0.61" to_byte="x/0.61" format="0" fineincrement="100" coarseincrement="400.0" />
-   <table type="Y Axis" name="Engine Speed" storagetype="uint8" endian="big" storageaddress="0x06250c">
-    <scaling units="RPM" expression="x*50" to_byte="x/50" format="0" fineincrement="50" coarseincrement="200.0" />
-   </table>
-   <description>Rail pressure floor by rpm for P0087 (rail pressure too low): the code counts a fault when actual pressure stays more than 0.30 MPa (hysteresis cal) below this value for about 10 seconds, and recovers when pressure is back at this value.</description>
+  <table name="P0087 Rail Pressure Low Limit" storageaddress="0x0624ec">
+   <table type="Y Axis" storageaddress="0x06250c" />
   </table>
   <table name="Cold Start Timing Monitor Band (Coolant)" storageaddress="0x055c5a">
    <table type="Y Axis" storageaddress="0x055a02" />
@@ -15181,6 +15220,9 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="Transmission Coding: From Input Port" storageaddress="0x034d86" />
   <table name="Open Loop Fueling: Use Alternate Map" storageaddress="0x034d8a" />
   <table name="VE: Use AVCS-Not-Ready Table" storageaddress="0x030e48" />
+  <table name="Multi-Injection Allowed During High-Pedal Latch 1" storageaddress="0x02e9b5" />
+  <table name="Multi-Injection Allowed During High-Pedal Latch 2" storageaddress="0x02e9b5" />
+  <table name="Multi-Injection Allowed During High-Pedal Latch 3" storageaddress="0x02e9b5" />
   <table type="1D" name="P0299 Underboost Error Threshold" category="Unsorted" storagetype="int16" endian="big" userlevel="3" storageaddress="0x065dd6">
    <scaling category="Default" units="psi" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <scaling category="kPa" units="kPa" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -18135,11 +18177,7 @@ Details: When used: see Additional Enrichment A: B applies when coolant &lt; cal
    <table type="Y Axis" storageaddress="0x03f760" />
   </table>
   <table name="LTFT Load Range Boundary 1" storageaddress="0x0561ee" />
-  <table type="1D" name="LTFT Load Range Boundary 2" category="Fueling//Closed Loop &amp; Fuel Trims" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x0561ef">
-   <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
-   <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   <description>Load boundary 2 of the 10 long-term fuel trim cells (5 load ranges x 2 rpm ranges); load range 2 is below this value.</description>
-  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x0561ef" />
   <table name="LTFT Load Range Boundary 3" storageaddress="0x0561f0" />
   <table name="LTFT Load Range Boundary 4" storageaddress="0x0561f1" />
   <table name="LTFT RPM Range Boundary" storageaddress="0x056264" />
@@ -18644,6 +18682,12 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Purge Rate Limit (Fallback)" storageaddress="0x026914">
    <table type="X Axis" storageaddress="0x0268bc" />
    <table type="Y Axis" storageaddress="0x0268c4" />
+  </table>
+  <table name="Purge Rate Ramp Step (Off-Idle)" storageaddress="0x02689f">
+   <table type="Y Axis" storageaddress="0x0268a4" />
+  </table>
+  <table name="Purge Rate Ramp Step (Idle)" storageaddress="0x02689b">
+   <table type="Y Axis" storageaddress="0x0268a4" />
   </table>
   <table name="Purge Rate Cut Recovery Step (Off-Idle)" storageaddress="0x03f08c">
    <table type="Y Axis" storageaddress="0x026cf0" />
@@ -19728,14 +19772,8 @@ Details: When used: only while FFF88F4A bit 2 is set. Otherwise as Fail-Safe Rev
   <table name="Cylinder Cut Torque Ratio (1 Cylinder)" storageaddress="0x025ca1" />
   <table name="Cylinder Cut Torque Ratio (2 Cylinders)" storageaddress="0x025ca2" />
   <table name="Cylinder Cut Torque Ratio (3 Cylinders)" storageaddress="0x025ca3" />
-  <table type="1D" name="Cylinder Cut Torque Ratio (4 Cylinders)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x025ca4">
-   <scaling units="% of unreduced torque" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
-   <description>Below this share of current torque all cylinders are cut. The rev limiter asks for zero torque, so it always cuts all four.</description>
-  </table>
-  <table type="1D" name="Cylinder Cut Torque Ratio Hysteresis" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x025ca5">
-   <scaling units="% of unreduced torque" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
-   <description>Hysteresis on the cylinder-cut torque ratios and decel cut stages.</description>
-  </table>
+  <table name="Cylinder Cut Torque Ratio (4 Cylinders)" storageaddress="0x025ca4" />
+  <table name="Cylinder Cut Torque Ratio Hysteresis" storageaddress="0x025ca5" />
   <table name="Throttle Opening Map Reference Torque" storageaddress="0x01ecca">
    <table type="Y Axis" storageaddress="0x01eca0" />
   </table>
@@ -19794,15 +19832,9 @@ Details: When used: only while FFF88F4A bit 2 is set. Otherwise as Fail-Safe Rev
    <table type="X Axis" storageaddress="0x051e1c" />
    <table type="Y Axis" storageaddress="0x051df0" />
   </table>
-  <table type="3D" name="Throttle Opening from Target Torque (Cruise, TGV Open, EGR)" category="Torque &amp; Throttle//Throttle Control &amp; Throttle Model" storagetype="uint16" endian="big" sizex="24" sizey="22" userlevel="3" storageaddress="0x0229d8">
-   <scaling units="% throttle" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
-   <table type="X Axis" name="Axis" storagetype="uint8" endian="big" storageaddress="0x023244">
-    <scaling units="% of reference torque" expression="x/2.55" to_byte="x*2.55" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x023218">
-    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
-   </table>
-   <description>This is where part-throttle feel is set: the commanded throttle opening is essentially this map (by rpm and target torque) plus the idle air. Probably used while cruise control is active; TGVs open, EGR active. Edit together with Throttle Opening from Target Torque (Cruise, TGV Open, EGR, Monitor).</description>
+  <table name="Throttle Opening from Target Torque (Cruise, TGV Open, EGR)" storageaddress="0x0229d8">
+   <table type="X Axis" storageaddress="0x023244" />
+   <table type="Y Axis" storageaddress="0x023218" />
   </table>
   <table name="Throttle Opening from Target Torque (Cruise, TGV Open, EGR, Monitor)" storageaddress="0x0519d0">
    <table type="X Axis" storageaddress="0x051e60" />
@@ -20127,10 +20159,7 @@ Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-th
   <table name="High Pedal Entry Threshold" storageaddress="0x03c650">
    <table type="Y Axis" storageaddress="0x03c630" />
   </table>
-  <table type="1D" name="High Pedal Exit Threshold" category="AVCS (Cam Timing)//AVCS Control &amp; Feedback" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x03bcf8">
-   <scaling units="%" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
-   <description>Accelerator position below which the high-pedal flag clears and the cams return to the normal (set 1) targets. Keep it below High Pedal Entry Threshold.</description>
-  </table>
+  <table name="High Pedal Exit Threshold" storageaddress="0x03bcf8" />
   <table name="High Pedal Tip-In Rate Threshold" storageaddress="0x03bcda">
    <table type="Y Axis" storageaddress="0x03bcc2" />
   </table>
@@ -20632,11 +20661,7 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
   <table name="EGR Enable RPM Maximum" storageaddress="0x030fee" />
   <table name="EGR Enable Load Minimum" storageaddress="0x030ff2" />
   <table name="EGR Enable Load Maximum" storageaddress="0x0317e0" />
-  <table type="1D" name="EGR Enable Intake Air Temp Minimum" category="EGR &amp; TGV//EGR" storagetype="uint8" endian="big" userlevel="3" storageaddress="0x0323b1">
-   <scaling category="Default" units="degrees F" expression="(x-50)*1.8+32" to_byte="(x-32)/1.8+50" format="0" fineincrement="2" coarseincrement="8.0" />
-   <scaling category="degC" units="degrees C" expression="x-50" to_byte="x+50" format="0" fineincrement="1" coarseincrement="4.0" />
-   <description>EGR is only enabled when intake air temperature is at or above this.</description>
-  </table>
+  <table name="EGR Enable Intake Air Temp Minimum" storageaddress="0x0323b1" />
   <table name="EGR Enable Battery Voltage Minimum" storageaddress="0x030ff5" />
   <table name="EGR Enable Vehicle Speed Minimum" storageaddress="0x03194a" />
   <table name="EGR Enable Exhaust Pressure Margin" storageaddress="0x0317e1" />
@@ -20761,11 +20786,8 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="TGV IAT Threshold" storageaddress="0x03eea8">
    <table type="Y Axis" storageaddress="0x03eea0" />
   </table>
-  <table type="1D" name="TGV Coolant Minimum" category="EGR &amp; TGV//TGV" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x03ee98">
-   <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
-   <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
-   <description>Minimum coolant temperature for the TGVs to close (probably; part of the TGV close conditions).</description>
-  </table>
+  <table name="TGV Coolant Minimum" storageaddress="0x03ee98" />
+  <table name="TGV Air Quantity Maximum (Enter)" storageaddress="0x03ee9c" />
   <table name="TGV Air Quantity Maximum (Exit)" storageaddress="0x03ee9a" />
   <table name="TGV Close Delay" storageaddress="0x03ee88">
    <table type="Y Axis" storageaddress="0x03ee80" />
@@ -21060,14 +21082,8 @@ Details: Integral x this / 100 after the clamp (0x13866C, read). LT8H300D: same 
   <table name="P0088 Rail Pressure High Limit" storageaddress="0x062aec" />
   <table name="P0087 Rail Pressure Deviation Limit" storageaddress="0x062afc" />
   <table name="P0088 Rail Pressure Deviation Limit" storageaddress="0x062afe" />
-  <table type="2D" name="P0087 Rail Pressure Low Limit" category="Diagnostics &amp; Switches//Monitor Thresholds" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x062b00">
-   <scaling category="Default" units="psi" expression="x*0.0884730" to_byte="x/0.0884730" format="0" fineincrement="25" coarseincrement="100.0" />
-   <scaling category="MPa" units="MPa" expression="x*0.00061" to_byte="x/0.00061" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
-   <scaling category="kPa" units="kPa" expression="x*0.61" to_byte="x/0.61" format="0" fineincrement="100" coarseincrement="400.0" />
-   <table type="Y Axis" name="Engine Speed" storagetype="uint8" endian="big" storageaddress="0x062b20">
-    <scaling units="RPM" expression="x*50" to_byte="x/50" format="0" fineincrement="50" coarseincrement="200.0" />
-   </table>
-   <description>Rail pressure floor by rpm for P0087 (rail pressure too low): the code counts a fault when actual pressure stays more than 0.30 MPa (hysteresis cal) below this value for about 10 seconds, and recovers when pressure is back at this value.</description>
+  <table name="P0087 Rail Pressure Low Limit" storageaddress="0x062b00">
+   <table type="Y Axis" storageaddress="0x062b20" />
   </table>
   <table name="Cold Start Timing Monitor Band (Coolant)" storageaddress="0x056106">
    <table type="Y Axis" storageaddress="0x055eae" />
@@ -21086,18 +21102,9 @@ Details: Integral x this / 100 after the clamp (0x13866C, read). LT8H300D: same 
   <table name="Target Torque Rise: Enable Path B" storageaddress="0x025634" />
   <table name="Open Loop Fueling: Use Alternate Map" storageaddress="0x034f26" />
   <table name="VE: Use AVCS-Not-Ready Table" storageaddress="0x030fe0" />
-  <table type="BitwiseSwitch" name="Multi-Injection Allowed During High-Pedal Latch 1" category="Diagnostics &amp; Switches//Calibration Switches" storageaddress="0x02eb4d" userlevel="4">
-   <bit position="0" name="Allowed" />
-   <description>Allows double/triple injection while one of the high-pedal latches is set.</description>
-  </table>
-  <table type="BitwiseSwitch" name="Multi-Injection Allowed During High-Pedal Latch 2" category="Diagnostics &amp; Switches//Calibration Switches" storageaddress="0x02eb4d" userlevel="4">
-   <bit position="1" name="Allowed" />
-   <description>Allows double/triple injection while a second high-pedal latch is set.</description>
-  </table>
-  <table type="BitwiseSwitch" name="Multi-Injection Allowed During High-Pedal Latch 3" category="Diagnostics &amp; Switches//Calibration Switches" storageaddress="0x02eb4d" userlevel="4">
-   <bit position="2" name="Allowed" />
-   <description>Allows double/triple injection while a third high-pedal latch is set.</description>
-  </table>
+  <table name="Multi-Injection Allowed During High-Pedal Latch 1" storageaddress="0x02eb4d" />
+  <table name="Multi-Injection Allowed During High-Pedal Latch 2" storageaddress="0x02eb4d" />
+  <table name="Multi-Injection Allowed During High-Pedal Latch 3" storageaddress="0x02eb4d" />
   <table type="3D" name="(P000A) Intake Camshaft Position Slow Response (Bank 1)" category="Diagnostics &amp; Switches//DTC Switches" storagetype="uint8" endian="big" sizex="2" sizey="1" swapxy="true" skipCells="97579" mask="01" userlevel="2" storageaddress="0x4ab78">
    <scaling units="1 = yes, 0 = no" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="1" />
    <table type="Static X Axis" name="DTC Enabled | Triggers Fail-Safe" sizex="2">

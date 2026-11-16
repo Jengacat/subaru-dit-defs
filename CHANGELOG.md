@@ -4,6 +4,16 @@
 
 First public release.
 
+- New: **Ascent (FA24DIT)**, three ROMs: LT8D800A (2019), LT8F300C (2020) and LT8H300D (2021), all USDM CVT, in
+  their own files (`FA24DIT_RomRaider.xml`, `FA24DIT_BASE_EcuFlash.xml` and its Metric twin), 103 ROMs in all. The
+  Ascent runs a later build of the FA20DIT software, so most tables are carried over at its own addresses (847 entries
+  on the 2021 ROM, about 616 on the 2019 and 2020 builds so far). Boost is new: the Ascent drives an electric
+  wastegate, and its boost group covers the boost target and its IAT, baro and coolant corrections, the wastegate
+  position feed-forward and compensations, the boost feedback (proportional, integral, limits), the feed-forward-only
+  threshold, the fixed positions (low rpm, engine off, closed), the learned-seat limits, the actuator motor tables
+  and limits, and the P0244 position-error limit. The WRX boost tables still sit in the Ascent ROM, but nothing uses
+  their results, so they are left out. Position is shown as % open (0 % = seated); that scale and the boost-pressure
+  unit are inferred. First release: not yet checked against a read from a car.
 - New: **charging system, part 2**, in every definition (folder 09.03), 17 to 19 entries per ROM:
   - how the ECU decides the battery is charged: a state-of-charge estimate from the battery sensor's current (battery
     capacity, charge efficiency, reset value) and, early in each charge cycle, a state-of-charge threshold (stock

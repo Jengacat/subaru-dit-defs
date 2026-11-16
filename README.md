@@ -1,7 +1,7 @@
 # subaru-dit-defs
 
 RomRaider and EcuFlash definitions, logging tools and a tuning guide for Subaru's **FA20DIT** and **FB16DIT** engine
-ECUs (Hitachi SH72543R / SH72544R). The list of supported ROM's is below.
+ECUs (Hitachi SH72543R / SH72544R), and a first set for the **FA24DIT** Ascent. The list of supported ROM's is below.
 
 The definitions were built from scratch from my own analysis of the stock ROMs. No existing community definition was
 used as a source, so table names, scalings and descriptions are my own. Every table carries a plain-English summary
@@ -163,6 +163,26 @@ patch has not been ported to that ROM yet.
 
 </details>
 
+<details>
+<summary><b>Ascent (FA24DIT)</b>: 3 ROMs, 2019–2021 (first release, read the notes below)</summary>
+
+| Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
+|---|---|---|---|---|---|---|---|
+| Ascent 2.4 | 2019 | CVT | USA | **LT8D800A** | 616 | 250 | no |
+| Ascent 2.4 | 2020 | CVT | USA | **LT8F300C** | 617 | 250 | no |
+| Ascent 2.4 | 2021 | CVT | USA | **LT8H300D** | 847 | 251 | no |
+
+The Ascent runs a later build of the same ECU software, so most tables are the FA20DIT ones at the Ascent's own
+addresses. Boost control is different: the Ascent has an electric wastegate actuator, and its definitions have their
+own boost group (target, wastegate position feed-forward and compensations, boost feedback, actuator and motor
+limits). Position is shown as % open, 0 % = closed on its seat; that scale and the boost-pressure unit are inferred.
+The 2021 ROM carries the most tables; the 2019 and 2020 ROMs are separate builds with fewer tables placed so far. The
+2020 and 2021 ROMs have 11-character IDs (LT8F300C00G, LT8H300D00G); the definitions match the first eight. All three
+came from Subaru's dealer software, which has no boot block, so I have not checked the definitions against a read from
+a car yet: if you have an Ascent, a stock read would help.
+
+</details>
+
 Notes on individual ROMs and credits are in the [definitions README](definitions/README.md#notes-on-individual-roms).
 Special thanks to reokov for many of the submitted ROMs, the calibration ID list, testing on real cars, and a steady
 stream of suggestions.
@@ -182,7 +202,8 @@ same model year; flashing with a definition for another ID will corrupt the cali
 | Other 2015–2018 WRX and Forester XT calibrations (e.g. LF75403T, LF75403G, LF79102N, LF9C002N, LF75403A, LF78106B, LF9C002B) | I don't have these ROMs. [Submit one](#submitting-a-rom) and I can add it. |
 | 2013–2015 Forester XT with an AF5G…, AF56…, AF6A…, LF61…, LF6A… or LF7B… ID (e.g. LF61803B) | An older 1.5 MB ECU (SH705x) with different software; not covered by these definitions. |
 | Other 2019+ calibrations | These ECUs have 2.5 MB of flash and a newer boot block, like the supported 2019–2021 WRX (LF9D…, LF9G…, LF9K…) and Levorg STI (LF9F000R), so a complete read makes them supportable. EcuFlash can open 2.5 MB ROMs. |
-| 2022+ WRX and the Ascent (FA24DIT, LT8… IDs and newer) | Different engine and ECU generation; not started. |
+| Other Ascent calibrations (LT8… IDs) | Same software family as the supported Ascent ROMs; each needs a read and a port. |
+| 2022+ WRX (FA24DIT) | Different ECU generation; not started. |
 
 </details>
 
@@ -193,7 +214,7 @@ A list of the calibration IDs known for these ECUs, and how each relates to the 
 
 | Folder | Contents |
 |---|---|
-| `definitions/romraider/` | `FA20DIT_RomRaider.xml`: one file covering every supported 2.0 ROM. `FB16DIT_RomRaider.xml`: the same for the Levorg 1.6. |
+| `definitions/romraider/` | `FA20DIT_RomRaider.xml`: one file covering every supported 2.0 ROM. `FB16DIT_RomRaider.xml`: the same for the Levorg 1.6. `FA24DIT_RomRaider.xml`: the Ascent. |
 | `definitions/ecuflash/Imperial/`, `definitions/ecuflash/Metric/` | The same EcuFlash definitions in two unit systems (EcuFlash can't switch units itself). Each folder has a base file per engine (every table) plus one small file per ROM; install one of the two. |
 | `logger/` | `FA20DIT_Logger.xml` (stock SSM and OBD parameters, trouble codes; also for the Levorg 1.6) and `FA20DIT_Logger_LogPatch.xml` (stock plus the logging-patch parameters). `FA20DIT_Logger_LogPatch_only.xml` holds only the new parameters, for merging into your own logger file. |
 | `tools/checksum.py`, `tools/checksum.ps1` | Check and fix the ROM checksum of 2 MB and 2.5 MB ROMs (Python, or PowerShell for Windows). **Required for ROMs edited in RomRaider**, and `verify` before any flash (see below). |
@@ -205,7 +226,7 @@ A list of the calibration IDs known for these ECUs, and how each relates to the 
 
 ### Editing with RomRaider
 1. Add `definitions/romraider/FA20DIT_RomRaider.xml` in RomRaider's Definition Manager (for a Levorg 1.6,
-   `FB16DIT_RomRaider.xml`; having both installed is fine).
+   `FB16DIT_RomRaider.xml`; for an Ascent, `FA24DIT_RomRaider.xml`; having several installed is fine).
 2. Open your ROM. Tables are grouped by purpose (Fueling, Ignition Timing, Boost Control, …) in tuning order.
 3. Set the user level (Settings → User Level) to match what you want to see: **Beginner** and **Intermediate** cover
    normal tuning; **Debug** shows tables your ROM's own calibration switches off, tables of unused code paths, and
@@ -221,7 +242,8 @@ the wrong bit.
 ### Editing with EcuFlash
 Pick a unit system: `definitions/ecuflash/Imperial/` (psi, °F, ft-lb, mph) or `definitions/ecuflash/Metric/` (kPa /
 MPa, °C, Nm, km/h). Copy that folder's base file (`FA20DIT_BASE_EcuFlash.xml`, or `FA20DIT_BASE_METRIC_EcuFlash.xml`;
-for a Levorg 1.6, `FB16DIT_BASE_EcuFlash.xml` or `FB16DIT_BASE_METRIC_EcuFlash.xml`)
+for a Levorg 1.6, `FB16DIT_BASE_EcuFlash.xml` or `FB16DIT_BASE_METRIC_EcuFlash.xml`; for an Ascent, `FA24DIT_BASE_EcuFlash.xml`
+or `FA24DIT_BASE_METRIC_EcuFlash.xml`)
 and the file for your ROM into one folder under your EcuFlash metadata folder (for example
 `rommetadata/subaru/FA20DIT/`) and restart EcuFlash. The base file is required: it holds the table definitions, and
 the ROM file only its addresses. Install only one of the two sets: both use the same ROM IDs. Table folders are numbered in tuning order
@@ -238,7 +260,7 @@ The [EcuFlash README](definitions/ecuflash/README.md) explains why.
 This ECU checks a 16-bit checksum over the whole flash, and a ROM with a bad checksum won't run. **EcuFlash corrects
 it when you save** a 2015–2018 (2 MB) ROM: those EcuFlash definitions use its built-in `subaruhitachi` checksum module,
 and in EcuFlash 1.44.4870 the saved file is byte-identical to the checksum tool's output. That module gets the 2019+
-(2.5 MB) layout wrong, so the 2.5 MB definitions (LF9F000R and the 2019–2020 Levorg 1.6 ROMs) don't use it: fix those
+(2.5 MB) layout wrong, so the 2.5 MB definitions (LF9F000R, the 2019–2020 Levorg 1.6 ROMs and the Ascent) don't use it: fix those
 with the checksum tool. **RomRaider can't correct it yet**:
 RomRaider 1.0.0 and 1.1.0 can't load a checksum module from a definition folder, so the definition can't include one
 until my fix
@@ -319,6 +341,9 @@ Every table whose unit depends on the system has both an imperial and a metric s
   to correct it when it flashes (not tested by me). RomRaider (1.0.0, 1.1.0) and EcuFlash with 2.5 MB ROMs don't:
   use `tools/checksum.py` or `tools/checksum.ps1`.
 - **Use RomRaider 1.0.0 or later.** Older versions read the DTC tables wrong.
+- **Ascent: first release.** Fewer tables than the 2.0 and 1.6 definitions, especially on the 2019 and 2020 ROMs, and
+  not yet checked against a read from a car. The checksum tool's sum matches the dealer-software images; that the
+  Ascent ECU checks it the same way is inferred.
 - **Inferred items** are marked "inferred" in their descriptions; everything else is read from the ECU code.
 
 ## Reading your ECU

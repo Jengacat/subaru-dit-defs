@@ -57,17 +57,21 @@
   <table name="Engine Speed" address="012e7e" />
   <table name="Injector Pulse Width" address="012e94" />
  </table>
- <table name="Per-Injector Fuel Multiplier 2 (Single Injection)" address="017eb0">
-  <table name="Engine Load" address="017df4" />
-  <table name="Engine Speed" address="017de4" />
+ <table name="Per-Injector Fuel Multiplier 1 (Single Injection)" address="017e30">
+  <table name="Engine Load" address="017dc4" />
+  <table name="Engine Speed" address="017db4" />
  </table>
- <table name="Per-Injector Fuel Multiplier 3 (Single Injection)" address="017f70">
-  <table name="Engine Load" address="017df4" />
-  <table name="Engine Speed" address="017de4" />
+ <table name="Per-Injector Fuel Multiplier 2 (Single Injection)" address="017ef0">
+  <table name="Engine Load" address="017dc4" />
+  <table name="Engine Speed" address="017db4" />
  </table>
- <table name="Per-Injector Fuel Multiplier 4 (Single Injection)" address="018030">
-  <table name="Engine Load" address="017df4" />
-  <table name="Engine Speed" address="017de4" />
+ <table name="Per-Injector Fuel Multiplier 3 (Single Injection)" address="017fb0">
+  <table name="Engine Load" address="017dc4" />
+  <table name="Engine Speed" address="017db4" />
+ </table>
+ <table name="Per-Injector Fuel Multiplier 4 (Single Injection)" address="018070">
+  <table name="Engine Load" address="017dc4" />
+  <table name="Engine Speed" address="017db4" />
  </table>
  <table name="Injector 2/4 Rail Pressure Offset" address="063058">
   <table name="Engine Load" address="063048" />
@@ -102,6 +106,7 @@
  <table name="Target Rail Pressure (Combustion Mode 3, Pedal Applied)" address="047afe">
   <table name="Coolant Temp" address="03f37c" />
  </table>
+ <table name="Target Rail Pressure (Catalyst Heating)" address="047814" />
  <table name="HPFP Feedforward Command" address="047b32">
   <table name="Engine Speed" address="047b1e" />
   <table name="Fuel Quantity" address="04788e" />
@@ -130,39 +135,37 @@
  <table name="HPFP Solenoid End Offset" address="0476d0">
   <table name="Engine Speed" address="0474a0" />
  </table>
- <table name="Per-Injector Fuel Multiplier 1 (Double Injection)" address="0180f0">
+ <table name="Per-Injector Fuel Multiplier 1 (Double Injection)" address="017e70">
+  <table name="Engine Load" address="017ddc" />
+  <table name="Engine Speed" address="017dcc" />
+ </table>
+ <table name="Per-Injector Fuel Multiplier 1 (Triple Injection)" address="017eb0">
   <table name="Engine Load" address="017df4" />
   <table name="Engine Speed" address="017de4" />
  </table>
- <table name="Per-Injector Fuel Multiplier 1 (Triple Injection)" address="017e70">
+ <table name="Per-Injector Fuel Multiplier 2 (Double Injection)" address="017f30">
   <table name="Engine Load" address="017ddc" />
   <table name="Engine Speed" address="017dcc" />
  </table>
- <table name="Per-Injector Fuel Multiplier 2 (Double Injection)" address="017ef0">
-  <table name="Engine Load" address="017dc4" />
-  <table name="Engine Speed" address="017db4" />
+ <table name="Per-Injector Fuel Multiplier 2 (Triple Injection)" address="017f70">
+  <table name="Engine Load" address="017df4" />
+  <table name="Engine Speed" address="017de4" />
  </table>
- <table name="Per-Injector Fuel Multiplier 2 (Triple Injection)" address="017f30">
+ <table name="Per-Injector Fuel Multiplier 3 (Double Injection)" address="017ff0">
   <table name="Engine Load" address="017ddc" />
   <table name="Engine Speed" address="017dcc" />
  </table>
- <table name="Per-Injector Fuel Multiplier 3 (Double Injection)" address="017fb0">
-  <table name="Engine Load" address="017dc4" />
-  <table name="Engine Speed" address="017db4" />
+ <table name="Per-Injector Fuel Multiplier 3 (Triple Injection)" address="018030">
+  <table name="Engine Load" address="017df4" />
+  <table name="Engine Speed" address="017de4" />
  </table>
- <table name="Per-Injector Fuel Multiplier 3 (Triple Injection)" address="017ff0">
+ <table name="Per-Injector Fuel Multiplier 4 (Double Injection)" address="0180b0">
   <table name="Engine Load" address="017ddc" />
   <table name="Engine Speed" address="017dcc" />
  </table>
- <table name="Per-Injector Fuel Multiplier 4 (Double Injection)" address="018070">
-  <table name="Engine Load" address="017dc4" />
-  <table name="Engine Speed" address="017db4" />
- </table>
- <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" address="047abe">
-  <table name="Coolant Temp" address="047a9e" />
- </table>
- <table name="Target Rail Pressure (Combustion Mode 1, Fallback, AT/CVT Coding)" address="047db8">
-  <table name="Coolant Temp" address="047a9e" />
+ <table name="Per-Injector Fuel Multiplier 4 (Triple Injection)" address="0180f0">
+  <table name="Engine Load" address="017df4" />
+  <table name="Engine Speed" address="017de4" />
  </table>
  <table name="Primary Open Loop Fueling" address="018f00">
   <table name="Engine Load" address="011b38" />
@@ -900,6 +903,10 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Coolant Temp" address="02f378" />
   <table name="Y Axis" address="02f389" />
  </table>
+ <table name="Start Split Injection Second Share" address="02f3d2">
+  <table name="Coolant Temp" address="02f378" />
+  <table name="Y Axis" address="02f389" />
+ </table>
  <table name="Start Split Injection Second Share (Idle, Alternate)" address="02f744">
   <table name="Coolant Temp" address="02f378" />
   <table name="Y Axis" address="02f389" />
@@ -1524,6 +1531,10 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
  <table name="Torque Reduction Spark Retard" address="035418">
   <table name="Y Axis" address="0353f8" />
  </table>
+ <table name="Base Timing (Pedal Released, TGV Open)" address="01061e">
+  <table name="Engine Load" address="0105fe" />
+  <table name="Engine Speed" address="0105de" />
+ </table>
  <table name="Ignition Timing Cap (Pedal Released, TGV Closed)" address="03945a">
   <table name="Engine Load" address="0398b0" />
   <table name="Engine Speed" address="039890" />
@@ -1559,10 +1570,6 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Coolant Temp" address="02f162" />
   <table name="Count" address="02f182" />
  </table>
- <table name="Start Spark Target Re-Entry Adder (Mode 1)" address="02f466">
-  <table name="Coolant Temp" address="03f37c" />
-  <table name="Count" address="02f446" />
- </table>
  <table name="Start Spark Target Re-Entry Adder (Mode 1, AT/CVT, Warm-Up Fallback)" address="02f586">
   <table name="Coolant Temp" address="03f37c" />
   <table name="Count" address="02f566" />
@@ -1571,30 +1578,34 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Coolant Temp" address="02f162" />
   <table name="Y Axis" address="02f14a" />
  </table>
- <table name="Target Boost (from Requested Boost)" address="064568">
-  <table name="X Axis" address="06491e" />
+ <table name="Start Spark Target Torque Adder (Mode 1, Warm-Up Fallback)" address="02ee08">
+  <table name="Coolant Temp" address="02f162" />
+  <table name="Y Axis" address="02f15a" />
+ </table>
+ <table name="Target Boost (Electronic Wastegate)" address="064568">
+  <table name="Target Torque" address="06491e" />
   <table name="Engine Speed" address="0648f8" />
  </table>
  <table name="Target Boost IAT Multiplier" address="063e36">
-  <table name="Temperature" address="02510e" />
+  <table name="Intake Air Temp" address="02510e" />
  </table>
  <table name="Target Boost Baro Multiplier" address="063e47">
   <table name="Barometric Pressure" address="0250fa" />
   <table name="Engine Speed" address="0641b2" />
  </table>
- <table name="Target Boost Coolant Correction 1" address="0641c6">
+ <table name="Target Boost Torque Correction (Coolant) 1" address="0641c6">
   <table name="Coolant Temp" address="03f37c" />
  </table>
- <table name="Target Boost Coolant Correction 2" address="0641e6">
+ <table name="Target Boost Torque Correction (Coolant) 2" address="0641e6">
   <table name="Coolant Temp" address="03f37c" />
  </table>
  <table name="Target Boost Cap (Electronic Wastegate)" address="0641c4" />
  <table name="Wastegate Position Feed-Forward" address="064256">
-  <table name="X Axis" address="064476" />
+  <table name="Target Boost" address="064476" />
   <table name="Engine Speed" address="064456" />
  </table>
  <table name="Wastegate Position IAT Compensation" address="063ea1">
-  <table name="Temperature" address="063fa1" />
+  <table name="Intake Air Temp" address="063fa1" />
   <table name="Engine Speed" address="064496" />
  </table>
  <table name="Wastegate Position Baro Compensation" address="063fb1">
@@ -1602,20 +1613,20 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Engine Speed" address="064496" />
  </table>
  <table name="Wastegate Position Feed-Forward Compensation" address="0640b1">
-  <table name="X Axis" address="0644d6" />
+  <table name="Wastegate Feed-Forward Position" address="0644d6" />
   <table name="Engine Speed" address="064496" />
  </table>
  <table name="Wastegate Open Below RPM" address="06420a">
   <table name="Coolant Temp" address="06422a" />
  </table>
  <table name="Wastegate Actuator Target Speed" address="063d1a">
-  <table name="Y Axis" address="063d3a" />
+  <table name="Wastegate Position Error" address="063d3a" />
  </table>
  <table name="Wastegate Motor Feed-Forward Duty" address="063d5c">
-  <table name="Y Axis" address="063d7c" />
+  <table name="Actuator Target Speed" address="063d7c" />
  </table>
  <table name="Wastegate Motor Voltage Compensation" address="063db2">
-  <table name="Battery Voltage (Filtered)" address="063dba" />
+  <table name="Module Voltage" address="063dba" />
  </table>
  <table name="Wastegate Motor Holding Duty" address="063dca">
   <table name="Y Axis" address="063dea" />
@@ -1649,13 +1660,15 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Engine Speed" address="065258" />
  </table>
  <table name="Boost Feed-Forward-Only Threshold IAT Factor" address="065c7a">
-  <table name="Temperature" address="065d7a" />
+  <table name="Intake Air Temp" address="065d7a" />
   <table name="Engine Speed" address="064536" />
  </table>
  <table name="Boost Integral Maximum (Wastegate Position)" address="064d6e" />
  <table name="Boost Integral Minimum (Wastegate Position)" address="064d70" />
  <table name="Boost Feedback Maximum (Wastegate Position)" address="064d72" />
  <table name="Boost Feedback Minimum (Wastegate Position)" address="064d74" />
+ <table name="P0234 Overboost Error Threshold" address="065dcc" />
+ <table name="P0234 Overboost Time" address="065dce" />
  <table name="Requested Torque (Drive Mode 1, Default)" address="01f580">
   <table name="Accelerator Pedal" address="01f210" />
   <table name="Engine Speed" address="01f1e6" />
@@ -2026,10 +2039,28 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
  <table name="Vehicle Speed Limit Reset Maximum MAP" address="01f0ba" />
  <table name="Vehicle Speed Limit Reset Maximum MAP Hysteresis" address="01f0bc" />
  <table name="Pedal Limits Disable" address="061ed7" />
+ <table name="Vehicle Speed Limit (Pedal)" address="06244a">
+  <table name="Speed" address="06244e" />
+ </table>
+ <table name="Vehicle Speed Limit (Pedal, Drive Mode 3, Intelligent)" address="06243e">
+  <table name="Speed" address="062442" />
+ </table>
  <table name="Rev Limit Full Cut Speed Threshold" address="01f0b6" />
+ <table name="Vehicle Speed Limit (Pedal, VDC Flag)" address="062462">
+  <table name="Speed" address="062466" />
+ </table>
+ <table name="Vehicle Speed Limit (Pedal, VDC Flag, Drive Mode 3, Intelligent)" address="062456">
+  <table name="Speed" address="06245a" />
+ </table>
  <table name="Vehicle Speed Limit (Pedal) Minimum RPM" address="0623c2" />
  <table name="Vehicle Speed Limit (Pedal, VDC Flag) Minimum RPM" address="0623c4" />
+ <table name="Vehicle Speed Limit (Pedal) Speed Signal Fault RPM Limit" address="062426">
+  <table name="Engine Speed" address="06242a" />
+ </table>
  <table name="Rev Limit Full Cut Speed Threshold Hysteresis" address="01f0b7" />
+ <table name="Vehicle Speed Limit (Pedal, VDC Flag) Speed Signal Fault RPM Limit" address="062432">
+  <table name="Engine Speed" address="062436" />
+ </table>
  <table name="Fail-Safe Rev Limit (Rail Pressure Fault)" address="010770" />
  <table name="Fail-Safe Rev Limit (Injector Driver Fault)" address="010772" />
  <table name="Fail-Safe Rev Limit (Unused Fault Flag)" address="010774" />
@@ -2179,37 +2210,37 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
  <table name="Throttle Command Term" address="025592">
   <table name="Y Axis" address="0255a2" />
  </table>
- <table name="Engine Torque from Load (DAM 1.0, TGV Closed)" address="03bde8">
-  <table name="Engine Load" address="03bdb8" />
-  <table name="Engine Speed" address="03bdc8" />
- </table>
- <table name="Engine Torque from Load (DAM 1.0, TGV Closed, EGR)" address="03c762">
-  <table name="Engine Load" address="03bdb8" />
-  <table name="Engine Speed" address="03bdc8" />
- </table>
- <table name="Engine Torque from Load (DAM 1.0, TGV Open)" address="03c018">
-  <table name="Engine Load" address="03bfe8" />
-  <table name="Engine Speed" address="03bff8" />
- </table>
- <table name="Engine Torque from Load (DAM 1.0, TGV Open, EGR)" address="03c962">
-  <table name="Engine Load" address="03bfe8" />
-  <table name="Engine Speed" address="03bff8" />
- </table>
- <table name="Engine Torque from Load (DAM 0, TGV Closed)" address="03b988">
+ <table name="Engine Torque from Load (DAM 1.0, TGV Closed)" address="03b988">
   <table name="Engine Load" address="03b958" />
   <table name="Engine Speed" address="03b968" />
  </table>
- <table name="Engine Torque from Load (DAM 0, TGV Closed, EGR)" address="03c362">
+ <table name="Engine Torque from Load (DAM 1.0, TGV Closed, EGR)" address="03c362">
   <table name="Engine Load" address="03b958" />
   <table name="Engine Speed" address="03b968" />
  </table>
- <table name="Engine Torque from Load (DAM 0, TGV Open)" address="03bbb8">
+ <table name="Engine Torque from Load (DAM 1.0, TGV Open)" address="03bbb8">
   <table name="Engine Load" address="03bb88" />
   <table name="Engine Speed" address="03bb98" />
  </table>
- <table name="Engine Torque from Load (DAM 0, TGV Open, EGR)" address="03c562">
+ <table name="Engine Torque from Load (DAM 1.0, TGV Open, EGR)" address="03c562">
   <table name="Engine Load" address="03bb88" />
   <table name="Engine Speed" address="03bb98" />
+ </table>
+ <table name="Engine Torque from Load (DAM 0, TGV Closed)" address="03bde8">
+  <table name="Engine Load" address="03bdb8" />
+  <table name="Engine Speed" address="03bdc8" />
+ </table>
+ <table name="Engine Torque from Load (DAM 0, TGV Closed, EGR)" address="03c762">
+  <table name="Engine Load" address="03bdb8" />
+  <table name="Engine Speed" address="03bdc8" />
+ </table>
+ <table name="Engine Torque from Load (DAM 0, TGV Open)" address="03c018">
+  <table name="Engine Load" address="03bfe8" />
+  <table name="Engine Speed" address="03bff8" />
+ </table>
+ <table name="Engine Torque from Load (DAM 0, TGV Open, EGR)" address="03c962">
+  <table name="Engine Load" address="03bfe8" />
+  <table name="Engine Speed" address="03bff8" />
  </table>
  <table name="Full-Load Reference Brake Torque" address="0263d2">
   <table name="Engine Speed" address="025ef0" />
@@ -2265,10 +2296,13 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
  <table name="Torque Model Filter Multiplier B" address="010852">
   <table name="Coolant Temp" address="03f37c" />
  </table>
- <table name="Torque Model Filter Multiplier C" address="0107d0">
+ <table name="Torque Model Filter Multiplier A (Alt)" address="010832">
   <table name="Coolant Temp" address="03f37c" />
  </table>
- <table name="Torque Model Filter Multiplier A (Below Idle Target, TGV Closed)" address="011b18">
+ <table name="Torque Model Filter Multiplier C (Alt)" address="0107b0">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="Torque Model Filter Multiplier C" address="0107d0">
   <table name="Coolant Temp" address="03f37c" />
  </table>
  <table name="Spark Compensation Filter Rate (High Pressure)" address="025ed0">
@@ -2703,6 +2737,9 @@ Base term by rpm of the exhaust cam 1 OCV duty in the legacy byte-based AVCS pat
 
 Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS path: about 47.2-50.8 % duty before the FFF88AA4 factor; the learned and feedback bytes are added around 128 (= 51.2 %). Module (read): seg 0x100000 0x104xxx-0x106xxx is the byte-based cam path; 0x10466C (intake, called at seg_0x100000.c:3516 with rpm CD54, FFF88AA4, learned bytes FFF8147A/147C/147E, feedback bytes FFF8B368, cam errors B956/B954) forms per cam: B352 = this(rpm) x 026EB0/026EC0(FFF88AA4)/128; B356 = 147A if the cam error &gt;= cal 0x26E82 (364 = 2.0 deg), 147C if &lt;= cal 0x26E84 (-2.0 deg), else 128; B366 = clamp(B368 + B352 + 147E + B356 - 384, 0, 250). 0x106A0C does the same for the exhaust cams (05CF08/05CF14, factors 0298F4/029904, errors B916/B914, thresholds cal 0x298C6/0x298C8) into B380. The OCV duty routines 0x15DF20 / 0x15E63C (intake cam 1 / 2) and 0x16269C / 0x162D18 (exhaust) set duty B8DE = B366[cam] x 10 (B380 for exhaust) only when cal 0x3CCC4 bit 0 is clear (read). FFF88AA4 = (FFF88AE6 &gt;&gt; 8 - 10) x 1.6 (0x060000 area, read); FFF88AE6 not identified. LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). Confidence: inferred.</description>
  </table>
+ <table name="Idle Speed Target (Warm Idle, Mode 5)" address="028714" />
+ <table name="Idle Speed Target (Warm Idle, AT/CVT, Mode 6)" address="028734" />
+ <table name="Idle Speed Target (Warm Start, Mode 3)" address="0286d4" />
  <table name="Idle Speed Target (In Drive, AT/CVT)" address="029d43">
   <table name="Coolant Temp" address="03f37c" />
  </table>
@@ -2725,13 +2762,7 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
  <table name="Idle Target Ramp Rate (Mode 2 to 5)" address="028794">
   <table name="Coolant Temp" address="03f37c" />
  </table>
- <table name="Idle Target Ramp Rate (Mode 2 to 7)" address="0287b4">
-  <table name="Coolant Temp" address="03f37c" />
- </table>
  <table name="Idle Target Ramp Rate (Mode 3 to 5)" address="0287d4">
-  <table name="Coolant Temp" address="03f37c" />
- </table>
- <table name="Idle Target Ramp Rate (Mode 3 to 7)" address="0287f4">
   <table name="Coolant Temp" address="03f37c" />
  </table>
  <table name="Idle Target Ramp Rate (Mode 7 to 5)" address="028854">
@@ -2779,6 +2810,7 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
  <table name="Idle Target Ramp Rate (AT/CVT, Mode 8 to 7)" address="0289f4">
   <table name="Coolant Temp" address="03f37c" />
  </table>
+ <table name="Idle Speed Target (Cold Idle, Mode 4)" address="0286f4" />
  <table name="Idle Target Ramp Rate (Mode 4 to 5)" address="028814">
   <table name="Coolant Temp" address="03f37c" />
  </table>
@@ -2794,6 +2826,11 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
  <table name="CAN Idle Speed Request Remap (Flag Set, Alternate)" address="03b730">
   <table name="Engine Speed" address="03b6f4" />
  </table>
+ <table name="Idle Base Air (Mode 5)" address="028c62" />
+ <table name="Idle Base Air (Mode 5, TGV Closed)" address="028b62" />
+ <table name="Idle Base Air (Warm Start, Mode 3)" address="028c22" />
+ <table name="Idle Base Air (Warm Start, Mode 3, TGV Closed)" address="028b22" />
+ <table name="Idle Base Air (AT/CVT, Mode 6, TGV Closed)" address="028b82" />
  <table name="Post-Start Idle Air (Initial)" address="02a088">
   <table name="Coolant Temp" address="03f37c" />
   <table name="Start Type FFF8A6E7" address="02a188" />
@@ -2909,6 +2946,8 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
  <table name="Idle Air from Throttle Area (Torque Request)" address="029e2e">
   <table name="Y Axis" address="029e4e" />
  </table>
+ <table name="Idle Base Air (Cold Idle, Mode 4)" address="028c42" />
+ <table name="Idle Base Air (Cold Idle, Mode 4, TGV Closed)" address="028b42" />
  <table name="Post-Start Idle Air (Stop-Start Restart)" address="02a36c">
   <table name="Coolant Temp" address="03f37c" />
   <table name="Selector FFF8A6E8" address="02a4ac" />
@@ -3140,6 +3179,7 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
  <table name="TGV IAT Threshold" address="03eac4">
   <table name="Vehicle Speed" address="03eabc" />
  </table>
+ <table name="TGV Air Quantity Maximum (Enter)" address="03eab8" />
  <table name="TGV Air Quantity Maximum (Exit)" address="03eab6" />
  <table name="TGV Close Delay" address="03eaa4">
   <table name="Vehicle Speed" address="03ea9c" />
@@ -3166,9 +3206,9 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
  <table name="TGV Torque Threshold Exit (Start Modes)" address="03ebb8">
   <table name="Engine Speed" address="03ead4" />
  </table>
- <table name="Cruise Pedal Equivalent (Drive Mode 3, Intelligent)" address="0481c6">
-  <table name="Engine Speed" address="047e46" />
-  <table name="Y Axis" address="047e26" />
+ <table name="Cruise Pedal Equivalent (Other Drive Modes)" address="0485c6">
+  <table name="Engine Speed" address="047ec6" />
+  <table name="Y Axis" address="047ea6" />
  </table>
  <table name="Cruise Pedal Equivalent (Other Drive Modes, Meter Cruise Option)" address="0483c6">
   <table name="Engine Speed" address="047e86" />
@@ -3300,6 +3340,9 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
  <table name="Charging Target Voltage (Adaptive) Minimum" address="0407e4" />
  <table name="Charging Target Voltage Maximum" address="0409e0" />
  <table name="Charging Target Voltage Minimum" address="0409e2" />
+ <table name="Alternator Command from Target Voltage" address="04096c">
+  <table name="Y Axis" address="04089a" />
+ </table>
  <table name="Charging Target Temperature Correction Threshold" address="040812" />
  <table name="Charging Target Temperature Correction" address="040930">
   <table name="Y Axis" address="04087a" />
@@ -3315,11 +3358,7 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
  <table name="Battery Charged Check Window" address="0407bc" />
  <table name="Charge Cycle Length" address="0407c4" />
  <table name="Adaptive Charging Time Limit" address="0407c0" />
- <table name="Adaptive Charging Charge Limit" address="0407d0">
-  <description>Adaptive charging also ends once this much charge has gone back into the battery (raw units).
-
-Details: Compared with FFF81848, the integral of charging current while in mode 5 (0x1368C4, read; unit not confirmed). LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). Confidence: read.</description>
- </table>
+ <table name="Adaptive Charging Charge Limit" address="0407d0" />
  <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" address="039e24">
   <table name="Coolant Temp" address="039e36" />
  </table>
@@ -3331,6 +3370,8 @@ Details: Compared with FFF81848, the integral of charging current while in mode 
  </table>
  <table name="Charging Feedback Integral Step Up" address="0407fc" />
  <table name="Charging Feedback Integral Step Down" address="0407fa" />
+ <table name="Charging Feedback Integral Maximum" address="04098e" />
+ <table name="Charging Feedback Integral Minimum" address="040990" />
  <table name="Charging Feedback Integral Gain" address="0407f8" />
  <table name="Charging Feedback Deadband Above" address="0407f4" />
  <table name="Charging Feedback Deadband Below" address="0407f6" />
@@ -3450,6 +3491,8 @@ Details: Compared with FFF81848, the integral of charging current while in mode 
  <table name="Open Loop Fueling: Use Alternate Map" address="034d8a" />
  <table name="VE: Use AVCS-Not-Ready Table" address="030e48" />
  <table name="Base Timing: Pedal-Released Tables Enable" address="01071e" />
+ <table name="P0299 Underboost Error Threshold" address="065dd6" />
+ <table name="P0299 Underboost Time" address="065dd4" />
  <table name="(P000A) Intake Camshaft Position Slow Response (Bank 1)" address="4a774" />
  <table name="(P000A) Intake Camshaft Position Slow Response (Bank 1) [Fail-Safe]" address="62290" />
  <table name="(P000B) Exhaust Camshaft Position Slow Response (Bank 1)" address="4a774" />

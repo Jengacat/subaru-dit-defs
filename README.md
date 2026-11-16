@@ -168,14 +168,16 @@ patch has not been ported to that ROM yet.
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
-| Ascent 2.4 | 2019 | CVT | USA | **LT8D800A** | 1100 | 250 | no |
-| Ascent 2.4 | 2020 | CVT | USA | **LT8F300C** | 1101 | 250 | no |
-| Ascent 2.4 | 2021 | CVT | USA | **LT8H300D** | 1104 | 251 | no |
+| Ascent 2.4 | 2019 | CVT | USA | **LT8D800A** | 1127 | 250 | no |
+| Ascent 2.4 | 2020 | CVT | USA | **LT8F300C** | 1128 | 250 | no |
+| Ascent 2.4 | 2021 | CVT | USA | **LT8H300D** | 1135 | 251 | no |
 
 The Ascent runs a later build of the same ECU software, so most tables are the FA20DIT ones at the Ascent's own
 addresses. Boost control is different: the Ascent has an electric wastegate actuator, and its definitions have their
-own boost group (target, wastegate position feed-forward and compensations, boost feedback, actuator and motor
-limits). Position is shown as % open, 0 % = closed on its seat; that scale and the boost-pressure unit are inferred.
+own boost group: the boost target (by rpm and target torque) and its corrections, the wastegate position
+feed-forward and compensations, boost feedback, the actuator and motor limits, and the overboost (P0234) and
+underboost (P0299) limits. Motor drive is in % duty. Position is shown as % open, 0 % = closed on its seat (the %
+scale is inferred; it can also be shown as the position sensor's voltage).
 The three ROMs now carry nearly the same set of tables, placed from the 2020 WRX and from each other; wherever two
 sources place the same table they agree. The
 2020 and 2021 ROMs have 11-character IDs (LT8F300C00G, LT8H300D00G); the definitions match the first eight.
@@ -341,8 +343,9 @@ Every table whose unit depends on the system has both an imperial and a metric s
   use `tools/checksum.py` or `tools/checksum.ps1`.
 - **Use RomRaider 1.0.0 or later.** Older versions read the DTC tables wrong.
 - **Ascent: first release.** Fewer tables than the 2.0 and 1.6 definitions (about 1,100 against 1,200), and
-  not yet checked against a read from a car. The checksum tool's sum matches the dealer-software images; that the
-  Ascent ECU checks it the same way is inferred.
+  not yet checked against a read from a car. The ECU's own running checksum check uses the same rule as the 2.5 MB
+  WRX, which the checksum tool follows; the boot block's check could not be read, because the dealer-software images
+  have no boot block. On those images `verify` reports one boot marker as BAD; a full read from a car should pass.
 - **Inferred items** are marked "inferred" in their descriptions; everything else is read from the ECU code.
 
 ## Reading your ECU

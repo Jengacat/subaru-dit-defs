@@ -27,6 +27,14 @@ What the ECU checks (read, LF75404S; the same code and constants are in LF75300H
   * The correction word is the last word, 0x27FFFE (not read by any check; both 2.5 MB stock images sum to 0x5AA5
     with it). CVN routine 0x07C794: 0x10000..split and split..0x27FFE0 plus 0x7970..0x10000 (split 0x68B90).
 
+Ascent (FA24DIT, 2.5 MB; read in LT8H300D, LT8F300C and LT8D800A): the application check is the same rule.
+  * 0x0C412C (LT8H300D): 0x6000..0x280000 in 0x20000-byte passes through the boot helper 0x89C, compared with the
+    words at 0x27FFE0 / 0x27FFE2 (skipped when they are 0x0001 / 0xFFFF); a mismatch is re-checked once, a second one
+    sets FFF99819 bit 6 (P0605). All three dealer images sum to 0x5AA5.
+  * Not confirmed: the boot block (RoutineControl check, validity markers, the helper 0x89C itself), because the
+    dealer images carry no Ascent boot block. On those images the 0x006C marker therefore reads BAD; a full read from
+    a car should pass it. CVN routine 0x083424: 0x10000..split and split..0x27FFE0 (split 0x6C5D0 in LT8H300D).
+
 usage: checksum.py verify IMAGE...
        checksum.py fix IMAGE [OUT]      (in place without OUT)
 """

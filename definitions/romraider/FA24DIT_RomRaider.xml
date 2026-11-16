@@ -105,35 +105,46 @@
    </table>
    <description>Fuel multiplier for cylinder 4 only, by fuel quantity and rpm (128 = no change), applied before the pulse is split into injections. Use it to balance individual cylinders.</description>
   </table>
-  <table type="3D" name="Per-Injector Fuel Multiplier 2 (Single Injection)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="3" storageaddress="0x017eb0">
+  <table type="3D" name="Per-Injector Fuel Multiplier 1 (Single Injection)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="3" storageaddress="0x017e30">
    <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
-   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x017df4">
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x017dc4">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
-   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x017de4">
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x017db4">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Fuel multiplier for injector 1 when it fires once per cycle.</description>
+  </table>
+  <table type="3D" name="Per-Injector Fuel Multiplier 2 (Single Injection)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="3" storageaddress="0x017ef0">
+   <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x017dc4">
+    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x017db4">
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Fuel multiplier for injector 2 when it fires once per cycle.</description>
   </table>
-  <table type="3D" name="Per-Injector Fuel Multiplier 3 (Single Injection)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="3" storageaddress="0x017f70">
+  <table type="3D" name="Per-Injector Fuel Multiplier 3 (Single Injection)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="3" storageaddress="0x017fb0">
    <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
-   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x017df4">
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x017dc4">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
-   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x017de4">
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x017db4">
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Fuel multiplier for injector 3 when it fires once per cycle.</description>
   </table>
-  <table type="3D" name="Per-Injector Fuel Multiplier 4 (Single Injection)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="3" storageaddress="0x018030">
+  <table type="3D" name="Per-Injector Fuel Multiplier 4 (Single Injection)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="3" storageaddress="0x018070">
    <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
-   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x017df4">
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x017dc4">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
-   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x017de4">
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x017db4">
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Fuel multiplier for injector 4 when it fires once per cycle.</description>
@@ -244,6 +255,12 @@
    </table>
    <description>Rail pressure target in combustion mode 3 (the phase before normal running) with the accelerator pressed, by coolant.</description>
   </table>
+  <table type="1D" name="Target Rail Pressure (Catalyst Heating)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x046e5c">
+   <scaling category="Default" units="psi" expression="x*0.0884730" to_byte="x/0.0884730" format="0" fineincrement="25" coarseincrement="100.0" />
+   <scaling category="MPa" units="MPa" expression="x*0.00061" to_byte="x/0.00061" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="kPa" units="kPa" expression="x*0.61" to_byte="x/0.61" format="0" fineincrement="100" coarseincrement="400.0" />
+   <description>Fixed rail pressure target during stratified catalyst heating (combustion mode 2).</description>
+  </table>
   <table type="3D" name="HPFP Feedforward Command" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint16" endian="big" sizex="20" sizey="16" userlevel="4" storageaddress="0x04717a">
    <scaling units="deg crank (HPFP frame)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Speed" storagetype="uint8" endian="big" storageaddress="0x047166">
@@ -323,7 +340,18 @@
    </table>
    <description>Crank angle subtracted from the pump command to give the end of the solenoid's energised window, by rpm.</description>
   </table>
-  <table type="3D" name="Per-Injector Fuel Multiplier 1 (Double Injection)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x0180f0">
+  <table type="3D" name="Per-Injector Fuel Multiplier 1 (Double Injection)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x017e70">
+   <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x017ddc">
+    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x017dcc">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Fuel multiplier for injector 1 when it fires twice per cycle (128 = x1.0).</description>
+  </table>
+  <table type="3D" name="Per-Injector Fuel Multiplier 1 (Triple Injection)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x017eb0">
    <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x017df4">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
@@ -332,53 +360,31 @@
    <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x017de4">
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
-   <description>Fuel multiplier for injector 1 when it fires twice per cycle (128 = x1.0).</description>
+   <description>Fuel multiplier for injector 1 when it fires three times per cycle (128 = x1.0).</description>
   </table>
-  <table type="3D" name="Per-Injector Fuel Multiplier 1 (Triple Injection)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x017e70">
+  <table type="3D" name="Per-Injector Fuel Multiplier 2 (Double Injection)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x017f30">
    <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x017ddc">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x017dcc">
-    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
-   </table>
-   <description>Fuel multiplier for injector 1 when it fires three times per cycle (128 = x1.0).</description>
-  </table>
-  <table type="3D" name="Per-Injector Fuel Multiplier 2 (Double Injection)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x017ef0">
-   <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
-   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x017dc4">
-    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
-    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x017db4">
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Fuel multiplier for injector 2 when it fires twice per cycle (128 = x1.0).</description>
   </table>
-  <table type="3D" name="Per-Injector Fuel Multiplier 2 (Triple Injection)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x017f30">
+  <table type="3D" name="Per-Injector Fuel Multiplier 2 (Triple Injection)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x017f70">
    <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
-   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x017ddc">
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x017df4">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
-   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x017dcc">
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x017de4">
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Fuel multiplier for injector 2 when it fires three times per cycle (128 = x1.0).</description>
   </table>
-  <table type="3D" name="Per-Injector Fuel Multiplier 3 (Double Injection)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x017fb0">
-   <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
-   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x017dc4">
-    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
-    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x017db4">
-    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
-   </table>
-   <description>Fuel multiplier for injector 3 when it fires twice per cycle (128 = x1.0).</description>
-  </table>
-  <table type="3D" name="Per-Injector Fuel Multiplier 3 (Triple Injection)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x017ff0">
+  <table type="3D" name="Per-Injector Fuel Multiplier 3 (Double Injection)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x017ff0">
    <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x017ddc">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
@@ -387,38 +393,40 @@
    <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x017dcc">
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
-   <description>Fuel multiplier for injector 3 when it fires three times per cycle (128 = x1.0).</description>
+   <description>Fuel multiplier for injector 3 when it fires twice per cycle (128 = x1.0).</description>
   </table>
-  <table type="3D" name="Per-Injector Fuel Multiplier 4 (Double Injection)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x018070">
+  <table type="3D" name="Per-Injector Fuel Multiplier 3 (Triple Injection)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x018030">
    <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
-   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x017dc4">
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x017df4">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
-   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x017db4">
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x017de4">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Fuel multiplier for injector 3 when it fires three times per cycle (128 = x1.0).</description>
+  </table>
+  <table type="3D" name="Per-Injector Fuel Multiplier 4 (Double Injection)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x0180b0">
+   <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x017ddc">
+    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x017dcc">
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Fuel multiplier for injector 4 when it fires twice per cycle (128 = x1.0).</description>
   </table>
-  <table type="2D" name="Target Rail Pressure (Combustion Mode 1, Fallback)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x047106">
-   <scaling category="Default" units="psi" expression="x*0.0884730" to_byte="x/0.0884730" format="0" fineincrement="25" coarseincrement="100.0" />
-   <scaling category="MPa" units="MPa" expression="x*0.00061" to_byte="x/0.00061" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
-   <scaling category="kPa" units="kPa" expression="x*0.61" to_byte="x/0.61" format="0" fineincrement="100" coarseincrement="400.0" />
-   <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x0470e6">
-    <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
-    <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
+  <table type="3D" name="Per-Injector Fuel Multiplier 4 (Triple Injection)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x0180f0">
+   <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x017df4">
+    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
-   <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
-  </table>
-  <table type="2D" name="Target Rail Pressure (Combustion Mode 1, Fallback, AT/CVT Coding)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x047400">
-   <scaling category="Default" units="psi" expression="x*0.0884730" to_byte="x/0.0884730" format="0" fineincrement="25" coarseincrement="100.0" />
-   <scaling category="MPa" units="MPa" expression="x*0.00061" to_byte="x/0.00061" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
-   <scaling category="kPa" units="kPa" expression="x*0.61" to_byte="x/0.61" format="0" fineincrement="100" coarseincrement="400.0" />
-   <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x0470e6">
-    <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
-    <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x017de4">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
-   <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1, Fallback).</description>
+   <description>Fuel multiplier for injector 4 when it fires three times per cycle (128 = x1.0).</description>
   </table>
   <table type="3D" name="Primary Open Loop Fueling" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint8" endian="big" sizex="20" sizey="24" userlevel="1" storageaddress="0x018f00">
    <scaling units="AFR (gasoline)" expression="3763.2/(256+x)" to_byte="3763.2/x-256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
@@ -474,6 +482,17 @@
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Open-loop AFR target for TGVs open with AVCS in active control, part of a blend by TGV position and AVCS state, used above Open Loop Delay Load Threshold after a delay. The ECU uses the richer of the two systems, so leaning needs both.</description>
+  </table>
+  <table type="3D" name="Open Loop Fueling Floor (Outside Closed Loop)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint8" endian="big" sizex="16" sizey="16" userlevel="1" storageaddress="0x017a16">
+   <scaling units="AFR (gasoline)" expression="3763.2/(256+x)" to_byte="3763.2/x-256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0179ce">
+    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0179ae">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Minimum enrichment whenever the engine is out of closed loop for any reason: the mixture is at least this rich. Check it as well as Primary Open Loop Fueling when leaning the open-loop target.</description>
   </table>
   <table type="2D" name="Open Loop Delay Load Threshold" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint8" endian="big" sizey="16" userlevel="2" storageaddress="0x015072">
    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
@@ -554,6 +573,24 @@
     <scaling units="DAM" expression="x/16" to_byte="x*16" format="0.000" fineincrement="0.0625" coarseincrement="0.25" min="0" max="1" />
    </table>
    <description>Scales Primary Open Loop Fueling Subtractive by DAM (128 = x1.0).</description>
+  </table>
+  <table type="3D" name="Low-DAM Enrichment" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x017b16">
+   <scaling units="% enrichment" expression="x/327.68" to_byte="x*327.68" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0179fe">
+    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0179de">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Extra fuel, by rpm and load, that richens the closed-loop target, the closed-loop override and the open-loop floor, scaled up as DAM falls (Low-DAM Enrichment DAM Multiplier). Probably a knock-history safety enrichment.</description>
+  </table>
+  <table type="2D" name="Low-DAM Enrichment DAM Multiplier" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint8" endian="big" sizey="8" userlevel="3" storageaddress="0x017d56">
+   <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
+   <table type="Y Axis" name="Dynamic Advance Multiplier" storagetype="uint8" endian="big" storageaddress="0x017a0e">
+    <scaling units="DAM" expression="x/16" to_byte="x*16" format="0.000" fineincrement="0.0625" coarseincrement="0.25" min="0" max="1" />
+   </table>
+   <description>Scales Low-DAM Enrichment by DAM.</description>
   </table>
   <table type="3D" name="Warm-Up Enrichment (TGV Open)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x012c7e">
    <scaling units="% enrichment" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
@@ -2265,6 +2302,17 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
     <scaling units="RPM" expression="x*25" to_byte="x/25" format="0" fineincrement="25" coarseincrement="100.0" />
    </table>
    <description>Share of fuel moved into the second (compression-stroke) pulse during the start / catalyst-heating phase 2, by rpm and coolant (0 = single injection). Used with the pedal released and the car stopped.</description>
+  </table>
+  <table type="3D" name="Start Split Injection Second Share" category="Fueling//Catalyst Heating &amp; Stratified Start" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="3" storageaddress="0x02ee62">
+   <scaling units="% of fuel" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x02ee08">
+    <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
+    <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Axis" storagetype="uint8" endian="big" storageaddress="0x02ee19">
+    <scaling units="RPM" expression="x*25" to_byte="x/25" format="0" fineincrement="25" coarseincrement="100.0" />
+   </table>
+   <description>Share of fuel moved into the second (compression-stroke) pulse during the start / catalyst-heating phase 2, by rpm and coolant (0 = single injection). Used with the pedal pressed or the car moving.</description>
   </table>
   <table type="3D" name="Start Split Injection Second Share (Idle, Alternate)" category="Fueling//Catalyst Heating &amp; Stratified Start" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="3" storageaddress="0x02f1d4">
    <scaling units="% of fuel" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
@@ -3983,6 +4031,17 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    </table>
    <description>Turns a torque or efficiency shortfall back into spark retard on base timing. Besides torque reduction, it is how the ECU pulls fired timing down to Primary Ignition (or the closed-pedal target) plus knock correction advance where that is below Base Timing, so it must stay the inverse of Ignition Efficiency vs Retard; don't edit one without the other. Not used in the rev/overboost-cut states.</description>
   </table>
+  <table type="3D" name="Base Timing (Pedal Released, TGV Open)" category="Ignition Timing//Idle &amp; Closed-Pedal Timing" storagetype="int8" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x01061e">
+   <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint16" endian="big" storageaddress="0x0105fe">
+    <scaling category="Default" units="g/rev" expression="x/256*0.012929" to_byte="x/0.012929*256" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x/256" to_byte="x*256" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0105de">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Base ignition timing map for the pedal fully released (idle and deceleration) with the TGVs open; from 1200 rpm up its rows equal Base Timing (EGR Off, TGV Open). It is only an upper limit: the ECU fires the lower of this map and Closed-Pedal Timing Target (plus its corrections).</description>
+  </table>
   <table type="3D" name="Ignition Timing Cap (Pedal Released, TGV Closed)" category="Ignition Timing//Idle &amp; Closed-Pedal Timing" storagetype="int8" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x038ad6">
    <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x038f2c">
@@ -4075,17 +4134,6 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    </table>
    <description>AT/CVT warm-up fallback copy of Start Spark Target Run-Time Adder (Mode 1).</description>
   </table>
-  <table type="3D" name="Start Spark Target Re-Entry Adder (Mode 1)" category="Ignition Timing//Idle &amp; Closed-Pedal Timing" storagetype="int8" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x02eef6">
-   <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
-   <table type="X Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x03e9f4">
-    <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
-    <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <table type="Y Axis" name="Count" storagetype="uint16" endian="big" storageaddress="0x02eed6">
-    <scaling units="passes" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <description>Added to Start Spark Target Base (Mode 1) by time since the engine dropped back from normal running into the cold-start / catalyst-heating mode, and coolant; manual-car set. Zero until the first such re-entry after power-up.</description>
-  </table>
   <table type="3D" name="Start Spark Target Re-Entry Adder (Mode 1, AT/CVT, Warm-Up Fallback)" category="Ignition Timing//Idle &amp; Closed-Pedal Timing" storagetype="int8" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x02f016">
    <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <table type="X Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x03e9f4">
@@ -4108,23 +4156,33 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    </table>
    <description>Warm-up fallback copy of Start Spark Target Base (Mode 1) for the manual car.</description>
   </table>
-  <table type="3D" name="Target Boost (from Requested Boost)" category="Boost Control//Boost Targets" storagetype="uint16" endian="big" sizex="24" sizey="19" userlevel="1" storageaddress="0x063bc8">
+  <table type="3D" name="Start Spark Target Torque Adder (Mode 1, Warm-Up Fallback)" category="Ignition Timing//Idle &amp; Closed-Pedal Timing" storagetype="int8" endian="big" sizex="16" sizey="8" userlevel="4" storageaddress="0x02e898">
+   <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x02ebf2">
+    <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
+    <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Axis" storagetype="uint8" endian="big" storageaddress="0x02ebea">
+    <scaling units="% of full-load torque" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
+   </table>
+   <description>Warm-up fallback copy of Start Spark Target Torque Adder (Mode 1) for the manual car.</description>
+  </table>
+  <table type="3D" name="Target Boost (Electronic Wastegate)" category="Boost Control//Boost Targets" storagetype="uint16" endian="big" sizex="24" sizey="19" userlevel="1" storageaddress="0x063bc8">
    <scaling category="Default" units="psi (gauge)" expression="((x+3404)/256-101.325)*0.1450377" to_byte="(x/0.1450377+101.325)*256-3404" format="0.00" fineincrement="0.25" coarseincrement="1.0" />
    <scaling category="kPa absolute" units="kPa abs" expression="(x+3404)/256" to_byte="x*256-3404" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <scaling category="psi absolute" units="psia" expression="(x+3404)/256*0.1450377" to_byte="x/0.1450377*256-3404" format="0.00" fineincrement="0.25" coarseincrement="1.0" />
-   <table type="X Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x063f7e">
-    <scaling category="Default" units="psi (gauge)" expression="((x+3404)/256-101.325)*0.1450377" to_byte="(x/0.1450377+101.325)*256-3404" format="0.00" fineincrement="0.25" coarseincrement="1.0" />
-    <scaling category="kPa absolute" units="kPa abs" expression="(x+3404)/256" to_byte="x*256-3404" format="0.0" fineincrement="1" coarseincrement="4.0" />
-    <scaling category="psi absolute" units="psia" expression="(x+3404)/256*0.1450377" to_byte="x/0.1450377*256-3404" format="0.00" fineincrement="0.25" coarseincrement="1.0" />
+   <table type="X Axis" name="Target Torque" storagetype="uint16" endian="big" storageaddress="0x063f7e">
+    <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+    <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x063f58">
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
-   <description>Boost target by engine speed and the boost the torque request asks for. This is the main boost target table.</description>
+   <description>Boost target by engine speed and target torque. This is the main boost target table.</description>
   </table>
   <table type="2D" name="Target Boost IAT Multiplier" category="Boost Control//Boost Targets" storagetype="uint8" endian="big" sizey="16" userlevel="1" storageaddress="0x063496">
    <scaling units="multiplier" expression="x/85" to_byte="x*85" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
-   <table type="Y Axis" name="Temperature" storagetype="uint8" endian="big" storageaddress="0x02510e">
+   <table type="Y Axis" name="Intake Air Temp" storagetype="uint8" endian="big" storageaddress="0x02510e">
     <scaling category="Default" units="degrees F" expression="(x-50)*1.8+32" to_byte="(x-32)/1.8+50" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degC" units="degrees C" expression="x-50" to_byte="x+50" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -4141,21 +4199,21 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    </table>
    <description>Multiplies the boost target by engine speed and barometric pressure (1.00 = no change).</description>
   </table>
-  <table type="2D" name="Target Boost Coolant Correction 1" category="Boost Control//Boost Targets" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x063826">
-   <scaling units="psi" expression="(x-16000)/256*0.1450377" to_byte="x/0.1450377*256+16000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+  <table type="2D" name="Target Boost Torque Correction (Coolant) 1" category="Boost Control//Boost Targets" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x063826">
+   <scaling units="ft-lb" expression="(x-16000)/80*0.7375621" to_byte="x/0.7375621*80+16000" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x03e9f4">
     <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
-   <description>Added to the requested boost by coolant temperature.</description>
+   <description>Added to the target torque the boost target is looked up with, by coolant temperature. Zero everywhere on the reference ROM.</description>
   </table>
-  <table type="2D" name="Target Boost Coolant Correction 2" category="Boost Control//Boost Targets" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x063846">
-   <scaling units="psi" expression="(x-16000)/256*0.1450377" to_byte="x/0.1450377*256+16000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+  <table type="2D" name="Target Boost Torque Correction (Coolant) 2" category="Boost Control//Boost Targets" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x063846">
+   <scaling units="ft-lb" expression="(x-16000)/80*0.7375621" to_byte="x/0.7375621*80+16000" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x03e9f4">
     <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
-   <description>Second coolant-temperature correction to the requested boost.</description>
+   <description>Second coolant-temperature correction to the target torque the boost target is looked up with.</description>
   </table>
   <table type="1D" name="Target Boost Cap (Electronic Wastegate)" category="Boost Control//Boost Targets" storagetype="uint16" endian="big" userlevel="2" storageaddress="0x063824">
    <scaling category="Default" units="psi (gauge)" expression="((x+3404)/256-101.325)*0.1450377" to_byte="(x/0.1450377+101.325)*256-3404" format="0.00" fineincrement="0.25" coarseincrement="1.0" />
@@ -4164,8 +4222,9 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Upper limit on the final boost target. The highest value means no cap.</description>
   </table>
   <table type="3D" name="Wastegate Position Feed-Forward" category="Boost Control//Wastegate Duty" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="1" storageaddress="0x0638b6">
-   <scaling units="% open" expression="(x-16384)/163.84" to_byte="x*163.84+16384" format="0.0" fineincrement="1" coarseincrement="4.0" />
-   <table type="X Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x063ad6">
+   <scaling category="Default" units="% open" expression="(x-16384)/163.84" to_byte="x*163.84+16384" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="sensor V" units="V" expression="((x-16384+5734)/0.625+6554)/13107" to_byte="((x*13107-6554)*0.625)+16384-5734" format="0.00" fineincrement="0.02" coarseincrement="0.08" />
+   <table type="X Axis" name="Target Boost" storagetype="uint16" endian="big" storageaddress="0x063ad6">
     <scaling category="Default" units="psi (gauge)" expression="((x+3404)/256-101.325)*0.1450377" to_byte="(x/0.1450377+101.325)*256-3404" format="0.00" fineincrement="0.25" coarseincrement="1.0" />
     <scaling category="kPa absolute" units="kPa abs" expression="(x+3404)/256" to_byte="x*256-3404" format="0.0" fineincrement="1" coarseincrement="4.0" />
     <scaling category="psi absolute" units="psia" expression="(x+3404)/256*0.1450377" to_byte="x/0.1450377*256-3404" format="0.00" fineincrement="0.25" coarseincrement="1.0" />
@@ -4177,7 +4236,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   </table>
   <table type="3D" name="Wastegate Position IAT Compensation" category="Boost Control//Wastegate Duty" storagetype="uint8" endian="big" sizex="16" sizey="16" userlevel="2" storageaddress="0x063501">
    <scaling units="multiplier" expression="x/85" to_byte="x*85" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
-   <table type="X Axis" name="Temperature" storagetype="uint8" endian="big" storageaddress="0x063601">
+   <table type="X Axis" name="Intake Air Temp" storagetype="uint8" endian="big" storageaddress="0x063601">
     <scaling category="Default" units="degrees F" expression="(x-50)*1.8+32" to_byte="(x-32)/1.8+50" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degC" units="degrees C" expression="x-50" to_byte="x+50" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -4199,8 +4258,9 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   </table>
   <table type="3D" name="Wastegate Position Feed-Forward Compensation" category="Boost Control//Wastegate Duty" storagetype="uint8" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x063711">
    <scaling units="multiplier" expression="x/85" to_byte="x*85" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
-   <table type="X Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x063b36">
-    <scaling units="% open" expression="(x-16384)/163.84" to_byte="x*163.84+16384" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="X Axis" name="Wastegate Feed-Forward Position" storagetype="uint16" endian="big" storageaddress="0x063b36">
+    <scaling category="Default" units="% open" expression="(x-16384)/163.84" to_byte="x*163.84+16384" format="0.0" fineincrement="1" coarseincrement="4.0" />
+    <scaling category="sensor V" units="V" expression="((x-16384+5734)/0.625+6554)/13107" to_byte="((x*13107-6554)*0.625)+16384-5734" format="0.00" fineincrement="0.02" coarseincrement="0.08" />
    </table>
    <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x063af6">
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
@@ -4217,82 +4277,93 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   </table>
   <table type="2D" name="Wastegate Actuator Target Speed" category="Boost Control//Wastegate Duty" storagetype="int16" endian="big" sizey="16" userlevel="4" storageaddress="0x06337a">
    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   <table type="Y Axis" name="Axis" storagetype="int16" endian="big" storageaddress="0x06339a">
-    <scaling units="%" expression="x/163.84" to_byte="x*163.84" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Wastegate Position Error" storagetype="int16" endian="big" storageaddress="0x06339a">
+    <scaling category="Default" units="%" expression="x/163.84" to_byte="x*163.84" format="0.0" fineincrement="1" coarseincrement="4.0" />
+    <scaling category="sensor V" units="V" expression="x/0.625/13107" to_byte="x*13107*0.625" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    </table>
    <description>How fast the actuator is asked to move, by how far it is from the commanded position (raw units).</description>
   </table>
   <table type="2D" name="Wastegate Motor Feed-Forward Duty" category="Boost Control//Wastegate Duty" storagetype="int16" endian="big" sizey="16" userlevel="4" storageaddress="0x0633bc">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   <table type="Y Axis" name="Axis" storagetype="int16" endian="big" storageaddress="0x0633dc">
+   <scaling units="%" expression="x*0.4" to_byte="x/0.4" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Actuator Target Speed" storagetype="int16" endian="big" storageaddress="0x0633dc">
     <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
-   <description>Motor drive for the requested actuator speed, before the position feedback (raw units).</description>
+   <description>Motor drive for the requested actuator speed, before the position feedback. Positive opens the wastegate.</description>
   </table>
   <table type="2D" name="Wastegate Motor Voltage Compensation" category="Boost Control//Wastegate Duty" storagetype="uint8" endian="big" sizey="8" userlevel="4" storageaddress="0x063412">
    <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
-   <table type="Y Axis" name="Battery Voltage (Filtered)" storagetype="uint16" endian="big" storageaddress="0x06341a">
+   <table type="Y Axis" name="Module Voltage" storagetype="uint16" endian="big" storageaddress="0x06341a">
     <scaling units="V" expression="x/3276.8" to_byte="x*3276.8" format="0.0" fineincrement="0.1" coarseincrement="0.4" />
    </table>
    <description>Scales the wastegate motor drive by supply voltage (1.00 = no change).</description>
   </table>
   <table type="2D" name="Wastegate Motor Holding Duty" category="Boost Control//Wastegate Duty" storagetype="int16" endian="big" sizey="16" userlevel="5" storageaddress="0x06342a">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="%" expression="x*0.4" to_byte="x/0.4" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x06344a">
     <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
-   <description>Motor drive used while the actuator holds still.
+   <description>Motor drive used while the actuator holds still; negative is a closing force.
 
-Details: On FFF89940 (not identified) (0x0C9B64, read). Confidence: read.</description>
+Details: On FFF89940 (not identified) (0x0C9B64, read). Confidence: inferred.</description>
   </table>
   <table type="1D" name="Wastegate Position Command Minimum" category="Boost Control//Wastegate Duty" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x0638b2">
-   <scaling units="% open" expression="(x-16384)/163.84" to_byte="x*163.84+16384" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="% open" expression="(x-16384)/163.84" to_byte="x*163.84+16384" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="sensor V" units="V" expression="((x-16384+5734)/0.625+6554)/13107" to_byte="((x*13107-6554)*0.625)+16384-5734" format="0.00" fineincrement="0.02" coarseincrement="0.08" />
    <description>Lowest position the boost control may command.</description>
   </table>
   <table type="1D" name="Wastegate Position Command Maximum" category="Boost Control//Wastegate Duty" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x0638b4">
-   <scaling units="% open" expression="(x-16384)/163.84" to_byte="x*163.84+16384" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="% open" expression="(x-16384)/163.84" to_byte="x*163.84+16384" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="sensor V" units="V" expression="((x-16384+5734)/0.625+6554)/13107" to_byte="((x*13107-6554)*0.625)+16384-5734" format="0.00" fineincrement="0.02" coarseincrement="0.08" />
    <description>Highest position the boost control may command.</description>
   </table>
   <table type="1D" name="Wastegate Position (Low RPM Open)" category="Boost Control//Wastegate Duty" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x0638aa">
-   <scaling units="% open" expression="(x-16384)/163.84" to_byte="x*163.84+16384" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="% open" expression="(x-16384)/163.84" to_byte="x*163.84+16384" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="sensor V" units="V" expression="((x-16384+5734)/0.625+6554)/13107" to_byte="((x*13107-6554)*0.625)+16384-5734" format="0.00" fineincrement="0.02" coarseincrement="0.08" />
    <description>Position used below the open-below engine speed.</description>
   </table>
   <table type="1D" name="Wastegate Position (Forced Closed)" category="Boost Control//Wastegate Duty" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x0638ac">
-   <scaling units="% open" expression="(x-16384)/163.84" to_byte="x*163.84+16384" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="% open" expression="(x-16384)/163.84" to_byte="x*163.84+16384" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="sensor V" units="V" expression="((x-16384+5734)/0.625+6554)/13107" to_byte="((x*13107-6554)*0.625)+16384-5734" format="0.00" fineincrement="0.02" coarseincrement="0.08" />
    <description>Position used when another function asks for the wastegate to close.</description>
   </table>
   <table type="1D" name="Wastegate Position (Engine Stopped)" category="Boost Control//Wastegate Duty" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x0638ae">
-   <scaling units="% open" expression="(x-16384)/163.84" to_byte="x*163.84+16384" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="% open" expression="(x-16384)/163.84" to_byte="x*163.84+16384" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="sensor V" units="V" expression="((x-16384+5734)/0.625+6554)/13107" to_byte="((x*13107-6554)*0.625)+16384-5734" format="0.00" fineincrement="0.02" coarseincrement="0.08" />
    <description>Position used while the engine is not running.</description>
   </table>
   <table type="1D" name="Wastegate Position (Service Open)" category="Boost Control//Wastegate Duty" storagetype="uint16" endian="big" userlevel="5" storageaddress="0x0638b0">
-   <scaling units="% open" expression="(x-16384)/163.84" to_byte="x*163.84+16384" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="% open" expression="(x-16384)/163.84" to_byte="x*163.84+16384" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="sensor V" units="V" expression="((x-16384+5734)/0.625+6554)/13107" to_byte="((x*13107-6554)*0.625)+16384-5734" format="0.00" fineincrement="0.02" coarseincrement="0.08" />
    <description>Position used when the open-for-service switch in the calibration is set.
 
 Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
   </table>
   <table type="1D" name="Wastegate Position Deadband" category="Boost Control//Wastegate Duty" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x063374">
-   <scaling units="%" expression="x/163.84" to_byte="x*163.84" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="%" expression="x/163.84" to_byte="x*163.84" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="sensor V" units="V" expression="x/0.625/13107" to_byte="x*13107*0.625" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <description>Position error the actuator loop ignores.</description>
   </table>
   <table type="1D" name="Wastegate Learned Seat Maximum" category="Boost Control//Wastegate Duty" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x063488">
-   <scaling units="% open" expression="(x-16384)/163.84" to_byte="x*163.84+16384" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="% open" expression="(x-16384)/163.84" to_byte="x*163.84+16384" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="sensor V" units="V" expression="((x-16384+5734)/0.625+6554)/13107" to_byte="((x*13107-6554)*0.625)+16384-5734" format="0.00" fineincrement="0.02" coarseincrement="0.08" />
    <description>Highest value the learned closed (seat) position may take.</description>
   </table>
   <table type="1D" name="Wastegate Learned Seat Minimum" category="Boost Control//Wastegate Duty" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x06348a">
-   <scaling units="% open" expression="(x-16384)/163.84" to_byte="x*163.84+16384" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="% open" expression="(x-16384)/163.84" to_byte="x*163.84+16384" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="sensor V" units="V" expression="((x-16384+5734)/0.625+6554)/13107" to_byte="((x*13107-6554)*0.625)+16384-5734" format="0.00" fineincrement="0.02" coarseincrement="0.08" />
    <description>Lowest value the learned closed (seat) position may take.</description>
   </table>
   <table type="1D" name="Wastegate Motor Duty Maximum" category="Boost Control//Wastegate Duty" storagetype="int16" endian="big" userlevel="4" storageaddress="0x06340e">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   <description>Largest opening drive to the wastegate motor (raw units).</description>
+   <scaling units="%" expression="x*0.4" to_byte="x/0.4" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <description>Largest opening drive to the wastegate motor.</description>
   </table>
   <table type="1D" name="Wastegate Motor Duty Minimum" category="Boost Control//Wastegate Duty" storagetype="int16" endian="big" userlevel="4" storageaddress="0x06340c">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   <description>Largest closing drive to the wastegate motor (raw units).</description>
+   <scaling units="%" expression="x*0.4" to_byte="x/0.4" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <description>Largest closing drive to the wastegate motor.</description>
   </table>
   <table type="1D" name="P0244 Wastegate Position Error Limit" category="Boost Control//Wastegate Duty" storagetype="int16" endian="big" userlevel="4" storageaddress="0x0653f0">
-   <scaling units="%" expression="x/163.84" to_byte="x*163.84" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="%" expression="x/163.84" to_byte="x*163.84" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="sensor V" units="V" expression="x/0.625/13107" to_byte="x*13107*0.625" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <description>Position error (commanded minus measured) that counts towards the wastegate actuator fault.</description>
   </table>
   <table type="1D" name="P0244 Wastegate Position Error Passes" category="Boost Control//Wastegate Duty" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x0653ee">
@@ -4300,7 +4371,8 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
    <description>How long the position error must last before the wastegate actuator fault is set (passes).</description>
   </table>
   <table type="3D" name="Boost Proportional (Wastegate Position)" category="Boost Control//Boost Feedback &amp; Compensations" storagetype="int16" endian="big" sizex="16" sizey="16" userlevel="1" storageaddress="0x063fae">
-   <scaling units="%" expression="x/163.84" to_byte="x*163.84" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="%" expression="x/163.84" to_byte="x*163.84" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="sensor V" units="V" expression="x/0.625/13107" to_byte="x*13107*0.625" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <table type="X Axis" name="Boost Error" storagetype="int16" endian="big" storageaddress="0x0643ae">
     <scaling category="Default" units="psi" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
     <scaling category="kPa" units="kPa" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -4311,7 +4383,8 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
    <description>Wastegate position change in proportion to boost error (target minus actual). Negative closes the wastegate.</description>
   </table>
   <table type="3D" name="Boost Integral Step (Wastegate Position)" category="Boost Control//Boost Feedback &amp; Compensations" storagetype="int16" endian="big" sizex="16" sizey="16" userlevel="1" storageaddress="0x0641ae">
-   <scaling units="%" expression="x/163.84" to_byte="x*163.84" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="%" expression="x/163.84" to_byte="x*163.84" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="sensor V" units="V" expression="x/0.625/13107" to_byte="x*13107*0.625" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <table type="X Axis" name="Boost Error" storagetype="int16" endian="big" storageaddress="0x0643ae">
     <scaling category="Default" units="psi" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
     <scaling category="kPa" units="kPa" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -4343,7 +4416,7 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
   </table>
   <table type="3D" name="Boost Feed-Forward-Only Threshold IAT Factor" category="Boost Control//Boost Feedback &amp; Compensations" storagetype="uint8" endian="big" sizex="16" sizey="16" userlevel="4" storageaddress="0x0652de">
    <scaling units="multiplier" expression="x/85" to_byte="x*85" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
-   <table type="X Axis" name="Temperature" storagetype="uint8" endian="big" storageaddress="0x0653de">
+   <table type="X Axis" name="Intake Air Temp" storagetype="uint8" endian="big" storageaddress="0x0653de">
     <scaling category="Default" units="degrees F" expression="(x-50)*1.8+32" to_byte="(x-32)/1.8+50" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degC" units="degrees C" expression="x-50" to_byte="x+50" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
@@ -4353,20 +4426,33 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
    <description>Scales the feed-forward-only threshold by engine speed and intake air temperature (1.00 = no change).</description>
   </table>
   <table type="1D" name="Boost Integral Maximum (Wastegate Position)" category="Boost Control//Boost Feedback &amp; Compensations" storagetype="int16" endian="big" userlevel="3" storageaddress="0x0643ce">
-   <scaling units="%" expression="x/163.84" to_byte="x*163.84" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="%" expression="x/163.84" to_byte="x*163.84" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="sensor V" units="V" expression="x/0.625/13107" to_byte="x*13107*0.625" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <description>Largest opening the boost integral can add.</description>
   </table>
   <table type="1D" name="Boost Integral Minimum (Wastegate Position)" category="Boost Control//Boost Feedback &amp; Compensations" storagetype="int16" endian="big" userlevel="3" storageaddress="0x0643d0">
-   <scaling units="%" expression="x/163.84" to_byte="x*163.84" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="%" expression="x/163.84" to_byte="x*163.84" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="sensor V" units="V" expression="x/0.625/13107" to_byte="x*13107*0.625" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <description>Largest closing the boost integral can add.</description>
   </table>
   <table type="1D" name="Boost Feedback Maximum (Wastegate Position)" category="Boost Control//Boost Feedback &amp; Compensations" storagetype="int16" endian="big" userlevel="3" storageaddress="0x0643d2">
-   <scaling units="%" expression="x/163.84" to_byte="x*163.84" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="%" expression="x/163.84" to_byte="x*163.84" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="sensor V" units="V" expression="x/0.625/13107" to_byte="x*13107*0.625" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <description>Largest opening proportional and integral together can add.</description>
   </table>
   <table type="1D" name="Boost Feedback Minimum (Wastegate Position)" category="Boost Control//Boost Feedback &amp; Compensations" storagetype="int16" endian="big" userlevel="3" storageaddress="0x0643d4">
-   <scaling units="%" expression="x/163.84" to_byte="x*163.84" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="%" expression="x/163.84" to_byte="x*163.84" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="sensor V" units="V" expression="x/0.625/13107" to_byte="x*13107*0.625" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <description>Largest closing proportional and integral together can add.</description>
+  </table>
+  <table type="1D" name="P0234 Overboost Error Threshold" category="Boost Control//Boost Feedback &amp; Compensations" storagetype="int16" endian="big" userlevel="3" storageaddress="0x065430">
+   <scaling category="Default" units="psi" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="kPa" units="kPa" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>P0234 (overboost) counts while actual boost is above target by more than this (shown negative).</description>
+  </table>
+  <table type="1D" name="P0234 Overboost Time" category="Boost Control//Boost Feedback &amp; Compensations" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x065432">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>How long overboost must last before P0234 sets (passes).</description>
   </table>
   <table type="3D" name="Requested Torque (Drive Mode 1, Default)" category="Torque &amp; Throttle//Requested Torque" storagetype="uint16" endian="big" sizex="20" sizey="21" userlevel="1" storageaddress="0x01f580">
    <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
@@ -5427,10 +5513,42 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
    <bit position="7" name="Disabled" />
    <description>On: the pedal speed limiter is skipped, with its speed-signal-fault fallback and two other pedal limits whose purpose is not decoded, so the pedal request is never cut back by them.</description>
   </table>
+  <table type="2D" name="Vehicle Speed Limit (Pedal)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint8" endian="big" sizey="4" userlevel="2" storageaddress="0x061aa2">
+   <scaling units="% of pedal request" expression="x/2.55" to_byte="x*2.55" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Speed" storagetype="uint16" endian="big" storageaddress="0x061aa6">
+    <scaling category="Default" units="km/h" expression="x*0.05625" to_byte="x/0.05625" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling category="mph" units="mph" expression="x*0.05625*0.621371" to_byte="x/0.05625/0.621371" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>The speed limiter in use: the share of the driver's pedal request allowed (100 % = no limit) by vehicle speed. It works above Vehicle Speed Limit (Pedal) Minimum RPM. The other three speed tables are variants for drive mode 3 (Intelligent) and for a VDC flag: to move or remove the limit, edit all four, or turn on Pedal Limits Disable. The fuel-cut Vehicle Speed Limit set is a separate limiter.</description>
+  </table>
+  <table type="2D" name="Vehicle Speed Limit (Pedal, Drive Mode 3, Intelligent)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint8" endian="big" sizey="4" userlevel="3" storageaddress="0x061a96">
+   <scaling units="% of pedal request" expression="x/2.55" to_byte="x*2.55" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Speed" storagetype="uint16" endian="big" storageaddress="0x061a9a">
+    <scaling category="Default" units="km/h" expression="x*0.05625" to_byte="x/0.05625" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling category="mph" units="mph" expression="x*0.05625*0.621371" to_byte="x/0.05625/0.621371" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>As Vehicle Speed Limit (Pedal), in drive mode 3 (Intelligent). Edit it together with the other three.</description>
+  </table>
   <table type="1D" name="Rev Limit Full Cut Speed Threshold" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint8" endian="big" userlevel="3" storageaddress="0x01f0b6">
    <scaling category="Default" units="km/h" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <scaling category="mph" units="mph" expression="x*0.621371" to_byte="x/0.621371" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Vehicle speed above which the rev-limit fuel cut uses the Stage 1 / Stage 2 rpm values instead of the Full Cut pair.</description>
+  </table>
+  <table type="2D" name="Vehicle Speed Limit (Pedal, VDC Flag)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint8" endian="big" sizey="4" userlevel="3" storageaddress="0x061aba">
+   <scaling units="% of pedal request" expression="x/2.55" to_byte="x*2.55" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Speed" storagetype="uint16" endian="big" storageaddress="0x061abe">
+    <scaling category="Default" units="km/h" expression="x*0.05625" to_byte="x/0.05625" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling category="mph" units="mph" expression="x*0.05625*0.621371" to_byte="x/0.05625/0.621371" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>As Vehicle Speed Limit (Pedal), while a status flag from the VDC unit is set (its meaning is not decoded). Edit it together with the other three.</description>
+  </table>
+  <table type="2D" name="Vehicle Speed Limit (Pedal, VDC Flag, Drive Mode 3, Intelligent)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint8" endian="big" sizey="4" userlevel="3" storageaddress="0x061aae">
+   <scaling units="% of pedal request" expression="x/2.55" to_byte="x*2.55" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Speed" storagetype="uint16" endian="big" storageaddress="0x061ab2">
+    <scaling category="Default" units="km/h" expression="x*0.05625" to_byte="x/0.05625" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling category="mph" units="mph" expression="x*0.05625*0.621371" to_byte="x/0.05625/0.621371" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>As Vehicle Speed Limit (Pedal, VDC Flag), in drive mode 3 (Intelligent). Edit it together with the other three.</description>
   </table>
   <table type="1D" name="Vehicle Speed Limit (Pedal) Minimum RPM" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x061a1a">
    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
@@ -5440,10 +5558,24 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    <description>As Vehicle Speed Limit (Pedal) Minimum RPM, with the two VDC flag tables.</description>
   </table>
+  <table type="2D" name="Vehicle Speed Limit (Pedal) Speed Signal Fault RPM Limit" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint8" endian="big" sizey="4" userlevel="4" storageaddress="0x061a7e">
+   <scaling units="% of pedal request" expression="x/2.55" to_byte="x*2.55" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x061a82">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Takes over from the speed tables when the vehicle speed cannot be trusted (a speed sensor fault, or CAN messages from the transmission or VDC missing): the pedal request is then limited by engine speed. Leave it as it is unless you know you need to change it.</description>
+  </table>
   <table type="1D" name="Rev Limit Full Cut Speed Threshold Hysteresis" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint8" endian="big" userlevel="3" storageaddress="0x01f0b7">
    <scaling category="Default" units="km/h" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <scaling category="mph" units="mph" expression="x*0.621371" to_byte="x/0.621371" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Extra speed needed above Rev Limit Full Cut Speed Threshold before the switch.</description>
+  </table>
+  <table type="2D" name="Vehicle Speed Limit (Pedal, VDC Flag) Speed Signal Fault RPM Limit" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint8" endian="big" sizey="4" userlevel="4" storageaddress="0x061a8a">
+   <scaling units="% of pedal request" expression="x/2.55" to_byte="x*2.55" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x061a8e">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>As Vehicle Speed Limit (Pedal) Speed Signal Fault RPM Limit, while the VDC flag is set.</description>
   </table>
   <table type="1D" name="Fail-Safe Rev Limit (Rail Pressure Fault)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" userlevel="2" storageaddress="0x010770">
    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
@@ -5846,19 +5978,55 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
    </table>
    <description>Has no effect: the ECU calculates a value from it that nothing reads.</description>
   </table>
-  <table type="3D" name="Engine Torque from Load (DAM 1.0, TGV Closed)" category="Torque &amp; Throttle//Torque Model" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x03b460">
+  <table type="3D" name="Engine Torque from Load (DAM 1.0, TGV Closed)" category="Torque &amp; Throttle//Torque Model" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x03b000">
    <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
-   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x03b430">
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x03afd0">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
-   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x03b440">
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x03afe0">
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Engine torque the ECU expects at a given rpm and load; probably shapes the estimated/reported torque, not throttle or boost. This is the full-DAM set, for TGVs closed, no EGR (blended by TGV position and EGR amount).</description>
   </table>
-  <table type="3D" name="Engine Torque from Load (DAM 1.0, TGV Closed, EGR)" category="Torque &amp; Throttle//Torque Model" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x03bdda">
+  <table type="3D" name="Engine Torque from Load (DAM 1.0, TGV Closed, EGR)" category="Torque &amp; Throttle//Torque Model" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x03b9da">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x03afd0">
+    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x03afe0">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Engine torque the ECU expects at a given rpm and load; probably shapes the estimated/reported torque, not throttle or boost. This is the full-DAM set, for TGVs closed, EGR active (blended by TGV position and EGR amount).</description>
+  </table>
+  <table type="3D" name="Engine Torque from Load (DAM 1.0, TGV Open)" category="Torque &amp; Throttle//Torque Model" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x03b230">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x03b200">
+    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x03b210">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Engine torque the ECU expects at a given rpm and load; probably shapes the estimated/reported torque, not throttle or boost. This is the full-DAM set, for TGVs open, no EGR (blended by TGV position and EGR amount).</description>
+  </table>
+  <table type="3D" name="Engine Torque from Load (DAM 1.0, TGV Open, EGR)" category="Torque &amp; Throttle//Torque Model" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x03bbda">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x03b200">
+    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x03b210">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Engine torque the ECU expects at a given rpm and load; probably shapes the estimated/reported torque, not throttle or boost. This is the full-DAM set, for TGVs open, EGR active (blended by TGV position and EGR amount).</description>
+  </table>
+  <table type="3D" name="Engine Torque from Load (DAM 0, TGV Closed)" category="Torque &amp; Throttle//Torque Model" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x03b460">
    <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x03b430">
@@ -5868,76 +6036,40 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
    <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x03b440">
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
-   <description>Engine torque the ECU expects at a given rpm and load; probably shapes the estimated/reported torque, not throttle or boost. This is the full-DAM set, for TGVs closed, EGR active (blended by TGV position and EGR amount).</description>
-  </table>
-  <table type="3D" name="Engine Torque from Load (DAM 1.0, TGV Open)" category="Torque &amp; Throttle//Torque Model" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x03b690">
-   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
-   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
-   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x03b660">
-    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
-    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x03b670">
-    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
-   </table>
-   <description>Engine torque the ECU expects at a given rpm and load; probably shapes the estimated/reported torque, not throttle or boost. This is the full-DAM set, for TGVs open, no EGR (blended by TGV position and EGR amount).</description>
-  </table>
-  <table type="3D" name="Engine Torque from Load (DAM 1.0, TGV Open, EGR)" category="Torque &amp; Throttle//Torque Model" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x03bfda">
-   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
-   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
-   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x03b660">
-    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
-    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x03b670">
-    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
-   </table>
-   <description>Engine torque the ECU expects at a given rpm and load; probably shapes the estimated/reported torque, not throttle or boost. This is the full-DAM set, for TGVs open, EGR active (blended by TGV position and EGR amount).</description>
-  </table>
-  <table type="3D" name="Engine Torque from Load (DAM 0, TGV Closed)" category="Torque &amp; Throttle//Torque Model" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x03b000">
-   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
-   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
-   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x03afd0">
-    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
-    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x03afe0">
-    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
-   </table>
    <description>Engine torque the ECU expects at a given rpm and load; probably shapes the estimated/reported torque, not throttle or boost. Zero-DAM set (blended with DAM 1.0 by DAM), TGVs closed, no EGR.</description>
   </table>
-  <table type="3D" name="Engine Torque from Load (DAM 0, TGV Closed, EGR)" category="Torque &amp; Throttle//Torque Model" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x03b9da">
+  <table type="3D" name="Engine Torque from Load (DAM 0, TGV Closed, EGR)" category="Torque &amp; Throttle//Torque Model" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x03bdda">
    <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
-   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x03afd0">
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x03b430">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
-   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x03afe0">
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x03b440">
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Engine torque the ECU expects at a given rpm and load; probably shapes the estimated/reported torque, not throttle or boost. This is the zero-DAM set (blended with DAM 1.0 by DAM), for TGVs closed, EGR active (blended by TGV position and EGR amount).</description>
   </table>
-  <table type="3D" name="Engine Torque from Load (DAM 0, TGV Open)" category="Torque &amp; Throttle//Torque Model" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x03b230">
+  <table type="3D" name="Engine Torque from Load (DAM 0, TGV Open)" category="Torque &amp; Throttle//Torque Model" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x03b690">
    <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
-   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x03b200">
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x03b660">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
-   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x03b210">
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x03b670">
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Engine torque the ECU expects at a given rpm and load; probably shapes the estimated/reported torque, not throttle or boost. This is the zero-DAM set (blended with DAM 1.0 by DAM), for TGVs open, no EGR (blended by TGV position and EGR amount).</description>
   </table>
-  <table type="3D" name="Engine Torque from Load (DAM 0, TGV Open, EGR)" category="Torque &amp; Throttle//Torque Model" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x03bbda">
+  <table type="3D" name="Engine Torque from Load (DAM 0, TGV Open, EGR)" category="Torque &amp; Throttle//Torque Model" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x03bfda">
    <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
-   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x03b200">
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x03b660">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
-   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x03b210">
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x03b670">
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Engine torque the ECU expects at a given rpm and load; probably shapes the estimated/reported torque, not throttle or boost. This is the zero-DAM set (blended with DAM 1.0 by DAM), for TGVs open, EGR active (blended by TGV position and EGR amount).</description>
@@ -6082,6 +6214,22 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
    </table>
    <description>Torque-model smoothing multiplier by coolant (1.0 = normal; very high values mean no smoothing), used in another phase after a combustion-mode change. Leave alone.</description>
   </table>
+  <table type="2D" name="Torque Model Filter Multiplier A (Alt)" category="Torque &amp; Throttle//Torque Model" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x010832">
+   <scaling units="multiplier" expression="x/512" to_byte="x*512" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
+   <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x03e9f4">
+    <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
+    <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>Alternate version of Torque Model Filter Multiplier A, used when an unidentified flag is set. Leave alone unless you know the model.</description>
+  </table>
+  <table type="2D" name="Torque Model Filter Multiplier C (Alt)" category="Torque &amp; Throttle//Torque Model" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x0107b0">
+   <scaling units="multiplier" expression="x/512" to_byte="x*512" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
+   <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x03e9f4">
+    <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
+    <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>Alternate version of Torque Model Filter Multiplier C, used when an unidentified flag is set. Leave alone.</description>
+  </table>
   <table type="2D" name="Torque Model Filter Multiplier C" category="Torque &amp; Throttle//Torque Model" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x0107d0">
    <scaling units="multiplier" expression="x/512" to_byte="x*512" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x03e9f4">
@@ -6089,14 +6237,6 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
     <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <description>Torque-model smoothing multiplier by coolant (1.0 = normal; very high values mean no smoothing), used after a combustion-mode change until timing reaches the spark target. Leave alone.</description>
-  </table>
-  <table type="2D" name="Torque Model Filter Multiplier A (Below Idle Target, TGV Closed)" category="Torque &amp; Throttle//Torque Model" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x011b18">
-   <scaling units="multiplier" expression="x/512" to_byte="x*512" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
-   <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x03e9f4">
-    <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
-    <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <description>Version of Torque Model Filter Multiplier A (TGV Closed) used while rpm is far below the idle target (later software versions).</description>
   </table>
   <table type="2D" name="Spark Compensation Filter Rate (High Pressure)" category="Torque &amp; Throttle//Torque Model" storagetype="uint16" endian="big" sizey="8" userlevel="4" storageaddress="0x025ed0">
    <scaling units="fraction per pass" expression="x/65536" to_byte="x*65536" format="0.0000" fineincrement="0.001" coarseincrement="0.004" />
@@ -7224,6 +7364,72 @@ Base term by rpm of the exhaust cam 1 OCV duty in the legacy byte-based AVCS pat
 
 Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS path: about 47.2-50.8 % duty before the FFF88AA4 factor; the learned and feedback bytes are added around 128 (= 51.2 %). Module (read): seg 0x100000 0x104xxx-0x106xxx is the byte-based cam path; 0x10466C (intake, called at seg_0x100000.c:3516 with rpm CD54, FFF88AA4, learned bytes FFF8147A/147C/147E, feedback bytes FFF8B368, cam errors B956/B954) forms per cam: B352 = this(rpm) x 026EB0/026EC0(FFF88AA4)/128; B356 = 147A if the cam error &gt;= cal 0x26E82 (364 = 2.0 deg), 147C if &lt;= cal 0x26E84 (-2.0 deg), else 128; B366 = clamp(B368 + B352 + 147E + B356 - 384, 0, 250). 0x106A0C does the same for the exhaust cams (05CF08/05CF14, factors 0298F4/029904, errors B916/B914, thresholds cal 0x298C6/0x298C8) into B380. The OCV duty routines 0x15DF20 / 0x15E63C (intake cam 1 / 2) and 0x16269C / 0x162D18 (exhaust) set duty B8DE = B366[cam] x 10 (B380 for exhaust) only when cal 0x3CCC4 bit 0 is clear (read). FFF88AA4 = (FFF88AE6 &gt;&gt; 8 - 10) x 1.6 (0x060000 area, read); FFF88AE6 not identified. LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
   </table>
+  <table type="2D" name="Idle Speed Target (Warm Idle, Mode 5)" category="Idle//Idle Speed Targets" storagetype="uint16" endian="big" sizey="16" userlevel="2" storageaddress="0x0281a4">
+   <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Main idle speed target by coolant in normal running; this is the table to edit to change idle speed on a manual car. Automatic/CVT cars use Mode 6 instead.</description>
+  </table>
+  <table type="2D" name="Idle Speed Target (Warm Idle, AT/CVT, Mode 6)" category="Idle//Idle Speed Targets" storagetype="uint16" endian="big" sizey="16" userlevel="2" storageaddress="0x0281c4">
+   <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Warm idle speed target by coolant for automatic/CVT cars only; a manual car never uses this table.</description>
+  </table>
+  <table type="2D" name="Idle Speed Target (Warm Start, Mode 3)" category="Idle//Idle Speed Targets" storagetype="uint16" endian="big" sizey="16" userlevel="2" storageaddress="0x028164">
+   <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Idle speed target by coolant after a hot restart (coolant at or above 75 degC at start), until the car moves. Raise for a higher idle right after hot starts.</description>
+  </table>
   <table type="2D" name="Idle Speed Target (In Drive, AT/CVT)" category="Idle//Idle Speed Targets" storagetype="uint8" endian="big" sizey="16" userlevel="2" storageaddress="0x0297d3">
    <scaling units="RPM" expression="x*12.5" to_byte="x/12.5" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x03e9f4">
@@ -7285,14 +7491,6 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
    </table>
    <description>How fast the idle speed target moves (by coolant) when idle switches from mode 2 (cold post-start) to mode 5 (warm idle). Larger = quicker change towards the new idle target; smaller = a gentler fade.</description>
   </table>
-  <table type="2D" name="Idle Target Ramp Rate (Mode 2 to 7)" category="Idle//Idle Speed Targets" storagetype="int16" endian="big" sizey="16" userlevel="3" storageaddress="0x028244">
-   <scaling units="RPM per 10 ms" expression="x/20.48" to_byte="x*20.48" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
-   <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x03e9f4">
-    <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
-    <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <description>How fast the idle speed target moves (by coolant) when idle switches from mode 2 (cold post-start) to mode 7 (warm-up drive-off). Larger = quicker change towards the new idle target; smaller = a gentler fade.</description>
-  </table>
   <table type="2D" name="Idle Target Ramp Rate (Mode 3 to 5)" category="Idle//Idle Speed Targets" storagetype="int16" endian="big" sizey="16" userlevel="3" storageaddress="0x028264">
    <scaling units="RPM per 10 ms" expression="x/20.48" to_byte="x*20.48" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x03e9f4">
@@ -7300,14 +7498,6 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
     <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <description>How fast the idle speed target moves (by coolant) when idle switches from mode 3 (warm-start) to mode 5 (warm idle). Larger = quicker change towards the new idle target; smaller = a gentler fade.</description>
-  </table>
-  <table type="2D" name="Idle Target Ramp Rate (Mode 3 to 7)" category="Idle//Idle Speed Targets" storagetype="int16" endian="big" sizey="16" userlevel="3" storageaddress="0x028284">
-   <scaling units="RPM per 10 ms" expression="x/20.48" to_byte="x*20.48" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
-   <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x03e9f4">
-    <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
-    <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <description>How fast the idle speed target moves (by coolant) when idle switches from mode 3 (warm-start) to mode 7 (warm-up drive-off). Larger = quicker change towards the new idle target; smaller = a gentler fade.</description>
   </table>
   <table type="2D" name="Idle Target Ramp Rate (Mode 7 to 5)" category="Idle//Idle Speed Targets" storagetype="int16" endian="big" sizey="16" userlevel="3" storageaddress="0x0282e4">
    <scaling units="RPM per 10 ms" expression="x/20.48" to_byte="x*20.48" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
@@ -7429,6 +7619,28 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
    </table>
    <description>How fast the idle speed target moves (by coolant) when idle switches from mode 8 (AT/CVT warm-up drive-off) to mode 7 (warm-up drive-off). Larger = quicker change. Automatic/CVT only: these modes never occur on a manual car, so this table has no effect there.</description>
   </table>
+  <table type="2D" name="Idle Speed Target (Cold Idle, Mode 4)" category="Idle//Idle Speed Targets" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x028184">
+   <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Idle speed target by coolant for a cold-idle mode used when stopped below a coolant threshold.</description>
+  </table>
   <table type="2D" name="Idle Target Ramp Rate (Mode 4 to 5)" category="Idle//Idle Speed Targets" storagetype="int16" endian="big" sizey="16" userlevel="4" storageaddress="0x0282a4">
    <scaling units="RPM per 10 ms" expression="x/20.48" to_byte="x*20.48" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x03e9f4">
@@ -7465,6 +7677,116 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Alternative remap of the CAN idle speed request, used when an unidentified CAN flag is set.</description>
+  </table>
+  <table type="2D" name="Idle Base Air (Mode 5)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x0286f2">
+   <scaling units="idle air (raw)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Base (open-loop) idle air by coolant for normal warm idle (the warm-idle mode on a manual car), used while the TGVs are commanded open. At a settled warm idle the TGVs are normally commanded closed, so Idle Base Air (Mode 5, TGV Closed) is probably the table in use: change both together, and together with Idle Speed Target (Warm Idle, Mode 5) so idle feedback does not have to learn the difference.</description>
+  </table>
+  <table type="2D" name="Idle Base Air (Mode 5, TGV Closed)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x0285f2">
+   <scaling units="idle air (raw)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Base (open-loop) idle air by coolant for normal warm idle while the TGVs are commanded closed (the normal state at low torque, probably including warm idle). Change it together with Idle Speed Target (Warm Idle, Mode 5) and Idle Base Air (Mode 5).</description>
+  </table>
+  <table type="2D" name="Idle Base Air (Warm Start, Mode 3)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x0286b2">
+   <scaling units="idle air (raw)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Base (open-loop) idle air by coolant after a hot restart (coolant at or above 75 degC at start) until the car moves, used while the TGVs are commanded open. Change it together with the matching Idle Speed Target so idle feedback does not have to make up the difference. The TGV Closed table is used whenever the TGVs are commanded closed, which is the normal state at low torque, so change both together.</description>
+  </table>
+  <table type="2D" name="Idle Base Air (Warm Start, Mode 3, TGV Closed)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x0285b2">
+   <scaling units="idle air (raw)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Base (open-loop) idle air by coolant after a hot restart (coolant at or above 75 degC at start) until the car moves, used while the TGVs are commanded closed (the normal state at low torque, probably including warm idle). Change it together with the matching Idle Speed Target and the normal Idle Base Air table for this mode.</description>
+  </table>
+  <table type="2D" name="Idle Base Air (AT/CVT, Mode 6, TGV Closed)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x028612">
+   <scaling units="idle air (raw)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Base (open-loop) idle air by coolant in warm idle on automatic/CVT cars only (never used on a manual car), used while the TGVs are commanded closed (the normal state at low torque, probably including warm idle). Change it together with the matching Idle Speed Target and the normal Idle Base Air table for this mode.</description>
   </table>
   <table type="3D" name="Post-Start Idle Air (Initial)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizex="16" sizey="4" userlevel="3" storageaddress="0x029b18">
    <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
@@ -8074,6 +8396,50 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
     <scaling category="in^2" units="in^2 (effective throttle area)" expression="x/10/645.16" to_byte="x*645.16*10" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    </table>
    <description>Converts a throttle area back into idle air units when another module requests torque over CAN. Area is in mm^2 of effective throttle opening (about 2,150 mm^2 wide open).</description>
+  </table>
+  <table type="2D" name="Idle Base Air (Cold Idle, Mode 4)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x0286d2">
+   <scaling units="idle air (raw)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Base idle air by coolant for the cold-idle mode 4.</description>
+  </table>
+  <table type="2D" name="Idle Base Air (Cold Idle, Mode 4, TGV Closed)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x0285d2">
+   <scaling units="idle air (raw)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Base idle air by coolant for the cold-idle mode 4 with the TGVs commanded closed.</description>
   </table>
   <table type="3D" name="Post-Start Idle Air (Stop-Start Restart)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizex="16" sizey="5" userlevel="4" storageaddress="0x029dfc">
    <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
@@ -8743,16 +9109,16 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
    </table>
    <description>Exit threshold paired with TGV Torque Threshold Enter (Start Modes).</description>
   </table>
-  <table type="3D" name="Cruise Pedal Equivalent (Drive Mode 3, Intelligent)" category="Vehicle Functions//Cruise Control" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x047806">
+  <table type="3D" name="Cruise Pedal Equivalent (Other Drive Modes)" category="Vehicle Functions//Cruise Control" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x047c06">
    <scaling units="%" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
-   <table type="X Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x047486">
+   <table type="X Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x047506">
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x047466">
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x0474e6">
     <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
     <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
    </table>
-   <description>Converts the cruise control torque request into a pedal-position equivalent by torque and rpm; while cruise is active the ECU uses the higher of this and the real pedal. Used in drive mode 3 (cruise meaning inferred).</description>
+   <description>Converts the cruise control torque request into a pedal-position equivalent by torque and rpm; while cruise is active the ECU uses the higher of this and the real pedal. Used in the default drive mode (cruise meaning inferred). If you change Requested Torque tables, cruise response changes unless this is adjusted too.</description>
   </table>
   <table type="3D" name="Cruise Pedal Equivalent (Other Drive Modes, Meter Cruise Option)" category="Vehicle Functions//Cruise Control" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x047a06">
    <scaling units="%" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -9146,9 +9512,23 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
    <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <description>The charging target is never set below this.</description>
   </table>
+  <table type="2D" name="Alternator Command from Target Voltage" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x03ffe4">
+   <scaling units="% duty (alternator, inferred)" expression="x/16.67" to_byte="x*16.67" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03ff12">
+    <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   </table>
+   <description>Alternator control duty by target charging voltage (probably). Changing it changes the charging voltage the alternator actually reaches. Also feeds Idle Air Trim (Charging Command).</description>
+  </table>
   <table type="1D" name="Charging Target Temperature Correction Threshold" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03fe8a">
    <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <description>The temperature correction only applies to charging targets at or above this voltage.</description>
+  </table>
+  <table type="2D" name="Charging Target Temperature Correction" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int16" endian="big" sizey="16" userlevel="3" storageaddress="0x03ffa8">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03fef2">
+    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>Subtracted from the charging target (when that target is at or above the threshold): negative values raise the target. The axis is a raw value from the battery sensor, probably its temperature.</description>
   </table>
   <table type="1D" name="Charging Target Voltage at Start" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x040004">
    <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
@@ -9194,7 +9574,7 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Adaptive charging also ends once this much charge has gone back into the battery (raw units).
 
-Details: Compared with FFF81848, the integral of charging current while in mode 5 (0x1368C4, read; unit not confirmed). LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (2 reads)). Confidence: read.</description>
+Details: Compared with FFF81848, the integral of charging current while in mode 5 (0x1368C4, read; unit not confirmed). Confidence: read.</description>
   </table>
   <table type="2D" name="Radiator Fan Duty (Coolant, Flag A807 Set)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" sizey="9" userlevel="4" storageaddress="0x03949c">
    <scaling units="% duty" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="1" coarseincrement="4.0" />
@@ -9212,6 +9592,13 @@ Details: Compared with FFF81848, the integral of charging current while in mode 
    </table>
    <description>Radiator fan duty by coolant, used when an unidentified CAN value is high.</description>
   </table>
+  <table type="2D" name="Charging Feedback Proportional" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int16" endian="big" sizey="17" userlevel="4" storageaddress="0x04002c">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+   <table type="Y Axis" name="Axis" storagetype="int16" endian="big" storageaddress="0x04000a">
+    <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+   </table>
+   <description>Correction added to the charging target in proportion to how far the battery voltage is from it.</description>
+  </table>
   <table type="1D" name="Charging Feedback Integral Step Up" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03fe74">
    <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.000" fineincrement="0.005" coarseincrement="0.02" />
    <description>How fast the charging-voltage feedback raises the target when the battery is below it.</description>
@@ -9220,11 +9607,19 @@ Details: Compared with FFF81848, the integral of charging current while in mode 
    <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.000" fineincrement="0.005" coarseincrement="0.02" />
    <description>How fast the charging-voltage feedback lowers the target when the battery is above it.</description>
   </table>
+  <table type="1D" name="Charging Feedback Integral Maximum" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int16" endian="big" userlevel="4" storageaddress="0x040006">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+   <description>Largest correction the feedback integral can add.</description>
+  </table>
+  <table type="1D" name="Charging Feedback Integral Minimum" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int16" endian="big" userlevel="4" storageaddress="0x040008">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+   <description>Largest correction the feedback integral can subtract.</description>
+  </table>
   <table type="1D" name="Charging Feedback Integral Gain" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="5" storageaddress="0x03fe70">
    <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Scales the feedback integral (100 = as is).
 
-Details: Integral x this / 100 after the clamp (0x13866C, read). LT8H300D: same code as LF9K000D; address from the same instruction (between exact neighbours (40 bytes below, 84 above, both moved by the same amount; inferred)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (4 reads)). Confidence: inferred.</description>
+Details: Integral x this / 100 after the clamp (0x13866C, read). Confidence: read.</description>
   </table>
   <table type="1D" name="Charging Feedback Deadband Above" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03fe6c">
    <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.000" fineincrement="0.005" coarseincrement="0.02" />
@@ -9677,35 +10072,6 @@ Details: Integral x this / 100 after the clamp (0x13866C, read). LT8H300D: same 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
-  <table type="3D" name="Open Loop Fueling Floor (Outside Closed Loop)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint8" endian="big" sizex="16" sizey="16" userlevel="1" storageaddress="0x017a16">
-   <scaling units="AFR (gasoline)" expression="3763.2/(256+x)" to_byte="3763.2/x-256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
-   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0179ce">
-    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
-    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0179ae">
-    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
-   </table>
-   <description>Minimum enrichment whenever the engine is out of closed loop for any reason: the mixture is at least this rich. Check it as well as Primary Open Loop Fueling when leaning the open-loop target.</description>
-  </table>
-  <table type="3D" name="Low-DAM Enrichment" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x017b16">
-   <scaling units="% enrichment" expression="x/327.68" to_byte="x*327.68" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
-   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0179fe">
-    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
-    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0179de">
-    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
-   </table>
-   <description>Extra fuel, by rpm and load, that richens the closed-loop target, the closed-loop override and the open-loop floor, scaled up as DAM falls (Low-DAM Enrichment DAM Multiplier). Probably a knock-history safety enrichment.</description>
-  </table>
-  <table type="2D" name="Low-DAM Enrichment DAM Multiplier" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint8" endian="big" sizey="8" userlevel="3" storageaddress="0x017d56">
-   <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
-   <table type="Y Axis" name="Dynamic Advance Multiplier" storagetype="uint8" endian="big" storageaddress="0x017a0e">
-    <scaling units="DAM" expression="x/16" to_byte="x*16" format="0.000" fineincrement="0.0625" coarseincrement="0.25" min="0" max="1" />
-   </table>
-   <description>Scales Low-DAM Enrichment by DAM.</description>
-  </table>
   <table type="2D" name="Purge Rate Ramp Step (Off-Idle)" category="Fueling//Evap Purge" storagetype="uint8" endian="big" sizey="4" userlevel="4" storageaddress="0x02684b">
    <scaling units="% of intake air" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
    <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x026850">
@@ -9720,19 +10086,18 @@ Details: Integral x this / 100 after the clamp (0x13866C, read). LT8H300D: same 
    </table>
    <description>Purge-rate rise per learning update at idle (pedal released) after learning.</description>
   </table>
-  <table type="2D" name="Charging Target Temperature Correction" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int16" endian="big" sizey="16" userlevel="3" storageaddress="0x03ffa8">
-   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03fef2">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <description>Subtracted from the charging target (when that target is at or above the threshold): negative values raise the target. The axis is a raw value from the battery sensor, probably its temperature.</description>
+  <table type="1D" name="TGV Air Quantity Maximum (Enter)" category="EGR &amp; TGV//TGV" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x03e130">
+   <scaling units="g/s" expression="x/300" to_byte="x*300" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>Air flow below which the TGVs may close (probably; part of the TGV close conditions together with torque and coolant). Raise it (with TGV Air Quantity Maximum (Exit)) to let the TGVs close at higher air flow; once closed they reopen above the Exit value.</description>
   </table>
-  <table type="2D" name="Charging Feedback Proportional" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int16" endian="big" sizey="17" userlevel="4" storageaddress="0x04002c">
-   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
-   <table type="Y Axis" name="Axis" storagetype="int16" endian="big" storageaddress="0x04000a">
-    <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
-   </table>
-   <description>Correction added to the charging target in proportion to how far the battery voltage is from it.</description>
+  <table type="1D" name="P0299 Underboost Error Threshold" category="Unsorted" storagetype="int16" endian="big" userlevel="3" storageaddress="0x06543a">
+   <scaling category="Default" units="psi" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="kPa" units="kPa" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>Fail count while FFF8AB1E (target - actual) &gt;= this.</description>
+  </table>
+  <table type="1D" name="P0299 Underboost Time" category="Unsorted" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x065438">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>LT8F300C 0x097A16 (read).</description>
   </table>
   <table type="3D" name="(P000A) Intake Camshaft Position Slow Response (Bank 1)" category="Diagnostics &amp; Switches//DTC Switches" storagetype="uint8" endian="big" sizex="2" sizey="1" swapxy="true" skipCells="97083" mask="01" userlevel="2" storageaddress="0x49dac">
    <scaling units="1 = yes, 0 = no" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="1" />
@@ -12547,6 +12912,7 @@ Details: Integral x this / 100 after the clamp (0x13866C, read). LT8H300D: same 
   <table name="Target Rail Pressure (Combustion Mode 3, Pedal Applied)" storageaddress="0x047afe">
    <table type="Y Axis" storageaddress="0x03f37c" />
   </table>
+  <table name="Target Rail Pressure (Catalyst Heating)" storageaddress="0x047814" />
   <table name="HPFP Feedforward Command" storageaddress="0x047b32">
    <table type="X Axis" storageaddress="0x047b1e" />
    <table type="Y Axis" storageaddress="0x04788e" />
@@ -12573,41 +12939,6 @@ Details: Integral x this / 100 after the clamp (0x13866C, read). LT8H300D: same 
   </table>
   <table name="HPFP Solenoid End Offset" storageaddress="0x0476d0">
    <table type="Y Axis" storageaddress="0x0474a0" />
-  </table>
-  <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x047abe">
-   <table type="Y Axis" storageaddress="0x047a9e" />
-  </table>
-  <table name="Target Rail Pressure (Combustion Mode 1, Fallback, AT/CVT Coding)" storageaddress="0x047db8">
-   <table type="Y Axis" storageaddress="0x047a9e" />
-  </table>
-  <table type="3D" name="Open Loop Fueling Floor (Outside Closed Loop)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint8" endian="big" sizex="16" sizey="16" userlevel="1" storageaddress="0x017a16">
-   <scaling units="AFR (gasoline)" expression="3763.2/(256+x)" to_byte="3763.2/x-256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
-   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0179ce">
-    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
-    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0179ae">
-    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
-   </table>
-   <description>Minimum enrichment whenever the engine is out of closed loop for any reason: the mixture is at least this rich. Check it as well as Primary Open Loop Fueling when leaning the open-loop target.</description>
-  </table>
-  <table type="3D" name="Low-DAM Enrichment" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x017b16">
-   <scaling units="% enrichment" expression="x/327.68" to_byte="x*327.68" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
-   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0179fe">
-    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
-    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0179de">
-    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
-   </table>
-   <description>Extra fuel, by rpm and load, that richens the closed-loop target, the closed-loop override and the open-loop floor, scaled up as DAM falls (Low-DAM Enrichment DAM Multiplier). Probably a knock-history safety enrichment.</description>
-  </table>
-  <table type="2D" name="Low-DAM Enrichment DAM Multiplier" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint8" endian="big" sizey="8" userlevel="3" storageaddress="0x017d56">
-   <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
-   <table type="Y Axis" name="Dynamic Advance Multiplier" storagetype="uint8" endian="big" storageaddress="0x017a0e">
-    <scaling units="DAM" expression="x/16" to_byte="x*16" format="0.000" fineincrement="0.0625" coarseincrement="0.25" min="0" max="1" />
-   </table>
-   <description>Scales Low-DAM Enrichment by DAM.</description>
   </table>
   <table name="Warm-Up Enrichment RPM Multiplier" storageaddress="0x02569a">
    <table type="Y Axis" storageaddress="0x03f34c" />
@@ -13049,6 +13380,10 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <table type="X Axis" storageaddress="0x03f37c" />
   </table>
   <table name="Start Split Injection Second Share (Idle)" storageaddress="0x02f391">
+   <table type="X Axis" storageaddress="0x02f378" />
+   <table type="Y Axis" storageaddress="0x02f389" />
+  </table>
+  <table name="Start Split Injection Second Share" storageaddress="0x02f3d2">
    <table type="X Axis" storageaddress="0x02f378" />
    <table type="Y Axis" storageaddress="0x02f389" />
   </table>
@@ -13519,10 +13854,6 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <table type="X Axis" storageaddress="0x02f162" />
    <table type="Y Axis" storageaddress="0x02f182" />
   </table>
-  <table name="Start Spark Target Re-Entry Adder (Mode 1)" storageaddress="0x02f466">
-   <table type="X Axis" storageaddress="0x03f37c" />
-   <table type="Y Axis" storageaddress="0x02f446" />
-  </table>
   <table name="Start Spark Target Re-Entry Adder (Mode 1, AT/CVT, Warm-Up Fallback)" storageaddress="0x02f586">
    <table type="X Axis" storageaddress="0x03f37c" />
    <table type="Y Axis" storageaddress="0x02f566" />
@@ -13531,7 +13862,11 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <table type="X Axis" storageaddress="0x02f162" />
    <table type="Y Axis" storageaddress="0x02f14a" />
   </table>
-  <table name="Target Boost (from Requested Boost)" storageaddress="0x064568">
+  <table name="Start Spark Target Torque Adder (Mode 1, Warm-Up Fallback)" storageaddress="0x02ee08">
+   <table type="X Axis" storageaddress="0x02f162" />
+   <table type="Y Axis" storageaddress="0x02f15a" />
+  </table>
+  <table name="Target Boost (Electronic Wastegate)" storageaddress="0x064568">
    <table type="X Axis" storageaddress="0x06491e" />
    <table type="Y Axis" storageaddress="0x0648f8" />
   </table>
@@ -13539,10 +13874,10 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Target Boost Baro Multiplier" storageaddress="0x063e47">
    <table type="Y Axis" storageaddress="0x0641b2" />
   </table>
-  <table name="Target Boost Coolant Correction 1" storageaddress="0x0641c6">
+  <table name="Target Boost Torque Correction (Coolant) 1" storageaddress="0x0641c6">
    <table type="Y Axis" storageaddress="0x03f37c" />
   </table>
-  <table name="Target Boost Coolant Correction 2" storageaddress="0x0641e6">
+  <table name="Target Boost Torque Correction (Coolant) 2" storageaddress="0x0641e6">
    <table type="Y Axis" storageaddress="0x03f37c" />
   </table>
   <table name="Target Boost Cap (Electronic Wastegate)" storageaddress="0x0641c4" />
@@ -13613,6 +13948,8 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Boost Integral Minimum (Wastegate Position)" storageaddress="0x064d70" />
   <table name="Boost Feedback Maximum (Wastegate Position)" storageaddress="0x064d72" />
   <table name="Boost Feedback Minimum (Wastegate Position)" storageaddress="0x064d74" />
+  <table name="P0234 Overboost Error Threshold" storageaddress="0x065dcc" />
+  <table name="P0234 Overboost Time" storageaddress="0x065dce" />
   <table name="Requested Torque (Drive Mode 1, Default, Monitor)" storageaddress="0x04effa">
    <table type="X Axis" storageaddress="0x04e942" />
    <table type="Y Axis" storageaddress="0x04e918" />
@@ -13650,8 +13987,26 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   </table>
   <table name="Accelerator Pedal Span" storageaddress="0x0623b6" />
   <table name="Pedal Limits Disable" storageaddress="0x061ed7" />
+  <table name="Vehicle Speed Limit (Pedal)" storageaddress="0x06244a">
+   <table type="Y Axis" storageaddress="0x06244e" />
+  </table>
+  <table name="Vehicle Speed Limit (Pedal, Drive Mode 3, Intelligent)" storageaddress="0x06243e">
+   <table type="Y Axis" storageaddress="0x062442" />
+  </table>
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag)" storageaddress="0x062462">
+   <table type="Y Axis" storageaddress="0x062466" />
+  </table>
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag, Drive Mode 3, Intelligent)" storageaddress="0x062456">
+   <table type="Y Axis" storageaddress="0x06245a" />
+  </table>
   <table name="Vehicle Speed Limit (Pedal) Minimum RPM" storageaddress="0x0623c2" />
   <table name="Vehicle Speed Limit (Pedal, VDC Flag) Minimum RPM" storageaddress="0x0623c4" />
+  <table name="Vehicle Speed Limit (Pedal) Speed Signal Fault RPM Limit" storageaddress="0x062426">
+   <table type="Y Axis" storageaddress="0x06242a" />
+  </table>
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag) Speed Signal Fault RPM Limit" storageaddress="0x062432">
+   <table type="Y Axis" storageaddress="0x062436" />
+  </table>
   <table name="Throttle Opening Map Reference Torque (Monitor)" storageaddress="0x04e8ae">
    <table type="Y Axis" storageaddress="0x04e884" />
   </table>
@@ -13716,37 +14071,37 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Throttle Offset RPM Threshold (Coolant)" storageaddress="0x0107f0">
    <table type="Y Axis" storageaddress="0x03f37c" />
   </table>
-  <table name="Engine Torque from Load (DAM 1.0, TGV Closed)" storageaddress="0x03bde8">
-   <table type="X Axis" storageaddress="0x03bdb8" />
-   <table type="Y Axis" storageaddress="0x03bdc8" />
-  </table>
-  <table name="Engine Torque from Load (DAM 1.0, TGV Closed, EGR)" storageaddress="0x03c762">
-   <table type="X Axis" storageaddress="0x03bdb8" />
-   <table type="Y Axis" storageaddress="0x03bdc8" />
-  </table>
-  <table name="Engine Torque from Load (DAM 1.0, TGV Open)" storageaddress="0x03c018">
-   <table type="X Axis" storageaddress="0x03bfe8" />
-   <table type="Y Axis" storageaddress="0x03bff8" />
-  </table>
-  <table name="Engine Torque from Load (DAM 1.0, TGV Open, EGR)" storageaddress="0x03c962">
-   <table type="X Axis" storageaddress="0x03bfe8" />
-   <table type="Y Axis" storageaddress="0x03bff8" />
-  </table>
-  <table name="Engine Torque from Load (DAM 0, TGV Closed)" storageaddress="0x03b988">
+  <table name="Engine Torque from Load (DAM 1.0, TGV Closed)" storageaddress="0x03b988">
    <table type="X Axis" storageaddress="0x03b958" />
    <table type="Y Axis" storageaddress="0x03b968" />
   </table>
-  <table name="Engine Torque from Load (DAM 0, TGV Closed, EGR)" storageaddress="0x03c362">
+  <table name="Engine Torque from Load (DAM 1.0, TGV Closed, EGR)" storageaddress="0x03c362">
    <table type="X Axis" storageaddress="0x03b958" />
    <table type="Y Axis" storageaddress="0x03b968" />
   </table>
-  <table name="Engine Torque from Load (DAM 0, TGV Open)" storageaddress="0x03bbb8">
+  <table name="Engine Torque from Load (DAM 1.0, TGV Open)" storageaddress="0x03bbb8">
    <table type="X Axis" storageaddress="0x03bb88" />
    <table type="Y Axis" storageaddress="0x03bb98" />
   </table>
-  <table name="Engine Torque from Load (DAM 0, TGV Open, EGR)" storageaddress="0x03c562">
+  <table name="Engine Torque from Load (DAM 1.0, TGV Open, EGR)" storageaddress="0x03c562">
    <table type="X Axis" storageaddress="0x03bb88" />
    <table type="Y Axis" storageaddress="0x03bb98" />
+  </table>
+  <table name="Engine Torque from Load (DAM 0, TGV Closed)" storageaddress="0x03bde8">
+   <table type="X Axis" storageaddress="0x03bdb8" />
+   <table type="Y Axis" storageaddress="0x03bdc8" />
+  </table>
+  <table name="Engine Torque from Load (DAM 0, TGV Closed, EGR)" storageaddress="0x03c762">
+   <table type="X Axis" storageaddress="0x03bdb8" />
+   <table type="Y Axis" storageaddress="0x03bdc8" />
+  </table>
+  <table name="Engine Torque from Load (DAM 0, TGV Open)" storageaddress="0x03c018">
+   <table type="X Axis" storageaddress="0x03bfe8" />
+   <table type="Y Axis" storageaddress="0x03bff8" />
+  </table>
+  <table name="Engine Torque from Load (DAM 0, TGV Open, EGR)" storageaddress="0x03c962">
+   <table type="X Axis" storageaddress="0x03bfe8" />
+   <table type="Y Axis" storageaddress="0x03bff8" />
   </table>
   <table name="Full-Load Reference Brake Torque (Monitor)" storageaddress="0x053042">
    <table type="Y Axis" storageaddress="0x0530a2" />
@@ -13770,10 +14125,13 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Torque Model Filter Multiplier B" storageaddress="0x010852">
    <table type="Y Axis" storageaddress="0x03f37c" />
   </table>
-  <table name="Torque Model Filter Multiplier C" storageaddress="0x0107d0">
+  <table name="Torque Model Filter Multiplier A (Alt)" storageaddress="0x010832">
    <table type="Y Axis" storageaddress="0x03f37c" />
   </table>
-  <table name="Torque Model Filter Multiplier A (Below Idle Target, TGV Closed)" storageaddress="0x011b18">
+  <table name="Torque Model Filter Multiplier C (Alt)" storageaddress="0x0107b0">
+   <table type="Y Axis" storageaddress="0x03f37c" />
+  </table>
+  <table name="Torque Model Filter Multiplier C" storageaddress="0x0107d0">
    <table type="Y Axis" storageaddress="0x03f37c" />
   </table>
   <table name="Spark Compensation Filter Rate (High Pressure)" storageaddress="0x025ed0">
@@ -14090,6 +14448,9 @@ Base term by rpm of the exhaust cam 1 OCV duty in the legacy byte-based AVCS pat
 
 Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS path: about 47.2-50.8 % duty before the FFF88AA4 factor; the learned and feedback bytes are added around 128 (= 51.2 %). Module (read): seg 0x100000 0x104xxx-0x106xxx is the byte-based cam path; 0x10466C (intake, called at seg_0x100000.c:3516 with rpm CD54, FFF88AA4, learned bytes FFF8147A/147C/147E, feedback bytes FFF8B368, cam errors B956/B954) forms per cam: B352 = this(rpm) x 026EB0/026EC0(FFF88AA4)/128; B356 = 147A if the cam error &gt;= cal 0x26E82 (364 = 2.0 deg), 147C if &lt;= cal 0x26E84 (-2.0 deg), else 128; B366 = clamp(B368 + B352 + 147E + B356 - 384, 0, 250). 0x106A0C does the same for the exhaust cams (05CF08/05CF14, factors 0298F4/029904, errors B916/B914, thresholds cal 0x298C6/0x298C8) into B380. The OCV duty routines 0x15DF20 / 0x15E63C (intake cam 1 / 2) and 0x16269C / 0x162D18 (exhaust) set duty B8DE = B366[cam] x 10 (B380 for exhaust) only when cal 0x3CCC4 bit 0 is clear (read). FFF88AA4 = (FFF88AE6 &gt;&gt; 8 - 10) x 1.6 (0x060000 area, read); FFF88AE6 not identified. LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). Confidence: inferred.</description>
   </table>
+  <table name="Idle Speed Target (Warm Idle, Mode 5)" storageaddress="0x028714" />
+  <table name="Idle Speed Target (Warm Idle, AT/CVT, Mode 6)" storageaddress="0x028734" />
+  <table name="Idle Speed Target (Warm Start, Mode 3)" storageaddress="0x0286d4" />
   <table name="Idle Speed Target (In Drive, AT/CVT)" storageaddress="0x029d43">
    <table type="Y Axis" storageaddress="0x03f37c" />
   </table>
@@ -14112,13 +14473,7 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
   <table name="Idle Target Ramp Rate (Mode 2 to 5)" storageaddress="0x028794">
    <table type="Y Axis" storageaddress="0x03f37c" />
   </table>
-  <table name="Idle Target Ramp Rate (Mode 2 to 7)" storageaddress="0x0287b4">
-   <table type="Y Axis" storageaddress="0x03f37c" />
-  </table>
   <table name="Idle Target Ramp Rate (Mode 3 to 5)" storageaddress="0x0287d4">
-   <table type="Y Axis" storageaddress="0x03f37c" />
-  </table>
-  <table name="Idle Target Ramp Rate (Mode 3 to 7)" storageaddress="0x0287f4">
    <table type="Y Axis" storageaddress="0x03f37c" />
   </table>
   <table name="Idle Target Ramp Rate (Mode 7 to 5)" storageaddress="0x028854">
@@ -14166,6 +14521,7 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
   <table name="Idle Target Ramp Rate (AT/CVT, Mode 8 to 7)" storageaddress="0x0289f4">
    <table type="Y Axis" storageaddress="0x03f37c" />
   </table>
+  <table name="Idle Speed Target (Cold Idle, Mode 4)" storageaddress="0x0286f4" />
   <table name="Idle Target Ramp Rate (Mode 4 to 5)" storageaddress="0x028814">
    <table type="Y Axis" storageaddress="0x03f37c" />
   </table>
@@ -14181,6 +14537,11 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
   <table name="CAN Idle Speed Request Remap (Flag Set, Alternate)" storageaddress="0x03b730">
    <table type="Y Axis" storageaddress="0x03b6f4" />
   </table>
+  <table name="Idle Base Air (Mode 5)" storageaddress="0x028c62" />
+  <table name="Idle Base Air (Mode 5, TGV Closed)" storageaddress="0x028b62" />
+  <table name="Idle Base Air (Warm Start, Mode 3)" storageaddress="0x028c22" />
+  <table name="Idle Base Air (Warm Start, Mode 3, TGV Closed)" storageaddress="0x028b22" />
+  <table name="Idle Base Air (AT/CVT, Mode 6, TGV Closed)" storageaddress="0x028b82" />
   <table name="Post-Start Idle Air (Initial)" storageaddress="0x02a088">
    <table type="X Axis" storageaddress="0x03f37c" />
    <table type="Y Axis" storageaddress="0x02a188" />
@@ -14296,6 +14657,8 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
   <table name="Idle Air from Throttle Area (Torque Request)" storageaddress="0x029e2e">
    <table type="Y Axis" storageaddress="0x029e4e" />
   </table>
+  <table name="Idle Base Air (Cold Idle, Mode 4)" storageaddress="0x028c42" />
+  <table name="Idle Base Air (Cold Idle, Mode 4, TGV Closed)" storageaddress="0x028b42" />
   <table name="Post-Start Idle Air (Stop-Start Restart)" storageaddress="0x02a36c">
    <table type="X Axis" storageaddress="0x03f37c" />
    <table type="Y Axis" storageaddress="0x02a4ac" />
@@ -14500,6 +14863,10 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="TGV IAT Threshold" storageaddress="0x03eac4">
    <table type="Y Axis" storageaddress="0x03eabc" />
   </table>
+  <table type="1D" name="TGV Air Quantity Maximum (Enter)" category="EGR &amp; TGV//TGV" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x03eab8">
+   <scaling units="g/s" expression="x/300" to_byte="x*300" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>Air flow below which the TGVs may close (probably; part of the TGV close conditions together with torque and coolant). Raise it (with TGV Air Quantity Maximum (Exit)) to let the TGVs close at higher air flow; once closed they reopen above the Exit value.</description>
+  </table>
   <table name="TGV Air Quantity Maximum (Exit)" storageaddress="0x03eab6" />
   <table name="TGV Close Delay" storageaddress="0x03eaa4">
    <table type="Y Axis" storageaddress="0x03ea9c" />
@@ -14526,9 +14893,9 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="TGV Torque Threshold Exit (Start Modes)" storageaddress="0x03ebb8">
    <table type="Y Axis" storageaddress="0x03ead4" />
   </table>
-  <table name="Cruise Pedal Equivalent (Drive Mode 3, Intelligent)" storageaddress="0x0481c6">
-   <table type="X Axis" storageaddress="0x047e46" />
-   <table type="Y Axis" storageaddress="0x047e26" />
+  <table name="Cruise Pedal Equivalent (Other Drive Modes)" storageaddress="0x0485c6">
+   <table type="X Axis" storageaddress="0x047ec6" />
+   <table type="Y Axis" storageaddress="0x047ea6" />
   </table>
   <table name="Cruise Pedal Equivalent (Other Drive Modes, Meter Cruise Option)" storageaddress="0x0483c6">
    <table type="X Axis" storageaddress="0x047e86" />
@@ -14660,13 +15027,12 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x0407e4" />
   <table name="Charging Target Voltage Maximum" storageaddress="0x0409e0" />
   <table name="Charging Target Voltage Minimum" storageaddress="0x0409e2" />
+  <table name="Alternator Command from Target Voltage" storageaddress="0x04096c">
+   <table type="Y Axis" storageaddress="0x04089a" />
+  </table>
   <table name="Charging Target Temperature Correction Threshold" storageaddress="0x040812" />
-  <table type="2D" name="Charging Target Temperature Correction" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int16" endian="big" sizey="16" userlevel="3" storageaddress="0x040930">
-   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x04087a">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <description>Subtracted from the charging target (when that target is at or above the threshold): negative values raise the target. The axis is a raw value from the battery sensor, probably its temperature.</description>
+  <table name="Charging Target Temperature Correction" storageaddress="0x040930">
+   <table type="Y Axis" storageaddress="0x04087a" />
   </table>
   <table name="Charging Target Voltage at Start" storageaddress="0x04098c" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x039e12">
@@ -14679,31 +15045,21 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="Battery Charged Check Window" storageaddress="0x0407bc" />
   <table name="Charge Cycle Length" storageaddress="0x0407c4" />
   <table name="Adaptive Charging Time Limit" storageaddress="0x0407c0" />
-  <table name="Adaptive Charging Charge Limit" storageaddress="0x0407d0">
-   <description>Adaptive charging also ends once this much charge has gone back into the battery (raw units).
-
-Details: Compared with FFF81848, the integral of charging current while in mode 5 (0x1368C4, read; unit not confirmed). LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). Confidence: read.</description>
-  </table>
+  <table name="Adaptive Charging Charge Limit" storageaddress="0x0407d0" />
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x039e24">
    <table type="Y Axis" storageaddress="0x039e36" />
   </table>
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x039e00">
    <table type="Y Axis" storageaddress="0x039e36" />
   </table>
-  <table type="2D" name="Charging Feedback Proportional" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int16" endian="big" sizey="17" userlevel="4" storageaddress="0x0409b4">
-   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
-   <table type="Y Axis" name="Axis" storagetype="int16" endian="big" storageaddress="0x040992">
-    <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
-   </table>
-   <description>Correction added to the charging target in proportion to how far the battery voltage is from it.</description>
+  <table name="Charging Feedback Proportional" storageaddress="0x0409b4">
+   <table type="Y Axis" storageaddress="0x040992" />
   </table>
   <table name="Charging Feedback Integral Step Up" storageaddress="0x0407fc" />
   <table name="Charging Feedback Integral Step Down" storageaddress="0x0407fa" />
-  <table name="Charging Feedback Integral Gain" storageaddress="0x0407f8">
-   <description>Scales the feedback integral (100 = as is).
-
-Details: Integral x this / 100 after the clamp (0x13866C, read). LT8H300D: same code as LF9K000D; address from the same instruction (between exact neighbours (40 bytes below, 84 above, both moved by the same amount; inferred)). Confidence: inferred.</description>
-  </table>
+  <table name="Charging Feedback Integral Maximum" storageaddress="0x04098e" />
+  <table name="Charging Feedback Integral Minimum" storageaddress="0x040990" />
+  <table name="Charging Feedback Integral Gain" storageaddress="0x0407f8" />
   <table name="Charging Feedback Deadband Above" storageaddress="0x0407f4" />
   <table name="Charging Feedback Deadband Below" storageaddress="0x0407f6" />
   <table name="Charging Feedback Minimum RPM" storageaddress="0x0407fe" />
@@ -14825,6 +15181,15 @@ Details: Integral x this / 100 after the clamp (0x13866C, read). LT8H300D: same 
   <table name="Transmission Coding: From Input Port" storageaddress="0x034d86" />
   <table name="Open Loop Fueling: Use Alternate Map" storageaddress="0x034d8a" />
   <table name="VE: Use AVCS-Not-Ready Table" storageaddress="0x030e48" />
+  <table type="1D" name="P0299 Underboost Error Threshold" category="Unsorted" storagetype="int16" endian="big" userlevel="3" storageaddress="0x065dd6">
+   <scaling category="Default" units="psi" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="kPa" units="kPa" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>Fail count while FFF8AB1E (target - actual) &gt;= this.</description>
+  </table>
+  <table type="1D" name="P0299 Underboost Time" category="Unsorted" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x065dd4">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>LT8F300C 0x097A16 (read).</description>
+  </table>
   <table type="3D" name="(P000A) Intake Camshaft Position Slow Response (Bank 1)" category="Diagnostics &amp; Switches//DTC Switches" storagetype="uint8" endian="big" sizex="2" sizey="1" swapxy="true" skipCells="97051" mask="01" userlevel="2" storageaddress="0x4a774">
    <scaling units="1 = yes, 0 = no" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="1" />
    <table type="Static X Axis" name="DTC Enabled | Triggers Fail-Safe" sizex="2">
@@ -17606,29 +17971,6 @@ Details: Integral x this / 100 after the clamp (0x13866C, read). LT8H300D: same 
   <table name="Injector Minimum Pulse Width" storageaddress="0x012382">
    <table type="Y Axis" storageaddress="0x03f876" />
   </table>
-  <table type="3D" name="Per-Injector Fuel Multiplier 1 (Single Injection)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="3" storageaddress="0x017e30">
-   <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
-   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x017dc4">
-    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
-    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x017db4">
-    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
-   </table>
-   <description>Fuel multiplier for injector 1 when it fires once per cycle.</description>
-  </table>
-  <table name="Per-Injector Fuel Multiplier 2 (Single Injection)" storageaddress="0x017ef0">
-   <table type="X Axis" storageaddress="0x017dc4" />
-   <table type="Y Axis" storageaddress="0x017db4" />
-  </table>
-  <table name="Per-Injector Fuel Multiplier 3 (Single Injection)" storageaddress="0x017fb0">
-   <table type="X Axis" storageaddress="0x017dc4" />
-   <table type="Y Axis" storageaddress="0x017db4" />
-  </table>
-  <table name="Per-Injector Fuel Multiplier 4 (Single Injection)" storageaddress="0x018070">
-   <table type="X Axis" storageaddress="0x017dc4" />
-   <table type="Y Axis" storageaddress="0x017db4" />
-  </table>
   <table name="Injector 2/4 Rail Pressure Offset" storageaddress="0x06366c">
    <table type="X Axis" storageaddress="0x06365c" />
    <table type="Y Axis" storageaddress="0x06363c" />
@@ -17662,6 +18004,7 @@ Details: Integral x this / 100 after the clamp (0x13866C, read). LT8H300D: same 
   <table name="Target Rail Pressure (Combustion Mode 3, Pedal Applied)" storageaddress="0x047ef2">
    <table type="Y Axis" storageaddress="0x03f760" />
   </table>
+  <table name="Target Rail Pressure (Catalyst Heating)" storageaddress="0x047c06" />
   <table name="HPFP Feedforward Command" storageaddress="0x047f26">
    <table type="X Axis" storageaddress="0x047f12" />
    <table type="Y Axis" storageaddress="0x047c82" />
@@ -17689,51 +18032,6 @@ Details: Integral x this / 100 after the clamp (0x13866C, read). LT8H300D: same 
   </table>
   <table name="HPFP Solenoid End Offset" storageaddress="0x047ac4">
    <table type="Y Axis" storageaddress="0x047894" />
-  </table>
-  <table name="Per-Injector Fuel Multiplier 1 (Double Injection)" storageaddress="0x017e70">
-   <table type="X Axis" storageaddress="0x017ddc" />
-   <table type="Y Axis" storageaddress="0x017dcc" />
-  </table>
-  <table name="Per-Injector Fuel Multiplier 1 (Triple Injection)" storageaddress="0x017eb0">
-   <table type="X Axis" storageaddress="0x017df4" />
-   <table type="Y Axis" storageaddress="0x017de4" />
-  </table>
-  <table name="Per-Injector Fuel Multiplier 2 (Double Injection)" storageaddress="0x017f30">
-   <table type="X Axis" storageaddress="0x017ddc" />
-   <table type="Y Axis" storageaddress="0x017dcc" />
-  </table>
-  <table name="Per-Injector Fuel Multiplier 2 (Triple Injection)" storageaddress="0x017f70">
-   <table type="X Axis" storageaddress="0x017df4" />
-   <table type="Y Axis" storageaddress="0x017de4" />
-  </table>
-  <table name="Per-Injector Fuel Multiplier 3 (Double Injection)" storageaddress="0x017ff0">
-   <table type="X Axis" storageaddress="0x017ddc" />
-   <table type="Y Axis" storageaddress="0x017dcc" />
-  </table>
-  <table name="Per-Injector Fuel Multiplier 3 (Triple Injection)" storageaddress="0x018030">
-   <table type="X Axis" storageaddress="0x017df4" />
-   <table type="Y Axis" storageaddress="0x017de4" />
-  </table>
-  <table name="Per-Injector Fuel Multiplier 4 (Double Injection)" storageaddress="0x0180b0">
-   <table type="X Axis" storageaddress="0x017ddc" />
-   <table type="Y Axis" storageaddress="0x017dcc" />
-  </table>
-  <table type="3D" name="Per-Injector Fuel Multiplier 4 (Triple Injection)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x0180f0">
-   <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
-   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x017df4">
-    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
-    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x017de4">
-    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
-   </table>
-   <description>Fuel multiplier for injector 4 when it fires three times per cycle (128 = x1.0).</description>
-  </table>
-  <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x047eb2">
-   <table type="Y Axis" storageaddress="0x047e92" />
-  </table>
-  <table name="Target Rail Pressure (Combustion Mode 1, Fallback, AT/CVT Coding)" storageaddress="0x0481ac">
-   <table type="Y Axis" storageaddress="0x047e92" />
   </table>
   <table name="Warm-Up Enrichment RPM Multiplier" storageaddress="0x0256c2">
    <table type="Y Axis" storageaddress="0x03f730" />
@@ -18238,6 +18536,10 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <table type="X Axis" storageaddress="0x03f760" />
   </table>
   <table name="Start Split Injection Second Share (Idle)" storageaddress="0x02f529">
+   <table type="X Axis" storageaddress="0x02f510" />
+   <table type="Y Axis" storageaddress="0x02f521" />
+  </table>
+  <table name="Start Split Injection Second Share" storageaddress="0x02f56a">
    <table type="X Axis" storageaddress="0x02f510" />
    <table type="Y Axis" storageaddress="0x02f521" />
   </table>
@@ -18898,10 +19200,6 @@ Weighted DAM/16. 0x0D9BD4 (read): FFF8A73F = ((16 - DAM) x 05B54C + DAM x 05B560
    <table type="X Axis" storageaddress="0x02f2fa" />
    <table type="Y Axis" storageaddress="0x02f31a" />
   </table>
-  <table name="Start Spark Target Re-Entry Adder (Mode 1)" storageaddress="0x02f5fe">
-   <table type="X Axis" storageaddress="0x03f760" />
-   <table type="Y Axis" storageaddress="0x02f5de" />
-  </table>
   <table name="Start Spark Target Re-Entry Adder (Mode 1, AT/CVT, Warm-Up Fallback)" storageaddress="0x02f71e">
    <table type="X Axis" storageaddress="0x03f760" />
    <table type="Y Axis" storageaddress="0x02f6fe" />
@@ -18910,7 +19208,11 @@ Weighted DAM/16. 0x0D9BD4 (read): FFF8A73F = ((16 - DAM) x 05B54C + DAM x 05B560
    <table type="X Axis" storageaddress="0x02f2fa" />
    <table type="Y Axis" storageaddress="0x02f2e2" />
   </table>
-  <table name="Target Boost (from Requested Boost)" storageaddress="0x064b7c">
+  <table name="Start Spark Target Torque Adder (Mode 1, Warm-Up Fallback)" storageaddress="0x02efa0">
+   <table type="X Axis" storageaddress="0x02f2fa" />
+   <table type="Y Axis" storageaddress="0x02f2f2" />
+  </table>
+  <table name="Target Boost (Electronic Wastegate)" storageaddress="0x064b7c">
    <table type="X Axis" storageaddress="0x064f32" />
    <table type="Y Axis" storageaddress="0x064f0c" />
   </table>
@@ -18921,10 +19223,10 @@ Weighted DAM/16. 0x0D9BD4 (read): FFF8A73F = ((16 - DAM) x 05B54C + DAM x 05B560
    <table type="X Axis" storageaddress="0x025132" />
    <table type="Y Axis" storageaddress="0x0647c6" />
   </table>
-  <table name="Target Boost Coolant Correction 1" storageaddress="0x0647da">
+  <table name="Target Boost Torque Correction (Coolant) 1" storageaddress="0x0647da">
    <table type="Y Axis" storageaddress="0x03f760" />
   </table>
-  <table name="Target Boost Coolant Correction 2" storageaddress="0x0647fa">
+  <table name="Target Boost Torque Correction (Coolant) 2" storageaddress="0x0647fa">
    <table type="Y Axis" storageaddress="0x03f760" />
   </table>
   <table name="Target Boost Cap (Electronic Wastegate)" storageaddress="0x0647d8" />
@@ -18995,6 +19297,29 @@ Weighted DAM/16. 0x0D9BD4 (read): FFF8A73F = ((16 - DAM) x 05B54C + DAM x 05B560
   <table name="Boost Integral Minimum (Wastegate Position)" storageaddress="0x065384" />
   <table name="Boost Feedback Maximum (Wastegate Position)" storageaddress="0x065386" />
   <table name="Boost Feedback Minimum (Wastegate Position)" storageaddress="0x065388" />
+  <table name="P0234 Overboost Error Threshold" storageaddress="0x0663e0" />
+  <table name="P0234 Overboost Time" storageaddress="0x0663e2" />
+  <table type="3D" name="P0299 Underboost Error Threshold (IAT, Baro)" category="Boost Control//Boost Feedback &amp; Compensations" storagetype="uint16" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x06689e">
+   <scaling category="Default" units="psi" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="kPa" units="kPa" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Barometric Pressure" storagetype="uint16" endian="big" storageaddress="0x066aae">
+    <scaling category="Default" units="psia" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+    <scaling category="kPa absolute" units="kPa abs" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   </table>
+   <table type="Y Axis" name="Intake Air Temp" storagetype="uint8" endian="big" storageaddress="0x066a9e">
+    <scaling category="Default" units="degrees F" expression="(x-50)*1.8+32" to_byte="(x-32)/1.8+50" format="0" fineincrement="2" coarseincrement="8.0" />
+    <scaling category="degC" units="degrees C" expression="x-50" to_byte="x+50" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>P0299 (underboost) counts while actual boost is below target by more than this, by intake air temperature and barometric pressure.</description>
+  </table>
+  <table type="2D" name="P0299 Underboost Time (Baro)" category="Boost Control//Boost Feedback &amp; Compensations" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x06685e">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Barometric Pressure" storagetype="uint16" endian="big" storageaddress="0x06687e">
+    <scaling category="Default" units="psia" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+    <scaling category="kPa absolute" units="kPa abs" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   </table>
+   <description>How long underboost must last before P0299 sets (passes), by barometric pressure.</description>
+  </table>
   <table name="Requested Torque (Drive Mode 1, Default)" storageaddress="0x01f900">
    <table type="X Axis" storageaddress="0x01f248" />
    <table type="Y Axis" storageaddress="0x01f21e" />
@@ -19365,10 +19690,28 @@ Weighted DAM/16. 0x0D9BD4 (read): FFF8A73F = ((16 - DAM) x 05B54C + DAM x 05B560
   <table name="Vehicle Speed Limit Reset Maximum MAP" storageaddress="0x01f0f2" />
   <table name="Vehicle Speed Limit Reset Maximum MAP Hysteresis" storageaddress="0x01f0f4" />
   <table name="Pedal Limits Disable" storageaddress="0x0624eb" />
+  <table name="Vehicle Speed Limit (Pedal)" storageaddress="0x062a5e">
+   <table type="Y Axis" storageaddress="0x062a62" />
+  </table>
+  <table name="Vehicle Speed Limit (Pedal, Drive Mode 3, Intelligent)" storageaddress="0x062a52">
+   <table type="Y Axis" storageaddress="0x062a56" />
+  </table>
   <table name="Rev Limit Full Cut Speed Threshold" storageaddress="0x01f0ee" />
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag)" storageaddress="0x062a76">
+   <table type="Y Axis" storageaddress="0x062a7a" />
+  </table>
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag, Drive Mode 3, Intelligent)" storageaddress="0x062a6a">
+   <table type="Y Axis" storageaddress="0x062a6e" />
+  </table>
   <table name="Vehicle Speed Limit (Pedal) Minimum RPM" storageaddress="0x0629d6" />
   <table name="Vehicle Speed Limit (Pedal, VDC Flag) Minimum RPM" storageaddress="0x0629d8" />
+  <table name="Vehicle Speed Limit (Pedal) Speed Signal Fault RPM Limit" storageaddress="0x062a3a">
+   <table type="Y Axis" storageaddress="0x062a3e" />
+  </table>
   <table name="Rev Limit Full Cut Speed Threshold Hysteresis" storageaddress="0x01f0ef" />
+  <table name="Vehicle Speed Limit (Pedal, VDC Flag) Speed Signal Fault RPM Limit" storageaddress="0x062a46">
+   <table type="Y Axis" storageaddress="0x062a4a" />
+  </table>
   <table name="Fail-Safe Rev Limit (Unused Fault Flag)" storageaddress="0x010774" userlevel="5">
    <description>
 
@@ -19450,6 +19793,16 @@ Details: When used: only while FFF88F4A bit 2 is set. Otherwise as Fail-Safe Rev
   <table name="Throttle Opening from Target Torque (Cruise, TGV Open, Monitor)" storageaddress="0x0515b0">
    <table type="X Axis" storageaddress="0x051e1c" />
    <table type="Y Axis" storageaddress="0x051df0" />
+  </table>
+  <table type="3D" name="Throttle Opening from Target Torque (Cruise, TGV Open, EGR)" category="Torque &amp; Throttle//Throttle Control &amp; Throttle Model" storagetype="uint16" endian="big" sizex="24" sizey="22" userlevel="3" storageaddress="0x0229d8">
+   <scaling units="% throttle" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Axis" storagetype="uint8" endian="big" storageaddress="0x023244">
+    <scaling units="% of reference torque" expression="x/2.55" to_byte="x*2.55" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x023218">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>This is where part-throttle feel is set: the commanded throttle opening is essentially this map (by rpm and target torque) plus the idle air. Probably used while cruise control is active; TGVs open, EGR active. Edit together with Throttle Opening from Target Torque (Cruise, TGV Open, EGR, Monitor).</description>
   </table>
   <table name="Throttle Opening from Target Torque (Cruise, TGV Open, EGR, Monitor)" storageaddress="0x0519d0">
    <table type="X Axis" storageaddress="0x051e60" />
@@ -19596,10 +19949,13 @@ Details: 0x0C4E5C (read): AFBA = min(this(rpm), T) while FFF8A9C9 bit 2 is set; 
   <table name="Torque Model Filter Multiplier B" storageaddress="0x010852">
    <table type="Y Axis" storageaddress="0x03f760" />
   </table>
-  <table name="Torque Model Filter Multiplier C" storageaddress="0x0107d0">
+  <table name="Torque Model Filter Multiplier A (Alt)" storageaddress="0x010832">
    <table type="Y Axis" storageaddress="0x03f760" />
   </table>
-  <table name="Torque Model Filter Multiplier A (Below Idle Target, TGV Closed)" storageaddress="0x011b18">
+  <table name="Torque Model Filter Multiplier C (Alt)" storageaddress="0x0107b0">
+   <table type="Y Axis" storageaddress="0x03f760" />
+  </table>
+  <table name="Torque Model Filter Multiplier C" storageaddress="0x0107d0">
    <table type="Y Axis" storageaddress="0x03f760" />
   </table>
   <table name="Spark Compensation Filter Rate (High Pressure)" storageaddress="0x025f24">
@@ -19940,6 +20296,9 @@ Base term by rpm of the exhaust cam 1 OCV duty in the legacy byte-based AVCS pat
 
 Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS path: about 47.2-50.8 % duty before the FFF88AA4 factor; the learned and feedback bytes are added around 128 (= 51.2 %). Module (read): seg 0x100000 0x104xxx-0x106xxx is the byte-based cam path; 0x10466C (intake, called at seg_0x100000.c:3516 with rpm CD54, FFF88AA4, learned bytes FFF8147A/147C/147E, feedback bytes FFF8B368, cam errors B956/B954) forms per cam: B352 = this(rpm) x 026EB0/026EC0(FFF88AA4)/128; B356 = 147A if the cam error &gt;= cal 0x26E82 (364 = 2.0 deg), 147C if &lt;= cal 0x26E84 (-2.0 deg), else 128; B366 = clamp(B368 + B352 + 147E + B356 - 384, 0, 250). 0x106A0C does the same for the exhaust cams (05CF08/05CF14, factors 0298F4/029904, errors B916/B914, thresholds cal 0x298C6/0x298C8) into B380. The OCV duty routines 0x15DF20 / 0x15E63C (intake cam 1 / 2) and 0x16269C / 0x162D18 (exhaust) set duty B8DE = B366[cam] x 10 (B380 for exhaust) only when cal 0x3CCC4 bit 0 is clear (read). FFF88AA4 = (FFF88AE6 &gt;&gt; 8 - 10) x 1.6 (0x060000 area, read); FFF88AE6 not identified. LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
   </table>
+  <table name="Idle Speed Target (Warm Idle, Mode 5)" storageaddress="0x0288ac" />
+  <table name="Idle Speed Target (Warm Idle, AT/CVT, Mode 6)" storageaddress="0x0288cc" />
+  <table name="Idle Speed Target (Warm Start, Mode 3)" storageaddress="0x02886c" />
   <table name="Idle Speed Target (In Drive, AT/CVT)" storageaddress="0x029edb">
    <table type="Y Axis" storageaddress="0x03f760" />
   </table>
@@ -19962,13 +20321,7 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
   <table name="Idle Target Ramp Rate (Mode 2 to 5)" storageaddress="0x02892c">
    <table type="Y Axis" storageaddress="0x03f760" />
   </table>
-  <table name="Idle Target Ramp Rate (Mode 2 to 7)" storageaddress="0x02894c">
-   <table type="Y Axis" storageaddress="0x03f760" />
-  </table>
   <table name="Idle Target Ramp Rate (Mode 3 to 5)" storageaddress="0x02896c">
-   <table type="Y Axis" storageaddress="0x03f760" />
-  </table>
-  <table name="Idle Target Ramp Rate (Mode 3 to 7)" storageaddress="0x02898c">
    <table type="Y Axis" storageaddress="0x03f760" />
   </table>
   <table name="Idle Target Ramp Rate (Mode 7 to 5)" storageaddress="0x0289ec">
@@ -20022,6 +20375,11 @@ Details: 0x0F1DD0 (read; selection checked in the disassembly 0x0F1DD0..0x0F2148
   <table name="Idle Target Ramp Rate (AT/CVT, Mode 8 to 7)" storageaddress="0x028b8c">
    <table type="Y Axis" storageaddress="0x03f760" />
   </table>
+  <table name="Idle Speed Target (Cold Idle, Mode 4)" storageaddress="0x02888c" userlevel="5">
+   <description>Idle speed target by coolant for a cold-idle mode used when stopped below a coolant threshold.
+
+Details: When used: idle mode 4, entered from mode 5 when stopped with coolant below cal 0x24E94 for cal 0x24E96 passes. 0x0F1BCC selects this boot-format table by idle mode FFF8A7F0 = 4 and coolant; the result B238 is ramped (0x0F1D00) and becomes the idle target FFF8B236 through the minimum-speed max() in 0x0F2274 (read). Implicit coolant axis -40..110 C in 10 C steps (lookup 0x7414). Confidence: inferred.</description>
+  </table>
   <table name="Idle Target Ramp Rate (Mode 4 to 5)" storageaddress="0x0289ac">
    <table type="Y Axis" storageaddress="0x03f760" />
   </table>
@@ -20037,6 +20395,11 @@ Details: 0x0F1DD0 (read; selection checked in the disassembly 0x0F1DD0..0x0F2148
   <table name="CAN Idle Speed Request Remap (Flag Set, Alternate)" storageaddress="0x03bb14">
    <table type="Y Axis" storageaddress="0x03bad8" />
   </table>
+  <table name="Idle Base Air (Mode 5)" storageaddress="0x028dfa" />
+  <table name="Idle Base Air (Mode 5, TGV Closed)" storageaddress="0x028cfa" />
+  <table name="Idle Base Air (Warm Start, Mode 3)" storageaddress="0x028dba" />
+  <table name="Idle Base Air (Warm Start, Mode 3, TGV Closed)" storageaddress="0x028cba" />
+  <table name="Idle Base Air (AT/CVT, Mode 6, TGV Closed)" storageaddress="0x028d1a" />
   <table name="Post-Start Idle Air (Initial)" storageaddress="0x02a220">
    <table type="X Axis" storageaddress="0x03f760" />
    <table type="Y Axis" storageaddress="0x02a320" />
@@ -20151,6 +20514,16 @@ Details: 0x0F1DD0 (read; selection checked in the disassembly 0x0F1DD0..0x0F2148
   </table>
   <table name="Idle Air from Throttle Area (Torque Request)" storageaddress="0x029fc6">
    <table type="Y Axis" storageaddress="0x029fe6" />
+  </table>
+  <table name="Idle Base Air (Cold Idle, Mode 4)" storageaddress="0x028dda" userlevel="5">
+   <description>Base idle air by coolant for the cold-idle mode 4.
+
+Details: When used: idle mode 4, entered from mode 5 when stopped with coolant below cal 0x24E94 for cal 0x24E96 passes. 0x0F0D24: base idle air B20C by idle mode FFF8A7F0 and coolant, this table while FFF8A881 bit 4 (TGVs closed) is clear (read). Scale as Idle Base Air (Mode 5). Raise it with this mode's idle speed target so the feedback need not cover the difference (inferred). Implicit coolant axis -40..110 C in 10 C steps (lookup 0x7414). Confidence: read.</description>
+  </table>
+  <table name="Idle Base Air (Cold Idle, Mode 4, TGV Closed)" storageaddress="0x028cda" userlevel="5">
+   <description>Base idle air by coolant for the cold-idle mode 4 with the TGVs commanded closed.
+
+Details: When used: idle mode 4, entered from mode 5 when stopped with coolant below cal 0x24E94 for cal 0x24E96 passes. 0x0F0D24: base idle air B20C by idle mode FFF8A7F0 and coolant, this table while FFF8A881 bit 4 (TGV close command) is set (read). Scale as Idle Base Air (Mode 5). Raise it with this mode's idle speed target so the feedback need not cover the difference (inferred). Implicit coolant axis -40..110 C in 10 C steps (lookup 0x7414). FFF8A881 bit 4 is the normal TGV-close command (0x10DEFC, set mainly by the timed close request FFF8A883 bit 5 from 0x10E180 when requested torque, coolant and air flow are below the TGV thresholds; the same bit selects every TGV-closed table), not a forced or fault state (read). At a settled warm idle the request conditions hold, so the TGVs are normally commanded closed and the TGV Closed table is probably the one in use (inferred). Confidence: read.</description>
   </table>
   <table name="Post-Start Idle Air (Stop-Start Restart)" storageaddress="0x02a504">
    <table type="X Axis" storageaddress="0x03f760" />
@@ -20388,6 +20761,11 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="TGV IAT Threshold" storageaddress="0x03eea8">
    <table type="Y Axis" storageaddress="0x03eea0" />
   </table>
+  <table type="1D" name="TGV Coolant Minimum" category="EGR &amp; TGV//TGV" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x03ee98">
+   <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
+   <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Minimum coolant temperature for the TGVs to close (probably; part of the TGV close conditions).</description>
+  </table>
   <table name="TGV Air Quantity Maximum (Exit)" storageaddress="0x03ee9a" />
   <table name="TGV Close Delay" storageaddress="0x03ee88">
    <table type="Y Axis" storageaddress="0x03ee80" />
@@ -20414,9 +20792,9 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="TGV Torque Threshold Exit (Start Modes)" storageaddress="0x03ef9c">
    <table type="Y Axis" storageaddress="0x03eeb8" />
   </table>
-  <table name="Cruise Pedal Equivalent (Drive Mode 3, Intelligent)" storageaddress="0x0485ba">
-   <table type="X Axis" storageaddress="0x04823a" />
-   <table type="Y Axis" storageaddress="0x04821a" />
+  <table name="Cruise Pedal Equivalent (Other Drive Modes)" storageaddress="0x0489ba">
+   <table type="X Axis" storageaddress="0x0482ba" />
+   <table type="Y Axis" storageaddress="0x04829a" />
   </table>
   <table name="Cruise Pedal Equivalent (Other Drive Modes, Meter Cruise Option)" storageaddress="0x0487ba">
    <table type="X Axis" storageaddress="0x04827a" />
@@ -20548,7 +20926,13 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="Charging Target Voltage (Adaptive) Minimum" storageaddress="0x040bc8" />
   <table name="Charging Target Voltage Maximum" storageaddress="0x040dc4" />
   <table name="Charging Target Voltage Minimum" storageaddress="0x040dc6" />
+  <table name="Alternator Command from Target Voltage" storageaddress="0x040d50">
+   <table type="Y Axis" storageaddress="0x040c7e" />
+  </table>
   <table name="Charging Target Temperature Correction Threshold" storageaddress="0x040bf6" />
+  <table name="Charging Target Temperature Correction" storageaddress="0x040d14">
+   <table type="Y Axis" storageaddress="0x040c5e" />
+  </table>
   <table name="Charging Target Voltage at Start" storageaddress="0x040d70" />
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x03a1f6">
    <table type="Y Axis" storageaddress="0x03a21a" />
@@ -20560,19 +20944,20 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="Battery Charged Check Window" storageaddress="0x040ba0" />
   <table name="Charge Cycle Length" storageaddress="0x040ba8" />
   <table name="Adaptive Charging Time Limit" storageaddress="0x040ba4" />
-  <table name="Adaptive Charging Charge Limit" storageaddress="0x040bb4">
-   <description>Adaptive charging also ends once this much charge has gone back into the battery (raw units).
-
-Details: Compared with FFF81848, the integral of charging current while in mode 5 (0x1368C4, read; unit not confirmed). LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). Confidence: read.</description>
-  </table>
+  <table name="Adaptive Charging Charge Limit" storageaddress="0x040bb4" />
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x03a208">
    <table type="Y Axis" storageaddress="0x03a21a" />
   </table>
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x03a1e4">
    <table type="Y Axis" storageaddress="0x03a21a" />
   </table>
+  <table name="Charging Feedback Proportional" storageaddress="0x040d98">
+   <table type="Y Axis" storageaddress="0x040d76" />
+  </table>
   <table name="Charging Feedback Integral Step Up" storageaddress="0x040be0" />
   <table name="Charging Feedback Integral Step Down" storageaddress="0x040bde" />
+  <table name="Charging Feedback Integral Maximum" storageaddress="0x040d72" />
+  <table name="Charging Feedback Integral Minimum" storageaddress="0x040d74" />
   <table name="Charging Feedback Integral Gain" storageaddress="0x040bdc">
    <description>Scales the feedback integral (100 = as is).
 

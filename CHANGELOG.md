@@ -8,11 +8,13 @@ First public release.
   their own files (`FA24DIT_RomRaider.xml`, `FA24DIT_BASE_EcuFlash.xml` and its Metric twin), 103 ROMs in all. The
   Ascent runs a later build of the FA20DIT software, so most tables are carried over at its own addresses: about
   1,100 entries on each ROM, placed from the 2020 WRX and from each other (wherever two sources place a table they
-  agree), including the tip-in torque rise per drive mode, surge-damping timing and the rest of the torque model. Boost is new: the Ascent drives an electric
+  agree), including the tip-in torque rise per drive mode, surge-damping timing and the rest of the torque model, plus the
+  Park/Neutral rpm limit, the speed limiter and the charging system from each ROM's own code. Boost is new: the Ascent drives an electric
   wastegate, and its boost group covers the boost target and its IAT, baro and coolant corrections, the wastegate
   position feed-forward and compensations, the boost feedback (proportional, integral, limits), the feed-forward-only
   threshold, the fixed positions (low rpm, engine off, closed), the learned-seat limits, the actuator motor tables
-  and limits, and the P0244 position-error limit. The WRX boost tables still sit in the Ascent ROM, but nothing uses
+  and limits (in % duty), and the P0234 (overboost), P0299 (underboost) and P0244 (position error) limits. The boost
+  target table is by rpm and target torque, as on the WRX. The WRX boost tables still sit in the Ascent ROM, but nothing uses
   their results, so they are left out. Position is shown as % open (0 % = seated); that scale and the boost-pressure
   unit are inferred. First release: not yet checked against a read from a car.
 - New: **charging system, part 2**, in every definition (folder 09.03), 17 to 19 entries per ROM:

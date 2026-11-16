@@ -177,7 +177,7 @@ addresses. Boost control is different: the Ascent has an electric wastegate actu
 own boost group (target, wastegate position feed-forward and compensations, boost feedback, actuator and motor
 limits). Position is shown as % open, 0 % = closed on its seat; that scale and the boost-pressure unit are inferred.
 The 2019 and 2020 ROMs are close to each other and to the 2020 WRX, so they carry the most tables; the 2021 build
-reworked several modules: its code has no counterpart of the 2020 build's tip-in torque rise, surge-damping timing
+reworked several modules: I found no counterpart in its code of the 2020 build's tip-in torque rise, surge-damping timing
 and exhaust-temperature model tables, so those are not in its definition. The
 2020 and 2021 ROMs have 11-character IDs (LT8F300C00G, LT8H300D00G); the definitions match the first eight. All three
 came from Subaru's dealer software, which has no boot block, so I have not checked the definitions against a read from

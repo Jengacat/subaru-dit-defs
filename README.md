@@ -168,15 +168,16 @@ patch has not been ported to that ROM yet.
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
-| Ascent 2.4 | 2019 | CVT | USA | **LT8D800A** | 616 | 250 | no |
-| Ascent 2.4 | 2020 | CVT | USA | **LT8F300C** | 617 | 250 | no |
-| Ascent 2.4 | 2021 | CVT | USA | **LT8H300D** | 847 | 251 | no |
+| Ascent 2.4 | 2019 | CVT | USA | **LT8D800A** | 1031 | 250 | no |
+| Ascent 2.4 | 2020 | CVT | USA | **LT8F300C** | 1033 | 250 | no |
+| Ascent 2.4 | 2021 | CVT | USA | **LT8H300D** | 870 | 251 | no |
 
 The Ascent runs a later build of the same ECU software, so most tables are the FA20DIT ones at the Ascent's own
 addresses. Boost control is different: the Ascent has an electric wastegate actuator, and its definitions have their
 own boost group (target, wastegate position feed-forward and compensations, boost feedback, actuator and motor
 limits). Position is shown as % open, 0 % = closed on its seat; that scale and the boost-pressure unit are inferred.
-The 2021 ROM carries the most tables; the 2019 and 2020 ROMs are separate builds with fewer tables placed so far. The
+The 2019 and 2020 ROMs are close to each other and to the 2020 WRX, so they carry the most tables; the 2021 build
+changed more, and some of its torque-request, timing and idle tables are not placed yet. The
 2020 and 2021 ROMs have 11-character IDs (LT8F300C00G, LT8H300D00G); the definitions match the first eight. All three
 came from Subaru's dealer software, which has no boot block, so I have not checked the definitions against a read from
 a car yet: if you have an Ascent, a stock read would help.
@@ -341,7 +342,7 @@ Every table whose unit depends on the system has both an imperial and a metric s
   to correct it when it flashes (not tested by me). RomRaider (1.0.0, 1.1.0) and EcuFlash with 2.5 MB ROMs don't:
   use `tools/checksum.py` or `tools/checksum.ps1`.
 - **Use RomRaider 1.0.0 or later.** Older versions read the DTC tables wrong.
-- **Ascent: first release.** Fewer tables than the 2.0 and 1.6 definitions, especially on the 2019 and 2020 ROMs, and
+- **Ascent: first release.** Fewer tables than the 2.0 and 1.6 definitions, especially on the 2021 ROM, and
   not yet checked against a read from a car. The checksum tool's sum matches the dealer-software images; that the
   Ascent ECU checks it the same way is inferred.
 - **Inferred items** are marked "inferred" in their descriptions; everything else is read from the ECU code.

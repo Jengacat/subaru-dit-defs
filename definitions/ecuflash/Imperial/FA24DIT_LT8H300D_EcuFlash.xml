@@ -78,6 +78,12 @@
  <table name="HPFP Command Minimum" address="04768a" />
  <table name="HPFP Command Maximum Base" address="04768c" />
  <table name="HPFP Command Range" address="047692" />
+ <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" address="047eb2">
+  <table name="Coolant Temp" address="047e92" />
+ </table>
+ <table name="Target Rail Pressure (Combustion Mode 1, Fallback, AT/CVT Coding)" address="0481ac">
+  <table name="Coolant Temp" address="047e92" />
+ </table>
  <table name="Primary Open Loop Fueling" address="018f00">
   <table name="Engine Load" address="011b38" />
   <table name="Engine Speed" address="011b4c" />
@@ -740,6 +746,10 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Coolant Temp" address="02f510" />
   <table name="Y Axis" address="02f521" />
  </table>
+ <table name="Start Split Injection Second Share (Idle, Alternate)" address="02f8dc">
+  <table name="Coolant Temp" address="02f510" />
+  <table name="Y Axis" address="02f521" />
+ </table>
  <table name="Spark Angle Before Running (Coolant)" address="01ca9c">
   <table name="Coolant Temp" address="01caac" />
  </table>
@@ -866,8 +876,11 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
  <table name="Base Timing Coolant Compensation (Alternate, Above 5000 RPM)" address="03f523">
   <table name="Coolant Temp" address="03f760" />
  </table>
- <table name="Filtered RPM Rate Timing Term" address="0356f0">
+ <table name="Filtered RPM Rate Timing Term" address="0356f0" level="5">
   <table name="Filtered RPM Change" address="0356e6" />
+  <description>Timing added or removed according to how fast engine speed is changing, which looks like an rpm-oscillation (surge) damper.
+
+0x0DB888 (called from 0x0DF0B8 with FFF8AA85 bit 1 and FFF8A8A1 bit 7, read): while FFF8AA85 bit 1 is set (set by 0x07FA1A when the surge damping trigger FFF8A7A1 bit 2 and FFF8A8A2 bit 6 are clear, the request is not being shaped (FFF8AEC2 &lt;= FFF8AEBE), FFF8CEC1 bits 0-4 (rpm and load window flags) are set, speed &gt;= cal 0x57576, gear FFF8A621 within cals 0x57577..0x57578, and FFF886AB bit 7 or FFF8A88F), FFF8A757 = clamp((this(FFF88CA4) + cal 0x2FEDE (s8 -3) x (rpm k passes ago - filtered rpm k passes ago) &gt;&gt; 7) x 100 &gt;&gt; 8, cal 0x2FEDD.. cal 0x2FEDC); k = 05B784/05B790(gear FFF8A621) + 1 (both all 0, so k = 1); rpm history FFF88CAC.. and the filtered-rpm history FFF88CC8.. (FFF8CE9A, a second lag of FFF8CEB2) (read). A757 is added to the base timing sum FFF8A74B (0x0DA600, read). Axis: FFF88CA4 = change of the lag-filtered rpm FFF8CEB2 between passes of 0x07E96C (read). LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). Confidence: read.</description>
  </table>
  <table name="Knock Correction Advance Max A (TGV Open)" address="01d654">
   <table name="Engine Load" address="01d4ba" />
@@ -932,21 +945,35 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Engine Load" address="01de0c" />
   <table name="Engine Speed" address="01dde0" />
  </table>
- <table name="FBKC Retard Step (Secondary Knock, State 0x0D)" address="01d47b" />
- <table name="FBKC Retard Step (Secondary Knock, State 6)" address="01d47a" />
+ <table name="FBKC Retard Step (Secondary Knock, State 0x0D)" address="01d47b" level="5">
+  <description>Timing pulled per event by feedback knock correction when the secondary knock detector fires.
+
+Details: Feedback knock correction (0x0E2BE4, read): FFF8A79A is an s8 integrator kept at or below 0 and added directly to the fired timing (x 0.3516 degrees, 0x0D9E40): it is the only knock term of that sum, and FFF8A79A is one value for the whole engine, so a knock event on any cylinder retards all four (the fired timing FFF8A744 is recomputed per event for the next cylinder, but no per-cylinder knock retard exists; read). The state FFF8A79C (set once per combustion event by 0x0E2F94 from that event's knock results FFF8A7AD / FFF8A7B5; FFF8A7C1 is the knock-window-length flag (1 = extended window), used there only to reload per-cylinder hold counters FFF84920...FFF84930 from cal 0x27014 when it changes, purpose inferred) picks the action: states 0x0E, 0x0D, 7 and 6 subtract a step (floor = minus FBKC Maximum Retard); states 0x0C, 2, 0 (outside the rpm window) and the other non-knock states (0x0A outside the window, 0x0B) add the recovery step 0x1C271; 0x10 (inside the rpm window, no knock, fewer than cal 0x1C288 = 100 events since the last knock) holds the correction unchanged; 0x0F (inside the window, no knock, &gt;= 100 events) adds 0x1C270, 8/9 add 0x1C272 (capped at 0); 5 = FFF8A79B x 0x1C26E / 128; 3 and 4 load the fixed values 0x1C26F / 0x1C278; 1 = 0. States (0x0E2F94, read, in priority order): 1 = knock control off (cal 0x56EE7 bit 7); 2 = FFF886AB bit 5 or load FFF8ADE4 &lt;= cal 0x1C27E (0); 3 / 4 = FFF88E29 bit 3 / FFF88E2A bit 6 (fixed -14 counts = -4.9 degrees, inferred knock-sensor fault default); 5 = engine speed above FBKC Window RPM Maximum (hold); inside the rpm window: 6 / 0x0D = knock A with / without FFF8AA85 bit 0, 7 / 0x0E = knock B (FFF8A7B5, intensity &gt; Knock Threshold, the active one); 0x0F = no knock and FFF8B130 (events since the last knock, 0x0E7C7C) &gt;= cal 0x1C288 (100), 0x10 = no knock, fewer events; 8 / 9 hold; 0x0A / 0x0B / 0x0C other conditions (0x0B: A/F FFF88AF6 above a lambda threshold). Subtracted per pass in state 0x0D. p16 (read): the FBKC logic 0x0E2F94 (0x0E402C &lt;- 0x07D0E0 &lt;- 0x1E1CBC) is crank-synchronous: one pass per combustion event (180 deg CA, dispatched at tooth position 70 via the ATU-J0 software interrupt 0x0A7390), not per time. LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
+ </table>
+ <table name="FBKC Retard Step (Secondary Knock, State 6)" address="01d47a" level="5">
+  <description>Timing pulled per event by feedback knock correction when the secondary knock detector fires (variant with an extra internal condition set).
+
+Details: Feedback knock correction (0x0E2BE4, read): FFF8A79A is an s8 integrator kept at or below 0 and added directly to the fired timing (x 0.3516 degrees, 0x0D9E40): it is the only knock term of that sum, and FFF8A79A is one value for the whole engine, so a knock event on any cylinder retards all four (the fired timing FFF8A744 is recomputed per event for the next cylinder, but no per-cylinder knock retard exists; read). The state FFF8A79C (set once per combustion event by 0x0E2F94 from that event's knock results FFF8A7AD / FFF8A7B5; FFF8A7C1 is the knock-window-length flag (1 = extended window), used there only to reload per-cylinder hold counters FFF84920...FFF84930 from cal 0x27014 when it changes, purpose inferred) picks the action: states 0x0E, 0x0D, 7 and 6 subtract a step (floor = minus FBKC Maximum Retard); states 0x0C, 2, 0 (outside the rpm window) and the other non-knock states (0x0A outside the window, 0x0B) add the recovery step 0x1C271; 0x10 (inside the rpm window, no knock, fewer than cal 0x1C288 = 100 events since the last knock) holds the correction unchanged; 0x0F (inside the window, no knock, &gt;= 100 events) adds 0x1C270, 8/9 add 0x1C272 (capped at 0); 5 = FFF8A79B x 0x1C26E / 128; 3 and 4 load the fixed values 0x1C26F / 0x1C278; 1 = 0. States (0x0E2F94, read, in priority order): 1 = knock control off (cal 0x56EE7 bit 7); 2 = FFF886AB bit 5 or load FFF8ADE4 &lt;= cal 0x1C27E (0); 3 / 4 = FFF88E29 bit 3 / FFF88E2A bit 6 (fixed -14 counts = -4.9 degrees, inferred knock-sensor fault default); 5 = engine speed above FBKC Window RPM Maximum (hold); inside the rpm window: 6 / 0x0D = knock A with / without FFF8AA85 bit 0, 7 / 0x0E = knock B (FFF8A7B5, intensity &gt; Knock Threshold, the active one); 0x0F = no knock and FFF8B130 (events since the last knock, 0x0E7C7C) &gt;= cal 0x1C288 (100), 0x10 = no knock, fewer events; 8 / 9 hold; 0x0A / 0x0B / 0x0C other conditions (0x0B: A/F FFF88AF6 above a lambda threshold). Subtracted per pass in state 6. p16 (read): the FBKC logic 0x0E2F94 (0x0E402C &lt;- 0x07D0E0 &lt;- 0x1E1CBC) is crank-synchronous: one pass per combustion event (180 deg CA, dispatched at tooth position 70 via the ATU-J0 software interrupt 0x0A7390), not per time. LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
+ </table>
  <table name="FLKC Counted-Cell Learned Value Threshold" address="01d8a6" level="5">
   <table name="Dynamic Advance Multiplier" address="01d89e" />
   <description>By DAM: a fine-knock-learning cell is counted when its learned value is at or above this, and the count sets an internal flag.
 
 0x0E7DF8 (read): one cell per pass, it counts the FLKC cells whose flag FFF811AF[cell] is 1 and whose learned value FFF81414[cell] is at or above this(DAM FFF811AE); after all 35 cells the count goes to FFF8A792 and FFF8A7A3 bit 1 = count &gt;= cal 0x1C699 (4). 0x0E7D0C (read) uses that bit only together with DAM inside cal 0x1C698..0x1C697 (32..48 in DAM x 16 units), which DAM (0..16) never reaches. LT8H300D: same code as LF9K000D; address from the same instruction (similarity port (code)). Confidence: read.</description>
  </table>
- <table name="Base Timing DAM Blend Alternate (DAM 0)" address="0390ee">
+ <table name="Base Timing DAM Blend Alternate (DAM 0)" address="0390ee" level="5">
   <table name="Engine Load" address="01de0c" />
   <table name="Engine Speed" address="01dde0" />
+  <description>Alternate DAM-blended timing offset (DAM 0 side) for base timing. 32 = no change.
+
+Weighted (16 - DAM)/16. 0x0D9BD4 (read): FFF8A73F = ((16 - DAM) x 05B54C + DAM x 05B560) / 16 in the 32-offset half-degree frame, DAM = FFF811AE (0..16), tables by rpm FFF8CD54 x load FFF8ADE4. 0x0D9CA0: FFF8A73E = (A73F + FFF8A73B - 32) x FFF8B0D2 / 256 + 32, and FFF8A740 = A73E when FFF8A8A5 bit 4 is set, else A73D (the 05B574/05B588 path) (read). FFF8A73E/A73F have no other readers. With cal 0x32DEA = 'Z' the base timing term FFF8A73C would ramp toward A740 (cal 0x32DEC per pass) and enter the base timing sum FFF8A74B (0x0DA600). LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). Confidence: read.</description>
  </table>
- <table name="Base Timing DAM Blend Alternate (DAM 1)" address="03924e">
+ <table name="Base Timing DAM Blend Alternate (DAM 1)" address="03924e" level="5">
   <table name="Engine Load" address="01de0c" />
   <table name="Engine Speed" address="01dde0" />
+  <description>Alternate DAM-blended timing offset (DAM 1 side) for base timing. 32 = no change.
+
+Weighted DAM/16. 0x0D9BD4 (read): FFF8A73F = ((16 - DAM) x 05B54C + DAM x 05B560) / 16 in the 32-offset half-degree frame, DAM = FFF811AE (0..16), tables by rpm FFF8CD54 x load FFF8ADE4. 0x0D9CA0: FFF8A73E = (A73F + FFF8A73B - 32) x FFF8B0D2 / 256 + 32, and FFF8A740 = A73E when FFF8A8A5 bit 4 is set, else A73D (the 05B574/05B588 path) (read). FFF8A73E/A73F have no other readers. With cal 0x32DEA = 'Z' the base timing term FFF8A73C would ramp toward A740 (cal 0x32DEC per pass) and enter the base timing sum FFF8A74B (0x0DA600). LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). Confidence: read.</description>
  </table>
  <table name="Knock Threshold (Event 1, Full Window)" address="02be7a">
   <table name="Engine Load" address="01cb8d" />
@@ -1230,13 +1257,25 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Coolant Temp" address="02f2fa" />
   <table name="Y Axis" address="02f2e2" />
  </table>
+ <table name="Start Spark Target Run-Time Adder (Mode 1)" address="02f0a0">
+  <table name="Coolant Temp" address="02f2fa" />
+  <table name="Count" address="02f31a" />
+ </table>
  <table name="Start Spark Target Run-Time Adder (Mode 1, AT/CVT, Warm-Up Fallback)" address="02f1a0">
   <table name="Coolant Temp" address="02f2fa" />
   <table name="Count" address="02f31a" />
  </table>
+ <table name="Start Spark Target Re-Entry Adder (Mode 1)" address="02f5fe">
+  <table name="Coolant Temp" address="03f760" />
+  <table name="Count" address="02f5de" />
+ </table>
  <table name="Start Spark Target Re-Entry Adder (Mode 1, AT/CVT, Warm-Up Fallback)" address="02f71e">
   <table name="Coolant Temp" address="03f760" />
   <table name="Count" address="02f6fe" />
+ </table>
+ <table name="Start Spark Target Base (Mode 1, Warm-Up Fallback)" address="02eda0">
+  <table name="Coolant Temp" address="02f2fa" />
+  <table name="Y Axis" address="02f2e2" />
  </table>
  <table name="Target Boost (from Requested Boost)" address="064b7c">
   <table name="X Axis" address="064f32" />
@@ -1461,9 +1500,11 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
  <table name="Overboost Flag Reset Margin" address="01f0fa" />
  <table name="Overboost Cut Margin (Limit State)" address="01f0ea" />
  <table name="Overboost Cut Hysteresis (Limit State)" address="01f0ec" />
+ <table name="Park/Neutral RPM Limit (AT/CVT)" address="01f21a" />
  <table name="Vehicle Speed Limit" address="01f0e0" />
  <table name="Vehicle Speed Limit Minimum RPM" address="01f0f0" />
  <table name="Vehicle Speed Limit Full Cut Speed" address="01f0fd" />
+ <table name="Vehicle Speed Limit Full Cut Speed Hysteresis" address="025630" />
  <table name="Vehicle Speed Limit Offset" address="01f0e6" />
  <table name="Vehicle Speed Limit Reset Maximum MAP" address="01f0f2" />
  <table name="Vehicle Speed Limit Reset Maximum MAP Hysteresis" address="01f0f4" />
@@ -1520,6 +1561,9 @@ Details: When used: only while FFF88F4A bit 2 is set. Otherwise as Fail-Safe Rev
  </table>
  <table name="Idle Air Request to Throttle Area (Monitor)" address="04ecfc">
   <table name="Y Axis" address="04ecdc" />
+ </table>
+ <table name="Start Throttle Opening Add (Coolant)" address="02682e">
+  <table name="Coolant Temp" address="03f760" />
  </table>
  <table name="Start Throttle Opening Add (Monitor)" address="052f4a">
   <table name="Coolant Temp" address="052f76" />
@@ -1606,7 +1650,13 @@ Details: 0x0C4E5C (read): AFBA = min(this(rpm), T) while FFF8A9C9 bit 2 is set; 
  <table name="Torque Model Filter Multiplier A" address="010812">
   <table name="Coolant Temp" address="03f760" />
  </table>
+ <table name="Torque Model Filter Multiplier B" address="010852">
+  <table name="Coolant Temp" address="03f760" />
+ </table>
  <table name="Torque Model Filter Multiplier C" address="0107d0">
+  <table name="Coolant Temp" address="03f760" />
+ </table>
+ <table name="Torque Model Filter Multiplier A (Below Idle Target, TGV Closed)" address="011b18">
   <table name="Coolant Temp" address="03f760" />
  </table>
  <table name="Torque Model Filter Multiplier C (Alt, TGV Closed)" address="011af8">
@@ -1722,7 +1772,7 @@ Details: 0x0C4E5C (read): AFBA = min(this(rpm), T) while FFF8A9C9 bit 2 is set; 
  <table name="Manifold Model Start Correction MAF Gain" address="0305be">
   <table name="Coolant Temp" address="03f780" />
  </table>
- <table name="Volumetric Efficiency (AVCS Not Ready)" address="0301c8" level="5">
+ <table name="Volumetric Efficiency (AVCS Not Ready)" address="0301c8">
   <table name="Manifold Pressure" address="02fc28" />
   <table name="Engine Speed" address="02fbfc" />
   <description>VE table that would replace the normal TGV-blended VE while the cams are probably not yet ready.
@@ -2102,7 +2152,15 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
   <table name="Coolant Temp" address="029550" />
   <table name="Selector FFF8A6E8" address="02a644" />
  </table>
+ <table name="Post-Start Staged Air Level" address="02a78a">
+  <table name="Coolant Temp" address="03f760" />
+  <table name="Selector FFF8A6E8" address="02a644" />
+ </table>
  <table name="Post-Start Staged Air Ramp Step" address="02a6ea">
+  <table name="Coolant Temp" address="03f760" />
+  <table name="Selector FFF8A6E8" address="02a644" />
+ </table>
+ <table name="Post-Start Staged Air Decay" address="02a82a">
   <table name="Coolant Temp" address="03f760" />
   <table name="Selector FFF8A6E8" address="02a644" />
  </table>
@@ -2161,6 +2219,10 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
  </table>
  <table name="Idle Air Trim (Charging Command)" address="029754">
   <table name="Y Axis" address="02975c" />
+ </table>
+ <table name="Post-Start Idle Air (Stop-Start Restart)" address="02a504">
+  <table name="Coolant Temp" address="03f760" />
+  <table name="Selector FFF8A6E8" address="02a644" />
  </table>
  <table name="Post-Start Idle Air (Stop-Start Restart, TGV Closed)" address="02a5a4">
   <table name="Coolant Temp" address="03f760" />
@@ -2229,8 +2291,12 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
   <table name="Engine Load" address="03105e" />
   <table name="Engine Speed" address="03103e" />
  </table>
+ <table name="EGR Target Rate Maximum" address="030ff6" />
  <table name="EGR Enable Coolant Minimum" address="030fe6" />
  <table name="EGR Enable Coolant Maximum" address="030fe8" />
+ <table name="EGR Enable RPM Minimum" address="030fea" />
+ <table name="EGR Enable RPM Maximum" address="030fee" />
+ <table name="EGR Enable Load Minimum" address="030ff2" />
  <table name="EGR Enable Load Maximum" address="0317e0" />
  <table name="EGR Enable Intake Air Temp Minimum" address="0323b1" />
  <table name="EGR Enable Exhaust Pressure Margin" address="0317e1" />
@@ -2244,6 +2310,7 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
   <table name="Engine Load" address="01ca6e" />
   <table name="Engine Speed" address="01ca42" />
  </table>
+ <table name="EGR Valve Feedback Integral Minimum" address="03177e" />
  <table name="EGR Upstream Pressure Estimate (Blend Partner)" address="032280">
   <table name="Engine Load" address="0323a0" />
   <table name="Engine Speed" address="032380" />
@@ -2251,26 +2318,44 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
  <table name="EGR Target Rate (TGV Open, Multi-Injection)" address="031bb8">
   <table name="Engine Load" address="03105e" />
   <table name="Engine Speed" address="03103e" />
+  <description>EGR rate target by rpm and load with the TGVs open and multiple injections per cycle.
+
+Details: When used: TGVs not closed and multi-injection active (FFF8A775 bit 1); cal 0x2F797 bit 5 clear. Base target EGR rate A818, looked up by 0x0FA10C with rpm FFF8CD54 x load FFF8A616 (read, disassembly). Target EGR rate (0x0FA260, read): FFF8A81A = base A817 x Coolant Multiplier 05CB04/255 x 255/255 (A816) x Reduction Multiplier A81C/255 x DAM Multiplier 05CB10/128, x 640 (1/640 units), capped at cal 0x2C4E6 (192 = 30 %) and forced to 0 unless the enable conditions FFF8A811 bit 0 hold (0x0FAAFC). A817 follows the base table A818 (0x0FA068). Multi-injection = FFF8A775 bit 1, set by 0x0FAABC when the multi-injection enable FFF8A775 bit 0 is set and all four per-injector strategy bytes FFF8A69F..A6A2 are 2 or 3 (read). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). 0 = no EGR. LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="EGR Target Rate (TGV Closed, Multi-Injection)" address="031cb8">
   <table name="Engine Load" address="03105e" />
   <table name="Engine Speed" address="03103e" />
+  <description>EGR rate target by rpm and load with the TGVs closed and multiple injections per cycle.
+
+Details: When used: TGVs closed and multi-injection active (FFF8A775 bit 1); cal 0x2F797 bit 5 clear. Base target EGR rate A818, looked up by 0x0FA10C with rpm FFF8CD54 x load FFF8A616 (read, disassembly). Target EGR rate (0x0FA260, read): FFF8A81A = base A817 x Coolant Multiplier 05CB04/255 x 255/255 (A816) x Reduction Multiplier A81C/255 x DAM Multiplier 05CB10/128, x 640 (1/640 units), capped at cal 0x2C4E6 (192 = 30 %) and forced to 0 unless the enable conditions FFF8A811 bit 0 hold (0x0FAAFC). A817 follows the base table A818 (0x0FA068). Multi-injection = FFF8A775 bit 1, set by 0x0FAABC when the multi-injection enable FFF8A775 bit 0 is set and all four per-injector strategy bytes FFF8A69F..A6A2 are 2 or 3 (read). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). 0 = no EGR. LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="EGR Target Rate (Alternate, TGV Open)" address="03107e">
   <table name="X Axis" address="03106e" />
   <table name="Engine Speed" address="03103e" />
+  <description>Alternate EGR rate target by rpm and throttle position (instead of load) with the TGVs open.
+
+Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EGR rate A818 (0x0FA10C, read), indexed by rpm FFF8CD54 and throttle position FFF8CD77 (about 0.56 % per count, see below) instead of load. Target EGR rate (0x0FA260, read): FFF8A81A = base A817 x Coolant Multiplier 05CB04/255 x 255/255 (A816) x Reduction Multiplier A81C/255 x DAM Multiplier 05CB10/128, x 640 (1/640 units), capped at cal 0x2C4E6 (192 = 30 %) and forced to 0 unless the enable conditions FFF8A811 bit 0 hold (0x0FAAFC). A817 follows the base table A818 (0x0FA068). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). p16 (read): second axis FFF8CD77 = (ETC throttle position FFF8A342 - 10)/4 = (ETC actual position FFF8A2B6 - 1000)/256 (0x09D58E, 0x09DAAE, 0x0A0680, 0x06AB94): a throttle-position byte, about 0.56 % per count (inferred). LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="EGR Target Rate (Alternate, TGV Closed)" address="03117e">
   <table name="X Axis" address="03106e" />
   <table name="Engine Speed" address="03103e" />
+  <description>Alternate EGR rate target by rpm and throttle position (instead of load) with the TGVs closed.
+
+Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EGR rate A818 (0x0FA10C, read), indexed by rpm FFF8CD54 and throttle position FFF8CD77 (about 0.56 % per count, see below) instead of load. Target EGR rate (0x0FA260, read): FFF8A81A = base A817 x Coolant Multiplier 05CB04/255 x 255/255 (A816) x Reduction Multiplier A81C/255 x DAM Multiplier 05CB10/128, x 640 (1/640 units), capped at cal 0x2C4E6 (192 = 30 %) and forced to 0 unless the enable conditions FFF8A811 bit 0 hold (0x0FAAFC). A817 follows the base table A818 (0x0FA068). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). p16 (read): second axis FFF8CD77 = (ETC throttle position FFF8A342 - 10)/4 = (ETC actual position FFF8A2B6 - 1000)/256 (0x09D58E, 0x09DAAE, 0x0A0680, 0x06AB94): a throttle-position byte, about 0.56 % per count (inferred). LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="EGR Target Rate (Alternate, TGV Open, Multi-Injection)" address="0319b8">
   <table name="X Axis" address="03106e" />
   <table name="Engine Speed" address="03103e" />
+  <description>Alternate EGR rate target by rpm and throttle position with the TGVs open and multiple injections per cycle.
+
+Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EGR rate A818 (0x0FA10C, read), indexed by rpm FFF8CD54 and throttle position FFF8CD77 (about 0.56 % per count, see below) instead of load. Target EGR rate (0x0FA260, read): FFF8A81A = base A817 x Coolant Multiplier 05CB04/255 x 255/255 (A816) x Reduction Multiplier A81C/255 x DAM Multiplier 05CB10/128, x 640 (1/640 units), capped at cal 0x2C4E6 (192 = 30 %) and forced to 0 unless the enable conditions FFF8A811 bit 0 hold (0x0FAAFC). A817 follows the base table A818 (0x0FA068). Multi-injection = FFF8A775 bit 1, set by 0x0FAABC when the multi-injection enable FFF8A775 bit 0 is set and all four per-injector strategy bytes FFF8A69F..A6A2 are 2 or 3 (read). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). p16 (read): second axis FFF8CD77 = (ETC throttle position FFF8A342 - 10)/4 = (ETC actual position FFF8A2B6 - 1000)/256 (0x09D58E, 0x09DAAE, 0x0A0680, 0x06AB94): a throttle-position byte, about 0.56 % per count (inferred). LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="EGR Target Rate (Alternate, TGV Closed, Multi-Injection)" address="031ab8">
   <table name="X Axis" address="03106e" />
   <table name="Engine Speed" address="03103e" />
+  <description>Alternate EGR rate target by rpm and throttle position with the TGVs closed and multiple injections per cycle.
+
+Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EGR rate A818 (0x0FA10C, read), indexed by rpm FFF8CD54 and throttle position FFF8CD77 (about 0.56 % per count, see below) instead of load. Target EGR rate (0x0FA260, read): FFF8A81A = base A817 x Coolant Multiplier 05CB04/255 x 255/255 (A816) x Reduction Multiplier A81C/255 x DAM Multiplier 05CB10/128, x 640 (1/640 units), capped at cal 0x2C4E6 (192 = 30 %) and forced to 0 unless the enable conditions FFF8A811 bit 0 hold (0x0FAAFC). A817 follows the base table A818 (0x0FA068). Multi-injection = FFF8A775 bit 1, set by 0x0FAABC when the multi-injection enable FFF8A775 bit 0 is set and all four per-injector strategy bytes FFF8A69F..A6A2 are 2 or 3 (read). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). p16 (read): second axis FFF8CD77 = (ETC throttle position FFF8A342 - 10)/4 = (ETC actual position FFF8A2B6 - 1000)/256 (0x09D58E, 0x09DAAE, 0x0A0680, 0x06AB94): a throttle-position byte, about 0.56 % per count (inferred). LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="EGR Target Rate Tip-Out Limit (TGV Open)" address="031dbe">
   <table name="Engine Load" address="03105e" />
@@ -2295,6 +2380,12 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
  <table name="EGR Timing Advance (Multi-Injection, TGV Open)" address="03795c">
   <table name="Engine Load" address="01ca6e" />
   <table name="Engine Speed" address="01ca42" />
+ </table>
+ <table name="TGV Torque Threshold Enter (Drive Modes 1/4, Default/Sport Sharp)" address="03eef8">
+  <table name="Engine Speed" address="03eeb8" />
+ </table>
+ <table name="TGV Torque Threshold Exit (Drive Modes 1/4, Default/Sport Sharp)" address="03eed8">
+  <table name="Engine Speed" address="03eeb8" />
  </table>
  <table name="TGV Torque Threshold Enter (Drive Mode 2, Sport)" address="03ef78">
   <table name="Engine Speed" address="03eeb8" />
@@ -2461,6 +2552,7 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
  <table name="Brake Booster Vacuum Model Manifold Threshold" address="04c06a">
   <table name="Barometric Pressure" address="04c060" />
  </table>
+ <table name="Charging Target Voltage (Normal)" address="040bf2" />
  <table name="Charging Target Voltage (Accessory Load)" address="040dc0" />
  <table name="Charging Target Voltage Maximum" address="040dc4" />
  <table name="Charging Target Voltage Minimum" address="040dc6" />
@@ -2475,13 +2567,18 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
  <table name="Battery Charged Check Window" address="040ba0" />
  <table name="Charge Cycle Length" address="040ba8" />
  <table name="Adaptive Charging Time Limit" address="040ba4" />
- <table name="Adaptive Charging Charge Limit" address="040bb4" />
+ <table name="Adaptive Charging Charge Limit" address="040bb4">
+  <description>Adaptive charging also ends once this much charge has gone back into the battery (raw units).
+
+Details: Compared with FFF81848, the integral of charging current while in mode 5 (0x1368C4, read; unit not confirmed). LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). Confidence: read.</description>
+ </table>
  <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" address="03a208">
   <table name="Coolant Temp" address="03a21a" />
  </table>
  <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" address="03a1e4">
   <table name="Coolant Temp" address="03a21a" />
  </table>
+ <table name="Charging Feedback Minimum RPM" address="040be2" />
  <table name="Radiator Fan Duty (A/C, CAN 0x280 Value)" address="03a230">
   <table name="Y Axis" address="03a242" />
  </table>
@@ -2591,75 +2688,75 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
  <table name="(P000D) Exhaust Camshaft Position Slow Response (Bank 2)" address="4ab78" />
  <table name="(P000D) Exhaust Camshaft Position Slow Response (Bank 2) [Fail-Safe]" address="63274" />
  <table name="(P0010) Intake Camshaft Position Actuator Circuit (Bank 1)" address="4ab87" />
- <table name="(P0010) Intake Camshaft Position Actuator Circuit (Bank 1) [Fail-Safe]" address="63283" scaling="DTC yes b0 mFF f00 s0E" />
+ <table name="(P0010) Intake Camshaft Position Actuator Circuit (Bank 1) [Fail-Safe]" address="63283" />
  <table name="(P0011) Intake Camshaft Timing Over-Advanced or System Performance (Bank 1)" address="4ab30" />
  <table name="(P0011) Intake Camshaft Timing Over-Advanced or System Performance (Bank 1) [Fail-Safe]" address="6322c" />
  <table name="(P0013) Exhaust Camshaft Position Actuator Circuit (Bank 1)" address="4ab87" />
- <table name="(P0013) Exhaust Camshaft Position Actuator Circuit (Bank 1) [Fail-Safe]" address="63283" scaling="DTC yes b2 mFF f00 s0B" />
+ <table name="(P0013) Exhaust Camshaft Position Actuator Circuit (Bank 1) [Fail-Safe]" address="63283" />
  <table name="(P0014) Exhaust Camshaft Timing Over-Advanced or System Performance (Bank 1)" address="4ab5f" />
- <table name="(P0014) Exhaust Camshaft Timing Over-Advanced or System Performance (Bank 1) [Fail-Safe]" address="6325b" scaling="DTC yes b1 mE3 f00" />
+ <table name="(P0014) Exhaust Camshaft Timing Over-Advanced or System Performance (Bank 1) [Fail-Safe]" address="6325b" />
  <table name="(P0016) Crankshaft/Camshaft Position Correlation (Bank 1 Sensor A)" address="4ab5d" />
- <table name="(P0016) Crankshaft/Camshaft Position Correlation (Bank 1 Sensor A) [Fail-Safe]" address="63259" scaling="DTC yes b7 mC0 f00" />
+ <table name="(P0016) Crankshaft/Camshaft Position Correlation (Bank 1 Sensor A) [Fail-Safe]" address="63259" />
  <table name="(P0017) Crankshaft/Camshaft Position Correlation (Bank 1 Sensor B)" address="4ab60" />
- <table name="(P0017) Crankshaft/Camshaft Position Correlation (Bank 1 Sensor B) [Fail-Safe]" address="6325c" scaling="DTC yes b7 mC4 f00" />
+ <table name="(P0017) Crankshaft/Camshaft Position Correlation (Bank 1 Sensor B) [Fail-Safe]" address="6325c" />
  <table name="(P0018) Crankshaft/Camshaft Position Correlation (Bank 2 Sensor A)" address="4ab5d" />
- <table name="(P0018) Crankshaft/Camshaft Position Correlation (Bank 2 Sensor A) [Fail-Safe]" address="63259" scaling="DTC yes b6 mC0 f00" />
+ <table name="(P0018) Crankshaft/Camshaft Position Correlation (Bank 2 Sensor A) [Fail-Safe]" address="63259" />
  <table name="(P0019) Crankshaft/Camshaft Position Correlation (Bank 2 Sensor B)" address="4ab60" />
- <table name="(P0019) Crankshaft/Camshaft Position Correlation (Bank 2 Sensor B) [Fail-Safe]" address="6325c" scaling="DTC yes b6 mC4 f00" />
+ <table name="(P0019) Crankshaft/Camshaft Position Correlation (Bank 2 Sensor B) [Fail-Safe]" address="6325c" />
  <table name="(P0020) Intake Camshaft Position Actuator Circuit (Bank 2)" address="4ab87" />
- <table name="(P0020) Intake Camshaft Position Actuator Circuit (Bank 2) [Fail-Safe]" address="63283" scaling="DTC yes b1 mFF f00 s0D" />
+ <table name="(P0020) Intake Camshaft Position Actuator Circuit (Bank 2) [Fail-Safe]" address="63283" />
  <table name="(P0021) Intake Camshaft Timing Over-Advanced or System Performance (Bank 2)" address="4ab30" />
  <table name="(P0021) Intake Camshaft Timing Over-Advanced or System Performance (Bank 2) [Fail-Safe]" address="6322c" />
  <table name="(P0023) Exhaust Camshaft Position Actuator Circuit (Bank 2)" address="4ab87" />
- <table name="(P0023) Exhaust Camshaft Position Actuator Circuit (Bank 2) [Fail-Safe]" address="63283" scaling="DTC yes b3 mFF f00 s07" />
+ <table name="(P0023) Exhaust Camshaft Position Actuator Circuit (Bank 2) [Fail-Safe]" address="63283" />
  <table name="(P0024) Exhaust Camshaft Timing Over-Advanced or System Performance (Bank 2)" address="4ab5f" />
- <table name="(P0024) Exhaust Camshaft Timing Over-Advanced or System Performance (Bank 2) [Fail-Safe]" address="6325b" scaling="DTC yes b0 mE3 f00" />
+ <table name="(P0024) Exhaust Camshaft Timing Over-Advanced or System Performance (Bank 2) [Fail-Safe]" address="6325b" />
  <table name="(P0030) HO2S Heater Control Circuit (Bank 1 Sensor 1)" address="4ab4c" />
- <table name="(P0030) HO2S Heater Control Circuit (Bank 1 Sensor 1) [Fail-Safe]" address="63248" scaling="DTC yes b5 m22 f00" />
+ <table name="(P0030) HO2S Heater Control Circuit (Bank 1 Sensor 1) [Fail-Safe]" address="63248" />
  <table name="(P0031) HO2S Heater Control Circuit Low (Bank 1 Sensor 1)" address="4ab3a" />
  <table name="(P0031) HO2S Heater Control Circuit Low (Bank 1 Sensor 1) [Fail-Safe]" address="63236" />
  <table name="(P0032) HO2S Heater Control Circuit High (Bank 1 Sensor 1)" address="4ab3a" />
  <table name="(P0032) HO2S Heater Control Circuit High (Bank 1 Sensor 1) [Fail-Safe]" address="63236" />
  <table name="(P0033) manufacturer-specific / not named" address="4ab7f" />
- <table name="(P0033) manufacturer-specific / not named [Fail-Safe]" address="6327b" scaling="DTC yes b3 mFF f00 sC7" />
+ <table name="(P0033) manufacturer-specific / not named [Fail-Safe]" address="6327b" />
  <table name="(P0037) HO2S Heater Control Circuit Low (Bank 1 Sensor 2)" address="4ab3a" />
  <table name="(P0037) HO2S Heater Control Circuit Low (Bank 1 Sensor 2) [Fail-Safe]" address="63236" />
  <table name="(P0038) HO2S Heater Control Circuit High (Bank 1 Sensor 2)" address="4ab3a" />
  <table name="(P0038) HO2S Heater Control Circuit High (Bank 1 Sensor 2) [Fail-Safe]" address="63236" />
  <table name="(P0039) manufacturer-specific / not named" address="4ab80" />
- <table name="(P0039) manufacturer-specific / not named [Fail-Safe]" address="6327c" scaling="DTC yes b4 mFF f00 sE7" />
+ <table name="(P0039) manufacturer-specific / not named [Fail-Safe]" address="6327c" />
  <table name="(P003A) manufacturer-specific / not named" address="4ab80" />
- <table name="(P003A) manufacturer-specific / not named [Fail-Safe]" address="6327c" scaling="DTC yes b3 mFF f00 sF7" />
+ <table name="(P003A) manufacturer-specific / not named [Fail-Safe]" address="6327c" />
  <table name="(P0045) manufacturer-specific / not named" address="4ab7f" />
- <table name="(P0045) manufacturer-specific / not named [Fail-Safe]" address="6327b" scaling="DTC yes b2 mFF f00 sCB" />
+ <table name="(P0045) manufacturer-specific / not named [Fail-Safe]" address="6327b" />
  <table name="(P0068) MAP/MAF - Throttle Position Correlation" address="4ab4b" />
- <table name="(P0068) MAP/MAF - Throttle Position Correlation [Fail-Safe]" address="63247" scaling="DTC yes b3 m8A f00" />
+ <table name="(P0068) MAP/MAF - Throttle Position Correlation [Fail-Safe]" address="63247" />
  <table name="(P0071) Ambient Air Temperature Sensor Range/Performance" address="4ab85" />
- <table name="(P0071) Ambient Air Temperature Sensor Range/Performance [Fail-Safe]" address="63281" scaling="DTC yes b2 m1F f00" />
+ <table name="(P0071) Ambient Air Temperature Sensor Range/Performance [Fail-Safe]" address="63281" />
  <table name="(P0072) Ambient Air Temperature Sensor Circuit Low" address="4ab85" />
- <table name="(P0072) Ambient Air Temperature Sensor Circuit Low [Fail-Safe]" address="63281" scaling="DTC yes b0 m1F f00" />
+ <table name="(P0072) Ambient Air Temperature Sensor Circuit Low [Fail-Safe]" address="63281" />
  <table name="(P0073) Ambient Air Temperature Sensor Circuit High" address="4ab85" />
- <table name="(P0073) Ambient Air Temperature Sensor Circuit High [Fail-Safe]" address="63281" scaling="DTC yes b1 m1F f00" />
+ <table name="(P0073) Ambient Air Temperature Sensor Circuit High [Fail-Safe]" address="63281" />
  <table name="(P0087) Fuel Rail/System Pressure Too Low" address="4ab88" />
- <table name="(P0087) Fuel Rail/System Pressure Too Low [Fail-Safe]" address="63284" scaling="DTC yes b0 mFF f00 sFE" />
+ <table name="(P0087) Fuel Rail/System Pressure Too Low [Fail-Safe]" address="63284" />
  <table name="(P0088) Fuel Rail/System Pressure Too High" address="4ab88" />
- <table name="(P0088) Fuel Rail/System Pressure Too High [Fail-Safe]" address="63284" scaling="DTC yes b1 mFF f00 sFD" />
+ <table name="(P0088) Fuel Rail/System Pressure Too High [Fail-Safe]" address="63284" />
  <table name="(P0096) Intake Air Temperature Sensor 2 Circuit Range/Performance" address="4ab8a" />
- <table name="(P0096) Intake Air Temperature Sensor 2 Circuit Range/Performance [Fail-Safe]" address="63286" scaling="DTC yes b4 mFF f00 s43" />
+ <table name="(P0096) Intake Air Temperature Sensor 2 Circuit Range/Performance [Fail-Safe]" address="63286" />
  <table name="(P0097) Intake Air Temperature Sensor 2 Circuit Low" address="4ab8a" />
- <table name="(P0097) Intake Air Temperature Sensor 2 Circuit Low [Fail-Safe]" address="63286" scaling="DTC yes b0 mFF f00 s52" />
+ <table name="(P0097) Intake Air Temperature Sensor 2 Circuit Low [Fail-Safe]" address="63286" />
  <table name="(P0098) Intake Air Temperature Sensor 2 Circuit High" address="4ab8a" />
- <table name="(P0098) Intake Air Temperature Sensor 2 Circuit High [Fail-Safe]" address="63286" scaling="DTC yes b1 mFF f00 s51" />
+ <table name="(P0098) Intake Air Temperature Sensor 2 Circuit High [Fail-Safe]" address="63286" />
  <table name="(P0101) Mass Air Flow Circuit Range/Performance" address="4ab4b" />
- <table name="(P0101) Mass Air Flow Circuit Range/Performance [Fail-Safe]" address="63247" scaling="DTC yes b7 m8A f00" />
+ <table name="(P0101) Mass Air Flow Circuit Range/Performance [Fail-Safe]" address="63247" />
  <table name="(P0102) Mass Air Flow Circuit Low" address="4ab25" />
- <table name="(P0102) Mass Air Flow Circuit Low [Fail-Safe]" address="63221" scaling="DTC yes b0 mD3 f00" />
+ <table name="(P0102) Mass Air Flow Circuit Low [Fail-Safe]" address="63221" />
  <table name="(P0103) Mass Air Flow Circuit High" address="4ab25" />
- <table name="(P0103) Mass Air Flow Circuit High [Fail-Safe]" address="63221" scaling="DTC yes b1 mD3 f00" />
+ <table name="(P0103) Mass Air Flow Circuit High [Fail-Safe]" address="63221" />
  <table name="(P0107) Manifold Absolute Pressure Circuit Low" address="4ab3b" />
- <table name="(P0107) Manifold Absolute Pressure Circuit Low [Fail-Safe]" address="63237" scaling="DTC yes b4 m30 f00" />
+ <table name="(P0107) Manifold Absolute Pressure Circuit Low [Fail-Safe]" address="63237" />
  <table name="(P0108) Manifold Absolute Pressure Circuit High" address="4ab3b" />
- <table name="(P0108) Manifold Absolute Pressure Circuit High [Fail-Safe]" address="63237" scaling="DTC yes b5 m30 f00" />
+ <table name="(P0108) Manifold Absolute Pressure Circuit High [Fail-Safe]" address="63237" />
  <table name="(P0111) Intake Air Temperature Sensor 1 Circuit Range/Performance" address="4ab3a" />
  <table name="(P0111) Intake Air Temperature Sensor 1 Circuit Range/Performance [Fail-Safe]" address="63236" />
  <table name="(P0112) Intake Air Temperature Sensor 1 Circuit Low" address="4ab3a" />
@@ -2667,151 +2764,151 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
  <table name="(P0113) Intake Air Temperature Sensor 1 Circuit High" address="4ab3a" />
  <table name="(P0113) Intake Air Temperature Sensor 1 Circuit High [Fail-Safe]" address="63236" />
  <table name="(P0116) Engine Coolant Temperature Circuit Range/Performance" address="4ab79" />
- <table name="(P0116) Engine Coolant Temperature Circuit Range/Performance [Fail-Safe]" address="63275" scaling="DTC yes b6 mFF f00 s00" />
+ <table name="(P0116) Engine Coolant Temperature Circuit Range/Performance [Fail-Safe]" address="63275" />
  <table name="(P0117) Engine Coolant Temperature Circuit Low" address="4ab27" scaling="DTC enabled b0 m7F f00" />
  <table name="(P0117) Engine Coolant Temperature Circuit Low [Fail-Safe]" address="63223" scaling="DTC yes b0 m7F f00" />
  <table name="(P0118) Engine Coolant Temperature Circuit High" address="4ab27" scaling="DTC enabled b1 m7F f00" />
  <table name="(P0118) Engine Coolant Temperature Circuit High [Fail-Safe]" address="63223" scaling="DTC yes b1 m7F f00" />
  <table name="(P0122) Throttle Position Sensor A Circuit Low" address="4ab26" />
- <table name="(P0122) Throttle Position Sensor A Circuit Low [Fail-Safe]" address="63222" scaling="DTC yes b4 m3C f00" />
+ <table name="(P0122) Throttle Position Sensor A Circuit Low [Fail-Safe]" address="63222" />
  <table name="(P0123) Throttle Position Sensor A Circuit High" address="4ab26" />
- <table name="(P0123) Throttle Position Sensor A Circuit High [Fail-Safe]" address="63222" scaling="DTC yes b5 m3C f00" />
+ <table name="(P0123) Throttle Position Sensor A Circuit High [Fail-Safe]" address="63222" />
  <table name="(P0125) Insufficient Coolant Temperature for Closed Loop Fuel Control [slot 26]" address="4ab27" />
  <table name="(P0125) Insufficient Coolant Temperature for Closed Loop Fuel Control [slot 26] [Fail-Safe]" address="63223" />
  <table name="(P0125) Insufficient Coolant Temperature for Closed Loop Fuel Control [slot 27]" address="4ab27" />
  <table name="(P0125) Insufficient Coolant Temperature for Closed Loop Fuel Control [slot 27] [Fail-Safe]" address="63223" />
  <table name="(P0128) Coolant Thermostat (Below Regulating Temperature)" address="4ab3e" />
- <table name="(P0128) Coolant Thermostat (Below Regulating Temperature) [Fail-Safe]" address="6323a" scaling="DTC yes b0 m01 f00" />
+ <table name="(P0128) Coolant Thermostat (Below Regulating Temperature) [Fail-Safe]" address="6323a" />
  <table name="(P0130) O2 Sensor Circuit (Bank 1 Sensor 1)" address="4ab89" />
- <table name="(P0130) O2 Sensor Circuit (Bank 1 Sensor 1) [Fail-Safe]" address="63285" scaling="DTC yes b7 mFF f00 s7F" />
+ <table name="(P0130) O2 Sensor Circuit (Bank 1 Sensor 1) [Fail-Safe]" address="63285" />
  <table name="(P0131) O2 Sensor Circuit Low Voltage (Bank 1 Sensor 1)" address="4ab39" />
- <table name="(P0131) O2 Sensor Circuit Low Voltage (Bank 1 Sensor 1) [Fail-Safe]" address="63235" scaling="DTC yes b2 m55 f00" />
+ <table name="(P0131) O2 Sensor Circuit Low Voltage (Bank 1 Sensor 1) [Fail-Safe]" address="63235" />
  <table name="(P0132) O2 Sensor Circuit High Voltage (Bank 1 Sensor 1)" address="4ab39" />
- <table name="(P0132) O2 Sensor Circuit High Voltage (Bank 1 Sensor 1) [Fail-Safe]" address="63235" scaling="DTC yes b4 m55 f00" />
+ <table name="(P0132) O2 Sensor Circuit High Voltage (Bank 1 Sensor 1) [Fail-Safe]" address="63235" />
  <table name="(P0133) O2 Sensor Circuit Slow Response (Bank 1 Sensor 1)" address="4ab35" />
- <table name="(P0133) O2 Sensor Circuit Slow Response (Bank 1 Sensor 1) [Fail-Safe]" address="63231" scaling="DTC yes b0 m01 f00" />
+ <table name="(P0133) O2 Sensor Circuit Slow Response (Bank 1 Sensor 1) [Fail-Safe]" address="63231" />
  <table name="(P0134) O2 Sensor Circuit No Activity Detected (Bank 1 Sensor 1)" address="4ab4c" />
- <table name="(P0134) O2 Sensor Circuit No Activity Detected (Bank 1 Sensor 1) [Fail-Safe]" address="63248" scaling="DTC yes b1 m22 f00" />
+ <table name="(P0134) O2 Sensor Circuit No Activity Detected (Bank 1 Sensor 1) [Fail-Safe]" address="63248" />
  <table name="(P0137) O2 Sensor Circuit Low Voltage (Bank 1 Sensor 2)" address="4ab39" />
- <table name="(P0137) O2 Sensor Circuit Low Voltage (Bank 1 Sensor 2) [Fail-Safe]" address="63235" scaling="DTC yes b0 m55 f00" />
+ <table name="(P0137) O2 Sensor Circuit Low Voltage (Bank 1 Sensor 2) [Fail-Safe]" address="63235" />
  <table name="(P0138) O2 Sensor Circuit High Voltage (Bank 1 Sensor 2)" address="4ab39" />
- <table name="(P0138) O2 Sensor Circuit High Voltage (Bank 1 Sensor 2) [Fail-Safe]" address="63235" scaling="DTC yes b6 m55 f00" />
+ <table name="(P0138) O2 Sensor Circuit High Voltage (Bank 1 Sensor 2) [Fail-Safe]" address="63235" />
  <table name="(P013A) O2 Sensor Slow Response - Rich to Lean (Bank 1 Sensor 2)" address="4ab73" />
- <table name="(P013A) O2 Sensor Slow Response - Rich to Lean (Bank 1 Sensor 2) [Fail-Safe]" address="6326f" scaling="DTC yes b7 mCC f00" />
+ <table name="(P013A) O2 Sensor Slow Response - Rich to Lean (Bank 1 Sensor 2) [Fail-Safe]" address="6326f" />
  <table name="(P013B) O2 Sensor Slow Response - Lean to Rich (Bank 1 Sensor 2)" address="4ab73" />
- <table name="(P013B) O2 Sensor Slow Response - Lean to Rich (Bank 1 Sensor 2) [Fail-Safe]" address="6326f" scaling="DTC yes b6 mCC f00" />
+ <table name="(P013B) O2 Sensor Slow Response - Lean to Rich (Bank 1 Sensor 2) [Fail-Safe]" address="6326f" />
  <table name="(P013E) O2 Sensor Delayed Response - Rich to Lean (Bank 1 Sensor 2)" address="4ab73" />
- <table name="(P013E) O2 Sensor Delayed Response - Rich to Lean (Bank 1 Sensor 2) [Fail-Safe]" address="6326f" scaling="DTC yes b3 mCC f00" />
+ <table name="(P013E) O2 Sensor Delayed Response - Rich to Lean (Bank 1 Sensor 2) [Fail-Safe]" address="6326f" />
  <table name="(P013F) O2 Sensor Delayed Response - Lean to Rich (Bank 1 Sensor 2)" address="4ab73" />
- <table name="(P013F) O2 Sensor Delayed Response - Lean to Rich (Bank 1 Sensor 2) [Fail-Safe]" address="6326f" scaling="DTC yes b2 mCC f00" />
+ <table name="(P013F) O2 Sensor Delayed Response - Lean to Rich (Bank 1 Sensor 2) [Fail-Safe]" address="6326f" />
  <table name="(P0140) O2 Sensor Circuit No Activity Detected (Bank 1 Sensor 2)" address="4ab38" />
- <table name="(P0140) O2 Sensor Circuit No Activity Detected (Bank 1 Sensor 2) [Fail-Safe]" address="63234" scaling="DTC yes b7 m80 f00" />
+ <table name="(P0140) O2 Sensor Circuit No Activity Detected (Bank 1 Sensor 2) [Fail-Safe]" address="63234" />
  <table name="(P0141) O2 Sensor Heater Circuit (Bank 1 Sensor 2)" address="4ab34" />
- <table name="(P0141) O2 Sensor Heater Circuit (Bank 1 Sensor 2) [Fail-Safe]" address="63230" scaling="DTC yes b5 m20 f00" />
+ <table name="(P0141) O2 Sensor Heater Circuit (Bank 1 Sensor 2) [Fail-Safe]" address="63230" />
  <table name="(P014C) O2 Sensor Slow Response - Rich to Lean (Bank 1 Sensor 1)" address="4ab70" />
- <table name="(P014C) O2 Sensor Slow Response - Rich to Lean (Bank 1 Sensor 1) [Fail-Safe]" address="6326c" scaling="DTC yes b7 mCC f00" />
+ <table name="(P014C) O2 Sensor Slow Response - Rich to Lean (Bank 1 Sensor 1) [Fail-Safe]" address="6326c" />
  <table name="(P014D) O2 Sensor Slow Response - Lean to Rich (Bank 1 Sensor 1)" address="4ab70" />
- <table name="(P014D) O2 Sensor Slow Response - Lean to Rich (Bank 1 Sensor 1) [Fail-Safe]" address="6326c" scaling="DTC yes b6 mCC f00" />
+ <table name="(P014D) O2 Sensor Slow Response - Lean to Rich (Bank 1 Sensor 1) [Fail-Safe]" address="6326c" />
  <table name="(P015A) O2 Sensor Delayed Response - Rich to Lean (Bank 1 Sensor 1)" address="4ab70" />
- <table name="(P015A) O2 Sensor Delayed Response - Rich to Lean (Bank 1 Sensor 1) [Fail-Safe]" address="6326c" scaling="DTC yes b3 mCC f00" />
+ <table name="(P015A) O2 Sensor Delayed Response - Rich to Lean (Bank 1 Sensor 1) [Fail-Safe]" address="6326c" />
  <table name="(P015B) O2 Sensor Delayed Response - Lean to Rich (Bank 1 Sensor 1)" address="4ab70" />
- <table name="(P015B) O2 Sensor Delayed Response - Lean to Rich (Bank 1 Sensor 1) [Fail-Safe]" address="6326c" scaling="DTC yes b2 mCC f00" />
+ <table name="(P015B) O2 Sensor Delayed Response - Lean to Rich (Bank 1 Sensor 1) [Fail-Safe]" address="6326c" />
  <table name="(P0171) System Too Lean (Bank 1)" address="4ab36" />
- <table name="(P0171) System Too Lean (Bank 1) [Fail-Safe]" address="63232" scaling="DTC yes b6 mDD f00" />
+ <table name="(P0171) System Too Lean (Bank 1) [Fail-Safe]" address="63232" />
  <table name="(P0172) System Too Rich (Bank 1)" address="4ab36" />
- <table name="(P0172) System Too Rich (Bank 1) [Fail-Safe]" address="63232" scaling="DTC yes b7 mDD f00" />
+ <table name="(P0172) System Too Rich (Bank 1) [Fail-Safe]" address="63232" />
  <table name="(P0191) Fuel Rail Pressure Sensor A Circuit Range/Performance [slot 736]" address="4ab80" />
- <table name="(P0191) Fuel Rail Pressure Sensor A Circuit Range/Performance [slot 736] [Fail-Safe]" address="6327c" scaling="DTC yes b0 mFF f00 sF6" />
+ <table name="(P0191) Fuel Rail Pressure Sensor A Circuit Range/Performance [slot 736] [Fail-Safe]" address="6327c" />
  <table name="(P0191) Fuel Rail Pressure Sensor A Circuit Range/Performance [slot 807]" address="4ab88" />
- <table name="(P0191) Fuel Rail Pressure Sensor A Circuit Range/Performance [slot 807] [Fail-Safe]" address="63284" scaling="DTC yes b7 mFF f00 s7F" />
+ <table name="(P0191) Fuel Rail Pressure Sensor A Circuit Range/Performance [slot 807] [Fail-Safe]" address="63284" />
  <table name="(P0192) Fuel Rail Pressure Sensor A Circuit Low" address="4ab89" />
- <table name="(P0192) Fuel Rail Pressure Sensor A Circuit Low [Fail-Safe]" address="63285" scaling="DTC yes b0 mFF f00 s7E" />
+ <table name="(P0192) Fuel Rail Pressure Sensor A Circuit Low [Fail-Safe]" address="63285" />
  <table name="(P0193) Fuel Rail Pressure Sensor A Circuit High" address="4ab89" />
- <table name="(P0193) Fuel Rail Pressure Sensor A Circuit High [Fail-Safe]" address="63285" scaling="DTC yes b1 mFF f00 s7D" />
+ <table name="(P0193) Fuel Rail Pressure Sensor A Circuit High [Fail-Safe]" address="63285" />
  <table name="(P0196) Engine Oil Temperature Sensor Range/Performance" address="4ab55" />
- <table name="(P0196) Engine Oil Temperature Sensor Range/Performance [Fail-Safe]" address="63251" scaling="DTC yes b6 mC0 f00" />
+ <table name="(P0196) Engine Oil Temperature Sensor Range/Performance [Fail-Safe]" address="63251" />
  <table name="(P0197) Engine Oil Temperature Sensor Low" address="4ab54" />
- <table name="(P0197) Engine Oil Temperature Sensor Low [Fail-Safe]" address="63250" scaling="DTC yes b0 m81 f00" />
+ <table name="(P0197) Engine Oil Temperature Sensor Low [Fail-Safe]" address="63250" />
  <table name="(P0198) Engine Oil Temperature Sensor High" address="4ab55" />
- <table name="(P0198) Engine Oil Temperature Sensor High [Fail-Safe]" address="63251" scaling="DTC yes b7 mC0 f00" />
+ <table name="(P0198) Engine Oil Temperature Sensor High [Fail-Safe]" address="63251" />
  <table name="(P0222) Throttle Position Sensor B Circuit Low" address="4ab50" />
  <table name="(P0222) Throttle Position Sensor B Circuit Low [Fail-Safe]" address="6324c" />
  <table name="(P0223) Throttle Position Sensor B Circuit High" address="4ab50" />
  <table name="(P0223) Throttle Position Sensor B Circuit High [Fail-Safe]" address="6324c" />
  <table name="(P0230) Fuel Pump Primary Circuit" address="4ab4b" />
- <table name="(P0230) Fuel Pump Primary Circuit [Fail-Safe]" address="63247" scaling="DTC yes b1 m8A f00" />
+ <table name="(P0230) Fuel Pump Primary Circuit [Fail-Safe]" address="63247" />
  <table name="(P0234) manufacturer-specific / not named" address="4ab80" />
- <table name="(P0234) manufacturer-specific / not named [Fail-Safe]" address="6327c" scaling="DTC yes b5 mFF f00 sD7" />
+ <table name="(P0234) manufacturer-specific / not named [Fail-Safe]" address="6327c" />
  <table name="(P023F) manufacturer-specific / not named" address="4ab89" />
- <table name="(P023F) manufacturer-specific / not named [Fail-Safe]" address="63285" scaling="DTC yes b6 mFF f00 s3F" />
+ <table name="(P023F) manufacturer-specific / not named [Fail-Safe]" address="63285" />
  <table name="(P0244) Turbocharger Wastegate Solenoid A Range/Performance" address="4ab80" />
- <table name="(P0244) Turbocharger Wastegate Solenoid A Range/Performance [Fail-Safe]" address="6327c" scaling="DTC yes b7 mFF f00 s77" />
+ <table name="(P0244) Turbocharger Wastegate Solenoid A Range/Performance [Fail-Safe]" address="6327c" />
  <table name="(P0299) manufacturer-specific / not named" address="4ab80" />
- <table name="(P0299) manufacturer-specific / not named [Fail-Safe]" address="6327c" scaling="DTC yes b6 mFF f00 sB7" />
+ <table name="(P0299) manufacturer-specific / not named [Fail-Safe]" address="6327c" />
  <table name="(P0300) Random/Multiple Cylinder Misfire Detected" address="4ab7c" />
- <table name="(P0300) Random/Multiple Cylinder Misfire Detected [Fail-Safe]" address="63278" scaling="DTC yes b7 mFC f00" />
+ <table name="(P0300) Random/Multiple Cylinder Misfire Detected [Fail-Safe]" address="63278" />
  <table name="(P0301) Cylinder 1 Misfire Detected" address="4ab37" />
- <table name="(P0301) Cylinder 1 Misfire Detected [Fail-Safe]" address="63233" scaling="DTC yes b0 m0F f00" />
+ <table name="(P0301) Cylinder 1 Misfire Detected [Fail-Safe]" address="63233" />
  <table name="(P0302) Cylinder 2 Misfire Detected" address="4ab37" />
- <table name="(P0302) Cylinder 2 Misfire Detected [Fail-Safe]" address="63233" scaling="DTC yes b1 m0F f00" />
+ <table name="(P0302) Cylinder 2 Misfire Detected [Fail-Safe]" address="63233" />
  <table name="(P0303) Cylinder 3 Misfire Detected" address="4ab37" />
- <table name="(P0303) Cylinder 3 Misfire Detected [Fail-Safe]" address="63233" scaling="DTC yes b2 m0F f00" />
+ <table name="(P0303) Cylinder 3 Misfire Detected [Fail-Safe]" address="63233" />
  <table name="(P0304) Cylinder 4 Misfire Detected" address="4ab37" />
- <table name="(P0304) Cylinder 4 Misfire Detected [Fail-Safe]" address="63233" scaling="DTC yes b3 m0F f00" />
+ <table name="(P0304) Cylinder 4 Misfire Detected [Fail-Safe]" address="63233" />
  <table name="(P0327) Knock Sensor 1 Circuit Low (Bank 1)" address="4ab26" />
- <table name="(P0327) Knock Sensor 1 Circuit Low (Bank 1) [Fail-Safe]" address="63222" scaling="DTC yes b2 m3C f00" />
+ <table name="(P0327) Knock Sensor 1 Circuit Low (Bank 1) [Fail-Safe]" address="63222" />
  <table name="(P0328) Knock Sensor 1 Circuit High (Bank 1)" address="4ab26" />
- <table name="(P0328) Knock Sensor 1 Circuit High (Bank 1) [Fail-Safe]" address="63222" scaling="DTC yes b3 m3C f00" />
+ <table name="(P0328) Knock Sensor 1 Circuit High (Bank 1) [Fail-Safe]" address="63222" />
  <table name="(P0332) Knock Sensor 2 Circuit Low (Bank 2)" address="4ab25" />
- <table name="(P0332) Knock Sensor 2 Circuit Low (Bank 2) [Fail-Safe]" address="63221" scaling="DTC yes b6 mD3 f00" />
+ <table name="(P0332) Knock Sensor 2 Circuit Low (Bank 2) [Fail-Safe]" address="63221" />
  <table name="(P0333) Knock Sensor 2 Circuit High (Bank 2)" address="4ab25" />
- <table name="(P0333) Knock Sensor 2 Circuit High (Bank 2) [Fail-Safe]" address="63221" scaling="DTC yes b7 mD3 f00" />
+ <table name="(P0333) Knock Sensor 2 Circuit High (Bank 2) [Fail-Safe]" address="63221" />
  <table name="(P0335) Crankshaft Position Sensor A Circuit" address="4ab24" />
- <table name="(P0335) Crankshaft Position Sensor A Circuit [Fail-Safe]" address="63220" scaling="DTC yes b0 m45 f00" />
+ <table name="(P0335) Crankshaft Position Sensor A Circuit [Fail-Safe]" address="63220" />
  <table name="(P0336) Crankshaft Position Sensor A Circuit Range/Performance" address="4ab24" />
- <table name="(P0336) Crankshaft Position Sensor A Circuit Range/Performance [Fail-Safe]" address="63220" scaling="DTC yes b2 m45 f00" />
+ <table name="(P0336) Crankshaft Position Sensor A Circuit Range/Performance [Fail-Safe]" address="63220" />
  <table name="(P0340) Camshaft Position Sensor A Circuit (Bank 1)" address="4ab52" />
  <table name="(P0340) Camshaft Position Sensor A Circuit (Bank 1) [Fail-Safe]" address="6324e" />
  <table name="(P0341) Camshaft Position Sensor A Circuit Range/Performance (Bank 1)" address="4ab7c" />
- <table name="(P0341) Camshaft Position Sensor A Circuit Range/Performance (Bank 1) [Fail-Safe]" address="63278" scaling="DTC yes b6 mFC f00" />
+ <table name="(P0341) Camshaft Position Sensor A Circuit Range/Performance (Bank 1) [Fail-Safe]" address="63278" />
  <table name="(P0345) Camshaft Position Sensor A Circuit (Bank 2)" address="4ab52" />
  <table name="(P0345) Camshaft Position Sensor A Circuit (Bank 2) [Fail-Safe]" address="6324e" />
  <table name="(P0346) Camshaft Position Sensor A Circuit Range/Performance (Bank 2)" address="4ab7c" />
- <table name="(P0346) Camshaft Position Sensor A Circuit Range/Performance (Bank 2) [Fail-Safe]" address="63278" scaling="DTC yes b5 mFC f00" />
+ <table name="(P0346) Camshaft Position Sensor A Circuit Range/Performance (Bank 2) [Fail-Safe]" address="63278" />
  <table name="(P0351) Ignition Coil A Primary/Secondary Circuit" address="4ab77" />
- <table name="(P0351) Ignition Coil A Primary/Secondary Circuit [Fail-Safe]" address="63273" scaling="DTC yes b5 m3C f00" />
+ <table name="(P0351) Ignition Coil A Primary/Secondary Circuit [Fail-Safe]" address="63273" />
  <table name="(P0352) Ignition Coil B Primary/Secondary Circuit" address="4ab77" />
- <table name="(P0352) Ignition Coil B Primary/Secondary Circuit [Fail-Safe]" address="63273" scaling="DTC yes b4 m3C f00" />
+ <table name="(P0352) Ignition Coil B Primary/Secondary Circuit [Fail-Safe]" address="63273" />
  <table name="(P0353) Ignition Coil C Primary/Secondary Circuit" address="4ab77" />
- <table name="(P0353) Ignition Coil C Primary/Secondary Circuit [Fail-Safe]" address="63273" scaling="DTC yes b3 m3C f00" />
+ <table name="(P0353) Ignition Coil C Primary/Secondary Circuit [Fail-Safe]" address="63273" />
  <table name="(P0354) Ignition Coil D Primary/Secondary Circuit" address="4ab77" />
- <table name="(P0354) Ignition Coil D Primary/Secondary Circuit [Fail-Safe]" address="63273" scaling="DTC yes b2 m3C f00" />
+ <table name="(P0354) Ignition Coil D Primary/Secondary Circuit [Fail-Safe]" address="63273" />
  <table name="(P0365) Camshaft Position Sensor B Circuit (Bank 1)" address="4ab52" />
  <table name="(P0365) Camshaft Position Sensor B Circuit (Bank 1) [Fail-Safe]" address="6324e" />
  <table name="(P0366) Camshaft Position Sensor B Circuit Range/Performance (Bank 1)" address="4ab7c" />
- <table name="(P0366) Camshaft Position Sensor B Circuit Range/Performance (Bank 1) [Fail-Safe]" address="63278" scaling="DTC yes b4 mFC f00" />
+ <table name="(P0366) Camshaft Position Sensor B Circuit Range/Performance (Bank 1) [Fail-Safe]" address="63278" />
  <table name="(P0390) Camshaft Position Sensor B Circuit (Bank 2)" address="4ab52" />
  <table name="(P0390) Camshaft Position Sensor B Circuit (Bank 2) [Fail-Safe]" address="6324e" />
  <table name="(P0391) Camshaft Position Sensor B Circuit Range/Performance (Bank 2)" address="4ab7c" />
- <table name="(P0391) Camshaft Position Sensor B Circuit Range/Performance (Bank 2) [Fail-Safe]" address="63278" scaling="DTC yes b3 mFC f00" />
+ <table name="(P0391) Camshaft Position Sensor B Circuit Range/Performance (Bank 2) [Fail-Safe]" address="63278" />
  <table name="(P0400) Exhaust Gas Recirculation Flow" address="4ab36" />
- <table name="(P0400) Exhaust Gas Recirculation Flow [Fail-Safe]" address="63232" scaling="DTC yes b4 mDD f00" />
+ <table name="(P0400) Exhaust Gas Recirculation Flow [Fail-Safe]" address="63232" />
  <table name="(P0401) Exhaust Gas Recirculation Flow Insufficient Detected" address="4ab80" />
- <table name="(P0401) Exhaust Gas Recirculation Flow Insufficient Detected [Fail-Safe]" address="6327c" scaling="DTC yes b1 mFF f00 sF5" />
+ <table name="(P0401) Exhaust Gas Recirculation Flow Insufficient Detected [Fail-Safe]" address="6327c" />
  <table name="(P0402) Exhaust Gas Recirculation Flow Excessive Detected" address="4ab80" />
- <table name="(P0402) Exhaust Gas Recirculation Flow Excessive Detected [Fail-Safe]" address="6327c" scaling="DTC yes b2 mFF f00 sF3" />
+ <table name="(P0402) Exhaust Gas Recirculation Flow Excessive Detected [Fail-Safe]" address="6327c" />
  <table name="(P0403) Exhaust Gas Recirculation Control Circuit" address="4ab7c" />
- <table name="(P0403) Exhaust Gas Recirculation Control Circuit [Fail-Safe]" address="63278" scaling="DTC yes b2 mFC f00" />
+ <table name="(P0403) Exhaust Gas Recirculation Control Circuit [Fail-Safe]" address="63278" />
  <table name="(P0420) Catalyst System Efficiency Below Threshold (Bank 1) [slot 144]" address="4ab36" />
- <table name="(P0420) Catalyst System Efficiency Below Threshold (Bank 1) [slot 144] [Fail-Safe]" address="63232" scaling="DTC yes b0 mDD f00" />
+ <table name="(P0420) Catalyst System Efficiency Below Threshold (Bank 1) [slot 144] [Fail-Safe]" address="63232" />
  <table name="(P0420) Catalyst System Efficiency Below Threshold (Bank 1) [slot 146]" address="4ab36" />
- <table name="(P0420) Catalyst System Efficiency Below Threshold (Bank 1) [slot 146] [Fail-Safe]" address="63232" scaling="DTC yes b2 mDD f00" />
+ <table name="(P0420) Catalyst System Efficiency Below Threshold (Bank 1) [slot 146] [Fail-Safe]" address="63232" />
  <table name="(P0441) Evaporative Emission System Incorrect Purge Flow" address="4ab71" />
- <table name="(P0441) Evaporative Emission System Incorrect Purge Flow [Fail-Safe]" address="6326d" scaling="DTC yes b5 mBF f00" />
+ <table name="(P0441) Evaporative Emission System Incorrect Purge Flow [Fail-Safe]" address="6326d" />
  <table name="(P0455) Evaporative Emission System Leak Detected (Large Leak)" address="4ab71" />
- <table name="(P0455) Evaporative Emission System Leak Detected (Large Leak) [Fail-Safe]" address="6326d" scaling="DTC yes b3 mBF f00" />
+ <table name="(P0455) Evaporative Emission System Leak Detected (Large Leak) [Fail-Safe]" address="6326d" />
  <table name="(P0456) Evaporative Emission System Leak Detected (Very Small Leak)" address="4ab36" />
- <table name="(P0456) Evaporative Emission System Leak Detected (Very Small Leak) [Fail-Safe]" address="63232" scaling="DTC yes b3 mDD f00" />
+ <table name="(P0456) Evaporative Emission System Leak Detected (Very Small Leak) [Fail-Safe]" address="63232" />
  <table name="(P0458) Evaporative Emission System Purge Control Valve Circuit Low" address="4ab30" />
  <table name="(P0458) Evaporative Emission System Purge Control Valve Circuit Low [Fail-Safe]" address="6322c" />
  <table name="(P0459) Evaporative Emission System Purge Control Valve Circuit High" address="4ab30" />
@@ -2823,169 +2920,169 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
  <table name="(P0463) Fuel Level Sensor A Circuit High" address="4ab27" scaling="DTC enabled b5 m7F f00" />
  <table name="(P0463) Fuel Level Sensor A Circuit High [Fail-Safe]" address="63223" scaling="DTC yes b5 m7F f00" />
  <table name="(P0480) manufacturer-specific / not named" address="4ab81" />
- <table name="(P0480) manufacturer-specific / not named [Fail-Safe]" address="6327d" scaling="DTC yes b0 m3F f00" />
+ <table name="(P0480) manufacturer-specific / not named [Fail-Safe]" address="6327d" />
  <table name="(P0481) manufacturer-specific / not named" address="4ab81" />
- <table name="(P0481) manufacturer-specific / not named [Fail-Safe]" address="6327d" scaling="DTC yes b1 m3F f00" />
+ <table name="(P0481) manufacturer-specific / not named [Fail-Safe]" address="6327d" />
  <table name="(P04AC) Evaporative Emission System Purge Control Valve 'B' Circuit Low" address="4ab7d" />
- <table name="(P04AC) Evaporative Emission System Purge Control Valve 'B' Circuit Low [Fail-Safe]" address="63279" scaling="DTC yes b3 m99 f00" />
+ <table name="(P04AC) Evaporative Emission System Purge Control Valve 'B' Circuit Low [Fail-Safe]" address="63279" />
  <table name="(P04AD) Evaporative Emission System Purge Control Valve 'B' Circuit High" address="4ab7d" />
- <table name="(P04AD) Evaporative Emission System Purge Control Valve 'B' Circuit High [Fail-Safe]" address="63279" scaling="DTC yes b4 m99 f00" />
+ <table name="(P04AD) Evaporative Emission System Purge Control Valve 'B' Circuit High [Fail-Safe]" address="63279" />
  <table name="(P04AE) manufacturer-specific / not named" address="4ab81" />
- <table name="(P04AE) manufacturer-specific / not named [Fail-Safe]" address="6327d" scaling="DTC yes b4 m3F f00" />
+ <table name="(P04AE) manufacturer-specific / not named [Fail-Safe]" address="6327d" />
  <table name="(P04AF) Evaporative Emission System Purge Control Valve 'B' Stuck Closed" address="4ab71" />
- <table name="(P04AF) Evaporative Emission System Purge Control Valve 'B' Stuck Closed [Fail-Safe]" address="6326d" scaling="DTC yes b0 mBF f00" />
+ <table name="(P04AF) Evaporative Emission System Purge Control Valve 'B' Stuck Closed [Fail-Safe]" address="6326d" />
  <table name="(P04DB) Crankcase Ventilation System Disconnected" address="4ab7d" />
- <table name="(P04DB) Crankcase Ventilation System Disconnected [Fail-Safe]" address="63279" scaling="DTC yes b7 m99 f00" />
+ <table name="(P04DB) Crankcase Ventilation System Disconnected [Fail-Safe]" address="63279" />
  <table name="(P04F0) Evaporative Emission System High Pressure Purge Line Performance [slot 477]" address="4ab5f" />
- <table name="(P04F0) Evaporative Emission System High Pressure Purge Line Performance [slot 477] [Fail-Safe]" address="6325b" scaling="DTC yes b5 mE3 f00" />
+ <table name="(P04F0) Evaporative Emission System High Pressure Purge Line Performance [slot 477] [Fail-Safe]" address="6325b" />
  <table name="(P04F0) Evaporative Emission System High Pressure Purge Line Performance [slot 747]" address="4ab81" />
- <table name="(P04F0) Evaporative Emission System High Pressure Purge Line Performance [slot 747] [Fail-Safe]" address="6327d" scaling="DTC yes b3 m3F f00" />
+ <table name="(P04F0) Evaporative Emission System High Pressure Purge Line Performance [slot 747] [Fail-Safe]" address="6327d" />
  <table name="(P04F1) manufacturer-specific / not named" address="4ab81" />
- <table name="(P04F1) manufacturer-specific / not named [Fail-Safe]" address="6327d" scaling="DTC yes b2 m3F f00" />
+ <table name="(P04F1) manufacturer-specific / not named [Fail-Safe]" address="6327d" />
  <table name="(P0500) Vehicle Speed Sensor A [slot 12]" address="4ab25" />
- <table name="(P0500) Vehicle Speed Sensor A [slot 12] [Fail-Safe]" address="63221" scaling="DTC yes b4 mD3 f00" />
+ <table name="(P0500) Vehicle Speed Sensor A [slot 12] [Fail-Safe]" address="63221" />
  <table name="(P0500) Vehicle Speed Sensor A [slot 779]" address="4ab85" />
- <table name="(P0500) Vehicle Speed Sensor A [slot 779] [Fail-Safe]" address="63281" scaling="DTC yes b3 m1F f00" />
+ <table name="(P0500) Vehicle Speed Sensor A [slot 779] [Fail-Safe]" address="63281" />
  <table name="(P0506) Idle Control System RPM Lower Than Expected" address="4ab2e" />
  <table name="(P0506) Idle Control System RPM Lower Than Expected [Fail-Safe]" address="6322a" />
  <table name="(P0507) Idle Control System RPM Higher Than Expected" address="4ab2e" />
  <table name="(P0507) Idle Control System RPM Higher Than Expected [Fail-Safe]" address="6322a" />
  <table name="(P050A) Cold Start Idle Air Control System Performance" address="4ab6f" />
- <table name="(P050A) Cold Start Idle Air Control System Performance [Fail-Safe]" address="6326b" scaling="DTC yes b1 mFF f00 sD0" />
+ <table name="(P050A) Cold Start Idle Air Control System Performance [Fail-Safe]" address="6326b" />
  <table name="(P050B) Cold Start Ignition Timing Performance" address="4ab6f" />
- <table name="(P050B) Cold Start Ignition Timing Performance [Fail-Safe]" address="6326b" scaling="DTC yes b0 mFF f00 sD0" />
+ <table name="(P050B) Cold Start Ignition Timing Performance [Fail-Safe]" address="6326b" />
  <table name="(P050E) Cold Start Engine Exhaust Temperature Too Low" address="4ab60" />
- <table name="(P050E) Cold Start Engine Exhaust Temperature Too Low [Fail-Safe]" address="6325c" scaling="DTC yes b2 mC4 f00" />
+ <table name="(P050E) Cold Start Engine Exhaust Temperature Too Low [Fail-Safe]" address="6325c" />
  <table name="(P0512) Starter Request Circuit" address="4ab79" />
- <table name="(P0512) Starter Request Circuit [Fail-Safe]" address="63275" scaling="DTC yes b0 mFF f00 s40" />
+ <table name="(P0512) Starter Request Circuit [Fail-Safe]" address="63275" />
  <table name="(P0557) Brake Booster Pressure Sensor Circuit Low" address="4ab78" />
  <table name="(P0557) Brake Booster Pressure Sensor Circuit Low [Fail-Safe]" address="63274" />
  <table name="(P0558) Brake Booster Pressure Sensor Circuit High" address="4ab78" />
  <table name="(P0558) Brake Booster Pressure Sensor Circuit High [Fail-Safe]" address="63274" />
  <table name="(P0560) System Voltage" address="4ab79" />
- <table name="(P0560) System Voltage [Fail-Safe]" address="63275" scaling="DTC yes b5 mFF f00 s40" />
+ <table name="(P0560) System Voltage [Fail-Safe]" address="63275" />
  <table name="(P0562) System Voltage Low" address="4ab3f" />
- <table name="(P0562) System Voltage Low [Fail-Safe]" address="6323b" scaling="DTC yes b6 mC0 f00" />
+ <table name="(P0562) System Voltage Low [Fail-Safe]" address="6323b" />
  <table name="(P0563) System Voltage High" address="4ab3f" />
- <table name="(P0563) System Voltage High [Fail-Safe]" address="6323b" scaling="DTC yes b7 mC0 f00" />
+ <table name="(P0563) System Voltage High [Fail-Safe]" address="6323b" />
  <table name="(P0604) Internal Control Module RAM Error" address="4ab24" />
- <table name="(P0604) Internal Control Module RAM Error [Fail-Safe]" address="63220" scaling="DTC yes b6 m45 f00" />
+ <table name="(P0604) Internal Control Module RAM Error [Fail-Safe]" address="63220" />
  <table name="(P0605) Internal Control Module ROM Error" address="4ab52" />
  <table name="(P0605) Internal Control Module ROM Error [Fail-Safe]" address="6324e" />
  <table name="(P0606) Control Module Processor" address="4ab7b" />
- <table name="(P0606) Control Module Processor [Fail-Safe]" address="63277" scaling="DTC yes b6 mDC f00" />
+ <table name="(P0606) Control Module Processor [Fail-Safe]" address="63277" />
  <table name="(P060A) Internal Control Module Monitoring Processor Performance" address="4ab7b" />
- <table name="(P060A) Internal Control Module Monitoring Processor Performance [Fail-Safe]" address="63277" scaling="DTC yes b4 mDC f00" />
+ <table name="(P060A) Internal Control Module Monitoring Processor Performance [Fail-Safe]" address="63277" />
  <table name="(P060B) Internal Control Module A/D Processing Performance" address="4ab7b" />
- <table name="(P060B) Internal Control Module A/D Processing Performance [Fail-Safe]" address="63277" scaling="DTC yes b3 mDC f00" />
+ <table name="(P060B) Internal Control Module A/D Processing Performance [Fail-Safe]" address="63277" />
  <table name="(P0616) Starter Relay Circuit Low" address="4ab79" />
- <table name="(P0616) Starter Relay Circuit Low [Fail-Safe]" address="63275" scaling="DTC yes b1 mFF f00 s40" />
+ <table name="(P0616) Starter Relay Circuit Low [Fail-Safe]" address="63275" />
  <table name="(P0617) Starter Relay Circuit High" address="4ab79" />
- <table name="(P0617) Starter Relay Circuit High [Fail-Safe]" address="63275" scaling="DTC yes b2 mFF f00 s40" />
+ <table name="(P0617) Starter Relay Circuit High [Fail-Safe]" address="63275" />
  <table name="(P0627) Fuel Pump A Control Circuit/Open" address="4ab89" />
- <table name="(P0627) Fuel Pump A Control Circuit/Open [Fail-Safe]" address="63285" scaling="DTC yes b3 mFF f00 s77" />
+ <table name="(P0627) Fuel Pump A Control Circuit/Open [Fail-Safe]" address="63285" />
  <table name="(P0628) Fuel Pump A Control Circuit Low" address="4ab89" />
- <table name="(P0628) Fuel Pump A Control Circuit Low [Fail-Safe]" address="63285" scaling="DTC yes b4 mFF f00 s6F" />
+ <table name="(P0628) Fuel Pump A Control Circuit Low [Fail-Safe]" address="63285" />
  <table name="(P0629) Fuel Pump A Control Circuit High" address="4ab89" />
- <table name="(P0629) Fuel Pump A Control Circuit High [Fail-Safe]" address="63285" scaling="DTC yes b5 mFF f00 s5F" />
+ <table name="(P0629) Fuel Pump A Control Circuit High [Fail-Safe]" address="63285" />
  <table name="(P062D) Fuel Injector Driver Circuit Performance (Bank 1)" address="4ab88" />
- <table name="(P062D) Fuel Injector Driver Circuit Performance (Bank 1) [Fail-Safe]" address="63284" scaling="DTC yes b2 mFF f00 sFB" />
+ <table name="(P062D) Fuel Injector Driver Circuit Performance (Bank 1) [Fail-Safe]" address="63284" />
  <table name="(P062F) Internal Control Module EEPROM Error" address="4ab7b" />
- <table name="(P062F) Internal Control Module EEPROM Error [Fail-Safe]" address="63277" scaling="DTC yes b2 mDC f00" />
+ <table name="(P062F) Internal Control Module EEPROM Error [Fail-Safe]" address="63277" />
  <table name="(P0685) ECM/PCM Power Relay Control Circuit/Open" address="4ab87" />
- <table name="(P0685) ECM/PCM Power Relay Control Circuit/Open [Fail-Safe]" address="63283" scaling="DTC yes b4 mFF f00 s0F" />
+ <table name="(P0685) ECM/PCM Power Relay Control Circuit/Open [Fail-Safe]" address="63283" />
  <table name="(P0700) Transmission Control System (MIL Request)" address="4ab54" />
- <table name="(P0700) Transmission Control System (MIL Request) [Fail-Safe]" address="63250" scaling="DTC yes b7 m81 f00" />
+ <table name="(P0700) Transmission Control System (MIL Request) [Fail-Safe]" address="63250" />
  <table name="(P081A) Starter Disable Circuit Low" address="4ab79" />
- <table name="(P081A) Starter Disable Circuit Low [Fail-Safe]" address="63275" scaling="DTC yes b7 mFF f00 s40" />
+ <table name="(P081A) Starter Disable Circuit Low [Fail-Safe]" address="63275" />
  <table name="(P0851) Park/Neutral Switch Input Circuit Low" address="4ab2a" />
- <table name="(P0851) Park/Neutral Switch Input Circuit Low [Fail-Safe]" address="63226" scaling="DTC yes b3 m88 f00" />
+ <table name="(P0851) Park/Neutral Switch Input Circuit Low [Fail-Safe]" address="63226" />
  <table name="(P0852) Park/Neutral Switch Input Circuit High" address="4ab2a" />
- <table name="(P0852) Park/Neutral Switch Input Circuit High [Fail-Safe]" address="63226" scaling="DTC yes b7 m88 f00" />
+ <table name="(P0852) Park/Neutral Switch Input Circuit High [Fail-Safe]" address="63226" />
  <table name="(P1134) manufacturer-specific / not named" address="4ab8a" />
- <table name="(P1134) manufacturer-specific / not named [Fail-Safe]" address="63286" scaling="DTC yes b5 mFF f00 s53" />
+ <table name="(P1134) manufacturer-specific / not named [Fail-Safe]" address="63286" />
  <table name="(P113A) manufacturer-specific / not named" address="4ab8a" />
- <table name="(P113A) manufacturer-specific / not named [Fail-Safe]" address="63286" scaling="DTC yes b7 mFF f00 s53" />
+ <table name="(P113A) manufacturer-specific / not named [Fail-Safe]" address="63286" />
  <table name="(P1160) manufacturer-specific / not named" address="4ab50" />
  <table name="(P1160) manufacturer-specific / not named [Fail-Safe]" address="6324c" />
  <table name="(P1191) manufacturer-specific / not named" address="4ab89" />
- <table name="(P1191) manufacturer-specific / not named [Fail-Safe]" address="63285" scaling="DTC yes b2 mFF f00 s7B" />
+ <table name="(P1191) manufacturer-specific / not named [Fail-Safe]" address="63285" />
  <table name="(P1192) manufacturer-specific / not named" address="4ab7f" />
- <table name="(P1192) manufacturer-specific / not named [Fail-Safe]" address="6327b" scaling="DTC yes b6 mFF f00 s8F" />
+ <table name="(P1192) manufacturer-specific / not named [Fail-Safe]" address="6327b" />
  <table name="(P1193) manufacturer-specific / not named" address="4ab7f" />
- <table name="(P1193) manufacturer-specific / not named [Fail-Safe]" address="6327b" scaling="DTC yes b7 mFF f00 s4F" />
+ <table name="(P1193) manufacturer-specific / not named [Fail-Safe]" address="6327b" />
  <table name="(P1261) manufacturer-specific / not named" address="4ab88" />
- <table name="(P1261) manufacturer-specific / not named [Fail-Safe]" address="63284" scaling="DTC yes b3 mFF f00 sF7" />
+ <table name="(P1261) manufacturer-specific / not named [Fail-Safe]" address="63284" />
  <table name="(P1262) manufacturer-specific / not named" address="4ab88" />
- <table name="(P1262) manufacturer-specific / not named [Fail-Safe]" address="63284" scaling="DTC yes b4 mFF f00 sEF" />
+ <table name="(P1262) manufacturer-specific / not named [Fail-Safe]" address="63284" />
  <table name="(P1263) manufacturer-specific / not named" address="4ab88" />
- <table name="(P1263) manufacturer-specific / not named [Fail-Safe]" address="63284" scaling="DTC yes b5 mFF f00 sDF" />
+ <table name="(P1263) manufacturer-specific / not named [Fail-Safe]" address="63284" />
  <table name="(P1264) manufacturer-specific / not named" address="4ab88" />
- <table name="(P1264) manufacturer-specific / not named [Fail-Safe]" address="63284" scaling="DTC yes b6 mFF f00 sBF" />
+ <table name="(P1264) manufacturer-specific / not named [Fail-Safe]" address="63284" />
  <table name="(P1449) manufacturer-specific / not named" address="4ab71" />
- <table name="(P1449) manufacturer-specific / not named [Fail-Safe]" address="6326d" scaling="DTC yes b2 mBF f00" />
+ <table name="(P1449) manufacturer-specific / not named [Fail-Safe]" address="6326d" />
  <table name="(P1451) manufacturer-specific / not named" address="4ab71" />
- <table name="(P1451) manufacturer-specific / not named [Fail-Safe]" address="6326d" scaling="DTC yes b1 mBF f00" />
+ <table name="(P1451) manufacturer-specific / not named [Fail-Safe]" address="6326d" />
  <table name="(P1458) manufacturer-specific / not named" address="4ab5f" />
- <table name="(P1458) manufacturer-specific / not named [Fail-Safe]" address="6325b" scaling="DTC yes b6 mE3 f00" />
+ <table name="(P1458) manufacturer-specific / not named [Fail-Safe]" address="6325b" />
  <table name="(P1459) manufacturer-specific / not named" address="4ab5f" />
- <table name="(P1459) manufacturer-specific / not named [Fail-Safe]" address="6325b" scaling="DTC yes b7 mE3 f00" />
+ <table name="(P1459) manufacturer-specific / not named [Fail-Safe]" address="6325b" />
  <table name="(P1492) manufacturer-specific / not named" address="4ab2c" />
- <table name="(P1492) manufacturer-specific / not named [Fail-Safe]" address="63228" scaling="DTC yes b0 mFF f00 sFE" />
+ <table name="(P1492) manufacturer-specific / not named [Fail-Safe]" address="63228" />
  <table name="(P1493) manufacturer-specific / not named" address="4ab2c" />
- <table name="(P1493) manufacturer-specific / not named [Fail-Safe]" address="63228" scaling="DTC yes b1 mFF f00 sFD" />
+ <table name="(P1493) manufacturer-specific / not named [Fail-Safe]" address="63228" />
  <table name="(P1494) manufacturer-specific / not named" address="4ab2c" />
- <table name="(P1494) manufacturer-specific / not named [Fail-Safe]" address="63228" scaling="DTC yes b2 mFF f00 sFB" />
+ <table name="(P1494) manufacturer-specific / not named [Fail-Safe]" address="63228" />
  <table name="(P1495) manufacturer-specific / not named" address="4ab2c" />
- <table name="(P1495) manufacturer-specific / not named [Fail-Safe]" address="63228" scaling="DTC yes b3 mFF f00 sF7" />
+ <table name="(P1495) manufacturer-specific / not named [Fail-Safe]" address="63228" />
  <table name="(P1496) manufacturer-specific / not named" address="4ab2c" />
- <table name="(P1496) manufacturer-specific / not named [Fail-Safe]" address="63228" scaling="DTC yes b4 mFF f00 sEF" />
+ <table name="(P1496) manufacturer-specific / not named [Fail-Safe]" address="63228" />
  <table name="(P1497) manufacturer-specific / not named" address="4ab2c" />
- <table name="(P1497) manufacturer-specific / not named [Fail-Safe]" address="63228" scaling="DTC yes b5 mFF f00 sDF" />
+ <table name="(P1497) manufacturer-specific / not named [Fail-Safe]" address="63228" />
  <table name="(P1498) manufacturer-specific / not named" address="4ab2c" />
- <table name="(P1498) manufacturer-specific / not named [Fail-Safe]" address="63228" scaling="DTC yes b6 mFF f00 sBF" />
+ <table name="(P1498) manufacturer-specific / not named [Fail-Safe]" address="63228" />
  <table name="(P1499) manufacturer-specific / not named" address="4ab2c" />
- <table name="(P1499) manufacturer-specific / not named [Fail-Safe]" address="63228" scaling="DTC yes b7 mFF f00 s7F" />
+ <table name="(P1499) manufacturer-specific / not named [Fail-Safe]" address="63228" />
  <table name="(P2004) Intake Manifold Runner Control Stuck Open (Bank 1)" address="4ab58" />
- <table name="(P2004) Intake Manifold Runner Control Stuck Open (Bank 1) [Fail-Safe]" address="63254" scaling="DTC yes b0 mDF f00" />
+ <table name="(P2004) Intake Manifold Runner Control Stuck Open (Bank 1) [Fail-Safe]" address="63254" />
  <table name="(P2005) Intake Manifold Runner Control Stuck Open (Bank 2)" address="4ab58" />
- <table name="(P2005) Intake Manifold Runner Control Stuck Open (Bank 2) [Fail-Safe]" address="63254" scaling="DTC yes b2 mDF f00" />
+ <table name="(P2005) Intake Manifold Runner Control Stuck Open (Bank 2) [Fail-Safe]" address="63254" />
  <table name="(P2006) Intake Manifold Runner Control Stuck Closed (Bank 1)" address="4ab58" />
- <table name="(P2006) Intake Manifold Runner Control Stuck Closed (Bank 1) [Fail-Safe]" address="63254" scaling="DTC yes b1 mDF f00" />
+ <table name="(P2006) Intake Manifold Runner Control Stuck Closed (Bank 1) [Fail-Safe]" address="63254" />
  <table name="(P2007) Intake Manifold Runner Control Stuck Closed (Bank 2)" address="4ab58" />
- <table name="(P2007) Intake Manifold Runner Control Stuck Closed (Bank 2) [Fail-Safe]" address="63254" scaling="DTC yes b3 mDF f00" />
+ <table name="(P2007) Intake Manifold Runner Control Stuck Closed (Bank 2) [Fail-Safe]" address="63254" />
  <table name="(P2008) manufacturer-specific / not named" address="4ab59" />
- <table name="(P2008) manufacturer-specific / not named [Fail-Safe]" address="63255" scaling="DTC yes b6 mFF f00 s00" />
+ <table name="(P2008) manufacturer-specific / not named [Fail-Safe]" address="63255" />
  <table name="(P2009) Intake Manifold Runner Control Circuit Low (Bank 1)" address="4ab59" />
- <table name="(P2009) Intake Manifold Runner Control Circuit Low (Bank 1) [Fail-Safe]" address="63255" scaling="DTC yes b4 mFF f00 s00" />
+ <table name="(P2009) Intake Manifold Runner Control Circuit Low (Bank 1) [Fail-Safe]" address="63255" />
  <table name="(P2011) manufacturer-specific / not named" address="4ab59" />
- <table name="(P2011) manufacturer-specific / not named [Fail-Safe]" address="63255" scaling="DTC yes b7 mFF f00 s00" />
+ <table name="(P2011) manufacturer-specific / not named [Fail-Safe]" address="63255" />
  <table name="(P2012) Intake Manifold Runner Control Circuit Low (Bank 2)" address="4ab59" />
- <table name="(P2012) Intake Manifold Runner Control Circuit Low (Bank 2) [Fail-Safe]" address="63255" scaling="DTC yes b5 mFF f00 s00" />
+ <table name="(P2012) Intake Manifold Runner Control Circuit Low (Bank 2) [Fail-Safe]" address="63255" />
  <table name="(P2016) Intake Manifold Runner Position Sensor/Switch Circuit Low (Bank 1)" address="4ab59" />
- <table name="(P2016) Intake Manifold Runner Position Sensor/Switch Circuit Low (Bank 1) [Fail-Safe]" address="63255" scaling="DTC yes b0 mFF f00 s00" />
+ <table name="(P2016) Intake Manifold Runner Position Sensor/Switch Circuit Low (Bank 1) [Fail-Safe]" address="63255" />
  <table name="(P2017) Intake Manifold Runner Position Sensor/Switch Circuit High (Bank 1)" address="4ab59" />
- <table name="(P2017) Intake Manifold Runner Position Sensor/Switch Circuit High (Bank 1) [Fail-Safe]" address="63255" scaling="DTC yes b1 mFF f00 s00" />
+ <table name="(P2017) Intake Manifold Runner Position Sensor/Switch Circuit High (Bank 1) [Fail-Safe]" address="63255" />
  <table name="(P2021) Intake Manifold Runner Position Sensor/Switch Circuit Low (Bank 2)" address="4ab59" />
- <table name="(P2021) Intake Manifold Runner Position Sensor/Switch Circuit Low (Bank 2) [Fail-Safe]" address="63255" scaling="DTC yes b2 mFF f00 s00" />
+ <table name="(P2021) Intake Manifold Runner Position Sensor/Switch Circuit Low (Bank 2) [Fail-Safe]" address="63255" />
  <table name="(P2022) Intake Manifold Runner Position Sensor/Switch Circuit High (Bank 2)" address="4ab59" />
- <table name="(P2022) Intake Manifold Runner Position Sensor/Switch Circuit High (Bank 2) [Fail-Safe]" address="63255" scaling="DTC yes b3 mFF f00 s00" />
+ <table name="(P2022) Intake Manifold Runner Position Sensor/Switch Circuit High (Bank 2) [Fail-Safe]" address="63255" />
  <table name="(P2088) A Camshaft Position Actuator Control Circuit Low (Bank 1)" address="4ab53" />
- <table name="(P2088) A Camshaft Position Actuator Control Circuit Low (Bank 1) [Fail-Safe]" address="6324f" scaling="DTC yes b7 mFF f00 s7F" />
+ <table name="(P2088) A Camshaft Position Actuator Control Circuit Low (Bank 1) [Fail-Safe]" address="6324f" />
  <table name="(P2089) A Camshaft Position Actuator Control Circuit High (Bank 1)" address="4ab53" />
- <table name="(P2089) A Camshaft Position Actuator Control Circuit High (Bank 1) [Fail-Safe]" address="6324f" scaling="DTC yes b6 mFF f00 sBF" />
+ <table name="(P2089) A Camshaft Position Actuator Control Circuit High (Bank 1) [Fail-Safe]" address="6324f" />
  <table name="(P2090) B Camshaft Position Actuator Control Circuit Low (Bank 1)" address="4ab53" />
- <table name="(P2090) B Camshaft Position Actuator Control Circuit Low (Bank 1) [Fail-Safe]" address="6324f" scaling="DTC yes b3 mFF f00 sF7" />
+ <table name="(P2090) B Camshaft Position Actuator Control Circuit Low (Bank 1) [Fail-Safe]" address="6324f" />
  <table name="(P2091) B Camshaft Position Actuator Control Circuit High (Bank 1)" address="4ab53" />
- <table name="(P2091) B Camshaft Position Actuator Control Circuit High (Bank 1) [Fail-Safe]" address="6324f" scaling="DTC yes b2 mFF f00 sFB" />
+ <table name="(P2091) B Camshaft Position Actuator Control Circuit High (Bank 1) [Fail-Safe]" address="6324f" />
  <table name="(P2092) A Camshaft Position Actuator Control Circuit Low (Bank 2)" address="4ab53" />
- <table name="(P2092) A Camshaft Position Actuator Control Circuit Low (Bank 2) [Fail-Safe]" address="6324f" scaling="DTC yes b5 mFF f00 sDF" />
+ <table name="(P2092) A Camshaft Position Actuator Control Circuit Low (Bank 2) [Fail-Safe]" address="6324f" />
  <table name="(P2093) A Camshaft Position Actuator Control Circuit High (Bank 2)" address="4ab53" />
- <table name="(P2093) A Camshaft Position Actuator Control Circuit High (Bank 2) [Fail-Safe]" address="6324f" scaling="DTC yes b4 mFF f00 sEF" />
+ <table name="(P2093) A Camshaft Position Actuator Control Circuit High (Bank 2) [Fail-Safe]" address="6324f" />
  <table name="(P2094) B Camshaft Position Actuator Control Circuit Low (Bank 2)" address="4ab53" />
- <table name="(P2094) B Camshaft Position Actuator Control Circuit Low (Bank 2) [Fail-Safe]" address="6324f" scaling="DTC yes b1 mFF f00 sFD" />
+ <table name="(P2094) B Camshaft Position Actuator Control Circuit Low (Bank 2) [Fail-Safe]" address="6324f" />
  <table name="(P2095) B Camshaft Position Actuator Control Circuit High (Bank 2)" address="4ab53" />
- <table name="(P2095) B Camshaft Position Actuator Control Circuit High (Bank 2) [Fail-Safe]" address="6324f" scaling="DTC yes b0 mFF f00 sFE" />
+ <table name="(P2095) B Camshaft Position Actuator Control Circuit High (Bank 2) [Fail-Safe]" address="6324f" />
  <table name="(P2096) Post Catalyst Fuel Trim System Too Lean (Bank 1)" address="4ab50" />
  <table name="(P2096) Post Catalyst Fuel Trim System Too Lean (Bank 1) [Fail-Safe]" address="6324c" />
  <table name="(P2097) Post Catalyst Fuel Trim System Too Rich (Bank 1)" address="4ab51" />
@@ -2997,9 +3094,9 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
  <table name="(P2103) Throttle Actuator Control Motor Circuit High" address="4ab50" />
  <table name="(P2103) Throttle Actuator Control Motor Circuit High [Fail-Safe]" address="6324c" />
  <table name="(P2109) Throttle/Pedal Position Sensor A Minimum Stop Performance" address="4ab4f" />
- <table name="(P2109) Throttle/Pedal Position Sensor A Minimum Stop Performance [Fail-Safe]" address="6324b" scaling="DTC yes b0 m01 f00" />
+ <table name="(P2109) Throttle/Pedal Position Sensor A Minimum Stop Performance [Fail-Safe]" address="6324b" />
  <table name="(P2119) Throttle Actuator Control Throttle Body Range/Performance" address="4ab7b" />
- <table name="(P2119) Throttle Actuator Control Throttle Body Range/Performance [Fail-Safe]" address="63277" scaling="DTC yes b7 mDC f00" />
+ <table name="(P2119) Throttle Actuator Control Throttle Body Range/Performance [Fail-Safe]" address="63277" />
  <table name="(P2122) Throttle/Pedal Position Sensor/Switch D Circuit Low" address="4ab51" />
  <table name="(P2122) Throttle/Pedal Position Sensor/Switch D Circuit Low [Fail-Safe]" address="6324d" />
  <table name="(P2123) Throttle/Pedal Position Sensor/Switch D Circuit High" address="4ab51" />
@@ -3013,77 +3110,77 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
  <table name="(P2138) Throttle/Pedal Position Sensor/Switch D/E Voltage Correlation" address="4ab51" />
  <table name="(P2138) Throttle/Pedal Position Sensor/Switch D/E Voltage Correlation [Fail-Safe]" address="6324d" />
  <table name="(P2146) Fuel Injector Group A Supply Voltage Circuit/Open" address="4ab8a" />
- <table name="(P2146) Fuel Injector Group A Supply Voltage Circuit/Open [Fail-Safe]" address="63286" scaling="DTC yes b6 mFF f00 s13" />
+ <table name="(P2146) Fuel Injector Group A Supply Voltage Circuit/Open [Fail-Safe]" address="63286" />
  <table name="(P2158) Vehicle Speed Sensor B" address="4ab85" />
- <table name="(P2158) Vehicle Speed Sensor B [Fail-Safe]" address="63281" scaling="DTC yes b4 m1F f00" />
+ <table name="(P2158) Vehicle Speed Sensor B [Fail-Safe]" address="63281" />
  <table name="(P2195) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 1)" address="4ab79" />
- <table name="(P2195) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 1) [Fail-Safe]" address="63275" scaling="DTC yes b4 mFF f00 s40" />
+ <table name="(P2195) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 1) [Fail-Safe]" address="63275" />
  <table name="(P2196) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 1)" address="4ab79" />
- <table name="(P2196) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 1) [Fail-Safe]" address="63275" scaling="DTC yes b3 mFF f00 s40" />
+ <table name="(P2196) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 1) [Fail-Safe]" address="63275" />
  <table name="(P219A) Bank 1 Air-Fuel Ratio Imbalance" address="4ab71" />
- <table name="(P219A) Bank 1 Air-Fuel Ratio Imbalance [Fail-Safe]" address="6326d" scaling="DTC yes b7 mBF f00" />
+ <table name="(P219A) Bank 1 Air-Fuel Ratio Imbalance [Fail-Safe]" address="6326d" />
  <table name="(P2227) Barometric Pressure Sensor A Circuit Range/Performance" address="4ab58" />
- <table name="(P2227) Barometric Pressure Sensor A Circuit Range/Performance [Fail-Safe]" address="63254" scaling="DTC yes b4 mDF f00" />
+ <table name="(P2227) Barometric Pressure Sensor A Circuit Range/Performance [Fail-Safe]" address="63254" />
  <table name="(P2228) Barometric Pressure Sensor A Circuit Low" address="4ab58" />
- <table name="(P2228) Barometric Pressure Sensor A Circuit Low [Fail-Safe]" address="63254" scaling="DTC yes b7 mDF f00" />
+ <table name="(P2228) Barometric Pressure Sensor A Circuit Low [Fail-Safe]" address="63254" />
  <table name="(P2229) Barometric Pressure Sensor A Circuit High" address="4ab58" />
- <table name="(P2229) Barometric Pressure Sensor A Circuit High [Fail-Safe]" address="63254" scaling="DTC yes b6 mDF f00" />
+ <table name="(P2229) Barometric Pressure Sensor A Circuit High [Fail-Safe]" address="63254" />
  <table name="(P226B) manufacturer-specific / not named" address="4ab40" />
- <table name="(P226B) manufacturer-specific / not named [Fail-Safe]" address="6323c" scaling="DTC yes b3 m08 f03" />
+ <table name="(P226B) manufacturer-specific / not named [Fail-Safe]" address="6323c" />
  <table name="(P2270) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 2)" address="4ab87" />
- <table name="(P2270) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 2) [Fail-Safe]" address="63283" scaling="DTC yes b6 mFF f00 s0F" />
+ <table name="(P2270) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 2) [Fail-Safe]" address="63283" />
  <table name="(P2271) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 2)" address="4ab87" />
- <table name="(P2271) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 2) [Fail-Safe]" address="63283" scaling="DTC yes b7 mFF f00 s0F" />
+ <table name="(P2271) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 2) [Fail-Safe]" address="63283" />
  <table name="(P2401) Evaporative Emission System Leak Detection Pump Control Circuit Low" address="4ab6f" />
- <table name="(P2401) Evaporative Emission System Leak Detection Pump Control Circuit Low [Fail-Safe]" address="6326b" scaling="DTC yes b5 mFF f00 sD0" />
+ <table name="(P2401) Evaporative Emission System Leak Detection Pump Control Circuit Low [Fail-Safe]" address="6326b" />
  <table name="(P2402) Evaporative Emission System Leak Detection Pump Control Circuit High" address="4ab72" />
- <table name="(P2402) Evaporative Emission System Leak Detection Pump Control Circuit High [Fail-Safe]" address="6326e" scaling="DTC yes b6 m60 f00" />
+ <table name="(P2402) Evaporative Emission System Leak Detection Pump Control Circuit High [Fail-Safe]" address="6326e" />
  <table name="(P2404) Evaporative Emission System Leak Detection Pump Sense Circuit Range/Performance" address="4ab72" />
- <table name="(P2404) Evaporative Emission System Leak Detection Pump Sense Circuit Range/Performance [Fail-Safe]" address="6326e" scaling="DTC yes b5 m60 f00" />
+ <table name="(P2404) Evaporative Emission System Leak Detection Pump Sense Circuit Range/Performance [Fail-Safe]" address="6326e" />
  <table name="(P2419) Evaporative Emission System Switching Valve Control Circuit Low" address="4ab6f" />
- <table name="(P2419) Evaporative Emission System Switching Valve Control Circuit Low [Fail-Safe]" address="6326b" scaling="DTC yes b4 mFF f00 sC0" />
+ <table name="(P2419) Evaporative Emission System Switching Valve Control Circuit Low [Fail-Safe]" address="6326b" />
  <table name="(P2420) Evaporative Emission System Switching Valve Control Circuit High" address="4ab6f" />
- <table name="(P2420) Evaporative Emission System Switching Valve Control Circuit High [Fail-Safe]" address="6326b" scaling="DTC yes b3 mFF f00 sD0" />
+ <table name="(P2420) Evaporative Emission System Switching Valve Control Circuit High [Fail-Safe]" address="6326b" />
  <table name="(P24B9) manufacturer-specific / not named" address="4ab71" />
- <table name="(P24B9) manufacturer-specific / not named [Fail-Safe]" address="6326d" scaling="DTC yes b4 mBF f00" />
+ <table name="(P24B9) manufacturer-specific / not named [Fail-Safe]" address="6326d" />
  <table name="(P24BA) manufacturer-specific / not named" address="4ab6f" />
- <table name="(P24BA) manufacturer-specific / not named [Fail-Safe]" address="6326b" scaling="DTC yes b7 mFF f00 s50" />
+ <table name="(P24BA) manufacturer-specific / not named [Fail-Safe]" address="6326b" />
  <table name="(P24BB) manufacturer-specific / not named" address="4ab6f" />
- <table name="(P24BB) manufacturer-specific / not named [Fail-Safe]" address="6326b" scaling="DTC yes b6 mFF f00 s90" />
+ <table name="(P24BB) manufacturer-specific / not named [Fail-Safe]" address="6326b" />
  <table name="(P24D6) manufacturer-specific / not named" address="4ab81" />
- <table name="(P24D6) manufacturer-specific / not named [Fail-Safe]" address="6327d" scaling="DTC yes b5 m3F f00" />
+ <table name="(P24D6) manufacturer-specific / not named [Fail-Safe]" address="6327d" />
  <table name="(P24D7) manufacturer-specific / not named" address="4ab7f" />
- <table name="(P24D7) manufacturer-specific / not named [Fail-Safe]" address="6327b" scaling="DTC yes b4 mFF f00 sCF" />
+ <table name="(P24D7) manufacturer-specific / not named [Fail-Safe]" address="6327b" />
  <table name="(P24D8) manufacturer-specific / not named" address="4ab7f" />
- <table name="(P24D8) manufacturer-specific / not named [Fail-Safe]" address="6327b" scaling="DTC yes b5 mFF f00 sCF" />
+ <table name="(P24D8) manufacturer-specific / not named [Fail-Safe]" address="6327b" />
  <table name="(P2530) Ignition Switch Run Position Circuit" address="4ab7d" />
- <table name="(P2530) Ignition Switch Run Position Circuit [Fail-Safe]" address="63279" scaling="DTC yes b0 m99 f00" />
+ <table name="(P2530) Ignition Switch Run Position Circuit [Fail-Safe]" address="63279" />
  <table name="(P2564) manufacturer-specific / not named" address="4ab7f" />
- <table name="(P2564) manufacturer-specific / not named [Fail-Safe]" address="6327b" scaling="DTC yes b1 mFF f00 sCD" />
+ <table name="(P2564) manufacturer-specific / not named [Fail-Safe]" address="6327b" />
  <table name="(P2565) manufacturer-specific / not named" address="4ab7f" />
- <table name="(P2565) manufacturer-specific / not named [Fail-Safe]" address="6327b" scaling="DTC yes b0 mFF f00 sCE" />
+ <table name="(P2565) manufacturer-specific / not named [Fail-Safe]" address="6327b" />
  <table name="(P2610) ECM/PCM Internal Engine Off Timer Performance" address="4ab6f" />
- <table name="(P2610) ECM/PCM Internal Engine Off Timer Performance [Fail-Safe]" address="6326b" scaling="DTC yes b2 mFF f00 sD0" />
+ <table name="(P2610) ECM/PCM Internal Engine Off Timer Performance [Fail-Safe]" address="6326b" />
  <table name="(P2627) O2 Sensor Pumping Current Trim Circuit/Open (Bank 1 Sensor 1)" address="4ab8a" />
- <table name="(P2627) O2 Sensor Pumping Current Trim Circuit/Open (Bank 1 Sensor 1) [Fail-Safe]" address="63286" scaling="DTC yes b2 mFF f00 s53" />
+ <table name="(P2627) O2 Sensor Pumping Current Trim Circuit/Open (Bank 1 Sensor 1) [Fail-Safe]" address="63286" />
  <table name="(P2628) O2 Sensor Pumping Current Trim Circuit Low (Bank 1 Sensor 1)" address="4ab8a" />
- <table name="(P2628) O2 Sensor Pumping Current Trim Circuit Low (Bank 1 Sensor 1) [Fail-Safe]" address="63286" scaling="DTC yes b3 mFF f00 s53" />
+ <table name="(P2628) O2 Sensor Pumping Current Trim Circuit Low (Bank 1 Sensor 1) [Fail-Safe]" address="63286" />
  <table name="(P2A01) O2 Sensor Circuit Range/Performance (Bank 1 Sensor 2)" address="4ab87" />
- <table name="(P2A01) O2 Sensor Circuit Range/Performance (Bank 1 Sensor 2) [Fail-Safe]" address="63283" scaling="DTC yes b5 mFF f00 s0F" />
+ <table name="(P2A01) O2 Sensor Circuit Range/Performance (Bank 1 Sensor 2) [Fail-Safe]" address="63283" />
  <table name="(U0073) Control Module Communication Bus Off" address="4ab6c" />
- <table name="(U0073) Control Module Communication Bus Off [Fail-Safe]" address="63268" scaling="DTC yes b6 m7C f00" />
+ <table name="(U0073) Control Module Communication Bus Off [Fail-Safe]" address="63268" />
  <table name="(U0101) Lost Communication with TCM" address="4ab6c" />
- <table name="(U0101) Lost Communication with TCM [Fail-Safe]" address="63268" scaling="DTC yes b3 m7C f00" />
+ <table name="(U0101) Lost Communication with TCM [Fail-Safe]" address="63268" />
  <table name="(U0122) Lost Communication with Vehicle Dynamics Control Module" address="4ab6c" />
- <table name="(U0122) Lost Communication with Vehicle Dynamics Control Module [Fail-Safe]" address="63268" scaling="DTC yes b5 m7C f00" />
+ <table name="(U0122) Lost Communication with Vehicle Dynamics Control Module [Fail-Safe]" address="63268" />
  <table name="(U0155) Lost Communication with Instrument Panel Cluster Control Module" address="4ab75" />
- <table name="(U0155) Lost Communication with Instrument Panel Cluster Control Module [Fail-Safe]" address="63271" scaling="DTC yes b3 m0C f00" />
+ <table name="(U0155) Lost Communication with Instrument Panel Cluster Control Module [Fail-Safe]" address="63271" />
  <table name="(U0402) Invalid Data Received from TCM" address="4ab6c" />
- <table name="(U0402) Invalid Data Received from TCM [Fail-Safe]" address="63268" scaling="DTC yes b2 m7C f00" />
+ <table name="(U0402) Invalid Data Received from TCM [Fail-Safe]" address="63268" />
  <table name="(U0416) Invalid Data Received from Vehicle Dynamics Control Module" address="4ab6c" />
- <table name="(U0416) Invalid Data Received from Vehicle Dynamics Control Module [Fail-Safe]" address="63268" scaling="DTC yes b4 m7C f00" />
+ <table name="(U0416) Invalid Data Received from Vehicle Dynamics Control Module [Fail-Safe]" address="63268" />
  <table name="(U0423) Invalid Data Received from Instrument Panel Control Module" address="4ab75" />
- <table name="(U0423) Invalid Data Received from Instrument Panel Control Module [Fail-Safe]" address="63271" scaling="DTC yes b2 m0C f00" />
+ <table name="(U0423) Invalid Data Received from Instrument Panel Control Module [Fail-Safe]" address="63271" />
  <table name="Enable Mask (bit per DTC)" address="4ab24">
   <table name="Byte: codes by bit">
    <data>+0: b0=P0335 b2=P0336 b6=P0604</data>

@@ -267,6 +267,11 @@
  <scaling name="V uint16 #3" units="V" toexpr="x/1000" frexpr="x*1000" format="%0.2f" min="0" max="65.535" inc="0.1" storagetype="uint16" endian="big" />
  <scaling name="V int16" units="V" toexpr="x/1000" frexpr="x*1000" format="%0.2f" min="-32.768" max="32.767" inc="0.05" storagetype="int16" endian="big" />
  <scaling name="% duty uint16 #3" units="% duty" toexpr="x/655.35" frexpr="x*655.35" format="%0.1f" min="0" max="100" inc="1" storagetype="uint16" endian="big" />
+ <scaling name="Ah uint8" units="Ah" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
+ <scaling name="% uint16 #3" units="%" toexpr="x/10" frexpr="x*10" format="%0.1f" min="0" max="6553.5" inc="0.5" storagetype="uint16" endian="big" />
+ <scaling name="s uint32" units="s" toexpr="x*0.04" frexpr="x/0.04" format="%0.1f" min="0" max="1.71799e+08" inc="10" storagetype="uint32" endian="big" />
+ <scaling name="raw uint32" units="raw" toexpr="x" frexpr="x" format="%0.0f" min="0" max="4.29497e+09" inc="1" storagetype="uint32" endian="big" />
+ <scaling name="V uint16 #4" units="V" toexpr="x/1000" frexpr="x*1000" format="%0.3f" min="0" max="65.535" inc="0.005" storagetype="uint16" endian="big" />
  <scaling name="ft-lb uint16 #3" units="ft-lb" toexpr="(x/10)*0.7375621" frexpr="(x/0.7375621)*10" format="%0.1f" min="0" max="4833.61" inc="1" storagetype="uint16" endian="big" />
  <scaling name="multiplier uint8 #7" units="multiplier" toexpr="x/51.2" frexpr="x*51.2" format="%0.2f" min="0" max="4.98047" inc="0.02" storagetype="uint8" endian="big" />
  <scaling name="T / Tref (absolute) uint8" units="T / Tref (absolute)" toexpr="x/51.2" frexpr="x*51.2" format="%0.2f" min="0" max="4.98047" inc="0.02" storagetype="uint8" endian="big" />
@@ -277,13 +282,13 @@
  <scaling name="g/kWh (inferred) uint16" units="g/kWh (inferred)" toexpr="x/32" frexpr="x*32" format="%0.0f" min="0" max="2047.97" inc="5" storagetype="uint16" endian="big" />
  <scaling name="g/s uint32 #2" units="g/s" toexpr="x/76800" frexpr="x*76800" format="%0.2f" min="0" max="55924.1" inc="0.1" storagetype="uint32" endian="big" />
  <scaling name="psi per V uint16" units="psi per V" toexpr="x/5*0.1450377" frexpr="x/0.1450377*5" format="%0.2f" min="0" max="1901.01" inc="0.1" storagetype="uint16" endian="big" />
- <scaling name="V uint16 #4" units="V" toexpr="x*5/65536" frexpr="x*65536/5" format="%0.2f" min="0" max="4.99992" inc="0.02" storagetype="uint16" endian="big" />
+ <scaling name="V uint16 #5" units="V" toexpr="x*5/65536" frexpr="x*65536/5" format="%0.2f" min="0" max="4.99992" inc="0.02" storagetype="uint16" endian="big" />
  <scaling name="degrees F uint16 #5" units="degrees F" toexpr="(x/256-50)*1.8+32" frexpr="((x-32)/1.8+50)*256" format="%0.0f" min="-58" max="402.793" inc="2" storagetype="uint16" endian="big" />
  <scaling name="raw (signed) int16" units="raw (signed)" toexpr="x" frexpr="x" format="%0.0f" min="-32768" max="32767" inc="1" storagetype="int16" endian="big" />
  <scaling name="% fuel uint8 #2" units="% fuel" toexpr="x/2.19" frexpr="x*2.19" format="%0.1f" min="0" max="116.438" inc="1" storagetype="uint8" endian="big" />
  <scaling name="raw uint16 #2" units="raw" toexpr="x" frexpr="x" format="%0.0f" min="0" max="65535" inc="10" storagetype="uint16" endian="big" />
  <scaling name="rear O2 heater drive (accumulated counts) uint16" units="rear O2 heater drive (accumulated counts)" toexpr="x" frexpr="x" format="%0.0f" min="0" max="65535" inc="500" storagetype="uint16" endian="big" />
- <scaling name="V uint16 #5" units="V" toexpr="x*5/1024" frexpr="x*1024/5" format="%0.3f" min="0" max="319.995" inc="0.01" storagetype="uint16" endian="big" />
+ <scaling name="V uint16 #6" units="V" toexpr="x*5/1024" frexpr="x*1024/5" format="%0.3f" min="0" max="319.995" inc="0.01" storagetype="uint16" endian="big" />
  <scaling name="psi per V uint8" units="psi per V" toexpr="x*9.05965" frexpr="x/9.05965" format="%0.0f" min="0" max="2310.21" inc="50" storagetype="uint8" endian="big" />
  <scaling name="lambda per pass uint32" units="lambda per pass" toexpr="x/8192" frexpr="x*8192" format="%0.4f" min="0" max="524288" inc="0.001" storagetype="uint32" endian="big" />
  <scaling name="crank roughness (raw) uint16" units="crank roughness (raw)" toexpr="x" frexpr="x" format="%0.0f" min="0" max="65535" inc="10" storagetype="uint16" endian="big" />
@@ -44223,6 +44228,7 @@
   <data name="off" value="B8" />
   <data name="on" value="F8" />
  </scaling>
+ <scaling name="% uint8" units="%" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
  <scaling name="DTC enabled b1 mC3 f00" storagetype="bloblist">
   <data name="enabled [02]" value="02" />
   <data name="disabled [00]" value="00" />
@@ -50609,6 +50615,40 @@ Details: Mode 1 needs the cylinder-cut count FFF8A643 (a byte) &gt;= cal 0x39AFE
 
 With cal 0x1D0AE bit 0 set, 0x0F8AAC (read) uses this when received byte FFF88BAA (CAN 0x282 byte 3) &lt; cal 0x342EC (148, 146 to fall back) and FFF8A807 bit 5 is clear: duty B27C = this(coolant FFF88A44) once coolant &gt;= cal 0x342DC (95 C, falls off 3 C lower), 100 % from cal 0x342E4 (100 C); used in fan mode 1 (0x0F7A88). Radiator fan module 0x0F7618 (40 ms task, read): the fan stage FFF8A805 (0/1/2) drives timer E channel 10 fully on for stage &gt;= 1 (FFF9981C bit 0, 0x0F8F08 -&gt; 0x1E417C -&gt; 0x1D9B8E) and port PF6 for stage 2 (FFF9981C bit 4, 0x0F8E70 -&gt; 0x1D4E56 -&gt; PFDR), and feeds the idle air (0x0ECE60, 0x0F5248) and torque adders (0x0C2B2C); the stages follow coolant and the A/C request (0x0F8764), so a two-relay radiator fan (inferred). With the bit set, A805 = stage from the duty FFF8B278 (0x0F7EC4: stage 1 from 40 %, stage 2 from 70 %). Confidence: read.</description>
  </table>
+ <table name="Battery Capacity" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="3" scaling="Ah uint8">
+  <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
+ </table>
+ <table name="Battery Charge Efficiency (Charging)" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="2D" level="4" scaling="% uint8">
+  <table name="Y Axis" type="Y Axis" elements="14" scaling="raw uint16" />
+  <description>How much of the charging current the state-of-charge estimate counts, by battery-sensor value.</description>
+ </table>
+ <table name="Battery Charge Efficiency (Discharging)" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="2D" level="4" scaling="% uint8">
+  <table name="Y Axis" type="Y Axis" elements="14" scaling="raw uint16" />
+  <description>How much of the discharge current the state-of-charge estimate counts, by battery-sensor value.</description>
+ </table>
+ <table name="Battery State of Charge Reset Value" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="4" scaling="% uint16 #3">
+  <description>The state of charge the ECU assumes when its estimate is reset.</description>
+ </table>
+ <table name="Battery Charged SOC Threshold" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="2" scaling="% uint16 #3">
+  <description>Above this state of charge, early in each charge cycle, the ECU decides the battery is charged and switches to the Battery Charged target voltage. Raising it makes the charge cut happen less often.</description>
+ </table>
+ <table name="Battery Charged SOC Hysteresis" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="4" scaling="% uint16 #3">
+  <description>Once the battery counts as charged, the state of charge must rise this much above the threshold to stay so.</description>
+ </table>
+ <table name="Battery Charged Check Window" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="3" scaling="s uint32">
+  <description>How long into each charge cycle the battery-charged check is made.</description>
+ </table>
+ <table name="Charge Cycle Length" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="3" scaling="s uint32">
+  <description>Length of one charge-control cycle; the battery-charged decision is made again at the start of each.</description>
+ </table>
+ <table name="Adaptive Charging Time Limit" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="4" scaling="s uint32">
+  <description>Adaptive charging (the self-computed target) ends after this time in the cycle.</description>
+ </table>
+ <table name="Adaptive Charging Charge Limit" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="5" scaling="raw uint32">
+  <description>Adaptive charging also ends once this much charge has gone back into the battery (raw units).
+
+Details: Compared with FFF81848, the integral of charging current while in mode 5 (0x1368C4, read; unit not confirmed). Confidence: read.</description>
+ </table>
  <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="2D" level="5" scaling="% duty uint16 #3">
   <table name="Coolant Temp" type="Y Axis" elements="9" scaling="degrees F uint16" />
   <description>Radiator fan duty by coolant, used when an unidentified driving-condition flag is set.
@@ -50620,6 +50660,36 @@ With cal 0x1D0AE bit 0 set, 0x0F8AAC (read) uses this when FFF88BAA &lt; 148 and
   <description>Radiator fan duty by coolant, used when an unidentified CAN value is high.
 
 With cal 0x1D0AE bit 0 set, 0x0F8AAC (read) uses this when received byte FFF88BAA (CAN 0x282 byte 3, not identified) &gt;= cal 0x342EC (148); on threshold cal 0x342D4 (95 C), full at cal 0x342D8 (100 C). Radiator fan module 0x0F7618 (40 ms task, read): the fan stage FFF8A805 (0/1/2) drives timer E channel 10 fully on for stage &gt;= 1 (FFF9981C bit 0, 0x0F8F08 -&gt; 0x1E417C -&gt; 0x1D9B8E) and port PF6 for stage 2 (FFF9981C bit 4, 0x0F8E70 -&gt; 0x1D4E56 -&gt; PFDR), and feeds the idle air (0x0ECE60, 0x0F5248) and torque adders (0x0C2B2C); the stages follow coolant and the A/C request (0x0F8764), so a two-relay radiator fan (inferred). With the bit set, A805 = stage from the duty FFF8B278 (0x0F7EC4: stage 1 from 40 %, stage 2 from 70 %). Confidence: read.</description>
+ </table>
+ <table name="Charging Feedback Proportional" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="2D" level="4" scaling="V int16">
+  <table name="Y Axis" type="Y Axis" elements="17" scaling="V int16" />
+  <description>Correction added to the charging target in proportion to how far the battery voltage is from it.</description>
+ </table>
+ <table name="Charging Feedback Integral Step Up" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="4" scaling="V uint16 #4">
+  <description>How fast the charging-voltage feedback raises the target when the battery is below it.</description>
+ </table>
+ <table name="Charging Feedback Integral Step Down" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="4" scaling="V uint16 #4">
+  <description>How fast the charging-voltage feedback lowers the target when the battery is above it.</description>
+ </table>
+ <table name="Charging Feedback Integral Maximum" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="4" scaling="V int16">
+  <description>Largest correction the feedback integral can add.</description>
+ </table>
+ <table name="Charging Feedback Integral Minimum" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="4" scaling="V int16">
+  <description>Largest correction the feedback integral can subtract.</description>
+ </table>
+ <table name="Charging Feedback Integral Gain" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="5" scaling="% uint16 #2">
+  <description>Scales the feedback integral (100 = as is).
+
+Details: Integral x this / 100 after the clamp (0x13866C, read). Confidence: read.</description>
+ </table>
+ <table name="Charging Feedback Deadband Above" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="4" scaling="V uint16 #4">
+  <description>Battery voltage may be this far above target before the integral steps down.</description>
+ </table>
+ <table name="Charging Feedback Deadband Below" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="4" scaling="V uint16 #4">
+  <description>Battery voltage may be this far below target before the integral steps up.</description>
+ </table>
+ <table name="Charging Feedback Minimum RPM" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="4" scaling="RPM uint16">
+  <description>The charging-voltage feedback only runs above this engine speed.</description>
  </table>
  <table name="Radiator Fan Duty (A/C, CAN 0x280 Value)" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="2D" level="5" scaling="% duty uint16 #3">
   <table name="Y Axis" type="Y Axis" elements="9" scaling="raw uint8" />
@@ -50763,19 +50833,19 @@ With cal 0x1D0AE bit 0 set, 0x0F70B4 (read) sets B270 = 0 below FFF88B8F 68 (54 
   <description>Lowest value the corrected MAF voltage may reach after the ECU subtracts its post-start MAF correction (a decaying start-up offset); it applies at all times after the first pass. Normally leave alone.</description>
  </table>
  <table name="Intake Air Temp Sensor Scaling" category="10 Sensors" type="2D" level="3" scaling="degrees F uint8">
-  <table name="Sensor Voltage" type="Y Axis" elements="32" scaling="V uint16 #4" />
+  <table name="Sensor Voltage" type="Y Axis" elements="32" scaling="V uint16 #5" />
   <description>Converts the main intake air temperature sensor voltage to degrees; this IAT feeds the timing, boost and fuel compensations and the scan-tool reading. Its voltage axis is shared with Intake Air Temp Sensor 2 Scaling, so edit only the temperatures when fitting a different sensor.</description>
  </table>
  <table name="Intake Air Temp Sensor 2 Scaling" category="10 Sensors" type="2D" level="2" scaling="degrees F uint8">
-  <table name="Sensor Voltage" type="Y Axis" elements="32" scaling="V uint16 #4" />
+  <table name="Sensor Voltage" type="Y Axis" elements="32" scaling="V uint16 #5" />
   <description>Converts the second intake temperature sensor's voltage to degrees. This is the air temperature the ECU's airflow model uses to work out air density, and it probably comes from the manifold pressure (TMAP) sensor, so update it when you swap that sensor for one with a different thermistor. Its voltage axis is shared with the main IAT table; change only the temperatures.</description>
  </table>
  <table name="Coolant Temp Sensor Scaling" category="10 Sensors" type="2D" level="4" scaling="degrees F uint16 #5">
-  <table name="Sensor Voltage" type="Y Axis" elements="32" scaling="V uint16 #4" />
+  <table name="Sensor Voltage" type="Y Axis" elements="32" scaling="V uint16 #5" />
   <description>Converts coolant temperature sensor voltage to degrees. Every coolant-based table and the scan-tool coolant reading use this. Change only when fitting a different sensor.</description>
  </table>
  <table name="Oil Temp Sensor Scaling" category="10 Sensors" type="2D" level="4" scaling="degrees F uint16 #5">
-  <table name="Sensor Voltage" type="Y Axis" elements="32" scaling="V uint16 #4" />
+  <table name="Sensor Voltage" type="Y Axis" elements="32" scaling="V uint16 #5" />
   <description>Converts oil temperature sensor voltage to degrees; this oil temperature feeds the AVCS and idle tables and the scan-tool reading. Change only when fitting a different sensor.</description>
  </table>
  <table name="A/F Sensor Scaling (Wide Range)" category="10 Sensors" type="2D" level="4" scaling="AFR (gasoline) uint16">
@@ -50791,7 +50861,7 @@ With cal 0x1D0AE bit 0 set, 0x0F70B4 (read) sets B270 = 0 below FFF88B8F 68 (54 
   <description>Converts the fuel sender reading, which the instrument cluster sends to the ECU over CAN, to fuel level (219 = 100 %). The ECU averages it and reports it as fuel level to a scan tool.</description>
  </table>
  <table name="Battery Temperature Sensor Scaling" category="10 Sensors" type="2D" level="4" scaling="degrees F uint8">
-  <table name="Sensor Voltage" type="Y Axis" elements="16" scaling="V uint16 #4" />
+  <table name="Sensor Voltage" type="Y Axis" elements="16" scaling="V uint16 #5" />
   <description>Converts the battery temperature sensor voltage to degrees for the charging-voltage control. It is probably the temperature half of the battery sensor, whose current signal the ECU also reads. Leave alone unless the battery sensor is changed.</description>
  </table>
  <table name="Rear O2 Sensor Ready Heater Energy Threshold" category="10 Sensors" type="2D" level="4" scaling="rear O2 heater drive (accumulated counts) uint16">
@@ -50840,7 +50910,7 @@ With cal 0x1D0AE bit 0 set, 0x0F70B4 (read) sets B270 = 0 below FFF88B8F 68 (54 
  <table name="Rail Pressure Sensor Voltage High Limit (P0193)" category="10 Sensors" type="1D" level="3" scaling="V uint16">
   <description>Rail pressure sensor voltage above which P0193 (circuit high) is set.</description>
  </table>
- <table name="Rail Pressure Sensor Zero-Pressure Voltage" category="10 Sensors" type="1D" level="3" scaling="V uint16 #5">
+ <table name="Rail Pressure Sensor Zero-Pressure Voltage" category="10 Sensors" type="1D" level="3" scaling="V uint16 #6">
   <description>Rail pressure sensor voltage that reads as zero pressure. Change it with Rail Pressure Sensor Gain only when fitting a different rail pressure sensor.</description>
  </table>
  <table name="Rail Pressure Sensor Gain" category="10 Sensors" type="1D" level="3" scaling="psi per V uint8">

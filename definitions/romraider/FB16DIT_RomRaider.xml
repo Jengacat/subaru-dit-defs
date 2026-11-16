@@ -9152,6 +9152,32 @@ Details: Mode 1 needs the cylinder-cut count FFF8A643 (a byte) &gt;= cal 0x39AFE
 
 With cal 0x1D0AE bit 0 set, 0x0F8AAC (read) uses this when received byte FFF88BAA (CAN 0x282 byte 3) &lt; cal 0x342EC (148, 146 to fall back) and FFF8A807 bit 5 is clear: duty B27C = this(coolant FFF88A44) once coolant &gt;= cal 0x342DC (95 C, falls off 3 C lower), 100 % from cal 0x342E4 (100 C); used in fan mode 1 (0x0F7A88). Radiator fan module 0x0F7618 (40 ms task, read): the fan stage FFF8A805 (0/1/2) drives timer E channel 10 fully on for stage &gt;= 1 (FFF9981C bit 0, 0x0F8F08 -&gt; 0x1E417C -&gt; 0x1D9B8E) and port PF6 for stage 2 (FFF9981C bit 4, 0x0F8E70 -&gt; 0x1D4E56 -&gt; PFDR), and feeds the idle air (0x0ECE60, 0x0F5248) and torque adders (0x0C2B2C); the stages follow coolant and the A/C request (0x0F8764), so a two-relay radiator fan (inferred). With the bit set, A805 = stage from the duty FFF8B278 (0x0F7EC4: stage 1 from 40 %, stage 2 from 70 %). Confidence: read.</description>
   </table>
+  <table type="1D" name="Battery Charged SOC Threshold" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="2" storageaddress="0x0371d6">
+   <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>Above this state of charge, early in each charge cycle, the ECU decides the battery is charged and switches to the Battery Charged target voltage. Raising it makes the charge cut happen less often.</description>
+  </table>
+  <table type="1D" name="Battery Charged SOC Hysteresis" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x0371d8">
+   <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>Once the battery counts as charged, the state of charge must rise this much above the threshold to stay so.</description>
+  </table>
+  <table type="1D" name="Battery Charged Check Window" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint32" endian="big" userlevel="3" storageaddress="0x0371c8">
+   <scaling units="s" expression="x*0.04" to_byte="x/0.04" format="0.0" fineincrement="10" coarseincrement="40.0" />
+   <description>How long into each charge cycle the battery-charged check is made.</description>
+  </table>
+  <table type="1D" name="Charge Cycle Length" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint32" endian="big" userlevel="3" storageaddress="0x0371d0">
+   <scaling units="s" expression="x*0.04" to_byte="x/0.04" format="0.0" fineincrement="10" coarseincrement="40.0" />
+   <description>Length of one charge-control cycle; the battery-charged decision is made again at the start of each.</description>
+  </table>
+  <table type="1D" name="Adaptive Charging Time Limit" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint32" endian="big" userlevel="4" storageaddress="0x0371cc">
+   <scaling units="s" expression="x*0.04" to_byte="x/0.04" format="0.0" fineincrement="10" coarseincrement="40.0" />
+   <description>Adaptive charging (the self-computed target) ends after this time in the cycle.</description>
+  </table>
+  <table type="1D" name="Adaptive Charging Charge Limit" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint32" endian="big" userlevel="5" storageaddress="0x0371dc">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Adaptive charging also ends once this much charge has gone back into the battery (raw units).
+
+Details: Compared with FFF81848, the integral of charging current while in mode 5 (0x1368C4, read; unit not confirmed). Confidence: read.</description>
+  </table>
   <table type="2D" name="Radiator Fan Duty (Coolant, Flag A807 Set)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" sizey="9" userlevel="5" storageaddress="0x032848">
    <scaling units="% duty" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x03286c">
@@ -9171,6 +9197,47 @@ With cal 0x1D0AE bit 0 set, 0x0F8AAC (read) uses this when FFF88BAA &lt; 148 and
    <description>Radiator fan duty by coolant, used when an unidentified CAN value is high.
 
 With cal 0x1D0AE bit 0 set, 0x0F8AAC (read) uses this when received byte FFF88BAA (CAN 0x282 byte 3, not identified) &gt;= cal 0x342EC (148); on threshold cal 0x342D4 (95 C), full at cal 0x342D8 (100 C). Radiator fan module 0x0F7618 (40 ms task, read): the fan stage FFF8A805 (0/1/2) drives timer E channel 10 fully on for stage &gt;= 1 (FFF9981C bit 0, 0x0F8F08 -&gt; 0x1E417C -&gt; 0x1D9B8E) and port PF6 for stage 2 (FFF9981C bit 4, 0x0F8E70 -&gt; 0x1D4E56 -&gt; PFDR), and feeds the idle air (0x0ECE60, 0x0F5248) and torque adders (0x0C2B2C); the stages follow coolant and the A/C request (0x0F8764), so a two-relay radiator fan (inferred). With the bit set, A805 = stage from the duty FFF8B278 (0x0F7EC4: stage 1 from 40 %, stage 2 from 70 %). Confidence: read.</description>
+  </table>
+  <table type="2D" name="Charging Feedback Proportional" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int16" endian="big" sizey="17" userlevel="4" storageaddress="0x037434">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+   <table type="Y Axis" name="Axis" storagetype="int16" endian="big" storageaddress="0x037412">
+    <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+   </table>
+   <description>Correction added to the charging target in proportion to how far the battery voltage is from it.</description>
+  </table>
+  <table type="1D" name="Charging Feedback Integral Step Up" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x037208">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.000" fineincrement="0.005" coarseincrement="0.02" />
+   <description>How fast the charging-voltage feedback raises the target when the battery is below it.</description>
+  </table>
+  <table type="1D" name="Charging Feedback Integral Step Down" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x037206">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.000" fineincrement="0.005" coarseincrement="0.02" />
+   <description>How fast the charging-voltage feedback lowers the target when the battery is above it.</description>
+  </table>
+  <table type="1D" name="Charging Feedback Integral Maximum" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int16" endian="big" userlevel="4" storageaddress="0x03740e">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+   <description>Largest correction the feedback integral can add.</description>
+  </table>
+  <table type="1D" name="Charging Feedback Integral Minimum" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int16" endian="big" userlevel="4" storageaddress="0x037410">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+   <description>Largest correction the feedback integral can subtract.</description>
+  </table>
+  <table type="1D" name="Charging Feedback Integral Gain" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="5" storageaddress="0x037204">
+   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Scales the feedback integral (100 = as is).
+
+Details: Integral x this / 100 after the clamp (0x13866C, read). Confidence: read.</description>
+  </table>
+  <table type="1D" name="Charging Feedback Deadband Above" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x037200">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.000" fineincrement="0.005" coarseincrement="0.02" />
+   <description>Battery voltage may be this far above target before the integral steps down.</description>
+  </table>
+  <table type="1D" name="Charging Feedback Deadband Below" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x037202">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.000" fineincrement="0.005" coarseincrement="0.02" />
+   <description>Battery voltage may be this far below target before the integral steps up.</description>
+  </table>
+  <table type="1D" name="Charging Feedback Minimum RPM" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03720a">
+   <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   <description>The charging-voltage feedback only runs above this engine speed.</description>
   </table>
   <table type="2D" name="Radiator Fan Duty (A/C, CAN 0x280 Value)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" sizey="9" userlevel="5" storageaddress="0x032882">
    <scaling units="% duty" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="1" coarseincrement="4.0" />
@@ -10939,6 +11006,24 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
    <description>Minimum coolant for TGV closing used only while a warm-up fallback flag is set.
 
 TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of these hold: coolant FFF88A44 at or above TGV Coolant Minimum, requested torque FFF8AEE2 (0x0BA868, Nm = x/80 - 200) below the rpm-based TGV Torque Threshold (it must fall below the Enter table and then rise above the Exit table to clear), air quantity FFF8B4D6 below TGV Air Quantity Maximum (Enter 0x37A4A, Exit 0x37A48), and FFF8A88D = 0. When they hold, FFF8A888 = 1, or 2 if the intake air temperature FFF88A48 is below TGV IAT Threshold (vehicle speed) or FFF88E28 bit 0/2 is set; FFF8A888 = 2 also while combustion mode FFF8A85C is below cal 0x37B48. State 1 requests TGV close: it runs the timer FFF8B3E0 (0x10C3D0) and FFF8A881 bit 4 (TGVs closed) is set once the timer reaches TGV Close Delay. States 2 (close blocked: cold intake air, FFF88E28 bit 0/2, or combustion mode below cal 0x37B48) and 3 (close conditions not met) reset the timer, so the TGVs stay open (read). Which threshold pair is used depends on FFF8A8C1 (1, 2, 3 or other) and FFF8A8A2 bit 5 (not identified). Each threshold is table(rpm FFF8CE9C) + TGV Torque Threshold Offset(rpm, FFF88AE6) - 16000, so the offset table is centred on 16000 (0 ft-lb). Used while FFF899D7 bit 0 is set. LV9N301A: located from LF75404S 037A46 by the code that reads it (read). LV9N303J: same code as LV9N301A; address from the same instruction (exact (2 reads)). Address 035498. Confidence: read.</description>
+  </table>
+  <table type="1D" name="Battery Capacity" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" userlevel="3" storageaddress="0x03722c">
+   <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
+  </table>
+  <table type="2D" name="Battery Charge Efficiency (Charging)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" sizey="14" userlevel="4" storageaddress="0x03737c">
+   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03719a">
+    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>How much of the charging current the state-of-charge estimate counts, by battery-sensor value.</description>
+  </table>
+  <table type="2D" name="Battery Charge Efficiency (Discharging)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" sizey="14" userlevel="4" storageaddress="0x03738a">
+   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03719a">
+    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>How much of the discharge current the state-of-charge estimate counts, by battery-sensor value.</description>
   </table>
   <table type="3D" name="A/F Imbalance Monitor Swing Threshold 1" category="Diagnostics &amp; Switches//Monitor Thresholds" storagetype="uint32" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x04043c">
    <scaling units="lambda per pass" expression="x/8192" to_byte="x*8192" format="0.0000" fineincrement="0.001" coarseincrement="0.004" />
@@ -14834,6 +14919,20 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
    <description>Minimum coolant for TGV closing used only while a warm-up fallback flag is set.
 
 TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of these hold: coolant FFF88A44 at or above TGV Coolant Minimum, requested torque FFF8AEE2 (0x0BA868, Nm = x/80 - 200) below the rpm-based TGV Torque Threshold (it must fall below the Enter table and then rise above the Exit table to clear), air quantity FFF8B4D6 below TGV Air Quantity Maximum (Enter 0x37A4A, Exit 0x37A48), and FFF8A88D = 0. When they hold, FFF8A888 = 1, or 2 if the intake air temperature FFF88A48 is below TGV IAT Threshold (vehicle speed) or FFF88E28 bit 0/2 is set; FFF8A888 = 2 also while combustion mode FFF8A85C is below cal 0x37B48. State 1 requests TGV close: it runs the timer FFF8B3E0 (0x10C3D0) and FFF8A881 bit 4 (TGVs closed) is set once the timer reaches TGV Close Delay. States 2 (close blocked: cold intake air, FFF88E28 bit 0/2, or combustion mode below cal 0x37B48) and 3 (close conditions not met) reset the timer, so the TGVs stay open (read). Which threshold pair is used depends on FFF8A8C1 (1, 2, 3 or other) and FFF8A8A2 bit 5 (not identified). Each threshold is table(rpm FFF8CE9C) + TGV Torque Threshold Offset(rpm, FFF88AE6) - 16000, so the offset table is centred on 16000 (0 ft-lb). Used while FFF899D7 bit 0 is set. LV9N301A: located from LF75404S 037A46 by the code that reads it (read). LV9N340J: same code as LV9N301A; address from the same instruction (exact (2 reads)). Address 035498. Confidence: read.</description>
+  </table>
+  <table type="2D" name="Battery Charge Efficiency (Charging)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" sizey="14" userlevel="4" storageaddress="0x03737c">
+   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03719a">
+    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>How much of the charging current the state-of-charge estimate counts, by battery-sensor value.</description>
+  </table>
+  <table type="2D" name="Battery Charge Efficiency (Discharging)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" sizey="14" userlevel="4" storageaddress="0x03738a">
+   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03719a">
+    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>How much of the discharge current the state-of-charge estimate counts, by battery-sensor value.</description>
   </table>
   <table type="3D" name="A/F Imbalance Monitor Swing Threshold 1" category="Diagnostics &amp; Switches//Monitor Thresholds" storagetype="uint32" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x04043c">
    <scaling units="lambda per pass" expression="x/8192" to_byte="x*8192" format="0.0000" fineincrement="0.001" coarseincrement="0.004" />
@@ -21797,12 +21896,37 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x0345a2">
    <table type="Y Axis" storageaddress="0x0345d8" />
   </table>
+  <table type="1D" name="Battery Capacity" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" userlevel="3" storageaddress="0x039a7c">
+   <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
+  </table>
+  <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03a468">
+   <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>The state of charge the ECU assumes when its estimate is reset.</description>
+  </table>
+  <table name="Battery Charged SOC Threshold" storageaddress="0x039a26" />
+  <table name="Battery Charged SOC Hysteresis" storageaddress="0x039a28" />
+  <table name="Battery Charged Check Window" storageaddress="0x039a18" />
+  <table name="Charge Cycle Length" storageaddress="0x039a20" />
+  <table name="Adaptive Charging Time Limit" storageaddress="0x039a1c" />
+  <table name="Adaptive Charging Charge Limit" storageaddress="0x039a2c" />
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x0345b4">
    <table type="Y Axis" storageaddress="0x0345d8" />
   </table>
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x0345c6">
    <table type="Y Axis" storageaddress="0x0345d8" />
   </table>
+  <table name="Charging Feedback Proportional" storageaddress="0x039c72">
+   <table type="Y Axis" storageaddress="0x039c50" />
+  </table>
+  <table name="Charging Feedback Integral Step Up" storageaddress="0x039a58" />
+  <table name="Charging Feedback Integral Step Down" storageaddress="0x039a56" />
+  <table name="Charging Feedback Integral Maximum" storageaddress="0x039c4c" />
+  <table name="Charging Feedback Integral Minimum" storageaddress="0x039c4e" />
+  <table name="Charging Feedback Integral Gain" storageaddress="0x039a54" />
+  <table name="Charging Feedback Deadband Above" storageaddress="0x039a50" />
+  <table name="Charging Feedback Deadband Below" storageaddress="0x039a52" />
+  <table name="Charging Feedback Minimum RPM" storageaddress="0x039a5a" />
   <table name="Radiator Fan Duty (A/C, CAN 0x280 Value)" storageaddress="0x0345ee">
    <table type="Y Axis" storageaddress="0x034600" />
   </table>
@@ -29464,12 +29588,37 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x03cdde">
    <table type="Y Axis" storageaddress="0x03ce14" />
   </table>
+  <table type="1D" name="Battery Capacity" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" userlevel="3" storageaddress="0x0422cc">
+   <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
+  </table>
+  <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x042cb8">
+   <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>The state of charge the ECU assumes when its estimate is reset.</description>
+  </table>
+  <table name="Battery Charged SOC Threshold" storageaddress="0x042276" />
+  <table name="Battery Charged SOC Hysteresis" storageaddress="0x042278" />
+  <table name="Battery Charged Check Window" storageaddress="0x042268" />
+  <table name="Charge Cycle Length" storageaddress="0x042270" />
+  <table name="Adaptive Charging Time Limit" storageaddress="0x04226c" />
+  <table name="Adaptive Charging Charge Limit" storageaddress="0x04227c" />
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x03cdf0">
    <table type="Y Axis" storageaddress="0x03ce14" />
   </table>
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x03ce02">
    <table type="Y Axis" storageaddress="0x03ce14" />
   </table>
+  <table name="Charging Feedback Proportional" storageaddress="0x0424c2">
+   <table type="Y Axis" storageaddress="0x0424a0" />
+  </table>
+  <table name="Charging Feedback Integral Step Up" storageaddress="0x0422a8" />
+  <table name="Charging Feedback Integral Step Down" storageaddress="0x0422a6" />
+  <table name="Charging Feedback Integral Maximum" storageaddress="0x04249c" />
+  <table name="Charging Feedback Integral Minimum" storageaddress="0x04249e" />
+  <table name="Charging Feedback Integral Gain" storageaddress="0x0422a4" />
+  <table name="Charging Feedback Deadband Above" storageaddress="0x0422a0" />
+  <table name="Charging Feedback Deadband Below" storageaddress="0x0422a2" />
+  <table name="Charging Feedback Minimum RPM" storageaddress="0x0422aa" />
   <table name="Radiator Fan Duty (A/C, CAN 0x280 Value)" storageaddress="0x03ce2a">
    <table type="Y Axis" storageaddress="0x03ce3c" />
   </table>
@@ -37246,12 +37395,37 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x03d222">
    <table type="Y Axis" storageaddress="0x03d258" />
   </table>
+  <table type="1D" name="Battery Capacity" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" userlevel="3" storageaddress="0x042714">
+   <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
+  </table>
+  <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x043100">
+   <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>The state of charge the ECU assumes when its estimate is reset.</description>
+  </table>
+  <table name="Battery Charged SOC Threshold" storageaddress="0x0426be" />
+  <table name="Battery Charged SOC Hysteresis" storageaddress="0x0426c0" />
+  <table name="Battery Charged Check Window" storageaddress="0x0426b0" />
+  <table name="Charge Cycle Length" storageaddress="0x0426b8" />
+  <table name="Adaptive Charging Time Limit" storageaddress="0x0426b4" />
+  <table name="Adaptive Charging Charge Limit" storageaddress="0x0426c4" />
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x03d234">
    <table type="Y Axis" storageaddress="0x03d258" />
   </table>
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x03d246">
    <table type="Y Axis" storageaddress="0x03d258" />
   </table>
+  <table name="Charging Feedback Proportional" storageaddress="0x04290a">
+   <table type="Y Axis" storageaddress="0x0428e8" />
+  </table>
+  <table name="Charging Feedback Integral Step Up" storageaddress="0x0426f0" />
+  <table name="Charging Feedback Integral Step Down" storageaddress="0x0426ee" />
+  <table name="Charging Feedback Integral Maximum" storageaddress="0x0428e4" />
+  <table name="Charging Feedback Integral Minimum" storageaddress="0x0428e6" />
+  <table name="Charging Feedback Integral Gain" storageaddress="0x0426ec" />
+  <table name="Charging Feedback Deadband Above" storageaddress="0x0426e8" />
+  <table name="Charging Feedback Deadband Below" storageaddress="0x0426ea" />
+  <table name="Charging Feedback Minimum RPM" storageaddress="0x0426f2" />
   <table name="Radiator Fan Duty (A/C, CAN 0x280 Value)" storageaddress="0x03d26e">
    <table type="Y Axis" storageaddress="0x03d280" />
   </table>
@@ -44915,12 +45089,37 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x03eeb2">
    <table type="Y Axis" storageaddress="0x03eee8" />
   </table>
+  <table type="1D" name="Battery Capacity" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" userlevel="3" storageaddress="0x0443a4">
+   <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
+  </table>
+  <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x044d90">
+   <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>The state of charge the ECU assumes when its estimate is reset.</description>
+  </table>
+  <table name="Battery Charged SOC Threshold" storageaddress="0x04434e" />
+  <table name="Battery Charged SOC Hysteresis" storageaddress="0x044350" />
+  <table name="Battery Charged Check Window" storageaddress="0x044340" />
+  <table name="Charge Cycle Length" storageaddress="0x044348" />
+  <table name="Adaptive Charging Time Limit" storageaddress="0x044344" />
+  <table name="Adaptive Charging Charge Limit" storageaddress="0x044354" />
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x03eec4">
    <table type="Y Axis" storageaddress="0x03eee8" />
   </table>
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x03eed6">
    <table type="Y Axis" storageaddress="0x03eee8" />
   </table>
+  <table name="Charging Feedback Proportional" storageaddress="0x04459a">
+   <table type="Y Axis" storageaddress="0x044578" />
+  </table>
+  <table name="Charging Feedback Integral Step Up" storageaddress="0x044380" />
+  <table name="Charging Feedback Integral Step Down" storageaddress="0x04437e" />
+  <table name="Charging Feedback Integral Maximum" storageaddress="0x044574" />
+  <table name="Charging Feedback Integral Minimum" storageaddress="0x044576" />
+  <table name="Charging Feedback Integral Gain" storageaddress="0x04437c" />
+  <table name="Charging Feedback Deadband Above" storageaddress="0x044378" />
+  <table name="Charging Feedback Deadband Below" storageaddress="0x04437a" />
+  <table name="Charging Feedback Minimum RPM" storageaddress="0x044382" />
   <table name="Radiator Fan Duty (A/C, CAN 0x280 Value)" storageaddress="0x03eefe">
    <table type="Y Axis" storageaddress="0x03ef10" />
   </table>
@@ -52583,12 +52782,37 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x0409c2">
    <table type="Y Axis" storageaddress="0x0409f8" />
   </table>
+  <table type="1D" name="Battery Capacity" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" userlevel="3" storageaddress="0x045eb4">
+   <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
+  </table>
+  <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x0468a0">
+   <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>The state of charge the ECU assumes when its estimate is reset.</description>
+  </table>
+  <table name="Battery Charged SOC Threshold" storageaddress="0x045e5e" />
+  <table name="Battery Charged SOC Hysteresis" storageaddress="0x045e60" />
+  <table name="Battery Charged Check Window" storageaddress="0x045e50" />
+  <table name="Charge Cycle Length" storageaddress="0x045e58" />
+  <table name="Adaptive Charging Time Limit" storageaddress="0x045e54" />
+  <table name="Adaptive Charging Charge Limit" storageaddress="0x045e64" />
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x0409d4">
    <table type="Y Axis" storageaddress="0x0409f8" />
   </table>
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x0409e6">
    <table type="Y Axis" storageaddress="0x0409f8" />
   </table>
+  <table name="Charging Feedback Proportional" storageaddress="0x0460aa">
+   <table type="Y Axis" storageaddress="0x046088" />
+  </table>
+  <table name="Charging Feedback Integral Step Up" storageaddress="0x045e90" />
+  <table name="Charging Feedback Integral Step Down" storageaddress="0x045e8e" />
+  <table name="Charging Feedback Integral Maximum" storageaddress="0x046084" />
+  <table name="Charging Feedback Integral Minimum" storageaddress="0x046086" />
+  <table name="Charging Feedback Integral Gain" storageaddress="0x045e8c" />
+  <table name="Charging Feedback Deadband Above" storageaddress="0x045e88" />
+  <table name="Charging Feedback Deadband Below" storageaddress="0x045e8a" />
+  <table name="Charging Feedback Minimum RPM" storageaddress="0x045e92" />
   <table name="Radiator Fan Duty (A/C, CAN 0x280 Value)" storageaddress="0x040a0e">
    <table type="Y Axis" storageaddress="0x040a20" />
   </table>
@@ -59460,12 +59684,37 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x0453fe">
    <table type="Y Axis" storageaddress="0x045434" />
   </table>
+  <table type="1D" name="Battery Capacity" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" userlevel="3" storageaddress="0x04a924">
+   <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
+  </table>
+  <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x04b310">
+   <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>The state of charge the ECU assumes when its estimate is reset.</description>
+  </table>
+  <table name="Battery Charged SOC Threshold" storageaddress="0x04a8ce" />
+  <table name="Battery Charged SOC Hysteresis" storageaddress="0x04a8d0" />
+  <table name="Battery Charged Check Window" storageaddress="0x04a8c0" />
+  <table name="Charge Cycle Length" storageaddress="0x04a8c8" />
+  <table name="Adaptive Charging Time Limit" storageaddress="0x04a8c4" />
+  <table name="Adaptive Charging Charge Limit" storageaddress="0x04a8d4" />
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x045410">
    <table type="Y Axis" storageaddress="0x045434" />
   </table>
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x045422">
    <table type="Y Axis" storageaddress="0x045434" />
   </table>
+  <table name="Charging Feedback Proportional" storageaddress="0x04ab1a">
+   <table type="Y Axis" storageaddress="0x04aaf8" />
+  </table>
+  <table name="Charging Feedback Integral Step Up" storageaddress="0x04a900" />
+  <table name="Charging Feedback Integral Step Down" storageaddress="0x04a8fe" />
+  <table name="Charging Feedback Integral Maximum" storageaddress="0x04aaf4" />
+  <table name="Charging Feedback Integral Minimum" storageaddress="0x04aaf6" />
+  <table name="Charging Feedback Integral Gain" storageaddress="0x04a8fc" />
+  <table name="Charging Feedback Deadband Above" storageaddress="0x04a8f8" />
+  <table name="Charging Feedback Deadband Below" storageaddress="0x04a8fa" />
+  <table name="Charging Feedback Minimum RPM" storageaddress="0x04a902" />
   <table name="Radiator Fan Duty (A/C, CAN 0x280 Value)" storageaddress="0x04544a">
    <table type="Y Axis" storageaddress="0x04545c" />
   </table>

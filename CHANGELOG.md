@@ -4,6 +4,15 @@
 
 First public release.
 
+- New: **charging system, part 2**, in every definition (folder 09.03), 17 to 19 entries per ROM:
+  - how the ECU decides the battery is charged: a state-of-charge estimate from the battery sensor's current (battery
+    capacity, charge efficiency, reset value) and, early in each charge cycle, a state-of-charge threshold (stock
+    94-95 %) above which it switches to the low Battery Charged target. Raising Battery Charged SOC Threshold is a
+    second way to make the charge cut rarer;
+  - the cycle length, the check window and the limits of adaptive charging;
+  - the charging-voltage feedback: proportional table, integral steps, limits and gain, deadbands, minimum rpm.
+  The battery-capacity and charge-efficiency entries are not in every ROM: the 2014-2015 LV9N builds lack the first
+  two, the 2017 and later builds the efficiency tables (their place is not confirmed yet).
 - New: **charging system target voltages**, in every definition (folder 09.03): the target for each charging mode
   (normal 14.3 V, battery charged 12.2 V, accessory load 13.5 V), the adaptive mode's limits, the overall minimum and
   maximum, the start value and the temperature correction. Once the ECU counts the battery as charged it aims for

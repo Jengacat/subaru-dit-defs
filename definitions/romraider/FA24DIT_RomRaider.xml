@@ -2107,6 +2107,20 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    </table>
    <description>Time, by rpm, after which all cylinders would be cut at once under unidentified conditions.</description>
   </table>
+  <table type="2D" name="Purge Rate Cut Recovery Step (Off-Idle)" category="Fueling//Evap Purge" storagetype="uint16" endian="big" sizey="4" userlevel="4" storageaddress="0x03e320">
+   <scaling units="% of purge rate per update" expression="x/655.36" to_byte="x*655.36" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x026c9c">
+    <scaling units="% fuel" expression="x/327.68" to_byte="x*327.68" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   </table>
+   <description>How fast a purge cut is released, pedal pressed, by how much margin the closed-loop correction has above its lower limit.</description>
+  </table>
+  <table type="2D" name="Purge Rate Cut Recovery Step (Idle)" category="Fueling//Evap Purge" storagetype="uint16" endian="big" sizey="4" userlevel="4" storageaddress="0x03e318">
+   <scaling units="% of purge rate per update" expression="x/655.36" to_byte="x*655.36" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x026c9c">
+    <scaling units="% fuel" expression="x/327.68" to_byte="x*327.68" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   </table>
+   <description>How fast a purge cut is released at idle (pedal released).</description>
+  </table>
   <table type="3D" name="Base Timing (EGR Off, TGV Open)" category="Ignition Timing//Base Timing" storagetype="int8" endian="big" sizex="16" sizey="22" userlevel="1" storageaddress="0x01000c">
    <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint16" endian="big" storageaddress="0x0105be">
@@ -2519,6 +2533,94 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
     <scaling units="RPM" expression="x*31.25+500" to_byte="(x-500)/31.25" format="0" fineincrement="31.25" coarseincrement="125.0" />
    </table>
    <description>Knock intensity (sum of the three strongest knock-channel ratios to their background, 3.0 = all at background) (by rpm and load) above which a knock event in slot 4 counts as knock and triggers feedback knock retard; used while the nominal (short) knock window is in use. Higher = less sensitive. Warning: the Full / Short Window sets were renamed on 2026-10-30 (earlier names had them swapped). Which cylinder slot 4 is has not been mapped.</description>
+  </table>
+  <table type="2D" name="Secondary Knock Threshold (Event 1)" category="Ignition Timing//Knock Detection" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x01d76e">
+   <scaling units="knock ratio sum (3 strongest channels)" expression="x/256" to_byte="x*256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <table type="Static Y Axis" name="Engine Speed (RPM)" sizey="16">
+    <data>500</data>
+    <data>1000</data>
+    <data>1500</data>
+    <data>2000</data>
+    <data>2500</data>
+    <data>3000</data>
+    <data>3500</data>
+    <data>4000</data>
+    <data>4500</data>
+    <data>5000</data>
+    <data>5500</data>
+    <data>6000</data>
+    <data>6500</data>
+    <data>7000</data>
+    <data>7500</data>
+    <data>8000</data>
+   </table>
+   <description>Second knock detector level by rpm for event slot 1; a signal above it triggers the secondary knock retard steps. Unit: sum of the three strongest knock-channel ratios to their background (3.0 = all at background).</description>
+  </table>
+  <table type="2D" name="Secondary Knock Threshold (Event 2)" category="Ignition Timing//Knock Detection" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x01d78e">
+   <scaling units="knock ratio sum (3 strongest channels)" expression="x/256" to_byte="x*256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <table type="Static Y Axis" name="Engine Speed (RPM)" sizey="16">
+    <data>500</data>
+    <data>1000</data>
+    <data>1500</data>
+    <data>2000</data>
+    <data>2500</data>
+    <data>3000</data>
+    <data>3500</data>
+    <data>4000</data>
+    <data>4500</data>
+    <data>5000</data>
+    <data>5500</data>
+    <data>6000</data>
+    <data>6500</data>
+    <data>7000</data>
+    <data>7500</data>
+    <data>8000</data>
+   </table>
+   <description>Second knock detector level by rpm for event slot 2; a signal above it triggers the secondary knock retard steps. Unit: sum of the three strongest knock-channel ratios to their background (3.0 = all at background).</description>
+  </table>
+  <table type="2D" name="Secondary Knock Threshold (Event 3)" category="Ignition Timing//Knock Detection" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x01d7ae">
+   <scaling units="knock ratio sum (3 strongest channels)" expression="x/256" to_byte="x*256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <table type="Static Y Axis" name="Engine Speed (RPM)" sizey="16">
+    <data>500</data>
+    <data>1000</data>
+    <data>1500</data>
+    <data>2000</data>
+    <data>2500</data>
+    <data>3000</data>
+    <data>3500</data>
+    <data>4000</data>
+    <data>4500</data>
+    <data>5000</data>
+    <data>5500</data>
+    <data>6000</data>
+    <data>6500</data>
+    <data>7000</data>
+    <data>7500</data>
+    <data>8000</data>
+   </table>
+   <description>Second knock detector level by rpm for event slot 3; a signal above it triggers the secondary knock retard steps. Unit: sum of the three strongest knock-channel ratios to their background (3.0 = all at background).</description>
+  </table>
+  <table type="2D" name="Secondary Knock Threshold (Event 4)" category="Ignition Timing//Knock Detection" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x01d7ce">
+   <scaling units="knock ratio sum (3 strongest channels)" expression="x/256" to_byte="x*256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <table type="Static Y Axis" name="Engine Speed (RPM)" sizey="16">
+    <data>500</data>
+    <data>1000</data>
+    <data>1500</data>
+    <data>2000</data>
+    <data>2500</data>
+    <data>3000</data>
+    <data>3500</data>
+    <data>4000</data>
+    <data>4500</data>
+    <data>5000</data>
+    <data>5500</data>
+    <data>6000</data>
+    <data>6500</data>
+    <data>7000</data>
+    <data>7500</data>
+    <data>8000</data>
+   </table>
+   <description>Second knock detector level by rpm for event slot 4; a signal above it triggers the secondary knock retard steps. Unit: sum of the three strongest knock-channel ratios to their background (3.0 = all at background).</description>
   </table>
   <table type="2D" name="Knock Window Start" category="Ignition Timing//Knock Detection" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x01d3e0">
    <scaling units="degrees (crank)" expression="x*180/65536" to_byte="x*65536/180" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -5578,6 +5680,358 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
    </table>
    <description>Added to Post-Start Staged Air Level by intake air temperature, for the timed post-start air bump.</description>
   </table>
+  <table type="2D" name="A/C Idle Air Steady (A/C Load Sw On, Neutral Sw Off, Above 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03a9a2">
+   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Extra idle air held while the A/C compressor is engaged, for: A/C load switch on, neutral switch off, car moving above 14 km/h. Raise if idle sags with the A/C on, lower if it flares. The A/C load switch meaning is inferred.</description>
+  </table>
+  <table type="2D" name="A/C Idle Air Initial Kick (A/C Load Sw On, Neutral Sw Off, Above 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03aaa2">
+   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Extra idle air given for the first 0.4 s after the A/C compressor engages (then it fades to the matching A/C Idle Air Steady value), for: A/C load switch on, neutral switch off, car moving above 14 km/h. Raise if idle dips when the A/C kicks in. 0 = no kick. The A/C load switch meaning is inferred.</description>
+  </table>
+  <table type="2D" name="A/C Idle Air Steady (A/C Load Sw On, Neutral Sw Off, Below 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03a9c2">
+   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Extra idle air held while the A/C compressor is engaged, for: A/C load switch on, neutral switch off, car stopped or slow. Raise if idle sags with the A/C on, lower if it flares. The A/C load switch meaning is inferred.</description>
+  </table>
+  <table type="2D" name="A/C Idle Air Initial Kick (A/C Load Sw On, Neutral Sw Off, Below 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03aac2">
+   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Extra idle air given for the first 0.4 s after the A/C compressor engages (then it fades to the matching A/C Idle Air Steady value), for: A/C load switch on, neutral switch off, car stopped or slow. Raise if idle dips when the A/C kicks in. 0 = no kick. The A/C load switch meaning is inferred.</description>
+  </table>
+  <table type="2D" name="A/C Idle Air Steady (A/C Load Sw On, Neutral Sw On, Above 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03a9e2">
+   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Extra idle air held while the A/C compressor is engaged, for: A/C load switch on, neutral switch on, car moving above 14 km/h. Raise if idle sags with the A/C on, lower if it flares. The A/C load switch meaning is inferred.</description>
+  </table>
+  <table type="2D" name="A/C Idle Air Initial Kick (A/C Load Sw On, Neutral Sw On, Above 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03aae2">
+   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Extra idle air given for the first 0.4 s after the A/C compressor engages (then it fades to the matching A/C Idle Air Steady value), for: A/C load switch on, neutral switch on, car moving above 14 km/h. Raise if idle dips when the A/C kicks in. 0 = no kick. The A/C load switch meaning is inferred.</description>
+  </table>
+  <table type="2D" name="A/C Idle Air Steady (A/C Load Sw On, Neutral Sw On, Below 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03aa02">
+   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Extra idle air held while the A/C compressor is engaged, for: A/C load switch on, neutral switch on, car stopped or slow. Raise if idle sags with the A/C on, lower if it flares. The A/C load switch meaning is inferred.</description>
+  </table>
+  <table type="2D" name="A/C Idle Air Initial Kick (A/C Load Sw On, Neutral Sw On, Below 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03ab02">
+   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Extra idle air given for the first 0.4 s after the A/C compressor engages (then it fades to the matching A/C Idle Air Steady value), for: A/C load switch on, neutral switch on, car stopped or slow. Raise if idle dips when the A/C kicks in. 0 = no kick. The A/C load switch meaning is inferred.</description>
+  </table>
+  <table type="2D" name="A/C Idle Air Steady (A/C Load Sw Off, Neutral Sw Off, Above 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03aa22">
+   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Extra idle air held while the A/C compressor is engaged, for: A/C load switch off, neutral switch off, car moving above 14 km/h. Raise if idle sags with the A/C on, lower if it flares. The A/C load switch meaning is inferred.</description>
+  </table>
+  <table type="2D" name="A/C Idle Air Initial Kick (A/C Load Sw Off, Neutral Sw Off, Above 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03ab22">
+   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Extra idle air given for the first 0.4 s after the A/C compressor engages (then it fades to the matching A/C Idle Air Steady value), for: A/C load switch off, neutral switch off, car moving above 14 km/h. Raise if idle dips when the A/C kicks in. 0 = no kick. The A/C load switch meaning is inferred.</description>
+  </table>
+  <table type="2D" name="A/C Idle Air Steady (A/C Load Sw Off, Neutral Sw Off, Below 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03aa42">
+   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Extra idle air held while the A/C compressor is engaged, for: A/C load switch off, neutral switch off, car stopped or slow. Raise if idle sags with the A/C on, lower if it flares. The A/C load switch meaning is inferred.</description>
+  </table>
+  <table type="2D" name="A/C Idle Air Initial Kick (A/C Load Sw Off, Neutral Sw Off, Below 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03ab42">
+   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Extra idle air given for the first 0.4 s after the A/C compressor engages (then it fades to the matching A/C Idle Air Steady value), for: A/C load switch off, neutral switch off, car stopped or slow. Raise if idle dips when the A/C kicks in. 0 = no kick. The A/C load switch meaning is inferred.</description>
+  </table>
+  <table type="2D" name="A/C Idle Air Steady (A/C Load Sw Off, Neutral Sw On, Above 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03aa62">
+   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Extra idle air held while the A/C compressor is engaged, for: A/C load switch off, neutral switch on, car moving above 14 km/h. Raise if idle sags with the A/C on, lower if it flares. The A/C load switch meaning is inferred.</description>
+  </table>
+  <table type="2D" name="A/C Idle Air Initial Kick (A/C Load Sw Off, Neutral Sw On, Above 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03ab62">
+   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Extra idle air given for the first 0.4 s after the A/C compressor engages (then it fades to the matching A/C Idle Air Steady value), for: A/C load switch off, neutral switch on, car moving above 14 km/h. Raise if idle dips when the A/C kicks in. 0 = no kick. The A/C load switch meaning is inferred.</description>
+  </table>
+  <table type="2D" name="A/C Idle Air Steady (A/C Load Sw Off, Neutral Sw On, Below 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03aa82">
+   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Extra idle air held while the A/C compressor is engaged, for: A/C load switch off, neutral switch on, car stopped or slow. Raise if idle sags with the A/C on, lower if it flares. The A/C load switch meaning is inferred.</description>
+  </table>
+  <table type="2D" name="A/C Idle Air Initial Kick (A/C Load Sw Off, Neutral Sw On, Below 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03ab82">
+   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
+   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
+    <data>-40</data>
+    <data>-22</data>
+    <data>-4</data>
+    <data>14</data>
+    <data>32</data>
+    <data>50</data>
+    <data>68</data>
+    <data>86</data>
+    <data>104</data>
+    <data>122</data>
+    <data>140</data>
+    <data>158</data>
+    <data>176</data>
+    <data>194</data>
+    <data>212</data>
+    <data>230</data>
+   </table>
+   <description>Extra idle air given for the first 0.4 s after the A/C compressor engages (then it fades to the matching A/C Idle Air Steady value), for: A/C load switch off, neutral switch on, car stopped or slow. Raise if idle dips when the A/C kicks in. 0 = no kick. The A/C load switch meaning is inferred.</description>
+  </table>
   <table type="2D" name="Idle Air Altitude Factor (Key-On/Cranking)" category="Idle//Idle Airflow" storagetype="uint8" endian="big" sizey="16" userlevel="3" storageaddress="0x03a898">
    <scaling units="multiplier" expression="x/32" to_byte="x*32" format="0.00" fineincrement="0.03" coarseincrement="0.12" />
    <table type="Y Axis" name="Barometric Pressure" storagetype="uint16" endian="big" storageaddress="0x03a878">
@@ -7310,20 +7764,6 @@ Details: When used: only if cal 0x28D98 = 1 or 2. 0x0CD4AC (read): FFF8A67D = th
     <scaling units="% fuel removed at 100 % purge rate" expression="(x-32768)/655.36" to_byte="x*655.36+32768" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
    </table>
    <description>Purge-rate rise per learning update at idle (pedal released) after learning.</description>
-  </table>
-  <table type="2D" name="Purge Rate Cut Recovery Step (Off-Idle)" category="Fueling//Evap Purge" storagetype="uint16" endian="big" sizey="4" userlevel="4" storageaddress="0x03e320">
-   <scaling units="% of purge rate per update" expression="x/655.36" to_byte="x*655.36" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x026c9c">
-    <scaling units="% fuel" expression="x/327.68" to_byte="x*327.68" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
-   </table>
-   <description>How fast a purge cut is released, pedal pressed, by how much margin the closed-loop correction has above its lower limit.</description>
-  </table>
-  <table type="2D" name="Purge Rate Cut Recovery Step (Idle)" category="Fueling//Evap Purge" storagetype="uint16" endian="big" sizey="4" userlevel="4" storageaddress="0x03e318">
-   <scaling units="% of purge rate per update" expression="x/655.36" to_byte="x*655.36" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x026c9c">
-    <scaling units="% fuel" expression="x/327.68" to_byte="x*327.68" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
-   </table>
-   <description>How fast a purge cut is released at idle (pedal released).</description>
   </table>
   <table type="3D" name="Purge Air Density (IAT, Baro)" category="Fueling//Evap Purge" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x026880">
    <scaling units="g/L (air density)" expression="x/128" to_byte="x*128" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
@@ -12419,20 +12859,8 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    </table>
    <description>Purge-rate rise per learning update at idle (pedal released) after learning.</description>
   </table>
-  <table type="2D" name="Purge Rate Cut Recovery Step (Off-Idle)" category="Fueling//Evap Purge" storagetype="uint16" endian="big" sizey="4" userlevel="4" storageaddress="0x03eca8">
-   <scaling units="% of purge rate per update" expression="x/655.36" to_byte="x*655.36" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x026c9c">
-    <scaling units="% fuel" expression="x/327.68" to_byte="x*327.68" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
-   </table>
-   <description>How fast a purge cut is released, pedal pressed, by how much margin the closed-loop correction has above its lower limit.</description>
-  </table>
-  <table type="2D" name="Purge Rate Cut Recovery Step (Idle)" category="Fueling//Evap Purge" storagetype="uint16" endian="big" sizey="4" userlevel="4" storageaddress="0x03eca0">
-   <scaling units="% of purge rate per update" expression="x/655.36" to_byte="x*655.36" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x026c9c">
-    <scaling units="% fuel" expression="x/327.68" to_byte="x*327.68" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
-   </table>
-   <description>How fast a purge cut is released at idle (pedal released).</description>
-  </table>
+  <table name="Purge Rate Cut Recovery Step (Off-Idle)" storageaddress="0x03eca8" />
+  <table name="Purge Rate Cut Recovery Step (Idle)" storageaddress="0x03eca0" />
   <table type="3D" name="Purge Air Density (IAT, Baro)" category="Fueling//Evap Purge" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x026880">
    <scaling units="g/L (air density)" expression="x/128" to_byte="x*128" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <table type="X Axis" name="Barometric Pressure" storagetype="uint16" endian="big" storageaddress="0x026858">
@@ -14621,6 +15049,22 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
   <table name="Post-Start Staged Air IAT Add" storageaddress="0x0293f8">
    <table type="Y Axis" storageaddress="0x0293d8" />
   </table>
+  <table name="A/C Idle Air Steady (A/C Load Sw On, Neutral Sw Off, Above 14 km/h)" storageaddress="0x03b32a" />
+  <table name="A/C Idle Air Initial Kick (A/C Load Sw On, Neutral Sw Off, Above 14 km/h)" storageaddress="0x03b42a" />
+  <table name="A/C Idle Air Steady (A/C Load Sw On, Neutral Sw Off, Below 14 km/h)" storageaddress="0x03b34a" />
+  <table name="A/C Idle Air Initial Kick (A/C Load Sw On, Neutral Sw Off, Below 14 km/h)" storageaddress="0x03b44a" />
+  <table name="A/C Idle Air Steady (A/C Load Sw On, Neutral Sw On, Above 14 km/h)" storageaddress="0x03b36a" />
+  <table name="A/C Idle Air Initial Kick (A/C Load Sw On, Neutral Sw On, Above 14 km/h)" storageaddress="0x03b46a" />
+  <table name="A/C Idle Air Steady (A/C Load Sw On, Neutral Sw On, Below 14 km/h)" storageaddress="0x03b38a" />
+  <table name="A/C Idle Air Initial Kick (A/C Load Sw On, Neutral Sw On, Below 14 km/h)" storageaddress="0x03b48a" />
+  <table name="A/C Idle Air Steady (A/C Load Sw Off, Neutral Sw Off, Above 14 km/h)" storageaddress="0x03b3aa" />
+  <table name="A/C Idle Air Initial Kick (A/C Load Sw Off, Neutral Sw Off, Above 14 km/h)" storageaddress="0x03b4aa" />
+  <table name="A/C Idle Air Steady (A/C Load Sw Off, Neutral Sw Off, Below 14 km/h)" storageaddress="0x03b3ca" />
+  <table name="A/C Idle Air Initial Kick (A/C Load Sw Off, Neutral Sw Off, Below 14 km/h)" storageaddress="0x03b4ca" />
+  <table name="A/C Idle Air Steady (A/C Load Sw Off, Neutral Sw On, Above 14 km/h)" storageaddress="0x03b3ea" />
+  <table name="A/C Idle Air Initial Kick (A/C Load Sw Off, Neutral Sw On, Above 14 km/h)" storageaddress="0x03b4ea" />
+  <table name="A/C Idle Air Steady (A/C Load Sw Off, Neutral Sw On, Below 14 km/h)" storageaddress="0x03b40a" />
+  <table name="A/C Idle Air Initial Kick (A/C Load Sw Off, Neutral Sw On, Below 14 km/h)" storageaddress="0x03b50a" />
   <table name="Idle Air Altitude Factor (Key-On/Cranking)" storageaddress="0x03b220">
    <table type="Y Axis" storageaddress="0x03b200" />
   </table>
@@ -18730,6 +19174,12 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Decel Fuel Cut Full-Cut Shortcut Hold" storageaddress="0x023ae4">
    <table type="Y Axis" storageaddress="0x023af4" />
   </table>
+  <table name="Purge Rate Cut Recovery Step (Off-Idle)" storageaddress="0x03f08c">
+   <table type="Y Axis" storageaddress="0x026cf0" />
+  </table>
+  <table name="Purge Rate Cut Recovery Step (Idle)" storageaddress="0x03f084">
+   <table type="Y Axis" storageaddress="0x026cf0" />
+  </table>
   <table name="Base Timing IAT Compensation" storageaddress="0x036724">
    <table type="Y Axis" storageaddress="0x036704" />
   </table>
@@ -18898,94 +19348,10 @@ Weighted DAM/16. 0x0D9BD4 (read): FFF8A73F = ((16 - DAM) x 05B54C + DAM x 05B560
    <table type="X Axis" storageaddress="0x01cb8d" />
    <table type="Y Axis" storageaddress="0x03f6f0" />
   </table>
-  <table type="2D" name="Secondary Knock Threshold (Event 1)" category="Ignition Timing//Knock Detection" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x01d7a6">
-   <scaling units="knock ratio sum (3 strongest channels)" expression="x/256" to_byte="x*256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
-   <table type="Static Y Axis" name="Engine Speed (RPM)" sizey="16">
-    <data>500</data>
-    <data>1000</data>
-    <data>1500</data>
-    <data>2000</data>
-    <data>2500</data>
-    <data>3000</data>
-    <data>3500</data>
-    <data>4000</data>
-    <data>4500</data>
-    <data>5000</data>
-    <data>5500</data>
-    <data>6000</data>
-    <data>6500</data>
-    <data>7000</data>
-    <data>7500</data>
-    <data>8000</data>
-   </table>
-   <description>Second knock detector level by rpm for event slot 1; a signal above it triggers the secondary knock retard steps. Unit: sum of the three strongest knock-channel ratios to their background (3.0 = all at background).</description>
-  </table>
-  <table type="2D" name="Secondary Knock Threshold (Event 2)" category="Ignition Timing//Knock Detection" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x01d7c6">
-   <scaling units="knock ratio sum (3 strongest channels)" expression="x/256" to_byte="x*256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
-   <table type="Static Y Axis" name="Engine Speed (RPM)" sizey="16">
-    <data>500</data>
-    <data>1000</data>
-    <data>1500</data>
-    <data>2000</data>
-    <data>2500</data>
-    <data>3000</data>
-    <data>3500</data>
-    <data>4000</data>
-    <data>4500</data>
-    <data>5000</data>
-    <data>5500</data>
-    <data>6000</data>
-    <data>6500</data>
-    <data>7000</data>
-    <data>7500</data>
-    <data>8000</data>
-   </table>
-   <description>Second knock detector level by rpm for event slot 2; a signal above it triggers the secondary knock retard steps. Unit: sum of the three strongest knock-channel ratios to their background (3.0 = all at background).</description>
-  </table>
-  <table type="2D" name="Secondary Knock Threshold (Event 3)" category="Ignition Timing//Knock Detection" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x01d7e6">
-   <scaling units="knock ratio sum (3 strongest channels)" expression="x/256" to_byte="x*256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
-   <table type="Static Y Axis" name="Engine Speed (RPM)" sizey="16">
-    <data>500</data>
-    <data>1000</data>
-    <data>1500</data>
-    <data>2000</data>
-    <data>2500</data>
-    <data>3000</data>
-    <data>3500</data>
-    <data>4000</data>
-    <data>4500</data>
-    <data>5000</data>
-    <data>5500</data>
-    <data>6000</data>
-    <data>6500</data>
-    <data>7000</data>
-    <data>7500</data>
-    <data>8000</data>
-   </table>
-   <description>Second knock detector level by rpm for event slot 3; a signal above it triggers the secondary knock retard steps. Unit: sum of the three strongest knock-channel ratios to their background (3.0 = all at background).</description>
-  </table>
-  <table type="2D" name="Secondary Knock Threshold (Event 4)" category="Ignition Timing//Knock Detection" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x01d806">
-   <scaling units="knock ratio sum (3 strongest channels)" expression="x/256" to_byte="x*256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
-   <table type="Static Y Axis" name="Engine Speed (RPM)" sizey="16">
-    <data>500</data>
-    <data>1000</data>
-    <data>1500</data>
-    <data>2000</data>
-    <data>2500</data>
-    <data>3000</data>
-    <data>3500</data>
-    <data>4000</data>
-    <data>4500</data>
-    <data>5000</data>
-    <data>5500</data>
-    <data>6000</data>
-    <data>6500</data>
-    <data>7000</data>
-    <data>7500</data>
-    <data>8000</data>
-   </table>
-   <description>Second knock detector level by rpm for event slot 4; a signal above it triggers the secondary knock retard steps. Unit: sum of the three strongest knock-channel ratios to their background (3.0 = all at background).</description>
-  </table>
+  <table name="Secondary Knock Threshold (Event 1)" storageaddress="0x01d7a6" />
+  <table name="Secondary Knock Threshold (Event 2)" storageaddress="0x01d7c6" />
+  <table name="Secondary Knock Threshold (Event 3)" storageaddress="0x01d7e6" />
+  <table name="Secondary Knock Threshold (Event 4)" storageaddress="0x01d806" />
   <table name="Knock Window Start" storageaddress="0x01d418">
    <table type="Y Axis" storageaddress="0x03f6f0" />
   </table>
@@ -20092,358 +20458,22 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
   <table name="Post-Start Staged Air IAT Add" storageaddress="0x029590">
    <table type="Y Axis" storageaddress="0x029570" />
   </table>
-  <table type="2D" name="A/C Idle Air Steady (A/C Load Sw On, Neutral Sw Off, Above 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03b70e">
-   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
-   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
-    <data>-40</data>
-    <data>-22</data>
-    <data>-4</data>
-    <data>14</data>
-    <data>32</data>
-    <data>50</data>
-    <data>68</data>
-    <data>86</data>
-    <data>104</data>
-    <data>122</data>
-    <data>140</data>
-    <data>158</data>
-    <data>176</data>
-    <data>194</data>
-    <data>212</data>
-    <data>230</data>
-   </table>
-   <description>Extra idle air held while the A/C compressor is engaged, for: A/C load switch on, neutral switch off, car moving above 14 km/h. Raise if idle sags with the A/C on, lower if it flares. The A/C load switch meaning is inferred.</description>
-  </table>
-  <table type="2D" name="A/C Idle Air Initial Kick (A/C Load Sw On, Neutral Sw Off, Above 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03b80e">
-   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
-   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
-    <data>-40</data>
-    <data>-22</data>
-    <data>-4</data>
-    <data>14</data>
-    <data>32</data>
-    <data>50</data>
-    <data>68</data>
-    <data>86</data>
-    <data>104</data>
-    <data>122</data>
-    <data>140</data>
-    <data>158</data>
-    <data>176</data>
-    <data>194</data>
-    <data>212</data>
-    <data>230</data>
-   </table>
-   <description>Extra idle air given for the first 0.4 s after the A/C compressor engages (then it fades to the matching A/C Idle Air Steady value), for: A/C load switch on, neutral switch off, car moving above 14 km/h. Raise if idle dips when the A/C kicks in. 0 = no kick. The A/C load switch meaning is inferred.</description>
-  </table>
-  <table type="2D" name="A/C Idle Air Steady (A/C Load Sw On, Neutral Sw Off, Below 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03b72e">
-   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
-   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
-    <data>-40</data>
-    <data>-22</data>
-    <data>-4</data>
-    <data>14</data>
-    <data>32</data>
-    <data>50</data>
-    <data>68</data>
-    <data>86</data>
-    <data>104</data>
-    <data>122</data>
-    <data>140</data>
-    <data>158</data>
-    <data>176</data>
-    <data>194</data>
-    <data>212</data>
-    <data>230</data>
-   </table>
-   <description>Extra idle air held while the A/C compressor is engaged, for: A/C load switch on, neutral switch off, car stopped or slow. Raise if idle sags with the A/C on, lower if it flares. The A/C load switch meaning is inferred.</description>
-  </table>
-  <table type="2D" name="A/C Idle Air Initial Kick (A/C Load Sw On, Neutral Sw Off, Below 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03b82e">
-   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
-   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
-    <data>-40</data>
-    <data>-22</data>
-    <data>-4</data>
-    <data>14</data>
-    <data>32</data>
-    <data>50</data>
-    <data>68</data>
-    <data>86</data>
-    <data>104</data>
-    <data>122</data>
-    <data>140</data>
-    <data>158</data>
-    <data>176</data>
-    <data>194</data>
-    <data>212</data>
-    <data>230</data>
-   </table>
-   <description>Extra idle air given for the first 0.4 s after the A/C compressor engages (then it fades to the matching A/C Idle Air Steady value), for: A/C load switch on, neutral switch off, car stopped or slow. Raise if idle dips when the A/C kicks in. 0 = no kick. The A/C load switch meaning is inferred.</description>
-  </table>
-  <table type="2D" name="A/C Idle Air Steady (A/C Load Sw On, Neutral Sw On, Above 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03b74e">
-   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
-   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
-    <data>-40</data>
-    <data>-22</data>
-    <data>-4</data>
-    <data>14</data>
-    <data>32</data>
-    <data>50</data>
-    <data>68</data>
-    <data>86</data>
-    <data>104</data>
-    <data>122</data>
-    <data>140</data>
-    <data>158</data>
-    <data>176</data>
-    <data>194</data>
-    <data>212</data>
-    <data>230</data>
-   </table>
-   <description>Extra idle air held while the A/C compressor is engaged, for: A/C load switch on, neutral switch on, car moving above 14 km/h. Raise if idle sags with the A/C on, lower if it flares. The A/C load switch meaning is inferred.</description>
-  </table>
-  <table type="2D" name="A/C Idle Air Initial Kick (A/C Load Sw On, Neutral Sw On, Above 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03b84e">
-   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
-   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
-    <data>-40</data>
-    <data>-22</data>
-    <data>-4</data>
-    <data>14</data>
-    <data>32</data>
-    <data>50</data>
-    <data>68</data>
-    <data>86</data>
-    <data>104</data>
-    <data>122</data>
-    <data>140</data>
-    <data>158</data>
-    <data>176</data>
-    <data>194</data>
-    <data>212</data>
-    <data>230</data>
-   </table>
-   <description>Extra idle air given for the first 0.4 s after the A/C compressor engages (then it fades to the matching A/C Idle Air Steady value), for: A/C load switch on, neutral switch on, car moving above 14 km/h. Raise if idle dips when the A/C kicks in. 0 = no kick. The A/C load switch meaning is inferred.</description>
-  </table>
-  <table type="2D" name="A/C Idle Air Steady (A/C Load Sw On, Neutral Sw On, Below 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03b76e">
-   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
-   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
-    <data>-40</data>
-    <data>-22</data>
-    <data>-4</data>
-    <data>14</data>
-    <data>32</data>
-    <data>50</data>
-    <data>68</data>
-    <data>86</data>
-    <data>104</data>
-    <data>122</data>
-    <data>140</data>
-    <data>158</data>
-    <data>176</data>
-    <data>194</data>
-    <data>212</data>
-    <data>230</data>
-   </table>
-   <description>Extra idle air held while the A/C compressor is engaged, for: A/C load switch on, neutral switch on, car stopped or slow. Raise if idle sags with the A/C on, lower if it flares. The A/C load switch meaning is inferred.</description>
-  </table>
-  <table type="2D" name="A/C Idle Air Initial Kick (A/C Load Sw On, Neutral Sw On, Below 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03b86e">
-   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
-   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
-    <data>-40</data>
-    <data>-22</data>
-    <data>-4</data>
-    <data>14</data>
-    <data>32</data>
-    <data>50</data>
-    <data>68</data>
-    <data>86</data>
-    <data>104</data>
-    <data>122</data>
-    <data>140</data>
-    <data>158</data>
-    <data>176</data>
-    <data>194</data>
-    <data>212</data>
-    <data>230</data>
-   </table>
-   <description>Extra idle air given for the first 0.4 s after the A/C compressor engages (then it fades to the matching A/C Idle Air Steady value), for: A/C load switch on, neutral switch on, car stopped or slow. Raise if idle dips when the A/C kicks in. 0 = no kick. The A/C load switch meaning is inferred.</description>
-  </table>
-  <table type="2D" name="A/C Idle Air Steady (A/C Load Sw Off, Neutral Sw Off, Above 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03b78e">
-   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
-   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
-    <data>-40</data>
-    <data>-22</data>
-    <data>-4</data>
-    <data>14</data>
-    <data>32</data>
-    <data>50</data>
-    <data>68</data>
-    <data>86</data>
-    <data>104</data>
-    <data>122</data>
-    <data>140</data>
-    <data>158</data>
-    <data>176</data>
-    <data>194</data>
-    <data>212</data>
-    <data>230</data>
-   </table>
-   <description>Extra idle air held while the A/C compressor is engaged, for: A/C load switch off, neutral switch off, car moving above 14 km/h. Raise if idle sags with the A/C on, lower if it flares. The A/C load switch meaning is inferred.</description>
-  </table>
-  <table type="2D" name="A/C Idle Air Initial Kick (A/C Load Sw Off, Neutral Sw Off, Above 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03b88e">
-   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
-   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
-    <data>-40</data>
-    <data>-22</data>
-    <data>-4</data>
-    <data>14</data>
-    <data>32</data>
-    <data>50</data>
-    <data>68</data>
-    <data>86</data>
-    <data>104</data>
-    <data>122</data>
-    <data>140</data>
-    <data>158</data>
-    <data>176</data>
-    <data>194</data>
-    <data>212</data>
-    <data>230</data>
-   </table>
-   <description>Extra idle air given for the first 0.4 s after the A/C compressor engages (then it fades to the matching A/C Idle Air Steady value), for: A/C load switch off, neutral switch off, car moving above 14 km/h. Raise if idle dips when the A/C kicks in. 0 = no kick. The A/C load switch meaning is inferred.</description>
-  </table>
-  <table type="2D" name="A/C Idle Air Steady (A/C Load Sw Off, Neutral Sw Off, Below 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03b7ae">
-   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
-   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
-    <data>-40</data>
-    <data>-22</data>
-    <data>-4</data>
-    <data>14</data>
-    <data>32</data>
-    <data>50</data>
-    <data>68</data>
-    <data>86</data>
-    <data>104</data>
-    <data>122</data>
-    <data>140</data>
-    <data>158</data>
-    <data>176</data>
-    <data>194</data>
-    <data>212</data>
-    <data>230</data>
-   </table>
-   <description>Extra idle air held while the A/C compressor is engaged, for: A/C load switch off, neutral switch off, car stopped or slow. Raise if idle sags with the A/C on, lower if it flares. The A/C load switch meaning is inferred.</description>
-  </table>
-  <table type="2D" name="A/C Idle Air Initial Kick (A/C Load Sw Off, Neutral Sw Off, Below 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03b8ae">
-   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
-   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
-    <data>-40</data>
-    <data>-22</data>
-    <data>-4</data>
-    <data>14</data>
-    <data>32</data>
-    <data>50</data>
-    <data>68</data>
-    <data>86</data>
-    <data>104</data>
-    <data>122</data>
-    <data>140</data>
-    <data>158</data>
-    <data>176</data>
-    <data>194</data>
-    <data>212</data>
-    <data>230</data>
-   </table>
-   <description>Extra idle air given for the first 0.4 s after the A/C compressor engages (then it fades to the matching A/C Idle Air Steady value), for: A/C load switch off, neutral switch off, car stopped or slow. Raise if idle dips when the A/C kicks in. 0 = no kick. The A/C load switch meaning is inferred.</description>
-  </table>
-  <table type="2D" name="A/C Idle Air Steady (A/C Load Sw Off, Neutral Sw On, Above 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03b7ce">
-   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
-   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
-    <data>-40</data>
-    <data>-22</data>
-    <data>-4</data>
-    <data>14</data>
-    <data>32</data>
-    <data>50</data>
-    <data>68</data>
-    <data>86</data>
-    <data>104</data>
-    <data>122</data>
-    <data>140</data>
-    <data>158</data>
-    <data>176</data>
-    <data>194</data>
-    <data>212</data>
-    <data>230</data>
-   </table>
-   <description>Extra idle air held while the A/C compressor is engaged, for: A/C load switch off, neutral switch on, car moving above 14 km/h. Raise if idle sags with the A/C on, lower if it flares. The A/C load switch meaning is inferred.</description>
-  </table>
-  <table type="2D" name="A/C Idle Air Initial Kick (A/C Load Sw Off, Neutral Sw On, Above 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03b8ce">
-   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
-   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
-    <data>-40</data>
-    <data>-22</data>
-    <data>-4</data>
-    <data>14</data>
-    <data>32</data>
-    <data>50</data>
-    <data>68</data>
-    <data>86</data>
-    <data>104</data>
-    <data>122</data>
-    <data>140</data>
-    <data>158</data>
-    <data>176</data>
-    <data>194</data>
-    <data>212</data>
-    <data>230</data>
-   </table>
-   <description>Extra idle air given for the first 0.4 s after the A/C compressor engages (then it fades to the matching A/C Idle Air Steady value), for: A/C load switch off, neutral switch on, car moving above 14 km/h. Raise if idle dips when the A/C kicks in. 0 = no kick. The A/C load switch meaning is inferred.</description>
-  </table>
-  <table type="2D" name="A/C Idle Air Steady (A/C Load Sw Off, Neutral Sw On, Below 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03b7ee">
-   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
-   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
-    <data>-40</data>
-    <data>-22</data>
-    <data>-4</data>
-    <data>14</data>
-    <data>32</data>
-    <data>50</data>
-    <data>68</data>
-    <data>86</data>
-    <data>104</data>
-    <data>122</data>
-    <data>140</data>
-    <data>158</data>
-    <data>176</data>
-    <data>194</data>
-    <data>212</data>
-    <data>230</data>
-   </table>
-   <description>Extra idle air held while the A/C compressor is engaged, for: A/C load switch off, neutral switch on, car stopped or slow. Raise if idle sags with the A/C on, lower if it flares. The A/C load switch meaning is inferred.</description>
-  </table>
-  <table type="2D" name="A/C Idle Air Initial Kick (A/C Load Sw Off, Neutral Sw On, Below 14 km/h)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03b8ee">
-   <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
-   <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
-    <data>-40</data>
-    <data>-22</data>
-    <data>-4</data>
-    <data>14</data>
-    <data>32</data>
-    <data>50</data>
-    <data>68</data>
-    <data>86</data>
-    <data>104</data>
-    <data>122</data>
-    <data>140</data>
-    <data>158</data>
-    <data>176</data>
-    <data>194</data>
-    <data>212</data>
-    <data>230</data>
-   </table>
-   <description>Extra idle air given for the first 0.4 s after the A/C compressor engages (then it fades to the matching A/C Idle Air Steady value), for: A/C load switch off, neutral switch on, car stopped or slow. Raise if idle dips when the A/C kicks in. 0 = no kick. The A/C load switch meaning is inferred.</description>
-  </table>
+  <table name="A/C Idle Air Steady (A/C Load Sw On, Neutral Sw Off, Above 14 km/h)" storageaddress="0x03b70e" />
+  <table name="A/C Idle Air Initial Kick (A/C Load Sw On, Neutral Sw Off, Above 14 km/h)" storageaddress="0x03b80e" />
+  <table name="A/C Idle Air Steady (A/C Load Sw On, Neutral Sw Off, Below 14 km/h)" storageaddress="0x03b72e" />
+  <table name="A/C Idle Air Initial Kick (A/C Load Sw On, Neutral Sw Off, Below 14 km/h)" storageaddress="0x03b82e" />
+  <table name="A/C Idle Air Steady (A/C Load Sw On, Neutral Sw On, Above 14 km/h)" storageaddress="0x03b74e" />
+  <table name="A/C Idle Air Initial Kick (A/C Load Sw On, Neutral Sw On, Above 14 km/h)" storageaddress="0x03b84e" />
+  <table name="A/C Idle Air Steady (A/C Load Sw On, Neutral Sw On, Below 14 km/h)" storageaddress="0x03b76e" />
+  <table name="A/C Idle Air Initial Kick (A/C Load Sw On, Neutral Sw On, Below 14 km/h)" storageaddress="0x03b86e" />
+  <table name="A/C Idle Air Steady (A/C Load Sw Off, Neutral Sw Off, Above 14 km/h)" storageaddress="0x03b78e" />
+  <table name="A/C Idle Air Initial Kick (A/C Load Sw Off, Neutral Sw Off, Above 14 km/h)" storageaddress="0x03b88e" />
+  <table name="A/C Idle Air Steady (A/C Load Sw Off, Neutral Sw Off, Below 14 km/h)" storageaddress="0x03b7ae" />
+  <table name="A/C Idle Air Initial Kick (A/C Load Sw Off, Neutral Sw Off, Below 14 km/h)" storageaddress="0x03b8ae" />
+  <table name="A/C Idle Air Steady (A/C Load Sw Off, Neutral Sw On, Above 14 km/h)" storageaddress="0x03b7ce" />
+  <table name="A/C Idle Air Initial Kick (A/C Load Sw Off, Neutral Sw On, Above 14 km/h)" storageaddress="0x03b8ce" />
+  <table name="A/C Idle Air Steady (A/C Load Sw Off, Neutral Sw On, Below 14 km/h)" storageaddress="0x03b7ee" />
+  <table name="A/C Idle Air Initial Kick (A/C Load Sw Off, Neutral Sw On, Below 14 km/h)" storageaddress="0x03b8ee" />
   <table name="Idle Air Altitude Factor (Key-On/Cranking)" storageaddress="0x03b604">
    <table type="Y Axis" storageaddress="0x03b5e4" />
   </table>

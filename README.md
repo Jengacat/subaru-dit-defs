@@ -178,9 +178,7 @@ own boost group (target, wastegate position feed-forward and compensations, boos
 limits). Position is shown as % open, 0 % = closed on its seat; that scale and the boost-pressure unit are inferred.
 The three ROMs now carry nearly the same set of tables, placed from the 2020 WRX and from each other; wherever two
 sources place the same table they agree. The
-2020 and 2021 ROMs have 11-character IDs (LT8F300C00G, LT8H300D00G); the definitions match the first eight. All three
-came from Subaru's dealer software, which has no boot block, so I have not checked the definitions against a read from
-a car yet: if you have an Ascent, a stock read would help.
+2020 and 2021 ROMs have 11-character IDs (LT8F300C00G, LT8H300D00G); the definitions match the first eight.
 
 </details>
 

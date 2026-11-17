@@ -14,9 +14,10 @@ First public release.
 - New: **DAM Initial Value, DAM Step and DAM Step-Up Knock-Free Events** on every ROM. The step is zeroed on every
   ROM I have, so DAM moves only through DAM Step Gain (FLKC Cell); the start value is 0.69 on the 2.0, 1.0 on many
   1.6 ROMs and 0.31 on the Ascent.
-- New: **charging, part 3.** The charge-control delay after start (and, on the 2015-2016 ROMs, the table that
-  lengthens it after a low-battery start) and the adaptive-charging current loop: target battery current by state of
-  charge, its gain and integral settings. The two charge-efficiency tables now reach the 2017 and later ROMs too.
+- New: **charging, part 3.** The adaptive-charging current loop on every 2.0 and 1.6 ROM: target battery current by
+  state of charge, its gain and integral settings. On the 2015-2016 ROMs also the charge-control delay after start
+  and the table that lengthens it after a low-battery start (2017 and later ROMs use a different rule, not defined
+  yet). The two charge-efficiency tables now reach the 2017 and later ROMs too.
 - Changed: **1.6 (FB16DIT) "off in stock" entries re-read.** About 20 to 35 entries per 1.6 ROM that the 2.0 leaves
   switched off are switched on in the 1.6 calibration (for example the EGR tip-out limit, the alternate DAM base
   timing blend, special-start cranking fuel, the tip-in extra pulse and the external torque limit factors). Those

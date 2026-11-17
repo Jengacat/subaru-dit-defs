@@ -4,6 +4,11 @@
 
 First public release.
 
+- New: **logging without the patch (SUBUDS).** `logger/FA20DIT_Logger_SUBUDS.xml` and `logger/FA24DIT_Logger_SUBUDS.xml`
+  read the stock and logging-patch parameters straight from RAM on a stock ROM, for a RomRaider build with the
+  SUBUDS protocol (test builds on my RomRaider fork). Every address is checked in an emulator against the ECU's own
+  SSM read, on all 103 ROMs. Not yet run on a car.
+- Changed: the stock logger files' header comment no longer lists ROMs (it was out of date).
 - New: **logging and CAN for every ROM.** The logging patch now has a spec for all 103 ROMs, and I checked the stock
   logger file against each ROM's own SSM table. The CAN dictionary covers all 100 2.0 and 1.6 ROMs.
 - New: **Ascent logging** (`logger/FA24DIT_Logger*.xml`). The stock SSM parameters carry over, except wastegate duty

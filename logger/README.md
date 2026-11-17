@@ -8,6 +8,7 @@ For RomRaider Logger over CAN (Tactrix OpenPort 2.0 or another J2534 interface).
 | `FA20DIT_Logger_LogPatch.xml` | ROMs with the [logging patch](../tools/logpatch/): everything in the stock file plus L01–L24. Valid for every supported ROM (the patch uses the same slots in each). |
 | `FA20DIT_Logger_LogPatch_only.xml` | Only the logging-patch parameters, to merge into your own logger file. |
 | `FA24DIT_Logger.xml`, `FA24DIT_Logger_LogPatch.xml`, `FA24DIT_Logger_LogPatch_only.xml` | The same three for the Ascent (FA24DIT). See [Ascent](#ascent) below. |
+| `FA20DIT_Logger_SUBUDS.xml`, `FA24DIT_Logger_SUBUDS.xml` | **Stock ROMs, no patch:** every parameter above, read straight from RAM with the SUBUDS protocol. Needs a RomRaider build with SUBUDS. See [Logging without the patch](#logging-without-the-patch-subuds). |
 
 ## What a stock ROM gives you
 
@@ -54,12 +55,48 @@ The Ascent's ECU answers SSM the same way as the WRX's, so the stock parameters 
 
 OBD is unchanged: the Ascent answers the same OBD-II parameters.
 
-## Coming: logging without the patch
+## Logging without the patch (SUBUDS)
 
-A new RomRaider logger protocol, **SUBUDS**, will read the L parameters (and more) on a stock ROM, without the logging
-patch. [My fork of RomRaider](https://github.com/Jengacat/RomRaider/tree/Subaru-UDS-Logging) already has it; the logger
-file for it will be added here with a test build. See the
-[main README](../README.md#in-progress-logging-without-a-patch-subaru-uds-in-romraider).
+**SUBUDS** is a RomRaider logger protocol I wrote that reads values straight from the ECU's RAM, so a stock ROM gives
+you everything the logging patch adds without a reflash. It uses standard diagnostic services the ECU allows without
+any security unlock: it opens the extended diagnostic session (0x10 0x03), tells the ECU which RAM addresses to
+collect (0x2C, define by memory address) and then reads them all in one request per logging pass (0x22).
+
+**What you need:**
+
+* A RomRaider build with the SUBUDS protocol. Stock RomRaider 1.1.0 doesn't have it. It's on the
+  `Subaru-UDS-Logging` branch of [my RomRaider fork](https://github.com/Jengacat/RomRaider/tree/Subaru-UDS-Logging);
+  Windows and Linux builds are on the fork's
+  [subuds-test-1 release](https://github.com/Jengacat/RomRaider/releases/tag/subuds-test-1).
+* A J2534 cable (Tactrix OpenPort 2.0 or similar), as for SSM over CAN.
+* `FA20DIT_Logger_SUBUDS.xml` (WRX, WRX S4, Levorg, Forester XT, Legacy / Outback and the Levorg 1.6), or
+  `FA24DIT_Logger_SUBUDS.xml` (Ascent).
+
+**How to use it:** load the SUBUDS file as the logger definition, choose **SUBUDS** under Settings → Logger
+Protocol, and connect. RomRaider reads the ECU ID first and picks that ROM's RAM addresses; the parameters then
+work like any other.
+
+**What's in the files:**
+
+| File | Parameters | ROMs |
+|---|---|---|
+| `FA20DIT_Logger_SUBUDS.xml` | 70: the 46 stock parameters (J01–J46) and the 24 logging-patch ones (L01–L24) | all 100 supported 2.0 and 1.6 ROMs, 24 RAM layouts |
+| `FA24DIT_Logger_SUBUDS.xml` | 75: 45 stock (wastegate duty J10 left out, as in the Ascent SSM file) and 30 logging-patch ones (L01–L12, L15–L32) | the three Ascent ROMs |
+
+The names, conversions and IDs match the SSM files, so a log from either protocol reads the same.
+
+**How I checked it:** RAM addresses differ between ROMs, so every address was checked in an emulator running each ROM's own
+code. The byte the SUBUDS read returns had to match the byte the ECU's own SSM read returns for the same parameter,
+on the stock and on the patched ROM: 103 ROMs, no mismatch. RomRaider's own definition parser resolves every
+parameter for every ECU ID in the files, and an ECU ID that isn't in the file gets no addresses (nothing is guessed).
+
+**Limits:**
+
+* **Not yet run on a car.** If you try it, please [open an issue](../../../issues/new/choose) and say how it went
+  (cable, ROM, whether values move).
+* RAM only. The protocol doesn't read flash and doesn't unlock security.
+* One protocol at a time, as with SSM and OBD: the DTC tab and OBD parameters need their own files.
+* An ECU your file doesn't list (an unsupported calibration) connects, but its parameters stay unavailable.
 
 ## Status
 

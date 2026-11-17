@@ -218,7 +218,7 @@ A list of the calibration IDs known for these ECUs, and how each relates to the 
 |---|---|
 | `definitions/romraider/` | `FA20DIT_RomRaider.xml`: one file covering every supported 2.0 ROM. `FB16DIT_RomRaider.xml`: the same for the Levorg 1.6. `FA24DIT_RomRaider.xml`: the Ascent. |
 | `definitions/ecuflash/Imperial/`, `definitions/ecuflash/Metric/` | The same EcuFlash definitions in two unit systems (EcuFlash can't switch units itself). Each folder has a base file per engine (every table) plus one small file per ROM; install one of the two. |
-| `logger/` | `FA20DIT_Logger.xml` (stock SSM and OBD parameters, trouble codes; also for the Levorg 1.6) and `FA20DIT_Logger_LogPatch.xml` (stock plus the logging-patch parameters). `FA20DIT_Logger_LogPatch_only.xml` holds only the new parameters, for merging into your own logger file. `FA24DIT_Logger*.xml`: the same three for the Ascent. |
+| `logger/` | `FA20DIT_Logger.xml` (stock SSM and OBD parameters, trouble codes; also for the Levorg 1.6) and `FA20DIT_Logger_LogPatch.xml` (stock plus the logging-patch parameters). `FA20DIT_Logger_LogPatch_only.xml` holds only the new parameters, for merging into your own logger file. `FA24DIT_Logger*.xml`: the same three for the Ascent. `*_Logger_SUBUDS.xml`: stock ROMs without the patch, for a RomRaider build with the SUBUDS protocol. |
 | `tools/checksum.py`, `tools/checksum.ps1` | Check and fix the ROM checksum of 2 MB and 2.5 MB ROMs (Python, or PowerShell for Windows). **Required for ROMs edited in RomRaider**, and `verify` before any flash (see below). |
 | `tools/logpatch/` | The logging patch: `make_logpatch.py` (and `make_logpatch.ps1` for Windows) and a spec for every supported ROM, the Ascent included. |
 | `docs/guide/` | [The tuning guide](docs/guide/README.md): workflows, how the logic works, appendices and a table reference. |
@@ -319,15 +319,17 @@ On the **Ascent**, log with `logger/FA24DIT_Logger_LogPatch.xml` instead. It has
 control mode and position sensor voltage, plus boost error and the boost target before its corrections (L25–L32).
 Target boost (L11) and boost pressure (L12) are the Ascent's own.
 
-### In progress: logging without a patch (Subaru UDS in RomRaider)
+### Logging without a patch (SUBUDS)
 
-I'm adding a new logger protocol to RomRaider, **SUBUDS**, that reads values straight from the ECU's RAM over CAN. It
-works on a stock ROM with no reflash, so everything the logging patch adds (and more) could be logged without it.
-[My fork of RomRaider](https://github.com/Jengacat/RomRaider/tree/Subaru-UDS-Logging) has it, and a Windows test
-build with the matching logger file is on the fork's
-[subuds-test-1 release](https://github.com/Jengacat/RomRaider/releases/tag/subuds-test-1). It hasn't been tested on a
-car yet; once it has, the logger file will move here and the protocol will go to the RomRaider project. If you try it,
-please [open an issue](../../issues/new/choose) with how it went.
+**SUBUDS** is a RomRaider logger protocol I added that reads values straight from the ECU's RAM over CAN, using
+diagnostic services the ECU allows without a security unlock. It works on a stock ROM with no reflash, so everything
+the logging patch adds can be logged without it. The logger files are `logger/FA20DIT_Logger_SUBUDS.xml` (2.0 and 1.6
+ROMs) and `logger/FA24DIT_Logger_SUBUDS.xml` (Ascent). They need a RomRaider build with the protocol:
+[my fork of RomRaider](https://github.com/Jengacat/RomRaider/tree/Subaru-UDS-Logging) has it, with Windows and Linux
+builds on the fork's [subuds-test-1 release](https://github.com/Jengacat/RomRaider/releases/tag/subuds-test-1).
+Every address was checked in an emulator against what the ECU's own SSM read returns, but it hasn't been run on a car
+yet. Once it has, the protocol will go to the RomRaider project. If you try it, please
+[open an issue](../../issues/new/choose) with how it went. Details: [logger README](logger/README.md#logging-without-the-patch-subuds).
 
 ## Units
 

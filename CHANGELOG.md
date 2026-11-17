@@ -4,11 +4,12 @@
 
 First public release.
 
-- New: **knock-event detector and its torque limit** (2017 and later 2.0 ROMs, and the 1.6). Later ROMs carry a
+- New: **knock-event detector and its torque limit** (2017 Forester XT, 2018-2021 WRX and the 2017-2020 1.6 ROMs:
+  21 ROMs; older ROMs either lack it or have a version I have not defined). These ROMs carry a
   detector beside DAM: one part counts cylinders knocking while knock correction is already deep, the other watches
   for ignition timing pulled down to a floor. When it trips (and, if the latch is on, until the learned values are
   reset) the new **Maximum Torque (Knock Event)** table caps torque by rpm and pedal. It is switched off on the 2.0
-  WRX ROMs I have; on the 1.6 the knocking-cylinder part is on, and on the 2017 and 2020 1.6 ROMs the table is
+  WRX ROMs I have; on the 1.6 the knocking-cylinder part is on, and on several 1.6 ROMs the table is
   filled (0 to about 166 ft-lb). Switches, counts, thresholds and the timing floor tables are all defined, in
   Knock Control and Torque Limits.
 - New: **DAM Initial Value, DAM Step and DAM Step-Up Knock-Free Events** on every ROM. The step is zeroed on every

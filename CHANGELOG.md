@@ -6,7 +6,7 @@ First public release.
 
 - New: **per-cylinder ignition timing trim** (four tables, one per cylinder, by rpm and load, plus the enable
   switch). Timing added to or taken from one cylinder only. The switch is already on in the 2017 Forester XT, every
-  2018-2021 WRX ROM I have and the 1.6, so on those you only need to fill in the tables (they are zero on the WRX;
+  2018-2021 WRX ROM I have and most 1.6 ROMs, so on those you only need to fill in the tables (they are zero on the WRX;
   the 1.6, the 2018 Levorg and the Ascent use up to 2.5 degrees). On the 2014-2017 2.0 ROMs the switch is off.
 - New: more tables that are flat on the 2015 WRX but calibrated on other ROMs:
   - manifold-pressure model transient thresholds and hysteresis (in gear and neutral) and its rising-transient gain;

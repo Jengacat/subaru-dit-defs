@@ -986,6 +986,45 @@
    </table>
    <description>Scales the load-rise (film) transient fuel by rpm while it adds fuel (128 = x1.0). Companion of Transient Fuel Film Target.</description>
   </table>
+  <table type="2D" name="Transient Fuel Film Gain RPM Multiplier (Negative Film)" category="Fueling//Transient Fueling" storagetype="uint8" endian="big" sizey="16" userlevel="3" storageaddress="0x039d6f">
+   <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint8" endian="big" storageaddress="0x03e924">
+    <scaling units="RPM" expression="x*25" to_byte="x/25" format="0" fineincrement="25" coarseincrement="100.0" />
+   </table>
+   <description>Scales the film term by engine speed while the film term is negative (fuel taken away).</description>
+  </table>
+  <table type="2D" name="Transient Fuel Film Term Lower Limit" category="Fueling//Transient Fueling" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x039dc4">
+   <scaling units="film term" expression="x-32768" to_byte="x+32768" format="0" fineincrement="64" coarseincrement="256.0" />
+   <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x03e9f4">
+    <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
+    <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>Lowest the transient film term may go, by coolant temperature; 0 means fuel is never taken away.</description>
+  </table>
+  <table type="2D" name="Transient Fuel Film Gain (Coolant)" category="Fueling//Transient Fueling" storagetype="uint8" endian="big" sizey="16" userlevel="3" storageaddress="0x039e9a">
+   <scaling units="multiplier" expression="x/64" to_byte="x*64" format="0.00" fineincrement="0.02" coarseincrement="0.08" />
+   <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x03e9f4">
+    <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
+    <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>Scales the transient film step by coolant temperature (64 = 1.0).</description>
+  </table>
+  <table type="2D" name="Transient Fuel Film Gain (Coolant, AT/CVT)" category="Fueling//Transient Fueling" storagetype="uint8" endian="big" sizey="16" userlevel="3" storageaddress="0x039e7a">
+   <scaling units="multiplier" expression="x/64" to_byte="x*64" format="0.00" fineincrement="0.02" coarseincrement="0.08" />
+   <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x03e9f4">
+    <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
+    <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>As Transient Fuel Film Gain (Coolant), on AT/CVT codings.</description>
+  </table>
+  <table type="2D" name="Transient Fuel Film Gain (Coolant, MT Coding)" category="Fueling//Transient Fueling" storagetype="uint8" endian="big" sizey="16" userlevel="3" storageaddress="0x039e8a">
+   <scaling units="multiplier" expression="x/64" to_byte="x*64" format="0.00" fineincrement="0.02" coarseincrement="0.08" />
+   <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x03e9f4">
+    <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
+    <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>As Transient Fuel Film Gain (Coolant), on the manual coding when the alternate selection applies.</description>
+  </table>
   <table type="2D" name="Transient Fuel Injected-Cylinder Mask (Event Index 0)" category="Fueling//Transient Fueling" storagetype="uint8" endian="big" sizey="4" userlevel="4" storageaddress="0x039c3e">
    <scaling units="cylinder bit mask" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Axis" storagetype="uint8" endian="big" storageaddress="0x039c4e">
@@ -2768,6 +2807,17 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    </table>
    <description>Percentage (by rpm and load) of Base Timing Coolant Compensation (TGV Open) actually applied. Lower values reduce the cold-engine timing correction in that area.</description>
   </table>
+  <table type="3D" name="Base Timing Coolant Compensation Weight (TGV Closed)" category="Ignition Timing//Timing Compensations" storagetype="uint16" endian="big" sizex="16" sizey="22" userlevel="2" storageaddress="0x03716e">
+   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x036b54">
+    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint8" endian="big" storageaddress="0x036b3e">
+    <scaling units="RPM" expression="x*25" to_byte="x/25" format="0" fineincrement="25" coarseincrement="100.0" />
+   </table>
+   <description>Share of the TGV-closed coolant timing compensation that applies, by engine speed and load.</description>
+  </table>
   <table type="3D" name="Timing Request Enrichment Retard" category="Ignition Timing//Timing Compensations" storagetype="uint8" endian="big" sizex="9" sizey="3" userlevel="3" storageaddress="0x034ace">
    <scaling units="degrees" expression="(x-128)/2" to_byte="x*2+128" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <table type="X Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x034aaa">
@@ -4104,6 +4154,50 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
     <scaling units="% torque from spark" expression="x/327.68" to_byte="x*327.68" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    </table>
    <description>Turns a torque or efficiency shortfall back into spark retard on base timing. Besides torque reduction, it is how the ECU pulls fired timing down to Primary Ignition (or the closed-pedal target) plus knock correction advance where that is below Base Timing, so it must stay the inverse of Ignition Efficiency vs Retard; don't edit one without the other. Not used in the rev/overboost-cut states.</description>
+  </table>
+  <table type="3D" name="Ignition Timing Per-Cylinder Trim (Cylinder 1)" category="Ignition Timing//Retards &amp; Transient Timing" storagetype="int8" endian="big" sizex="8" sizey="8" userlevel="3" storageaddress="0x03e7ec">
+   <scaling units="degrees" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint16" endian="big" storageaddress="0x03e7dc">
+    <scaling category="Default" units="g/rev" expression="x/256*0.012929" to_byte="x/0.012929*256" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x/256" to_byte="x*256" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x03e7cc">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Timing added to (or, negative, taken from) cylinder 1 only, by engine speed and load.</description>
+  </table>
+  <table type="3D" name="Ignition Timing Per-Cylinder Trim (Cylinder 2)" category="Ignition Timing//Retards &amp; Transient Timing" storagetype="int8" endian="big" sizex="8" sizey="8" userlevel="3" storageaddress="0x03e82c">
+   <scaling units="degrees" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint16" endian="big" storageaddress="0x03e7dc">
+    <scaling category="Default" units="g/rev" expression="x/256*0.012929" to_byte="x/0.012929*256" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x/256" to_byte="x*256" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x03e7cc">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Timing added to (or, negative, taken from) cylinder 2 only, by engine speed and load.</description>
+  </table>
+  <table type="3D" name="Ignition Timing Per-Cylinder Trim (Cylinder 3)" category="Ignition Timing//Retards &amp; Transient Timing" storagetype="int8" endian="big" sizex="8" sizey="8" userlevel="3" storageaddress="0x03e86c">
+   <scaling units="degrees" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint16" endian="big" storageaddress="0x03e7dc">
+    <scaling category="Default" units="g/rev" expression="x/256*0.012929" to_byte="x/0.012929*256" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x/256" to_byte="x*256" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x03e7cc">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Timing added to (or, negative, taken from) cylinder 3 only, by engine speed and load.</description>
+  </table>
+  <table type="3D" name="Ignition Timing Per-Cylinder Trim (Cylinder 4)" category="Ignition Timing//Retards &amp; Transient Timing" storagetype="int8" endian="big" sizex="8" sizey="8" userlevel="3" storageaddress="0x03e8ac">
+   <scaling units="degrees" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint16" endian="big" storageaddress="0x03e7dc">
+    <scaling category="Default" units="g/rev" expression="x/256*0.012929" to_byte="x/0.012929*256" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x/256" to_byte="x*256" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x03e7cc">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Timing added to (or, negative, taken from) cylinder 4 only, by engine speed and load.</description>
   </table>
   <table type="3D" name="Base Timing (Pedal Released, TGV Open)" category="Ignition Timing//Idle &amp; Closed-Pedal Timing" storagetype="int8" endian="big" sizex="16" sizey="16" userlevel="3" storageaddress="0x01061e">
    <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -6562,6 +6656,13 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
    </table>
    <description>How many samples (10 ms each) the ECU spans, by rpm, when measuring how fast manifold pressure is changing; that rate triggers the manifold model's transient corrections.</description>
   </table>
+  <table type="2D" name="Manifold Model Rising Transient Gain Multiplier" category="Airflow &amp; Engine Model//Airflow / Load Model" storagetype="uint8" endian="big" sizey="16" userlevel="4" storageaddress="0x02f378">
+   <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint8" endian="big" storageaddress="0x03e984">
+    <scaling units="RPM" expression="x*31.25+500" to_byte="(x-500)/31.25" format="0" fineincrement="31.25" coarseincrement="125.0" />
+   </table>
+   <description>Gain multiplier of the manifold-pressure model during (and one pass after) a rising pressure transient, in gear.</description>
+  </table>
   <table type="2D" name="Manifold Model Rising Transient Threshold" category="Airflow &amp; Engine Model//Airflow / Load Model" storagetype="int16" endian="big" sizey="16" userlevel="4" storageaddress="0x030666">
    <scaling category="Default" units="psi" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
    <scaling category="kPa" units="kPa" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -6582,6 +6683,16 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
    </table>
    <description>Version of Manifold Model Rising Transient Threshold used with the transmission in neutral.</description>
   </table>
+  <table type="2D" name="Manifold Model Rising Transient Hysteresis" category="Airflow &amp; Engine Model//Airflow / Load Model" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x030766">
+   <scaling category="Default" units="psi" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+   <scaling category="kPa" units="kPa" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="Y Axis" name="Manifold Pressure" storagetype="uint16" endian="big" storageaddress="0x030786">
+    <scaling category="Default" units="psia" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.25" coarseincrement="1.0" />
+    <scaling category="psi gauge" units="psi (gauge)" expression="(x/256-101.325)*0.1450377" to_byte="(x/0.1450377+101.325)*256" format="0.00" fineincrement="0.25" coarseincrement="1.0" />
+    <scaling category="kPa absolute" units="kPa abs" expression="x/256" to_byte="x*256" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>Hysteresis of the rising-transient detection, in gear.</description>
+  </table>
   <table type="2D" name="Manifold Model Rising Transient Hysteresis (Neutral)" category="Airflow &amp; Engine Model//Airflow / Load Model" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x030726">
    <scaling category="Default" units="psi" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
    <scaling category="kPa" units="kPa" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -6591,6 +6702,46 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
     <scaling category="kPa absolute" units="kPa abs" expression="x/256" to_byte="x*256" format="0.0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <description>Hysteresis on Manifold Model Rising Transient Threshold (Neutral) once the rising condition is met.</description>
+  </table>
+  <table type="2D" name="Manifold Model Falling Transient Threshold" category="Airflow &amp; Engine Model//Airflow / Load Model" storagetype="int16" endian="big" sizey="16" userlevel="4" storageaddress="0x0306a6">
+   <scaling category="Default" units="psi" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+   <scaling category="kPa" units="kPa" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="Y Axis" name="Manifold Pressure" storagetype="uint16" endian="big" storageaddress="0x0306c6">
+    <scaling category="Default" units="psia" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.25" coarseincrement="1.0" />
+    <scaling category="psi gauge" units="psi (gauge)" expression="(x/256-101.325)*0.1450377" to_byte="(x/0.1450377+101.325)*256" format="0.00" fineincrement="0.25" coarseincrement="1.0" />
+    <scaling category="kPa absolute" units="kPa abs" expression="x/256" to_byte="x*256" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>A falling transient starts when manifold pressure drops this far below its filtered value (negative), in gear.</description>
+  </table>
+  <table type="2D" name="Manifold Model Falling Transient Hysteresis" category="Airflow &amp; Engine Model//Airflow / Load Model" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x030826">
+   <scaling category="Default" units="psi" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+   <scaling category="kPa" units="kPa" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="Y Axis" name="Manifold Pressure" storagetype="uint16" endian="big" storageaddress="0x030846">
+    <scaling category="Default" units="psia" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.25" coarseincrement="1.0" />
+    <scaling category="psi gauge" units="psi (gauge)" expression="(x/256-101.325)*0.1450377" to_byte="(x/0.1450377+101.325)*256" format="0.00" fineincrement="0.25" coarseincrement="1.0" />
+    <scaling category="kPa absolute" units="kPa abs" expression="x/256" to_byte="x*256" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>Hysteresis of the falling-transient detection, in gear.</description>
+  </table>
+  <table type="2D" name="Manifold Model Falling Transient Threshold (Neutral)" category="Airflow &amp; Engine Model//Airflow / Load Model" storagetype="int16" endian="big" sizey="16" userlevel="4" storageaddress="0x0307a6">
+   <scaling category="Default" units="psi" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+   <scaling category="kPa" units="kPa" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="Y Axis" name="Manifold Pressure" storagetype="uint16" endian="big" storageaddress="0x0307c6">
+    <scaling category="Default" units="psia" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.25" coarseincrement="1.0" />
+    <scaling category="psi gauge" units="psi (gauge)" expression="(x/256-101.325)*0.1450377" to_byte="(x/0.1450377+101.325)*256" format="0.00" fineincrement="0.25" coarseincrement="1.0" />
+    <scaling category="kPa absolute" units="kPa abs" expression="x/256" to_byte="x*256" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>As the falling-transient threshold, in neutral.</description>
+  </table>
+  <table type="2D" name="Manifold Model Falling Transient Hysteresis (Neutral)" category="Airflow &amp; Engine Model//Airflow / Load Model" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x0307e6">
+   <scaling category="Default" units="psi" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+   <scaling category="kPa" units="kPa" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="Y Axis" name="Manifold Pressure" storagetype="uint16" endian="big" storageaddress="0x030806">
+    <scaling category="Default" units="psia" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.25" coarseincrement="1.0" />
+    <scaling category="psi gauge" units="psi (gauge)" expression="(x/256-101.325)*0.1450377" to_byte="(x/0.1450377+101.325)*256" format="0.00" fineincrement="0.25" coarseincrement="1.0" />
+    <scaling category="kPa absolute" units="kPa abs" expression="x/256" to_byte="x*256" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>As the falling-transient hysteresis, in neutral.</description>
   </table>
   <table type="3D" name="Manifold Model Gain Multiplier (Falling MAP, Initial)" category="Airflow &amp; Engine Model//Airflow / Load Model" storagetype="uint8" endian="big" sizex="16" sizey="16" userlevel="4" storageaddress="0x030266">
    <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
@@ -8879,6 +9030,35 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
    </table>
    <description>Extra timing advance requested while EGR is active with the TGVs closed, by rpm and load, scaled by how much EGR is flowing. It is added to the Primary Ignition request, so it reaches the spark only where that request (plus knock advance) is below the Base Timing (EGR Active) map, never above it.</description>
   </table>
+  <table type="3D" name="EGR Timing Advance DAM Term (TGV Closed)" category="EGR &amp; TGV//EGR" storagetype="uint8" endian="big" sizex="16" sizey="22" userlevel="3" storageaddress="0x0258ca">
+   <scaling units="degrees" expression="(x-128)/2" to_byte="x*2+128" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint16" endian="big" storageaddress="0x01ca36">
+    <scaling category="Default" units="g/rev" expression="x/256*0.012929" to_byte="x/0.012929*256" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x/256" to_byte="x*256" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x01ca0a">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Extra EGR timing advance that is weighted in by DAM, TGVs closed.</description>
+  </table>
+  <table type="3D" name="EGR Timing Advance DAM Term (TGV Open)" category="EGR &amp; TGV//EGR" storagetype="uint8" endian="big" sizex="16" sizey="22" userlevel="3" storageaddress="0x025a2a">
+   <scaling units="degrees" expression="(x-128)/2" to_byte="x*2+128" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint16" endian="big" storageaddress="0x01ca36">
+    <scaling category="Default" units="g/rev" expression="x/256*0.012929" to_byte="x/0.012929*256" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x/256" to_byte="x*256" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x01ca0a">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Extra EGR timing advance that is weighted in by DAM, TGVs open.</description>
+  </table>
+  <table type="2D" name="EGR Timing Advance DAM Term Weight" category="EGR &amp; TGV//EGR" storagetype="uint16" endian="big" sizey="10" userlevel="3" storageaddress="0x0258b6">
+   <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
+   <table type="Y Axis" name="Dynamic Advance Multiplier" storagetype="uint8" endian="big" storageaddress="0x0258ac">
+    <scaling units="DAM" expression="x/16" to_byte="x*16" format="0.000" fineincrement="0.0625" coarseincrement="0.25" min="0" max="1" />
+   </table>
+   <description>How much of the DAM term applies, by DAM (128 = all of it; 0 = off, as on the 2.0 WRX).</description>
+  </table>
   <table type="3D" name="EGR Timing Advance (TGV Open)" category="EGR &amp; TGV//EGR" storagetype="uint8" endian="big" sizex="16" sizey="22" userlevel="3" storageaddress="0x03577c">
    <scaling units="degrees" expression="(x-128)/2" to_byte="x*2+128" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint16" endian="big" storageaddress="0x01ca36">
@@ -9108,6 +9288,41 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Multi-injection copy of EGR Timing Advance (TGV Open).</description>
+  </table>
+  <table type="3D" name="EGR Timing Advance DAM Term (Multi-Injection, TGV Closed)" category="EGR &amp; TGV//EGR" storagetype="uint8" endian="big" sizex="16" sizey="22" userlevel="5" storageaddress="0x036cc4">
+   <scaling units="degrees" expression="(x-128)/2" to_byte="x*2+128" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint16" endian="big" storageaddress="0x01ca36">
+    <scaling category="Default" units="g/rev" expression="x/256*0.012929" to_byte="x/0.012929*256" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x/256" to_byte="x*256" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x01ca0a">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>As the EGR DAM term, with multiple injection.
+
+Details: 0x0DD0DC (read), used while FFF8A775 bit 2 is set. Confidence: read.</description>
+  </table>
+  <table type="3D" name="EGR Timing Advance DAM Term (Multi-Injection, TGV Open)" category="EGR &amp; TGV//EGR" storagetype="uint8" endian="big" sizex="16" sizey="22" userlevel="5" storageaddress="0x036f84">
+   <scaling units="degrees" expression="(x-128)/2" to_byte="x*2+128" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint16" endian="big" storageaddress="0x01ca36">
+    <scaling category="Default" units="g/rev" expression="x/256*0.012929" to_byte="x/0.012929*256" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x/256" to_byte="x*256" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x01ca0a">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>As the EGR DAM term, with multiple injection.
+
+Details: 0x0DD0DC (read). Confidence: read.</description>
+  </table>
+  <table type="2D" name="EGR Timing Advance DAM Term Weight (Multi-Injection)" category="EGR &amp; TGV//EGR" storagetype="uint16" endian="big" sizey="10" userlevel="5" storageaddress="0x0258b6">
+   <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
+   <table type="Y Axis" name="Dynamic Advance Multiplier" storagetype="uint8" endian="big" storageaddress="0x0258ac">
+    <scaling units="DAM" expression="x/16" to_byte="x*16" format="0.000" fineincrement="0.0625" coarseincrement="0.25" min="0" max="1" />
+   </table>
+   <description>How much of the multiple-injection DAM term applies, by DAM.
+
+Details: 0x0DD0DC (read). Confidence: read.</description>
   </table>
   <table type="2D" name="TGV Torque Threshold Enter (Drive Modes 1/4, Default/Sport Sharp)" category="EGR &amp; TGV//TGV" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03e18c">
    <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
@@ -13269,6 +13484,21 @@ Details: Integral x this / 100 after the clamp (0x13866C, read). Address 03FE70.
   <table name="Transient Fuel Film Gain RPM Multiplier" storageaddress="0x03a707">
    <table type="Y Axis" storageaddress="0x03f44c" />
   </table>
+  <table name="Transient Fuel Film Gain RPM Multiplier (Negative Film)" storageaddress="0x03a6f7">
+   <table type="Y Axis" storageaddress="0x03f2ac" />
+  </table>
+  <table name="Transient Fuel Film Term Lower Limit" storageaddress="0x03a74c">
+   <table type="Y Axis" storageaddress="0x03f37c" />
+  </table>
+  <table name="Transient Fuel Film Gain (Coolant)" storageaddress="0x03a822">
+   <table type="Y Axis" storageaddress="0x03f37c" />
+  </table>
+  <table name="Transient Fuel Film Gain (Coolant, AT/CVT)" storageaddress="0x03a802">
+   <table type="Y Axis" storageaddress="0x03f37c" />
+  </table>
+  <table name="Transient Fuel Film Gain (Coolant, MT Coding)" storageaddress="0x03a812">
+   <table type="Y Axis" storageaddress="0x03f37c" />
+  </table>
   <table name="Transient Fuel Injected-Cylinder Mask (Event Index 0)" storageaddress="0x03a5c6">
    <table type="Y Axis" storageaddress="0x03a5d6" />
   </table>
@@ -13644,6 +13874,10 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <table type="Y Axis" storageaddress="0x03f37c" />
   </table>
   <table name="Base Timing Coolant Compensation Weight (TGV Open)" storageaddress="0x037db2">
+   <table type="X Axis" storageaddress="0x0374d8" />
+   <table type="Y Axis" storageaddress="0x0374c2" />
+  </table>
+  <table name="Base Timing Coolant Compensation Weight (TGV Closed)" storageaddress="0x037af2">
    <table type="X Axis" storageaddress="0x0374d8" />
    <table type="Y Axis" storageaddress="0x0374c2" />
   </table>
@@ -14037,6 +14271,22 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Torque Reduction Spark Retard" storageaddress="0x035418">
    <table type="Y Axis" storageaddress="0x0353f8" />
   </table>
+  <table name="Ignition Timing Per-Cylinder Trim (Cylinder 1)" storageaddress="0x03f174">
+   <table type="X Axis" storageaddress="0x03f164" />
+   <table type="Y Axis" storageaddress="0x03f154" />
+  </table>
+  <table name="Ignition Timing Per-Cylinder Trim (Cylinder 2)" storageaddress="0x03f1b4">
+   <table type="X Axis" storageaddress="0x03f164" />
+   <table type="Y Axis" storageaddress="0x03f154" />
+  </table>
+  <table name="Ignition Timing Per-Cylinder Trim (Cylinder 3)" storageaddress="0x03f1f4">
+   <table type="X Axis" storageaddress="0x03f164" />
+   <table type="Y Axis" storageaddress="0x03f154" />
+  </table>
+  <table name="Ignition Timing Per-Cylinder Trim (Cylinder 4)" storageaddress="0x03f234">
+   <table type="X Axis" storageaddress="0x03f164" />
+   <table type="Y Axis" storageaddress="0x03f154" />
+  </table>
   <table name="Ignition Timing Cap (Pedal Released, TGV Closed)" storageaddress="0x03945a">
    <table type="X Axis" storageaddress="0x0398b0" />
    <table type="Y Axis" storageaddress="0x039890" />
@@ -14391,14 +14641,32 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Manifold Pressure Rate Span (RPM)" storageaddress="0x03033c">
    <table type="Y Axis" storageaddress="0x030328" />
   </table>
+  <table name="Manifold Model Rising Transient Gain Multiplier" storageaddress="0x02f8e8">
+   <table type="Y Axis" storageaddress="0x03f30c" />
+  </table>
   <table name="Manifold Model Rising Transient Threshold" storageaddress="0x030bd6">
    <table type="Y Axis" storageaddress="0x030bf6" />
   </table>
   <table name="Manifold Model Rising Transient Threshold (Neutral)" storageaddress="0x030c56">
    <table type="Y Axis" storageaddress="0x030c76" />
   </table>
+  <table name="Manifold Model Rising Transient Hysteresis" storageaddress="0x030cd6">
+   <table type="Y Axis" storageaddress="0x030cf6" />
+  </table>
   <table name="Manifold Model Rising Transient Hysteresis (Neutral)" storageaddress="0x030c96">
    <table type="Y Axis" storageaddress="0x030cb6" />
+  </table>
+  <table name="Manifold Model Falling Transient Threshold" storageaddress="0x030c16">
+   <table type="Y Axis" storageaddress="0x030c36" />
+  </table>
+  <table name="Manifold Model Falling Transient Hysteresis" storageaddress="0x030d96">
+   <table type="Y Axis" storageaddress="0x030db6" />
+  </table>
+  <table name="Manifold Model Falling Transient Threshold (Neutral)" storageaddress="0x030d16">
+   <table type="Y Axis" storageaddress="0x030d36" />
+  </table>
+  <table name="Manifold Model Falling Transient Hysteresis (Neutral)" storageaddress="0x030d56">
+   <table type="Y Axis" storageaddress="0x030d76" />
   </table>
   <table name="Manifold Model Gain Multiplier (Falling MAP, Initial)" storageaddress="0x0307d6">
    <table type="X Axis" storageaddress="0x030936" />
@@ -15062,6 +15330,8 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   </table>
   <table name="EGR Timing Advance (Multi-Injection, TGV Closed)" storageaddress="0x0374e8" />
   <table name="EGR Timing Advance (Multi-Injection, TGV Open)" storageaddress="0x0377a8" />
+  <table name="EGR Timing Advance DAM Term (Multi-Injection, TGV Closed)" storageaddress="0x037648" />
+  <table name="EGR Timing Advance DAM Term (Multi-Injection, TGV Open)" storageaddress="0x037908" />
   <table name="TGV Torque Threshold Enter (Drive Modes 1/4, Default/Sport Sharp)" storageaddress="0x03eb14">
    <table type="Y Axis" storageaddress="0x03ead4" />
   </table>
@@ -18419,6 +18689,21 @@ Details: When used: see Additional Enrichment A: B applies when coolant &lt; cal
   <table name="Transient Fuel Film Gain RPM Multiplier" storageaddress="0x03aaeb">
    <table type="Y Axis" storageaddress="0x03f830" />
   </table>
+  <table name="Transient Fuel Film Gain RPM Multiplier (Negative Film)" storageaddress="0x03aadb">
+   <table type="Y Axis" storageaddress="0x03f690" />
+  </table>
+  <table name="Transient Fuel Film Term Lower Limit" storageaddress="0x03ab30">
+   <table type="Y Axis" storageaddress="0x03f760" />
+  </table>
+  <table name="Transient Fuel Film Gain (Coolant)" storageaddress="0x03ac06">
+   <table type="Y Axis" storageaddress="0x03f760" />
+  </table>
+  <table name="Transient Fuel Film Gain (Coolant, AT/CVT)" storageaddress="0x03abe6">
+   <table type="Y Axis" storageaddress="0x03f760" />
+  </table>
+  <table name="Transient Fuel Film Gain (Coolant, MT Coding)" storageaddress="0x03abf6">
+   <table type="Y Axis" storageaddress="0x03f760" />
+  </table>
   <table name="Transient Fuel Injected-Cylinder Mask (Event Index 0)" storageaddress="0x03a9aa">
    <table type="Y Axis" storageaddress="0x03a9ba" />
   </table>
@@ -18951,6 +19236,10 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <table type="X Axis" storageaddress="0x03768c" />
    <table type="Y Axis" storageaddress="0x037676" />
   </table>
+  <table name="Base Timing Coolant Compensation Weight (TGV Closed)" storageaddress="0x037ca6">
+   <table type="X Axis" storageaddress="0x03768c" />
+   <table type="Y Axis" storageaddress="0x037676" />
+  </table>
   <table name="Timing Request Enrichment Retard" storageaddress="0x035606">
    <table type="X Axis" storageaddress="0x0355e2" />
    <table type="Y Axis" storageaddress="0x0355de" />
@@ -19436,6 +19725,22 @@ Weighted DAM/16. 0x0D9BD4 (read): FFF8A73F = ((16 - DAM) x 05B54C + DAM x 05B560
   </table>
   <table name="Torque Reduction Spark Retard" storageaddress="0x0355cc">
    <table type="Y Axis" storageaddress="0x0355ac" />
+  </table>
+  <table name="Ignition Timing Per-Cylinder Trim (Cylinder 1)" storageaddress="0x03f558">
+   <table type="X Axis" storageaddress="0x03f548" />
+   <table type="Y Axis" storageaddress="0x03f538" />
+  </table>
+  <table name="Ignition Timing Per-Cylinder Trim (Cylinder 2)" storageaddress="0x03f598">
+   <table type="X Axis" storageaddress="0x03f548" />
+   <table type="Y Axis" storageaddress="0x03f538" />
+  </table>
+  <table name="Ignition Timing Per-Cylinder Trim (Cylinder 3)" storageaddress="0x03f5d8">
+   <table type="X Axis" storageaddress="0x03f548" />
+   <table type="Y Axis" storageaddress="0x03f538" />
+  </table>
+  <table name="Ignition Timing Per-Cylinder Trim (Cylinder 4)" storageaddress="0x03f618">
+   <table type="X Axis" storageaddress="0x03f548" />
+   <table type="Y Axis" storageaddress="0x03f538" />
   </table>
   <table name="Ignition Timing Cap (Pedal Released, TGV Closed)" storageaddress="0x03960e">
    <table type="X Axis" storageaddress="0x039a64" />
@@ -20273,14 +20578,32 @@ Details: 0x0C4E5C (read): AFBA = min(this(rpm), T) while FFF8A9C9 bit 2 is set; 
   <table name="Manifold Pressure Rate Span (RPM)" storageaddress="0x0304d4">
    <table type="Y Axis" storageaddress="0x0304c0" />
   </table>
+  <table name="Manifold Model Rising Transient Gain Multiplier" storageaddress="0x02fa80">
+   <table type="Y Axis" storageaddress="0x03f6f0" />
+  </table>
   <table name="Manifold Model Rising Transient Threshold" storageaddress="0x030d6e">
    <table type="Y Axis" storageaddress="0x030d8e" />
   </table>
   <table name="Manifold Model Rising Transient Threshold (Neutral)" storageaddress="0x030dee">
    <table type="Y Axis" storageaddress="0x030e0e" />
   </table>
+  <table name="Manifold Model Rising Transient Hysteresis" storageaddress="0x030e6e">
+   <table type="Y Axis" storageaddress="0x030e8e" />
+  </table>
   <table name="Manifold Model Rising Transient Hysteresis (Neutral)" storageaddress="0x030e2e">
    <table type="Y Axis" storageaddress="0x030e4e" />
+  </table>
+  <table name="Manifold Model Falling Transient Threshold" storageaddress="0x030dae">
+   <table type="Y Axis" storageaddress="0x030dce" />
+  </table>
+  <table name="Manifold Model Falling Transient Hysteresis" storageaddress="0x030f2e">
+   <table type="Y Axis" storageaddress="0x030f4e" />
+  </table>
+  <table name="Manifold Model Falling Transient Threshold (Neutral)" storageaddress="0x030eae">
+   <table type="Y Axis" storageaddress="0x030ece" />
+  </table>
+  <table name="Manifold Model Falling Transient Hysteresis (Neutral)" storageaddress="0x030eee">
+   <table type="Y Axis" storageaddress="0x030f0e" />
   </table>
   <table name="Manifold Model Gain Multiplier (Falling MAP, Initial)" storageaddress="0x03096e">
    <table type="X Axis" storageaddress="0x030ace" />
@@ -20905,6 +21228,17 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
    <table type="X Axis" storageaddress="0x01ca6e" />
    <table type="Y Axis" storageaddress="0x01ca42" />
   </table>
+  <table name="EGR Timing Advance DAM Term (TGV Closed)" storageaddress="0x0258f2">
+   <table type="X Axis" storageaddress="0x01ca6e" />
+   <table type="Y Axis" storageaddress="0x01ca42" />
+  </table>
+  <table name="EGR Timing Advance DAM Term (TGV Open)" storageaddress="0x025a52">
+   <table type="X Axis" storageaddress="0x01ca6e" />
+   <table type="Y Axis" storageaddress="0x01ca42" />
+  </table>
+  <table name="EGR Timing Advance DAM Term Weight" storageaddress="0x0258de">
+   <table type="Y Axis" storageaddress="0x0258d4" />
+  </table>
   <table name="EGR Timing Advance (TGV Open)" storageaddress="0x0362b4">
    <table type="X Axis" storageaddress="0x01ca6e" />
    <table type="Y Axis" storageaddress="0x01ca42" />
@@ -21000,6 +21334,17 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="EGR Timing Advance (Multi-Injection, TGV Open)" storageaddress="0x03795c">
    <table type="X Axis" storageaddress="0x01ca6e" />
    <table type="Y Axis" storageaddress="0x01ca42" />
+  </table>
+  <table name="EGR Timing Advance DAM Term (Multi-Injection, TGV Closed)" storageaddress="0x0377fc">
+   <table type="X Axis" storageaddress="0x01ca6e" />
+   <table type="Y Axis" storageaddress="0x01ca42" />
+  </table>
+  <table name="EGR Timing Advance DAM Term (Multi-Injection, TGV Open)" storageaddress="0x037abc">
+   <table type="X Axis" storageaddress="0x01ca6e" />
+   <table type="Y Axis" storageaddress="0x01ca42" />
+  </table>
+  <table name="EGR Timing Advance DAM Term Weight (Multi-Injection)" storageaddress="0x0258de">
+   <table type="Y Axis" storageaddress="0x0258d4" />
   </table>
   <table name="TGV Torque Threshold Enter (Drive Modes 1/4, Default/Sport Sharp)" storageaddress="0x03eef8">
    <table type="Y Axis" storageaddress="0x03eeb8" />

@@ -4,6 +4,20 @@
 
 First public release.
 
+- New: **per-cylinder ignition timing trim** (four tables, one per cylinder, by rpm and load, plus the enable
+  switch). Timing added to or taken from one cylinder only. The switch is already on in the 2017 Forester XT, every
+  2018-2021 WRX ROM I have and the 1.6, so on those you only need to fill in the tables (they are zero on the WRX;
+  the 1.6, the 2018 Levorg and the Ascent use up to 2.5 degrees). On the 2014-2017 2.0 ROMs the switch is off.
+- New: more tables that are flat on the 2015 WRX but calibrated on other ROMs:
+  - manifold-pressure model transient thresholds and hysteresis (in gear and neutral) and its rising-transient gain;
+  - the TGV-closed weight of the coolant timing compensation;
+  - transient fuel film gains by coolant (normal, AT/CVT, manual) and the negative-film rpm multiplier and limit;
+  - intake and exhaust AVCS enable delay after start (by engine-off time and oil temperature);
+  - the DAM-weighted EGR timing term and its weight (single and multiple injection);
+  - the AT/CVT start-spark torque adder pair.
+- I also checked about 30 other code-read tables that turned out to be second pointers to data that is already
+  defined. Editing the existing table already changes them, so they are not listed separately.
+
 - New: **charge-control enable for 2017 and later ROMs** (including the 1.6 and the Ascent). These ROMs replaced
   the fixed delay after start with two tables: a delay by estimated state of charge at start and battery sensor
   value, and an amount of charge the battery must take back since the start. Charge control may begin when either

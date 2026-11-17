@@ -322,6 +322,21 @@
  <table name="Transient Fuel Film Gain RPM Multiplier" address="0456bc">
   <table name="Engine Speed" address="04956c" />
  </table>
+ <table name="Transient Fuel Film Gain RPM Multiplier (Negative Film)" address="0456ac">
+  <table name="Engine Speed" address="0493cc" />
+ </table>
+ <table name="Transient Fuel Film Term Lower Limit" address="045702">
+  <table name="Coolant Temp" address="04949c" />
+ </table>
+ <table name="Transient Fuel Film Gain (Coolant)" address="0457d8">
+  <table name="Coolant Temp" address="04949c" />
+ </table>
+ <table name="Transient Fuel Film Gain (Coolant, AT/CVT)" address="0457b8">
+  <table name="Coolant Temp" address="04949c" />
+ </table>
+ <table name="Transient Fuel Film Gain (Coolant, MT Coding)" address="0457c8">
+  <table name="Coolant Temp" address="04949c" />
+ </table>
  <table name="Transient Fuel Injected-Cylinder Mask (Event Index 0)" address="04554a">
   <table name="Y Axis" address="04555a" />
  </table>
@@ -912,6 +927,10 @@
   <table name="Engine Load" address="0417a4" />
   <table name="Engine Speed" address="04178e" />
  </table>
+ <table name="Base Timing Coolant Compensation Weight (TGV Closed)" address="0417b4">
+  <table name="Engine Load" address="0417a4" />
+  <table name="Engine Speed" address="04178e" />
+ </table>
  <table name="Timing Request Enrichment Retard" address="03f71e">
   <table name="Engine Speed" address="03f6fa" />
   <table name="Engine Load" address="03f6f6" />
@@ -1445,6 +1464,23 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF
  </table>
  <table name="Torque Reduction Spark Retard" address="03f6e4">
   <table name="Y Axis" address="03f6c4" />
+ </table>
+ <table name="Ignition Timing Per-Cylinder Trim Enable" address="048ed5" />
+ <table name="Ignition Timing Per-Cylinder Trim (Cylinder 1)" address="049294">
+  <table name="Engine Load" address="049284" />
+  <table name="Engine Speed" address="049274" />
+ </table>
+ <table name="Ignition Timing Per-Cylinder Trim (Cylinder 2)" address="0492d4">
+  <table name="Engine Load" address="049284" />
+  <table name="Engine Speed" address="049274" />
+ </table>
+ <table name="Ignition Timing Per-Cylinder Trim (Cylinder 3)" address="049314">
+  <table name="Engine Load" address="049284" />
+  <table name="Engine Speed" address="049274" />
+ </table>
+ <table name="Ignition Timing Per-Cylinder Trim (Cylinder 4)" address="049354">
+  <table name="Engine Load" address="049284" />
+  <table name="Engine Speed" address="049274" />
  </table>
  <table name="Base Timing (Pedal Released, TGV Open)" address="01061e">
   <table name="Engine Load" address="0105fe" />
@@ -2362,14 +2398,32 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF
  <table name="Manifold Pressure Rate Span (RPM)" address="03ae98">
   <table name="Engine Speed" address="03ae84" />
  </table>
+ <table name="Manifold Model Rising Transient Gain Multiplier" address="03a444">
+  <table name="Engine Speed" address="04942c" />
+ </table>
  <table name="Manifold Model Rising Transient Threshold" address="03b732">
   <table name="Manifold Pressure" address="03b752" />
  </table>
  <table name="Manifold Model Rising Transient Threshold (Neutral)" address="03b7b2">
   <table name="Manifold Pressure" address="03b7d2" />
  </table>
+ <table name="Manifold Model Rising Transient Hysteresis" address="03b832">
+  <table name="Manifold Pressure" address="03b852" />
+ </table>
  <table name="Manifold Model Rising Transient Hysteresis (Neutral)" address="03b7f2">
   <table name="Manifold Pressure" address="03b812" />
+ </table>
+ <table name="Manifold Model Falling Transient Threshold" address="03b772">
+  <table name="Manifold Pressure" address="03b792" />
+ </table>
+ <table name="Manifold Model Falling Transient Hysteresis" address="03b8f2">
+  <table name="Manifold Pressure" address="03b912" />
+ </table>
+ <table name="Manifold Model Falling Transient Threshold (Neutral)" address="03b872">
+  <table name="Manifold Pressure" address="03b892" />
+ </table>
+ <table name="Manifold Model Falling Transient Hysteresis (Neutral)" address="03b8b2">
+  <table name="Manifold Pressure" address="03b8d2" />
  </table>
  <table name="Manifold Model Gain Multiplier (Falling MAP, Initial)" address="03b332">
   <table name="Manifold Pressure" address="03b492" />
@@ -3214,6 +3268,17 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
  <table name="EGR Timing Advance (TGV Closed)" address="04026c">
   <table name="Engine Load" address="027cc6" />
   <table name="Engine Speed" address="027c9a" />
+ </table>
+ <table name="EGR Timing Advance DAM Term (TGV Closed)" address="030bb2">
+  <table name="Engine Load" address="027cc6" />
+  <table name="Engine Speed" address="027c9a" />
+ </table>
+ <table name="EGR Timing Advance DAM Term (TGV Open)" address="030d12">
+  <table name="Engine Load" address="027cc6" />
+  <table name="Engine Speed" address="027c9a" />
+ </table>
+ <table name="EGR Timing Advance DAM Term Weight" address="030b9e">
+  <table name="Dynamic Advance Multiplier" address="030b94" />
  </table>
  <table name="EGR Timing Advance (TGV Open)" address="0403cc">
   <table name="Engine Load" address="027cc6" />

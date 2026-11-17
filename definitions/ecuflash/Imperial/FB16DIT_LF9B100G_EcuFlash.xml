@@ -395,6 +395,21 @@
  <table name="Transient Fuel Film Gain RPM Multiplier" address="03d4af">
   <table name="Engine Speed" address="04135c" />
  </table>
+ <table name="Transient Fuel Film Gain RPM Multiplier (Negative Film)" address="03d49f">
+  <table name="Engine Speed" address="0411bc" />
+ </table>
+ <table name="Transient Fuel Film Term Lower Limit" address="03d4f4">
+  <table name="Coolant Temp" address="04128c" />
+ </table>
+ <table name="Transient Fuel Film Gain (Coolant)" address="03d5ca">
+  <table name="Coolant Temp" address="04128c" />
+ </table>
+ <table name="Transient Fuel Film Gain (Coolant, AT/CVT)" address="03d5aa">
+  <table name="Coolant Temp" address="04128c" />
+ </table>
+ <table name="Transient Fuel Film Gain (Coolant, MT Coding)" address="03d5ba">
+  <table name="Coolant Temp" address="04128c" />
+ </table>
  <table name="Transient Fuel Injected-Cylinder Mask (Event Index 0)" address="03d36e">
   <table name="Y Axis" address="03d37e" />
  </table>
@@ -1173,6 +1188,10 @@
   <table name="Coolant Temp" address="04128c" />
  </table>
  <table name="Base Timing Coolant Compensation Weight (TGV Open)" address="03b016">
+  <table name="Engine Load" address="03a73c" />
+  <table name="Engine Speed" address="03a726" />
+ </table>
+ <table name="Base Timing Coolant Compensation Weight (TGV Closed)" address="03ad56">
   <table name="Engine Load" address="03a73c" />
   <table name="Engine Speed" address="03a726" />
  </table>
@@ -2650,14 +2669,32 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF
  <table name="Manifold Pressure Rate Span (RPM)" address="034034">
   <table name="Engine Speed" address="034020" />
  </table>
+ <table name="Manifold Model Rising Transient Gain Multiplier" address="0335e0">
+  <table name="Engine Speed" address="04121c" />
+ </table>
  <table name="Manifold Model Rising Transient Threshold" address="0348ce">
   <table name="Manifold Pressure" address="0348ee" />
  </table>
  <table name="Manifold Model Rising Transient Threshold (Neutral)" address="03494e">
   <table name="Manifold Pressure" address="03496e" />
  </table>
+ <table name="Manifold Model Rising Transient Hysteresis" address="0349ce">
+  <table name="Manifold Pressure" address="0349ee" />
+ </table>
  <table name="Manifold Model Rising Transient Hysteresis (Neutral)" address="03498e">
   <table name="Manifold Pressure" address="0349ae" />
+ </table>
+ <table name="Manifold Model Falling Transient Threshold" address="03490e">
+  <table name="Manifold Pressure" address="03492e" />
+ </table>
+ <table name="Manifold Model Falling Transient Hysteresis" address="034a8e">
+  <table name="Manifold Pressure" address="034aae" />
+ </table>
+ <table name="Manifold Model Falling Transient Threshold (Neutral)" address="034a0e">
+  <table name="Manifold Pressure" address="034a2e" />
+ </table>
+ <table name="Manifold Model Falling Transient Hysteresis (Neutral)" address="034a4e">
+  <table name="Manifold Pressure" address="034a6e" />
  </table>
  <table name="Manifold Model Gain Multiplier (Falling MAP, Initial)" address="0344ce">
   <table name="Manifold Pressure" address="03462e" />
@@ -3507,6 +3544,17 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
   <table name="Engine Load" address="021d9a" />
   <table name="Engine Speed" address="021d6e" />
  </table>
+ <table name="EGR Timing Advance DAM Term (TGV Closed)" address="02ac86">
+  <table name="Engine Load" address="021d9a" />
+  <table name="Engine Speed" address="021d6e" />
+ </table>
+ <table name="EGR Timing Advance DAM Term (TGV Open)" address="02ade6">
+  <table name="Engine Load" address="021d9a" />
+  <table name="Engine Speed" address="021d6e" />
+ </table>
+ <table name="EGR Timing Advance DAM Term Weight" address="02ac72">
+  <table name="Dynamic Advance Multiplier" address="02ac68" />
+ </table>
  <table name="EGR Timing Advance (TGV Open)" address="039364">
   <table name="Engine Load" address="021d9a" />
   <table name="Engine Speed" address="021d6e" />
@@ -3599,6 +3647,17 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
  <table name="EGR Timing Advance (Multi-Injection, TGV Open)" address="03aa0c">
   <table name="Engine Load" address="021d9a" />
   <table name="Engine Speed" address="021d6e" />
+ </table>
+ <table name="EGR Timing Advance DAM Term (Multi-Injection, TGV Closed)" address="03a8ac">
+  <table name="Engine Load" address="021d9a" />
+  <table name="Engine Speed" address="021d6e" />
+ </table>
+ <table name="EGR Timing Advance DAM Term (Multi-Injection, TGV Open)" address="03ab6c">
+  <table name="Engine Load" address="021d9a" />
+  <table name="Engine Speed" address="021d6e" />
+ </table>
+ <table name="EGR Timing Advance DAM Term Weight (Multi-Injection)" address="02ac72">
+  <table name="Dynamic Advance Multiplier" address="02ac68" />
  </table>
  <table name="TGV Torque Threshold Enter (Drive Modes 1/4, Default/Sport Sharp)" address="040a22">
   <table name="Engine Speed" address="0409a2" />

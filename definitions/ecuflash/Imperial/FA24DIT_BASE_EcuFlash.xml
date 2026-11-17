@@ -61,6 +61,8 @@
  <scaling name="us (pulse at 0.3 MPa reference) uint16" units="us (pulse at 0.3 MPa reference)" toexpr="(x-32768)*3.2" frexpr="x/3.2+32768" format="%0.0f" min="-104858" max="104854" inc="16" storagetype="uint16" endian="big" />
  <scaling name="mg fuel (film target at gain 1.0) uint16" units="mg fuel (film target, at gain 1.0)" toexpr="x*0.002975" frexpr="x/0.002975" format="%0.2f" min="0" max="194.967" inc="0.05" storagetype="uint16" endian="big" />
  <scaling name="g/rev (fuel basis) uint8" units="g/rev (fuel basis)" toexpr="x*0.9944*0.012929" frexpr="x/0.9944/0.012929" format="%0.2f" min="0" max="3.27843" inc="0.05" storagetype="uint8" endian="big" />
+ <scaling name="film term uint16" units="film term" toexpr="x-32768" frexpr="x+32768" format="%0.0f" min="-32768" max="32767" inc="64" storagetype="uint16" endian="big" />
+ <scaling name="multiplier uint8 #4" units="multiplier" toexpr="x/64" frexpr="x*64" format="%0.2f" min="0" max="3.98438" inc="0.02" storagetype="uint8" endian="big" />
  <scaling name="cylinder bit mask uint8" units="cylinder bit mask" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
  <scaling name="injection events since last pass uint8" units="injection events since last pass" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
  <scaling name="% enrichment uint8 #2" units="% enrichment" toexpr="x/20.48" frexpr="x*20.48" format="%0.1f" min="0" max="12.4512" inc="0.5" storagetype="uint8" endian="big" />
@@ -71,7 +73,6 @@
  <scaling name="% fuel per 10 ms uint16" units="% fuel per 10 ms" toexpr="x/655.36" frexpr="x*655.36" format="%0.3f" min="0" max="99.9985" inc="0.01" storagetype="uint16" endian="big" />
  <scaling name="multiplier uint16 #2" units="multiplier" toexpr="x/32768" frexpr="x*32768" format="%0.3f" min="0" max="1.99997" inc="0.01" storagetype="uint16" endian="big" />
  <scaling name="deg BTDC uint16" units="deg BTDC" toexpr="180-x/2" frexpr="(180-x)*2" format="%0.1f" min="-32587.5" max="180" inc="0.5" storagetype="uint16" endian="big" />
- <scaling name="multiplier uint8 #4" units="multiplier" toexpr="x/64" frexpr="x*64" format="%0.2f" min="0" max="3.98438" inc="0.02" storagetype="uint8" endian="big" />
  <scaling name="ms uint16" units="ms" toexpr="x*0.008" frexpr="x/0.008" format="%0.2f" min="0" max="524.28" inc="0.1" storagetype="uint16" endian="big" />
  <scaling name="psia uint16" units="psia" toexpr="x/256*0.1450377" frexpr="x/0.1450377*256" format="%0.2f" min="0" max="37.1291" inc="0.1" storagetype="uint16" endian="big" />
  <scaling name="x (relative to 32) uint8" units="x (relative to 32)" toexpr="x/32" frexpr="x*32" format="%0.2f" min="0" max="7.96875" inc="0.03" storagetype="uint8" endian="big" />
@@ -39862,6 +39863,26 @@
   <table name="Engine Speed" type="Y Axis" elements="21" scaling="RPM uint16" />
   <description>Scales the load-rise (film) transient fuel by rpm while it adds fuel (128 = x1.0). Companion of Transient Fuel Film Target.</description>
  </table>
+ <table name="Transient Fuel Film Gain RPM Multiplier (Negative Film)" category="01.04 Fueling - Transient Fueling" type="2D" level="3" scaling="multiplier uint8">
+  <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint8 #2" />
+  <description>Scales the film term by engine speed while the film term is negative (fuel taken away).</description>
+ </table>
+ <table name="Transient Fuel Film Term Lower Limit" category="01.04 Fueling - Transient Fueling" type="2D" level="3" scaling="film term uint16">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees F uint16" />
+  <description>Lowest the transient film term may go, by coolant temperature; 0 means fuel is never taken away.</description>
+ </table>
+ <table name="Transient Fuel Film Gain (Coolant)" category="01.04 Fueling - Transient Fueling" type="2D" level="3" scaling="multiplier uint8 #4">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees F uint16" />
+  <description>Scales the transient film step by coolant temperature (64 = 1.0).</description>
+ </table>
+ <table name="Transient Fuel Film Gain (Coolant, AT/CVT)" category="01.04 Fueling - Transient Fueling" type="2D" level="3" scaling="multiplier uint8 #4">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees F uint16" />
+  <description>As Transient Fuel Film Gain (Coolant), on AT/CVT codings.</description>
+ </table>
+ <table name="Transient Fuel Film Gain (Coolant, MT Coding)" category="01.04 Fueling - Transient Fueling" type="2D" level="3" scaling="multiplier uint8 #4">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees F uint16" />
+  <description>As Transient Fuel Film Gain (Coolant), on the manual coding when the alternate selection applies.</description>
+ </table>
  <table name="Transient Fuel Injected-Cylinder Mask (Event Index 0)" category="01.04 Fueling - Transient Fueling" type="2D" level="4" scaling="cylinder bit mask uint8">
   <table name="Y Axis" type="Y Axis" elements="4" scaling="injection events since last pass uint8" />
   <description>Tells the transient fuel logic which cylinders were injected since the last pass, following the firing order 1-3-2-4. Do not edit unless the injection order changes.</description>
@@ -40758,6 +40779,11 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Engine Speed" type="Y Axis" elements="22" scaling="RPM uint8 #2" />
   <description>Percentage (by rpm and load) of Base Timing Coolant Compensation (TGV Open) actually applied. Lower values reduce the cold-engine timing correction in that area.</description>
  </table>
+ <table name="Base Timing Coolant Compensation Weight (TGV Closed)" category="02.02 Ignition Timing - Timing Compensations" type="3D" level="2" scaling="% uint16 #2">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8" />
+  <table name="Engine Speed" type="Y Axis" elements="22" scaling="RPM uint8 #2" />
+  <description>Share of the TGV-closed coolant timing compensation that applies, by engine speed and load.</description>
+ </table>
  <table name="Timing Request Enrichment Retard" category="02.02 Ignition Timing - Timing Compensations" type="3D" level="3" scaling="degrees uint8">
   <table name="Engine Speed" type="X Axis" elements="9" scaling="RPM uint16" />
   <table name="Engine Load" type="Y Axis" elements="3" scaling="g/rev uint8" />
@@ -41501,6 +41527,26 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
  <table name="Torque Reduction Spark Retard" category="02.05 Ignition Timing - Retards &amp; Transient Timing" type="2D" level="3" scaling="degrees retard uint8">
   <table name="Y Axis" type="Y Axis" elements="16" scaling="% torque from spark uint16" />
   <description>Turns a torque or efficiency shortfall back into spark retard on base timing. Besides torque reduction, it is how the ECU pulls fired timing down to Primary Ignition (or the closed-pedal target) plus knock correction advance where that is below Base Timing, so it must stay the inverse of Ignition Efficiency vs Retard; don't edit one without the other. Not used in the rev/overboost-cut states.</description>
+ </table>
+ <table name="Ignition Timing Per-Cylinder Trim (Cylinder 1)" category="02.05 Ignition Timing - Retards &amp; Transient Timing" type="3D" level="3" scaling="degrees int8">
+  <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint16" />
+  <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint16" />
+  <description>Timing added to (or, negative, taken from) cylinder 1 only, by engine speed and load.</description>
+ </table>
+ <table name="Ignition Timing Per-Cylinder Trim (Cylinder 2)" category="02.05 Ignition Timing - Retards &amp; Transient Timing" type="3D" level="3" scaling="degrees int8">
+  <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint16" />
+  <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint16" />
+  <description>Timing added to (or, negative, taken from) cylinder 2 only, by engine speed and load.</description>
+ </table>
+ <table name="Ignition Timing Per-Cylinder Trim (Cylinder 3)" category="02.05 Ignition Timing - Retards &amp; Transient Timing" type="3D" level="3" scaling="degrees int8">
+  <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint16" />
+  <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint16" />
+  <description>Timing added to (or, negative, taken from) cylinder 3 only, by engine speed and load.</description>
+ </table>
+ <table name="Ignition Timing Per-Cylinder Trim (Cylinder 4)" category="02.05 Ignition Timing - Retards &amp; Transient Timing" type="3D" level="3" scaling="degrees int8">
+  <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint16" />
+  <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint16" />
+  <description>Timing added to (or, negative, taken from) cylinder 4 only, by engine speed and load.</description>
  </table>
  <table name="Base Timing (Pedal Released, TGV Open)" category="02.06 Ignition Timing - Idle &amp; Closed-Pedal Timing" type="3D" level="3" scaling="degrees BTDC int8">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint16" />
@@ -42726,6 +42772,10 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
   <table name="Engine Speed" type="Y Axis" elements="10" scaling="RPM uint16" />
   <description>How many samples (10 ms each) the ECU spans, by rpm, when measuring how fast manifold pressure is changing; that rate triggers the manifold model's transient corrections.</description>
  </table>
+ <table name="Manifold Model Rising Transient Gain Multiplier" category="05.01 Airflow &amp; Engine Model - Airflow / Load Model" type="2D" level="4" scaling="multiplier uint8">
+  <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint8 #3" />
+  <description>Gain multiplier of the manifold-pressure model during (and one pass after) a rising pressure transient, in gear.</description>
+ </table>
  <table name="Manifold Model Rising Transient Threshold" category="05.01 Airflow &amp; Engine Model - Airflow / Load Model" type="2D" level="4" scaling="psi int16 #3">
   <table name="Manifold Pressure" type="Y Axis" elements="16" scaling="psia uint16 #2" />
   <description>How fast manifold pressure must rise (in gear) to count as a rising transient, which speeds up the ECU's manifold pressure model. Normally leave alone.</description>
@@ -42734,9 +42784,29 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
   <table name="Manifold Pressure" type="Y Axis" elements="16" scaling="psia uint16 #2" />
   <description>Version of Manifold Model Rising Transient Threshold used with the transmission in neutral.</description>
  </table>
+ <table name="Manifold Model Rising Transient Hysteresis" category="05.01 Airflow &amp; Engine Model - Airflow / Load Model" type="2D" level="4" scaling="psi uint16 #3">
+  <table name="Manifold Pressure" type="Y Axis" elements="16" scaling="psia uint16 #2" />
+  <description>Hysteresis of the rising-transient detection, in gear.</description>
+ </table>
  <table name="Manifold Model Rising Transient Hysteresis (Neutral)" category="05.01 Airflow &amp; Engine Model - Airflow / Load Model" type="2D" level="4" scaling="psi uint16 #3">
   <table name="Manifold Pressure" type="Y Axis" elements="16" scaling="psia uint16 #2" />
   <description>Hysteresis on Manifold Model Rising Transient Threshold (Neutral) once the rising condition is met.</description>
+ </table>
+ <table name="Manifold Model Falling Transient Threshold" category="05.01 Airflow &amp; Engine Model - Airflow / Load Model" type="2D" level="4" scaling="psi int16 #3">
+  <table name="Manifold Pressure" type="Y Axis" elements="16" scaling="psia uint16 #2" />
+  <description>A falling transient starts when manifold pressure drops this far below its filtered value (negative), in gear.</description>
+ </table>
+ <table name="Manifold Model Falling Transient Hysteresis" category="05.01 Airflow &amp; Engine Model - Airflow / Load Model" type="2D" level="4" scaling="psi uint16 #3">
+  <table name="Manifold Pressure" type="Y Axis" elements="16" scaling="psia uint16 #2" />
+  <description>Hysteresis of the falling-transient detection, in gear.</description>
+ </table>
+ <table name="Manifold Model Falling Transient Threshold (Neutral)" category="05.01 Airflow &amp; Engine Model - Airflow / Load Model" type="2D" level="4" scaling="psi int16 #3">
+  <table name="Manifold Pressure" type="Y Axis" elements="16" scaling="psia uint16 #2" />
+  <description>As the falling-transient threshold, in neutral.</description>
+ </table>
+ <table name="Manifold Model Falling Transient Hysteresis (Neutral)" category="05.01 Airflow &amp; Engine Model - Airflow / Load Model" type="2D" level="4" scaling="psi uint16 #3">
+  <table name="Manifold Pressure" type="Y Axis" elements="16" scaling="psia uint16 #2" />
+  <description>As the falling-transient hysteresis, in neutral.</description>
  </table>
  <table name="Manifold Model Gain Multiplier (Falling MAP, Initial)" category="05.01 Airflow &amp; Engine Model - Airflow / Load Model" type="3D" level="4" scaling="multiplier uint8">
   <table name="Manifold Pressure" type="X Axis" elements="16" scaling="psia uint16 #2" />
@@ -44161,6 +44231,20 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
   <table name="Engine Speed" type="Y Axis" elements="22" scaling="RPM uint16" />
   <description>Extra timing advance requested while EGR is active with the TGVs closed, by rpm and load, scaled by how much EGR is flowing. It is added to the Primary Ignition request, so it reaches the spark only where that request (plus knock advance) is below the Base Timing (EGR Active) map, never above it.</description>
  </table>
+ <table name="EGR Timing Advance DAM Term (TGV Closed)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="3" scaling="degrees uint8">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint16" />
+  <table name="Engine Speed" type="Y Axis" elements="22" scaling="RPM uint16" />
+  <description>Extra EGR timing advance that is weighted in by DAM, TGVs closed.</description>
+ </table>
+ <table name="EGR Timing Advance DAM Term (TGV Open)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="3" scaling="degrees uint8">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint16" />
+  <table name="Engine Speed" type="Y Axis" elements="22" scaling="RPM uint16" />
+  <description>Extra EGR timing advance that is weighted in by DAM, TGVs open.</description>
+ </table>
+ <table name="EGR Timing Advance DAM Term Weight" category="08.01 EGR &amp; TGV - EGR" type="2D" level="3" scaling="multiplier uint16 #8">
+  <table name="Dynamic Advance Multiplier" type="Y Axis" elements="10" scaling="DAM uint8" />
+  <description>How much of the DAM term applies, by DAM (128 = all of it; 0 = off, as on the 2.0 WRX).</description>
+ </table>
  <table name="EGR Timing Advance (TGV Open)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="3" scaling="degrees uint8">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint16" />
   <table name="Engine Speed" type="Y Axis" elements="22" scaling="RPM uint16" />
@@ -44274,6 +44358,26 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint16" />
   <table name="Engine Speed" type="Y Axis" elements="22" scaling="RPM uint16" />
   <description>Multi-injection copy of EGR Timing Advance (TGV Open).</description>
+ </table>
+ <table name="EGR Timing Advance DAM Term (Multi-Injection, TGV Closed)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="5" scaling="degrees uint8">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint16" />
+  <table name="Engine Speed" type="Y Axis" elements="22" scaling="RPM uint16" />
+  <description>As the EGR DAM term, with multiple injection.
+
+Details: 0x0DD0DC (read), used while FFF8A775 bit 2 is set. Confidence: read.</description>
+ </table>
+ <table name="EGR Timing Advance DAM Term (Multi-Injection, TGV Open)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="5" scaling="degrees uint8">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint16" />
+  <table name="Engine Speed" type="Y Axis" elements="22" scaling="RPM uint16" />
+  <description>As the EGR DAM term, with multiple injection.
+
+Details: 0x0DD0DC (read). Confidence: read.</description>
+ </table>
+ <table name="EGR Timing Advance DAM Term Weight (Multi-Injection)" category="08.01 EGR &amp; TGV - EGR" type="2D" level="5" scaling="multiplier uint16 #8">
+  <table name="Dynamic Advance Multiplier" type="Y Axis" elements="10" scaling="DAM uint8" />
+  <description>How much of the multiple-injection DAM term applies, by DAM.
+
+Details: 0x0DD0DC (read). Confidence: read.</description>
  </table>
  <table name="TGV Torque Threshold Enter (Drive Modes 1/4, Default/Sport Sharp)" category="08.02 EGR &amp; TGV - TGV" type="2D" level="3" scaling="ft-lb uint16">
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />

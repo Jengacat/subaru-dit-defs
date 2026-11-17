@@ -357,6 +357,21 @@
  <table name="Transient Fuel Film Gain RPM Multiplier" address="032a83">
   <table name="Engine Speed" address="035e30" />
  </table>
+ <table name="Transient Fuel Film Gain RPM Multiplier (Negative Film)" address="032a73">
+  <table name="Engine Speed" address="035c90" />
+ </table>
+ <table name="Transient Fuel Film Term Lower Limit" address="032ac8">
+  <table name="Coolant Temp" address="035d60" />
+ </table>
+ <table name="Transient Fuel Film Gain (Coolant)" address="032b9e">
+  <table name="Coolant Temp" address="035d60" />
+ </table>
+ <table name="Transient Fuel Film Gain (Coolant, AT/CVT)" address="032b7e">
+  <table name="Coolant Temp" address="035d60" />
+ </table>
+ <table name="Transient Fuel Film Gain (Coolant, MT Coding)" address="032b8e">
+  <table name="Coolant Temp" address="035d60" />
+ </table>
  <table name="Transient Fuel Injected-Cylinder Mask (Event Index 0)" address="032942">
   <table name="Y Axis" address="032952" />
  </table>
@@ -1131,6 +1146,10 @@
   <table name="Engine Load" address="02fbb0" />
   <table name="Engine Speed" address="02fb9a" />
  </table>
+ <table name="Base Timing Coolant Compensation Weight (TGV Closed)" address="0301ca">
+  <table name="Engine Load" address="02fbb0" />
+  <table name="Engine Speed" address="02fb9a" />
+ </table>
  <table name="Timing Request Enrichment Retard" address="02dd0a">
   <table name="Engine Speed" address="02dce6" />
   <table name="Engine Load" address="02dce2" />
@@ -1612,6 +1631,23 @@
  <table name="Torque Reduction Spark Retard" address="02dcd0">
   <table name="Y Axis" address="02dcb0" />
  </table>
+ <table name="Ignition Timing Per-Cylinder Trim Enable" address="035b37" />
+ <table name="Ignition Timing Per-Cylinder Trim (Cylinder 1)" address="035b58">
+  <table name="Engine Load" address="035b48" />
+  <table name="Engine Speed" address="035b38" />
+ </table>
+ <table name="Ignition Timing Per-Cylinder Trim (Cylinder 2)" address="035b98">
+  <table name="Engine Load" address="035b48" />
+  <table name="Engine Speed" address="035b38" />
+ </table>
+ <table name="Ignition Timing Per-Cylinder Trim (Cylinder 3)" address="035bd8">
+  <table name="Engine Load" address="035b48" />
+  <table name="Engine Speed" address="035b38" />
+ </table>
+ <table name="Ignition Timing Per-Cylinder Trim (Cylinder 4)" address="035c18">
+  <table name="Engine Load" address="035b48" />
+  <table name="Engine Speed" address="035b38" />
+ </table>
  <table name="Base Timing (Pedal Released, TGV Open)" address="01061e">
   <table name="Engine Load" address="0105fe" />
   <table name="Engine Speed" address="0105de" />
@@ -1656,6 +1692,14 @@
   <table name="Y Axis" address="0280ce" />
  </table>
  <table name="Start Spark Target Torque Adder (Mode 1)" address="027d8c">
+  <table name="Coolant Temp" address="0280e6" />
+  <table name="Y Axis" address="0280de" />
+ </table>
+ <table name="Start Spark Target Torque Adder (Mode 1, AT/CVT)" address="027e0c">
+  <table name="Coolant Temp" address="0280e6" />
+  <table name="Y Axis" address="0280de" />
+ </table>
+ <table name="Start Spark Target Torque Adder (Mode 1, AT/CVT, Warm-Up Fallback)" address="028972">
   <table name="Coolant Temp" address="0280e6" />
   <table name="Y Axis" address="0280de" />
  </table>
@@ -2509,14 +2553,32 @@
  <table name="Manifold Pressure Rate Span (RPM)" address="029990">
   <table name="Engine Speed" address="02997c" />
  </table>
+ <table name="Manifold Model Rising Transient Gain Multiplier" address="028f3c">
+  <table name="Engine Speed" address="035cf0" />
+ </table>
  <table name="Manifold Model Rising Transient Threshold" address="02a22a">
   <table name="Manifold Pressure" address="02a24a" />
  </table>
  <table name="Manifold Model Rising Transient Threshold (Neutral)" address="02a2aa">
   <table name="Manifold Pressure" address="02a2ca" />
  </table>
+ <table name="Manifold Model Rising Transient Hysteresis" address="02a32a">
+  <table name="Manifold Pressure" address="02a34a" />
+ </table>
  <table name="Manifold Model Rising Transient Hysteresis (Neutral)" address="02a2ea">
   <table name="Manifold Pressure" address="02a30a" />
+ </table>
+ <table name="Manifold Model Falling Transient Threshold" address="02a26a">
+  <table name="Manifold Pressure" address="02a28a" />
+ </table>
+ <table name="Manifold Model Falling Transient Hysteresis" address="02a3ea">
+  <table name="Manifold Pressure" address="02a40a" />
+ </table>
+ <table name="Manifold Model Falling Transient Threshold (Neutral)" address="02a36a">
+  <table name="Manifold Pressure" address="02a38a" />
+ </table>
+ <table name="Manifold Model Falling Transient Hysteresis (Neutral)" address="02a3aa">
+  <table name="Manifold Pressure" address="02a3ca" />
  </table>
  <table name="Manifold Model Gain Multiplier (Falling MAP, Initial)" address="029e2a">
   <table name="Manifold Pressure" address="029f8a" />
@@ -2678,8 +2740,16 @@
  <table name="Intake AVCS Minimum RPM (Oil Temp)" address="0390f0">
   <table name="Oil Temp" address="0390e2" />
  </table>
+ <table name="Intake AVCS Enable Delay After Start" address="03a93a">
+  <table name="Oil Temp" address="03a92e" />
+  <table name="Y Axis" address="03a926" />
+ </table>
  <table name="Exhaust AVCS Minimum RPM (Oil Temp)" address="039fdc">
   <table name="Oil Temp" address="039fce" />
+ </table>
+ <table name="Exhaust AVCS Enable Delay After Start" address="03a93a">
+  <table name="Oil Temp" address="03a92e" />
+  <table name="Y Axis" address="03a926" />
  </table>
  <table name="AVCS Activation Delay After Start" address="0385c2">
   <table name="Coolant Temp" address="035d80" />
@@ -3284,6 +3354,17 @@
  <table name="EGR Timing Advance (Multi-Injection, TGV Open)" address="02fe80">
   <table name="Engine Load" address="0191aa" />
   <table name="Engine Speed" address="01917e" />
+ </table>
+ <table name="EGR Timing Advance DAM Term (Multi-Injection, TGV Closed)" address="02fd20">
+  <table name="Engine Load" address="0191aa" />
+  <table name="Engine Speed" address="01917e" />
+ </table>
+ <table name="EGR Timing Advance DAM Term (Multi-Injection, TGV Open)" address="02ffe0">
+  <table name="Engine Load" address="0191aa" />
+  <table name="Engine Speed" address="01917e" />
+ </table>
+ <table name="EGR Timing Advance DAM Term Weight (Multi-Injection)" address="021852">
+  <table name="Dynamic Advance Multiplier" address="021848" />
  </table>
  <table name="TGV Torque Threshold Enter (Drive Modes 1/4, Default/Sport Sharp)" address="0354f8">
   <table name="Engine Speed" address="035478" />

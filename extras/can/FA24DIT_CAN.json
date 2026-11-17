@@ -1,0 +1,4539 @@
+{
+ "_comment": "CAN dictionary for the FA24DIT (Ascent) ROMs: deliverables/fa24/can/ (FA24DIT_CAN.json / .dbc / .md / _RAM.csv).\n\nThe Ascent's network selector picks a fifth network variant (flag 0x01, read in LT8H300D 0x21F1EC) whose ID table has\nnone of the FA20DIT frame IDs, so the FA20DIT dictionary does not apply. What the Ascent receives and sends comes from\nits own code run in the emulator (my research notes, results in my research notes<CALID>.emu.json): every\nreceive bit flipped and the RAM it changes recorded, every RAM bit the transmit packer reads flipped and the frame bits\nit changes recorded.\n\nFields: one per run of frame bits (within a byte) that lands on, or comes from, the same RAM byte.\nNames: each field's RAM byte (LT8H300D) is carried to the 2021 WRX (LF9K000D) through the exact pair map read\nbackwards (samecode_specs.RamMap, LT8H300D from LF9K000D: a unique vote, else the shift of the nearest mapped\naddresses on both sides within 64 bytes). Where the WRX dictionary (deliverables/can/dictionary.json) has a signal on\nthat RAM byte in the same direction and the field is a value (4 bits or more), the field takes its name and meaning\n(\"same ECU variable as WRX 0x...\", inferred: the bit layout and scale in the Ascent frame are not checked against it).\nFlags keep a raw name (the dictionary gives RAM per byte, not per bit) and mention the WRX signal on that byte.\nReceived frames: the decoder's variant-4 path (LT8H300D 0x0AE6E2) copies each frame's first byte and the low nibble\nof its second byte to RAM (FFF8AA7A.. for 0x139 / 0x13A / 0x13B, read), and takes payload bits only under conditions\non other ECU state (FFF8A987 and receive flags) that a one-frame emulation does not meet; so only those 30 fields are\nmapped, and the payloads are not yet. The 2020 and\n2019 builds are compared with LT8H300D field by field through their own maps.",
+ "roms": {
+  "LT8H300D": {
+   "year": "2021",
+   "market": "USDM",
+   "model": "Ascent",
+   "transmission": "CVT",
+   "id_table": "2781DC",
+   "variant": 4
+  },
+  "LT8F300C": {
+   "year": "2020",
+   "market": "USDM",
+   "model": "Ascent",
+   "transmission": "CVT",
+   "id_table": "277F08",
+   "variant": 4
+  },
+  "LT8D800A": {
+   "year": "2019",
+   "market": "USDM",
+   "model": "Ascent",
+   "transmission": "CVT",
+   "id_table": "277F0C",
+   "variant": 4
+  }
+ },
+ "ids": {
+  "048": {
+   "kind": 1,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "049": {
+   "kind": 1,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "118": {
+   "kind": 1,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "139": {
+   "kind": 1,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "13A": {
+   "kind": 1,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "13B": {
+   "kind": 1,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "68D": {
+   "kind": 1,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D"
+   ]
+  },
+  "221": {
+   "kind": 1,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "2D2": {
+   "kind": 1,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "33A": {
+   "kind": 1,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "660": {
+   "kind": 1,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "34A": {
+   "kind": 1,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "390": {
+   "kind": 1,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "393": {
+   "kind": 1,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "3AC": {
+   "kind": 1,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "6FC": {
+   "kind": 3,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "040": {
+   "kind": 3,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "041": {
+   "kind": 3,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "146": {
+   "kind": 3,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "240": {
+   "kind": 3,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "7E0": {
+   "kind": 2,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "7DF": {
+   "kind": 2,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "241": {
+   "kind": 3,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "345": {
+   "kind": 3,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "346": {
+   "kind": 3,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "347": {
+   "kind": 3,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "7E8": {
+   "kind": 4,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "771": {
+   "kind": 3,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "772": {
+   "kind": 3,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "773": {
+   "kind": 3,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "774": {
+   "kind": 3,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "775": {
+   "kind": 3,
+   "dlc": 8,
+   "roms": [
+    "LT8H300D",
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  },
+  "174": {
+   "kind": 1,
+   "dlc": 8,
+   "roms": [
+    "LT8F300C",
+    "LT8D800A"
+   ]
+  }
+ },
+ "signals": [
+  {
+   "id": "0x048",
+   "dir": "rx",
+   "byte": 0,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA80",
+    "LT8F300C": "FFF8A8CC",
+    "LT8D800A": "FFF8A8D8"
+   },
+   "name": "rx_048_b0_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA80 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x048",
+   "dir": "rx",
+   "byte": 1,
+   "bit_start": 0,
+   "bit_len": 4,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA81",
+    "LT8F300C": "FFF8A8CD",
+    "LT8D800A": "FFF8A8D9"
+   },
+   "name": "rx_048_b1_0_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA81 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x049",
+   "dir": "rx",
+   "byte": 0,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA82",
+    "LT8F300C": "FFF8A8CE",
+    "LT8D800A": "FFF8A8DA"
+   },
+   "name": "rx_049_b0_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA82 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x049",
+   "dir": "rx",
+   "byte": 1,
+   "bit_start": 0,
+   "bit_len": 4,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA83",
+    "LT8F300C": "FFF8A8CF",
+    "LT8D800A": "FFF8A8DB"
+   },
+   "name": "rx_049_b1_0_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA83 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x118",
+   "dir": "rx",
+   "byte": 0,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA92",
+    "LT8F300C": "FFF8A8DE",
+    "LT8D800A": "FFF8A8EA"
+   },
+   "name": "rx_118_b0_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA92 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x118",
+   "dir": "rx",
+   "byte": 1,
+   "bit_start": 0,
+   "bit_len": 4,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA93",
+    "LT8F300C": "FFF8A8DF",
+    "LT8D800A": "FFF8A8EB"
+   },
+   "name": "rx_118_b1_0_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA93 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x139",
+   "dir": "rx",
+   "byte": 0,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA7A",
+    "LT8F300C": "FFF8A8C6",
+    "LT8D800A": "FFF8A8D2"
+   },
+   "name": "rx_139_b0_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA7A on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x139",
+   "dir": "rx",
+   "byte": 1,
+   "bit_start": 0,
+   "bit_len": 4,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA7B",
+    "LT8F300C": "FFF8A8C7",
+    "LT8D800A": "FFF8A8D3"
+   },
+   "name": "rx_139_b1_0_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA7B on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x13A",
+   "dir": "rx",
+   "byte": 0,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA7C",
+    "LT8F300C": "FFF8A8C8",
+    "LT8D800A": "FFF8A8D4"
+   },
+   "name": "rx_13a_b0_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA7C on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x13A",
+   "dir": "rx",
+   "byte": 1,
+   "bit_start": 0,
+   "bit_len": 4,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA7D",
+    "LT8F300C": "FFF8A8C9",
+    "LT8D800A": "FFF8A8D5"
+   },
+   "name": "rx_13a_b1_0_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA7D on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x13B",
+   "dir": "rx",
+   "byte": 0,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA7E",
+    "LT8F300C": "FFF8A8CA",
+    "LT8D800A": "FFF8A8D6"
+   },
+   "name": "rx_13b_b0_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA7E on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x13B",
+   "dir": "rx",
+   "byte": 1,
+   "bit_start": 0,
+   "bit_len": 4,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA7F",
+    "LT8F300C": "FFF8A8CB",
+    "LT8D800A": "FFF8A8D7"
+   },
+   "name": "rx_13b_b1_0_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA7F on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x221",
+   "dir": "rx",
+   "byte": 0,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA88",
+    "LT8F300C": "FFF8A8D4",
+    "LT8D800A": "FFF8A8E0"
+   },
+   "name": "rx_221_b0_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA88 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x221",
+   "dir": "rx",
+   "byte": 1,
+   "bit_start": 0,
+   "bit_len": 4,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA89",
+    "LT8F300C": "FFF8A8D5",
+    "LT8D800A": "FFF8A8E1"
+   },
+   "name": "rx_221_b1_0_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA89 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x2D2",
+   "dir": "rx",
+   "byte": 0,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA8A",
+    "LT8F300C": "FFF8A8D6",
+    "LT8D800A": "FFF8A8E2"
+   },
+   "name": "rx_2d2_b0_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA8A on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x2D2",
+   "dir": "rx",
+   "byte": 1,
+   "bit_start": 0,
+   "bit_len": 4,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA8B",
+    "LT8F300C": "FFF8A8D7",
+    "LT8D800A": "FFF8A8E3"
+   },
+   "name": "rx_2d2_b1_0_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA8B on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x33A",
+   "dir": "rx",
+   "byte": 0,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA94",
+    "LT8F300C": "FFF8A8E0",
+    "LT8D800A": "FFF8A8EC"
+   },
+   "name": "rx_33a_b0_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA94 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x33A",
+   "dir": "rx",
+   "byte": 1,
+   "bit_start": 0,
+   "bit_len": 4,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA95",
+    "LT8F300C": "FFF8A8E1",
+    "LT8D800A": "FFF8A8ED"
+   },
+   "name": "rx_33a_b1_0_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA95 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x34A",
+   "dir": "rx",
+   "byte": 0,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA84",
+    "LT8F300C": "FFF8A8D0",
+    "LT8D800A": "FFF8A8DC"
+   },
+   "name": "rx_34a_b0_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA84 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x34A",
+   "dir": "rx",
+   "byte": 1,
+   "bit_start": 0,
+   "bit_len": 4,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA85",
+    "LT8F300C": "FFF8A8D1",
+    "LT8D800A": "FFF8A8DD"
+   },
+   "name": "rx_34a_b1_0_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA85 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x390",
+   "dir": "rx",
+   "byte": 0,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA8C",
+    "LT8F300C": "FFF8A8D8",
+    "LT8D800A": "FFF8A8E4"
+   },
+   "name": "rx_390_b0_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA8C on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x390",
+   "dir": "rx",
+   "byte": 1,
+   "bit_start": 0,
+   "bit_len": 4,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA8D",
+    "LT8F300C": "FFF8A8D9",
+    "LT8D800A": "FFF8A8E5"
+   },
+   "name": "rx_390_b1_0_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA8D on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x390",
+   "dir": "rx",
+   "byte": 1,
+   "bit_start": 4,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA56",
+    "LT8F300C": "FFF8A8A2",
+    "LT8D800A": "FFF8A8AE"
+   },
+   "name": "rx_390_b1_4_4",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA56 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x393",
+   "dir": "rx",
+   "byte": 0,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA8E",
+    "LT8F300C": "FFF8A8DA",
+    "LT8D800A": "FFF8A8E6"
+   },
+   "name": "rx_393_b0_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA8E on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x393",
+   "dir": "rx",
+   "byte": 1,
+   "bit_start": 0,
+   "bit_len": 4,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA8F",
+    "LT8F300C": "FFF8A8DB",
+    "LT8D800A": "FFF8A8E7"
+   },
+   "name": "rx_393_b1_0_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA8F on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x3AC",
+   "dir": "rx",
+   "byte": 0,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA86",
+    "LT8F300C": "FFF8A8D2",
+    "LT8D800A": "FFF8A8DE"
+   },
+   "name": "rx_3ac_b0_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA86 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x3AC",
+   "dir": "rx",
+   "byte": 1,
+   "bit_start": 0,
+   "bit_len": 4,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA87",
+    "LT8F300C": "FFF8A8D3",
+    "LT8D800A": "FFF8A8DF"
+   },
+   "name": "rx_3ac_b1_0_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA87 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x3AC",
+   "dir": "rx",
+   "byte": 1,
+   "bit_start": 4,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AA55",
+    "LT8F300C": "FFF8A8A1",
+    "LT8D800A": "FFF8A8AD"
+   },
+   "name": "rx_3ac_b1_4_4",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AA55 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x68D",
+   "dir": "rx",
+   "byte": 0,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "absent",
+    "LT8D800A": "absent"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AFE3"
+   },
+   "name": "rx_68d_b0_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AFE3 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x68D",
+   "dir": "rx",
+   "byte": 1,
+   "bit_start": 0,
+   "bit_len": 4,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "absent",
+    "LT8D800A": "absent"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AFE4"
+   },
+   "name": "rx_68d_b1_0_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AFE4 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x040",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 0,
+   "bit_len": 6,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C01A",
+    "LT8F300C": "FFF8BE44",
+    "LT8D800A": "FFF8BDC0"
+   },
+   "name": "tx_040_b0_0_5",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C01A on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x040",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 6,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CE8",
+    "LT8F300C": "FFF89B38",
+    "LT8D800A": "FFF89B3C"
+   },
+   "name": "tx_040_b0_6_6",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CE8 on LT8H300D; the 2021 WRX's 0x144 cruise_meter_flag_b6 comes from the same byte (FFF895CC on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x040",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 7,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF899C0",
+    "LT8F300C": "FFF89810",
+    "LT8D800A": "FFF89814"
+   },
+   "name": "tx_040_b0_7_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF899C0 on LT8H300D (FFF8929A on the WRX); no WRX signal on that variable."
+  },
+  {
+   "id": "0x040",
+   "dir": "tx",
+   "byte": 1,
+   "bit_start": 0,
+   "bit_len": 4,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C01F",
+    "LT8F300C": "FFF8BE49",
+    "LT8D800A": "FFF8BDC5"
+   },
+   "name": "tx_040_b1_0_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C01F on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x040",
+   "dir": "tx",
+   "byte": 1,
+   "bit_start": 4,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C046",
+    "LT8F300C": "FFF8BE70",
+    "LT8D800A": "FFF8BDEC"
+   },
+   "name": "tx_040_b1_4_4",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C046 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x040",
+   "dir": "tx",
+   "byte": 1,
+   "bit_start": 7,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF99A80",
+    "LT8F300C": "FFF99A80",
+    "LT8D800A": "FFF99A80"
+   },
+   "name": "tx_040_b1_7_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF99A80 on LT8H300D (FFF99A80 on the WRX); no WRX signal on that variable."
+  },
+  {
+   "id": "0x040",
+   "dir": "tx",
+   "byte": 2,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8CD75",
+    "LT8F300C": "FFF8CB73",
+    "LT8D800A": "FFF8CACB"
+   },
+   "name": "tx_040_b2_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8CD75 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x040",
+   "dir": "tx",
+   "byte": 3,
+   "bit_start": 0,
+   "bit_len": 6,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8CD74",
+    "LT8F300C": "FFF8CB72",
+    "LT8D800A": "FFF8CACA"
+   },
+   "name": "engine_speed_040",
+   "confidence": "inferred",
+   "meaning": "Same ECU variable as the 2021 WRX's 0x140 engine_speed (RAM FFF8CD74 on LT8H300D, FFF8C162 on the WRX, neighbour). Engine speed, 1 rpm/bit (CD54 = rpm x 5.12), 14 bits",
+   "wrx": {
+    "id": "0x140",
+    "name": "engine_speed"
+   }
+  },
+  {
+   "id": "0x040",
+   "dir": "tx",
+   "byte": 3,
+   "bit_start": 6,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8B9C1",
+    "LT8F300C": "FFF8B7F1",
+    "LT8D800A": "FFF8B771"
+   },
+   "name": "tx_040_b3_6_6",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8B9C1 on LT8H300D; the 2021 WRX's 0x140 pin_PA2 comes from the same byte (FFF8AE41 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x040",
+   "dir": "tx",
+   "byte": 3,
+   "bit_start": 7,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF899C0",
+    "LT8F300C": "FFF89810",
+    "LT8D800A": "FFF89814"
+   },
+   "name": "tx_040_b3_7_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF899C0 on LT8H300D (FFF8929A on the WRX); no WRX signal on that variable."
+  },
+  {
+   "id": "0x040",
+   "dir": "tx",
+   "byte": 4,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C06F",
+    "LT8F300C": "FFF8BE99",
+    "LT8D800A": "FFF8BE15"
+   },
+   "name": "tx_040_b4_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C06F on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x040",
+   "dir": "tx",
+   "byte": 5,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C01A",
+    "LT8F300C": "FFF8BE44",
+    "LT8D800A": "FFF8BDC0"
+   },
+   "name": "tx_040_b5_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C01A on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x040",
+   "dir": "tx",
+   "byte": 6,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C086",
+    "LT8F300C": "FFF8BEB0",
+    "LT8D800A": "FFF8BE2C"
+   },
+   "name": "tx_040_b6_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C086 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x040",
+   "dir": "tx",
+   "byte": 7,
+   "bit_start": 6,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89B48",
+    "LT8F300C": "FFF89998",
+    "LT8D800A": "FFF8999C"
+   },
+   "name": "tx_040_b7_6_6",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89B48 on LT8H300D; the 2021 WRX's 0x140 pedal_released comes from the same byte (FFF89424 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x040",
+   "dir": "tx",
+   "byte": 7,
+   "bit_start": 7,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C035",
+    "LT8F300C": "FFF8BE5F",
+    "LT8D800A": "FFF8BDDB"
+   },
+   "name": "tx_040_b7_7_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C035 on LT8H300D; the 2021 WRX's 0x141 pedal_flag_88C64b4 comes from the same byte (FFF8B49D on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x041",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 0,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CE8",
+    "LT8F300C": "FFF89B38",
+    "LT8D800A": "FFF89B3C"
+   },
+   "name": "tx_041_b0_0_0",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CE8 on LT8H300D; the 2021 WRX's 0x144 cruise_meter_flag_b6 comes from the same byte (FFF895CC on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x041",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 1,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C14A",
+    "LT8F300C": "FFF8BF73",
+    "LT8D800A": "FFF8BEEF"
+   },
+   "name": "tx_041_b0_1_1",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C14A on LT8H300D; the 2021 WRX's 0x140 ac_compressor_on comes from the same byte (FFF8B5A6 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x041",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 2,
+   "bit_len": 2,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CEC",
+    "LT8F300C": "FFF89B3C",
+    "LT8D800A": "FFF89B40"
+   },
+   "name": "tx_041_b0_2_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CEC on LT8H300D; the 2021 WRX's 0x141 drive_mode_flag_A643 comes from the same byte (FFF895D0 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x041",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 4,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF9244D",
+    "LT8F300C": "FFF921BD",
+    "LT8D800A": "FFF920DD"
+   },
+   "name": "tx_041_b0_4_4",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF9244D on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x041",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 5,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89783",
+    "LT8F300C": "FFF895D3",
+    "LT8D800A": "FFF895D7"
+   },
+   "name": "tx_041_b0_5_5",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89783 on LT8H300D; the 2021 WRX's 0x141 crank_or_low_voltage comes from the same byte (FFF8905F on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x041",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 6,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CE8",
+    "LT8F300C": "FFF89B38",
+    "LT8D800A": "FFF89B3C"
+   },
+   "name": "tx_041_b0_6_6",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CE8 on LT8H300D; the 2021 WRX's 0x144 cruise_meter_flag_b6 comes from the same byte (FFF895CC on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x041",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 7,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89786",
+    "LT8F300C": "FFF895D6",
+    "LT8D800A": "FFF895DA"
+   },
+   "name": "tx_041_b0_7_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89786 on LT8H300D; the 2021 WRX's 0x141 below_rev_limit comes from the same byte (FFF89062 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x041",
+   "dir": "tx",
+   "byte": 1,
+   "bit_start": 0,
+   "bit_len": 4,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C020",
+    "LT8F300C": "FFF8BE4A",
+    "LT8D800A": "FFF8BDC6"
+   },
+   "name": "tx_041_b1_0_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C020 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x041",
+   "dir": "tx",
+   "byte": 2,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8CD9F",
+    "LT8F300C": "FFF8CB9D",
+    "LT8D800A": "FFF8CAF5"
+   },
+   "name": "tx_041_b2_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8CD9F on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x041",
+   "dir": "tx",
+   "byte": 3,
+   "bit_start": 0,
+   "bit_len": 7,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8CD9E",
+    "LT8F300C": "FFF8CB9C",
+    "LT8D800A": "FFF8CAF4"
+   },
+   "name": "tx_041_b3_0_6",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8CD9E on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x041",
+   "dir": "tx",
+   "byte": 3,
+   "bit_start": 7,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89786",
+    "LT8F300C": "FFF895D6",
+    "LT8D800A": "FFF895DA"
+   },
+   "name": "tx_041_b3_7_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89786 on LT8H300D; the 2021 WRX's 0x141 below_rev_limit comes from the same byte (FFF89062 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x041",
+   "dir": "tx",
+   "byte": 4,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8CD41",
+    "LT8F300C": "FFF8CB3F",
+    "LT8D800A": "FFF8CA97"
+   },
+   "name": "tx_041_b4_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8CD41 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x041",
+   "dir": "tx",
+   "byte": 5,
+   "bit_start": 0,
+   "bit_len": 7,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8CD40",
+    "LT8F300C": "FFF8CB3E",
+    "LT8D800A": "FFF8CA96"
+   },
+   "name": "tx_041_b5_0_6",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8CD40 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x041",
+   "dir": "tx",
+   "byte": 5,
+   "bit_start": 7,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89D06",
+    "LT8F300C": "FFF89B56",
+    "LT8D800A": "FFF89B5A"
+   },
+   "name": "tx_041_b5_7_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89D06 on LT8H300D (FFF895EA on the WRX); no WRX signal on that variable."
+  },
+  {
+   "id": "0x041",
+   "dir": "tx",
+   "byte": 6,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C028",
+    "LT8F300C": "FFF8BE52",
+    "LT8D800A": "FFF8BDCE"
+   },
+   "name": "tx_041_b6_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C028 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x041",
+   "dir": "tx",
+   "byte": 7,
+   "bit_start": 0,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C14B",
+    "LT8F300C": "FFF8BF74",
+    "LT8D800A": "FFF8BEF0"
+   },
+   "name": "tx_041_b7_0_0",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C14B on LT8H300D; the 2021 WRX's 0x141 ac_flag_A9A3b1 comes from the same byte (FFF8B5A7 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x041",
+   "dir": "tx",
+   "byte": 7,
+   "bit_start": 1,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C14A",
+    "LT8F300C": "FFF8BF73",
+    "LT8D800A": "FFF8BEEF"
+   },
+   "name": "tx_041_b7_1_1",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C14A on LT8H300D; the 2021 WRX's 0x140 ac_compressor_on comes from the same byte (FFF8B5A6 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x041",
+   "dir": "tx",
+   "byte": 7,
+   "bit_start": 2,
+   "bit_len": 2,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CEC",
+    "LT8F300C": "FFF89B3C",
+    "LT8D800A": "FFF89B40"
+   },
+   "name": "tx_041_b7_2_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CEC on LT8H300D; the 2021 WRX's 0x141 drive_mode_flag_A643 comes from the same byte (FFF895D0 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x041",
+   "dir": "tx",
+   "byte": 7,
+   "bit_start": 4,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF9244D",
+    "LT8F300C": "FFF921BD",
+    "LT8D800A": "FFF920DD"
+   },
+   "name": "tx_041_b7_4_4",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF9244D on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x041",
+   "dir": "tx",
+   "byte": 7,
+   "bit_start": 5,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89783",
+    "LT8F300C": "FFF895D3",
+    "LT8D800A": "FFF895D7"
+   },
+   "name": "tx_041_b7_5_5",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89783 on LT8H300D; the 2021 WRX's 0x141 crank_or_low_voltage comes from the same byte (FFF8905F on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x146",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 0,
+   "bit_len": 2,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CE8",
+    "LT8F300C": "FFF89B38",
+    "LT8D800A": "FFF89B3C"
+   },
+   "name": "tx_146_b0_0_1",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CE8 on LT8H300D; the 2021 WRX's 0x144 cruise_meter_flag_b6 comes from the same byte (FFF895CC on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x146",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 2,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CEC",
+    "LT8F300C": "FFF89B3C",
+    "LT8D800A": "FFF89B40"
+   },
+   "name": "tx_146_b0_2_2",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CEC on LT8H300D; the 2021 WRX's 0x141 drive_mode_flag_A643 comes from the same byte (FFF895D0 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x146",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 3,
+   "bit_len": 3,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C038",
+    "LT8F300C": "FFF8BE62",
+    "LT8D800A": "FFF8BDDE"
+   },
+   "name": "tx_146_b0_3_5",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C038 on LT8H300D; the 2021 WRX's 0x144 cruise_switch_code comes from the same byte (FFF8B4A0 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x146",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 6,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C03E",
+    "LT8F300C": "FFF8BE68",
+    "LT8D800A": "FFF8BDE4"
+   },
+   "name": "tx_146_b0_6_6",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C03E on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x146",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 7,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CEF",
+    "LT8F300C": "FFF89B3F",
+    "LT8D800A": "FFF89B43"
+   },
+   "name": "tx_146_b0_7_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CEF on LT8H300D; the 2021 WRX's 0x140 mil_request comes from the same byte (FFF895D3 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x146",
+   "dir": "tx",
+   "byte": 1,
+   "bit_start": 0,
+   "bit_len": 4,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C021",
+    "LT8F300C": "FFF8BE4B",
+    "LT8D800A": "FFF8BDC7"
+   },
+   "name": "tx_146_b1_0_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C021 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x146",
+   "dir": "tx",
+   "byte": 1,
+   "bit_start": 4,
+   "bit_len": 3,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C05B",
+    "LT8F300C": "FFF8BE85",
+    "LT8D800A": "FFF8BE01"
+   },
+   "name": "tx_146_b1_4_6",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C05B on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x146",
+   "dir": "tx",
+   "byte": 1,
+   "bit_start": 7,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CEF",
+    "LT8F300C": "FFF89B3F",
+    "LT8D800A": "FFF89B43"
+   },
+   "name": "tx_146_b1_7_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CEF on LT8H300D; the 2021 WRX's 0x140 mil_request comes from the same byte (FFF895D3 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x146",
+   "dir": "tx",
+   "byte": 2,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8D1F5",
+    "LT8F300C": "FFF8CFF3",
+    "LT8D800A": "FFF8CF67"
+   },
+   "name": "tx_146_b2_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8D1F5 on LT8H300D (FFF8C4E7 on the WRX); no WRX signal on that variable."
+  },
+  {
+   "id": "0x146",
+   "dir": "tx",
+   "byte": 3,
+   "bit_start": 0,
+   "bit_len": 6,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8D1F4",
+    "LT8F300C": "FFF8CFF2",
+    "LT8D800A": "FFF8CF66"
+   },
+   "name": "engine_speed_filtered_146",
+   "confidence": "inferred",
+   "meaning": "Same ECU variable as the 2021 WRX's 0x141 engine_speed_filtered (RAM FFF8D1F4 on LT8H300D, FFF8C4E6 on the WRX, vote). Filtered engine speed (CE9C, weight B73E); with an AT it tracks the TCM speed FFF8924E (0x149); 0 when FFF88A28 b1 clear or engine not rotating",
+   "wrx": {
+    "id": "0x141",
+    "name": "engine_speed_filtered"
+   }
+  },
+  {
+   "id": "0x146",
+   "dir": "tx",
+   "byte": 3,
+   "bit_start": 6,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C03E",
+    "LT8F300C": "FFF8BE68",
+    "LT8D800A": "FFF8BDE4"
+   },
+   "name": "tx_146_b3_6_6",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C03E on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x146",
+   "dir": "tx",
+   "byte": 3,
+   "bit_start": 7,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF9244E",
+    "LT8F300C": "FFF921BE",
+    "LT8D800A": "FFF920DE"
+   },
+   "name": "tx_146_b3_7_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF9244E on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x146",
+   "dir": "tx",
+   "byte": 4,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C081",
+    "LT8F300C": "FFF8BEAB",
+    "LT8D800A": "FFF8BE27"
+   },
+   "name": "tx_146_b4_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C081 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x146",
+   "dir": "tx",
+   "byte": 5,
+   "bit_start": 0,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CF0",
+    "LT8F300C": "FFF89B40",
+    "LT8D800A": "FFF89B44"
+   },
+   "name": "tx_146_b5_0_0",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CF0 on LT8H300D; the 2021 WRX's 0x140 throttle_closed comes from the same byte (FFF895D4 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x146",
+   "dir": "tx",
+   "byte": 5,
+   "bit_start": 1,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CEE",
+    "LT8F300C": "FFF89B3E",
+    "LT8D800A": "FFF89B42"
+   },
+   "name": "tx_146_b5_1_1",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CEE on LT8H300D; the 2021 WRX's 0x144 cruise_standby comes from the same byte (FFF895D2 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x146",
+   "dir": "tx",
+   "byte": 5,
+   "bit_start": 2,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CEC",
+    "LT8F300C": "FFF89B3C",
+    "LT8D800A": "FFF89B40"
+   },
+   "name": "tx_146_b5_2_2",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CEC on LT8H300D; the 2021 WRX's 0x141 drive_mode_flag_A643 comes from the same byte (FFF895D0 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x146",
+   "dir": "tx",
+   "byte": 5,
+   "bit_start": 3,
+   "bit_len": 3,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C038",
+    "LT8F300C": "FFF8BE62",
+    "LT8D800A": "FFF8BDDE"
+   },
+   "name": "tx_146_b5_3_5",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C038 on LT8H300D; the 2021 WRX's 0x144 cruise_switch_code comes from the same byte (FFF8B4A0 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x146",
+   "dir": "tx",
+   "byte": 5,
+   "bit_start": 6,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF9244E",
+    "LT8F300C": "FFF921BE",
+    "LT8D800A": "FFF920DE"
+   },
+   "name": "tx_146_b5_6_6",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF9244E on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 0,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF81052",
+    "LT8F300C": "FFF8103E",
+    "LT8D800A": "FFF80FEE"
+   },
+   "name": "tx_240_b0_0_0",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF81052 on LT8H300D (FFF81164 on the WRX); no WRX signal on that variable."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 1,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CE8",
+    "LT8F300C": "FFF89B38",
+    "LT8D800A": "FFF89B3C"
+   },
+   "name": "tx_240_b0_1_1",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CE8 on LT8H300D; the 2021 WRX's 0x144 cruise_meter_flag_b6 comes from the same byte (FFF895CC on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 2,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89F27",
+    "LT8F300C": "FFF89D77",
+    "LT8D800A": "FFF89D7F"
+   },
+   "name": "tx_240_b0_2_2",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89F27 on LT8H300D; the 2021 WRX's 0x361 flag_89053b3 comes from the same byte (FFF89813 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 3,
+   "bit_len": 3,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF81051",
+    "LT8F300C": "FFF8103D",
+    "LT8D800A": "FFF80FED"
+   },
+   "name": "tx_240_b0_3_5",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF81051 on LT8H300D; the 2021 WRX's 0x144 warmup_counter comes from the same byte (FFF81163 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 6,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CE8",
+    "LT8F300C": "FFF89B38",
+    "LT8D800A": "FFF89B3C"
+   },
+   "name": "tx_240_b0_6_6",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CE8 on LT8H300D; the 2021 WRX's 0x144 cruise_meter_flag_b6 comes from the same byte (FFF895CC on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 7,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89AAE",
+    "LT8F300C": "FFF898FE",
+    "LT8D800A": "FFF89902"
+   },
+   "name": "tx_240_b0_7_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89AAE on LT8H300D; the 2021 WRX's 0x360 ac_request comes from the same byte (FFF89386 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 1,
+   "bit_start": 0,
+   "bit_len": 4,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C022",
+    "LT8F300C": "FFF8BE4C",
+    "LT8D800A": "FFF8BDC8"
+   },
+   "name": "tx_240_b1_0_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C022 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 3,
+   "bit_start": 0,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89F27",
+    "LT8F300C": "FFF89D77",
+    "LT8D800A": "FFF89D7F"
+   },
+   "name": "tx_240_b3_0_0",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89F27 on LT8H300D; the 2021 WRX's 0x361 flag_89053b3 comes from the same byte (FFF89813 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 3,
+   "bit_start": 1,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89912",
+    "LT8F300C": "FFF89762",
+    "LT8D800A": "FFF89766"
+   },
+   "name": "tx_240_b3_1_1",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89912 on LT8H300D; the 2021 WRX's 0x361 engine_not_rotating comes from the same byte (FFF891ED on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 3,
+   "bit_start": 2,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89F27",
+    "LT8F300C": "FFF89D77",
+    "LT8D800A": "FFF89D7F"
+   },
+   "name": "tx_240_b3_2_2",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89F27 on LT8H300D; the 2021 WRX's 0x361 flag_89053b3 comes from the same byte (FFF89813 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 3,
+   "bit_start": 3,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CF0",
+    "LT8F300C": "FFF89B40",
+    "LT8D800A": "FFF89B44"
+   },
+   "name": "tx_240_b3_3_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CF0 on LT8H300D; the 2021 WRX's 0x140 throttle_closed comes from the same byte (FFF895D4 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 3,
+   "bit_start": 4,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89782",
+    "LT8F300C": "FFF895D2",
+    "LT8D800A": "FFF895D6"
+   },
+   "name": "tx_240_b3_4_4",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89782 on LT8H300D; the 2021 WRX's 0x360 flag_8889Eb5 comes from the same byte (FFF8905E on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 3,
+   "bit_start": 5,
+   "bit_len": 2,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C03F",
+    "LT8F300C": "FFF8BE69",
+    "LT8D800A": "FFF8BDE5"
+   },
+   "name": "tx_240_b3_5_6",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C03F on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 3,
+   "bit_start": 7,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89AAE",
+    "LT8F300C": "FFF898FE",
+    "LT8D800A": "FFF89902"
+   },
+   "name": "tx_240_b3_7_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89AAE on LT8H300D; the 2021 WRX's 0x360 ac_request comes from the same byte (FFF89386 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 4,
+   "bit_start": 0,
+   "bit_len": 3,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF81052",
+    "LT8F300C": "FFF8103E",
+    "LT8D800A": "FFF80FEE"
+   },
+   "name": "tx_240_b4_0_2",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF81052 on LT8H300D (FFF81164 on the WRX); no WRX signal on that variable."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 4,
+   "bit_start": 3,
+   "bit_len": 3,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF81051",
+    "LT8F300C": "FFF8103D",
+    "LT8D800A": "FFF80FED"
+   },
+   "name": "tx_240_b4_3_5",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF81051 on LT8H300D; the 2021 WRX's 0x144 warmup_counter comes from the same byte (FFF81163 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 4,
+   "bit_start": 6,
+   "bit_len": 2,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C578",
+    "LT8F300C": "FFF8C390",
+    "LT8D800A": "FFF8C2E4"
+   },
+   "name": "tx_240_b4_6_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C578 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 5,
+   "bit_start": 0,
+   "bit_len": 3,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CEE",
+    "LT8F300C": "FFF89B3E",
+    "LT8D800A": "FFF89B42"
+   },
+   "name": "tx_240_b5_0_2",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CEE on LT8H300D; the 2021 WRX's 0x144 cruise_standby comes from the same byte (FFF895D2 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 5,
+   "bit_start": 3,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CEF",
+    "LT8F300C": "FFF89B3F",
+    "LT8D800A": "FFF89B43"
+   },
+   "name": "tx_240_b5_3_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CEF on LT8H300D; the 2021 WRX's 0x140 mil_request comes from the same byte (FFF895D3 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 5,
+   "bit_start": 4,
+   "bit_len": 2,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CED",
+    "LT8F300C": "FFF89B3D",
+    "LT8D800A": "FFF89B41"
+   },
+   "name": "tx_240_b5_4_5",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CED on LT8H300D; the 2021 WRX's 0x144 cruise_switch_taps comes from the same byte (FFF895D1 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 5,
+   "bit_start": 6,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8B31D",
+    "LT8F300C": "FFF8B14D",
+    "LT8D800A": "FFF8B14D"
+   },
+   "name": "tx_240_b5_6_6",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8B31D on LT8H300D; the 2021 WRX's 0x144 drive_cycle_done comes from the same byte (FFF8A869 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 5,
+   "bit_start": 7,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C4E8",
+    "LT8F300C": "FFF8C302",
+    "LT8D800A": "FFF8C256"
+   },
+   "name": "tx_240_b5_7_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C4E8 on LT8H300D; the 2021 WRX's 0x144 torque_monitor_AC77b0 comes from the same byte (FFF8B8DD on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 6,
+   "bit_start": 0,
+   "bit_len": 3,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C037",
+    "LT8F300C": "FFF8BE61",
+    "LT8D800A": "FFF8BDDD"
+   },
+   "name": "tx_240_b6_0_2",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C037 on LT8H300D; the 2021 WRX's 0x141 drive_mode_applied comes from the same byte (FFF8B49F on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 6,
+   "bit_start": 3,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89D0A",
+    "LT8F300C": "FFF89B5A",
+    "LT8D800A": "FFF89B5E"
+   },
+   "name": "tx_240_b6_3_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89D0A on LT8H300D; the 2021 WRX's 0x140 accessory_load_flag comes from the same byte (FFF895EE on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 6,
+   "bit_start": 6,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CE8",
+    "LT8F300C": "FFF89B38",
+    "LT8D800A": "FFF89B3C"
+   },
+   "name": "tx_240_b6_6_6",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CE8 on LT8H300D; the 2021 WRX's 0x144 cruise_meter_flag_b6 comes from the same byte (FFF895CC on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x240",
+   "dir": "tx",
+   "byte": 7,
+   "bit_start": 5,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CE8",
+    "LT8F300C": "FFF89B38",
+    "LT8D800A": "FFF89B3C"
+   },
+   "name": "tx_240_b7_5_5",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CE8 on LT8H300D; the 2021 WRX's 0x144 cruise_meter_flag_b6 comes from the same byte (FFF895CC on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x241",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 0,
+   "bit_len": 2,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CE8",
+    "LT8F300C": "FFF89B38",
+    "LT8D800A": "FFF89B3C"
+   },
+   "name": "tx_241_b0_0_1",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CE8 on LT8H300D; the 2021 WRX's 0x144 cruise_meter_flag_b6 comes from the same byte (FFF895CC on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x241",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 2,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C023",
+    "LT8F300C": "FFF8BE4D",
+    "LT8D800A": "FFF8BDC9"
+   },
+   "name": "tx_241_b0_2_2",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C023 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x241",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 3,
+   "bit_len": 2,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C03D",
+    "LT8F300C": "FFF8BE67",
+    "LT8D800A": "FFF8BDE3"
+   },
+   "name": "tx_241_b0_3_4",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C03D on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x241",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 5,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CEA",
+    "LT8F300C": "FFF89B3A",
+    "LT8D800A": "FFF89B3E"
+   },
+   "name": "tx_241_b0_5_5",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CEA on LT8H300D; the 2021 WRX's 0x141 flag_88E0Eb0 comes from the same byte (FFF895CE on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x241",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 6,
+   "bit_len": 2,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89785",
+    "LT8F300C": "FFF895D5",
+    "LT8D800A": "FFF895D9"
+   },
+   "name": "tx_241_b0_6_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89785 on LT8H300D; the 2021 WRX's 0x360 cruise_lamp_main comes from the same byte (FFF89061 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x241",
+   "dir": "tx",
+   "byte": 1,
+   "bit_start": 0,
+   "bit_len": 4,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C023",
+    "LT8F300C": "FFF8BE4D",
+    "LT8D800A": "FFF8BDC9"
+   },
+   "name": "tx_241_b1_0_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C023 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x241",
+   "dir": "tx",
+   "byte": 2,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8CD77",
+    "LT8F300C": "FFF8CB75",
+    "LT8D800A": "FFF8CACD"
+   },
+   "name": "tx_241_b2_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8CD77 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x241",
+   "dir": "tx",
+   "byte": 3,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8CD76",
+    "LT8F300C": "FFF8CB74",
+    "LT8D800A": "FFF8CACC"
+   },
+   "name": "tx_241_b3_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8CD76 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x241",
+   "dir": "tx",
+   "byte": 4,
+   "bit_start": 3,
+   "bit_len": 3,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C03D",
+    "LT8F300C": "FFF8BE67",
+    "LT8D800A": "FFF8BDE3"
+   },
+   "name": "tx_241_b4_3_5",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C03D on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x241",
+   "dir": "tx",
+   "byte": 4,
+   "bit_start": 6,
+   "bit_len": 2,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CEF",
+    "LT8F300C": "FFF89B3F",
+    "LT8D800A": "FFF89B43"
+   },
+   "name": "tx_241_b4_6_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CEF on LT8H300D; the 2021 WRX's 0x140 mil_request comes from the same byte (FFF895D3 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x241",
+   "dir": "tx",
+   "byte": 5,
+   "bit_start": 0,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF81054",
+    "LT8F300C": "FFF81040",
+    "LT8D800A": "FFF80FF0"
+   },
+   "name": "tx_241_b5_0_0",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF81054 on LT8H300D; the 2021 WRX's 0x361 maint_flag_811E0 comes from the same byte (FFF81166 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x241",
+   "dir": "tx",
+   "byte": 5,
+   "bit_start": 1,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C279",
+    "LT8F300C": "FFF8C0A2",
+    "LT8D800A": "FFF8C03B"
+   },
+   "name": "tx_241_b5_1_1",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C279 on LT8H300D; the 2021 WRX's 0x141 charging_flag_AA6Bb7 comes from the same byte (FFF8B699 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x241",
+   "dir": "tx",
+   "byte": 5,
+   "bit_start": 5,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CEA",
+    "LT8F300C": "FFF89B3A",
+    "LT8D800A": "FFF89B3E"
+   },
+   "name": "tx_241_b5_5_5",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CEA on LT8H300D; the 2021 WRX's 0x141 flag_88E0Eb0 comes from the same byte (FFF895CE on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x241",
+   "dir": "tx",
+   "byte": 5,
+   "bit_start": 6,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8978B",
+    "LT8F300C": "FFF895DB",
+    "LT8D800A": "FFF895DF"
+   },
+   "name": "tx_241_b5_6_6",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8978B on LT8H300D; the 2021 WRX's 0x140 status_89AB6 comes from the same byte (FFF89067 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x241",
+   "dir": "tx",
+   "byte": 6,
+   "bit_start": 0,
+   "bit_len": 5,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C03B",
+    "LT8F300C": "FFF8BE65",
+    "LT8D800A": "FFF8BDE1"
+   },
+   "name": "tx_241_b6_0_4",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C03B on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x241",
+   "dir": "tx",
+   "byte": 6,
+   "bit_start": 6,
+   "bit_len": 2,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89785",
+    "LT8F300C": "FFF895D5",
+    "LT8D800A": "FFF895D9"
+   },
+   "name": "tx_241_b6_6_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89785 on LT8H300D; the 2021 WRX's 0x360 cruise_lamp_main comes from the same byte (FFF89061 on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x241",
+   "dir": "tx",
+   "byte": 7,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C389",
+    "LT8F300C": "FFF8C1AC",
+    "LT8D800A": "FFF8C145"
+   },
+   "name": "tx_241_b7_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C389 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x345",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 0,
+   "bit_len": 3,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C024",
+    "LT8F300C": "FFF8BE4E",
+    "LT8D800A": "FFF8BDCA"
+   },
+   "name": "tx_345_b0_0_2",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C024 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x345",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 3,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CE8",
+    "LT8F300C": "FFF89B38",
+    "LT8D800A": "FFF89B3C"
+   },
+   "name": "tx_345_b0_3_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CE8 on LT8H300D; the 2021 WRX's 0x144 cruise_meter_flag_b6 comes from the same byte (FFF895CC on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x345",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 4,
+   "bit_len": 2,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C043",
+    "LT8F300C": "FFF8BE6D",
+    "LT8D800A": "FFF8BDE9"
+   },
+   "name": "tx_345_b0_4_5",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C043 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x345",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 6,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CE8",
+    "LT8F300C": "FFF89B38",
+    "LT8D800A": "FFF89B3C"
+   },
+   "name": "tx_345_b0_6_6",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CE8 on LT8H300D; the 2021 WRX's 0x144 cruise_meter_flag_b6 comes from the same byte (FFF895CC on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x345",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 7,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF899C0",
+    "LT8F300C": "FFF89810",
+    "LT8D800A": "FFF89814"
+   },
+   "name": "tx_345_b0_7_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF899C0 on LT8H300D (FFF8929A on the WRX); no WRX signal on that variable."
+  },
+  {
+   "id": "0x345",
+   "dir": "tx",
+   "byte": 1,
+   "bit_start": 0,
+   "bit_len": 4,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C024",
+    "LT8F300C": "FFF8BE4E",
+    "LT8D800A": "FFF8BDCA"
+   },
+   "name": "tx_345_b1_0_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C024 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x345",
+   "dir": "tx",
+   "byte": 1,
+   "bit_start": 4,
+   "bit_len": 2,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C043",
+    "LT8F300C": "FFF8BE6D",
+    "LT8D800A": "FFF8BDE9"
+   },
+   "name": "tx_345_b1_4_5",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C043 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x345",
+   "dir": "tx",
+   "byte": 2,
+   "bit_start": 0,
+   "bit_len": 7,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C039",
+    "LT8F300C": "FFF8BE63",
+    "LT8D800A": "FFF8BDDF"
+   },
+   "name": "coding_byte_345",
+   "confidence": "inferred",
+   "meaning": "Same ECU variable as the 2021 WRX's 0x144 coding_byte (RAM FFF8C039 on LT8H300D, FFF8B4A1 on the WRX, vote). Bit-permuted copy of cal 0x58B7A (0x0A) -> 0x24 constant on this ROM",
+   "wrx": {
+    "id": "0x144",
+    "name": "coding_byte"
+   }
+  },
+  {
+   "id": "0x345",
+   "dir": "tx",
+   "byte": 2,
+   "bit_start": 7,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF899C0",
+    "LT8F300C": "FFF89810",
+    "LT8D800A": "FFF89814"
+   },
+   "name": "tx_345_b2_7_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF899C0 on LT8H300D (FFF8929A on the WRX); no WRX signal on that variable."
+  },
+  {
+   "id": "0x345",
+   "dir": "tx",
+   "byte": 3,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C07B",
+    "LT8F300C": "FFF8BEA5",
+    "LT8D800A": "FFF8BE21"
+   },
+   "name": "tx_345_b3_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C07B on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x345",
+   "dir": "tx",
+   "byte": 4,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C08B",
+    "LT8F300C": "FFF8BEB5",
+    "LT8D800A": "FFF8BE31"
+   },
+   "name": "tx_345_b4_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C08B on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x345",
+   "dir": "tx",
+   "byte": 5,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C069",
+    "LT8F300C": "FFF8BE93",
+    "LT8D800A": "FFF8BE0F"
+   },
+   "name": "tx_345_b5_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C069 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x345",
+   "dir": "tx",
+   "byte": 6,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C064",
+    "LT8F300C": "FFF8BE8E",
+    "LT8D800A": "FFF8BE0A"
+   },
+   "name": "tx_345_b6_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C064 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x345",
+   "dir": "tx",
+   "byte": 7,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C08D",
+    "LT8F300C": "FFF8BEB7",
+    "LT8D800A": "FFF8BE33"
+   },
+   "name": "tx_345_b7_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C08D on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x346",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 0,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CE8",
+    "LT8F300C": "FFF89B38",
+    "LT8D800A": "FFF89B3C"
+   },
+   "name": "tx_346_b0_0_0",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CE8 on LT8H300D; the 2021 WRX's 0x144 cruise_meter_flag_b6 comes from the same byte (FFF895CC on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x346",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 1,
+   "bit_len": 2,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C025",
+    "LT8F300C": "FFF8BE4F",
+    "LT8D800A": "FFF8BDCB"
+   },
+   "name": "tx_346_b0_1_2",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C025 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x346",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 3,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CE8",
+    "LT8F300C": "FFF89B38",
+    "LT8D800A": "FFF89B3C"
+   },
+   "name": "tx_346_b0_3_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CE8 on LT8H300D; the 2021 WRX's 0x144 cruise_meter_flag_b6 comes from the same byte (FFF895CC on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x346",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 4,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CEA",
+    "LT8F300C": "FFF89B3A",
+    "LT8D800A": "FFF89B3E"
+   },
+   "name": "tx_346_b0_4_4",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CEA on LT8H300D; the 2021 WRX's 0x141 flag_88E0Eb0 comes from the same byte (FFF895CE on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x346",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 5,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8A12C",
+    "LT8F300C": "FFF89F78",
+    "LT8D800A": "FFF89F84"
+   },
+   "name": "tx_346_b0_5_5",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8A12C on LT8H300D; the 2021 WRX's 0x362 lin_status_89245b0 comes from the same byte (FFF89A0D on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x346",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 6,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CE8",
+    "LT8F300C": "FFF89B38",
+    "LT8D800A": "FFF89B3C"
+   },
+   "name": "tx_346_b0_6_6",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CE8 on LT8H300D; the 2021 WRX's 0x144 cruise_meter_flag_b6 comes from the same byte (FFF895CC on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x346",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 7,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AB48",
+    "LT8F300C": "FFF8A994",
+    "LT8D800A": "FFF8A9A0"
+   },
+   "name": "tx_346_b0_7_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AB48 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x346",
+   "dir": "tx",
+   "byte": 1,
+   "bit_start": 0,
+   "bit_len": 4,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C025",
+    "LT8F300C": "FFF8BE4F",
+    "LT8D800A": "FFF8BDCB"
+   },
+   "name": "tx_346_b1_0_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C025 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x346",
+   "dir": "tx",
+   "byte": 1,
+   "bit_start": 4,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CEA",
+    "LT8F300C": "FFF89B3A",
+    "LT8D800A": "FFF89B3E"
+   },
+   "name": "tx_346_b1_4_4",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CEA on LT8H300D; the 2021 WRX's 0x141 flag_88E0Eb0 comes from the same byte (FFF895CE on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x346",
+   "dir": "tx",
+   "byte": 1,
+   "bit_start": 5,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8A12C",
+    "LT8F300C": "FFF89F78",
+    "LT8D800A": "FFF89F84"
+   },
+   "name": "tx_346_b1_5_5",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8A12C on LT8H300D; the 2021 WRX's 0x362 lin_status_89245b0 comes from the same byte (FFF89A0D on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x346",
+   "dir": "tx",
+   "byte": 1,
+   "bit_start": 6,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CEA",
+    "LT8F300C": "FFF89B3A",
+    "LT8D800A": "FFF89B3E"
+   },
+   "name": "tx_346_b1_6_6",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CEA on LT8H300D; the 2021 WRX's 0x141 flag_88E0Eb0 comes from the same byte (FFF895CE on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x346",
+   "dir": "tx",
+   "byte": 1,
+   "bit_start": 7,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8AB48",
+    "LT8F300C": "FFF8A994",
+    "LT8D800A": "FFF8A9A0"
+   },
+   "name": "tx_346_b1_7_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8AB48 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x346",
+   "dir": "tx",
+   "byte": 2,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8CD93",
+    "LT8F300C": "FFF8CB91",
+    "LT8D800A": "FFF8CAE9"
+   },
+   "name": "tx_346_b2_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8CD93 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x346",
+   "dir": "tx",
+   "byte": 3,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8CD92",
+    "LT8F300C": "FFF8CB90",
+    "LT8D800A": "FFF8CAE8"
+   },
+   "name": "tx_346_b3_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8CD92 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x346",
+   "dir": "tx",
+   "byte": 4,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C079",
+    "LT8F300C": "FFF8BEA3",
+    "LT8D800A": "FFF8BE1F"
+   },
+   "name": "tx_346_b4_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C079 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x346",
+   "dir": "tx",
+   "byte": 5,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C075",
+    "LT8F300C": "FFF8BE9F",
+    "LT8D800A": "FFF8BE1B"
+   },
+   "name": "tx_346_b5_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C075 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x346",
+   "dir": "tx",
+   "byte": 6,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C08C",
+    "LT8F300C": "FFF8BEB6",
+    "LT8D800A": "FFF8BE32"
+   },
+   "name": "tx_346_b6_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C08C on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x346",
+   "dir": "tx",
+   "byte": 7,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C08E",
+    "LT8F300C": "FFF8BEB8",
+    "LT8D800A": "FFF8BE34"
+   },
+   "name": "tx_346_b7_0_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C08E on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x347",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 0,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C026",
+    "LT8F300C": "FFF8BE50",
+    "LT8D800A": "FFF8BDCC"
+   },
+   "name": "tx_347_b0_0_0",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C026 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x347",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 1,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CE8",
+    "LT8F300C": "FFF89B38",
+    "LT8D800A": "FFF89B3C"
+   },
+   "name": "tx_347_b0_1_1",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CE8 on LT8H300D; the 2021 WRX's 0x144 cruise_meter_flag_b6 comes from the same byte (FFF895CC on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x347",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 2,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C026",
+    "LT8F300C": "FFF8BE50",
+    "LT8D800A": "FFF8BDCC"
+   },
+   "name": "tx_347_b0_2_2",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C026 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x347",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 3,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CE8",
+    "LT8F300C": "FFF89B38",
+    "LT8D800A": "FFF89B3C"
+   },
+   "name": "tx_347_b0_3_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CE8 on LT8H300D; the 2021 WRX's 0x144 cruise_meter_flag_b6 comes from the same byte (FFF895CC on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x347",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 4,
+   "bit_len": 2,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C074",
+    "LT8F300C": "FFF8BE9E",
+    "LT8D800A": "FFF8BE1A"
+   },
+   "name": "tx_347_b0_4_5",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C074 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x347",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 6,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF89CE8",
+    "LT8F300C": "FFF89B38",
+    "LT8D800A": "FFF89B3C"
+   },
+   "name": "tx_347_b0_6_6",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF89CE8 on LT8H300D; the 2021 WRX's 0x144 cruise_meter_flag_b6 comes from the same byte (FFF895CC on the WRX), not checked bit by bit."
+  },
+  {
+   "id": "0x347",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 7,
+   "bit_len": 1,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C074",
+    "LT8F300C": "FFF8BE9E",
+    "LT8D800A": "FFF8BE1A"
+   },
+   "name": "tx_347_b0_7_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C074 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x347",
+   "dir": "tx",
+   "byte": 1,
+   "bit_start": 0,
+   "bit_len": 4,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C026",
+    "LT8F300C": "FFF8BE50",
+    "LT8D800A": "FFF8BDCC"
+   },
+   "name": "tx_347_b1_0_3",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C026 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x347",
+   "dir": "tx",
+   "byte": 1,
+   "bit_start": 4,
+   "bit_len": 4,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8C074",
+    "LT8F300C": "FFF8BE9E",
+    "LT8D800A": "FFF8BE1A"
+   },
+   "name": "tx_347_b1_4_7",
+   "confidence": "read (meaning unknown)",
+   "meaning": "RAM FFF8C074 on LT8H300D; no WRX signal on that variable."
+  },
+  {
+   "id": "0x6FC",
+   "dir": "tx",
+   "byte": 0,
+   "bit_start": 0,
+   "bit_len": 4,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8A29E",
+    "LT8F300C": "FFF8A0EA",
+    "LT8D800A": "FFF8A0F6"
+   },
+   "name": "lin_battery_b0_6fc",
+   "confidence": "inferred",
+   "meaning": "Same ECU variable as the 2021 WRX's 0x6FC lin_battery_b0 (RAM FFF8A29E on LT8H300D, FFF89B6E on the WRX, vote). LIN battery-sensor block, low nibble of FFF893A6. 0x6FC is sent every 100 ms by ROMs whose table has it in mailbox 15 (they do not receive 0x15A).",
+   "wrx": {
+    "id": "0x6FC",
+    "name": "lin_battery_b0"
+   }
+  },
+  {
+   "id": "0x6FC",
+   "dir": "tx",
+   "byte": 1,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8A2A1",
+    "LT8F300C": "FFF8A0ED",
+    "LT8D800A": "FFF8A0F9"
+   },
+   "name": "lin_battery_b1_6fc",
+   "confidence": "inferred",
+   "meaning": "Same ECU variable as the 2021 WRX's 0x6FC lin_battery_b1 (RAM FFF8A2A1 on LT8H300D, FFF89B71 on the WRX, vote). LIN battery-sensor value FFF893A9.",
+   "wrx": {
+    "id": "0x6FC",
+    "name": "lin_battery_b1"
+   }
+  },
+  {
+   "id": "0x6FC",
+   "dir": "tx",
+   "byte": 2,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8A2A2",
+    "LT8F300C": "FFF8A0EE",
+    "LT8D800A": "FFF8A0FA"
+   },
+   "name": "lin_battery_b2_6fc",
+   "confidence": "inferred",
+   "meaning": "Same ECU variable as the 2021 WRX's 0x6FC lin_battery_b2 (RAM FFF8A2A2 on LT8H300D, FFF89B72 on the WRX, vote). LIN battery-sensor value FFF893AA.",
+   "wrx": {
+    "id": "0x6FC",
+    "name": "lin_battery_b2"
+   }
+  },
+  {
+   "id": "0x6FC",
+   "dir": "tx",
+   "byte": 3,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8A2A3",
+    "LT8F300C": "FFF8A0EF",
+    "LT8D800A": "FFF8A0FB"
+   },
+   "name": "lin_battery_b3_6fc",
+   "confidence": "inferred",
+   "meaning": "Same ECU variable as the 2021 WRX's 0x6FC lin_battery_b3 (RAM FFF8A2A3 on LT8H300D, FFF89B73 on the WRX, vote). LIN battery-sensor value FFF893AB.",
+   "wrx": {
+    "id": "0x6FC",
+    "name": "lin_battery_b3"
+   }
+  },
+  {
+   "id": "0x6FC",
+   "dir": "tx",
+   "byte": 4,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8A8A7",
+    "LT8F300C": "FFF8A6F3",
+    "LT8D800A": "FFF8A6FF"
+   },
+   "name": "lin_battery_b4_6fc",
+   "confidence": "inferred",
+   "meaning": "Same ECU variable as the 2021 WRX's 0x6FC lin_battery_b4 (RAM FFF8A8A7 on LT8H300D, FFF8A177 on the WRX, vote). ECU value FFF899AF (LIN battery-sensor processing).",
+   "wrx": {
+    "id": "0x6FC",
+    "name": "lin_battery_b4"
+   }
+  },
+  {
+   "id": "0x6FC",
+   "dir": "tx",
+   "byte": 5,
+   "bit_start": 0,
+   "bit_len": 5,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8A29F",
+    "LT8F300C": "FFF8A0EB",
+    "LT8D800A": "FFF8A0F7"
+   },
+   "name": "lin_battery_b5_6fc",
+   "confidence": "inferred",
+   "meaning": "Same ECU variable as the 2021 WRX's 0x6FC lin_battery_b5 (RAM FFF8A29F on LT8H300D, FFF89B6F on the WRX, vote). LIN battery-sensor value FFF893A7, bits 0-4.",
+   "wrx": {
+    "id": "0x6FC",
+    "name": "lin_battery_b5"
+   }
+  },
+  {
+   "id": "0x6FC",
+   "dir": "tx",
+   "byte": 6,
+   "bit_start": 0,
+   "bit_len": 8,
+   "endian": "little",
+   "scale": 1,
+   "offset": 0,
+   "unit": "raw",
+   "presence": {
+    "LT8H300D": "present",
+    "LT8F300C": "present",
+    "LT8D800A": "present"
+   },
+   "ram": {
+    "LT8H300D": "FFF8A2A0",
+    "LT8F300C": "FFF8A0EC",
+    "LT8D800A": "FFF8A0F8"
+   },
+   "name": "lin_battery_b6_6fc",
+   "confidence": "inferred",
+   "meaning": "Same ECU variable as the 2021 WRX's 0x6FC lin_battery_b6 (RAM FFF8A2A0 on LT8H300D, FFF89B70 on the WRX, vote). LIN battery-sensor value FFF893A8.",
+   "wrx": {
+    "id": "0x6FC",
+    "name": "lin_battery_b6"
+   }
+  }
+ ]
+}

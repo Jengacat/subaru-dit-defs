@@ -4,6 +4,18 @@
 
 First public release.
 
+- New: **logging and CAN for every ROM.** The logging patch now has a spec for all 103 ROMs, and I checked the stock
+  logger file against each ROM's own SSM table. The CAN dictionary covers all 100 2.0 and 1.6 ROMs.
+- New: **Ascent logging** (`logger/FA24DIT_Logger*.xml`). The stock SSM parameters carry over, except wastegate duty
+  (the Ascent's electric wastegate doesn't use it). The DTC tab lists 155 of the Ascent's codes. The logging patch
+  adds the Ascent's boost target and pressure plus eight new parameters for the electric wastegate: motor duty,
+  position, position command, feed-forward position, control mode, sensor voltage, boost error and the boost target
+  before corrections (L25–L32).
+- New: **Ascent CAN, first pass** (`extras/can/FA24DIT_CAN.*`). The Ascent runs a different CAN network from the WRX:
+  15 received and 9 sent frame IDs, none shared with the FA20DIT. The sent frames are mapped field by field, with
+  engine speed and other values named where they match a WRX signal. For the received frames only the first byte
+  and a counter are mapped so far.
+
 - New: **Ascent (FA24DIT)**, three ROMs: LT8D800A (2019), LT8F300C (2020) and LT8H300D (2021), all USDM CVT, in
   their own files (`FA24DIT_RomRaider.xml`, `FA24DIT_BASE_EcuFlash.xml` and its Metric twin), 103 ROMs in all. The
   Ascent runs a later build of the FA20DIT software, so most tables are carried over at its own addresses: about

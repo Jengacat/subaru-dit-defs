@@ -123,6 +123,9 @@ function Set-Size([int]$n) {
 }
 
 # Checksum and validity markers, same report as checksum.ps1 / checksum.py
+# The FA24DIT (Ascent) dealer images carry no boot block: its 0x006C marker is reported but not required for them
+# (the patch only touches the application region). $BootBlock is set from the spec's "family" below.
+$BootBlock = $true
 function Test-Image([byte[]]$d) {
     $ok = $true
     if ($SIZES -notcontains $d.Length) { Write-Host ('  size {0}, expected {1} or {2}' -f $d.Length, $SIZES[0], $SIZES[1]); return $false }
@@ -142,8 +145,8 @@ function Test-Image([byte[]]$d) {
     }
     $a = Get-Word $d 0x6C; $b = Get-Word $d 0x6010
     $mok = ($a -eq $b)
-    if (-not $mok) { $ok = $false }
-    Write-Host ('  marker word 0x006C = word 0x6010 (0x{0:X4} / 0x{1:X4}): {2}' -f $a, $b, $(if ($mok) { 'OK' } else { 'BAD' }))
+    if (-not $mok -and $BootBlock) { $ok = $false }
+    Write-Host ('  marker word 0x006C = word 0x6010 (0x{0:X4} / 0x{1:X4}): {2}' -f $a, $b, $(if ($mok) { 'OK' } elseif ($BootBlock) { 'BAD' } else { 'BAD (not required here)' }))
     $r0 = Get-Word $d ($END - 0x20); $r1 = Get-Word $d ($END - 0x1E)
     $mok = ($r0 -eq $TARGET -and $r1 -eq $TARGET)
     if (-not $mok) { $ok = $false }
@@ -252,6 +255,7 @@ function Test-Patched($spec, [byte[]]$src, [byte[]]$out) {
 $specPath = (Resolve-Path -LiteralPath $Spec).ProviderPath
 $romPath  = (Resolve-Path -LiteralPath $Rom).ProviderPath
 $specObj  = [System.IO.File]::ReadAllText($specPath) | ConvertFrom-Json
+if ($specObj.family -eq 'FA24DIT') { $BootBlock = $false }
 $src      = [System.IO.File]::ReadAllBytes($romPath)
 
 if ($Verify) {

@@ -1,0 +1,477 @@
+{
+ "calid": "LT8H300D",
+ "rom": "LT8H300D_2021_USDM_Ascent.bin",
+ "table": "0x23C484",
+ "family": "FA24DIT",
+ "_comment": "Ascent logging patch (my research notes): L13 / L14 are not patched (the WRX wastegate block is inert here); L25..L32 are Ascent-only.",
+ "entries": [
+  {
+   "slot": "0x2B0",
+   "ram": "FFF8C762",
+   "param": "L01",
+   "name": "Target Torque",
+   "size": 2,
+   "byte": "high",
+   "method": "sibmap from LF9K000D, readers paired"
+  },
+  {
+   "slot": "0x2B1",
+   "ram": "FFF8C763",
+   "param": "L01",
+   "name": "Target Torque",
+   "size": 2,
+   "byte": "low",
+   "method": "sibmap from LF9K000D, readers paired"
+  },
+  {
+   "slot": "0x2B2",
+   "ram": "FFF8C772",
+   "param": "L02",
+   "name": "Throttle Torque Request",
+   "size": 2,
+   "byte": "high",
+   "method": "sibmap, writer and readers paired"
+  },
+  {
+   "slot": "0x2B3",
+   "ram": "FFF8C773",
+   "param": "L02",
+   "name": "Throttle Torque Request",
+   "size": 2,
+   "byte": "low",
+   "method": "sibmap, writer and readers paired"
+  },
+  {
+   "slot": "0x2B4",
+   "ram": "FFF8BD78",
+   "param": "L03",
+   "name": "Base Timing",
+   "size": 1,
+   "byte": "byte",
+   "method": "sibmap, writers and readers paired"
+  },
+  {
+   "slot": "0x2B5",
+   "ram": "FFF8BF03",
+   "param": "L04",
+   "name": "Feedback Knock Correction",
+   "size": 1,
+   "byte": "byte",
+   "method": "sibmap, readers paired"
+  },
+  {
+   "slot": "0x2B6",
+   "ram": "FFF8BF19",
+   "param": "L05",
+   "name": "Fine Learning Knock Correction",
+   "size": 1,
+   "byte": "byte",
+   "method": "sibmap, writer and readers paired"
+  },
+  {
+   "slot": "0x2B7",
+   "ram": "FFF8BEF6",
+   "param": "L06",
+   "name": "Knock Correction Advance",
+   "size": 1,
+   "byte": "byte",
+   "method": "sibmap, readers paired"
+  },
+  {
+   "slot": "0x2B8",
+   "ram": "FFF8BEDD",
+   "param": "L07",
+   "name": "Total Knock Correction",
+   "size": 1,
+   "byte": "byte",
+   "method": "sibmap, reader paired"
+  },
+  {
+   "slot": "0x2B9",
+   "ram": "FFF8BFD8",
+   "param": "L08",
+   "name": "Combustion Mode",
+   "size": 1,
+   "byte": "byte",
+   "method": "sibmap, writer and readers paired"
+  },
+  {
+   "slot": "0x2BA",
+   "ram": "FFF89768",
+   "param": "L09",
+   "name": "Fuel Rail Pressure",
+   "size": 2,
+   "byte": "high",
+   "method": "sibmap, writers and readers paired"
+  },
+  {
+   "slot": "0x2BB",
+   "ram": "FFF89769",
+   "param": "L09",
+   "name": "Fuel Rail Pressure",
+   "size": 2,
+   "byte": "low",
+   "method": "sibmap, writers and readers paired"
+  },
+  {
+   "slot": "0x2BC",
+   "ram": "FFF8D48E",
+   "param": "L10",
+   "name": "Target Fuel Rail Pressure",
+   "size": 2,
+   "byte": "high",
+   "method": "sibmap, writers and readers paired"
+  },
+  {
+   "slot": "0x2BD",
+   "ram": "FFF8D48F",
+   "param": "L10",
+   "name": "Target Fuel Rail Pressure",
+   "size": 2,
+   "byte": "low",
+   "method": "sibmap, writers and readers paired"
+  },
+  {
+   "slot": "0x2BE",
+   "ram": "FFF8ACC4",
+   "param": "L11",
+   "name": "Target Boost",
+   "size": 2,
+   "byte": "high",
+   "method": "wastegate module 0x0C8B4A"
+  },
+  {
+   "slot": "0x2BF",
+   "ram": "FFF8ACC5",
+   "param": "L11",
+   "name": "Target Boost",
+   "size": 2,
+   "byte": "low",
+   "method": "wastegate module 0x0C8B4A"
+  },
+  {
+   "slot": "0x2C0",
+   "ram": "FFF8A14A",
+   "param": "L12",
+   "name": "Boost Control Pressure",
+   "size": 2,
+   "byte": "high",
+   "method": "sibmap; wastegate module 0x0C90B2"
+  },
+  {
+   "slot": "0x2C1",
+   "ram": "FFF8A14B",
+   "param": "L12",
+   "name": "Boost Control Pressure",
+   "size": 2,
+   "byte": "low",
+   "method": "sibmap; wastegate module 0x0C90B2"
+  },
+  {
+   "slot": "0x2C6",
+   "ram": "FFF8CC44",
+   "param": "L15",
+   "name": "Closed Loop Target",
+   "size": 2,
+   "byte": "high",
+   "method": "sibmap, reader paired"
+  },
+  {
+   "slot": "0x2C7",
+   "ram": "FFF8CC45",
+   "param": "L15",
+   "name": "Closed Loop Target",
+   "size": 2,
+   "byte": "low",
+   "method": "sibmap, reader paired"
+  },
+  {
+   "slot": "0x2C8",
+   "ram": "FFF8CC10",
+   "param": "L16",
+   "name": "A/F Correction (Closed Loop)",
+   "size": 2,
+   "byte": "high",
+   "method": "sibmap, reader paired"
+  },
+  {
+   "slot": "0x2C9",
+   "ram": "FFF8CC11",
+   "param": "L16",
+   "name": "A/F Correction (Closed Loop)",
+   "size": 2,
+   "byte": "low",
+   "method": "sibmap, reader paired"
+  },
+  {
+   "slot": "0x2CA",
+   "ram": "FFF81049",
+   "param": "L17",
+   "name": "A/F Learning (FFF811D6)",
+   "size": 1,
+   "byte": "byte",
+   "method": "sibmap, writer and reader paired"
+  },
+  {
+   "slot": "0x2CB",
+   "ram": "FFF8C852",
+   "param": "L18",
+   "name": "Throttle Model Air Requirement",
+   "size": 2,
+   "byte": "high",
+   "method": "sibmap, writer and reader paired"
+  },
+  {
+   "slot": "0x2CC",
+   "ram": "FFF8C853",
+   "param": "L18",
+   "name": "Throttle Model Air Requirement",
+   "size": 2,
+   "byte": "low",
+   "method": "sibmap, writer and reader paired"
+  },
+  {
+   "slot": "0x2CD",
+   "ram": "FFF8C7B6",
+   "param": "L19",
+   "name": "Torque Model Throttle Opening",
+   "size": 2,
+   "byte": "high",
+   "method": "sibmap, reader paired"
+  },
+  {
+   "slot": "0x2CE",
+   "ram": "FFF8C7B7",
+   "param": "L19",
+   "name": "Torque Model Throttle Opening",
+   "size": 2,
+   "byte": "low",
+   "method": "sibmap, reader paired"
+  },
+  {
+   "slot": "0x2CF",
+   "ram": "FFF8C85E",
+   "param": "L20",
+   "name": "Throttle Required Area",
+   "size": 2,
+   "byte": "high",
+   "method": "neighbour shift of L18 / L21, writer paired"
+  },
+  {
+   "slot": "0x2D0",
+   "ram": "FFF8C85F",
+   "param": "L20",
+   "name": "Throttle Required Area",
+   "size": 2,
+   "byte": "low",
+   "method": "neighbour shift of L18 / L21, writer paired"
+  },
+  {
+   "slot": "0x2D1",
+   "ram": "FFF8C864",
+   "param": "L21",
+   "name": "ETC Target",
+   "size": 2,
+   "byte": "high",
+   "method": "sibmap, writer and readers paired"
+  },
+  {
+   "slot": "0x2D2",
+   "ram": "FFF8C865",
+   "param": "L21",
+   "name": "ETC Target",
+   "size": 2,
+   "byte": "low",
+   "method": "sibmap, writer and readers paired"
+  },
+  {
+   "slot": "0x2D3",
+   "ram": "FFF8D436",
+   "param": "L22",
+   "name": "Intake Cam Target",
+   "size": 2,
+   "byte": "high",
+   "method": "sibmap, reader paired"
+  },
+  {
+   "slot": "0x2D4",
+   "ram": "FFF8D437",
+   "param": "L22",
+   "name": "Intake Cam Target",
+   "size": 2,
+   "byte": "low",
+   "method": "sibmap, reader paired"
+  },
+  {
+   "slot": "0x2D5",
+   "ram": "FFF8D3E8",
+   "param": "L23",
+   "name": "Exhaust Cam Target",
+   "size": 2,
+   "byte": "high",
+   "method": "sibmap, reader paired"
+  },
+  {
+   "slot": "0x2D6",
+   "ram": "FFF8D3E9",
+   "param": "L23",
+   "name": "Exhaust Cam Target",
+   "size": 2,
+   "byte": "low",
+   "method": "sibmap, reader paired"
+  },
+  {
+   "slot": "0x2D7",
+   "ram": "FFF8DBA6",
+   "param": "L24",
+   "name": "Injector Pulse Width (C0B0)",
+   "size": 2,
+   "byte": "high",
+   "method": "pulse-width pointer table"
+  },
+  {
+   "slot": "0x2D8",
+   "ram": "FFF8DBA7",
+   "param": "L24",
+   "name": "Injector Pulse Width (C0B0)",
+   "size": 2,
+   "byte": "low",
+   "method": "pulse-width pointer table"
+  },
+  {
+   "slot": "0x2D9",
+   "ram": "FFF8A96C",
+   "param": "L25",
+   "name": "Wastegate Motor Duty",
+   "size": 2,
+   "byte": "high",
+   "method": "wastegate module 0x0C9B64"
+  },
+  {
+   "slot": "0x2DA",
+   "ram": "FFF8A96D",
+   "param": "L25",
+   "name": "Wastegate Motor Duty",
+   "size": 2,
+   "byte": "low",
+   "method": "wastegate module 0x0C9B64"
+  },
+  {
+   "slot": "0x2DB",
+   "ram": "FFF8A960",
+   "param": "L26",
+   "name": "Wastegate Position",
+   "size": 2,
+   "byte": "high",
+   "method": "position sensor 0x085778"
+  },
+  {
+   "slot": "0x2DC",
+   "ram": "FFF8A961",
+   "param": "L26",
+   "name": "Wastegate Position",
+   "size": 2,
+   "byte": "low",
+   "method": "position sensor 0x085778"
+  },
+  {
+   "slot": "0x2DD",
+   "ram": "FFF8AC98",
+   "param": "L27",
+   "name": "Wastegate Position Command",
+   "size": 2,
+   "byte": "high",
+   "method": "wastegate module 0x0C9520"
+  },
+  {
+   "slot": "0x2DE",
+   "ram": "FFF8AC99",
+   "param": "L27",
+   "name": "Wastegate Position Command",
+   "size": 2,
+   "byte": "low",
+   "method": "wastegate module 0x0C9520"
+  },
+  {
+   "slot": "0x2DF",
+   "ram": "FFF8ACD2",
+   "param": "L28",
+   "name": "Boost Error",
+   "size": 2,
+   "byte": "high",
+   "method": "wastegate module 0x0C90B2"
+  },
+  {
+   "slot": "0x2E0",
+   "ram": "FFF8ACD3",
+   "param": "L28",
+   "name": "Boost Error",
+   "size": 2,
+   "byte": "low",
+   "method": "wastegate module 0x0C90B2"
+  },
+  {
+   "slot": "0x2E1",
+   "ram": "FFF8ACCC",
+   "param": "L29",
+   "name": "Target Boost (Table)",
+   "size": 2,
+   "byte": "high",
+   "method": "wastegate module 0x0C8B32"
+  },
+  {
+   "slot": "0x2E2",
+   "ram": "FFF8ACCD",
+   "param": "L29",
+   "name": "Target Boost (Table)",
+   "size": 2,
+   "byte": "low",
+   "method": "wastegate module 0x0C8B32"
+  },
+  {
+   "slot": "0x2E3",
+   "ram": "FFF8ACB3",
+   "param": "L30",
+   "name": "Wastegate Control Mode",
+   "size": 1,
+   "byte": "byte",
+   "method": "wastegate module 0x0C8998"
+  },
+  {
+   "slot": "0x2E4",
+   "ram": "FFF8A95E",
+   "param": "L31",
+   "name": "Wastegate Position Sensor Voltage",
+   "size": 2,
+   "byte": "high",
+   "method": "ADC 0x232C9A"
+  },
+  {
+   "slot": "0x2E5",
+   "ram": "FFF8A95F",
+   "param": "L31",
+   "name": "Wastegate Position Sensor Voltage",
+   "size": 2,
+   "byte": "low",
+   "method": "ADC 0x232C9A"
+  },
+  {
+   "slot": "0x2E6",
+   "ram": "FFF8ACCE",
+   "param": "L32",
+   "name": "Wastegate Position Feed-Forward",
+   "size": 2,
+   "byte": "high",
+   "method": "wastegate module 0x0C8C18"
+  },
+  {
+   "slot": "0x2E7",
+   "ram": "FFF8ACCF",
+   "param": "L32",
+   "name": "Wastegate Position Feed-Forward",
+   "size": 2,
+   "byte": "low",
+   "method": "wastegate module 0x0C8C18"
+  }
+ ]
+}

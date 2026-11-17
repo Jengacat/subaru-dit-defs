@@ -111,7 +111,9 @@ def cvn(d):
     return (rs(0x10000, sp) << 16) | lo
 
 
-def report(d):
+def report(d, boot_block=True):
+    """Print the checks; True when all pass. boot_block=False: the 0x006C marker is printed but not required (the
+    Ascent dealer images carry no boot block; patching the application region does not touch it)."""
     ok = True
     if len(d) not in SIZES:
         print('  size %d, expected %d or %d' % (len(d), SIZES[0], SIZES[1]))
@@ -128,8 +130,9 @@ def report(d):
         ok &= m
         print('  marker %s: %s' % (txt, 'OK' if m else 'BAD (0x%04X)' % w16(d, a)))
     m = w16(d, 0x6C) == w16(d, 0x6010)
-    ok &= m
-    print('  marker word 0x006C = word 0x6010 (0x%04X / 0x%04X): %s' % (w16(d, 0x6C), w16(d, 0x6010), 'OK' if m else 'BAD'))
+    ok &= m or not boot_block
+    print('  marker word 0x006C = word 0x6010 (0x%04X / 0x%04X): %s' % (w16(d, 0x6C), w16(d, 0x6010), 'OK' if m else
+                                                                     'BAD' if boot_block else 'BAD (not required here)'))
     ref = (w16(d, REFWORDS), w16(d, REFWORDS + 2))
     m = ref == (TARGET, TARGET)
     print('  runtime reference words 0x%06X/%02X = 0x%04X/0x%04X: %s' % (REFWORDS, (REFWORDS + 2) & 0xFF, ref[0], ref[1],

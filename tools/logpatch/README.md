@@ -18,12 +18,15 @@ powershell -ExecutionPolicy Bypass -File make_logpatch.ps1 specs\logpatch_<calib
 powershell -ExecutionPolicy Bypass -File make_logpatch.ps1 -Verify specs\logpatch_<calibration ID>.json your_rom.bin your_rom_logpatch.bin
 ```
 
-It works on a stock or tuned ROM, as long as the calibration ID matches the spec. Only the 41 table entries and the
-checksum correction word change, and the checksum is fixed for you. The tool refuses to patch if:
+It works on a stock or tuned ROM, as long as the calibration ID matches the spec. Only the spec's table entries (41 on
+the 2.0 and 1.6, 52 on the Ascent) and the checksum correction word change, and the checksum is fixed for you. The tool
+refuses to patch if:
 
 - the ROM is not 2 MB (or 2.5 MB for the 2019+ ROMs), or its calibration ID doesn't match the spec;
 - the ROM's checksum is already bad (fix it first with `../checksum.py` or `../checksum.ps1`);
 - any slot to patch is already in use.
 
-Log with [`FA20DIT_Logger_LogPatch.xml`](../../logger/). `specs/` holds one spec per supported ROM; the slots are the
-same in all of them. Not yet confirmed on a running ECU.
+Log with [`FA20DIT_Logger_LogPatch.xml`](../../logger/), or `FA24DIT_Logger_LogPatch.xml` on the Ascent (LT8…
+specs). `specs/` holds one spec per supported ROM; the slots are the same in all of them. The Ascent ROMs I have came
+from Subaru's dealer software and carry no boot block, so for them the tools report the boot-block marker without
+requiring it; the patch never touches the boot block. Not yet confirmed on a running ECU.

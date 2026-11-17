@@ -15,7 +15,8 @@ Checks before writing (any failure aborts, nothing is written):
 Checks after patching (verification, also run on the written file):
   * byte diff against the input: changed bytes lie only inside the patched table words and the correction word;
   * every patched slot reads back as the requested RAM address and was spare before;
-  * checksum: sum16 = 0x5AA5, and the validity markers are unchanged (tools/checksum.py (or tools/checksum.ps1) report()).
+  * checksum: sum16 = 0x5AA5, and the validity markers are unchanged (tools/checksum.py (or tools/checksum.ps1) report(); on FA24DIT
+    specs the boot-block marker 0x006C is reported but not required: the dealer images have no boot block).
 
 usage: make_logpatch.py SPEC.json ROM OUT.bin
        make_logpatch.py --verify SPEC.json ROM PATCHED.bin      (verification only)"""
@@ -31,6 +32,12 @@ import checksum  # noqa: E402  (the repo's checksum rule, read-only import)
 
 N = 0x350
 RAM_LO, RAM_HI = 0xFFF80000, 0xFFFA0000
+
+
+def boot_block(spec):
+    """The FA24DIT (Ascent) dealer images carry no boot block, so its 0x006C marker is reported but not required for
+    them; the patch only touches the application region (index table and correction word)."""
+    return spec.get('family') != 'FA24DIT'
 
 
 def u32(d, a):
@@ -104,7 +111,7 @@ def verify(spec, src, out):
     for n in notes:
         print('  note:', n)
     print('  checksum (tools/checksum.py (or tools/checksum.ps1) rule):')
-    ok &= checksum.report(out)
+    ok &= checksum.report(out, boot_block(spec))
     print('  RESULT: %s' % ('PASS' if ok else 'FAIL'))
     return ok
 
@@ -117,7 +124,7 @@ def main():
     if len(a) != 3:
         sys.exit(__doc__)
     spec, src = json.load(open(a[0])), open(a[1], 'rb').read()
-    if not checksum.report(src):
+    if not checksum.report(src, boot_block(spec)):
         sys.exit('input image does not pass the checksum check; refusing to patch')
     base, ptrs, spare, patches, notes = check_spec(spec, src)
     d = bytearray(src)

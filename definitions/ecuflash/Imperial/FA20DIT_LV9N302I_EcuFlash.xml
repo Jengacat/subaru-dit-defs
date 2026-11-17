@@ -1155,6 +1155,9 @@ Same role as Transient Fuel Throttle-Rate Gain (0x0F6D98, read). Selection: Tran
   <table name="Engine Load" address="019bfa" />
   <table name="Engine Speed" address="019bd0" />
  </table>
+ <table name="DAM Initial Value" address="019bce" />
+ <table name="DAM Step" address="01a02c" />
+ <table name="DAM Step-Up Knock-Free Events" address="019fd0" />
  <table name="Knock Correction Advance Max B (TGV Open)" address="02576e">
   <table name="Engine Load" address="0255fe" />
   <table name="Engine Speed" address="0255d4" />
@@ -3657,6 +3660,10 @@ Details: When used: AT/CVT codings, in neutral/park. Input FFF88A44 (coolant). 0
  <table name="Radiator Fan Duty (Coolant)" address="0327f6">
   <table name="Coolant Temp" address="03282c" />
  </table>
+ <table name="Charge Control Delay After Start" address="037220" />
+ <table name="Charge Control Delay After Start (State of Charge)" address="037398">
+  <table name="Y Axis" address="037176" />
+ </table>
  <table name="Battery Charge Efficiency (Charging)" address="03733c">
   <table name="Y Axis" address="03715a" />
  </table>
@@ -3672,6 +3679,17 @@ Details: When used: AT/CVT codings, in neutral/park. Input FFF88A44 (coolant). 0
  <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" address="032808">
   <table name="Coolant Temp" address="03282c" />
  </table>
+ <table name="Adaptive Charging Target Current" address="0372dc">
+  <table name="Y Axis" address="037228" />
+ </table>
+ <table name="Adaptive Charging Current Gain" address="0371be" />
+ <table name="Adaptive Charging Integral Deadband Above" address="0371a0" />
+ <table name="Adaptive Charging Integral Deadband Below" address="0371a2" />
+ <table name="Adaptive Charging Integral Step Down" address="0371a4" />
+ <table name="Adaptive Charging Integral Step Up" address="0371a6" />
+ <table name="Adaptive Charging Integral Gain" address="0371a8" />
+ <table name="Adaptive Charging Integral Maximum" address="0371aa" />
+ <table name="Adaptive Charging Integral Minimum" address="0371ac" />
  <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" address="03281a">
   <table name="Coolant Temp" address="03282c" />
  </table>

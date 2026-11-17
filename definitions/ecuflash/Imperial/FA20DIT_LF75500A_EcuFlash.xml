@@ -1185,6 +1185,9 @@
   <table name="Engine Load" address="01c2b6" />
   <table name="Engine Speed" address="01c28c" />
  </table>
+ <table name="DAM Initial Value" address="01c28a" />
+ <table name="DAM Step" address="01c6e8" />
+ <table name="DAM Step-Up Knock-Free Events" address="01c68c" />
  <table name="Knock Correction Advance Max B (TGV Open)" address="0279fa">
   <table name="Engine Load" address="02788a" />
   <table name="Engine Speed" address="027860" />
@@ -3599,6 +3602,10 @@ Brake override module 0x181B38 (10 ms task 0x1DFE3C, read): it limits the accele
   <table name="Coolant Temp" address="034324" />
  </table>
  <table name="Battery Capacity" address="0397d8" />
+ <table name="Charge Control Delay After Start" address="03980c" />
+ <table name="Charge Control Delay After Start (State of Charge)" address="039984">
+  <table name="Y Axis" address="039762" />
+ </table>
  <table name="Battery Charge Efficiency (Charging)" address="039928">
   <table name="Y Axis" address="039746" />
  </table>
@@ -3615,6 +3622,17 @@ Brake override module 0x181B38 (10 ms task 0x1DFE3C, read): it limits the accele
  <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" address="034300">
   <table name="Coolant Temp" address="034324" />
  </table>
+ <table name="Adaptive Charging Target Current" address="0398c8">
+  <table name="Y Axis" address="039814" />
+ </table>
+ <table name="Adaptive Charging Current Gain" address="0397aa" />
+ <table name="Adaptive Charging Integral Deadband Above" address="03978c" />
+ <table name="Adaptive Charging Integral Deadband Below" address="03978e" />
+ <table name="Adaptive Charging Integral Step Down" address="039790" />
+ <table name="Adaptive Charging Integral Step Up" address="039792" />
+ <table name="Adaptive Charging Integral Gain" address="039794" />
+ <table name="Adaptive Charging Integral Maximum" address="039796" />
+ <table name="Adaptive Charging Integral Minimum" address="039798" />
  <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" address="034312">
   <table name="Coolant Temp" address="034324" />
  </table>

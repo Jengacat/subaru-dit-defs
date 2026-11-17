@@ -1211,6 +1211,9 @@ Details: When used: Only with the automatic/CVT transmission coding (Cal Switche
   <table name="Engine Load" address="023b72" />
   <table name="Engine Speed" address="023b48" />
  </table>
+ <table name="DAM Initial Value" address="023b46" />
+ <table name="DAM Step" address="023fa4" />
+ <table name="DAM Step-Up Knock-Free Events" address="023f48" />
  <table name="Knock Correction Advance Max B (TGV Open)" address="0311e6">
   <table name="Engine Load" address="031076" />
   <table name="Engine Speed" address="03104c" />
@@ -1243,7 +1246,29 @@ Details: When used: Only with the automatic/CVT transmission coding (Cal Switche
  <table name="FLKC Range Boundary Load 3" address="023b00" />
  <table name="FLKC Range Boundary Load 4" address="023b02" />
  <table name="FLKC Range Boundary RPM 1" address="023b06" />
+ <table name="Knock Event Detector: Low Timing" address="0400d3" />
+ <table name="Knock Event Detector: Knocking Cylinders" address="0400d4" />
+ <table name="Knock Event Latch" address="04df96" />
+ <table name="Knock Event Low Timing Passes" address="03238b" />
+ <table name="Knock Event Low Timing Hysteresis" address="03238c" />
+ <table name="Knock Event Cylinder Count Limit (Feedback)" address="03238d" />
+ <table name="Knock Event Feedback Correction Threshold" address="03238e" />
+ <table name="Knock Event Feedback Correction Hysteresis" address="03238f" />
+ <table name="Knock Event Cylinder Count Limit (Fine Learning)" address="032390" />
+ <table name="Knock Event Fine Learning Correction Threshold" address="032391" />
  <table name="FLKC Range Boundary RPM 2" address="023b08" />
+ <table name="Knock Event Fine Learning Correction Hysteresis" address="032392" />
+ <table name="Knock Event Low Timing Floor" address="0323d4">
+  <table name="Engine Load" address="0323b4" />
+  <table name="Engine Speed" address="032394" />
+ </table>
+ <table name="Knock Event Low Timing Floor (DAM Adder)" address="0324d4">
+  <table name="Engine Load" address="0323b4" />
+  <table name="Engine Speed" address="032394" />
+ </table>
+ <table name="Knock Event Low Timing DAM Factor" address="0325d4">
+  <table name="Dynamic Advance Multiplier" address="0323c4" />
+ </table>
  <table name="FLKC Range Boundary RPM 3" address="023b0a" />
  <table name="FLKC Range Boundary RPM 4" address="023b0c" />
  <table name="FLKC Range Boundary RPM 5" address="023b0e" />
@@ -2246,6 +2271,10 @@ Details: When used: drive mode 4 with FFF88ADA bit 7 clear and FFF8AE0A &gt;= ca
  <table name="Maximum Torque (DAM)" address="0257ce">
   <table name="Engine Speed" address="02587c" />
   <table name="Dynamic Advance Multiplier" address="025876" />
+ </table>
+ <table name="Maximum Torque (Knock Event)" address="02b562">
+  <table name="Accelerator Pedal" address="02b50e" />
+  <table name="Engine Speed" address="02b4e4" />
  </table>
  <table name="Overboost Limit" address="033a42">
   <table name="Engine Speed" address="033a56" />
@@ -3928,6 +3957,12 @@ Brake override module 0x181B38 (10 ms task 0x1DFE3C, read): it limits the accele
   <table name="Coolant Temp" address="03eee8" />
  </table>
  <table name="Battery Capacity" address="0443a4" />
+ <table name="Battery Charge Efficiency (Charging)" address="0444f4">
+  <table name="Y Axis" address="044322" />
+ </table>
+ <table name="Battery Charge Efficiency (Discharging)" address="044502">
+  <table name="Y Axis" address="044322" />
+ </table>
  <table name="Battery State of Charge Reset Value" address="044d90" />
  <table name="Battery Charged SOC Threshold" address="04434e" />
  <table name="Battery Charged SOC Hysteresis" address="044350" />
@@ -3938,6 +3973,17 @@ Brake override module 0x181B38 (10 ms task 0x1DFE3C, read): it limits the accele
  <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" address="03eec4">
   <table name="Coolant Temp" address="03eee8" />
  </table>
+ <table name="Adaptive Charging Target Current" address="044494">
+  <table name="Y Axis" address="0443de" />
+ </table>
+ <table name="Adaptive Charging Current Gain" address="044376" />
+ <table name="Adaptive Charging Integral Deadband Above" address="044358" />
+ <table name="Adaptive Charging Integral Deadband Below" address="04435a" />
+ <table name="Adaptive Charging Integral Step Down" address="04435c" />
+ <table name="Adaptive Charging Integral Step Up" address="04435e" />
+ <table name="Adaptive Charging Integral Gain" address="044360" />
+ <table name="Adaptive Charging Integral Maximum" address="044362" />
+ <table name="Adaptive Charging Integral Minimum" address="044364" />
  <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" address="03eed6">
   <table name="Coolant Temp" address="03eee8" />
  </table>

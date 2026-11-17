@@ -1049,6 +1049,9 @@
   <table name="Engine Load" address="01d482" />
   <table name="Engine Speed" address="01d458" />
  </table>
+ <table name="DAM Initial Value" address="01d456" />
+ <table name="DAM Step" address="01d8b4" />
+ <table name="DAM Step-Up Knock-Free Events" address="01d858" />
  <table name="Knock Correction Advance Max B (TGV Open)" address="02bd56">
   <table name="Engine Load" address="02bbe6" />
   <table name="Engine Speed" address="02bbbc" />
@@ -3285,6 +3288,12 @@ Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-th
   <table name="Coolant Temp" address="0394ae" />
  </table>
  <table name="Battery Capacity" address="03fe98" />
+ <table name="Battery Charge Efficiency (Charging)" address="03ffc8">
+  <table name="Y Axis" address="03fe16" />
+ </table>
+ <table name="Battery Charge Efficiency (Discharging)" address="03ffd6">
+  <table name="Y Axis" address="03fe16" />
+ </table>
  <table name="Battery State of Charge Reset Value" address="040924" />
  <table name="Battery Charged SOC Threshold" address="03fe42" />
  <table name="Battery Charged SOC Hysteresis" address="03fe44" />
@@ -3295,6 +3304,17 @@ Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-th
  <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" address="03949c">
   <table name="Coolant Temp" address="0394ae" />
  </table>
+ <table name="Adaptive Charging Target Current" address="03ff68">
+  <table name="Y Axis" address="03fed2" />
+ </table>
+ <table name="Adaptive Charging Current Gain" address="03fe6a" />
+ <table name="Adaptive Charging Integral Deadband Above" address="03fe4c" />
+ <table name="Adaptive Charging Integral Deadband Below" address="03fe4e" />
+ <table name="Adaptive Charging Integral Step Down" address="03fe50" />
+ <table name="Adaptive Charging Integral Step Up" address="03fe52" />
+ <table name="Adaptive Charging Integral Gain" address="03fe54" />
+ <table name="Adaptive Charging Integral Maximum" address="03fe56" />
+ <table name="Adaptive Charging Integral Minimum" address="03fe58" />
  <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" address="039478">
   <table name="Coolant Temp" address="0394ae" />
  </table>

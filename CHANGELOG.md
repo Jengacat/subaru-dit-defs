@@ -4,6 +4,25 @@
 
 First public release.
 
+- New: **knock-event detector and its torque limit** (2017 and later 2.0 ROMs, and the 1.6). Later ROMs carry a
+  detector beside DAM: one part counts cylinders knocking while knock correction is already deep, the other watches
+  for ignition timing pulled down to a floor. When it trips (and, if the latch is on, until the learned values are
+  reset) the new **Maximum Torque (Knock Event)** table caps torque by rpm and pedal. It is switched off on the 2.0
+  WRX ROMs I have; on the 1.6 the knocking-cylinder part is on, and on the 2017 and 2020 1.6 ROMs the table is
+  filled (0 to about 166 ft-lb). Switches, counts, thresholds and the timing floor tables are all defined, in
+  Knock Control and Torque Limits.
+- New: **DAM Initial Value, DAM Step and DAM Step-Up Knock-Free Events** on every ROM. The step is zeroed on every
+  ROM I have, so DAM moves only through DAM Step Gain (FLKC Cell); the start value is 0.69 on the 2.0, 1.0 on many
+  1.6 ROMs and 0.31 on the Ascent.
+- New: **charging, part 3.** The charge-control delay after start (and, on the 2015-2016 ROMs, the table that
+  lengthens it after a low-battery start) and the adaptive-charging current loop: target battery current by state of
+  charge, its gain and integral settings. The two charge-efficiency tables now reach the 2017 and later ROMs too.
+- Changed: **1.6 (FB16DIT) "off in stock" entries re-read.** About 20 to 35 entries per 1.6 ROM that the 2.0 leaves
+  switched off are switched on in the 1.6 calibration (for example the EGR tip-out limit, the alternate DAM base
+  timing blend, special-start cranking fuel, the tip-in extra pulse and the external torque limit factors). Those
+  now show at their normal user level instead of Advanced; the ones I could confirm are still off stay at Debug.
+- Fixed: two Ascent boost scalings were missing their metric (kPa / Nm) versions.
+
 - New: **logging without the patch (SUBUDS).** `logger/DIT_Logger_SUBUDS.xml`, one file for every model,
   reads the stock and logging-patch parameters straight from RAM on a stock ROM, for a RomRaider build with the
   SUBUDS protocol (test builds on my RomRaider fork). Every address is checked in an emulator against the ECU's own

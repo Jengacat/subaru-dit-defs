@@ -2886,6 +2886,18 @@ Details: When used: only with cal 0x31E38 bit 0 clear and FFF8CD5C &gt;= cal 0x3
    </table>
    <description>First part of the knock correction advance (timing added as DAM rises), by rpm and load, for TGVs closed; blended with the TGV Open table and scaled by KCA DAM Curve A. It is added to the Primary Ignition request, not to the Base Timing map: the ECU fires the lower of Base Timing and Primary + knock advance + fine learning, so raising it adds timing only where that sum is still below Base Timing.</description>
   </table>
+  <table type="1D" name="DAM Initial Value" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="2" storageaddress="0x01c28a">
+   <scaling units="DAM" expression="x/16" to_byte="x*16" format="0.000" fineincrement="0.0625" coarseincrement="0.25" min="0" max="1" />
+   <description>The DAM the ECU starts from after a reset of the learned values (battery disconnect or a scan-tool reset).</description>
+  </table>
+  <table type="1D" name="DAM Step" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x01c6e8">
+   <scaling units="DAM" expression="x/256" to_byte="x*256" format="0.0000" fineincrement="0.0039" coarseincrement="0.0156" />
+   <description>How far DAM moves per learning step up or down; halved each time the direction reverses. When 0, DAM moves only by DAM Step Gain (FLKC Cell).</description>
+  </table>
+  <table type="1D" name="DAM Step-Up Knock-Free Events" category="Ignition Timing//Knock Control" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x01c68c">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Combustion events without knock needed before DAM may step up.</description>
+  </table>
   <table type="3D" name="Knock Correction Advance Max B (TGV Open)" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" sizex="16" sizey="21" userlevel="1" storageaddress="0x0279fa">
    <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
    <table type="X Axis" name="Engine Load" storagetype="uint16" endian="big" storageaddress="0x02788a">
@@ -10146,6 +10158,20 @@ Details: Mode 1 needs the cylinder-cut count FFF8A643 (a byte) &gt;= cal 0x39AFE
 
 With cal 0x1D0AE bit 0 set, 0x0F8AAC (read) uses this when received byte FFF88BAA (CAN 0x282 byte 3) &lt; cal 0x342EC (148, 146 to fall back) and FFF8A807 bit 5 is clear: duty B27C = this(coolant FFF88A44) once coolant &gt;= cal 0x342DC (95 C, falls off 3 C lower), 100 % from cal 0x342E4 (100 C); used in fan mode 1 (0x0F7A88). Radiator fan module 0x0F7618 (40 ms task, read): the fan stage FFF8A805 (0/1/2) drives timer E channel 10 fully on for stage &gt;= 1 (FFF9981C bit 0, 0x0F8F08 -&gt; 0x1E417C -&gt; 0x1D9B8E) and port PF6 for stage 2 (FFF9981C bit 4, 0x0F8E70 -&gt; 0x1D4E56 -&gt; PFDR), and feeds the idle air (0x0ECE60, 0x0F5248) and torque adders (0x0C2B2C); the stages follow coolant and the A/C request (0x0F8764), so a two-relay radiator fan (inferred). With the bit set, A805 = stage from the duty FFF8B278 (0x0F7EC4: stage 1 from 40 %, stage 2 from 70 %). Confidence: read.</description>
   </table>
+  <table type="2D" name="Battery Charge Efficiency (Charging)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" sizey="14" userlevel="4" storageaddress="0x039928">
+   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x039746">
+    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>How much of the charging current the state-of-charge estimate counts, by battery-sensor value.</description>
+  </table>
+  <table type="2D" name="Battery Charge Efficiency (Discharging)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" sizey="14" userlevel="4" storageaddress="0x039936">
+   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x039746">
+    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>How much of the discharge current the state-of-charge estimate counts, by battery-sensor value.</description>
+  </table>
   <table type="1D" name="Battery Charged SOC Threshold" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="2" storageaddress="0x039782">
    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <description>Above this state of charge, early in each charge cycle, the ECU decides the battery is charged and switches to the Battery Charged target voltage. Raising it makes the charge cut happen less often.</description>
@@ -10181,6 +10207,59 @@ Details: Compared with FFF81848, the integral of charging current while in mode 
    <description>Radiator fan duty by coolant, used when an unidentified driving-condition flag is set.
 
 With cal 0x1D0AE bit 0 set, 0x0F8AAC (read) uses this when FFF88BAA &lt; 148 and FFF8A807 bit 5 is set (0x0F8F98: a condition built from the A/C state, vehicle speed, rpm, load, IAT and SI-Drive mode; not identified); on threshold cal 0x3439C (98 C), full at cal 0x343A0 (101 C). Radiator fan module 0x0F7618 (40 ms task, read): the fan stage FFF8A805 (0/1/2) drives timer E channel 10 fully on for stage &gt;= 1 (FFF9981C bit 0, 0x0F8F08 -&gt; 0x1E417C -&gt; 0x1D9B8E) and port PF6 for stage 2 (FFF9981C bit 4, 0x0F8E70 -&gt; 0x1D4E56 -&gt; PFDR), and feeds the idle air (0x0ECE60, 0x0F5248) and torque adders (0x0C2B2C); the stages follow coolant and the A/C request (0x0F8764), so a two-relay radiator fan (inferred). With the bit set, A805 = stage from the duty FFF8B278 (0x0F7EC4: stage 1 from 40 %, stage 2 from 70 %). Confidence: read.</description>
+  </table>
+  <table type="2D" name="Adaptive Charging Target Current" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int32" endian="big" sizey="16" userlevel="3" storageaddress="0x0398c8">
+   <scaling units="A" expression="x/1000" to_byte="x*1000" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x039814">
+    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   </table>
+   <description>During adaptive charging the ECU steers the charging voltage so the battery takes this current, by state of charge: positive charges, negative lets the battery discharge.</description>
+  </table>
+  <table type="1D" name="Adaptive Charging Current Gain" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x0397aa">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>How strongly adaptive charging moves its voltage target to reach the target battery current.</description>
+  </table>
+  <table type="1D" name="Adaptive Charging Integral Deadband Above" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="5" storageaddress="0x03978c">
+   <scaling units="A" expression="x/1000" to_byte="x*1000" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>Battery current may be this far above the target before the adaptive integral steps down.
+
+Details: 0x137E7C, mode 5 only (read). Confidence: read.</description>
+  </table>
+  <table type="1D" name="Adaptive Charging Integral Deadband Below" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="5" storageaddress="0x03978e">
+   <scaling units="A" expression="x/1000" to_byte="x*1000" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>Battery current may be this far below the target before the adaptive integral steps up.
+
+Details: 0x137E7C, mode 5 only (read). Confidence: read.</description>
+  </table>
+  <table type="1D" name="Adaptive Charging Integral Step Down" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="5" storageaddress="0x039790">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Integral step each 40 ms pass while the battery current is above the target.
+
+Details: 0x137E7C (read). Confidence: read.</description>
+  </table>
+  <table type="1D" name="Adaptive Charging Integral Step Up" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="5" storageaddress="0x039792">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Integral step each 40 ms pass while the battery current is below the target.
+
+Details: 0x137E7C (read). Confidence: read.</description>
+  </table>
+  <table type="1D" name="Adaptive Charging Integral Gain" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="5" storageaddress="0x039794">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Converts the adaptive integral into a voltage correction (mV per count x 1000).
+
+Details: B6FA = integral x this / 1000 mV (0x137E7C, read). Confidence: read.</description>
+  </table>
+  <table type="1D" name="Adaptive Charging Integral Maximum" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int16" endian="big" userlevel="5" storageaddress="0x039796">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Upper clamp of the adaptive integral (counts).
+
+Details: 0x137E7C (read). Confidence: read.</description>
+  </table>
+  <table type="1D" name="Adaptive Charging Integral Minimum" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int16" endian="big" userlevel="5" storageaddress="0x039798">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Lower clamp of the adaptive integral (counts).
+
+Details: 0x137E7C (read). Confidence: read.</description>
   </table>
   <table type="2D" name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" sizey="9" userlevel="5" storageaddress="0x034312">
    <scaling units="% duty" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="1" coarseincrement="4.0" />
@@ -11663,19 +11742,16 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
    <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
   </table>
-  <table type="2D" name="Battery Charge Efficiency (Charging)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" sizey="14" userlevel="4" storageaddress="0x039928">
-   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x039746">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <description>How much of the charging current the state-of-charge estimate counts, by battery-sensor value.</description>
+  <table type="1D" name="Charge Control Delay After Start" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x03980c">
+   <scaling units="s" expression="x" to_byte="x" format="0" fineincrement="10" coarseincrement="40.0" />
+   <description>Charge control (the battery-charged decision and adaptive charging) only starts this long after the engine starts; until then the alternator charges to the normal target.</description>
   </table>
-  <table type="2D" name="Battery Charge Efficiency (Discharging)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" sizey="14" userlevel="4" storageaddress="0x039936">
-   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x039746">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+  <table type="2D" name="Charge Control Delay After Start (State of Charge)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" sizey="8" userlevel="4" storageaddress="0x039984">
+   <scaling units="s" expression="x" to_byte="x" format="0" fineincrement="10" coarseincrement="40.0" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x039762">
+    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    </table>
-   <description>How much of the discharge current the state-of-charge estimate counts, by battery-sensor value.</description>
+   <description>After some starts the charge-control delay comes from this table instead, by the estimated state of charge at start: a low battery gets a long normal-charging period first.</description>
   </table>
   <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03a2d4">
    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -17877,6 +17953,9 @@ Details: When used: Only with the automatic/CVT transmission coding (Cal Switche
    <table type="X Axis" storageaddress="0x021fe6" />
    <table type="Y Axis" storageaddress="0x021fbc" />
   </table>
+  <table name="DAM Initial Value" storageaddress="0x021fba" />
+  <table name="DAM Step" storageaddress="0x022418" />
+  <table name="DAM Step-Up Knock-Free Events" storageaddress="0x0223bc" />
   <table name="Knock Correction Advance Max B (TGV Open)" storageaddress="0x02ecee">
    <table type="X Axis" storageaddress="0x02eb7e" />
    <table type="Y Axis" storageaddress="0x02eb54" />
@@ -20821,6 +20900,12 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
    <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
   </table>
+  <table name="Battery Charge Efficiency (Charging)" storageaddress="0x041340">
+   <table type="Y Axis" storageaddress="0x04116e" />
+  </table>
+  <table name="Battery Charge Efficiency (Discharging)" storageaddress="0x04134e">
+   <table type="Y Axis" storageaddress="0x04116e" />
+  </table>
   <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x041bdc">
    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <description>The state of charge the ECU assumes when its estimate is reset.</description>
@@ -20834,6 +20919,17 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x03bd18">
    <table type="Y Axis" storageaddress="0x03bd3c" />
   </table>
+  <table name="Adaptive Charging Target Current" storageaddress="0x0412e0">
+   <table type="Y Axis" storageaddress="0x04122a" />
+  </table>
+  <table name="Adaptive Charging Current Gain" storageaddress="0x0411c2" />
+  <table name="Adaptive Charging Integral Deadband Above" storageaddress="0x0411a4" />
+  <table name="Adaptive Charging Integral Deadband Below" storageaddress="0x0411a6" />
+  <table name="Adaptive Charging Integral Step Down" storageaddress="0x0411a8" />
+  <table name="Adaptive Charging Integral Step Up" storageaddress="0x0411aa" />
+  <table name="Adaptive Charging Integral Gain" storageaddress="0x0411ac" />
+  <table name="Adaptive Charging Integral Maximum" storageaddress="0x0411ae" />
+  <table name="Adaptive Charging Integral Minimum" storageaddress="0x0411b0" />
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x03bd2a">
    <table type="Y Axis" storageaddress="0x03bd3c" />
   </table>
@@ -25052,6 +25148,9 @@ Details: When used: Only with the automatic/CVT transmission coding (Cal Switche
    <table type="X Axis" storageaddress="0x0227e6" />
    <table type="Y Axis" storageaddress="0x0227bc" />
   </table>
+  <table name="DAM Initial Value" storageaddress="0x0227ba" />
+  <table name="DAM Step" storageaddress="0x022c18" />
+  <table name="DAM Step-Up Knock-Free Events" storageaddress="0x022bbc" />
   <table name="Knock Correction Advance Max B (TGV Open)" storageaddress="0x02fce2">
    <table type="X Axis" storageaddress="0x02fb72" />
    <table type="Y Axis" storageaddress="0x02fb48" />
@@ -25084,7 +25183,80 @@ Details: When used: Only with the automatic/CVT transmission coding (Cal Switche
   <table name="FLKC Range Boundary Load 3" storageaddress="0x022774" />
   <table name="FLKC Range Boundary Load 4" storageaddress="0x022776" />
   <table name="FLKC Range Boundary RPM 1" storageaddress="0x02277a" />
+  <table type="BitwiseSwitch" name="Knock Event Detector: Low Timing" category="Ignition Timing//Knock Control" storageaddress="0x03e403" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Watches for ignition timing pulled down to a floor that depends on DAM; when it trips, the knock-event torque limit applies.</description>
+  </table>
+  <table type="BitwiseSwitch" name="Knock Event Detector: Knocking Cylinders" category="Ignition Timing//Knock Control" storageaddress="0x03e404" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Counts cylinders whose knock signal is above the knock threshold while knock correction is already deep; when the count runs up, the knock-event torque limit applies.</description>
+  </table>
+  <table type="BitwiseSwitch" name="Knock Event Latch" category="Ignition Timing//Knock Control" storageaddress="0x04c2c6" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Keeps the knock-event torque limit on after a trip, across key cycles, until the learned knock values are reset.</description>
+  </table>
+  <table type="1D" name="Knock Event Low Timing Passes" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x030e87">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Consecutive passes the timing must stay at or below the floor before the low-timing detector trips.</description>
+  </table>
+  <table type="1D" name="Knock Event Low Timing Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x030e88">
+   <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>Once the timing is at the floor, it must rise this far above it to count as recovered.</description>
+  </table>
+  <table type="1D" name="Knock Event Cylinder Count Limit (Feedback)" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x030e89">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Knocking cylinders, summed while feedback knock correction is at or below its threshold, that trip the detector.</description>
+  </table>
+  <table type="1D" name="Knock Event Feedback Correction Threshold" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" userlevel="4" storageaddress="0x030e8a">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Knocking cylinders are summed while feedback knock correction is at or below this.</description>
+  </table>
+  <table type="1D" name="Knock Event Feedback Correction Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x030e8b">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Once summing, feedback knock correction must recover this far above the threshold to stop.</description>
+  </table>
+  <table type="1D" name="Knock Event Cylinder Count Limit (Fine Learning)" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x030e8c">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Knocking cylinders, summed while fine learning knock correction is at or below its threshold, that trip the detector.</description>
+  </table>
+  <table type="1D" name="Knock Event Fine Learning Correction Threshold" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" userlevel="4" storageaddress="0x030e8d">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Knocking cylinders are summed while fine learning knock correction is at or below this.</description>
+  </table>
   <table name="FLKC Range Boundary RPM 2" storageaddress="0x02277c" />
+  <table type="1D" name="Knock Event Fine Learning Correction Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x030e8e">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Once summing, fine learning knock correction must recover this far above the threshold to stop.</description>
+  </table>
+  <table type="3D" name="Knock Event Low Timing Floor" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" sizex="16" sizey="16" userlevel="4" storageaddress="0x030ed0">
+   <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x030eb0">
+    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x030e90">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Ignition timing floor of the low-timing detector at the lowest DAM factor.</description>
+  </table>
+  <table type="3D" name="Knock Event Low Timing Floor (DAM Adder)" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" sizex="16" sizey="16" userlevel="4" storageaddress="0x030fd0">
+   <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x030eb0">
+    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x030e90">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Added to the low-timing floor in proportion to Knock Event Low Timing DAM Factor.</description>
+  </table>
+  <table type="2D" name="Knock Event Low Timing DAM Factor" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" sizey="16" userlevel="4" storageaddress="0x0310d0">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Dynamic Advance Multiplier" storagetype="uint8" endian="big" storageaddress="0x030ec0">
+    <scaling units="DAM" expression="x/16" to_byte="x*16" format="0.000" fineincrement="0.0625" coarseincrement="0.25" min="0" max="1" />
+   </table>
+   <description>How much of the DAM adder applies, by DAM (128 = all of it).</description>
+  </table>
   <table name="FLKC Range Boundary RPM 3" storageaddress="0x02277e" />
   <table name="FLKC Range Boundary RPM 4" storageaddress="0x022780" />
   <table name="FLKC Range Boundary RPM 5" storageaddress="0x022782" />
@@ -26048,6 +26220,17 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   <table name="Maximum Torque (DAM)" storageaddress="0x024442">
    <table type="X Axis" storageaddress="0x0244f0" />
    <table type="Y Axis" storageaddress="0x0244ea" />
+  </table>
+  <table type="3D" name="Maximum Torque (Knock Event)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizex="20" sizey="21" userlevel="2" storageaddress="0x02a1d6">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="X Axis" name="Accelerator Pedal" storagetype="uint16" endian="big" storageaddress="0x02a182">
+    <scaling units="%" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02a158">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling while the knock-event detector has tripped (or its latch is set), by engine speed and pedal.</description>
   </table>
   <table name="Overboost Limit" storageaddress="0x031d8a">
    <table type="Y Axis" storageaddress="0x031d9e" />
@@ -28057,6 +28240,12 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
    <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
   </table>
+  <table name="Battery Charge Efficiency (Charging)" storageaddress="0x042824">
+   <table type="Y Axis" storageaddress="0x042652" />
+  </table>
+  <table name="Battery Charge Efficiency (Discharging)" storageaddress="0x042832">
+   <table type="Y Axis" storageaddress="0x042652" />
+  </table>
   <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x0430c0">
    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <description>The state of charge the ECU assumes when its estimate is reset.</description>
@@ -28070,6 +28259,17 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x03d1f4">
    <table type="Y Axis" storageaddress="0x03d218" />
   </table>
+  <table name="Adaptive Charging Target Current" storageaddress="0x0427c4">
+   <table type="Y Axis" storageaddress="0x04270e" />
+  </table>
+  <table name="Adaptive Charging Current Gain" storageaddress="0x0426a6" />
+  <table name="Adaptive Charging Integral Deadband Above" storageaddress="0x042688" />
+  <table name="Adaptive Charging Integral Deadband Below" storageaddress="0x04268a" />
+  <table name="Adaptive Charging Integral Step Down" storageaddress="0x04268c" />
+  <table name="Adaptive Charging Integral Step Up" storageaddress="0x04268e" />
+  <table name="Adaptive Charging Integral Gain" storageaddress="0x042690" />
+  <table name="Adaptive Charging Integral Maximum" storageaddress="0x042692" />
+  <table name="Adaptive Charging Integral Minimum" storageaddress="0x042694" />
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x03d206">
    <table type="Y Axis" storageaddress="0x03d218" />
   </table>
@@ -33454,6 +33654,9 @@ Details: When used: Only with the automatic/CVT transmission coding (Cal Switche
    <table type="X Axis" storageaddress="0x0227a6" />
    <table type="Y Axis" storageaddress="0x02277c" />
   </table>
+  <table name="DAM Initial Value" storageaddress="0x02277a" />
+  <table name="DAM Step" storageaddress="0x022bd8" />
+  <table name="DAM Step-Up Knock-Free Events" storageaddress="0x022b7c" />
   <table name="Knock Correction Advance Max B (TGV Open)" storageaddress="0x02fb2a">
    <table type="X Axis" storageaddress="0x02f9ba" />
    <table type="Y Axis" storageaddress="0x02f990" />
@@ -36383,6 +36586,12 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
    <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
   </table>
+  <table name="Battery Charge Efficiency (Charging)" storageaddress="0x0423dc">
+   <table type="Y Axis" storageaddress="0x04220a" />
+  </table>
+  <table name="Battery Charge Efficiency (Discharging)" storageaddress="0x0423ea">
+   <table type="Y Axis" storageaddress="0x04220a" />
+  </table>
   <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x042c78">
    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <description>The state of charge the ECU assumes when its estimate is reset.</description>
@@ -36396,6 +36605,17 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x03cdb0">
    <table type="Y Axis" storageaddress="0x03cdd4" />
   </table>
+  <table name="Adaptive Charging Target Current" storageaddress="0x04237c">
+   <table type="Y Axis" storageaddress="0x0422c6" />
+  </table>
+  <table name="Adaptive Charging Current Gain" storageaddress="0x04225e" />
+  <table name="Adaptive Charging Integral Deadband Above" storageaddress="0x042240" />
+  <table name="Adaptive Charging Integral Deadband Below" storageaddress="0x042242" />
+  <table name="Adaptive Charging Integral Step Down" storageaddress="0x042244" />
+  <table name="Adaptive Charging Integral Step Up" storageaddress="0x042246" />
+  <table name="Adaptive Charging Integral Gain" storageaddress="0x042248" />
+  <table name="Adaptive Charging Integral Maximum" storageaddress="0x04224a" />
+  <table name="Adaptive Charging Integral Minimum" storageaddress="0x04224c" />
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x03cdc2">
    <table type="Y Axis" storageaddress="0x03cdd4" />
   </table>
@@ -41917,6 +42137,9 @@ Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B0
    <table type="X Axis" storageaddress="0x01fb42" />
    <table type="Y Axis" storageaddress="0x01fb18" />
   </table>
+  <table name="DAM Initial Value" storageaddress="0x01fb16" />
+  <table name="DAM Step" storageaddress="0x01ff74" />
+  <table name="DAM Step-Up Knock-Free Events" storageaddress="0x01ff18" />
   <table name="Knock Correction Advance Max B (TGV Open)" storageaddress="0x02bf0a">
    <table type="X Axis" storageaddress="0x02bd9a" />
    <table type="Y Axis" storageaddress="0x02bd70" />
@@ -44818,6 +45041,12 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
    <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
   </table>
+  <table name="Battery Charge Efficiency (Charging)" storageaddress="0x03e2c4">
+   <table type="Y Axis" storageaddress="0x03e0f2" />
+  </table>
+  <table name="Battery Charge Efficiency (Discharging)" storageaddress="0x03e2d2">
+   <table type="Y Axis" storageaddress="0x03e0f2" />
+  </table>
   <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03eb60">
    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <description>The state of charge the ECU assumes when its estimate is reset.</description>
@@ -44831,6 +45060,17 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x038ca8">
    <table type="Y Axis" storageaddress="0x038ccc" />
   </table>
+  <table name="Adaptive Charging Target Current" storageaddress="0x03e264">
+   <table type="Y Axis" storageaddress="0x03e1ae" />
+  </table>
+  <table name="Adaptive Charging Current Gain" storageaddress="0x03e146" />
+  <table name="Adaptive Charging Integral Deadband Above" storageaddress="0x03e128" />
+  <table name="Adaptive Charging Integral Deadband Below" storageaddress="0x03e12a" />
+  <table name="Adaptive Charging Integral Step Down" storageaddress="0x03e12c" />
+  <table name="Adaptive Charging Integral Step Up" storageaddress="0x03e12e" />
+  <table name="Adaptive Charging Integral Gain" storageaddress="0x03e130" />
+  <table name="Adaptive Charging Integral Maximum" storageaddress="0x03e132" />
+  <table name="Adaptive Charging Integral Minimum" storageaddress="0x03e134" />
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x038cba">
    <table type="Y Axis" storageaddress="0x038ccc" />
   </table>
@@ -48862,6 +49102,9 @@ Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B0
    <table type="X Axis" storageaddress="0x018d72" />
    <table type="Y Axis" storageaddress="0x018d48" />
   </table>
+  <table name="DAM Initial Value" storageaddress="0x018d46" />
+  <table name="DAM Step" storageaddress="0x0191a4" />
+  <table name="DAM Step-Up Knock-Free Events" storageaddress="0x019148" />
   <table name="Knock Correction Advance Max B (TGV Open)" storageaddress="0x02396e">
    <table type="X Axis" storageaddress="0x0237fe" />
    <table type="Y Axis" storageaddress="0x0237d4" />
@@ -51129,19 +51372,22 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x02fa36">
    <table type="Y Axis" storageaddress="0x02fa6c" />
   </table>
-  <table type="2D" name="Battery Charge Efficiency (Charging)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" sizey="14" userlevel="4" storageaddress="0x034570">
-   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03438e">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <description>How much of the charging current the state-of-charge estimate counts, by battery-sensor value.</description>
+  <table type="1D" name="Charge Control Delay After Start" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x034454">
+   <scaling units="s" expression="x" to_byte="x" format="0" fineincrement="10" coarseincrement="40.0" />
+   <description>Charge control (the battery-charged decision and adaptive charging) only starts this long after the engine starts; until then the alternator charges to the normal target.</description>
   </table>
-  <table type="2D" name="Battery Charge Efficiency (Discharging)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" sizey="14" userlevel="4" storageaddress="0x03457e">
-   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03438e">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+  <table type="2D" name="Charge Control Delay After Start (State of Charge)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" sizey="8" userlevel="4" storageaddress="0x0345cc">
+   <scaling units="s" expression="x" to_byte="x" format="0" fineincrement="10" coarseincrement="40.0" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x0343aa">
+    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    </table>
-   <description>How much of the discharge current the state-of-charge estimate counts, by battery-sensor value.</description>
+   <description>After some starts the charge-control delay comes from this table instead, by the estimated state of charge at start: a low battery gets a long normal-charging period first.</description>
+  </table>
+  <table name="Battery Charge Efficiency (Charging)" storageaddress="0x034570">
+   <table type="Y Axis" storageaddress="0x03438e" />
+  </table>
+  <table name="Battery Charge Efficiency (Discharging)" storageaddress="0x03457e">
+   <table type="Y Axis" storageaddress="0x03438e" />
   </table>
   <table name="Battery Charged SOC Threshold" storageaddress="0x0343ca" />
   <table name="Battery Charged SOC Hysteresis" storageaddress="0x0343cc" />
@@ -51152,6 +51398,17 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x02fa48">
    <table type="Y Axis" storageaddress="0x02fa6c" />
   </table>
+  <table name="Adaptive Charging Target Current" storageaddress="0x034510">
+   <table type="Y Axis" storageaddress="0x03445c" />
+  </table>
+  <table name="Adaptive Charging Current Gain" storageaddress="0x0343f2" />
+  <table name="Adaptive Charging Integral Deadband Above" storageaddress="0x0343d4" />
+  <table name="Adaptive Charging Integral Deadband Below" storageaddress="0x0343d6" />
+  <table name="Adaptive Charging Integral Step Down" storageaddress="0x0343d8" />
+  <table name="Adaptive Charging Integral Step Up" storageaddress="0x0343da" />
+  <table name="Adaptive Charging Integral Gain" storageaddress="0x0343dc" />
+  <table name="Adaptive Charging Integral Maximum" storageaddress="0x0343de" />
+  <table name="Adaptive Charging Integral Minimum" storageaddress="0x0343e0" />
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x02fa5a">
    <table type="Y Axis" storageaddress="0x02fa6c" />
   </table>
@@ -56253,6 +56510,9 @@ Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B0
    <table type="X Axis" storageaddress="0x018d72" />
    <table type="Y Axis" storageaddress="0x018d48" />
   </table>
+  <table name="DAM Initial Value" storageaddress="0x018d46" />
+  <table name="DAM Step" storageaddress="0x0191a4" />
+  <table name="DAM Step-Up Knock-Free Events" storageaddress="0x019148" />
   <table name="Knock Correction Advance Max B (TGV Open)" storageaddress="0x02396e">
    <table type="X Axis" storageaddress="0x0237fe" />
    <table type="Y Axis" storageaddress="0x0237d4" />
@@ -58517,19 +58777,22 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x02fa32">
    <table type="Y Axis" storageaddress="0x02fa68" />
   </table>
-  <table type="2D" name="Battery Charge Efficiency (Charging)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" sizey="14" userlevel="4" storageaddress="0x03456c">
-   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03438a">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <description>How much of the charging current the state-of-charge estimate counts, by battery-sensor value.</description>
+  <table type="1D" name="Charge Control Delay After Start" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x034450">
+   <scaling units="s" expression="x" to_byte="x" format="0" fineincrement="10" coarseincrement="40.0" />
+   <description>Charge control (the battery-charged decision and adaptive charging) only starts this long after the engine starts; until then the alternator charges to the normal target.</description>
   </table>
-  <table type="2D" name="Battery Charge Efficiency (Discharging)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" sizey="14" userlevel="4" storageaddress="0x03457a">
-   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03438a">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+  <table type="2D" name="Charge Control Delay After Start (State of Charge)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" sizey="8" userlevel="4" storageaddress="0x0345c8">
+   <scaling units="s" expression="x" to_byte="x" format="0" fineincrement="10" coarseincrement="40.0" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x0343a6">
+    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    </table>
-   <description>How much of the discharge current the state-of-charge estimate counts, by battery-sensor value.</description>
+   <description>After some starts the charge-control delay comes from this table instead, by the estimated state of charge at start: a low battery gets a long normal-charging period first.</description>
+  </table>
+  <table name="Battery Charge Efficiency (Charging)" storageaddress="0x03456c">
+   <table type="Y Axis" storageaddress="0x03438a" />
+  </table>
+  <table name="Battery Charge Efficiency (Discharging)" storageaddress="0x03457a">
+   <table type="Y Axis" storageaddress="0x03438a" />
   </table>
   <table name="Battery Charged SOC Threshold" storageaddress="0x0343c6" />
   <table name="Battery Charged SOC Hysteresis" storageaddress="0x0343c8" />
@@ -58540,6 +58803,17 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x02fa44">
    <table type="Y Axis" storageaddress="0x02fa68" />
   </table>
+  <table name="Adaptive Charging Target Current" storageaddress="0x03450c">
+   <table type="Y Axis" storageaddress="0x034458" />
+  </table>
+  <table name="Adaptive Charging Current Gain" storageaddress="0x0343ee" />
+  <table name="Adaptive Charging Integral Deadband Above" storageaddress="0x0343d0" />
+  <table name="Adaptive Charging Integral Deadband Below" storageaddress="0x0343d2" />
+  <table name="Adaptive Charging Integral Step Down" storageaddress="0x0343d4" />
+  <table name="Adaptive Charging Integral Step Up" storageaddress="0x0343d6" />
+  <table name="Adaptive Charging Integral Gain" storageaddress="0x0343d8" />
+  <table name="Adaptive Charging Integral Maximum" storageaddress="0x0343da" />
+  <table name="Adaptive Charging Integral Minimum" storageaddress="0x0343dc" />
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x02fa56">
    <table type="Y Axis" storageaddress="0x02fa68" />
   </table>
@@ -62669,6 +62943,9 @@ Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B0
    <table type="X Axis" storageaddress="0x023dd2" />
    <table type="Y Axis" storageaddress="0x023da8" />
   </table>
+  <table name="DAM Initial Value" storageaddress="0x023da6" />
+  <table name="DAM Step" storageaddress="0x024204" />
+  <table name="DAM Step-Up Knock-Free Events" storageaddress="0x0241a8" />
   <table name="Knock Correction Advance Max B (TGV Open)" storageaddress="0x0316e6">
    <table type="X Axis" storageaddress="0x031576" />
    <table type="Y Axis" storageaddress="0x03154c" />
@@ -62701,7 +62978,80 @@ Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B0
   <table name="FLKC Range Boundary Load 3" storageaddress="0x023d60" />
   <table name="FLKC Range Boundary Load 4" storageaddress="0x023d62" />
   <table name="FLKC Range Boundary RPM 1" storageaddress="0x023d66" />
+  <table type="BitwiseSwitch" name="Knock Event Detector: Low Timing" category="Ignition Timing//Knock Control" storageaddress="0x041be3" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Watches for ignition timing pulled down to a floor that depends on DAM; when it trips, the knock-event torque limit applies.</description>
+  </table>
+  <table type="BitwiseSwitch" name="Knock Event Detector: Knocking Cylinders" category="Ignition Timing//Knock Control" storageaddress="0x041be4" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Counts cylinders whose knock signal is above the knock threshold while knock correction is already deep; when the count runs up, the knock-event torque limit applies.</description>
+  </table>
+  <table type="BitwiseSwitch" name="Knock Event Latch" category="Ignition Timing//Knock Control" storageaddress="0x04fac6" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Keeps the knock-event torque limit on after a trip, across key cycles, until the learned knock values are reset.</description>
+  </table>
+  <table type="1D" name="Knock Event Low Timing Passes" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x03288b">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Consecutive passes the timing must stay at or below the floor before the low-timing detector trips.</description>
+  </table>
+  <table type="1D" name="Knock Event Low Timing Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x03288c">
+   <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>Once the timing is at the floor, it must rise this far above it to count as recovered.</description>
+  </table>
+  <table type="1D" name="Knock Event Cylinder Count Limit (Feedback)" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x03288d">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Knocking cylinders, summed while feedback knock correction is at or below its threshold, that trip the detector.</description>
+  </table>
+  <table type="1D" name="Knock Event Feedback Correction Threshold" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" userlevel="4" storageaddress="0x03288e">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Knocking cylinders are summed while feedback knock correction is at or below this.</description>
+  </table>
+  <table type="1D" name="Knock Event Feedback Correction Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x03288f">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Once summing, feedback knock correction must recover this far above the threshold to stop.</description>
+  </table>
+  <table type="1D" name="Knock Event Cylinder Count Limit (Fine Learning)" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x032890">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Knocking cylinders, summed while fine learning knock correction is at or below its threshold, that trip the detector.</description>
+  </table>
+  <table type="1D" name="Knock Event Fine Learning Correction Threshold" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" userlevel="4" storageaddress="0x032891">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Knocking cylinders are summed while fine learning knock correction is at or below this.</description>
+  </table>
   <table name="FLKC Range Boundary RPM 2" storageaddress="0x023d68" />
+  <table type="1D" name="Knock Event Fine Learning Correction Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x032892">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Once summing, fine learning knock correction must recover this far above the threshold to stop.</description>
+  </table>
+  <table type="3D" name="Knock Event Low Timing Floor" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" sizex="16" sizey="16" userlevel="4" storageaddress="0x0328d4">
+   <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0328b4">
+    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x032894">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Ignition timing floor of the low-timing detector at the lowest DAM factor.</description>
+  </table>
+  <table type="3D" name="Knock Event Low Timing Floor (DAM Adder)" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" sizex="16" sizey="16" userlevel="4" storageaddress="0x0329d4">
+   <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0328b4">
+    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x032894">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Added to the low-timing floor in proportion to Knock Event Low Timing DAM Factor.</description>
+  </table>
+  <table type="2D" name="Knock Event Low Timing DAM Factor" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" sizey="16" userlevel="4" storageaddress="0x032ad4">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Dynamic Advance Multiplier" storagetype="uint8" endian="big" storageaddress="0x0328c4">
+    <scaling units="DAM" expression="x/16" to_byte="x*16" format="0.000" fineincrement="0.0625" coarseincrement="0.25" min="0" max="1" />
+   </table>
+   <description>How much of the DAM adder applies, by DAM (128 = all of it).</description>
+  </table>
   <table name="FLKC Range Boundary RPM 3" storageaddress="0x023d6a" />
   <table name="FLKC Range Boundary RPM 4" storageaddress="0x023d6c" />
   <table name="FLKC Range Boundary RPM 5" storageaddress="0x023d6e" />
@@ -63686,6 +64036,17 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   <table name="Maximum Torque (DAM)" storageaddress="0x025a2e">
    <table type="X Axis" storageaddress="0x025adc" />
    <table type="Y Axis" storageaddress="0x025ad6" />
+  </table>
+  <table type="3D" name="Maximum Torque (Knock Event)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizex="20" sizey="21" userlevel="2" storageaddress="0x02b7c2">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="X Axis" name="Accelerator Pedal" storagetype="uint16" endian="big" storageaddress="0x02b76e">
+    <scaling units="%" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02b744">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling while the knock-event detector has tripped (or its latch is set), by engine speed and pedal.</description>
   </table>
   <table name="Overboost Limit" storageaddress="0x033f42">
    <table type="Y Axis" storageaddress="0x033f56" />
@@ -65707,6 +66068,12 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
    <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
   </table>
+  <table name="Battery Charge Efficiency (Charging)" storageaddress="0x046004">
+   <table type="Y Axis" storageaddress="0x045e32" />
+  </table>
+  <table name="Battery Charge Efficiency (Discharging)" storageaddress="0x046012">
+   <table type="Y Axis" storageaddress="0x045e32" />
+  </table>
   <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x0468a0">
    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <description>The state of charge the ECU assumes when its estimate is reset.</description>
@@ -65720,6 +66087,17 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x0409d4">
    <table type="Y Axis" storageaddress="0x0409f8" />
   </table>
+  <table name="Adaptive Charging Target Current" storageaddress="0x045fa4">
+   <table type="Y Axis" storageaddress="0x045eee" />
+  </table>
+  <table name="Adaptive Charging Current Gain" storageaddress="0x045e86" />
+  <table name="Adaptive Charging Integral Deadband Above" storageaddress="0x045e68" />
+  <table name="Adaptive Charging Integral Deadband Below" storageaddress="0x045e6a" />
+  <table name="Adaptive Charging Integral Step Down" storageaddress="0x045e6c" />
+  <table name="Adaptive Charging Integral Step Up" storageaddress="0x045e6e" />
+  <table name="Adaptive Charging Integral Gain" storageaddress="0x045e70" />
+  <table name="Adaptive Charging Integral Maximum" storageaddress="0x045e72" />
+  <table name="Adaptive Charging Integral Minimum" storageaddress="0x045e74" />
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x0409e6">
    <table type="Y Axis" storageaddress="0x0409f8" />
   </table>
@@ -69798,6 +70176,9 @@ Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B0
    <table type="X Axis" storageaddress="0x019bfa" />
    <table type="Y Axis" storageaddress="0x019bd0" />
   </table>
+  <table name="DAM Initial Value" storageaddress="0x019bce" />
+  <table name="DAM Step" storageaddress="0x01a02c" />
+  <table name="DAM Step-Up Knock-Free Events" storageaddress="0x019fd0" />
   <table name="Knock Correction Advance Max B (TGV Open)" storageaddress="0x02576e">
    <table type="X Axis" storageaddress="0x0255fe" />
    <table type="Y Axis" storageaddress="0x0255d4" />
@@ -72299,19 +72680,22 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Radiator Fan Duty (Coolant)" storageaddress="0x0327f6">
    <table type="Y Axis" storageaddress="0x03282c" />
   </table>
-  <table type="2D" name="Battery Charge Efficiency (Charging)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" sizey="14" userlevel="4" storageaddress="0x03733c">
-   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03715a">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <description>How much of the charging current the state-of-charge estimate counts, by battery-sensor value.</description>
+  <table type="1D" name="Charge Control Delay After Start" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x037220">
+   <scaling units="s" expression="x" to_byte="x" format="0" fineincrement="10" coarseincrement="40.0" />
+   <description>Charge control (the battery-charged decision and adaptive charging) only starts this long after the engine starts; until then the alternator charges to the normal target.</description>
   </table>
-  <table type="2D" name="Battery Charge Efficiency (Discharging)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" sizey="14" userlevel="4" storageaddress="0x03734a">
-   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03715a">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+  <table type="2D" name="Charge Control Delay After Start (State of Charge)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" sizey="8" userlevel="4" storageaddress="0x037398">
+   <scaling units="s" expression="x" to_byte="x" format="0" fineincrement="10" coarseincrement="40.0" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x037176">
+    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    </table>
-   <description>How much of the discharge current the state-of-charge estimate counts, by battery-sensor value.</description>
+   <description>After some starts the charge-control delay comes from this table instead, by the estimated state of charge at start: a low battery gets a long normal-charging period first.</description>
+  </table>
+  <table name="Battery Charge Efficiency (Charging)" storageaddress="0x03733c">
+   <table type="Y Axis" storageaddress="0x03715a" />
+  </table>
+  <table name="Battery Charge Efficiency (Discharging)" storageaddress="0x03734a">
+   <table type="Y Axis" storageaddress="0x03715a" />
   </table>
   <table name="Battery Charged SOC Threshold" storageaddress="0x037196" />
   <table name="Battery Charged SOC Hysteresis" storageaddress="0x037198" />
@@ -72322,6 +72706,17 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x032808">
    <table type="Y Axis" storageaddress="0x03282c" />
   </table>
+  <table name="Adaptive Charging Target Current" storageaddress="0x0372dc">
+   <table type="Y Axis" storageaddress="0x037228" />
+  </table>
+  <table name="Adaptive Charging Current Gain" storageaddress="0x0371be" />
+  <table name="Adaptive Charging Integral Deadband Above" storageaddress="0x0371a0" />
+  <table name="Adaptive Charging Integral Deadband Below" storageaddress="0x0371a2" />
+  <table name="Adaptive Charging Integral Step Down" storageaddress="0x0371a4" />
+  <table name="Adaptive Charging Integral Step Up" storageaddress="0x0371a6" />
+  <table name="Adaptive Charging Integral Gain" storageaddress="0x0371a8" />
+  <table name="Adaptive Charging Integral Maximum" storageaddress="0x0371aa" />
+  <table name="Adaptive Charging Integral Minimum" storageaddress="0x0371ac" />
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x03281a">
    <table type="Y Axis" storageaddress="0x03282c" />
   </table>
@@ -77371,6 +77766,9 @@ Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B0
    <table type="X Axis" storageaddress="0x021b0e" />
    <table type="Y Axis" storageaddress="0x021ae4" />
   </table>
+  <table name="DAM Initial Value" storageaddress="0x021ae2" />
+  <table name="DAM Step" storageaddress="0x021f40" />
+  <table name="DAM Step-Up Knock-Free Events" storageaddress="0x021ee4" />
   <table name="Knock Correction Advance Max B (TGV Open)" storageaddress="0x02ded6">
    <table type="X Axis" storageaddress="0x02dd66" />
    <table type="Y Axis" storageaddress="0x02dd3c" />
@@ -80237,6 +80635,12 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
    <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
   </table>
+  <table name="Battery Charge Efficiency (Charging)" storageaddress="0x0404a8">
+   <table type="Y Axis" storageaddress="0x0402d6" />
+  </table>
+  <table name="Battery Charge Efficiency (Discharging)" storageaddress="0x0404b6">
+   <table type="Y Axis" storageaddress="0x0402d6" />
+  </table>
   <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x040d44">
    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <description>The state of charge the ECU assumes when its estimate is reset.</description>
@@ -80250,6 +80654,17 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x03ae80">
    <table type="Y Axis" storageaddress="0x03aea4" />
   </table>
+  <table name="Adaptive Charging Target Current" storageaddress="0x040448">
+   <table type="Y Axis" storageaddress="0x040392" />
+  </table>
+  <table name="Adaptive Charging Current Gain" storageaddress="0x04032a" />
+  <table name="Adaptive Charging Integral Deadband Above" storageaddress="0x04030c" />
+  <table name="Adaptive Charging Integral Deadband Below" storageaddress="0x04030e" />
+  <table name="Adaptive Charging Integral Step Down" storageaddress="0x040310" />
+  <table name="Adaptive Charging Integral Step Up" storageaddress="0x040312" />
+  <table name="Adaptive Charging Integral Gain" storageaddress="0x040314" />
+  <table name="Adaptive Charging Integral Maximum" storageaddress="0x040316" />
+  <table name="Adaptive Charging Integral Minimum" storageaddress="0x040318" />
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x03ae92">
    <table type="Y Axis" storageaddress="0x03aea4" />
   </table>
@@ -84421,6 +84836,9 @@ Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B0
    <table type="X Axis" storageaddress="0x020302" />
    <table type="Y Axis" storageaddress="0x0202d8" />
   </table>
+  <table name="DAM Initial Value" storageaddress="0x0202d6" />
+  <table name="DAM Step" storageaddress="0x020734" />
+  <table name="DAM Step-Up Knock-Free Events" storageaddress="0x0206d8" />
   <table name="Knock Correction Advance Max B (TGV Open)" storageaddress="0x02cd46">
    <table type="X Axis" storageaddress="0x02cbd6" />
    <table type="Y Axis" storageaddress="0x02cbac" />
@@ -87308,6 +87726,12 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
    <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
   </table>
+  <table name="Battery Charge Efficiency (Charging)" storageaddress="0x03f360">
+   <table type="Y Axis" storageaddress="0x03f18e" />
+  </table>
+  <table name="Battery Charge Efficiency (Discharging)" storageaddress="0x03f36e">
+   <table type="Y Axis" storageaddress="0x03f18e" />
+  </table>
   <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03fbfc">
    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <description>The state of charge the ECU assumes when its estimate is reset.</description>
@@ -87321,6 +87745,17 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x039d40">
    <table type="Y Axis" storageaddress="0x039d64" />
   </table>
+  <table name="Adaptive Charging Target Current" storageaddress="0x03f300">
+   <table type="Y Axis" storageaddress="0x03f24a" />
+  </table>
+  <table name="Adaptive Charging Current Gain" storageaddress="0x03f1e2" />
+  <table name="Adaptive Charging Integral Deadband Above" storageaddress="0x03f1c4" />
+  <table name="Adaptive Charging Integral Deadband Below" storageaddress="0x03f1c6" />
+  <table name="Adaptive Charging Integral Step Down" storageaddress="0x03f1c8" />
+  <table name="Adaptive Charging Integral Step Up" storageaddress="0x03f1ca" />
+  <table name="Adaptive Charging Integral Gain" storageaddress="0x03f1cc" />
+  <table name="Adaptive Charging Integral Maximum" storageaddress="0x03f1ce" />
+  <table name="Adaptive Charging Integral Minimum" storageaddress="0x03f1d0" />
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x039d52">
    <table type="Y Axis" storageaddress="0x039d64" />
   </table>
@@ -91745,19 +92180,16 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
    <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
   </table>
-  <table type="2D" name="Battery Charge Efficiency (Charging)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" sizey="14" userlevel="4" storageaddress="0x039928">
-   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x039746">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <description>How much of the charging current the state-of-charge estimate counts, by battery-sensor value.</description>
+  <table type="1D" name="Charge Control Delay After Start" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x03980c">
+   <scaling units="s" expression="x" to_byte="x" format="0" fineincrement="10" coarseincrement="40.0" />
+   <description>Charge control (the battery-charged decision and adaptive charging) only starts this long after the engine starts; until then the alternator charges to the normal target.</description>
   </table>
-  <table type="2D" name="Battery Charge Efficiency (Discharging)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" sizey="14" userlevel="4" storageaddress="0x039936">
-   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x039746">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+  <table type="2D" name="Charge Control Delay After Start (State of Charge)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" sizey="8" userlevel="4" storageaddress="0x039984">
+   <scaling units="s" expression="x" to_byte="x" format="0" fineincrement="10" coarseincrement="40.0" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x039762">
+    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    </table>
-   <description>How much of the discharge current the state-of-charge estimate counts, by battery-sensor value.</description>
+   <description>After some starts the charge-control delay comes from this table instead, by the estimated state of charge at start: a low battery gets a long normal-charging period first.</description>
   </table>
   <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03a2d4">
    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -95936,6 +96368,9 @@ Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B0
    <table type="X Axis" storageaddress="0x021b0e" />
    <table type="Y Axis" storageaddress="0x021ae4" />
   </table>
+  <table name="DAM Initial Value" storageaddress="0x021ae2" />
+  <table name="DAM Step" storageaddress="0x021f40" />
+  <table name="DAM Step-Up Knock-Free Events" storageaddress="0x021ee4" />
   <table name="Knock Correction Advance Max B (TGV Open)" storageaddress="0x02ded6">
    <table type="X Axis" storageaddress="0x02dd66" />
    <table type="Y Axis" storageaddress="0x02dd3c" />
@@ -98835,6 +99270,12 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
    <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
   </table>
+  <table name="Battery Charge Efficiency (Charging)" storageaddress="0x0404a8">
+   <table type="Y Axis" storageaddress="0x0402d6" />
+  </table>
+  <table name="Battery Charge Efficiency (Discharging)" storageaddress="0x0404b6">
+   <table type="Y Axis" storageaddress="0x0402d6" />
+  </table>
   <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x040d44">
    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <description>The state of charge the ECU assumes when its estimate is reset.</description>
@@ -98848,6 +99289,17 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x03ae80">
    <table type="Y Axis" storageaddress="0x03aea4" />
   </table>
+  <table name="Adaptive Charging Target Current" storageaddress="0x040448">
+   <table type="Y Axis" storageaddress="0x040392" />
+  </table>
+  <table name="Adaptive Charging Current Gain" storageaddress="0x04032a" />
+  <table name="Adaptive Charging Integral Deadband Above" storageaddress="0x04030c" />
+  <table name="Adaptive Charging Integral Deadband Below" storageaddress="0x04030e" />
+  <table name="Adaptive Charging Integral Step Down" storageaddress="0x040310" />
+  <table name="Adaptive Charging Integral Step Up" storageaddress="0x040312" />
+  <table name="Adaptive Charging Integral Gain" storageaddress="0x040314" />
+  <table name="Adaptive Charging Integral Maximum" storageaddress="0x040316" />
+  <table name="Adaptive Charging Integral Minimum" storageaddress="0x040318" />
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x03ae92">
    <table type="Y Axis" storageaddress="0x03aea4" />
   </table>
@@ -103062,6 +103514,9 @@ Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B0
    <table type="X Axis" storageaddress="0x0227a6" />
    <table type="Y Axis" storageaddress="0x02277c" />
   </table>
+  <table name="DAM Initial Value" storageaddress="0x02277a" />
+  <table name="DAM Step" storageaddress="0x022bd8" />
+  <table name="DAM Step-Up Knock-Free Events" storageaddress="0x022b7c" />
   <table name="Knock Correction Advance Max B (TGV Open)" storageaddress="0x02fb2a">
    <table type="X Axis" storageaddress="0x02f9ba" />
    <table type="Y Axis" storageaddress="0x02f990" />
@@ -106008,6 +106463,12 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
    <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
   </table>
+  <table name="Battery Charge Efficiency (Charging)" storageaddress="0x0423dc">
+   <table type="Y Axis" storageaddress="0x04220a" />
+  </table>
+  <table name="Battery Charge Efficiency (Discharging)" storageaddress="0x0423ea">
+   <table type="Y Axis" storageaddress="0x04220a" />
+  </table>
   <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x042c78">
    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <description>The state of charge the ECU assumes when its estimate is reset.</description>
@@ -106021,6 +106482,17 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x03cdb0">
    <table type="Y Axis" storageaddress="0x03cdd4" />
   </table>
+  <table name="Adaptive Charging Target Current" storageaddress="0x04237c">
+   <table type="Y Axis" storageaddress="0x0422c6" />
+  </table>
+  <table name="Adaptive Charging Current Gain" storageaddress="0x04225e" />
+  <table name="Adaptive Charging Integral Deadband Above" storageaddress="0x042240" />
+  <table name="Adaptive Charging Integral Deadband Below" storageaddress="0x042242" />
+  <table name="Adaptive Charging Integral Step Down" storageaddress="0x042244" />
+  <table name="Adaptive Charging Integral Step Up" storageaddress="0x042246" />
+  <table name="Adaptive Charging Integral Gain" storageaddress="0x042248" />
+  <table name="Adaptive Charging Integral Maximum" storageaddress="0x04224a" />
+  <table name="Adaptive Charging Integral Minimum" storageaddress="0x04224c" />
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x03cdc2">
    <table type="Y Axis" storageaddress="0x03cdd4" />
   </table>
@@ -110235,6 +110707,9 @@ Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B0
    <table type="X Axis" storageaddress="0x0227e6" />
    <table type="Y Axis" storageaddress="0x0227bc" />
   </table>
+  <table name="DAM Initial Value" storageaddress="0x0227ba" />
+  <table name="DAM Step" storageaddress="0x022c18" />
+  <table name="DAM Step-Up Knock-Free Events" storageaddress="0x022bbc" />
   <table name="Knock Correction Advance Max B (TGV Open)" storageaddress="0x02fce2">
    <table type="X Axis" storageaddress="0x02fb72" />
    <table type="Y Axis" storageaddress="0x02fb48" />
@@ -110267,7 +110742,80 @@ Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B0
   <table name="FLKC Range Boundary Load 3" storageaddress="0x022774" />
   <table name="FLKC Range Boundary Load 4" storageaddress="0x022776" />
   <table name="FLKC Range Boundary RPM 1" storageaddress="0x02277a" />
+  <table type="BitwiseSwitch" name="Knock Event Detector: Low Timing" category="Ignition Timing//Knock Control" storageaddress="0x03e403" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Watches for ignition timing pulled down to a floor that depends on DAM; when it trips, the knock-event torque limit applies.</description>
+  </table>
+  <table type="BitwiseSwitch" name="Knock Event Detector: Knocking Cylinders" category="Ignition Timing//Knock Control" storageaddress="0x03e404" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Counts cylinders whose knock signal is above the knock threshold while knock correction is already deep; when the count runs up, the knock-event torque limit applies.</description>
+  </table>
+  <table type="BitwiseSwitch" name="Knock Event Latch" category="Ignition Timing//Knock Control" storageaddress="0x04c2e6" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Keeps the knock-event torque limit on after a trip, across key cycles, until the learned knock values are reset.</description>
+  </table>
+  <table type="1D" name="Knock Event Low Timing Passes" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x030e87">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Consecutive passes the timing must stay at or below the floor before the low-timing detector trips.</description>
+  </table>
+  <table type="1D" name="Knock Event Low Timing Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x030e88">
+   <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>Once the timing is at the floor, it must rise this far above it to count as recovered.</description>
+  </table>
+  <table type="1D" name="Knock Event Cylinder Count Limit (Feedback)" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x030e89">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Knocking cylinders, summed while feedback knock correction is at or below its threshold, that trip the detector.</description>
+  </table>
+  <table type="1D" name="Knock Event Feedback Correction Threshold" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" userlevel="4" storageaddress="0x030e8a">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Knocking cylinders are summed while feedback knock correction is at or below this.</description>
+  </table>
+  <table type="1D" name="Knock Event Feedback Correction Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x030e8b">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Once summing, feedback knock correction must recover this far above the threshold to stop.</description>
+  </table>
+  <table type="1D" name="Knock Event Cylinder Count Limit (Fine Learning)" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x030e8c">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Knocking cylinders, summed while fine learning knock correction is at or below its threshold, that trip the detector.</description>
+  </table>
+  <table type="1D" name="Knock Event Fine Learning Correction Threshold" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" userlevel="4" storageaddress="0x030e8d">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Knocking cylinders are summed while fine learning knock correction is at or below this.</description>
+  </table>
   <table name="FLKC Range Boundary RPM 2" storageaddress="0x02277c" />
+  <table type="1D" name="Knock Event Fine Learning Correction Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x030e8e">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Once summing, fine learning knock correction must recover this far above the threshold to stop.</description>
+  </table>
+  <table type="3D" name="Knock Event Low Timing Floor" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" sizex="16" sizey="16" userlevel="4" storageaddress="0x030ed0">
+   <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x030eb0">
+    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x030e90">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Ignition timing floor of the low-timing detector at the lowest DAM factor.</description>
+  </table>
+  <table type="3D" name="Knock Event Low Timing Floor (DAM Adder)" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" sizex="16" sizey="16" userlevel="4" storageaddress="0x030fd0">
+   <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x030eb0">
+    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x030e90">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Added to the low-timing floor in proportion to Knock Event Low Timing DAM Factor.</description>
+  </table>
+  <table type="2D" name="Knock Event Low Timing DAM Factor" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" sizey="16" userlevel="4" storageaddress="0x0310d0">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Dynamic Advance Multiplier" storagetype="uint8" endian="big" storageaddress="0x030ec0">
+    <scaling units="DAM" expression="x/16" to_byte="x*16" format="0.000" fineincrement="0.0625" coarseincrement="0.25" min="0" max="1" />
+   </table>
+   <description>How much of the DAM adder applies, by DAM (128 = all of it).</description>
+  </table>
   <table name="FLKC Range Boundary RPM 3" storageaddress="0x02277e" />
   <table name="FLKC Range Boundary RPM 4" storageaddress="0x022780" />
   <table name="FLKC Range Boundary RPM 5" storageaddress="0x022782" />
@@ -111241,6 +111789,17 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   <table name="Maximum Torque (DAM)" storageaddress="0x024442">
    <table type="X Axis" storageaddress="0x0244f0" />
    <table type="Y Axis" storageaddress="0x0244ea" />
+  </table>
+  <table type="3D" name="Maximum Torque (Knock Event)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizex="20" sizey="21" userlevel="2" storageaddress="0x02a1d6">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="X Axis" name="Accelerator Pedal" storagetype="uint16" endian="big" storageaddress="0x02a182">
+    <scaling units="%" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02a158">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling while the knock-event detector has tripped (or its latch is set), by engine speed and pedal.</description>
   </table>
   <table name="Overboost Limit" storageaddress="0x031d8a">
    <table type="Y Axis" storageaddress="0x031d9e" />
@@ -113260,6 +113819,12 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
    <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
   </table>
+  <table name="Battery Charge Efficiency (Charging)" storageaddress="0x042824">
+   <table type="Y Axis" storageaddress="0x042652" />
+  </table>
+  <table name="Battery Charge Efficiency (Discharging)" storageaddress="0x042832">
+   <table type="Y Axis" storageaddress="0x042652" />
+  </table>
   <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x0430c0">
    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <description>The state of charge the ECU assumes when its estimate is reset.</description>
@@ -113273,6 +113838,17 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x03d1f4">
    <table type="Y Axis" storageaddress="0x03d218" />
   </table>
+  <table name="Adaptive Charging Target Current" storageaddress="0x0427c4">
+   <table type="Y Axis" storageaddress="0x04270e" />
+  </table>
+  <table name="Adaptive Charging Current Gain" storageaddress="0x0426a6" />
+  <table name="Adaptive Charging Integral Deadband Above" storageaddress="0x042688" />
+  <table name="Adaptive Charging Integral Deadband Below" storageaddress="0x04268a" />
+  <table name="Adaptive Charging Integral Step Down" storageaddress="0x04268c" />
+  <table name="Adaptive Charging Integral Step Up" storageaddress="0x04268e" />
+  <table name="Adaptive Charging Integral Gain" storageaddress="0x042690" />
+  <table name="Adaptive Charging Integral Maximum" storageaddress="0x042692" />
+  <table name="Adaptive Charging Integral Minimum" storageaddress="0x042694" />
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x03d206">
    <table type="Y Axis" storageaddress="0x03d218" />
   </table>
@@ -117483,6 +118059,9 @@ Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B0
    <table type="X Axis" storageaddress="0x023b72" />
    <table type="Y Axis" storageaddress="0x023b48" />
   </table>
+  <table name="DAM Initial Value" storageaddress="0x023b46" />
+  <table name="DAM Step" storageaddress="0x023fa4" />
+  <table name="DAM Step-Up Knock-Free Events" storageaddress="0x023f48" />
   <table name="Knock Correction Advance Max B (TGV Open)" storageaddress="0x0311e6">
    <table type="X Axis" storageaddress="0x031076" />
    <table type="Y Axis" storageaddress="0x03104c" />
@@ -117515,7 +118094,80 @@ Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B0
   <table name="FLKC Range Boundary Load 3" storageaddress="0x023b00" />
   <table name="FLKC Range Boundary Load 4" storageaddress="0x023b02" />
   <table name="FLKC Range Boundary RPM 1" storageaddress="0x023b06" />
+  <table type="BitwiseSwitch" name="Knock Event Detector: Low Timing" category="Ignition Timing//Knock Control" storageaddress="0x0400d3" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Watches for ignition timing pulled down to a floor that depends on DAM; when it trips, the knock-event torque limit applies.</description>
+  </table>
+  <table type="BitwiseSwitch" name="Knock Event Detector: Knocking Cylinders" category="Ignition Timing//Knock Control" storageaddress="0x0400d4" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Counts cylinders whose knock signal is above the knock threshold while knock correction is already deep; when the count runs up, the knock-event torque limit applies.</description>
+  </table>
+  <table type="BitwiseSwitch" name="Knock Event Latch" category="Ignition Timing//Knock Control" storageaddress="0x04dfb6" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Keeps the knock-event torque limit on after a trip, across key cycles, until the learned knock values are reset.</description>
+  </table>
+  <table type="1D" name="Knock Event Low Timing Passes" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x03238b">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Consecutive passes the timing must stay at or below the floor before the low-timing detector trips.</description>
+  </table>
+  <table type="1D" name="Knock Event Low Timing Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x03238c">
+   <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>Once the timing is at the floor, it must rise this far above it to count as recovered.</description>
+  </table>
+  <table type="1D" name="Knock Event Cylinder Count Limit (Feedback)" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x03238d">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Knocking cylinders, summed while feedback knock correction is at or below its threshold, that trip the detector.</description>
+  </table>
+  <table type="1D" name="Knock Event Feedback Correction Threshold" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" userlevel="4" storageaddress="0x03238e">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Knocking cylinders are summed while feedback knock correction is at or below this.</description>
+  </table>
+  <table type="1D" name="Knock Event Feedback Correction Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x03238f">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Once summing, feedback knock correction must recover this far above the threshold to stop.</description>
+  </table>
+  <table type="1D" name="Knock Event Cylinder Count Limit (Fine Learning)" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x032390">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Knocking cylinders, summed while fine learning knock correction is at or below its threshold, that trip the detector.</description>
+  </table>
+  <table type="1D" name="Knock Event Fine Learning Correction Threshold" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" userlevel="4" storageaddress="0x032391">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Knocking cylinders are summed while fine learning knock correction is at or below this.</description>
+  </table>
   <table name="FLKC Range Boundary RPM 2" storageaddress="0x023b08" />
+  <table type="1D" name="Knock Event Fine Learning Correction Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x032392">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Once summing, fine learning knock correction must recover this far above the threshold to stop.</description>
+  </table>
+  <table type="3D" name="Knock Event Low Timing Floor" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" sizex="16" sizey="16" userlevel="4" storageaddress="0x0323d4">
+   <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0323b4">
+    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x032394">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Ignition timing floor of the low-timing detector at the lowest DAM factor.</description>
+  </table>
+  <table type="3D" name="Knock Event Low Timing Floor (DAM Adder)" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" sizex="16" sizey="16" userlevel="4" storageaddress="0x0324d4">
+   <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0323b4">
+    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x032394">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Added to the low-timing floor in proportion to Knock Event Low Timing DAM Factor.</description>
+  </table>
+  <table type="2D" name="Knock Event Low Timing DAM Factor" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" sizey="16" userlevel="4" storageaddress="0x0325d4">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Dynamic Advance Multiplier" storagetype="uint8" endian="big" storageaddress="0x0323c4">
+    <scaling units="DAM" expression="x/16" to_byte="x*16" format="0.000" fineincrement="0.0625" coarseincrement="0.25" min="0" max="1" />
+   </table>
+   <description>How much of the DAM adder applies, by DAM (128 = all of it).</description>
+  </table>
   <table name="FLKC Range Boundary RPM 3" storageaddress="0x023b0a" />
   <table name="FLKC Range Boundary RPM 4" storageaddress="0x023b0c" />
   <table name="FLKC Range Boundary RPM 5" storageaddress="0x023b0e" />
@@ -118500,6 +119152,17 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   <table name="Maximum Torque (DAM)" storageaddress="0x0257ce">
    <table type="X Axis" storageaddress="0x02587c" />
    <table type="Y Axis" storageaddress="0x025876" />
+  </table>
+  <table type="3D" name="Maximum Torque (Knock Event)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizex="20" sizey="21" userlevel="2" storageaddress="0x02b562">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="X Axis" name="Accelerator Pedal" storagetype="uint16" endian="big" storageaddress="0x02b50e">
+    <scaling units="%" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02b4e4">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling while the knock-event detector has tripped (or its latch is set), by engine speed and pedal.</description>
   </table>
   <table name="Overboost Limit" storageaddress="0x033a42">
    <table type="Y Axis" storageaddress="0x033a56" />
@@ -120511,6 +121174,12 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
    <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
   </table>
+  <table name="Battery Charge Efficiency (Charging)" storageaddress="0x0444f4">
+   <table type="Y Axis" storageaddress="0x044322" />
+  </table>
+  <table name="Battery Charge Efficiency (Discharging)" storageaddress="0x044502">
+   <table type="Y Axis" storageaddress="0x044322" />
+  </table>
   <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x044d90">
    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <description>The state of charge the ECU assumes when its estimate is reset.</description>
@@ -120524,6 +121193,17 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x03eec4">
    <table type="Y Axis" storageaddress="0x03eee8" />
   </table>
+  <table name="Adaptive Charging Target Current" storageaddress="0x044494">
+   <table type="Y Axis" storageaddress="0x0443de" />
+  </table>
+  <table name="Adaptive Charging Current Gain" storageaddress="0x044376" />
+  <table name="Adaptive Charging Integral Deadband Above" storageaddress="0x044358" />
+  <table name="Adaptive Charging Integral Deadband Below" storageaddress="0x04435a" />
+  <table name="Adaptive Charging Integral Step Down" storageaddress="0x04435c" />
+  <table name="Adaptive Charging Integral Step Up" storageaddress="0x04435e" />
+  <table name="Adaptive Charging Integral Gain" storageaddress="0x044360" />
+  <table name="Adaptive Charging Integral Maximum" storageaddress="0x044362" />
+  <table name="Adaptive Charging Integral Minimum" storageaddress="0x044364" />
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x03eed6">
    <table type="Y Axis" storageaddress="0x03eee8" />
   </table>
@@ -124731,6 +125411,9 @@ Details: When used: Only with the automatic/CVT transmission coding (Cal Switche
    <table type="X Axis" storageaddress="0x023b72" />
    <table type="Y Axis" storageaddress="0x023b48" />
   </table>
+  <table name="DAM Initial Value" storageaddress="0x023b46" />
+  <table name="DAM Step" storageaddress="0x023fa4" />
+  <table name="DAM Step-Up Knock-Free Events" storageaddress="0x023f48" />
   <table name="Knock Correction Advance Max B (TGV Open)" storageaddress="0x0311e6">
    <table type="X Axis" storageaddress="0x031076" />
    <table type="Y Axis" storageaddress="0x03104c" />
@@ -124763,7 +125446,80 @@ Details: When used: Only with the automatic/CVT transmission coding (Cal Switche
   <table name="FLKC Range Boundary Load 3" storageaddress="0x023b00" />
   <table name="FLKC Range Boundary Load 4" storageaddress="0x023b02" />
   <table name="FLKC Range Boundary RPM 1" storageaddress="0x023b06" />
+  <table type="BitwiseSwitch" name="Knock Event Detector: Low Timing" category="Ignition Timing//Knock Control" storageaddress="0x0400d3" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Watches for ignition timing pulled down to a floor that depends on DAM; when it trips, the knock-event torque limit applies.</description>
+  </table>
+  <table type="BitwiseSwitch" name="Knock Event Detector: Knocking Cylinders" category="Ignition Timing//Knock Control" storageaddress="0x0400d4" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Counts cylinders whose knock signal is above the knock threshold while knock correction is already deep; when the count runs up, the knock-event torque limit applies.</description>
+  </table>
+  <table type="BitwiseSwitch" name="Knock Event Latch" category="Ignition Timing//Knock Control" storageaddress="0x04df96" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Keeps the knock-event torque limit on after a trip, across key cycles, until the learned knock values are reset.</description>
+  </table>
+  <table type="1D" name="Knock Event Low Timing Passes" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x03238b">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Consecutive passes the timing must stay at or below the floor before the low-timing detector trips.</description>
+  </table>
+  <table type="1D" name="Knock Event Low Timing Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x03238c">
+   <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>Once the timing is at the floor, it must rise this far above it to count as recovered.</description>
+  </table>
+  <table type="1D" name="Knock Event Cylinder Count Limit (Feedback)" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x03238d">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Knocking cylinders, summed while feedback knock correction is at or below its threshold, that trip the detector.</description>
+  </table>
+  <table type="1D" name="Knock Event Feedback Correction Threshold" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" userlevel="4" storageaddress="0x03238e">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Knocking cylinders are summed while feedback knock correction is at or below this.</description>
+  </table>
+  <table type="1D" name="Knock Event Feedback Correction Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x03238f">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Once summing, feedback knock correction must recover this far above the threshold to stop.</description>
+  </table>
+  <table type="1D" name="Knock Event Cylinder Count Limit (Fine Learning)" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x032390">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Knocking cylinders, summed while fine learning knock correction is at or below its threshold, that trip the detector.</description>
+  </table>
+  <table type="1D" name="Knock Event Fine Learning Correction Threshold" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" userlevel="4" storageaddress="0x032391">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Knocking cylinders are summed while fine learning knock correction is at or below this.</description>
+  </table>
   <table name="FLKC Range Boundary RPM 2" storageaddress="0x023b08" />
+  <table type="1D" name="Knock Event Fine Learning Correction Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x032392">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Once summing, fine learning knock correction must recover this far above the threshold to stop.</description>
+  </table>
+  <table type="3D" name="Knock Event Low Timing Floor" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" sizex="16" sizey="16" userlevel="4" storageaddress="0x0323d4">
+   <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0323b4">
+    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x032394">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Ignition timing floor of the low-timing detector at the lowest DAM factor.</description>
+  </table>
+  <table type="3D" name="Knock Event Low Timing Floor (DAM Adder)" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" sizex="16" sizey="16" userlevel="4" storageaddress="0x0324d4">
+   <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0323b4">
+    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x032394">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Added to the low-timing floor in proportion to Knock Event Low Timing DAM Factor.</description>
+  </table>
+  <table type="2D" name="Knock Event Low Timing DAM Factor" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" sizey="16" userlevel="4" storageaddress="0x0325d4">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Dynamic Advance Multiplier" storagetype="uint8" endian="big" storageaddress="0x0323c4">
+    <scaling units="DAM" expression="x/16" to_byte="x*16" format="0.000" fineincrement="0.0625" coarseincrement="0.25" min="0" max="1" />
+   </table>
+   <description>How much of the DAM adder applies, by DAM (128 = all of it).</description>
+  </table>
   <table name="FLKC Range Boundary RPM 3" storageaddress="0x023b0a" />
   <table name="FLKC Range Boundary RPM 4" storageaddress="0x023b0c" />
   <table name="FLKC Range Boundary RPM 5" storageaddress="0x023b0e" />
@@ -125724,6 +126480,17 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   <table name="Maximum Torque (DAM)" storageaddress="0x0257ce">
    <table type="X Axis" storageaddress="0x02587c" />
    <table type="Y Axis" storageaddress="0x025876" />
+  </table>
+  <table type="3D" name="Maximum Torque (Knock Event)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizex="20" sizey="21" userlevel="2" storageaddress="0x02b562">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="X Axis" name="Accelerator Pedal" storagetype="uint16" endian="big" storageaddress="0x02b50e">
+    <scaling units="%" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02b4e4">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling while the knock-event detector has tripped (or its latch is set), by engine speed and pedal.</description>
   </table>
   <table name="Overboost Limit" storageaddress="0x033a42">
    <table type="Y Axis" storageaddress="0x033a56" />
@@ -127709,6 +128476,12 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
    <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
   </table>
+  <table name="Battery Charge Efficiency (Charging)" storageaddress="0x0444f4">
+   <table type="Y Axis" storageaddress="0x044322" />
+  </table>
+  <table name="Battery Charge Efficiency (Discharging)" storageaddress="0x044502">
+   <table type="Y Axis" storageaddress="0x044322" />
+  </table>
   <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x044d90">
    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <description>The state of charge the ECU assumes when its estimate is reset.</description>
@@ -127722,6 +128495,17 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x03eec4">
    <table type="Y Axis" storageaddress="0x03eee8" />
   </table>
+  <table name="Adaptive Charging Target Current" storageaddress="0x044494">
+   <table type="Y Axis" storageaddress="0x0443de" />
+  </table>
+  <table name="Adaptive Charging Current Gain" storageaddress="0x044376" />
+  <table name="Adaptive Charging Integral Deadband Above" storageaddress="0x044358" />
+  <table name="Adaptive Charging Integral Deadband Below" storageaddress="0x04435a" />
+  <table name="Adaptive Charging Integral Step Down" storageaddress="0x04435c" />
+  <table name="Adaptive Charging Integral Step Up" storageaddress="0x04435e" />
+  <table name="Adaptive Charging Integral Gain" storageaddress="0x044360" />
+  <table name="Adaptive Charging Integral Maximum" storageaddress="0x044362" />
+  <table name="Adaptive Charging Integral Minimum" storageaddress="0x044364" />
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x03eed6">
    <table type="Y Axis" storageaddress="0x03eee8" />
   </table>
@@ -131913,6 +132697,9 @@ Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B0
    <table type="X Axis" storageaddress="0x023dd2" />
    <table type="Y Axis" storageaddress="0x023da8" />
   </table>
+  <table name="DAM Initial Value" storageaddress="0x023da6" />
+  <table name="DAM Step" storageaddress="0x024204" />
+  <table name="DAM Step-Up Knock-Free Events" storageaddress="0x0241a8" />
   <table name="Knock Correction Advance Max B (TGV Open)" storageaddress="0x0316e6">
    <table type="X Axis" storageaddress="0x031576" />
    <table type="Y Axis" storageaddress="0x03154c" />
@@ -131945,7 +132732,80 @@ Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B0
   <table name="FLKC Range Boundary Load 3" storageaddress="0x023d60" />
   <table name="FLKC Range Boundary Load 4" storageaddress="0x023d62" />
   <table name="FLKC Range Boundary RPM 1" storageaddress="0x023d66" />
+  <table type="BitwiseSwitch" name="Knock Event Detector: Low Timing" category="Ignition Timing//Knock Control" storageaddress="0x0425d3" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Watches for ignition timing pulled down to a floor that depends on DAM; when it trips, the knock-event torque limit applies.</description>
+  </table>
+  <table type="BitwiseSwitch" name="Knock Event Detector: Knocking Cylinders" category="Ignition Timing//Knock Control" storageaddress="0x0425d4" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Counts cylinders whose knock signal is above the knock threshold while knock correction is already deep; when the count runs up, the knock-event torque limit applies.</description>
+  </table>
+  <table type="BitwiseSwitch" name="Knock Event Latch" category="Ignition Timing//Knock Control" storageaddress="0x0504b6" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Keeps the knock-event torque limit on after a trip, across key cycles, until the learned knock values are reset.</description>
+  </table>
+  <table type="1D" name="Knock Event Low Timing Passes" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x03288b">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Consecutive passes the timing must stay at or below the floor before the low-timing detector trips.</description>
+  </table>
+  <table type="1D" name="Knock Event Low Timing Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x03288c">
+   <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>Once the timing is at the floor, it must rise this far above it to count as recovered.</description>
+  </table>
+  <table type="1D" name="Knock Event Cylinder Count Limit (Feedback)" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x03288d">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Knocking cylinders, summed while feedback knock correction is at or below its threshold, that trip the detector.</description>
+  </table>
+  <table type="1D" name="Knock Event Feedback Correction Threshold" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" userlevel="4" storageaddress="0x03288e">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Knocking cylinders are summed while feedback knock correction is at or below this.</description>
+  </table>
+  <table type="1D" name="Knock Event Feedback Correction Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x03288f">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Once summing, feedback knock correction must recover this far above the threshold to stop.</description>
+  </table>
+  <table type="1D" name="Knock Event Cylinder Count Limit (Fine Learning)" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x032890">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Knocking cylinders, summed while fine learning knock correction is at or below its threshold, that trip the detector.</description>
+  </table>
+  <table type="1D" name="Knock Event Fine Learning Correction Threshold" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" userlevel="4" storageaddress="0x032891">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Knocking cylinders are summed while fine learning knock correction is at or below this.</description>
+  </table>
   <table name="FLKC Range Boundary RPM 2" storageaddress="0x023d68" />
+  <table type="1D" name="Knock Event Fine Learning Correction Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x032892">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Once summing, fine learning knock correction must recover this far above the threshold to stop.</description>
+  </table>
+  <table type="3D" name="Knock Event Low Timing Floor" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" sizex="16" sizey="16" userlevel="4" storageaddress="0x0328d4">
+   <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0328b4">
+    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x032894">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Ignition timing floor of the low-timing detector at the lowest DAM factor.</description>
+  </table>
+  <table type="3D" name="Knock Event Low Timing Floor (DAM Adder)" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" sizex="16" sizey="16" userlevel="4" storageaddress="0x0329d4">
+   <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0328b4">
+    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x032894">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Added to the low-timing floor in proportion to Knock Event Low Timing DAM Factor.</description>
+  </table>
+  <table type="2D" name="Knock Event Low Timing DAM Factor" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" sizey="16" userlevel="4" storageaddress="0x032ad4">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Dynamic Advance Multiplier" storagetype="uint8" endian="big" storageaddress="0x0328c4">
+    <scaling units="DAM" expression="x/16" to_byte="x*16" format="0.000" fineincrement="0.0625" coarseincrement="0.25" min="0" max="1" />
+   </table>
+   <description>How much of the DAM adder applies, by DAM (128 = all of it).</description>
+  </table>
   <table name="FLKC Range Boundary RPM 3" storageaddress="0x023d6a" />
   <table name="FLKC Range Boundary RPM 4" storageaddress="0x023d6c" />
   <table name="FLKC Range Boundary RPM 5" storageaddress="0x023d6e" />
@@ -132930,6 +133790,17 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   <table name="Maximum Torque (DAM)" storageaddress="0x025a2e">
    <table type="X Axis" storageaddress="0x025adc" />
    <table type="Y Axis" storageaddress="0x025ad6" />
+  </table>
+  <table type="3D" name="Maximum Torque (Knock Event)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizex="20" sizey="21" userlevel="2" storageaddress="0x02b7c2">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="X Axis" name="Accelerator Pedal" storagetype="uint16" endian="big" storageaddress="0x02b76e">
+    <scaling units="%" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02b744">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling while the knock-event detector has tripped (or its latch is set), by engine speed and pedal.</description>
   </table>
   <table name="Overboost Limit" storageaddress="0x033f42">
    <table type="Y Axis" storageaddress="0x033f56" />
@@ -134941,6 +135812,12 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
    <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
   </table>
+  <table name="Battery Charge Efficiency (Charging)" storageaddress="0x0469f4">
+   <table type="Y Axis" storageaddress="0x046822" />
+  </table>
+  <table name="Battery Charge Efficiency (Discharging)" storageaddress="0x046a02">
+   <table type="Y Axis" storageaddress="0x046822" />
+  </table>
   <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x047290">
    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <description>The state of charge the ECU assumes when its estimate is reset.</description>
@@ -134954,6 +135831,17 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x0409d4">
    <table type="Y Axis" storageaddress="0x0409f8" />
   </table>
+  <table name="Adaptive Charging Target Current" storageaddress="0x046994">
+   <table type="Y Axis" storageaddress="0x0468de" />
+  </table>
+  <table name="Adaptive Charging Current Gain" storageaddress="0x046876" />
+  <table name="Adaptive Charging Integral Deadband Above" storageaddress="0x046858" />
+  <table name="Adaptive Charging Integral Deadband Below" storageaddress="0x04685a" />
+  <table name="Adaptive Charging Integral Step Down" storageaddress="0x04685c" />
+  <table name="Adaptive Charging Integral Step Up" storageaddress="0x04685e" />
+  <table name="Adaptive Charging Integral Gain" storageaddress="0x046860" />
+  <table name="Adaptive Charging Integral Maximum" storageaddress="0x046862" />
+  <table name="Adaptive Charging Integral Minimum" storageaddress="0x046864" />
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x0409e6">
    <table type="Y Axis" storageaddress="0x0409f8" />
   </table>
@@ -139520,6 +140408,9 @@ Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B0
    <table type="X Axis" storageaddress="0x023dd2" />
    <table type="Y Axis" storageaddress="0x023da8" />
   </table>
+  <table name="DAM Initial Value" storageaddress="0x023da6" />
+  <table name="DAM Step" storageaddress="0x024204" />
+  <table name="DAM Step-Up Knock-Free Events" storageaddress="0x0241a8" />
   <table name="Knock Correction Advance Max B (TGV Open)" storageaddress="0x0316e6">
    <table type="X Axis" storageaddress="0x031576" />
    <table type="Y Axis" storageaddress="0x03154c" />
@@ -139552,7 +140443,80 @@ Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B0
   <table name="FLKC Range Boundary Load 3" storageaddress="0x023d60" />
   <table name="FLKC Range Boundary Load 4" storageaddress="0x023d62" />
   <table name="FLKC Range Boundary RPM 1" storageaddress="0x023d66" />
+  <table type="BitwiseSwitch" name="Knock Event Detector: Low Timing" category="Ignition Timing//Knock Control" storageaddress="0x0425d7" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Watches for ignition timing pulled down to a floor that depends on DAM; when it trips, the knock-event torque limit applies.</description>
+  </table>
+  <table type="BitwiseSwitch" name="Knock Event Detector: Knocking Cylinders" category="Ignition Timing//Knock Control" storageaddress="0x0425d8" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Counts cylinders whose knock signal is above the knock threshold while knock correction is already deep; when the count runs up, the knock-event torque limit applies.</description>
+  </table>
+  <table type="BitwiseSwitch" name="Knock Event Latch" category="Ignition Timing//Knock Control" storageaddress="0x0504c2" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Keeps the knock-event torque limit on after a trip, across key cycles, until the learned knock values are reset.</description>
+  </table>
+  <table type="1D" name="Knock Event Low Timing Passes" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x03288b">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Consecutive passes the timing must stay at or below the floor before the low-timing detector trips.</description>
+  </table>
+  <table type="1D" name="Knock Event Low Timing Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x03288c">
+   <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>Once the timing is at the floor, it must rise this far above it to count as recovered.</description>
+  </table>
+  <table type="1D" name="Knock Event Cylinder Count Limit (Feedback)" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x03288d">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Knocking cylinders, summed while feedback knock correction is at or below its threshold, that trip the detector.</description>
+  </table>
+  <table type="1D" name="Knock Event Feedback Correction Threshold" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" userlevel="4" storageaddress="0x03288e">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Knocking cylinders are summed while feedback knock correction is at or below this.</description>
+  </table>
+  <table type="1D" name="Knock Event Feedback Correction Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x03288f">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Once summing, feedback knock correction must recover this far above the threshold to stop.</description>
+  </table>
+  <table type="1D" name="Knock Event Cylinder Count Limit (Fine Learning)" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x032890">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Knocking cylinders, summed while fine learning knock correction is at or below its threshold, that trip the detector.</description>
+  </table>
+  <table type="1D" name="Knock Event Fine Learning Correction Threshold" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" userlevel="4" storageaddress="0x032891">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Knocking cylinders are summed while fine learning knock correction is at or below this.</description>
+  </table>
   <table name="FLKC Range Boundary RPM 2" storageaddress="0x023d68" />
+  <table type="1D" name="Knock Event Fine Learning Correction Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x032892">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Once summing, fine learning knock correction must recover this far above the threshold to stop.</description>
+  </table>
+  <table type="3D" name="Knock Event Low Timing Floor" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" sizex="16" sizey="16" userlevel="4" storageaddress="0x0328d4">
+   <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0328b4">
+    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x032894">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Ignition timing floor of the low-timing detector at the lowest DAM factor.</description>
+  </table>
+  <table type="3D" name="Knock Event Low Timing Floor (DAM Adder)" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" sizex="16" sizey="16" userlevel="4" storageaddress="0x0329d4">
+   <scaling units="degrees BTDC" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0328b4">
+    <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x032894">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Added to the low-timing floor in proportion to Knock Event Low Timing DAM Factor.</description>
+  </table>
+  <table type="2D" name="Knock Event Low Timing DAM Factor" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" sizey="16" userlevel="4" storageaddress="0x032ad4">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Dynamic Advance Multiplier" storagetype="uint8" endian="big" storageaddress="0x0328c4">
+    <scaling units="DAM" expression="x/16" to_byte="x*16" format="0.000" fineincrement="0.0625" coarseincrement="0.25" min="0" max="1" />
+   </table>
+   <description>How much of the DAM adder applies, by DAM (128 = all of it).</description>
+  </table>
   <table name="FLKC Range Boundary RPM 3" storageaddress="0x023d6a" />
   <table name="FLKC Range Boundary RPM 4" storageaddress="0x023d6c" />
   <table name="FLKC Range Boundary RPM 5" storageaddress="0x023d6e" />
@@ -140537,6 +141501,17 @@ Details: When used: set A7E2 bit 0 set, FFF899D7 bit 0 set. 0x108BAC (catalyst-h
   <table name="Maximum Torque (DAM)" storageaddress="0x025a2e">
    <table type="X Axis" storageaddress="0x025adc" />
    <table type="Y Axis" storageaddress="0x025ad6" />
+  </table>
+  <table type="3D" name="Maximum Torque (Knock Event)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizex="20" sizey="21" userlevel="2" storageaddress="0x02b7c2">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="X Axis" name="Accelerator Pedal" storagetype="uint16" endian="big" storageaddress="0x02b76e">
+    <scaling units="%" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02b744">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling while the knock-event detector has tripped (or its latch is set), by engine speed and pedal.</description>
   </table>
   <table name="Overboost Limit" storageaddress="0x033f42">
    <table type="Y Axis" storageaddress="0x033f56" />
@@ -142548,6 +143523,12 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
    <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
   </table>
+  <table name="Battery Charge Efficiency (Charging)" storageaddress="0x0469f8">
+   <table type="Y Axis" storageaddress="0x046826" />
+  </table>
+  <table name="Battery Charge Efficiency (Discharging)" storageaddress="0x046a06">
+   <table type="Y Axis" storageaddress="0x046826" />
+  </table>
   <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x047294">
    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <description>The state of charge the ECU assumes when its estimate is reset.</description>
@@ -142561,6 +143542,17 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x0409d8">
    <table type="Y Axis" storageaddress="0x0409fc" />
   </table>
+  <table name="Adaptive Charging Target Current" storageaddress="0x046998">
+   <table type="Y Axis" storageaddress="0x0468e2" />
+  </table>
+  <table name="Adaptive Charging Current Gain" storageaddress="0x04687a" />
+  <table name="Adaptive Charging Integral Deadband Above" storageaddress="0x04685c" />
+  <table name="Adaptive Charging Integral Deadband Below" storageaddress="0x04685e" />
+  <table name="Adaptive Charging Integral Step Down" storageaddress="0x046860" />
+  <table name="Adaptive Charging Integral Step Up" storageaddress="0x046862" />
+  <table name="Adaptive Charging Integral Gain" storageaddress="0x046864" />
+  <table name="Adaptive Charging Integral Maximum" storageaddress="0x046866" />
+  <table name="Adaptive Charging Integral Minimum" storageaddress="0x046868" />
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x0409ea">
    <table type="Y Axis" storageaddress="0x0409fc" />
   </table>
@@ -147005,6 +147997,9 @@ Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B0
    <table type="X Axis" storageaddress="0x019bfa" />
    <table type="Y Axis" storageaddress="0x019bd0" />
   </table>
+  <table name="DAM Initial Value" storageaddress="0x019bce" />
+  <table name="DAM Step" storageaddress="0x01a02c" />
+  <table name="DAM Step-Up Knock-Free Events" storageaddress="0x019fd0" />
   <table name="Knock Correction Advance Max B (TGV Open)" storageaddress="0x02576e">
    <table type="X Axis" storageaddress="0x0255fe" />
    <table type="Y Axis" storageaddress="0x0255d4" />
@@ -149519,19 +150514,22 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
    <table type="Y Axis" storageaddress="0x03282c" />
    <description>Radiator fan duty by coolant for an alternate (duty-based) fan control path.</description>
   </table>
-  <table type="2D" name="Battery Charge Efficiency (Charging)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" sizey="14" userlevel="4" storageaddress="0x03733c">
-   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03715a">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <description>How much of the charging current the state-of-charge estimate counts, by battery-sensor value.</description>
+  <table type="1D" name="Charge Control Delay After Start" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x037220">
+   <scaling units="s" expression="x" to_byte="x" format="0" fineincrement="10" coarseincrement="40.0" />
+   <description>Charge control (the battery-charged decision and adaptive charging) only starts this long after the engine starts; until then the alternator charges to the normal target.</description>
   </table>
-  <table type="2D" name="Battery Charge Efficiency (Discharging)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" sizey="14" userlevel="4" storageaddress="0x03734a">
-   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03715a">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+  <table type="2D" name="Charge Control Delay After Start (State of Charge)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" sizey="8" userlevel="4" storageaddress="0x037398">
+   <scaling units="s" expression="x" to_byte="x" format="0" fineincrement="10" coarseincrement="40.0" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x037176">
+    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    </table>
-   <description>How much of the discharge current the state-of-charge estimate counts, by battery-sensor value.</description>
+   <description>After some starts the charge-control delay comes from this table instead, by the estimated state of charge at start: a low battery gets a long normal-charging period first.</description>
+  </table>
+  <table name="Battery Charge Efficiency (Charging)" storageaddress="0x03733c">
+   <table type="Y Axis" storageaddress="0x03715a" />
+  </table>
+  <table name="Battery Charge Efficiency (Discharging)" storageaddress="0x03734a">
+   <table type="Y Axis" storageaddress="0x03715a" />
   </table>
   <table name="Battery Charged SOC Threshold" storageaddress="0x037196" />
   <table name="Battery Charged SOC Hysteresis" storageaddress="0x037198" />
@@ -149543,6 +150541,17 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
    <table type="Y Axis" storageaddress="0x03282c" />
    <description>Radiator fan duty by coolant, used when an unidentified driving-condition flag is set.</description>
   </table>
+  <table name="Adaptive Charging Target Current" storageaddress="0x0372dc">
+   <table type="Y Axis" storageaddress="0x037228" />
+  </table>
+  <table name="Adaptive Charging Current Gain" storageaddress="0x0371be" />
+  <table name="Adaptive Charging Integral Deadband Above" storageaddress="0x0371a0" />
+  <table name="Adaptive Charging Integral Deadband Below" storageaddress="0x0371a2" />
+  <table name="Adaptive Charging Integral Step Down" storageaddress="0x0371a4" />
+  <table name="Adaptive Charging Integral Step Up" storageaddress="0x0371a6" />
+  <table name="Adaptive Charging Integral Gain" storageaddress="0x0371a8" />
+  <table name="Adaptive Charging Integral Maximum" storageaddress="0x0371aa" />
+  <table name="Adaptive Charging Integral Minimum" storageaddress="0x0371ac" />
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x03281a" userlevel="4">
    <table type="Y Axis" storageaddress="0x03282c" />
    <description>Radiator fan duty by coolant, used when an unidentified CAN value is high.</description>
@@ -153586,6 +154595,9 @@ Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B0
    <table type="X Axis" storageaddress="0x01b832" />
    <table type="Y Axis" storageaddress="0x01b808" />
   </table>
+  <table name="DAM Initial Value" storageaddress="0x01b806" />
+  <table name="DAM Step" storageaddress="0x01bc64" />
+  <table name="DAM Step-Up Knock-Free Events" storageaddress="0x01bc08" />
   <table name="Knock Correction Advance Max B (TGV Open)" storageaddress="0x02667a">
    <table type="X Axis" storageaddress="0x02650a" />
    <table type="Y Axis" storageaddress="0x0264e0" />
@@ -156097,19 +157109,22 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 7 of 8 (index 6 of FFF
    <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
   </table>
-  <table type="2D" name="Battery Charge Efficiency (Charging)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" sizey="14" userlevel="4" storageaddress="0x037a1c">
-   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03783a">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   </table>
-   <description>How much of the charging current the state-of-charge estimate counts, by battery-sensor value.</description>
+  <table type="1D" name="Charge Control Delay After Start" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x037900">
+   <scaling units="s" expression="x" to_byte="x" format="0" fineincrement="10" coarseincrement="40.0" />
+   <description>Charge control (the battery-charged decision and adaptive charging) only starts this long after the engine starts; until then the alternator charges to the normal target.</description>
   </table>
-  <table type="2D" name="Battery Charge Efficiency (Discharging)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" sizey="14" userlevel="4" storageaddress="0x037a2a">
-   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03783a">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+  <table type="2D" name="Charge Control Delay After Start (State of Charge)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" sizey="8" userlevel="4" storageaddress="0x037a78">
+   <scaling units="s" expression="x" to_byte="x" format="0" fineincrement="10" coarseincrement="40.0" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x037856">
+    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    </table>
-   <description>How much of the discharge current the state-of-charge estimate counts, by battery-sensor value.</description>
+   <description>After some starts the charge-control delay comes from this table instead, by the estimated state of charge at start: a low battery gets a long normal-charging period first.</description>
+  </table>
+  <table name="Battery Charge Efficiency (Charging)" storageaddress="0x037a1c">
+   <table type="Y Axis" storageaddress="0x03783a" />
+  </table>
+  <table name="Battery Charge Efficiency (Discharging)" storageaddress="0x037a2a">
+   <table type="Y Axis" storageaddress="0x03783a" />
   </table>
   <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x0383c8">
    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -156124,6 +157139,17 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 7 of 8 (index 6 of FFF
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x0323f8">
    <table type="Y Axis" storageaddress="0x03241c" />
   </table>
+  <table name="Adaptive Charging Target Current" storageaddress="0x0379bc">
+   <table type="Y Axis" storageaddress="0x037908" />
+  </table>
+  <table name="Adaptive Charging Current Gain" storageaddress="0x03789e" />
+  <table name="Adaptive Charging Integral Deadband Above" storageaddress="0x037880" />
+  <table name="Adaptive Charging Integral Deadband Below" storageaddress="0x037882" />
+  <table name="Adaptive Charging Integral Step Down" storageaddress="0x037884" />
+  <table name="Adaptive Charging Integral Step Up" storageaddress="0x037886" />
+  <table name="Adaptive Charging Integral Gain" storageaddress="0x037888" />
+  <table name="Adaptive Charging Integral Maximum" storageaddress="0x03788a" />
+  <table name="Adaptive Charging Integral Minimum" storageaddress="0x03788c" />
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x03240a">
    <table type="Y Axis" storageaddress="0x03241c" />
   </table>

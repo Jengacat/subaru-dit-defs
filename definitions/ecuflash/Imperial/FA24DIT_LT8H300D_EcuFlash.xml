@@ -1109,6 +1109,9 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Engine Load" address="01d4ba" />
   <table name="Engine Speed" address="01d490" />
  </table>
+ <table name="DAM Initial Value" address="01d48e" />
+ <table name="DAM Step" address="01d8ec" />
+ <table name="DAM Step-Up Knock-Free Events" address="01d890" />
  <table name="Knock Correction Advance Max B (TGV Open)" address="02c45e">
   <table name="Engine Load" address="02c2ee" />
   <table name="Engine Speed" address="02c2c4" />
@@ -3423,6 +3426,12 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="Coolant Temp" address="03a21a" />
  </table>
  <table name="Battery Capacity" address="040c04" />
+ <table name="Battery Charge Efficiency (Charging)" address="040d34">
+  <table name="Y Axis" address="040b82" />
+ </table>
+ <table name="Battery Charge Efficiency (Discharging)" address="040d42">
+  <table name="Y Axis" address="040b82" />
+ </table>
  <table name="Battery State of Charge Reset Value" address="041690" />
  <table name="Battery Charged SOC Threshold" address="040bae" />
  <table name="Battery Charged SOC Hysteresis" address="040bb0" />
@@ -3433,24 +3442,21 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
  <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" address="03a208">
   <table name="Coolant Temp" address="03a21a" />
  </table>
+ <table name="Adaptive Charging Integral Deadband Above" address="040bb8" />
+ <table name="Adaptive Charging Integral Deadband Below" address="040bba" />
+ <table name="Adaptive Charging Integral Step Down" address="040bbc" />
+ <table name="Adaptive Charging Integral Step Up" address="040bbe" />
+ <table name="Adaptive Charging Integral Gain" address="040bc0" />
+ <table name="Adaptive Charging Integral Maximum" address="040bc2" />
+ <table name="Adaptive Charging Integral Minimum" address="040bc4" />
  <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" address="03a1e4">
   <table name="Coolant Temp" address="03a21a" />
  </table>
  <table name="Charging Feedback Proportional" address="040d98">
   <table name="Y Axis" address="040d76" />
  </table>
- <table name="Charging Feedback Integral Step Up" address="040be0" />
- <table name="Charging Feedback Integral Step Down" address="040bde" />
  <table name="Charging Feedback Integral Maximum" address="040d72" />
  <table name="Charging Feedback Integral Minimum" address="040d74" />
- <table name="Charging Feedback Integral Gain" address="040bdc">
-  <description>Scales the feedback integral (100 = as is).
-
-Details: Integral x this / 100 after the clamp (0x13866C, read). LT8H300D: same code as LF9K000D; address from the same instruction (between exact neighbours (40 bytes below, 84 above, both moved by the same amount; inferred)). Confidence: inferred.</description>
- </table>
- <table name="Charging Feedback Deadband Above" address="040bd8" />
- <table name="Charging Feedback Deadband Below" address="040bda" />
- <table name="Charging Feedback Minimum RPM" address="040be2" />
  <table name="Radiator Fan Duty (A/C, CAN 0x280 Value)" address="03a230">
   <table name="Y Axis" address="03a242" />
  </table>

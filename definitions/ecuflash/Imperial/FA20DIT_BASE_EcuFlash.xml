@@ -113,6 +113,8 @@
  <scaling name="degrees int16 #2" units="degrees" toexpr="x*100/512" frexpr="x*512/100" format="%0.1f" min="-6400" max="6399.8" inc="0.2" storagetype="int16" endian="big" />
  <scaling name="RPM per pass int16" units="RPM per pass" toexpr="x/5.12" frexpr="x*5.12" format="%0.1f" min="-6400" max="6399.8" inc="1" storagetype="int16" endian="big" />
  <scaling name="degrees uint8 #2" units="degrees" toexpr="x*0.3515625" frexpr="x/0.3515625" format="%0.2f" min="0" max="89.6484" inc="0.35" storagetype="uint8" endian="big" />
+ <scaling name="DAM uint8 #2" units="DAM" toexpr="x/256" frexpr="x*256" format="%0.4f" min="0" max="0.996094" inc="0.0039" storagetype="uint8" endian="big" />
+ <scaling name="count uint16" units="count" toexpr="x" frexpr="x" format="%0.0f" min="0" max="65535" inc="1" storagetype="uint16" endian="big" />
  <scaling name="DAM per step count uint16" units="DAM per step count" toexpr="x*90/16777216" frexpr="x*16777216/90" format="%0.4f" min="0" max="0.351557" inc="0.0005" storagetype="uint16" endian="big" />
  <scaling name="FLKC cell (5 x rpm range  load range) uint8" units="FLKC cell (5 x rpm range + load range)" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
  <scaling name="flag (1  set) uint8" units="flag (1 = set)" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
@@ -268,10 +270,14 @@
  <scaling name="V int16" units="V" toexpr="x/1000" frexpr="x*1000" format="%0.2f" min="-32.768" max="32.767" inc="0.05" storagetype="int16" endian="big" />
  <scaling name="% duty uint16 #3" units="% duty" toexpr="x/655.35" frexpr="x*655.35" format="%0.1f" min="0" max="100" inc="1" storagetype="uint16" endian="big" />
  <scaling name="Ah uint8" units="Ah" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
- <scaling name="% uint8" units="%" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
+ <scaling name="s uint16 #4" units="s" toexpr="x" frexpr="x" format="%0.0f" min="0" max="65535" inc="10" storagetype="uint16" endian="big" />
  <scaling name="% uint16 #3" units="%" toexpr="x/10" frexpr="x*10" format="%0.1f" min="0" max="6553.5" inc="0.5" storagetype="uint16" endian="big" />
+ <scaling name="% uint8" units="%" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
  <scaling name="s uint32" units="s" toexpr="x*0.04" frexpr="x/0.04" format="%0.1f" min="0" max="1.71799e+08" inc="10" storagetype="uint32" endian="big" />
  <scaling name="raw uint32" units="raw" toexpr="x" frexpr="x" format="%0.0f" min="0" max="4.29497e+09" inc="1" storagetype="uint32" endian="big" />
+ <scaling name="A int32" units="A" toexpr="x/1000" frexpr="x*1000" format="%0.1f" min="-2.14748e+06" max="2.14748e+06" inc="0.5" storagetype="int32" endian="big" />
+ <scaling name="A uint16" units="A" toexpr="x/1000" frexpr="x*1000" format="%0.1f" min="0" max="65.535" inc="0.5" storagetype="uint16" endian="big" />
+ <scaling name="raw int16" units="raw" toexpr="x" frexpr="x" format="%0.0f" min="-32768" max="32767" inc="1" storagetype="int16" endian="big" />
  <scaling name="V uint16 #4" units="V" toexpr="x/1000" frexpr="x*1000" format="%0.3f" min="0" max="65.535" inc="0.005" storagetype="uint16" endian="big" />
  <scaling name="ft-lb uint16 #3" units="ft-lb" toexpr="(x/10)*0.7375621" frexpr="(x/0.7375621)*10" format="%0.1f" min="0" max="4833.61" inc="1" storagetype="uint16" endian="big" />
  <scaling name="multiplier uint8 #7" units="multiplier" toexpr="x/51.2" frexpr="x*51.2" format="%0.2f" min="0" max="4.98047" inc="0.02" storagetype="uint8" endian="big" />
@@ -48063,6 +48069,8 @@
   <data name="no [3F]" value="3F" />
   <data name="yes [BF]+" value="BF" />
  </scaling>
+ <scaling name="count uint8" units="count" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
+ <scaling name="degrees int8 #2" units="degrees" toexpr="x*0.3515625" frexpr="x/0.3515625" format="%0.2f" min="-45" max="44.6484" inc="0.35" storagetype="int8" endian="big" />
  <scaling name="DTC enabled b7 m80 f03" storagetype="bloblist">
   <data name="enabled [83]" value="83" />
   <data name="disabled [03]" value="03" />
@@ -51290,6 +51298,15 @@ Details: When used: only with cal 0x31E38 bit 0 clear and FFF8CD5C &gt;= cal 0x3
   <table name="Engine Speed" type="Y Axis" elements="21" scaling="RPM uint16" />
   <description>First part of the knock correction advance (timing added as DAM rises), by rpm and load, for TGVs closed; blended with the TGV Open table and scaled by KCA DAM Curve A. It is added to the Primary Ignition request, not to the Base Timing map: the ECU fires the lower of Base Timing and Primary + knock advance + fine learning, so raising it adds timing only where that sum is still below Base Timing.</description>
  </table>
+ <table name="DAM Initial Value" category="02.03 Ignition Timing - Knock Control" type="1D" level="2" scaling="DAM uint8">
+  <description>The DAM the ECU starts from after a reset of the learned values (battery disconnect or a scan-tool reset).</description>
+ </table>
+ <table name="DAM Step" category="02.03 Ignition Timing - Knock Control" type="1D" level="4" scaling="DAM uint8 #2">
+  <description>How far DAM moves per learning step up or down; halved each time the direction reverses. When 0, DAM moves only by DAM Step Gain (FLKC Cell).</description>
+ </table>
+ <table name="DAM Step-Up Knock-Free Events" category="02.03 Ignition Timing - Knock Control" type="1D" level="4" scaling="count uint16">
+  <description>Combustion events without knock needed before DAM may step up.</description>
+ </table>
  <table name="Knock Correction Advance Max B (TGV Open)" category="02.03 Ignition Timing - Knock Control" type="3D" level="1" scaling="degrees uint8 #2">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint16" />
   <table name="Engine Speed" type="Y Axis" elements="21" scaling="RPM uint16" />
@@ -51352,8 +51369,55 @@ Details: When used: only with cal 0x31E38 bit 0 clear and FFF8CD5C &gt;= cal 0x3
  <table name="FLKC Range Boundary RPM 1" category="02.03 Ignition Timing - Knock Control" type="1D" level="3" scaling="RPM uint16">
   <description>One of the six rpm boundaries that split fine learning knock correction (FLKC) into rpm ranges. Keep them in increasing order.</description>
  </table>
+ <table name="Knock Event Detector: Low Timing" category="02.03 Ignition Timing - Knock Control" type="1D" level="3" scaling="Switch b0 f00">
+  <description>Watches for ignition timing pulled down to a floor that depends on DAM; when it trips, the knock-event torque limit applies. On/off switch: select the value and press Increment ( ] ) to flip it.</description>
+ </table>
+ <table name="Knock Event Detector: Knocking Cylinders" category="02.03 Ignition Timing - Knock Control" type="1D" level="3" scaling="Switch b0 f00">
+  <description>Counts cylinders whose knock signal is above the knock threshold while knock correction is already deep; when the count runs up, the knock-event torque limit applies. On/off switch: select the value and press Increment ( ] ) to flip it.</description>
+ </table>
+ <table name="Knock Event Latch" category="02.03 Ignition Timing - Knock Control" type="1D" level="3" scaling="Switch b0 f00">
+  <description>Keeps the knock-event torque limit on after a trip, across key cycles, until the learned knock values are reset. On/off switch: select the value and press Increment ( ] ) to flip it.</description>
+ </table>
+ <table name="Knock Event Low Timing Passes" category="02.03 Ignition Timing - Knock Control" type="1D" level="4" scaling="count uint8">
+  <description>Consecutive passes the timing must stay at or below the floor before the low-timing detector trips.</description>
+ </table>
+ <table name="Knock Event Low Timing Hysteresis" category="02.03 Ignition Timing - Knock Control" type="1D" level="4" scaling="degrees BTDC uint8">
+  <description>Once the timing is at the floor, it must rise this far above it to count as recovered.</description>
+ </table>
+ <table name="Knock Event Cylinder Count Limit (Feedback)" category="02.03 Ignition Timing - Knock Control" type="1D" level="4" scaling="count uint8">
+  <description>Knocking cylinders, summed while feedback knock correction is at or below its threshold, that trip the detector.</description>
+ </table>
+ <table name="Knock Event Feedback Correction Threshold" category="02.03 Ignition Timing - Knock Control" type="1D" level="4" scaling="degrees int8 #2">
+  <description>Knocking cylinders are summed while feedback knock correction is at or below this.</description>
+ </table>
+ <table name="Knock Event Feedback Correction Hysteresis" category="02.03 Ignition Timing - Knock Control" type="1D" level="4" scaling="degrees uint8 #2">
+  <description>Once summing, feedback knock correction must recover this far above the threshold to stop.</description>
+ </table>
+ <table name="Knock Event Cylinder Count Limit (Fine Learning)" category="02.03 Ignition Timing - Knock Control" type="1D" level="4" scaling="count uint8">
+  <description>Knocking cylinders, summed while fine learning knock correction is at or below its threshold, that trip the detector.</description>
+ </table>
+ <table name="Knock Event Fine Learning Correction Threshold" category="02.03 Ignition Timing - Knock Control" type="1D" level="4" scaling="degrees int8 #2">
+  <description>Knocking cylinders are summed while fine learning knock correction is at or below this.</description>
+ </table>
  <table name="FLKC Range Boundary RPM 2" category="02.03 Ignition Timing - Knock Control" type="1D" level="3" scaling="RPM uint16">
   <description>One of the six rpm boundaries that split fine learning knock correction (FLKC) into rpm ranges. Keep them in increasing order.</description>
+ </table>
+ <table name="Knock Event Fine Learning Correction Hysteresis" category="02.03 Ignition Timing - Knock Control" type="1D" level="4" scaling="degrees uint8 #2">
+  <description>Once summing, fine learning knock correction must recover this far above the threshold to stop.</description>
+ </table>
+ <table name="Knock Event Low Timing Floor" category="02.03 Ignition Timing - Knock Control" type="3D" level="4" scaling="degrees BTDC int8">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8" />
+  <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
+  <description>Ignition timing floor of the low-timing detector at the lowest DAM factor.</description>
+ </table>
+ <table name="Knock Event Low Timing Floor (DAM Adder)" category="02.03 Ignition Timing - Knock Control" type="3D" level="4" scaling="degrees BTDC int8">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8" />
+  <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
+  <description>Added to the low-timing floor in proportion to Knock Event Low Timing DAM Factor.</description>
+ </table>
+ <table name="Knock Event Low Timing DAM Factor" category="02.03 Ignition Timing - Knock Control" type="2D" level="4" scaling="raw uint8">
+  <table name="Dynamic Advance Multiplier" type="Y Axis" elements="16" scaling="DAM uint8" />
+  <description>How much of the DAM adder applies, by DAM (128 = all of it).</description>
  </table>
  <table name="FLKC Range Boundary RPM 3" category="02.03 Ignition Timing - Knock Control" type="1D" level="3" scaling="RPM uint16">
   <description>One of the six rpm boundaries that split fine learning knock correction (FLKC) into rpm ranges. Keep them in increasing order.</description>
@@ -52808,6 +52872,11 @@ Drive mode 4 with AT/CVT Coding. Step2B of Path B, by gear x rpm (0-4000 rpm), b
   <table name="Engine Speed" type="X Axis" elements="14" scaling="RPM uint16" />
   <table name="Dynamic Advance Multiplier" type="Y Axis" elements="6" scaling="DAM uint8" />
   <description>Maximum target torque by DAM (knock learning) and rpm, in the same lowest-wins limit as Maximum Torque (IAT). Losing DAM lowers the torque target and so the boost target.</description>
+ </table>
+ <table name="Maximum Torque (Knock Event)" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="3D" level="2" scaling="ft-lb uint16">
+  <table name="Accelerator Pedal" type="X Axis" elements="20" scaling="% uint16" />
+  <table name="Engine Speed" type="Y Axis" elements="21" scaling="RPM uint16" />
+  <description>Torque ceiling while the knock-event detector has tripped (or its latch is set), by engine speed and pedal.</description>
  </table>
  <table name="Overboost Limit" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="2D" level="1" scaling="psi (gauge) uint8">
   <table name="Engine Speed" type="Y Axis" elements="19" scaling="RPM uint16" />
@@ -55805,6 +55874,13 @@ With cal 0x1D0AE bit 0 set, 0x0F8AAC (read) uses this when received byte FFF88BA
  <table name="Battery Capacity" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="3" scaling="Ah uint8">
   <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
  </table>
+ <table name="Charge Control Delay After Start" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="3" scaling="s uint16 #4">
+  <description>Charge control (the battery-charged decision and adaptive charging) only starts this long after the engine starts; until then the alternator charges to the normal target.</description>
+ </table>
+ <table name="Charge Control Delay After Start (State of Charge)" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="2D" level="4" scaling="s uint16 #4">
+  <table name="Y Axis" type="Y Axis" elements="8" scaling="% uint16 #3" />
+  <description>After some starts the charge-control delay comes from this table instead, by the estimated state of charge at start: a low battery gets a long normal-charging period first.</description>
+ </table>
  <table name="Battery Charge Efficiency (Charging)" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="2D" level="4" scaling="% uint8">
   <table name="Y Axis" type="Y Axis" elements="14" scaling="raw uint16" />
   <description>How much of the charging current the state-of-charge estimate counts, by battery-sensor value.</description>
@@ -55841,6 +55917,48 @@ Details: Compared with FFF81848, the integral of charging current while in mode 
   <description>Radiator fan duty by coolant, used when an unidentified driving-condition flag is set.
 
 With cal 0x1D0AE bit 0 set, 0x0F8AAC (read) uses this when FFF88BAA &lt; 148 and FFF8A807 bit 5 is set (0x0F8F98: a condition built from the A/C state, vehicle speed, rpm, load, IAT and SI-Drive mode; not identified); on threshold cal 0x3439C (98 C), full at cal 0x343A0 (101 C). Radiator fan module 0x0F7618 (40 ms task, read): the fan stage FFF8A805 (0/1/2) drives timer E channel 10 fully on for stage &gt;= 1 (FFF9981C bit 0, 0x0F8F08 -&gt; 0x1E417C -&gt; 0x1D9B8E) and port PF6 for stage 2 (FFF9981C bit 4, 0x0F8E70 -&gt; 0x1D4E56 -&gt; PFDR), and feeds the idle air (0x0ECE60, 0x0F5248) and torque adders (0x0C2B2C); the stages follow coolant and the A/C request (0x0F8764), so a two-relay radiator fan (inferred). With the bit set, A805 = stage from the duty FFF8B278 (0x0F7EC4: stage 1 from 40 %, stage 2 from 70 %). Confidence: read.</description>
+ </table>
+ <table name="Adaptive Charging Target Current" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="2D" level="3" scaling="A int32">
+  <table name="Y Axis" type="Y Axis" elements="16" scaling="% uint16 #3" />
+  <description>During adaptive charging the ECU steers the charging voltage so the battery takes this current, by state of charge: positive charges, negative lets the battery discharge.</description>
+ </table>
+ <table name="Adaptive Charging Current Gain" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="4" scaling="raw uint16">
+  <description>How strongly adaptive charging moves its voltage target to reach the target battery current.</description>
+ </table>
+ <table name="Adaptive Charging Integral Deadband Above" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="5" scaling="A uint16">
+  <description>Battery current may be this far above the target before the adaptive integral steps down.
+
+Details: 0x137E7C, mode 5 only (read). Confidence: read.</description>
+ </table>
+ <table name="Adaptive Charging Integral Deadband Below" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="5" scaling="A uint16">
+  <description>Battery current may be this far below the target before the adaptive integral steps up.
+
+Details: 0x137E7C, mode 5 only (read). Confidence: read.</description>
+ </table>
+ <table name="Adaptive Charging Integral Step Down" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="5" scaling="raw uint16">
+  <description>Integral step each 40 ms pass while the battery current is above the target.
+
+Details: 0x137E7C (read). Confidence: read.</description>
+ </table>
+ <table name="Adaptive Charging Integral Step Up" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="5" scaling="raw uint16">
+  <description>Integral step each 40 ms pass while the battery current is below the target.
+
+Details: 0x137E7C (read). Confidence: read.</description>
+ </table>
+ <table name="Adaptive Charging Integral Gain" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="5" scaling="raw uint16">
+  <description>Converts the adaptive integral into a voltage correction (mV per count x 1000).
+
+Details: B6FA = integral x this / 1000 mV (0x137E7C, read). Confidence: read.</description>
+ </table>
+ <table name="Adaptive Charging Integral Maximum" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="5" scaling="raw int16">
+  <description>Upper clamp of the adaptive integral (counts).
+
+Details: 0x137E7C (read). Confidence: read.</description>
+ </table>
+ <table name="Adaptive Charging Integral Minimum" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="5" scaling="raw int16">
+  <description>Lower clamp of the adaptive integral (counts).
+
+Details: 0x137E7C (read). Confidence: read.</description>
  </table>
  <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="2D" level="5" scaling="% duty uint16 #3">
   <table name="Coolant Temp" type="Y Axis" elements="9" scaling="degrees F uint16" />

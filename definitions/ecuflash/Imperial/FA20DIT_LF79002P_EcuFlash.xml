@@ -1211,6 +1211,9 @@ Details: When used: Only with the automatic/CVT transmission coding (Cal Switche
   <table name="Engine Load" address="021fe6" />
   <table name="Engine Speed" address="021fbc" />
  </table>
+ <table name="DAM Initial Value" address="021fba" />
+ <table name="DAM Step" address="022418" />
+ <table name="DAM Step-Up Knock-Free Events" address="0223bc" />
  <table name="Knock Correction Advance Max B (TGV Open)" address="02ecee">
   <table name="Engine Load" address="02eb7e" />
   <table name="Engine Speed" address="02eb54" />
@@ -3885,6 +3888,12 @@ Brake override module 0x181B38 (10 ms task 0x1DFE3C, read): it limits the accele
   <table name="Coolant Temp" address="03bd3c" />
  </table>
  <table name="Battery Capacity" address="0411f0" />
+ <table name="Battery Charge Efficiency (Charging)" address="041340">
+  <table name="Y Axis" address="04116e" />
+ </table>
+ <table name="Battery Charge Efficiency (Discharging)" address="04134e">
+  <table name="Y Axis" address="04116e" />
+ </table>
  <table name="Battery State of Charge Reset Value" address="041bdc" />
  <table name="Battery Charged SOC Threshold" address="04119a" />
  <table name="Battery Charged SOC Hysteresis" address="04119c" />
@@ -3895,6 +3904,17 @@ Brake override module 0x181B38 (10 ms task 0x1DFE3C, read): it limits the accele
  <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" address="03bd18">
   <table name="Coolant Temp" address="03bd3c" />
  </table>
+ <table name="Adaptive Charging Target Current" address="0412e0">
+  <table name="Y Axis" address="04122a" />
+ </table>
+ <table name="Adaptive Charging Current Gain" address="0411c2" />
+ <table name="Adaptive Charging Integral Deadband Above" address="0411a4" />
+ <table name="Adaptive Charging Integral Deadband Below" address="0411a6" />
+ <table name="Adaptive Charging Integral Step Down" address="0411a8" />
+ <table name="Adaptive Charging Integral Step Up" address="0411aa" />
+ <table name="Adaptive Charging Integral Gain" address="0411ac" />
+ <table name="Adaptive Charging Integral Maximum" address="0411ae" />
+ <table name="Adaptive Charging Integral Minimum" address="0411b0" />
  <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" address="03bd2a">
   <table name="Coolant Temp" address="03bd3c" />
  </table>

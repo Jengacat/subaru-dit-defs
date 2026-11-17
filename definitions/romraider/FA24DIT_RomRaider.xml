@@ -2809,6 +2809,18 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    </table>
    <description>First part of the knock correction advance (timing added as DAM rises), by rpm and load, for TGVs closed; blended with the TGV Open table and scaled by KCA DAM Curve A. It is added to the Primary Ignition request, not to the Base Timing map: the ECU fires the lower of Base Timing and Primary + knock advance + fine learning, so raising it adds timing only where that sum is still below Base Timing.</description>
   </table>
+  <table type="1D" name="DAM Initial Value" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="2" storageaddress="0x01d456">
+   <scaling units="DAM" expression="x/16" to_byte="x*16" format="0.000" fineincrement="0.0625" coarseincrement="0.25" min="0" max="1" />
+   <description>The DAM the ECU starts from after a reset of the learned values (battery disconnect or a scan-tool reset).</description>
+  </table>
+  <table type="1D" name="DAM Step" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x01d8b4">
+   <scaling units="DAM" expression="x/256" to_byte="x*256" format="0.0000" fineincrement="0.0039" coarseincrement="0.0156" />
+   <description>How far DAM moves per learning step up or down; halved each time the direction reverses. When 0, DAM moves only by DAM Step Gain (FLKC Cell).</description>
+  </table>
+  <table type="1D" name="DAM Step-Up Knock-Free Events" category="Ignition Timing//Knock Control" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x01d858">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Combustion events without knock needed before DAM may step up.</description>
+  </table>
   <table type="3D" name="Knock Correction Advance Max B (TGV Open)" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" sizex="16" sizey="21" userlevel="1" storageaddress="0x02bd56">
    <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
    <table type="X Axis" name="Engine Load" storagetype="uint16" endian="big" storageaddress="0x02bbe6">
@@ -4219,7 +4231,8 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Multiplies the boost target by engine speed and barometric pressure (1.00 = no change).</description>
   </table>
   <table type="2D" name="Target Boost Torque Correction (Coolant) 1" category="Boost Control//Boost Targets" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x063826">
-   <scaling units="ft-lb" expression="(x-16000)/80*0.7375621" to_byte="x/0.7375621*80+16000" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="ft-lb" expression="(x-16000)/80*0.7375621" to_byte="x/0.7375621*80+16000" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="(x-16000)/80" to_byte="x*80+16000" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x03e9f4">
     <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -4227,7 +4240,8 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Added to the target torque the boost target is looked up with, by coolant temperature. Zero everywhere on the reference ROM.</description>
   </table>
   <table type="2D" name="Target Boost Torque Correction (Coolant) 2" category="Boost Control//Boost Targets" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x063846">
-   <scaling units="ft-lb" expression="(x-16000)/80*0.7375621" to_byte="x/0.7375621*80+16000" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="ft-lb" expression="(x-16000)/80*0.7375621" to_byte="x/0.7375621*80+16000" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="(x-16000)/80" to_byte="x*80+16000" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x03e9f4">
     <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -9601,6 +9615,20 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
    <scaling units="Ah" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
   </table>
+  <table type="2D" name="Battery Charge Efficiency (Charging)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" sizey="14" userlevel="4" storageaddress="0x03ffc8">
+   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03fe16">
+    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>How much of the charging current the state-of-charge estimate counts, by battery-sensor value.</description>
+  </table>
+  <table type="2D" name="Battery Charge Efficiency (Discharging)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" sizey="14" userlevel="4" storageaddress="0x03ffd6">
+   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03fe16">
+    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <description>How much of the discharge current the state-of-charge estimate counts, by battery-sensor value.</description>
+  </table>
   <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x040924">
    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <description>The state of charge the ECU assumes when its estimate is reset.</description>
@@ -9639,6 +9667,48 @@ Details: Compared with FFF81848, the integral of charging current while in mode 
    </table>
    <description>Radiator fan duty by coolant, used when an unidentified driving-condition flag is set.</description>
   </table>
+  <table type="1D" name="Adaptive Charging Integral Deadband Above" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="5" storageaddress="0x03fe4c">
+   <scaling units="A" expression="x/1000" to_byte="x*1000" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>Battery current may be this far above the target before the adaptive integral steps down.
+
+Details: 0x137E7C, mode 5 only (read). Confidence: read.</description>
+  </table>
+  <table type="1D" name="Adaptive Charging Integral Deadband Below" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="5" storageaddress="0x03fe4e">
+   <scaling units="A" expression="x/1000" to_byte="x*1000" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <description>Battery current may be this far below the target before the adaptive integral steps up.
+
+Details: 0x137E7C, mode 5 only (read). Confidence: read.</description>
+  </table>
+  <table type="1D" name="Adaptive Charging Integral Step Down" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="5" storageaddress="0x03fe50">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Integral step each 40 ms pass while the battery current is above the target.
+
+Details: 0x137E7C (read). Confidence: read.</description>
+  </table>
+  <table type="1D" name="Adaptive Charging Integral Step Up" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="5" storageaddress="0x03fe52">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Integral step each 40 ms pass while the battery current is below the target.
+
+Details: 0x137E7C (read). Confidence: read.</description>
+  </table>
+  <table type="1D" name="Adaptive Charging Integral Gain" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="5" storageaddress="0x03fe54">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Converts the adaptive integral into a voltage correction (mV per count x 1000).
+
+Details: B6FA = integral x this / 1000 mV (0x137E7C, read). Confidence: read.</description>
+  </table>
+  <table type="1D" name="Adaptive Charging Integral Maximum" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int16" endian="big" userlevel="5" storageaddress="0x03fe56">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Upper clamp of the adaptive integral (counts).
+
+Details: 0x137E7C (read). Confidence: read.</description>
+  </table>
+  <table type="1D" name="Adaptive Charging Integral Minimum" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int16" endian="big" userlevel="5" storageaddress="0x03fe58">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Lower clamp of the adaptive integral (counts).
+
+Details: 0x137E7C (read). Confidence: read.</description>
+  </table>
   <table type="2D" name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" sizey="9" userlevel="4" storageaddress="0x039478">
    <scaling units="% duty" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x0394ae">
@@ -9654,14 +9724,6 @@ Details: Compared with FFF81848, the integral of charging current while in mode 
    </table>
    <description>Correction added to the charging target in proportion to how far the battery voltage is from it.</description>
   </table>
-  <table type="1D" name="Charging Feedback Integral Step Up" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03fe74">
-   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.000" fineincrement="0.005" coarseincrement="0.02" />
-   <description>How fast the charging-voltage feedback raises the target when the battery is below it.</description>
-  </table>
-  <table type="1D" name="Charging Feedback Integral Step Down" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03fe72">
-   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.000" fineincrement="0.005" coarseincrement="0.02" />
-   <description>How fast the charging-voltage feedback lowers the target when the battery is above it.</description>
-  </table>
   <table type="1D" name="Charging Feedback Integral Maximum" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int16" endian="big" userlevel="4" storageaddress="0x040006">
    <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
    <description>Largest correction the feedback integral can add.</description>
@@ -9669,24 +9731,6 @@ Details: Compared with FFF81848, the integral of charging current while in mode 
   <table type="1D" name="Charging Feedback Integral Minimum" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int16" endian="big" userlevel="4" storageaddress="0x040008">
    <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
    <description>Largest correction the feedback integral can subtract.</description>
-  </table>
-  <table type="1D" name="Charging Feedback Integral Gain" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="5" storageaddress="0x03fe70">
-   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
-   <description>Scales the feedback integral (100 = as is).
-
-Details: Integral x this / 100 after the clamp (0x13866C, read). Confidence: read.</description>
-  </table>
-  <table type="1D" name="Charging Feedback Deadband Above" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03fe6c">
-   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.000" fineincrement="0.005" coarseincrement="0.02" />
-   <description>Battery voltage may be this far above target before the integral steps down.</description>
-  </table>
-  <table type="1D" name="Charging Feedback Deadband Below" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03fe6e">
-   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.000" fineincrement="0.005" coarseincrement="0.02" />
-   <description>Battery voltage may be this far below target before the integral steps up.</description>
-  </table>
-  <table type="1D" name="Charging Feedback Minimum RPM" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03fe76">
-   <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
-   <description>The charging-voltage feedback only runs above this engine speed.</description>
   </table>
   <table type="2D" name="Radiator Fan Duty (A/C, CAN 0x280 Value)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" sizey="9" userlevel="4" storageaddress="0x0394c4">
    <scaling units="% duty" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="1" coarseincrement="4.0" />
@@ -10148,6 +10192,43 @@ Details: Integral x this / 100 after the clamp (0x13866C, read). Confidence: rea
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <table type="2D" name="Adaptive Charging Target Current" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int32" endian="big" sizey="16" userlevel="3" storageaddress="0x03ff68">
+   <scaling units="A" expression="x/1000" to_byte="x*1000" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03fed2">
+    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   </table>
+   <description>During adaptive charging the ECU steers the charging voltage so the battery takes this current, by state of charge: positive charges, negative lets the battery discharge.</description>
+  </table>
+  <table type="1D" name="Adaptive Charging Current Gain" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03fe6a">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>How strongly adaptive charging moves its voltage target to reach the target battery current.</description>
+  </table>
+  <table type="1D" name="Charging Feedback Integral Step Up" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03fe74">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.000" fineincrement="0.005" coarseincrement="0.02" />
+   <description>How fast the charging-voltage feedback raises the target when the battery is below it.</description>
+  </table>
+  <table type="1D" name="Charging Feedback Integral Step Down" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03fe72">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.000" fineincrement="0.005" coarseincrement="0.02" />
+   <description>How fast the charging-voltage feedback lowers the target when the battery is above it.</description>
+  </table>
+  <table type="1D" name="Charging Feedback Integral Gain" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="5" storageaddress="0x03fe70">
+   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Scales the feedback integral (100 = as is).
+
+Details: Integral x this / 100 after the clamp (0x13866C, read). Address 03FE70. Confidence: read.</description>
+  </table>
+  <table type="1D" name="Charging Feedback Deadband Above" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03fe6c">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.000" fineincrement="0.005" coarseincrement="0.02" />
+   <description>Battery voltage may be this far above target before the integral steps down.</description>
+  </table>
+  <table type="1D" name="Charging Feedback Deadband Below" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03fe6e">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.000" fineincrement="0.005" coarseincrement="0.02" />
+   <description>Battery voltage may be this far below target before the integral steps up.</description>
+  </table>
+  <table type="1D" name="Charging Feedback Minimum RPM" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03fe76">
+   <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   <description>The charging-voltage feedback only runs above this engine speed.</description>
+  </table>
   <table type="1D" name="P0299 Underboost Error Threshold" category="Unsorted" storagetype="int16" endian="big" userlevel="3" storageaddress="0x06543a">
    <scaling category="Default" units="psi" expression="x/256*0.1450377" to_byte="x/0.1450377*256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <scaling category="kPa" units="kPa" expression="x/256" to_byte="x*256" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -15084,6 +15165,12 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
    <table type="Y Axis" storageaddress="0x039e36" />
   </table>
   <table name="Battery Capacity" storageaddress="0x040820" />
+  <table name="Battery Charge Efficiency (Charging)" storageaddress="0x040950">
+   <table type="Y Axis" storageaddress="0x04079e" />
+  </table>
+  <table name="Battery Charge Efficiency (Discharging)" storageaddress="0x04095e">
+   <table type="Y Axis" storageaddress="0x04079e" />
+  </table>
   <table name="Battery State of Charge Reset Value" storageaddress="0x0412ac" />
   <table name="Battery Charged SOC Threshold" storageaddress="0x0407ca" />
   <table name="Battery Charged SOC Hysteresis" storageaddress="0x0407cc" />
@@ -15094,20 +15181,58 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x039e24">
    <table type="Y Axis" storageaddress="0x039e36" />
   </table>
+  <table type="2D" name="Adaptive Charging Target Current" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int32" endian="big" sizey="16" userlevel="3" storageaddress="0x0408f0">
+   <scaling units="A" expression="x/1000" to_byte="x*1000" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x04085a">
+    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   </table>
+   <description>During adaptive charging the ECU steers the charging voltage so the battery takes this current, by state of charge: positive charges, negative lets the battery discharge.</description>
+  </table>
+  <table type="1D" name="Adaptive Charging Current Gain" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x0407f2">
+   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>How strongly adaptive charging moves its voltage target to reach the target battery current.</description>
+  </table>
+  <table name="Adaptive Charging Integral Deadband Above" storageaddress="0x0407d4" />
+  <table name="Adaptive Charging Integral Deadband Below" storageaddress="0x0407d6" />
+  <table name="Adaptive Charging Integral Step Down" storageaddress="0x0407d8" />
+  <table name="Adaptive Charging Integral Step Up" storageaddress="0x0407da" />
+  <table name="Adaptive Charging Integral Gain" storageaddress="0x0407dc" />
+  <table name="Adaptive Charging Integral Maximum" storageaddress="0x0407de" />
+  <table name="Adaptive Charging Integral Minimum" storageaddress="0x0407e0" />
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x039e00">
    <table type="Y Axis" storageaddress="0x039e36" />
   </table>
   <table name="Charging Feedback Proportional" storageaddress="0x0409b4">
    <table type="Y Axis" storageaddress="0x040992" />
   </table>
-  <table name="Charging Feedback Integral Step Up" storageaddress="0x0407fc" />
-  <table name="Charging Feedback Integral Step Down" storageaddress="0x0407fa" />
+  <table type="1D" name="Charging Feedback Integral Step Up" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x0407fc">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.000" fineincrement="0.005" coarseincrement="0.02" />
+   <description>How fast the charging-voltage feedback raises the target when the battery is below it.</description>
+  </table>
+  <table type="1D" name="Charging Feedback Integral Step Down" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x0407fa">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.000" fineincrement="0.005" coarseincrement="0.02" />
+   <description>How fast the charging-voltage feedback lowers the target when the battery is above it.</description>
+  </table>
   <table name="Charging Feedback Integral Maximum" storageaddress="0x04098e" />
   <table name="Charging Feedback Integral Minimum" storageaddress="0x040990" />
-  <table name="Charging Feedback Integral Gain" storageaddress="0x0407f8" />
-  <table name="Charging Feedback Deadband Above" storageaddress="0x0407f4" />
-  <table name="Charging Feedback Deadband Below" storageaddress="0x0407f6" />
-  <table name="Charging Feedback Minimum RPM" storageaddress="0x0407fe" />
+  <table type="1D" name="Charging Feedback Integral Gain" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="5" storageaddress="0x0407f8">
+   <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Scales the feedback integral (100 = as is).
+
+Details: Integral x this / 100 after the clamp (0x13866C, read). Address 0407F8. Confidence: read.</description>
+  </table>
+  <table type="1D" name="Charging Feedback Deadband Above" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x0407f4">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.000" fineincrement="0.005" coarseincrement="0.02" />
+   <description>Battery voltage may be this far above target before the integral steps down.</description>
+  </table>
+  <table type="1D" name="Charging Feedback Deadband Below" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x0407f6">
+   <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.000" fineincrement="0.005" coarseincrement="0.02" />
+   <description>Battery voltage may be this far below target before the integral steps up.</description>
+  </table>
+  <table type="1D" name="Charging Feedback Minimum RPM" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x0407fe">
+   <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   <description>The charging-voltage feedback only runs above this engine speed.</description>
+  </table>
   <table name="Radiator Fan Duty (A/C, CAN 0x280 Value)" storageaddress="0x039e4c">
    <table type="Y Axis" storageaddress="0x039e5e" />
   </table>
@@ -18757,6 +18882,9 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <table type="X Axis" storageaddress="0x01d4ba" />
    <table type="Y Axis" storageaddress="0x01d490" />
   </table>
+  <table name="DAM Initial Value" storageaddress="0x01d48e" />
+  <table name="DAM Step" storageaddress="0x01d8ec" />
+  <table name="DAM Step-Up Knock-Free Events" storageaddress="0x01d890" />
   <table name="Knock Correction Advance Max B (TGV Open)" storageaddress="0x02c45e">
    <table type="X Axis" storageaddress="0x02c2ee" />
    <table type="Y Axis" storageaddress="0x02c2c4" />
@@ -20960,6 +21088,12 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
    <table type="Y Axis" storageaddress="0x03a21a" />
   </table>
   <table name="Battery Capacity" storageaddress="0x040c04" />
+  <table name="Battery Charge Efficiency (Charging)" storageaddress="0x040d34">
+   <table type="Y Axis" storageaddress="0x040b82" />
+  </table>
+  <table name="Battery Charge Efficiency (Discharging)" storageaddress="0x040d42">
+   <table type="Y Axis" storageaddress="0x040b82" />
+  </table>
   <table name="Battery State of Charge Reset Value" storageaddress="0x041690" />
   <table name="Battery Charged SOC Threshold" storageaddress="0x040bae" />
   <table name="Battery Charged SOC Hysteresis" storageaddress="0x040bb0" />
@@ -20970,24 +21104,21 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" storageaddress="0x03a208">
    <table type="Y Axis" storageaddress="0x03a21a" />
   </table>
+  <table name="Adaptive Charging Integral Deadband Above" storageaddress="0x040bb8" />
+  <table name="Adaptive Charging Integral Deadband Below" storageaddress="0x040bba" />
+  <table name="Adaptive Charging Integral Step Down" storageaddress="0x040bbc" />
+  <table name="Adaptive Charging Integral Step Up" storageaddress="0x040bbe" />
+  <table name="Adaptive Charging Integral Gain" storageaddress="0x040bc0" />
+  <table name="Adaptive Charging Integral Maximum" storageaddress="0x040bc2" />
+  <table name="Adaptive Charging Integral Minimum" storageaddress="0x040bc4" />
   <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" storageaddress="0x03a1e4">
    <table type="Y Axis" storageaddress="0x03a21a" />
   </table>
   <table name="Charging Feedback Proportional" storageaddress="0x040d98">
    <table type="Y Axis" storageaddress="0x040d76" />
   </table>
-  <table name="Charging Feedback Integral Step Up" storageaddress="0x040be0" />
-  <table name="Charging Feedback Integral Step Down" storageaddress="0x040bde" />
   <table name="Charging Feedback Integral Maximum" storageaddress="0x040d72" />
   <table name="Charging Feedback Integral Minimum" storageaddress="0x040d74" />
-  <table name="Charging Feedback Integral Gain" storageaddress="0x040bdc">
-   <description>Scales the feedback integral (100 = as is).
-
-Details: Integral x this / 100 after the clamp (0x13866C, read). LT8H300D: same code as LF9K000D; address from the same instruction (between exact neighbours (40 bytes below, 84 above, both moved by the same amount; inferred)). Confidence: inferred.</description>
-  </table>
-  <table name="Charging Feedback Deadband Above" storageaddress="0x040bd8" />
-  <table name="Charging Feedback Deadband Below" storageaddress="0x040bda" />
-  <table name="Charging Feedback Minimum RPM" storageaddress="0x040be2" />
   <table name="Radiator Fan Duty (A/C, CAN 0x280 Value)" storageaddress="0x03a230">
    <table type="Y Axis" storageaddress="0x03a242" />
   </table>

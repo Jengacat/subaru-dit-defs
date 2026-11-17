@@ -256,9 +256,12 @@
   <table name="Engine Load" address="011b98" />
   <table name="Engine Speed" address="011bac" />
  </table>
- <table name="Primary Open Loop Fueling (TGV/AVCS Group, Alternate)" address="0138f1">
+ <table name="Primary Open Loop Fueling (TGV/AVCS Group, Alternate)" address="0138f1" level="5">
   <table name="Engine Load" address="011b98" />
   <table name="Engine Speed" address="011bac" />
+  <description>Replacement for the TGV/AVCS open-loop group plus its knock additive, used only with the 'Use Alternate Map' calibration switch set.
+
+Details: When used: only with cal 0x2F79A bit 4 set and DAM16 FFF811AE &lt; cal 0x1391C (16). Replaces the TGV/AVCS blend plus knock additive in FFF8A681. 0x0CE5E8 (read; called from 0x0C589C with rpm FFF8CD54, load FFF8A616, cal 0x2F79A bit 4, DAM FFF811AE, AVCS weight FFF8A743 and TGV open fraction FFF8B3E8): TGV-closed base = 05ABB0 x (255 - a)/255 + 05ABD8 x a/255, TGV-open base = 05ABC4 x (255 - a)/255 + 05ABEC x a/255, where a = FFF8A743 is the AVCS-active weight from 0x0D952C (255 while both cam controllers are in active control, my research notes); blend FFF8A69B = closed x (1 - FFF8B3E8) + open x FFF8B3E8. With cal 0x2F79A bit 4 clear. With the bit set: Alternate (+ cal 0x13DCD) while DAM16 &lt; cal 0x1391C (16), else blend + cal 0x13DCD. 0x0CEA80 (read) then takes FFF8A681 (only once FFF8AFD6 &gt;= FFF8AFE6, the open-loop delay, and when &gt;= cal 0x13DD0 = 5), scales it by cal 0x237CA/128 (x1.0), rate-limits its rise by 05ACD4(rpm) and sets FFF8A684 = max(that, FFF8A682), FFF8A682 being Primary Open Loop Fueling from 0x0CE854. FFF8A684 is the open-loop enrichment in commanded lambda 256/(256 + B030 + A684 + AFE8) (0x171C88). So the commanded open-loop mixture is the richer of the two systems: to lean the target, lower this group as well as Primary Open Loop Fueling; to richen, raise this group (Primary Open Loop Fueling alone only takes effect while its exhaust-temperature enable holds: 0x0CE854 sets FFF8A683 to 0 unless FFF8AFD0 &gt;= cal 0x18DD4 or FFF8C03C &gt;= cal 0x18DD8, read). Confidence: inferred.</description>
  </table>
  <table name="Additional Enrichment A" address="0154ce">
   <table name="Engine Load" address="011b98" />
@@ -1182,6 +1185,9 @@
   <table name="Engine Load" address="01c096" />
   <table name="Engine Speed" address="01c06c" />
  </table>
+ <table name="DAM Initial Value" address="01c06a" />
+ <table name="DAM Step" address="01c4c8" />
+ <table name="DAM Step-Up Knock-Free Events" address="01c46c" />
  <table name="Knock Correction Advance Max B (TGV Open)" address="02813a">
   <table name="Engine Load" address="027fca" />
   <table name="Engine Speed" address="027fa0" />
@@ -3531,6 +3537,13 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
   <table name="Coolant Temp" address="0345d8" />
  </table>
  <table name="Battery Capacity" address="039a7c" />
+ <table name="Charge Control Delay After Start" address="05eeb8" />
+ <table name="Battery Charge Efficiency (Charging)" address="039bcc">
+  <table name="Y Axis" address="0399fa" />
+ </table>
+ <table name="Battery Charge Efficiency (Discharging)" address="039bda">
+  <table name="Y Axis" address="0399fa" />
+ </table>
  <table name="Battery State of Charge Reset Value" address="03a468" />
  <table name="Battery Charged SOC Threshold" address="039a26" />
  <table name="Battery Charged SOC Hysteresis" address="039a28" />
@@ -3541,6 +3554,17 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
  <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" address="0345b4">
   <table name="Coolant Temp" address="0345d8" />
  </table>
+ <table name="Adaptive Charging Target Current" address="039b6c">
+  <table name="Y Axis" address="039ab6" />
+ </table>
+ <table name="Adaptive Charging Current Gain" address="039a4e" />
+ <table name="Adaptive Charging Integral Deadband Above" address="039a30" />
+ <table name="Adaptive Charging Integral Deadband Below" address="039a32" />
+ <table name="Adaptive Charging Integral Step Down" address="039a34" />
+ <table name="Adaptive Charging Integral Step Up" address="039a36" />
+ <table name="Adaptive Charging Integral Gain" address="039a38" />
+ <table name="Adaptive Charging Integral Maximum" address="039a3a" />
+ <table name="Adaptive Charging Integral Minimum" address="039a3c" />
  <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" address="0345c6">
   <table name="Coolant Temp" address="0345d8" />
  </table>

@@ -265,20 +265,25 @@
   <table name="Engine Load" address="01205c" />
   <table name="Engine Speed" address="012070" />
  </table>
- <table name="Primary Open Loop Fueling (TGV/AVCS Group, Alternate)" address="013db5">
+ <table name="Primary Open Loop Fueling (TGV/AVCS Group, Alternate)" address="013db5" level="5">
   <table name="Engine Load" address="01205c" />
   <table name="Engine Speed" address="012070" />
+  <description>Replacement for the TGV/AVCS open-loop group plus its knock additive, used only with the 'Use Alternate Map' calibration switch set.
+
+Details: When used: only with cal 0x2F79A bit 4 set and DAM16 FFF811AE &lt; cal 0x1391C (16). Replaces the TGV/AVCS blend plus knock additive in FFF8A681. 0x0CE5E8 (read; called from 0x0C589C with rpm FFF8CD54, load FFF8A616, cal 0x2F79A bit 4, DAM FFF811AE, AVCS weight FFF8A743 and TGV open fraction FFF8B3E8): TGV-closed base = 05ABB0 x (255 - a)/255 + 05ABD8 x a/255, TGV-open base = 05ABC4 x (255 - a)/255 + 05ABEC x a/255, where a = FFF8A743 is the AVCS-active weight from 0x0D952C (255 while both cam controllers are in active control, my research notes); blend FFF8A69B = closed x (1 - FFF8B3E8) + open x FFF8B3E8. With cal 0x2F79A bit 4 clear. With the bit set: Alternate (+ cal 0x13DCD) while DAM16 &lt; cal 0x1391C (16), else blend + cal 0x13DCD. 0x0CEA80 (read) then takes FFF8A681 (only once FFF8AFD6 &gt;= FFF8AFE6, the open-loop delay, and when &gt;= cal 0x13DD0 = 5), scales it by cal 0x237CA/128 (x1.0), rate-limits its rise by 05ACD4(rpm) and sets FFF8A684 = max(that, FFF8A682), FFF8A682 being Primary Open Loop Fueling from 0x0CE854. FFF8A684 is the open-loop enrichment in commanded lambda 256/(256 + B030 + A684 + AFE8) (0x171C88). So the commanded open-loop mixture is the richer of the two systems: to lean the target, lower this group as well as Primary Open Loop Fueling; to richen, raise this group (Primary Open Loop Fueling alone only takes effect while its exhaust-temperature enable holds: 0x0CE854 sets FFF8A683 to 0 unless FFF8AFD0 &gt;= cal 0x18DD4 or FFF8C03C &gt;= cal 0x18DD8, read). Confidence: inferred.</description>
  </table>
- <table name="Additional Enrichment A" address="015992">
+ <table name="Additional Enrichment A" address="015992" level="4">
   <table name="Engine Load" address="01205c" />
   <table name="Engine Speed" address="012070" />
+  <description>Extra enrichment added to the open-loop enrichment at higher coolant and lower rpm.</description>
  </table>
  <table name="Additional Enrichment B" address="015d52">
   <table name="Engine Load" address="01205c" />
   <table name="Engine Speed" address="012070" />
  </table>
- <table name="Additional Enrichment Throttle Threshold" address="0141e4">
+ <table name="Additional Enrichment Throttle Threshold" address="0141e4" level="4">
   <table name="Engine Speed" address="0141c4" />
+  <description>Throttle opening above idle, by rpm, needed to enable Additional Enrichment A/B.</description>
  </table>
  <table name="Closed Loop Target (TGVs Open, EGR Off)" address="03880a">
   <table name="Engine Load" address="05b36c" />
@@ -1193,6 +1198,9 @@
   <table name="Engine Load" address="023b72" />
   <table name="Engine Speed" address="023b48" />
  </table>
+ <table name="DAM Initial Value" address="023b46" />
+ <table name="DAM Step" address="023fa4" />
+ <table name="DAM Step-Up Knock-Free Events" address="023f48" />
  <table name="Knock Correction Advance Max B (TGV Open)" address="0311e6">
   <table name="Engine Load" address="031076" />
   <table name="Engine Speed" address="03104c" />
@@ -1225,7 +1233,29 @@
  <table name="FLKC Range Boundary Load 3" address="023b00" />
  <table name="FLKC Range Boundary Load 4" address="023b02" />
  <table name="FLKC Range Boundary RPM 1" address="023b06" />
+ <table name="Knock Event Detector: Low Timing" address="0400d3" />
+ <table name="Knock Event Detector: Knocking Cylinders" address="0400d4" />
+ <table name="Knock Event Latch" address="04df96" />
+ <table name="Knock Event Low Timing Passes" address="03238b" />
+ <table name="Knock Event Low Timing Hysteresis" address="03238c" />
+ <table name="Knock Event Cylinder Count Limit (Feedback)" address="03238d" />
+ <table name="Knock Event Feedback Correction Threshold" address="03238e" />
+ <table name="Knock Event Feedback Correction Hysteresis" address="03238f" />
+ <table name="Knock Event Cylinder Count Limit (Fine Learning)" address="032390" />
+ <table name="Knock Event Fine Learning Correction Threshold" address="032391" />
  <table name="FLKC Range Boundary RPM 2" address="023b08" />
+ <table name="Knock Event Fine Learning Correction Hysteresis" address="032392" />
+ <table name="Knock Event Low Timing Floor" address="0323d4">
+  <table name="Engine Load" address="0323b4" />
+  <table name="Engine Speed" address="032394" />
+ </table>
+ <table name="Knock Event Low Timing Floor (DAM Adder)" address="0324d4">
+  <table name="Engine Load" address="0323b4" />
+  <table name="Engine Speed" address="032394" />
+ </table>
+ <table name="Knock Event Low Timing DAM Factor" address="0325d4">
+  <table name="Dynamic Advance Multiplier" address="0323c4" />
+ </table>
  <table name="FLKC Range Boundary RPM 3" address="023b0a" />
  <table name="FLKC Range Boundary RPM 4" address="023b0c" />
  <table name="FLKC Range Boundary RPM 5" address="023b0e" />
@@ -2147,6 +2177,10 @@ Details: Feedback knock correction (0x0E2BE4, read): FFF8A79A is an s8 integrato
   <table name="Engine Speed" address="02587c" />
   <table name="Dynamic Advance Multiplier" address="025876" />
  </table>
+ <table name="Maximum Torque (Knock Event)" address="02b562">
+  <table name="Accelerator Pedal" address="02b50e" />
+  <table name="Engine Speed" address="02b4e4" />
+ </table>
  <table name="Overboost Limit" address="033a42">
   <table name="Engine Speed" address="033a56" />
  </table>
@@ -2207,11 +2241,13 @@ Details: Feedback knock correction (0x0E2BE4, read): FFF8A79A is an s8 integrato
  <table name="Fail-Safe Rev Limit Minimum Above Idle Target" address="0107ce" />
  <table name="Limit-State Spark: Normal Target in Speed Limit" address="02c162" />
  <table name="Limit-State Spark: Normal Target in Rev/Overboost Cut" address="02c162" />
- <table name="External Torque Limit Baro Factor" address="028790">
+ <table name="External Torque Limit Baro Factor" address="028790" level="4">
   <table name="Barometric Pressure" address="028780" />
+  <description>Air-density correction (barometric part) applied to a torque limit received over CAN, probably from the transmission controller.</description>
  </table>
- <table name="External Torque Limit IAT Factor" address="0287b0">
+ <table name="External Torque Limit IAT Factor" address="0287b0" level="4">
   <table name="Intake Air Temp" address="0287a0" />
+  <description>Air-density correction (intake temperature part) applied to a torque limit received over CAN, probably from the transmission controller.</description>
  </table>
  <table name="Cylinder Cut Torque Ratio (1 Cylinder)" address="02c507" />
  <table name="Cylinder Cut Torque Ratio (2 Cylinders)" address="02c508" />
@@ -3729,6 +3765,12 @@ Details: When used: while open-loop enrichment is active (FFF8ABF4 != 0) and FFF
   <table name="Coolant Temp" address="03eee8" />
  </table>
  <table name="Battery Capacity" address="0443a4" />
+ <table name="Battery Charge Efficiency (Charging)" address="0444f4">
+  <table name="Y Axis" address="044322" />
+ </table>
+ <table name="Battery Charge Efficiency (Discharging)" address="044502">
+  <table name="Y Axis" address="044322" />
+ </table>
  <table name="Battery State of Charge Reset Value" address="044d90" />
  <table name="Battery Charged SOC Threshold" address="04434e" />
  <table name="Battery Charged SOC Hysteresis" address="044350" />
@@ -3739,6 +3781,17 @@ Details: When used: while open-loop enrichment is active (FFF8ABF4 != 0) and FFF
  <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" address="03eec4">
   <table name="Coolant Temp" address="03eee8" />
  </table>
+ <table name="Adaptive Charging Target Current" address="044494">
+  <table name="Y Axis" address="0443de" />
+ </table>
+ <table name="Adaptive Charging Current Gain" address="044376" />
+ <table name="Adaptive Charging Integral Deadband Above" address="044358" />
+ <table name="Adaptive Charging Integral Deadband Below" address="04435a" />
+ <table name="Adaptive Charging Integral Step Down" address="04435c" />
+ <table name="Adaptive Charging Integral Step Up" address="04435e" />
+ <table name="Adaptive Charging Integral Gain" address="044360" />
+ <table name="Adaptive Charging Integral Maximum" address="044362" />
+ <table name="Adaptive Charging Integral Minimum" address="044364" />
  <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" address="03eed6">
   <table name="Coolant Temp" address="03eee8" />
  </table>

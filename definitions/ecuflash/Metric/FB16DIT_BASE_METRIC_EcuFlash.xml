@@ -113,6 +113,8 @@
  <scaling name="degrees int16 #2" units="degrees" toexpr="x*100/512" frexpr="x*512/100" format="%0.1f" min="-6400" max="6399.8" inc="0.2" storagetype="int16" endian="big" />
  <scaling name="RPM per pass int16" units="RPM per pass" toexpr="x/5.12" frexpr="x*5.12" format="%0.1f" min="-6400" max="6399.8" inc="1" storagetype="int16" endian="big" />
  <scaling name="degrees uint8 #2" units="degrees" toexpr="x*0.3515625" frexpr="x/0.3515625" format="%0.2f" min="0" max="89.6484" inc="0.35" storagetype="uint8" endian="big" />
+ <scaling name="DAM uint8 #2" units="DAM" toexpr="x/256" frexpr="x*256" format="%0.4f" min="0" max="0.996094" inc="0.0039" storagetype="uint8" endian="big" />
+ <scaling name="count uint16" units="count" toexpr="x" frexpr="x" format="%0.0f" min="0" max="65535" inc="1" storagetype="uint16" endian="big" />
  <scaling name="DAM per step count uint16" units="DAM per step count" toexpr="x*90/16777216" frexpr="x*16777216/90" format="%0.4f" min="0" max="0.351557" inc="0.0005" storagetype="uint16" endian="big" />
  <scaling name="FLKC cell (5 x rpm range  load range) uint8" units="FLKC cell (5 x rpm range + load range)" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
  <scaling name="flag (1  set) uint8" units="flag (1 = set)" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
@@ -266,9 +268,14 @@
  <scaling name="V int16" units="V" toexpr="x/1000" frexpr="x*1000" format="%0.2f" min="-32.768" max="32.767" inc="0.05" storagetype="int16" endian="big" />
  <scaling name="% duty uint16 #3" units="% duty" toexpr="x/655.35" frexpr="x*655.35" format="%0.1f" min="0" max="100" inc="1" storagetype="uint16" endian="big" />
  <scaling name="Ah uint8" units="Ah" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
+ <scaling name="s uint16 #4" units="s" toexpr="x" frexpr="x" format="%0.0f" min="0" max="65535" inc="10" storagetype="uint16" endian="big" />
+ <scaling name="% uint8" units="%" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
  <scaling name="% uint16 #3" units="%" toexpr="x/10" frexpr="x*10" format="%0.1f" min="0" max="6553.5" inc="0.5" storagetype="uint16" endian="big" />
  <scaling name="s uint32" units="s" toexpr="x*0.04" frexpr="x/0.04" format="%0.1f" min="0" max="1.71799e+08" inc="10" storagetype="uint32" endian="big" />
  <scaling name="raw uint32" units="raw" toexpr="x" frexpr="x" format="%0.0f" min="0" max="4.29497e+09" inc="1" storagetype="uint32" endian="big" />
+ <scaling name="A int32" units="A" toexpr="x/1000" frexpr="x*1000" format="%0.1f" min="-2.14748e+06" max="2.14748e+06" inc="0.5" storagetype="int32" endian="big" />
+ <scaling name="A uint16" units="A" toexpr="x/1000" frexpr="x*1000" format="%0.1f" min="0" max="65.535" inc="0.5" storagetype="uint16" endian="big" />
+ <scaling name="raw int16" units="raw" toexpr="x" frexpr="x" format="%0.0f" min="-32768" max="32767" inc="1" storagetype="int16" endian="big" />
  <scaling name="V uint16 #4" units="V" toexpr="x/1000" frexpr="x*1000" format="%0.3f" min="0" max="65.535" inc="0.005" storagetype="uint16" endian="big" />
  <scaling name="Nm uint16 #3" units="Nm" toexpr="x/10" frexpr="x*10" format="%0.1f" min="0" max="6553.5" inc="1" storagetype="uint16" endian="big" />
  <scaling name="multiplier uint8 #7" units="multiplier" toexpr="x/51.2" frexpr="x*51.2" format="%0.2f" min="0" max="4.98047" inc="0.02" storagetype="uint8" endian="big" />
@@ -44180,6 +44187,8 @@
   <data name="no [98]" value="98" />
   <data name="yes [99]+" value="99" />
  </scaling>
+ <scaling name="count uint8" units="count" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
+ <scaling name="degrees int8 #2" units="degrees" toexpr="x*0.3515625" frexpr="x/0.3515625" format="%0.2f" min="-45" max="44.6484" inc="0.35" storagetype="int8" endian="big" />
  <scaling name="DTC enabled b7 m80 f03" storagetype="bloblist">
   <data name="enabled [83]" value="83" />
   <data name="disabled [03]" value="03" />
@@ -44226,7 +44235,6 @@
   <data name="off" value="B8" />
   <data name="on" value="F8" />
  </scaling>
- <scaling name="% uint8" units="%" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
  <scaling name="DTC enabled b1 mC3 f00" storagetype="bloblist">
   <data name="enabled [02]" value="02" />
   <data name="disabled [00]" value="00" />
@@ -44752,29 +44760,37 @@ Details: When used: Used only while FFF899D7 bit 0 is set, a once-per-drive warm
   <table name="Engine Speed" type="Y Axis" elements="24" scaling="RPM uint8" />
   <description>General fuel correction by rpm and load in open and closed loop (128 = no change, each count about 0.4 %). Probably a light-load base-fuel correction.</description>
  </table>
- <table name="Primary Open Loop Fueling (Alternate)" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="4" scaling="AFR (gasoline) uint8">
+ <table name="Primary Open Loop Fueling (Alternate)" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="5" scaling="AFR (gasoline) uint8">
   <table name="Engine Load" type="X Axis" elements="20" scaling="g/rev uint8" />
   <table name="Engine Speed" type="Y Axis" elements="24" scaling="RPM uint16" />
-  <description>Replacement for Primary Open Loop Fueling plus its knock additive, used only when the calibration switch 'Open Loop Fueling. Edit with Primary Open Loop Fueling (TGV/AVCS Group, Alternate) if you enable it.</description>
+  <description>Replacement for Primary Open Loop Fueling plus its knock additive, used only when the calibration switch 'Open Loop Fueling. Edit with Primary Open Loop Fueling (TGV/AVCS Group, Alternate) if you enable it.
+
+Details: When used: only when cal 0x2F79A bit 4 is set (read; 2017 0x36B76, 2018 0x37FF2). The bit is the first argument of 0x0CE854 (call in 0x0C589C, read). With it set, 0x0CE854 uses this table + cal 0x18DDC in place of the base table plus the DAM-scaled additive, while DAM16 FFF811AE &lt; cal 0x18DDD; otherwise Primary Open Loop Fueling + cal 0x18DDC (read). The TGV/AVCS group has its own alternate (Primary Open Loop Fueling (TGV/AVCS Group, Alternate)); edit both if you enable the switch. Confidence: inferred.</description>
  </table>
  <table name="Primary Open Loop Fueling (TGV/AVCS Group, Alternate)" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="4" scaling="AFR (gasoline) uint8">
   <table name="Engine Load" type="X Axis" elements="20" scaling="g/rev uint8" />
   <table name="Engine Speed" type="Y Axis" elements="24" scaling="RPM uint16" />
   <description>Replacement for the TGV/AVCS open-loop group plus its knock additive, used only with the 'Use Alternate Map' calibration switch set.</description>
  </table>
- <table name="Additional Enrichment A" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="4" scaling="% enrichment uint16 #2">
+ <table name="Additional Enrichment A" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="5" scaling="% enrichment uint16 #2">
   <table name="Engine Load" type="X Axis" elements="20" scaling="g/rev uint8" />
   <table name="Engine Speed" type="Y Axis" elements="24" scaling="RPM uint16" />
-  <description>Extra enrichment added to the open-loop enrichment at higher coolant and lower rpm.</description>
+  <description>Extra enrichment added to the open-loop enrichment at higher coolant and lower rpm.
+
+Details: When used: A applies when coolant &gt;= cal 0x13E18 and rpm &lt; cal 0x13E0E, B when coolant &lt; 0x13E1A or rpm &gt;= 0x13E0C (in between the last value is held); the whole term needs FFF8A654 bit 1, whose thresholds (cal 0x13E08, 0x13E14) are 65535, and both tables are zero. Source of FFF8AFE8 (0x0CAF70, with B), a term of the commanded lambda and of the fuel factor FFF8AFBC, where it is added to the open-loop enrichment (0x0C558C, read). Confidence: inferred.</description>
  </table>
- <table name="Additional Enrichment B" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="4" scaling="% enrichment uint16 #2">
+ <table name="Additional Enrichment B" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="5" scaling="% enrichment uint16 #2">
   <table name="Engine Load" type="X Axis" elements="20" scaling="g/rev uint8" />
   <table name="Engine Speed" type="Y Axis" elements="24" scaling="RPM uint16" />
-  <description>Second table of the additional enrichment, used at low coolant or high rpm.</description>
+  <description>Second table of the additional enrichment, used at low coolant or high rpm.
+
+Details: When used: see Additional Enrichment A: B applies when coolant &lt; cal 0x13E1A or rpm &gt;= cal 0x13E0C (A when coolant &gt;= cal 0x13E18 and rpm &lt; cal 0x13E0E; in between the last value is held), and the whole term needs FFF8A654 bit 1. Second source table of FFF8AFE8. Confidence: inferred.</description>
  </table>
- <table name="Additional Enrichment Throttle Threshold" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="2D" level="4" scaling="% throttle uint16">
+ <table name="Additional Enrichment Throttle Threshold" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="2D" level="5" scaling="% throttle uint16">
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
-  <description>Throttle opening above idle, by rpm, needed to enable Additional Enrichment A/B.</description>
+  <description>Throttle opening above idle, by rpm, needed to enable Additional Enrichment A/B.
+
+0x0D3BFC (from 0x0C782C, args read) sets the Additional Enrichment enable FFF8A654 bit 1 only when, among others, FFF88A3C (throttle opening above the idle opening: FFF88A3A - FFF8AFB8, 0x08015C) &gt;= this(rpm FFF8CD54) or FFF88EDA bit 0, and rpm &gt;= cal 0x13E08 = 65535 and coolant &gt;= cal 0x13E14 = 65535 (or FFF88E28 bit 1), so the enable never sets (read; my research notes section 3). Once met, the threshold becomes cal 0x13E12 itself (1049 = 2.4 %), not the table value minus 1049: the code computes threshold - (threshold - 0x13E12) (0x0D3C90-0x0D3CAE, read); the rpm and coolant hysteresis cals 0x13E0A/0x13E16 work the same way. Belongs to Additional Enrichment A/B. Confidence: inferred.</description>
  </table>
  <table name="Closed Loop Target (TGVs Open, EGR Off)" category="01.03 Fueling - Closed Loop &amp; Fuel Trims" type="3D" level="1" scaling="AFR (gasoline) uint16">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8" />
@@ -45029,25 +45045,35 @@ Details: When used: Used only while FFF899D7 bit 0 is set, a once-per-drive warm
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
   <description>Part of a fuel adder triggered when the idle becomes steady with the pedal released, in one fuel mode only. How fast the adder fades after the hold; the table the manual car uses.</description>
  </table>
- <table name="Transient Fuel Throttle-Rate Gain (MT Coding)" category="01.04 Fueling - Transient Fueling" type="2D" level="4" scaling="gain (raw) uint8 #2">
+ <table name="Transient Fuel Throttle-Rate Gain (MT Coding)" category="01.04 Fueling - Transient Fueling" type="2D" level="5" scaling="gain (raw) uint8 #2">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
-  <description>Alternate version of Transient Fuel Throttle-Rate Gain used only when a transmission-coding switch is changed.</description>
+  <description>Alternate version of Transient Fuel Throttle-Rate Gain used only when a transmission-coding switch is changed.
+
+Same role as Transient Fuel Throttle-Rate Gain (0x0F6D98, read). Selection: Transient Fuel Throttle-Rate Gain is used while FFF8A618 bit 0 is set, which is always on the manual coding (cal 0x2F794 bit 1 clear, 0x0B8544, read); the (AT/CVT) table is used on AT/CVT codings while FFF8A618 bit 0 is clear (FFF886B0 bit 6 set after the first cal 0x34978 passes, not identified); the table when the manual flag FFF886AB bit 7 is set and either bit 0 is clear or cal 0x2F794 bit 2 is clear (rule: (A618 b0 = 0 or (0x2F794 b2 = 0 and 886AB b7)) ?: this one, read). Confidence: read.</description>
  </table>
- <table name="Tip-In Extra Pulse Angle" category="01.04 Fueling - Transient Fueling" type="2D" level="4" scaling="deg BTDC uint16">
+ <table name="Tip-In Extra Pulse Angle" category="01.04 Fueling - Transient Fueling" type="2D" level="5" scaling="deg BTDC uint16">
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #2" />
-  <description>Part of an extra fuel pulse on fast tip-in. Probably the injection angle of that extra pulse, by rpm.</description>
+  <description>Part of an extra fuel pulse on fast tip-in. Probably the injection angle of that extra pulse, by rpm.
+
+0x0CB604 (second-pulse channel of injector 1; 0x0CBAC8/0x0CBF8C/0x0CC450 for the others, args per my research notes, verified there with callers.py) uses this table, by rpm/25 FFF8CD5C, as the second-pulse angle in segment 3 when fuel mode = 1 (normal), one injection per cycle, the injector's segment counter FFF8888E (..8891) = 3 and the tip-in trigger FFF8A656 bit 7 is set (read). Units: degrees BTDC = 180 - x/2 (segment 3 offset x; same frame as the other injection angles). FFF8A656 bit 7 is written in the transient-fuel module 0x0F6260 from 0x0F6FA8, the tip-in trigger of Tip-In Extra Pulse RPM/Coolant Multiplier (needs running, combustion mode 4, rpm FFF8CE9C &lt; cal 0x3824A, FFF8CD82 &gt; cal 0x34436, FFF8ADF4 &gt; cal 0x34438 and FFF888CF &gt; cal 0x346A6); the same bit latches the throttle-air rate B260 (0x0F5424) that sizes the extra pulse B262 (0x0F54B8), and it blocks multiple injection (read). Cal 0x346A6 = 255 and the compare at 0x0F7028 is an unsigned CMP/HI against the sign-extended byte (0xFFFFFFFF), so the bit can never set (read). Reading: the angle of the tip-in extra pulse whose quantity is B262 (inferred from the shared trigger and the segment-3 condition; it is not part of any learning). Confidence: inferred.</description>
  </table>
- <table name="Tip-In Extra Pulse RPM Multiplier" category="01.04 Fueling - Transient Fueling" type="2D" level="4" scaling="multiplier uint8">
+ <table name="Tip-In Extra Pulse RPM Multiplier" category="01.04 Fueling - Transient Fueling" type="2D" level="5" scaling="multiplier uint8">
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint8 #2" />
-  <description>Part of an extra fuel pulse on fast tip-in. Scales the extra pulse by rpm (128 = x1.0).</description>
+  <description>Part of an extra fuel pulse on fast tip-in. Scales the extra pulse by rpm (128 = x1.0).
+
+Input FFF8CD5C (rpm/25), product term x/128 (&gt;&gt; 7, read). 0x0F54B8 (read; called from 0x0F6260): extra-pulse quantity FFF8B262 = (latched throttle-air rate FFF8B260 - 32768) x Injector Scaling x cals 0x343E2/0x343E4/0x343E0 x period FFF8CD46 (float) x Tip-In Extra Pulse Coolant Multiplier/64 x Tip-In Extra Pulse RPM Multiplier/128 x 05C830(FFF8CD82)/128 x FFF8A7FE/128, only in fuel state 3 with combustion mode FFF8A85C = 4; it is held at its maximum while the injector-1 state FFF8888E does not change. 0x0D2CE8 / 0x0D300C / 0x0D3330 / 0x0D3654 (read) use B262 x Injector Flow Compensation x 0.0125 as the second-pulse time of each injector when mode 4 and the per-injector flag FFF8A6F1..A6F4 (set while FFF8888E..8891 = 3) rises. B260 latches FFF8ADF4 (filtered throttle-air rate) only on the rising edge of FFF8A656 bit 7 (0x0F5424), which 0x0F6FA8 sets on a fast tip-in (rpm, FFF8ADF4 &gt; cal 0x34438, MAP-based threshold 05C98C on FFF8B4CA) only if a byte exceeds cal 0x346A6 = 0xFF (sign-extended compare, read in the disassembly at 0x0F7020): never. "Tip-in" is inferred from the trigger inputs. Confidence: read.</description>
  </table>
- <table name="Tip-In Extra Pulse Coolant Multiplier" category="01.04 Fueling - Transient Fueling" type="2D" level="4" scaling="multiplier uint8 #4">
+ <table name="Tip-In Extra Pulse Coolant Multiplier" category="01.04 Fueling - Transient Fueling" type="2D" level="5" scaling="multiplier uint8 #4">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
-  <description>Part of an extra fuel pulse on fast tip-in. Scales the extra pulse by coolant (64 = x1.0), out of neutral.</description>
+  <description>Part of an extra fuel pulse on fast tip-in. Scales the extra pulse by coolant (64 = x1.0), out of neutral.
+
+Details: When used: selected while the neutral switch FFF88ADA bit 6 is clear. Input FFF88A44 (coolant), product term x/64 (&gt;&gt; 6, read). 0x0F54B8 (read; called from 0x0F6260): extra-pulse quantity FFF8B262 = (latched throttle-air rate FFF8B260 - 32768) x Injector Scaling x cals 0x343E2/0x343E4/0x343E0 x period FFF8CD46 (float) x Tip-In Extra Pulse Coolant Multiplier/64 x Tip-In Extra Pulse RPM Multiplier/128 x 05C830(FFF8CD82)/128 x FFF8A7FE/128, only in fuel state 3 with combustion mode FFF8A85C = 4; it is held at its maximum while the injector-1 state FFF8888E does not change. 0x0D2CE8 / 0x0D300C / 0x0D3330 / 0x0D3654 (read) use B262 x Injector Flow Compensation x 0.0125 as the second-pulse time of each injector when mode 4 and the per-injector flag FFF8A6F1..A6F4 (set while FFF8888E..8891 = 3) rises. B260 latches FFF8ADF4 (filtered throttle-air rate) only on the rising edge of FFF8A656 bit 7 (0x0F5424), which 0x0F6FA8 sets on a fast tip-in (rpm, FFF8ADF4 &gt; cal 0x34438, MAP-based threshold 05C98C on FFF8B4CA) only if a byte exceeds cal 0x346A6 = 0xFF (sign-extended compare, read in the disassembly at 0x0F7020): never. "Tip-in" is inferred from the trigger inputs. Confidence: read.</description>
  </table>
- <table name="Tip-In Extra Pulse Coolant Multiplier (Neutral)" category="01.04 Fueling - Transient Fueling" type="2D" level="4" scaling="multiplier uint8 #4">
+ <table name="Tip-In Extra Pulse Coolant Multiplier (Neutral)" category="01.04 Fueling - Transient Fueling" type="2D" level="5" scaling="multiplier uint8 #4">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
-  <description>Part of an extra fuel pulse on fast tip-in. Scales the extra pulse by coolant (64 = x1.0) while in neutral.</description>
+  <description>Part of an extra fuel pulse on fast tip-in. Scales the extra pulse by coolant (64 = x1.0) while in neutral.
+
+Details: When used: selected while the neutral switch FFF88ADA bit 6 is set. 0x0F54B8 (read; called from 0x0F6260): extra-pulse quantity FFF8B262 = (latched throttle-air rate FFF8B260 - 32768) x Injector Scaling x cals 0x343E2/0x343E4/0x343E0 x period FFF8CD46 (float) x Tip-In Extra Pulse Coolant Multiplier/64 x Tip-In Extra Pulse RPM Multiplier/128 x 05C830(FFF8CD82)/128 x FFF8A7FE/128, only in fuel state 3 with combustion mode FFF8A85C = 4; it is held at its maximum while the injector-1 state FFF8888E does not change. 0x0D2CE8 / 0x0D300C / 0x0D3330 / 0x0D3654 (read) use B262 x Injector Flow Compensation x 0.0125 as the second-pulse time of each injector when mode 4 and the per-injector flag FFF8A6F1..A6F4 (set while FFF8888E..8891 = 3) rises. B260 latches FFF8ADF4 (filtered throttle-air rate) only on the rising edge of FFF8A656 bit 7 (0x0F5424), which 0x0F6FA8 sets on a fast tip-in (rpm, FFF8ADF4 &gt; cal 0x34438, MAP-based threshold 05C98C on FFF8B4CA) only if a byte exceeds cal 0x346A6 = 0xFF (sign-extended compare, read in the disassembly at 0x0F7020): never. "Tip-in" is inferred from the trigger inputs. Confidence: read.</description>
  </table>
  <table name="Cranking Fuel (First Attempt)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="2" scaling="raw uint16">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
@@ -45401,13 +45427,17 @@ Details: When used: Used only while FFF899D7 bit 0 is set, a once-per-drive warm
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
   <description>Time after ignition-off, by coolant, after which the ECU forgets the previous start, so the next start counts as a first start rather than a restart. Shorter with a weak battery.</description>
  </table>
- <table name="Cranking Fuel (Repeat Attempt, Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="4" scaling="raw uint16">
+ <table name="Cranking Fuel (Repeat Attempt, Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="5" scaling="raw uint16">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
-  <description>Cranking fuel pulse by coolant for a repeat attempt in the special start type.</description>
+  <description>Cranking fuel pulse by coolant for a repeat attempt in the special start type.
+
+Coolant-indexed base of the cranking pulse FFF8AFC6 (0x0C9038, read); used when flag s4 (= TGV-module flag FFF8A881 bit 2, read) set, s8 set, FFF8A6E7 = 3 (s8 = FFF811A7 bit 7, the repeat-crank history; argument mapping read from the calls at 0x0C589C). Cranking pulse (read, 0x0C9038): FFF842C8 = clamp(base x 256 x A67E x A687 x C535 x coolant multiplier x 64 / (2^32 x 255), 0, 524280) x 0.125 (the 64 is fixed, folded into the constant 5.843592e-11; Cranking Fuel Secondary Low Rail Pressure Multiplier 05A1FC acts only on the secondary pulse in 0x0C8A28), and the per-injector quantity is never below 10 x that (0x0D168C), in 0.8 us counts. Raw units: the factors' normalisation is not fully resolved, so change it proportionally. FFF8AFC6 feeds injectors in fuel mode 0 or 3. Confidence: inferred.</description>
  </table>
- <table name="Cranking Fuel (Stall Window, First Attempt)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="4" scaling="raw uint16">
+ <table name="Cranking Fuel (Stall Window, First Attempt)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="5" scaling="raw uint16">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
-  <description>Cranking fuel pulse by coolant for a restart after a stop inside a calibrated coolant window, first attempt.</description>
+  <description>Cranking fuel pulse by coolant for a restart after a stop inside a calibrated coolant window, first attempt.
+
+Details: When used: Only when FFF8A881 bit 2 is clear. Coolant-indexed base of the cranking pulse FFF8AFC6 (0x0C9038, read); used when flag s4 (= TGV-module flag FFF8A881 bit 2, read) clear, s8 clear (s8 = FFF811A7 bit 7, the repeat-crank history; argument mapping read from the calls at 0x0C589C). Cranking pulse (read, 0x0C9038): FFF842C8 = clamp(base x 256 x A67E x A687 x C535 x coolant multiplier x 64 / (2^32 x 255), 0, 524280) x 0.125 (the 64 is fixed, folded into the constant 5.843592e-11; Cranking Fuel Secondary Low Rail Pressure Multiplier 05A1FC acts only on the secondary pulse in 0x0C8A28), and the per-injector quantity is never below 10 x that (0x0D168C), in 0.8 us counts. Raw units: the factors' normalisation is not fully resolved, so change it proportionally. FFF8AFC6 feeds injectors in fuel mode 0 or 3. Confidence: inferred.</description>
  </table>
  <table name="Cranking Fuel (Stall Window, Repeat Attempt, Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="4" scaling="raw uint16">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
@@ -45417,9 +45447,11 @@ Details: When used: Used only while FFF899D7 bit 0 is set, a once-per-drive warm
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
   <description>Cranking fuel pulse by coolant for a stall-window restart, repeat attempt.</description>
  </table>
- <table name="Cranking Fuel Coolant Multiplier (Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="4" scaling="multiplier uint8 #2">
+ <table name="Cranking Fuel Coolant Multiplier (Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="5" scaling="multiplier uint8 #2">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint8" />
-  <description>Cranking fuel multiplier by coolant for the special start type, which is disabled by calibration.</description>
+  <description>
+
+A first start (type 0) uses x1.0. Multiplier in the normal cranking pulse FFF8AFC6 when FFF8A6E7 = 3 (0x0C9038, coolant FFF8CD65 = degC + 50, read from the call at 0x0C6896); 255 (x1.0) for other values. Confidence: inferred.</description>
  </table>
  <table name="Cranking Fuel Coolant Multiplier (Unused Routine, Restart after Key-Off)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="4" scaling="multiplier uint8 #2">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint8" />
@@ -45438,9 +45470,11 @@ Details: When used: Used only while FFF899D7 bit 0 is set, a once-per-drive warm
   <table name="Engine Speed" type="Y Axis" elements="9" scaling="RPM uint16" />
   <description>Belongs to a third cranking-fuel routine whose results nothing reads, so editing it has no effect. Its coolant axis is shared with the live RPM multipliers.</description>
  </table>
- <table name="Cranking Fuel Pedal Multiplier (Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="4" scaling="x (relative to 32) uint8">
+ <table name="Cranking Fuel Pedal Multiplier (Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="5" scaling="x (relative to 32) uint8">
   <table name="Accelerator Pedal" type="Y Axis" elements="16" scaling="% uint16" />
-  <description>Special-start copy of Cranking Fuel Pedal Multiplier.</description>
+  <description>Special-start copy of Cranking Fuel Pedal Multiplier.
+
+Details: When used: start type FFF8A6E7 = 3. 0x0CD7E4 (read): FFF8A67E = this(accelerator FFF88A5E), updated only while rpm FFF8CD54 &lt;= cal 0x1CBD8 (4000 rpm). FFF8A67E is the first factor of both cranking pulses (0x0C8A28 -&gt; FFF8AFC4, 0x0C9038 -&gt; FFF8AFC6, read). Confidence: inferred.</description>
  </table>
  <table name="Cranking Fuel Decay (Stall Window, First Attempt)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="4" scaling="fraction per pass uint16">
   <table name="Temperature" type="Y Axis" elements="16" scaling="degrees C uint8" />
@@ -45570,33 +45604,47 @@ Details: When used: Used only while FFF899D7 bit 0 is set, a once-per-drive warm
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
   <description>Secondary-path copy of Cranking Fuel Decay by Start Type (Stall Window, Special Start, Initial).</description>
  </table>
- <table name="Cranking Prime Pulse Coolant Multiplier" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="4" scaling="x (relative to 32) uint8">
+ <table name="Cranking Prime Pulse Coolant Multiplier" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="5" scaling="x (relative to 32) uint8">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint8" />
-  <description>Size of what appears to be a one-shot priming injection at key-on/cranking, by coolant; the pulse is proportional to it.</description>
+  <description>Size of what appears to be a one-shot priming injection at key-on/cranking, by coolant; the pulse is proportional to it.
+
+Details: When used: only if cal 0x28D98 = 1 or 2. 0x0CD4AC (read): FFF8A67D = this(coolant FFF8CD65 = degC + 50) during key-on and cranking (fuel state 1/2), held afterwards. 0x0CD500 / 0x0CD5DC compute the pulses FFF8C040 / FFF8C044 = 05A8F4 / 05A908(rail pressure FFF89266, FFF8A652) x flow compensation FFF8AFEA x barometric factor FFF8A687 x FFF8A67D x 2^-18 x 1.25 + latency, and 0x1D296C fires each of them once per injector (flags FFF8C6F4-C6F7) when cal 0x28D98 = 1 or 2 (read): a one-shot priming injection at start (inferred). The pulse is proportional to this value. Confidence: inferred.</description>
  </table>
- <table name="Running After-Start Enrichment 1 (Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="4" scaling="% enrichment uint16 #2">
+ <table name="Running After-Start Enrichment 1 (Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="5" scaling="% enrichment uint16 #2">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
-  <description>Running After-Start Enrichment 1 for the special start type, which is disabled by calibration.</description>
+  <description>Running After-Start Enrichment 1 for the special start type, which is disabled by calibration.
+
+Details: When used: start type FFF8A6E7 = 3 or above, in fuel states 2 (cranking) and 3 (running). Amount E1 (1/256 of fuel) for this start type, on coolant FFF88A44. 0x0CDD8C (read) builds FFF8B010: three amounts E1/E2/E3, each from a coolant table chosen by start type FFF8A6E7 (0 first start, 1 restart after key-off, 2 restart after stall, else special start; type and coolant FFF88A44 latched when fuel state 2/3 is entered (start of cranking, or a return from 3 to 2) for the amounts E1-E3, and latched again when fuel state 3 is entered (end of cranking) for the decay tables D1-D3), each faded linearly to zero over 8 x D passes of FFF8B06A (passes since fuel state 3, 0x0D1354) by its own decay table D1/D2/D3 (factor = clamp((8D - FFF8B06A) x 32 / D, 0, 255) / 256; no fade while cranking); FFF8B010 = max(E1, E2, E3) x 05AA60(rpm)/128 x FFF8A696/128 + Low Rail Pressure Start Enrichment, forced to 0 at load FFF8A616 &gt;= cal 0x237C8 (255, hysteresis cal 0x237C9) and outside fuel states 2/3. FFF8B010 is summed with Warm-Up Enrichment FFF8B030 in the enrichment term of the fuel factor 0x0C558C (read), blocks long-term trim learning (0x0FFE40) and is read by the closed-loop controller 0x0FD76C. This is the running-path counterpart of After-Start Enrichment 1-3 (0x0CD834 -&gt; FFF8B012, start path). Confidence: inferred.</description>
  </table>
- <table name="Running After-Start Enrichment 2 (Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="4" scaling="% enrichment uint16 #2">
+ <table name="Running After-Start Enrichment 2 (Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="5" scaling="% enrichment uint16 #2">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
-  <description>Running After-Start Enrichment 2 for the special start type, which is disabled by calibration.</description>
+  <description>Running After-Start Enrichment 2 for the special start type, which is disabled by calibration.
+
+Details: When used: start type FFF8A6E7 = 3 or above, in fuel states 2 (cranking) and 3 (running). Amount E2 (1/256 of fuel) for this start type, on coolant FFF88A44. 0x0CDD8C (read) builds FFF8B010: three amounts E1/E2/E3, each from a coolant table chosen by start type FFF8A6E7 (0 first start, 1 restart after key-off, 2 restart after stall, else special start; type and coolant FFF88A44 latched when fuel state 2/3 is entered (start of cranking, or a return from 3 to 2) for the amounts E1-E3, and latched again when fuel state 3 is entered (end of cranking) for the decay tables D1-D3), each faded linearly to zero over 8 x D passes of FFF8B06A (passes since fuel state 3, 0x0D1354) by its own decay table D1/D2/D3 (factor = clamp((8D - FFF8B06A) x 32 / D, 0, 255) / 256; no fade while cranking); FFF8B010 = max(E1, E2, E3) x 05AA60(rpm)/128 x FFF8A696/128 + Low Rail Pressure Start Enrichment, forced to 0 at load FFF8A616 &gt;= cal 0x237C8 (255, hysteresis cal 0x237C9) and outside fuel states 2/3. FFF8B010 is summed with Warm-Up Enrichment FFF8B030 in the enrichment term of the fuel factor 0x0C558C (read), blocks long-term trim learning (0x0FFE40) and is read by the closed-loop controller 0x0FD76C. This is the running-path counterpart of After-Start Enrichment 1-3 (0x0CD834 -&gt; FFF8B012, start path). Confidence: inferred.</description>
  </table>
- <table name="Running After-Start Enrichment 3 (Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="4" scaling="% enrichment uint16 #2">
+ <table name="Running After-Start Enrichment 3 (Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="5" scaling="% enrichment uint16 #2">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
-  <description>Running After-Start Enrichment 3 for the special start type, which is disabled by calibration.</description>
+  <description>Running After-Start Enrichment 3 for the special start type, which is disabled by calibration.
+
+Details: When used: start type FFF8A6E7 = 3 or above, in fuel states 2 (cranking) and 3 (running). Amount E3 (1/256 of fuel) for this start type, on coolant FFF88A44. 0x0CDD8C (read) builds FFF8B010: three amounts E1/E2/E3, each from a coolant table chosen by start type FFF8A6E7 (0 first start, 1 restart after key-off, 2 restart after stall, else special start; type and coolant FFF88A44 latched when fuel state 2/3 is entered (start of cranking, or a return from 3 to 2) for the amounts E1-E3, and latched again when fuel state 3 is entered (end of cranking) for the decay tables D1-D3), each faded linearly to zero over 8 x D passes of FFF8B06A (passes since fuel state 3, 0x0D1354) by its own decay table D1/D2/D3 (factor = clamp((8D - FFF8B06A) x 32 / D, 0, 255) / 256; no fade while cranking); FFF8B010 = max(E1, E2, E3) x 05AA60(rpm)/128 x FFF8A696/128 + Low Rail Pressure Start Enrichment, forced to 0 at load FFF8A616 &gt;= cal 0x237C8 (255, hysteresis cal 0x237C9) and outside fuel states 2/3. FFF8B010 is summed with Warm-Up Enrichment FFF8B030 in the enrichment term of the fuel factor 0x0C558C (read), blocks long-term trim learning (0x0FFE40) and is read by the closed-loop controller 0x0FD76C. This is the running-path counterpart of After-Start Enrichment 1-3 (0x0CD834 -&gt; FFF8B012, start path). Confidence: inferred.</description>
  </table>
- <table name="Running After-Start Enrichment Decay 1 (Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="4" scaling="s (fade length) uint8">
+ <table name="Running After-Start Enrichment Decay 1 (Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="5" scaling="s (fade length) uint8">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
-  <description>Fade time of Running After-Start Enrichment 1 (Special Start). That start type is disabled by calibration.</description>
+  <description>Fade time of Running After-Start Enrichment 1 (Special Start). That start type is disabled by calibration.
+
+Details: When used: start type FFF8A6E7 = 3 or above, in fuel states 2 (cranking) and 3 (running). Decay time D1, applied to E1 (8 x value passes of FFF8B06A to fade out) for this start type, on coolant FFF88A44. 0x0CDD8C (read) builds FFF8B010: three amounts E1/E2/E3, each from a coolant table chosen by start type FFF8A6E7 (0 first start, 1 restart after key-off, 2 restart after stall, else special start; type and coolant FFF88A44 latched when fuel state 2/3 is entered (start of cranking, or a return from 3 to 2) for the amounts E1-E3, and latched again when fuel state 3 is entered (end of cranking) for the decay tables D1-D3), each faded linearly to zero over 8 x D passes of FFF8B06A (passes since fuel state 3, 0x0D1354) by its own decay table D1/D2/D3 (factor = clamp((8D - FFF8B06A) x 32 / D, 0, 255) / 256; no fade while cranking); FFF8B010 = max(E1, E2, E3) x 05AA60(rpm)/128 x FFF8A696/128 + Low Rail Pressure Start Enrichment, forced to 0 at load FFF8A616 &gt;= cal 0x237C8 (255, hysteresis cal 0x237C9) and outside fuel states 2/3. FFF8B010 is summed with Warm-Up Enrichment FFF8B030 in the enrichment term of the fuel factor 0x0C558C (read), blocks long-term trim learning (0x0FFE40) and is read by the closed-loop controller 0x0FD76C. This is the running-path counterpart of After-Start Enrichment 1-3 (0x0CD834 -&gt; FFF8B012, start path). Confidence: inferred.</description>
  </table>
- <table name="Running After-Start Enrichment Decay 2 (Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="4" scaling="s (fade length) uint8">
+ <table name="Running After-Start Enrichment Decay 2 (Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="5" scaling="s (fade length) uint8">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
-  <description>Fade time of Running After-Start Enrichment 2 (Special Start). That start type is disabled by calibration.</description>
+  <description>Fade time of Running After-Start Enrichment 2 (Special Start). That start type is disabled by calibration.
+
+Details: When used: start type FFF8A6E7 = 3 or above, in fuel states 2 (cranking) and 3 (running). Decay time D2, applied to E2 (8 x value passes of FFF8B06A to fade out) for this start type, on coolant FFF88A44. 0x0CDD8C (read) builds FFF8B010: three amounts E1/E2/E3, each from a coolant table chosen by start type FFF8A6E7 (0 first start, 1 restart after key-off, 2 restart after stall, else special start; type and coolant FFF88A44 latched when fuel state 2/3 is entered (start of cranking, or a return from 3 to 2) for the amounts E1-E3, and latched again when fuel state 3 is entered (end of cranking) for the decay tables D1-D3), each faded linearly to zero over 8 x D passes of FFF8B06A (passes since fuel state 3, 0x0D1354) by its own decay table D1/D2/D3 (factor = clamp((8D - FFF8B06A) x 32 / D, 0, 255) / 256; no fade while cranking); FFF8B010 = max(E1, E2, E3) x 05AA60(rpm)/128 x FFF8A696/128 + Low Rail Pressure Start Enrichment, forced to 0 at load FFF8A616 &gt;= cal 0x237C8 (255, hysteresis cal 0x237C9) and outside fuel states 2/3. FFF8B010 is summed with Warm-Up Enrichment FFF8B030 in the enrichment term of the fuel factor 0x0C558C (read), blocks long-term trim learning (0x0FFE40) and is read by the closed-loop controller 0x0FD76C. This is the running-path counterpart of After-Start Enrichment 1-3 (0x0CD834 -&gt; FFF8B012, start path). Confidence: inferred.</description>
  </table>
- <table name="Running After-Start Enrichment Decay 3 (Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="4" scaling="s (fade length) uint8">
+ <table name="Running After-Start Enrichment Decay 3 (Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="5" scaling="s (fade length) uint8">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
-  <description>Fade time of Running After-Start Enrichment 3 (Special Start). That start type is disabled by calibration.</description>
+  <description>Fade time of Running After-Start Enrichment 3 (Special Start). That start type is disabled by calibration.
+
+Details: When used: start type FFF8A6E7 = 3 or above, in fuel states 2 (cranking) and 3 (running). Decay time D3, applied to E3 (8 x value passes of FFF8B06A to fade out) for this start type, on coolant FFF88A44. 0x0CDD8C (read) builds FFF8B010: three amounts E1/E2/E3, each from a coolant table chosen by start type FFF8A6E7 (0 first start, 1 restart after key-off, 2 restart after stall, else special start; type and coolant FFF88A44 latched when fuel state 2/3 is entered (start of cranking, or a return from 3 to 2) for the amounts E1-E3, and latched again when fuel state 3 is entered (end of cranking) for the decay tables D1-D3), each faded linearly to zero over 8 x D passes of FFF8B06A (passes since fuel state 3, 0x0D1354) by its own decay table D1/D2/D3 (factor = clamp((8D - FFF8B06A) x 32 / D, 0, 255) / 256; no fade while cranking); FFF8B010 = max(E1, E2, E3) x 05AA60(rpm)/128 x FFF8A696/128 + Low Rail Pressure Start Enrichment, forced to 0 at load FFF8A616 &gt;= cal 0x237C8 (255, hysteresis cal 0x237C9) and outside fuel states 2/3. FFF8B010 is summed with Warm-Up Enrichment FFF8B030 in the enrichment term of the fuel factor 0x0C558C (read), blocks long-term trim learning (0x0FFE40) and is read by the closed-loop controller 0x0FD76C. This is the running-path counterpart of After-Start Enrichment 1-3 (0x0CD834 -&gt; FFF8B012, start path). Confidence: inferred.</description>
  </table>
  <table name="Injection Timing (Single Injection)" category="01.06 Fueling - Injection Timing" type="3D" level="3" scaling="deg BTDC int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8" />
@@ -46075,13 +46123,17 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Engine Load" type="Y Axis" elements="3" scaling="g/rev uint8" />
   <description>Retard ramped into the timing request while open-loop power enrichment is active, by load and rpm. The ECU fires the lower of Base Timing and request + knock advance.</description>
  </table>
- <table name="Base Timing Coolant Compensation (Alternate, Below 5000 RPM)" category="02.02 Ignition Timing - Timing Compensations" type="2D" level="4" scaling="degrees int8">
+ <table name="Base Timing Coolant Compensation (Alternate, Below 5000 RPM)" category="02.02 Ignition Timing - Timing Compensations" type="2D" level="5" scaling="degrees int8">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
-  <description>Alternate cold-engine timing correction by coolant temperature, used below 5000 rpm only when a calibration switch selects the alternate tables.</description>
+  <description>Alternate cold-engine timing correction by coolant temperature, used below 5000 rpm only when a calibration switch selects the alternate tables.
+
+Details: When used: only with cal 0x31E38 bit 0 clear, below 5000 rpm (FFF8CD5C &lt; cal 0x38122 = 200, hysteresis to 192). 0x0E0584 (read): in running mode FFF8866C = 3 and once FFF8CD5C &gt;= cal 0x37F9E (800 rpm, latched) and load &gt;= cal 0x38120, FFF8A787 = FFF8A765 (EGR term, 128 = none) + the compensation - 128. With cal 0x31E38 bit 0 set the compensation = [TGV open fraction FFF8B3E8 x Weight (TGV Open)(rpm, load) x Comp (TGV Open)(coolant) + (1 - fraction) x 05BCF4(rpm, load; 100 % flat) x Comp (TGV Closed)(coolant)] x 0.1 x 0.01 degrees; with bit 0 clear the half-degree alternate tables are used instead. FFF8A787 is added to the torque-model base timing FFF8A645 (0x0C2C08, A-D path) and the timing request (0x0E0A30) (read); but FFF8A787 &lt;= 0 is one of the conditions for the fixed closed-pedal timing in 0x0D9E40. Confidence: read.</description>
  </table>
- <table name="Base Timing Coolant Compensation (Alternate, Above 5000 RPM)" category="02.02 Ignition Timing - Timing Compensations" type="2D" level="4" scaling="degrees int8">
+ <table name="Base Timing Coolant Compensation (Alternate, Above 5000 RPM)" category="02.02 Ignition Timing - Timing Compensations" type="2D" level="5" scaling="degrees int8">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
-  <description>Alternate cold-engine timing correction by coolant temperature, used above 5000 rpm only when a calibration switch selects the alternate tables.</description>
+  <description>Alternate cold-engine timing correction by coolant temperature, used above 5000 rpm only when a calibration switch selects the alternate tables.
+
+Details: When used: only with cal 0x31E38 bit 0 clear and FFF8CD5C &gt;= cal 0x38122 (5000 rpm; hysteresis to 192 = 4800 rpm) in mode 2/3. 0x0E0584 (read): in running mode FFF8866C = 3 and once FFF8CD5C &gt;= cal 0x37F9E (800 rpm, latched) and load &gt;= cal 0x38120, FFF8A787 = FFF8A765 (EGR term, 128 = none) + the compensation - 128. With cal 0x31E38 bit 0 set the compensation = [TGV open fraction FFF8B3E8 x Weight (TGV Open)(rpm, load) x Comp (TGV Open)(coolant) + (1 - fraction) x 05BCF4(rpm, load; 100 % flat) x Comp (TGV Closed)(coolant)] x 0.1 x 0.01 degrees; with bit 0 clear the half-degree alternate tables are used instead. FFF8A787 is added to the torque-model base timing FFF8A645 (0x0C2C08, A-D path) and the timing request (0x0E0A30) (read); but FFF8A787 &lt;= 0 is one of the conditions for the fixed closed-pedal timing in 0x0D9E40. Confidence: read.</description>
  </table>
  <table name="Filtered RPM Rate Timing Term" category="02.02 Ignition Timing - Timing Compensations" type="2D" level="5" scaling="degrees int16 #2">
   <table name="Filtered RPM Change" type="Y Axis" elements="5" scaling="RPM per pass int16" />
@@ -46098,6 +46150,15 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint16" />
   <table name="Engine Speed" type="Y Axis" elements="21" scaling="RPM uint16" />
   <description>First part of the knock correction advance (timing added as DAM rises), by rpm and load, for TGVs closed; blended with the TGV Open table and scaled by KCA DAM Curve A. It is added to the Primary Ignition request, not to the Base Timing map: the ECU fires the lower of Base Timing and Primary + knock advance + fine learning, so raising it adds timing only where that sum is still below Base Timing.</description>
+ </table>
+ <table name="DAM Initial Value" category="02.03 Ignition Timing - Knock Control" type="1D" level="2" scaling="DAM uint8">
+  <description>The DAM the ECU starts from after a reset of the learned values (battery disconnect or a scan-tool reset).</description>
+ </table>
+ <table name="DAM Step" category="02.03 Ignition Timing - Knock Control" type="1D" level="4" scaling="DAM uint8 #2">
+  <description>How far DAM moves per learning step up or down; halved each time the direction reverses. When 0, DAM moves only by DAM Step Gain (FLKC Cell).</description>
+ </table>
+ <table name="DAM Step-Up Knock-Free Events" category="02.03 Ignition Timing - Knock Control" type="1D" level="4" scaling="count uint16">
+  <description>Combustion events without knock needed before DAM may step up.</description>
  </table>
  <table name="Knock Correction Advance Max B (TGV Open)" category="02.03 Ignition Timing - Knock Control" type="3D" level="1" scaling="degrees uint8 #2">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint16" />
@@ -46161,8 +46222,55 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
  <table name="FLKC Range Boundary RPM 1" category="02.03 Ignition Timing - Knock Control" type="1D" level="3" scaling="RPM uint16">
   <description>One of the six rpm boundaries that split fine learning knock correction (FLKC) into rpm ranges. Keep them in increasing order.</description>
  </table>
+ <table name="Knock Event Detector: Low Timing" category="02.03 Ignition Timing - Knock Control" type="1D" level="3" scaling="Switch b0 f00">
+  <description>Watches for ignition timing pulled down to a floor that depends on DAM; when it trips, the knock-event torque limit applies. On/off switch: select the value and press Increment ( ] ) to flip it.</description>
+ </table>
+ <table name="Knock Event Detector: Knocking Cylinders" category="02.03 Ignition Timing - Knock Control" type="1D" level="3" scaling="Switch b0 f00">
+  <description>Counts cylinders whose knock signal is above the knock threshold while knock correction is already deep; when the count runs up, the knock-event torque limit applies. On/off switch: select the value and press Increment ( ] ) to flip it.</description>
+ </table>
+ <table name="Knock Event Latch" category="02.03 Ignition Timing - Knock Control" type="1D" level="3" scaling="Switch b0 f00">
+  <description>Keeps the knock-event torque limit on after a trip, across key cycles, until the learned knock values are reset. On/off switch: select the value and press Increment ( ] ) to flip it.</description>
+ </table>
+ <table name="Knock Event Low Timing Passes" category="02.03 Ignition Timing - Knock Control" type="1D" level="4" scaling="count uint8">
+  <description>Consecutive passes the timing must stay at or below the floor before the low-timing detector trips.</description>
+ </table>
+ <table name="Knock Event Low Timing Hysteresis" category="02.03 Ignition Timing - Knock Control" type="1D" level="4" scaling="degrees BTDC uint8">
+  <description>Once the timing is at the floor, it must rise this far above it to count as recovered.</description>
+ </table>
+ <table name="Knock Event Cylinder Count Limit (Feedback)" category="02.03 Ignition Timing - Knock Control" type="1D" level="4" scaling="count uint8">
+  <description>Knocking cylinders, summed while feedback knock correction is at or below its threshold, that trip the detector.</description>
+ </table>
+ <table name="Knock Event Feedback Correction Threshold" category="02.03 Ignition Timing - Knock Control" type="1D" level="4" scaling="degrees int8 #2">
+  <description>Knocking cylinders are summed while feedback knock correction is at or below this.</description>
+ </table>
+ <table name="Knock Event Feedback Correction Hysteresis" category="02.03 Ignition Timing - Knock Control" type="1D" level="4" scaling="degrees uint8 #2">
+  <description>Once summing, feedback knock correction must recover this far above the threshold to stop.</description>
+ </table>
+ <table name="Knock Event Cylinder Count Limit (Fine Learning)" category="02.03 Ignition Timing - Knock Control" type="1D" level="4" scaling="count uint8">
+  <description>Knocking cylinders, summed while fine learning knock correction is at or below its threshold, that trip the detector.</description>
+ </table>
+ <table name="Knock Event Fine Learning Correction Threshold" category="02.03 Ignition Timing - Knock Control" type="1D" level="4" scaling="degrees int8 #2">
+  <description>Knocking cylinders are summed while fine learning knock correction is at or below this.</description>
+ </table>
  <table name="FLKC Range Boundary RPM 2" category="02.03 Ignition Timing - Knock Control" type="1D" level="3" scaling="RPM uint16">
   <description>One of the six rpm boundaries that split fine learning knock correction (FLKC) into rpm ranges. Keep them in increasing order.</description>
+ </table>
+ <table name="Knock Event Fine Learning Correction Hysteresis" category="02.03 Ignition Timing - Knock Control" type="1D" level="4" scaling="degrees uint8 #2">
+  <description>Once summing, fine learning knock correction must recover this far above the threshold to stop.</description>
+ </table>
+ <table name="Knock Event Low Timing Floor" category="02.03 Ignition Timing - Knock Control" type="3D" level="4" scaling="degrees BTDC int8">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8" />
+  <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
+  <description>Ignition timing floor of the low-timing detector at the lowest DAM factor.</description>
+ </table>
+ <table name="Knock Event Low Timing Floor (DAM Adder)" category="02.03 Ignition Timing - Knock Control" type="3D" level="4" scaling="degrees BTDC int8">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8" />
+  <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
+  <description>Added to the low-timing floor in proportion to Knock Event Low Timing DAM Factor.</description>
+ </table>
+ <table name="Knock Event Low Timing DAM Factor" category="02.03 Ignition Timing - Knock Control" type="2D" level="4" scaling="raw uint8">
+  <table name="Dynamic Advance Multiplier" type="Y Axis" elements="16" scaling="DAM uint8" />
+  <description>How much of the DAM adder applies, by DAM (128 = all of it).</description>
  </table>
  <table name="FLKC Range Boundary RPM 3" category="02.03 Ignition Timing - Knock Control" type="1D" level="3" scaling="RPM uint16">
   <description>One of the six rpm boundaries that split fine learning knock correction (FLKC) into rpm ranges. Keep them in increasing order.</description>
@@ -46218,15 +46326,19 @@ Details: Feedback knock correction (0x0E2BE4, read): FFF8A79A is an s8 integrato
 
 0x0E7DF8 (read): one cell per pass, it counts the FLKC cells whose flag FFF811AF[cell] is 1 and whose learned value FFF81414[cell] is at or above this(DAM FFF811AE); after all 35 cells the count goes to FFF8A792 and FFF8A7A3 bit 1 = count &gt;= cal 0x1C699 (4). 0x0E7D0C (read) uses that bit only together with DAM inside cal 0x1C698..0x1C697 (32..48 in DAM x 16 units), which DAM (0..16) never reaches. Confidence: read.</description>
  </table>
- <table name="Base Timing DAM Blend Alternate (DAM 0)" category="02.03 Ignition Timing - Knock Control" type="3D" level="4" scaling="degrees uint8 #3">
+ <table name="Base Timing DAM Blend Alternate (DAM 0)" category="02.03 Ignition Timing - Knock Control" type="3D" level="5" scaling="degrees uint8 #3">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint16" />
   <table name="Engine Speed" type="Y Axis" elements="22" scaling="RPM uint16" />
-  <description>Alternate DAM-blended timing offset (DAM 0 side) for base timing. 32 = no change.</description>
+  <description>Alternate DAM-blended timing offset (DAM 0 side) for base timing. 32 = no change.
+
+Weighted (16 - DAM)/16. 0x0D9BD4 (read): FFF8A73F = ((16 - DAM) x 05B54C + DAM x 05B560) / 16 in the 32-offset half-degree frame, DAM = FFF811AE (0..16), tables by rpm FFF8CD54 x load FFF8ADE4. 0x0D9CA0: FFF8A73E = (A73F + FFF8A73B - 32) x FFF8B0D2 / 256 + 32, and FFF8A740 = A73E when FFF8A8A5 bit 4 is set, else A73D (the 05B574/05B588 path) (read). FFF8A73E/A73F have no other readers. With cal 0x32DEA = 'Z' the base timing term FFF8A73C would ramp toward A740 (cal 0x32DEC per pass) and enter the base timing sum FFF8A74B (0x0DA600). Confidence: read.</description>
  </table>
- <table name="Base Timing DAM Blend Alternate (DAM 1)" category="02.03 Ignition Timing - Knock Control" type="3D" level="4" scaling="degrees uint8 #3">
+ <table name="Base Timing DAM Blend Alternate (DAM 1)" category="02.03 Ignition Timing - Knock Control" type="3D" level="5" scaling="degrees uint8 #3">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint16" />
   <table name="Engine Speed" type="Y Axis" elements="22" scaling="RPM uint16" />
-  <description>Alternate DAM-blended timing offset (DAM 1 side) for base timing. 32 = no change.</description>
+  <description>Alternate DAM-blended timing offset (DAM 1 side) for base timing. 32 = no change.
+
+Weighted DAM/16. 0x0D9BD4 (read): FFF8A73F = ((16 - DAM) x 05B54C + DAM x 05B560) / 16 in the 32-offset half-degree frame, DAM = FFF811AE (0..16), tables by rpm FFF8CD54 x load FFF8ADE4. 0x0D9CA0: FFF8A73E = (A73F + FFF8A73B - 32) x FFF8B0D2 / 256 + 32, and FFF8A740 = A73E when FFF8A8A5 bit 4 is set, else A73D (the 05B574/05B588 path) (read). FFF8A73E/A73F have no other readers. With cal 0x32DEA = 'Z' the base timing term FFF8A73C would ramp toward A740 (cal 0x32DEC per pass) and enter the base timing sum FFF8A74B (0x0DA600). Confidence: read.</description>
  </table>
  <table name="Knock Threshold (Event 1, Full Window)" category="02.04 Ignition Timing - Knock Detection" type="3D" level="4" scaling="knock ratio sum (3 strongest channels) uint16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8" />
@@ -47479,17 +47591,23 @@ Knock-detection background step for event slot 4, frequency channel 8.</descript
   <table name="Gear" type="Y Axis" elements="5" scaling="gear uint8" />
   <description>Tip-out smoothing: when the torque request drops, the target torque falls by Step A per 10 ms down to the Threshold, then by the smaller Step B. This is the Ceiling for the low-speed set (below about 4 km/h), used in place of Target Torque Fall Ceiling (Normal): the smoothing only acts when the request is below it.</description>
  </table>
- <table name="Target Torque Rise Path B Coolant Rise" category="04.01 Torque &amp; Throttle - Requested Torque" type="2D" level="4" scaling="degrees C (difference) uint16">
+ <table name="Target Torque Rise Path B Coolant Rise" category="04.01 Torque &amp; Throttle - Requested Torque" type="2D" level="5" scaling="degrees C (difference) uint16">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
-  <description>Part of the condition that lets Path B tip-in smoothing act, based on how much the coolant has warmed since start.</description>
+  <description>Part of the condition that lets Path B tip-in smoothing act, based on how much the coolant has warmed since start.
+
+Details: When used: only matters with Target Torque Rise: Enable Path B set. Gate of Path B (0x0BBA32..0x0BBA90, read): the warm condition is FFF80B96 &gt;= cal 0x22A0C (16384 = 0 degC) and coolant at start FFF89224 &gt;= cal 0x22A0A (50 = 0 degC, degC + 50 unit); while it holds, Path B stays available if clamp(FFF80B96 - FFF89224) &lt; this(FFF89224). FFF80B96 is a copy of coolant FFF88A44 taken by 0x082F7E / 0x082FB0 under start/state conditions (read); which moment it captures is not identified. Data = coolant difference in the 409.6-per-degC unit offset by 0x4000 (40 degC) (read). 0x0BB958 (read; called from the torque module 0x0BE694 at 0x0BF612 with the limited request FFF8AEC2, the previous output FFF8AEC6, gear FFF8A621, rpm FFF8CD54, drive mode FFF8A8C1, pedal FFF8AF00 and, as stack argument 11, cal 0x23704 bit 6; argument order checked in the disassembly). Path B (read, 0x0BB958 0x0BCEFE..0x0BCF96): a second rise-shaping path evaluated after the main one. It acts only while Target Torque Rise: Enable Path B (cal 0x23704 bit 6) is set, FFF88BAA &gt;= cal 0x22A08 (80; hysteresis 0x22A09), rpm FFF8CD54 &lt;= cal 0x22A04, and the Path B gate is open. The gate is open unless all three hold: FFF8AE64 &lt;= Target Torque Rise Path B Pedal-Released Low-Speed Time(FFF88BAA), FFF8AF1C &lt;=...Path B Low-Speed Time(FFF88BAA), and (the warm condition is false or FFF80B96 - coolant at start FFF89224 &gt;=...Path B Coolant Rise(FFF89224)). Step1B = (Path B Stage 1 table - 16000) x gear cal 0x229F0 + 2(g-1) x Target Torque Rise Step Stage 1 Pedal Multiplier (Path B)(FFF8AF00) / 65025; Step2B the same with cal 0x229FA.. (1, 2, 5, 5, 5) and the Path B Stage 2 Pedal Multiplier; gear cals apply only while FFF8A63D bit 4 is set. With prev = FFF8AEC6: if prev + Step2B &gt;= Path B Stage 2 Torque the shaped value becomes prev + Step2B; then, if prev + Step1B &lt; Path B Stage 2 Torque, it becomes max(Path B Start Torque, prev + Step1B); otherwise the main path's value stands. Whenever the cal bit is set, a request below Path B Start Torque also passes unshaped. Tables are selected by drive mode FFF8A8C1 (2, 3, 4, other = 1) and, for the step tables, by AT/CVT Coding as in the main path. The torque monitor 0x1877B4 reads the same data bytes and is passed the same cal bit, so it stays consistent. The torque monitor 0x1877B4 reads the same data bytes through its own descriptor (05FA54), so it stays consistent. Confidence: inferred.</description>
  </table>
- <table name="Target Torque Rise Path B Low-Speed Time" category="04.01 Torque &amp; Throttle - Requested Torque" type="2D" level="4" scaling="s uint16 #2">
+ <table name="Target Torque Rise Path B Low-Speed Time" category="04.01 Torque &amp; Throttle - Requested Torque" type="2D" level="5" scaling="s uint16 #2">
   <table name="Y Axis" type="Y Axis" elements="16" scaling="raw uint8" />
-  <description>Part of the condition that lets Path B tip-in smoothing act: probably the time the car has been stopped. Its axis input is not identified (raw).</description>
+  <description>Part of the condition that lets Path B tip-in smoothing act: probably the time the car has been stopped. Its axis input is not identified (raw).
+
+Details: When used: only matters with Target Torque Rise: Enable Path B set. Gate of Path B: Path B stays available while FFF8AF1C &gt; this(FFF88BAA) (0x0BBA6C, read). FFF8AE5E counts 10 ms passes while vehicle speed FFF88BE8 &gt; cal 0x229E6 (0; hysteresis 0x229E8) (0x0BA48C, read). FFF8AE64 counts passes while the pedal-released flag FFF88C64 bit 5 is set and speed &lt;= cal 0x229EC (0; hysteresis 0x229EE) (0x0BA7E0, read); FFF8AF1C counts passes while speed &lt;= cal 0x22A0E (0; hysteresis 0x22A10) (0x0C065C, read). So they are the time stopped (pedal released / any pedal) since the car last moved. FFF88BAA is a byte copied from FFF8CC56 / FFF8CC01 / FFF8CC3B (0x080000 segment); its meaning is not identified, so the axis is raw. 0x0BB958 (read; called from the torque module 0x0BE694 at 0x0BF612 with the limited request FFF8AEC2, the previous output FFF8AEC6, gear FFF8A621, rpm FFF8CD54, drive mode FFF8A8C1, pedal FFF8AF00 and, as stack argument 11, cal 0x23704 bit 6; argument order checked in the disassembly). Path B (read, 0x0BB958 0x0BCEFE..0x0BCF96): a second rise-shaping path evaluated after the main one. It acts only while Target Torque Rise: Enable Path B (cal 0x23704 bit 6) is set, FFF88BAA &gt;= cal 0x22A08 (80; hysteresis 0x22A09), rpm FFF8CD54 &lt;= cal 0x22A04, and the Path B gate is open. The gate is open unless all three hold: FFF8AE64 &lt;= Target Torque Rise Path B Pedal-Released Low-Speed Time(FFF88BAA), FFF8AF1C &lt;=...Path B Low-Speed Time(FFF88BAA), and (the warm condition is false or FFF80B96 - coolant at start FFF89224 &gt;=...Path B Coolant Rise(FFF89224)). Step1B = (Path B Stage 1 table - 16000) x gear cal 0x229F0 + 2(g-1) x Target Torque Rise Step Stage 1 Pedal Multiplier (Path B)(FFF8AF00) / 65025; Step2B the same with cal 0x229FA.. (1, 2, 5, 5, 5) and the Path B Stage 2 Pedal Multiplier; gear cals apply only while FFF8A63D bit 4 is set. With prev = FFF8AEC6: if prev + Step2B &gt;= Path B Stage 2 Torque the shaped value becomes prev + Step2B; then, if prev + Step1B &lt; Path B Stage 2 Torque, it becomes max(Path B Start Torque, prev + Step1B); otherwise the main path's value stands. Whenever the cal bit is set, a request below Path B Start Torque also passes unshaped. Tables are selected by drive mode FFF8A8C1 (2, 3, 4, other = 1) and, for the step tables, by AT/CVT Coding as in the main path. The torque monitor 0x1877B4 reads the same data bytes and is passed the same cal bit, so it stays consistent. The torque monitor 0x1877B4 reads the same data bytes through its own descriptor (05FA48), so it stays consistent. Confidence: inferred.</description>
  </table>
- <table name="Target Torque Rise Path B Pedal-Released Low-Speed Time" category="04.01 Torque &amp; Throttle - Requested Torque" type="2D" level="4" scaling="s uint16 #2">
+ <table name="Target Torque Rise Path B Pedal-Released Low-Speed Time" category="04.01 Torque &amp; Throttle - Requested Torque" type="2D" level="5" scaling="s uint16 #2">
   <table name="Y Axis" type="Y Axis" elements="16" scaling="raw uint8" />
-  <description>Part of the condition that lets Path B tip-in smoothing act: probably the time stopped with the pedal released. Its axis input is not identified (raw).</description>
+  <description>Part of the condition that lets Path B tip-in smoothing act: probably the time stopped with the pedal released. Its axis input is not identified (raw).
+
+Details: When used: only matters with Target Torque Rise: Enable Path B set. Gate of Path B: Path B stays available while FFF8AE64 &gt; this(FFF88BAA) (0x0BBA5C, read; the gate also opens via the two other gate tables). FFF8AE5E counts 10 ms passes while vehicle speed FFF88BE8 &gt; cal 0x229E6 (0; hysteresis 0x229E8) (0x0BA48C, read). FFF8AE64 counts passes while the pedal-released flag FFF88C64 bit 5 is set and speed &lt;= cal 0x229EC (0; hysteresis 0x229EE) (0x0BA7E0, read); FFF8AF1C counts passes while speed &lt;= cal 0x22A0E (0; hysteresis 0x22A10) (0x0C065C, read). So they are the time stopped (pedal released / any pedal) since the car last moved. FFF88BAA is a byte copied from FFF8CC56 / FFF8CC01 / FFF8CC3B (0x080000 segment); its meaning is not identified, so the axis is raw. 0x0BB958 (read; called from the torque module 0x0BE694 at 0x0BF612 with the limited request FFF8AEC2, the previous output FFF8AEC6, gear FFF8A621, rpm FFF8CD54, drive mode FFF8A8C1, pedal FFF8AF00 and, as stack argument 11, cal 0x23704 bit 6; argument order checked in the disassembly). Path B (read, 0x0BB958 0x0BCEFE..0x0BCF96): a second rise-shaping path evaluated after the main one. It acts only while Target Torque Rise: Enable Path B (cal 0x23704 bit 6) is set, FFF88BAA &gt;= cal 0x22A08 (80; hysteresis 0x22A09), rpm FFF8CD54 &lt;= cal 0x22A04, and the Path B gate is open. The gate is open unless all three hold: FFF8AE64 &lt;= Target Torque Rise Path B Pedal-Released Low-Speed Time(FFF88BAA), FFF8AF1C &lt;=...Path B Low-Speed Time(FFF88BAA), and (the warm condition is false or FFF80B96 - coolant at start FFF89224 &gt;=...Path B Coolant Rise(FFF89224)). Step1B = (Path B Stage 1 table - 16000) x gear cal 0x229F0 + 2(g-1) x Target Torque Rise Step Stage 1 Pedal Multiplier (Path B)(FFF8AF00) / 65025; Step2B the same with cal 0x229FA.. (1, 2, 5, 5, 5) and the Path B Stage 2 Pedal Multiplier; gear cals apply only while FFF8A63D bit 4 is set. With prev = FFF8AEC6: if prev + Step2B &gt;= Path B Stage 2 Torque the shaped value becomes prev + Step2B; then, if prev + Step1B &lt; Path B Stage 2 Torque, it becomes max(Path B Start Torque, prev + Step1B); otherwise the main path's value stands. Whenever the cal bit is set, a request below Path B Start Torque also passes unshaped. Tables are selected by drive mode FFF8A8C1 (2, 3, 4, other = 1) and, for the step tables, by AT/CVT Coding as in the main path. The torque monitor 0x1877B4 reads the same data bytes and is passed the same cal bit, so it stays consistent. The torque monitor 0x1877B4 reads the same data bytes through its own descriptor (05FA3C), so it stays consistent. Confidence: inferred.</description>
  </table>
  <table name="Target Torque Rise Stage 2 Torque (Path B, Drive Mode 1, Default)" category="04.01 Torque &amp; Throttle - Requested Torque" type="3D" level="4" scaling="Nm uint16">
   <table name="Engine Speed" type="X Axis" elements="5" scaling="RPM uint16" />
@@ -47650,6 +47768,11 @@ Knock-detection background step for event slot 4, frequency channel 8.</descript
   <table name="Dynamic Advance Multiplier" type="Y Axis" elements="6" scaling="DAM uint8" />
   <description>Maximum target torque by DAM (knock learning) and rpm, in the same lowest-wins limit as Maximum Torque (IAT). Losing DAM lowers the torque target and so the boost target.</description>
  </table>
+ <table name="Maximum Torque (Knock Event)" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="3D" level="2" scaling="Nm uint16">
+  <table name="Accelerator Pedal" type="X Axis" elements="20" scaling="% uint16" />
+  <table name="Engine Speed" type="Y Axis" elements="21" scaling="RPM uint16" />
+  <description>Torque ceiling while the knock-event detector has tripped (or its latch is set), by engine speed and pedal.</description>
+ </table>
  <table name="Overboost Limit" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="2D" level="1" scaling="kPa abs uint8">
   <table name="Engine Speed" type="Y Axis" elements="19" scaling="RPM uint16" />
   <description>Overboost limit by rpm, compensated for baro and intake temperature like the boost target. Boost 26.7 kPa over it for 2 s sets the overboost flag, and 33 kPa over it starts the overboost cut (throttle cap, then a full fuel cut once the flag is set). Raise it when raising boost targets. Note: the boost-control pressure reading stops at about 269 kPa absolute, so an Overboost Limit above about 236 kPa absolute (269 minus the 33 kPa cut margin) can never trigger the overboost cut.</description>
@@ -47782,13 +47905,17 @@ Details: When used: only while FFF88F4A bit 2 is set. Otherwise as Fail-Safe Rev
  <table name="Limit-State Spark: Normal Target in Rev/Overboost Cut" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="1D" level="4" scaling="Switch on b7 mC0 f38">
   <description>Keeps normal spark timing during the rev limiter and overboost cut instead of retarding it. On/off switch: select the value and press Increment ( ] ) to flip it; do not use Decrement. [XX] is the whole byte, which it shares with other switches.</description>
  </table>
- <table name="External Torque Limit Baro Factor" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="2D" level="4" scaling="multiplier uint16 #4">
+ <table name="External Torque Limit Baro Factor" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="2D" level="5" scaling="multiplier uint16 #4">
   <table name="Barometric Pressure" type="Y Axis" elements="8" scaling="kPa abs uint16" />
-  <description>Air-density correction (barometric part) applied to a torque limit received over CAN, probably from the transmission controller.</description>
+  <description>Air-density correction (barometric part) applied to a torque limit received over CAN, probably from the transmission controller.
+
+Details: When used: only with cal 0x20F04 = 1, 2 or 3. Barometric part of the air density factor FFF8AE9E. 0x0BB0A4 (read): FFF8AE9E = Baro Factor(FFF88A36) x IAT Factor(FFF88A48) / 16384. 0x0BB0EC / 0x0BB118 copy it to FFF8AEA0 / FFF8AEA2 only when cal 0x20F04 is 1 or 3 / 1 or 2 and FFF88E28 bit 2 / FFF88E2A bit 0 are clear, else 16384 (x1.0). FFF8AEA2 divides the external (CAN) torque limit in 0x0BB1AC: limit = 16000 + FFF88DF6 x 160 x 16384 / FFF8AEA2 (read; the limit byte is inferred to come from another controller, my research notes); FFF8AEA0 goes to 0x116158. The product is the air density relative to 101.3 kPa and 25 degC. p16 (read): FFF88DF6 = CAN 0x149 byte 4 (mailbox 1, TCM frame group: decoding gated by the U0101/U0402 status and forced off by the MT coding FFF886AB b7, which then loads cal 0x572D0), decoder 0x085D20. Confidence: inferred.</description>
  </table>
- <table name="External Torque Limit IAT Factor" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="2D" level="4" scaling="multiplier uint16 #4">
+ <table name="External Torque Limit IAT Factor" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="2D" level="5" scaling="multiplier uint16 #4">
   <table name="Intake Air Temp" type="Y Axis" elements="8" scaling="degrees C uint16" />
-  <description>Air-density correction (intake temperature part) applied to a torque limit received over CAN, probably from the transmission controller.</description>
+  <description>Air-density correction (intake temperature part) applied to a torque limit received over CAN, probably from the transmission controller.
+
+Details: When used: only with cal 0x20F04 = 1, 2 or 3. Intake-air-temperature part of the air density factor FFF8AE9E. 0x0BB0A4 (read): FFF8AE9E = Baro Factor(FFF88A36) x IAT Factor(FFF88A48) / 16384. 0x0BB0EC / 0x0BB118 copy it to FFF8AEA0 / FFF8AEA2 only when cal 0x20F04 is 1 or 3 / 1 or 2 and FFF88E28 bit 2 / FFF88E2A bit 0 are clear, else 16384 (x1.0). FFF8AEA2 divides the external (CAN) torque limit in 0x0BB1AC: limit = 16000 + FFF88DF6 x 160 x 16384 / FFF8AEA2 (read; the limit byte is inferred to come from another controller, my research notes); FFF8AEA0 goes to 0x116158. The product is the air density relative to 101.3 kPa and 25 degC. p16 (read): FFF88DF6 = CAN 0x149 byte 4 (mailbox 1, TCM frame group: decoding gated by the U0101/U0402 status and forced off by the MT coding FFF886AB b7, which then loads cal 0x572D0), decoder 0x085D20. Confidence: inferred.</description>
  </table>
  <table name="Cylinder Cut Torque Ratio (1 Cylinder)" category="04.02 Torque &amp; Throttle - Torque Limits &amp; Engine Protection" type="1D" level="4" scaling="% of unreduced torque uint8">
   <description>When a cut state asks for less torque than this share of the engine's current torque, one cylinder in four is cut. Also sets the first decel fuel cut stage.</description>
@@ -50283,39 +50410,51 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
 
 Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EGR rate A818 (0x0FA10C, read), indexed by rpm FFF8CD54 and throttle position FFF8CD77 (about 0.56 % per count, see below) instead of load. Target EGR rate (0x0FA260, read): FFF8A81A = base A817 x Coolant Multiplier 05CB04/255 x 255/255 (A816) x Reduction Multiplier A81C/255 x DAM Multiplier 05CB10/128, x 640 (1/640 units), capped at cal 0x2C4E6 (192 = 30 %) and forced to 0 unless the enable conditions FFF8A811 bit 0 hold (0x0FAAFC). A817 follows the base table A818 (0x0FA068). Multi-injection = FFF8A775 bit 1, set by 0x0FAABC when the multi-injection enable FFF8A775 bit 0 is set and all four per-injector strategy bytes FFF8A69F..A6A2 are 2 or 3 (read). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). p16 (read): second axis FFF8CD77 = (ETC throttle position FFF8A342 - 10)/4 = (ETC actual position FFF8A2B6 - 1000)/256 (0x09D58E, 0x09DAAE, 0x0A0680, 0x06AB94): a throttle-position byte, about 0.56 % per count (inferred). Confidence: inferred.</description>
  </table>
- <table name="EGR Target Rate Tip-Out Limit (TGV Open)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="4" scaling="% EGR uint8">
+ <table name="EGR Target Rate Tip-Out Limit (TGV Open)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="5" scaling="% EGR uint8">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8" />
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
-  <description>Cap on the target EGR rate for a short time after a pedal tip-out (inferred), by rpm and load, TGVs open.</description>
+  <description>Cap on the target EGR rate for a short time after a pedal tip-out (inferred), by rpm and load, TGVs open.
+
+Transient cap A819 (0x0FA1F8, rpm FFF8CD54 x load FFF8A616, read): while the flag is set, the ramped target A817 = min(this, base target) for EGR Tip-Out Limit Duration passes, then ramps back up by cal 0x2D6CE per pass (0x0FA068, read). The flag is set when FFF8AF00 (pedal, per my research notes) is at or below cal 0x2D2A8 and has fallen by at least cal 0x2D2AA against a sample from cal 0x2D2AC passes earlier (read), i.e. a pedal tip-out (inferred). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). Confidence: inferred.</description>
  </table>
- <table name="EGR Target Rate Tip-Out Limit (TGV Closed)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="4" scaling="% EGR uint8">
+ <table name="EGR Target Rate Tip-Out Limit (TGV Closed)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="5" scaling="% EGR uint8">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8" />
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
-  <description>Cap on the target EGR rate for a short time after a pedal tip-out (inferred), by rpm and load, TGVs closed.</description>
+  <description>Cap on the target EGR rate for a short time after a pedal tip-out (inferred), by rpm and load, TGVs closed.
+
+Transient cap A819 (0x0FA1F8, rpm FFF8CD54 x load FFF8A616, read): while the flag is set, the ramped target A817 = min(this, base target) for EGR Tip-Out Limit Duration passes, then ramps back up by cal 0x2D6CE per pass (0x0FA068, read). The flag is set when FFF8AF00 (pedal, per my research notes) is at or below cal 0x2D2A8 and has fallen by at least cal 0x2D2AA against a sample from cal 0x2D2AC passes earlier (read), i.e. a pedal tip-out (inferred). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). Confidence: inferred.</description>
  </table>
- <table name="EGR Target Rate Tip-Out Limit (TGV Open, Multi-Injection)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="4" scaling="% EGR uint8">
+ <table name="EGR Target Rate Tip-Out Limit (TGV Open, Multi-Injection)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="5" scaling="% EGR uint8">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8" />
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
-  <description>Multi-injection version of the TGV-open EGR tip-out cap.</description>
+  <description>Multi-injection version of the TGV-open EGR tip-out cap.
+
+Transient cap A819 (0x0FA1F8, rpm FFF8CD54 x load FFF8A616, read): while the flag is set, the ramped target A817 = min(this, base target) for EGR Tip-Out Limit Duration passes, then ramps back up by cal 0x2D6CE per pass (0x0FA068, read). The flag is set when FFF8AF00 (pedal, per my research notes) is at or below cal 0x2D2A8 and has fallen by at least cal 0x2D2AA against a sample from cal 0x2D2AC passes earlier (read), i.e. a pedal tip-out (inferred). Multi-injection = FFF8A775 bit 1, set by 0x0FAABC when the multi-injection enable FFF8A775 bit 0 is set and all four per-injector strategy bytes FFF8A69F..A6A2 are 2 or 3 (read). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). Confidence: inferred.</description>
  </table>
- <table name="EGR Target Rate Tip-Out Limit (TGV Closed, Multi-Injection)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="4" scaling="% EGR uint8">
+ <table name="EGR Target Rate Tip-Out Limit (TGV Closed, Multi-Injection)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="5" scaling="% EGR uint8">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8" />
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
-  <description>Multi-injection version of the TGV-closed EGR tip-out cap.</description>
+  <description>Multi-injection version of the TGV-closed EGR tip-out cap.
+
+Transient cap A819 (0x0FA1F8, rpm FFF8CD54 x load FFF8A616, read): while the flag is set, the ramped target A817 = min(this, base target) for EGR Tip-Out Limit Duration passes, then ramps back up by cal 0x2D6CE per pass (0x0FA068, read). The flag is set when FFF8AF00 (pedal, per my research notes) is at or below cal 0x2D2A8 and has fallen by at least cal 0x2D2AA against a sample from cal 0x2D2AC passes earlier (read), i.e. a pedal tip-out (inferred). Multi-injection = FFF8A775 bit 1, set by 0x0FAABC when the multi-injection enable FFF8A775 bit 0 is set and all four per-injector strategy bytes FFF8A69F..A6A2 are 2 or 3 (read). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). Confidence: inferred.</description>
  </table>
  <table name="EGR Tip-Out Limit Duration" category="08.01 EGR &amp; TGV - EGR" type="2D" level="4" scaling="s uint16 #2">
   <table name="Pressure" type="Y Axis" elements="8" scaling="kPa abs uint16 #2" />
   <description>How long, by manifold pressure, the EGR tip-out cap is held after a pedal tip-out.</description>
  </table>
- <table name="EGR Timing Advance (Multi-Injection, TGV Closed)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="4" scaling="degrees uint8">
+ <table name="EGR Timing Advance (Multi-Injection, TGV Closed)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="5" scaling="degrees uint8">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint16" />
   <table name="Engine Speed" type="Y Axis" elements="22" scaling="RPM uint16" />
-  <description>Multi-injection copy of EGR Timing Advance (TGV Closed).</description>
+  <description>Multi-injection copy of EGR Timing Advance (TGV Closed).
+
+Details: When used: only while FFF8A775 bit 2 is set. TGV-closed side. 0x0DC97C / 0x0DD0DC (read): v = TGV open fraction FFF8B3E8, each table read as x/2 - 64 degrees;; stored as 2 x deg + 128 in FFF8A763 (single injection) / FFF8A767. FFF8A769 = FFF8A767 when FFF8A775 bit 2 is set (all four injectors in a 2- or 3-injection strategy, 0x0FAABC), else FFF8A763 (0x0DD454, read). FFF8A769 enters the timing request FFF8A78A (0x0E0A30) and the alternate final-timing value FFF8A733 of 0x0D9E40 (read). Through the request it reaches the fired timing wherever Primary Ignition + this + KCA + FLKC is below the Base Timing (EGR Active) map: 0x0C13B4 -&gt; FFF8AF22 -&gt; 0x0C39DC / 0x0DD568 give fired base = min(Base Timing + comps, request + KCA + FLKC) (read; min() form computed). It can never lift the fired timing above the Base Timing (EGR Active) maps. Axes rpm FFF8CD54 x load FFF8ADE4 (400-6400 rpm, 10-240 %; rows above 32768 are padding). Confidence: read.</description>
  </table>
- <table name="EGR Timing Advance (Multi-Injection, TGV Open)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="4" scaling="degrees uint8">
+ <table name="EGR Timing Advance (Multi-Injection, TGV Open)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="5" scaling="degrees uint8">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint16" />
   <table name="Engine Speed" type="Y Axis" elements="22" scaling="RPM uint16" />
-  <description>Multi-injection copy of EGR Timing Advance (TGV Open).</description>
+  <description>Multi-injection copy of EGR Timing Advance (TGV Open).
+
+Details: When used: only while FFF8A775 bit 2 is set. TGV-open side. 0x0DC97C / 0x0DD0DC (read): v = TGV open fraction FFF8B3E8, each table read as x/2 - 64 degrees;; stored as 2 x deg + 128 in FFF8A763 (single injection) / FFF8A767. FFF8A769 = FFF8A767 when FFF8A775 bit 2 is set (all four injectors in a 2- or 3-injection strategy, 0x0FAABC), else FFF8A763 (0x0DD454, read). FFF8A769 enters the timing request FFF8A78A (0x0E0A30) and the alternate final-timing value FFF8A733 of 0x0D9E40 (read). Through the request it reaches the fired timing wherever Primary Ignition + this + KCA + FLKC is below the Base Timing (EGR Active) map: 0x0C13B4 -&gt; FFF8AF22 -&gt; 0x0C39DC / 0x0DD568 give fired base = min(Base Timing + comps, request + KCA + FLKC) (read; min() form computed). It can never lift the fired timing above the Base Timing (EGR Active) maps. Axes rpm FFF8CD54 x load FFF8ADE4 (400-6400 rpm, 10-240 %; rows above 32768 are padding). Confidence: read.</description>
  </table>
  <table name="TGV Torque Threshold Enter (Drive Modes 1/4, Default/Sport Sharp)" category="08.02 EGR &amp; TGV - TGV" type="2D" level="3" scaling="Nm uint16">
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
@@ -50559,13 +50698,17 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="Y Axis" type="Y Axis" elements="16" scaling="Nm uint16 #2" />
   <description>Correction, by the gap between the stability control (VDC) torque request and actual engine torque, that sets how tightly the ECU limits target torque during a VDC torque reduction (VDC meaning inferred).</description>
  </table>
- <table name="Brake Booster Vacuum Model Maximum" category="09.02 Vehicle Functions - Brake Override &amp; VDC" type="2D" level="4" scaling="kPa uint16 #2">
+ <table name="Brake Booster Vacuum Model Maximum" category="09.02 Vehicle Functions - Brake Override &amp; VDC" type="2D" level="5" scaling="kPa uint16 #2">
   <table name="Barometric Pressure" type="Y Axis" elements="5" scaling="kPa abs uint16" />
-  <description>Upper limit, by barometric pressure, of a modelled brake-booster vacuum.</description>
+  <description>Upper limit, by barometric pressure, of a modelled brake-booster vacuum.
+
+Brake override module 0x181B38 (10 ms task 0x1DFE3C, read): it limits the accelerator pedal that feeds the torque request, FFF88A5E = min(pedal FFF88EE6, limit FFF8BAFA) (0x09E800, read), when the brake is applied while the accelerator is held. Brake detection: VDC CAN frame 0x0D1 byte 2 (FFF88DF9, slew-limited 8/pass into FFF8AC94; brake pressure, inferred) against a threshold, or discrete input FFF88E2F bit 3 (pin PF10; brake switch, inferred) when the pressure signal is not valid (FFF8AC8F bit 4 clear). Vehicle speed FFF8AC95 = km/h from the wheel speeds or FFF88BE8 x 9/160 (0x182E34, read). The module sets no DTC (no DTC monitor record points at its RAM, read). 0x182B28 (read, all stack args checked in the assembly) has three sources for the booster vacuum FFF8BAFC: cal 0x57585 bit 5 set = baro - analog pressure input FFF88D10; else bit 6 = fixed cal 0x43402 (50 kPa); else a model from manifold vacuum baro FFF88668 - MAP FFF88A34: while not braking at low manifold vacuum (FFF8AC90 bit 3 clear) the estimate is filtered (cal 0x43406) up towards the manifold vacuum as long as it is below this(baro); during braking it is reduced by 253 x 13/100 per count of brake-pressure rise (FFF8AC93 - FFF8AC92). Confidence: read.</description>
  </table>
- <table name="Brake Booster Vacuum Model Manifold Threshold" category="09.02 Vehicle Functions - Brake Override &amp; VDC" type="2D" level="4" scaling="kPa (MAP - baro) uint16">
+ <table name="Brake Booster Vacuum Model Manifold Threshold" category="09.02 Vehicle Functions - Brake Override &amp; VDC" type="2D" level="5" scaling="kPa (MAP - baro) uint16">
   <table name="Barometric Pressure" type="Y Axis" elements="5" scaling="kPa abs uint16" />
-  <description>Manifold-vacuum threshold, by barometric pressure, for a brake-booster vacuum model.</description>
+  <description>Manifold-vacuum threshold, by barometric pressure, for a brake-booster vacuum model.
+
+Brake override module 0x181B38 (10 ms task 0x1DFE3C, read): it limits the accelerator pedal that feeds the torque request, FFF88A5E = min(pedal FFF88EE6, limit FFF8BAFA) (0x09E800, read), when the brake is applied while the accelerator is held. Brake detection: VDC CAN frame 0x0D1 byte 2 (FFF88DF9, slew-limited 8/pass into FFF8AC94; brake pressure, inferred) against a threshold, or discrete input FFF88E2F bit 3 (pin PF10; brake switch, inferred) when the pressure signal is not valid (FFF8AC8F bit 4 clear). Vehicle speed FFF8AC95 = km/h from the wheel speeds or FFF88BE8 x 9/160 (0x182E34, read). The module sets no DTC (no DTC monitor record points at its RAM, read). 0x18390C (read): FFF8AC90 bit 3 = brake pressure FFF8AC94 &gt;= cal 0x435BD (1) and FFF88A38 &gt;= this(baro FFF88668) - 12800 (FFF88A38 = (MAP - baro)/2, so MAP - baro &gt;= (this - 12800)/128 kPa), i.e. braking with too little manifold vacuum to recharge the booster. Bit 3 feeds only the brake-pressure latches FFF8AC92 / FFF8AC93 / FFF8BAFE and the manifold-vacuum model of 0x182B28, whose results are unused while cal 0x57585 bit 5 is set and FFF8BB00 has no reader (read, grep). Confidence: read.</description>
  </table>
  <table name="Charging Target Voltage (Normal)" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="2" scaling="V uint16 #3">
   <description>The charging voltage the ECU aims for in normal running.</description>
@@ -50616,6 +50759,13 @@ With cal 0x1D0AE bit 0 set, 0x0F8AAC (read) uses this when received byte FFF88BA
  <table name="Battery Capacity" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="3" scaling="Ah uint8">
   <description>Battery capacity the ECU uses to turn charge and discharge current into state of charge.</description>
  </table>
+ <table name="Charge Control Delay After Start (State of Charge)" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="2D" level="4" scaling="s uint16 #4">
+  <table name="Y Axis" type="Y Axis" elements="8" scaling="% uint16 #3" />
+  <description>After some starts the charge-control delay comes from this table instead, by the estimated state of charge at start: a low battery gets a long normal-charging period first.</description>
+ </table>
+ <table name="Charge Control Delay After Start" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="3" scaling="s uint16 #4">
+  <description>Charge control (the battery-charged decision and adaptive charging) only starts this long after the engine starts; until then the alternator charges to the normal target.</description>
+ </table>
  <table name="Battery Charge Efficiency (Charging)" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="2D" level="4" scaling="% uint8">
   <table name="Y Axis" type="Y Axis" elements="14" scaling="raw uint16" />
   <description>How much of the charging current the state-of-charge estimate counts, by battery-sensor value.</description>
@@ -50652,6 +50802,48 @@ Details: Compared with FFF81848, the integral of charging current while in mode 
   <description>Radiator fan duty by coolant, used when an unidentified driving-condition flag is set.
 
 With cal 0x1D0AE bit 0 set, 0x0F8AAC (read) uses this when FFF88BAA &lt; 148 and FFF8A807 bit 5 is set (0x0F8F98: a condition built from the A/C state, vehicle speed, rpm, load, IAT and SI-Drive mode; not identified); on threshold cal 0x3439C (98 C), full at cal 0x343A0 (101 C). Radiator fan module 0x0F7618 (40 ms task, read): the fan stage FFF8A805 (0/1/2) drives timer E channel 10 fully on for stage &gt;= 1 (FFF9981C bit 0, 0x0F8F08 -&gt; 0x1E417C -&gt; 0x1D9B8E) and port PF6 for stage 2 (FFF9981C bit 4, 0x0F8E70 -&gt; 0x1D4E56 -&gt; PFDR), and feeds the idle air (0x0ECE60, 0x0F5248) and torque adders (0x0C2B2C); the stages follow coolant and the A/C request (0x0F8764), so a two-relay radiator fan (inferred). With the bit set, A805 = stage from the duty FFF8B278 (0x0F7EC4: stage 1 from 40 %, stage 2 from 70 %). Confidence: read.</description>
+ </table>
+ <table name="Adaptive Charging Target Current" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="2D" level="3" scaling="A int32">
+  <table name="Y Axis" type="Y Axis" elements="16" scaling="% uint16 #3" />
+  <description>During adaptive charging the ECU steers the charging voltage so the battery takes this current, by state of charge: positive charges, negative lets the battery discharge.</description>
+ </table>
+ <table name="Adaptive Charging Current Gain" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="4" scaling="raw uint16">
+  <description>How strongly adaptive charging moves its voltage target to reach the target battery current.</description>
+ </table>
+ <table name="Adaptive Charging Integral Deadband Above" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="5" scaling="A uint16">
+  <description>Battery current may be this far above the target before the adaptive integral steps down.
+
+Details: 0x137E7C, mode 5 only (read). Confidence: read.</description>
+ </table>
+ <table name="Adaptive Charging Integral Deadband Below" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="5" scaling="A uint16">
+  <description>Battery current may be this far below the target before the adaptive integral steps up.
+
+Details: 0x137E7C, mode 5 only (read). Confidence: read.</description>
+ </table>
+ <table name="Adaptive Charging Integral Step Down" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="5" scaling="raw uint16">
+  <description>Integral step each 40 ms pass while the battery current is above the target.
+
+Details: 0x137E7C (read). Confidence: read.</description>
+ </table>
+ <table name="Adaptive Charging Integral Step Up" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="5" scaling="raw uint16">
+  <description>Integral step each 40 ms pass while the battery current is below the target.
+
+Details: 0x137E7C (read). Confidence: read.</description>
+ </table>
+ <table name="Adaptive Charging Integral Gain" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="5" scaling="raw uint16">
+  <description>Converts the adaptive integral into a voltage correction (mV per count x 1000).
+
+Details: B6FA = integral x this / 1000 mV (0x137E7C, read). Confidence: read.</description>
+ </table>
+ <table name="Adaptive Charging Integral Maximum" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="5" scaling="raw int16">
+  <description>Upper clamp of the adaptive integral (counts).
+
+Details: 0x137E7C (read). Confidence: read.</description>
+ </table>
+ <table name="Adaptive Charging Integral Minimum" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="5" scaling="raw int16">
+  <description>Lower clamp of the adaptive integral (counts).
+
+Details: 0x137E7C (read). Confidence: read.</description>
  </table>
  <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="2D" level="5" scaling="% duty uint16 #3">
   <table name="Coolant Temp" type="Y Axis" elements="9" scaling="degrees C uint16" />
@@ -50733,24 +50925,32 @@ With cal 0x1D0AE bit 0 set, 0x0F70B4 (read) sets B270 = 0 below FFF88B8F 68 (54 
   <table name="Gear" type="Y Axis" elements="8" scaling="gear index uint8" />
   <description>Alternate road speed per 1000 rpm for each gear, used only by the gear advice function. The values do not match the 6MT and probably belong to another transmission.</description>
  </table>
- <table name="Gear Advice Consumption Map" category="09.04 Vehicle Functions - CAN-side" type="3D" level="4" scaling="g/kWh (inferred) uint16">
+ <table name="Gear Advice Consumption Map" category="09.04 Vehicle Functions - CAN-side" type="3D" level="5" scaling="g/kWh (inferred) uint16">
   <table name="Engine Speed" type="X Axis" elements="20" scaling="RPM uint16" />
   <table name="Y Axis" type="Y Axis" elements="20" scaling="Nm uint16" />
-  <description>Fuel consumption map by torque and rpm (probably g/kWh) for a gear-shift advice function that picks the most economical gear. One table edits all three copies.</description>
+  <description>Fuel consumption map by torque and rpm (probably g/kWh) for a gear-shift advice function that picks the most economical gear. One table edits all three copies.
+
+Gear advice module 0x116A0C. With the bit set it takes the current power (torque x rpm / 9549.3), the engine speed in the gear below (FFF8B434, gear FFF8A8BA = gear - 1, 0x114360) and in the gear above (FFF8B436, gear FFF8A8BC = gear + 1, 0x1143CC), looks up the consumption map at the three points and advises the gear with the lowest value (FFF85678 / FFF85679, biases cal 0x36E4E/0x36E50 = 3 %). 'Alternate' tables are used when FFF8A8C3 = 2. Descriptors 05D4D8, 05D504 and 05D518 share this data block (037352): 05D4D8 at the current torque FFF8B468 = DAM-blended torque FFF8B48A - FFF8A8CC x 128 (0x1161DC) and rpm, 05D504 / 05D518 at the torque needed for the same power in the lower / upper gear (read). One entry edits all three. Confidence: inferred.</description>
  </table>
- <table name="Gear Advice Downshift Maximum RPM (Alternate)" category="09.04 Vehicle Functions - CAN-side" type="2D" level="4" scaling="RPM uint16">
+ <table name="Gear Advice Downshift Maximum RPM (Alternate)" category="09.04 Vehicle Functions - CAN-side" type="2D" level="5" scaling="RPM uint16">
   <table name="Gear" type="Y Axis" elements="8" scaling="gear index uint8" />
-  <description>Alternate rpm limit, by gear, below which a downshift may be advised by the gear advice function.</description>
+  <description>Alternate rpm limit, by gear, below which a downshift may be advised by the gear advice function.
+
+Details: When used: instead of 05D5B8 when FFF8A8C3 = 2. Gear advice module 0x116A0C. With the bit set it takes the current power (torque x rpm / 9549.3), the engine speed in the gear below (FFF8B434, gear FFF8A8BA = gear - 1, 0x114360) and in the gear above (FFF8B436, gear FFF8A8BC = gear + 1, 0x1143CC), looks up the consumption map at the three points and advises the gear with the lowest value (FFF85678 / FFF85679, biases cal 0x36E4E/0x36E50 = 3 %). 'Alternate' tables are used when FFF8A8C3 = 2. 0x116A0C (read): FFF85648 = this(lower gear FFF8A8BA); the lower gear is advised (FFF85679 = 1) only if its engine speed FFF8B434 &lt;= FFF85648. 05D5B8 (normal) is 31232 = 6100 rpm for every gear. Confidence: inferred.</description>
  </table>
- <table name="Gear Advice Upshift Minimum RPM" category="09.04 Vehicle Functions - CAN-side" type="3D" level="4" scaling="RPM uint16">
+ <table name="Gear Advice Upshift Minimum RPM" category="09.04 Vehicle Functions - CAN-side" type="3D" level="5" scaling="RPM uint16">
   <table name="Gear" type="X Axis" elements="8" scaling="gear index uint8" />
   <table name="Accelerator Pedal" type="Y Axis" elements="8" scaling="% uint16" />
-  <description>Minimum rpm in the next gear up, by pedal and gear, for an upshift to be advised by the gear advice function.</description>
+  <description>Minimum rpm in the next gear up, by pedal and gear, for an upshift to be advised by the gear advice function.
+
+Details: When used: 05D5E4 replaces it when FFF8A8C3 = 2. Gear advice module 0x116A0C. With the bit set it takes the current power (torque x rpm / 9549.3), the engine speed in the gear below (FFF8B434, gear FFF8A8BA = gear - 1, 0x114360) and in the gear above (FFF8B436, gear FFF8A8BC = gear + 1, 0x1143CC), looks up the consumption map at the three points and advises the gear with the lowest value (FFF85678 / FFF85679, biases cal 0x36E4E/0x36E50 = 3 %). 'Alternate' tables are used when FFF8A8C3 = 2. 0x116A0C (read, lookup by pedal FFF88A5E and upper gear FFF8A8BC): FFF85646 = this; the upper gear is advised only if its engine speed FFF8B436 &gt;= FFF85646. Confidence: inferred.</description>
  </table>
- <table name="Gear Advice Upshift Minimum RPM (Alternate)" category="09.04 Vehicle Functions - CAN-side" type="3D" level="4" scaling="RPM uint16">
+ <table name="Gear Advice Upshift Minimum RPM (Alternate)" category="09.04 Vehicle Functions - CAN-side" type="3D" level="5" scaling="RPM uint16">
   <table name="Gear" type="X Axis" elements="8" scaling="gear index uint8" />
   <table name="Accelerator Pedal" type="Y Axis" elements="8" scaling="% uint16" />
-  <description>Alternate minimum rpm in the next gear up, by pedal and gear, for an upshift to be advised by the gear advice function.</description>
+  <description>Alternate minimum rpm in the next gear up, by pedal and gear, for an upshift to be advised by the gear advice function.
+
+Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x116A0C. With the bit set it takes the current power (torque x rpm / 9549.3), the engine speed in the gear below (FFF8B434, gear FFF8A8BA = gear - 1, 0x114360) and in the gear above (FFF8B436, gear FFF8A8BC = gear + 1, 0x1143CC), looks up the consumption map at the three points and advises the gear with the lowest value (FFF85678 / FFF85679, biases cal 0x36E4E/0x36E50 = 3 %). 'Alternate' tables are used when FFF8A8C3 = 2. 0x116A0C (read): FFF85646 = this(pedal FFF88A5E, upper gear FFF8A8BC); the upper gear is advised only if its engine speed FFF8B436 &gt;= FFF85646. Confidence: inferred.</description>
  </table>
  <table name="MAF Sensor Scaling" category="10 Sensors" type="2D" level="1" scaling="g/s uint32 #2">
   <table name="MAF Sensor Voltage (V)" type="Static Y Axis" elements="64">

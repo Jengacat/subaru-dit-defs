@@ -265,12 +265,9 @@
   <table name="Engine Load" address="01205c" />
   <table name="Engine Speed" address="012070" />
  </table>
- <table name="Primary Open Loop Fueling (TGV/AVCS Group, Alternate)" address="013db5" level="5">
+ <table name="Primary Open Loop Fueling (TGV/AVCS Group, Alternate)" address="013db5">
   <table name="Engine Load" address="01205c" />
   <table name="Engine Speed" address="012070" />
-  <description>Replacement for the TGV/AVCS open-loop group plus its knock additive, used only with the 'Use Alternate Map' calibration switch set.
-
-Details: When used: only with cal 0x2F79A bit 4 set and DAM16 FFF811AE &lt; cal 0x1391C (16). Replaces the TGV/AVCS blend plus knock additive in FFF8A681. 0x0CE5E8 (read; called from 0x0C589C with rpm FFF8CD54, load FFF8A616, cal 0x2F79A bit 4, DAM FFF811AE, AVCS weight FFF8A743 and TGV open fraction FFF8B3E8): TGV-closed base = 05ABB0 x (255 - a)/255 + 05ABD8 x a/255, TGV-open base = 05ABC4 x (255 - a)/255 + 05ABEC x a/255, where a = FFF8A743 is the AVCS-active weight from 0x0D952C (255 while both cam controllers are in active control, my research notes); blend FFF8A69B = closed x (1 - FFF8B3E8) + open x FFF8B3E8. With cal 0x2F79A bit 4 clear. With the bit set: Alternate (+ cal 0x13DCD) while DAM16 &lt; cal 0x1391C (16), else blend + cal 0x13DCD. 0x0CEA80 (read) then takes FFF8A681 (only once FFF8AFD6 &gt;= FFF8AFE6, the open-loop delay, and when &gt;= cal 0x13DD0 = 5), scales it by cal 0x237CA/128 (x1.0), rate-limits its rise by 05ACD4(rpm) and sets FFF8A684 = max(that, FFF8A682), FFF8A682 being Primary Open Loop Fueling from 0x0CE854. FFF8A684 is the open-loop enrichment in commanded lambda 256/(256 + B030 + A684 + AFE8) (0x171C88). So the commanded open-loop mixture is the richer of the two systems: to lean the target, lower this group as well as Primary Open Loop Fueling; to richen, raise this group (Primary Open Loop Fueling alone only takes effect while its exhaust-temperature enable holds: 0x0CE854 sets FFF8A683 to 0 unless FFF8AFD0 &gt;= cal 0x18DD4 or FFF8C03C &gt;= cal 0x18DD8, read). Confidence: inferred.</description>
  </table>
  <table name="Additional Enrichment A" address="015992" level="4">
   <table name="Engine Load" address="01205c" />
@@ -1063,16 +1060,18 @@ Details: When used: only with cal 0x2F79A bit 4 set and DAM16 FFF811AE &lt; cal 
  <table name="Decel Fuel Cut Resume RPM Adder (A/C, Alternate)" address="02567b">
   <table name="Y Axis" address="025673" />
  </table>
- <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C Off)" address="0289a4">
+ <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C Off)" address="0289a4" level="4">
   <table name="Cut Count" address="028730" />
   <table name="Y Axis" address="02872a" />
+  <description>Alternate decel fuel cut staging (A/C off).</description>
  </table>
  <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C On)" address="028854">
   <table name="Cut Count" address="028730" />
   <table name="Y Axis" address="02872a" />
  </table>
- <table name="Decel Fuel Cut Full-Cut Shortcut Hold" address="02a3fc">
+ <table name="Decel Fuel Cut Full-Cut Shortcut Hold" address="02a3fc" level="4">
   <table name="Engine Speed" address="02a40c" />
+  <description>Time, by rpm, after which all cylinders would be cut at once under unidentified conditions.</description>
  </table>
  <table name="Purge Rate Limit (Off-Idle)" address="02d37e">
   <table name="Y Axis" address="02d35e" />
@@ -1456,62 +1455,62 @@ Details: Feedback knock correction (0x0E2BE4, read): FFF8A79A is an s8 integrato
   <table name="Engine Speed" address="03187a" />
   <description>Knock signal processing for event slot 4, channel 6 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
- <table name="Knock Background Window Step (Event 1, Channel 1)" address="03188a">
+ <table name="Knock Background Window Step (Event 1, Channel 1)" address="03188a" level="4">
   <table name="Engine Load" address="031882" />
   <table name="Engine Speed" address="03187a" />
   <description>Knock-detection background step for event slot 1, frequency channel 1.</description>
  </table>
- <table name="Knock Background Window Step (Event 1, Channel 7)" address="031b8a">
+ <table name="Knock Background Window Step (Event 1, Channel 7)" address="031b8a" level="4">
   <table name="Engine Load" address="031882" />
   <table name="Engine Speed" address="03187a" />
   <description>Knock-detection background step for event slot 1, frequency channel 7.</description>
  </table>
- <table name="Knock Background Window Step (Event 1, Channel 8)" address="031c0a">
+ <table name="Knock Background Window Step (Event 1, Channel 8)" address="031c0a" level="4">
   <table name="Engine Load" address="031882" />
   <table name="Engine Speed" address="03187a" />
   <description>Knock-detection background step for event slot 1, frequency channel 8.</description>
  </table>
- <table name="Knock Background Window Step (Event 2, Channel 1)" address="031c8a">
+ <table name="Knock Background Window Step (Event 2, Channel 1)" address="031c8a" level="4">
   <table name="Engine Load" address="031882" />
   <table name="Engine Speed" address="03187a" />
   <description>Knock-detection background step for event slot 2, frequency channel 1.</description>
  </table>
- <table name="Knock Background Window Step (Event 2, Channel 7)" address="031f8a">
+ <table name="Knock Background Window Step (Event 2, Channel 7)" address="031f8a" level="4">
   <table name="Engine Load" address="031882" />
   <table name="Engine Speed" address="03187a" />
   <description>Knock-detection background step for event slot 2, frequency channel 7.</description>
  </table>
- <table name="Knock Background Window Step (Event 2, Channel 8)" address="03200a">
+ <table name="Knock Background Window Step (Event 2, Channel 8)" address="03200a" level="4">
   <table name="Engine Load" address="031882" />
   <table name="Engine Speed" address="03187a" />
   <description>Knock-detection background step for event slot 2, frequency channel 8.</description>
  </table>
- <table name="Knock Background Window Step (Event 3, Channel 1)" address="03208a">
+ <table name="Knock Background Window Step (Event 3, Channel 1)" address="03208a" level="4">
   <table name="Engine Load" address="031882" />
   <table name="Engine Speed" address="03187a" />
   <description>Knock-detection background step for event slot 3, frequency channel 1.</description>
  </table>
- <table name="Knock Background Window Step (Event 3, Channel 7)" address="03238a">
+ <table name="Knock Background Window Step (Event 3, Channel 7)" address="03238a" level="4">
   <table name="Engine Load" address="031882" />
   <table name="Engine Speed" address="03187a" />
   <description>Knock-detection background step for event slot 3, frequency channel 7.</description>
  </table>
- <table name="Knock Background Window Step (Event 3, Channel 8)" address="03240a">
+ <table name="Knock Background Window Step (Event 3, Channel 8)" address="03240a" level="4">
   <table name="Engine Load" address="031882" />
   <table name="Engine Speed" address="03187a" />
   <description>Knock-detection background step for event slot 3, frequency channel 8.</description>
  </table>
- <table name="Knock Background Window Step (Event 4, Channel 1)" address="03248a">
+ <table name="Knock Background Window Step (Event 4, Channel 1)" address="03248a" level="4">
   <table name="Engine Load" address="031882" />
   <table name="Engine Speed" address="03187a" />
   <description>Knock-detection background step for event slot 4, frequency channel 1.</description>
  </table>
- <table name="Knock Background Window Step (Event 4, Channel 7)" address="03278a">
+ <table name="Knock Background Window Step (Event 4, Channel 7)" address="03278a" level="4">
   <table name="Engine Load" address="031882" />
   <table name="Engine Speed" address="03187a" />
   <description>Knock-detection background step for event slot 4, frequency channel 7.</description>
  </table>
- <table name="Knock Background Window Step (Event 4, Channel 8)" address="03280a">
+ <table name="Knock Background Window Step (Event 4, Channel 8)" address="03280a" level="4">
   <table name="Engine Load" address="031882" />
   <table name="Engine Speed" address="03187a" />
   <description>Knock-detection background step for event slot 4, frequency channel 8.</description>
@@ -1688,8 +1687,9 @@ Details: Feedback knock correction (0x0E2BE4, read): FFF8A79A is an s8 integrato
   <table name="Engine Speed" address="03c8c8" />
   <table name="Y Axis" address="03c8b4" />
  </table>
- <table name="A/C Cut Timing Retard Step (Alternate Logic)" address="03bef2">
+ <table name="A/C Cut Timing Retard Step (Alternate Logic)" address="03bef2" level="4">
   <table name="Y Axis" address="03bed9" />
+  <description>Alternate A/C-switch timing retard amount, by an unidentified input.</description>
  </table>
  <table name="Torque Reduction Spark Retard" address="03be1c">
   <table name="Y Axis" address="03bdfc" />
@@ -3585,10 +3585,10 @@ Details: When used: while open-loop enrichment is active (FFF8ABF4 != 0) and FFF
   <table name="Vehicle Speed" address="044108" />
  </table>
  <table name="TGV Open Fraction from Position (Closing)" address="0440e4">
-  <table name="TGV Position Sensor" address="0440cc" />
+  <table name="Y Axis" address="0440cc" />
  </table>
  <table name="TGV Open Fraction from Position (Opening)" address="0440d8">
-  <table name="TGV Position Sensor" address="0440cc" />
+  <table name="Y Axis" address="0440cc" />
  </table>
  <table name="TGV Motor Duty Compensation" address="04402e">
   <table name="Battery Voltage" address="04402a" />
@@ -3767,7 +3767,14 @@ Details: When used: while open-loop enrichment is active (FFF8ABF4 != 0) and FFF
  <table name="Battery Charge Efficiency (Discharging)" address="046012">
   <table name="Y Axis" address="045e32" />
  </table>
+ <table name="Charge Control Delay After Start (SOC, Battery Sensor)" address="046ed2">
+  <table name="X Axis" address="0468b6" />
+  <table name="Y Axis" address="0468b0" />
+ </table>
  <table name="Battery State of Charge Reset Value" address="0468a0" />
+ <table name="Charge Control Charge After Start (SOC)" address="046ee4">
+  <table name="Y Axis" address="0468bc" />
+ </table>
  <table name="Battery Charged SOC Threshold" address="045e5e" />
  <table name="Battery Charged SOC Hysteresis" address="045e60" />
  <table name="Battery Charged Check Window" address="045e50" />

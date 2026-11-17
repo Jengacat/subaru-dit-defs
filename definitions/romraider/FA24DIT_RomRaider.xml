@@ -205,7 +205,8 @@
     <scaling category="degC" units="degrees C" expression="x-50" to_byte="x+50" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <table type="Y Axis" name="FFF88A9D (unidentified)" storagetype="uint8" endian="big" storageaddress="0x046f6d">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling category="Default" units="degrees F" expression="(x-50)*1.8+32" to_byte="(x-32)/1.8+50" format="0" fineincrement="2" coarseincrement="8.0" />
+    <scaling category="degrees C" units="degrees C" expression="x-50" to_byte="x+50" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <description>Scaling (255 = x1.0) for Target Rail Pressure Additive, by an unidentified input and what is probably intake air temperature.</description>
   </table>
@@ -272,7 +273,7 @@
    <description>Open-loop high-pressure pump command (a crank angle) by fuel quantity and rpm; the pressure controller adds its correction on top. Lower angles appear to mean more pump delivery. The fuel-quantity axis is in microseconds of injector pulse, so it must be rescaled when Injector Scaling changes.</description>
   </table>
   <table type="2D" name="HPFP Proportional Gain" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x046f3c">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="gain" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Engine Speed" storagetype="uint8" endian="big" storageaddress="0x046f06">
     <scaling units="RPM" expression="x*50" to_byte="x/50" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
@@ -286,7 +287,7 @@
    <description>Ceiling on the base fuel quantity, the stoichiometric fuel the ECU calculates from measured air before any enrichment. Its meaning in air depends on Injector Scaling. Raise it in proportion when you raise Injector Scaling, or the engine will run lean at high airflow.</description>
   </table>
   <table type="2D" name="HPFP Integral Step" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x046f1c">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="gain" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Engine Speed" storagetype="uint8" endian="big" storageaddress="0x046f06">
     <scaling units="RPM" expression="x*50" to_byte="x/50" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
@@ -811,7 +812,7 @@
    <description>Richest target allowed in closed loop: if the target is richer than this, the ECU switches to open loop.</description>
   </table>
   <table type="3D" name="Closed Loop Integral Gain (Negative Error)" category="Fueling//Closed Loop &amp; Fuel Trims" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x055580">
-   <scaling units="gain (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="gain" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x055534">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -822,7 +823,7 @@
    <description>How fast closed-loop fuel trim corrects when the error is negative, by rpm and load. Larger = faster correction, too large can make the trims oscillate.</description>
   </table>
   <table type="3D" name="Closed Loop Integral Gain (Positive Error)" category="Fueling//Closed Loop &amp; Fuel Trims" storagetype="uint8" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x055540">
-   <scaling units="gain (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="gain" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x055524">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -937,7 +938,7 @@
    <description>Lowest learned long-term trim allowed under certain conditions (not fully decoded).</description>
   </table>
   <table type="2D" name="Transient Fuel Throttle-Rate Gain" category="Fueling//Transient Fueling" storagetype="uint8" endian="big" sizey="16" userlevel="2" storageaddress="0x039cef">
-   <scaling units="gain (raw)" expression="x" to_byte="x" format="0" fineincrement="4" coarseincrement="16.0" />
+   <scaling units="gain" expression="x" to_byte="x" format="0" fineincrement="4" coarseincrement="16.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x03e9f4">
     <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -945,7 +946,7 @@
    <description>Acceleration/deceleration fuel on throttle movement, by coolant: larger = more fuel when the throttle opens and less when it closes. The table the manual car uses, every pass while running. Keep the three Transient Fuel Throttle-Rate Gain tables consistent.</description>
   </table>
   <table type="2D" name="Transient Fuel Throttle-Rate Gain (AT/CVT)" category="Fueling//Transient Fueling" storagetype="uint8" endian="big" sizey="16" userlevel="2" storageaddress="0x039ccf">
-   <scaling units="gain (raw)" expression="x" to_byte="x" format="0" fineincrement="4" coarseincrement="16.0" />
+   <scaling units="gain" expression="x" to_byte="x" format="0" fineincrement="4" coarseincrement="16.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x03e9f4">
     <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -1176,7 +1177,7 @@
    <description>Part of a fuel adder triggered when the idle becomes steady with the pedal released, in one fuel mode only. How fast the adder fades after the hold; the table the manual car uses.</description>
   </table>
   <table type="2D" name="Transient Fuel Throttle-Rate Gain (MT Coding)" category="Fueling//Transient Fueling" storagetype="uint8" endian="big" sizey="16" userlevel="4" storageaddress="0x039cdf">
-   <scaling units="gain (raw)" expression="x" to_byte="x" format="0" fineincrement="4" coarseincrement="16.0" />
+   <scaling units="gain" expression="x" to_byte="x" format="0" fineincrement="4" coarseincrement="16.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x03e9f4">
     <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -1214,7 +1215,8 @@
    <description>Part of an extra fuel pulse on fast tip-in. Scales the extra pulse by coolant (64 = x1.0) while in neutral.</description>
   </table>
   <table type="2D" name="Cranking Fuel (First Attempt)" category="Fueling//Cranking &amp; Start" storagetype="uint16" endian="big" sizey="16" userlevel="2" storageaddress="0x011bf8">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="ms" expression="x*0.008" to_byte="x/0.008" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x025600">
     <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -1222,7 +1224,8 @@
    <description>Main cranking fuel pulse by coolant, for a normal first cranking attempt. Raise for more fuel while cranking. Raw units: change it proportionally.</description>
   </table>
   <table type="2D" name="Cranking Fuel (Repeat Attempt)" category="Fueling//Cranking &amp; Start" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x016588">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="ms" expression="x*0.008" to_byte="x/0.008" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x025600">
     <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -1299,7 +1302,8 @@
    <description>How fast the cranking fuel floor fades after the engine starts, by start coolant, on a repeat attempt. 65536 = no decay, smaller = faster fade.</description>
   </table>
   <table type="2D" name="Cranking Fuel Secondary (First Attempt)" category="Fueling//Cranking &amp; Start" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x025626">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="ms" expression="x*0.008" to_byte="x/0.008" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x025600">
     <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -1307,7 +1311,8 @@
    <description>Secondary cranking fuel pulse by coolant (first attempt). It is the cranking pulse whenever the engine cranks in normal combustion mode instead of the start mode: after about 10 s of continuous cranking, when the low-rail-pressure start latch is set (then scaled by Cranking Fuel Secondary Low Rail Pressure Multiplier), or on a re-crank before the start sequence reset; it also sets a floor on fuel in normal running until it decays. Raw units: change it proportionally.</description>
   </table>
   <table type="2D" name="Cranking Fuel Secondary (Repeat Attempt)" category="Fueling//Cranking &amp; Start" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x016758">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="ms" expression="x*0.008" to_byte="x/0.008" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x025600">
     <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -1615,7 +1620,8 @@
    <description>Time after ignition-off, by coolant, after which the ECU forgets the previous start, so the next start counts as a first start rather than a restart. Shorter with a weak battery.</description>
   </table>
   <table type="2D" name="Cranking Fuel (Repeat Attempt, Special Start)" category="Fueling//Cranking &amp; Start" storagetype="uint16" endian="big" sizey="16" userlevel="5" storageaddress="0x0165a8">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="ms" expression="x*0.008" to_byte="x/0.008" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x025600">
     <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -1625,7 +1631,8 @@
 Coolant-indexed base of the cranking pulse FFF8AFC6 (0x0C9038, read); used when flag s4 (= TGV-module flag FFF8A881 bit 2, read) set, s8 set, FFF8A6E7 = 3 (s8 = FFF811A7 bit 7, the repeat-crank history; argument mapping read from the calls at 0x0C589C). Cranking pulse (read, 0x0C9038): FFF842C8 = clamp(base x 256 x A67E x A687 x C535 x coolant multiplier x 64 / (2^32 x 255), 0, 524280) x 0.125 (the 64 is fixed, folded into the constant 5.843592e-11; Cranking Fuel Secondary Low Rail Pressure Multiplier 05A1FC acts only on the secondary pulse in 0x0C8A28), and the per-injector quantity is never below 10 x that (0x0D168C), in 0.8 us counts. Raw units: the factors' normalisation is not fully resolved, so change it proportionally. FFF8AFC6 feeds injectors in fuel mode 0 or 3. LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
   </table>
   <table type="2D" name="Cranking Fuel (Stall Window, First Attempt)" category="Fueling//Cranking &amp; Start" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x011c18">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="ms" expression="x*0.008" to_byte="x/0.008" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x025600">
     <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -1633,7 +1640,8 @@ Coolant-indexed base of the cranking pulse FFF8AFC6 (0x0C9038, read); used when 
    <description>Cranking fuel pulse by coolant for a restart after a stop inside a calibrated coolant window, first attempt.</description>
   </table>
   <table type="2D" name="Cranking Fuel (Stall Window, Repeat Attempt, Special Start)" category="Fueling//Cranking &amp; Start" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x0165e8">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="ms" expression="x*0.008" to_byte="x/0.008" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x025600">
     <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -1641,7 +1649,8 @@ Coolant-indexed base of the cranking pulse FFF8AFC6 (0x0C9038, read); used when 
    <description>Cranking fuel pulse by coolant for a stall-window restart, repeat attempt, special start type.</description>
   </table>
   <table type="2D" name="Cranking Fuel (Stall Window, Repeat Attempt)" category="Fueling//Cranking &amp; Start" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x0165c8">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="ms" expression="x*0.008" to_byte="x/0.008" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x025600">
     <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -1815,7 +1824,8 @@ Details: When used: start type FFF8A6E7 = 3. 0x0CD7E4 (read): FFF8A67E = this(ac
    <description>Belongs to a third cranking-fuel routine whose results nothing reads, so editing it has no effect. Its axis is shared with the start-type decay tables.</description>
   </table>
   <table type="2D" name="Cranking Fuel Base (Unused Routine)" category="Fueling//Cranking &amp; Start" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x015f4e">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="ms" expression="x*0.008" to_byte="x/0.008" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x025600">
     <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -1823,7 +1833,8 @@ Details: When used: start type FFF8A6E7 = 3. 0x0CD7E4 (read): FFF8A67E = this(ac
    <description>Belongs to a third cranking-fuel routine whose results nothing reads, so editing it has no effect. Its coolant axis is shared with the live cranking tables.</description>
   </table>
   <table type="2D" name="Cranking Fuel Secondary (Repeat Attempt, Special Start)" category="Fueling//Cranking &amp; Start" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x016778">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="ms" expression="x*0.008" to_byte="x/0.008" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x025600">
     <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -1831,7 +1842,8 @@ Details: When used: start type FFF8A6E7 = 3. 0x0CD7E4 (read): FFF8A67E = this(ac
    <description>Secondary cranking fuel pulse for a repeat attempt in the special start type.</description>
   </table>
   <table type="2D" name="Cranking Fuel Secondary (Stall Window, First Attempt)" category="Fueling//Cranking &amp; Start" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x025646">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="ms" expression="x*0.008" to_byte="x/0.008" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x025600">
     <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -1839,7 +1851,8 @@ Details: When used: start type FFF8A6E7 = 3. 0x0CD7E4 (read): FFF8A67E = this(ac
    <description>Secondary cranking fuel pulse for a stall-window restart, first attempt.</description>
   </table>
   <table type="2D" name="Cranking Fuel Secondary (Stall Window, Repeat Attempt, Special Start)" category="Fueling//Cranking &amp; Start" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x0167b8">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="ms" expression="x*0.008" to_byte="x/0.008" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x025600">
     <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -1847,7 +1860,8 @@ Details: When used: start type FFF8A6E7 = 3. 0x0CD7E4 (read): FFF8A67E = this(ac
    <description>Secondary cranking fuel pulse for a stall-window restart, repeat attempt, special start type.</description>
   </table>
   <table type="2D" name="Cranking Fuel Secondary (Stall Window, Repeat Attempt)" category="Fueling//Cranking &amp; Start" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x016798">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Default" units="ms" expression="x*0.008" to_byte="x/0.008" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
+   <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x025600">
     <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -2068,7 +2082,8 @@ Details: When used: start type FFF8A6E7 = 3 or above, in fuel states 2 (cranking
     <scaling category="degC" units="degrees C" expression="x-50" to_byte="x+50" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <table type="Y Axis" name="FFF88A9D (unidentified)" storagetype="uint8" endian="big" storageaddress="0x0147f8">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling category="Default" units="degrees F" expression="(x-50)*1.8+32" to_byte="(x-32)/1.8+50" format="0" fineincrement="2" coarseincrement="8.0" />
+    <scaling category="degrees C" units="degrees C" expression="x-50" to_byte="x+50" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <description>Scales Injection Timing Additive (255 = x1.0), by an unidentified input and intake air temperature.</description>
   </table>
@@ -2194,14 +2209,14 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table type="2D" name="Catalyst Heating Spark Retard" category="Fueling//Catalyst Heating &amp; Stratified Start" storagetype="uint8" endian="big" sizey="8" userlevel="3" storageaddress="0x01ca9a">
    <scaling units="degrees retard" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <table type="Y Axis" name="Catalyst Heating Progress FFF8A64B" storagetype="uint16" endian="big" storageaddress="0x01caa2">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling units="progress (x128)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <description>How far spark is retarded from base timing during cold-start catalyst heating, which heats the catalyst faster. The spark moves toward this target in steps.</description>
   </table>
   <table type="2D" name="Catalyst Heating Spark Retard (Phase 2)" category="Fueling//Catalyst Heating &amp; Stratified Start" storagetype="uint8" endian="big" sizey="16" userlevel="3" storageaddress="0x034a94">
    <scaling units="degrees retard" expression="x/2" to_byte="x*2" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <table type="Y Axis" name="Catalyst Heating Progress FFF8A64B" storagetype="uint16" endian="big" storageaddress="0x034a74">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling units="progress (x128)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <description>Same as Catalyst Heating Spark Retard for the second catalyst-heating phase; its result also selects the phase 2 injection angles.</description>
   </table>
@@ -2923,9 +2938,37 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    <description>One of the six rpm boundaries that split fine learning knock correction (FLKC) into rpm ranges. Keep them in increasing order.</description>
   </table>
+  <table type="BitwiseSwitch" name="Knock Event Detector: Knocking Cylinders" category="Ignition Timing//Knock Control" storageaddress="0x03ad13" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Counts cylinders whose knock signal is above the knock threshold while knock correction is already deep; when the count runs up, the knock-event torque limit applies until the learned values are reset.</description>
+  </table>
+  <table type="1D" name="Knock Event Cylinder Count Limit (Feedback)" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x02d0d1">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Knocking cylinders, summed while feedback knock correction is at or below its threshold, that trip the detector.</description>
+  </table>
+  <table type="1D" name="Knock Event Feedback Correction Threshold" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" userlevel="4" storageaddress="0x02d0d2">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Knocking cylinders are summed while feedback knock correction is at or below this.</description>
+  </table>
+  <table type="1D" name="Knock Event Feedback Correction Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x02d0d3">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Once summing, feedback knock correction must recover this far above the threshold to stop.</description>
+  </table>
+  <table type="1D" name="Knock Event Cylinder Count Limit (Fine Learning)" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x02d0d4">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Knocking cylinders, summed while fine learning knock correction is at or below its threshold, that trip the detector.</description>
+  </table>
+  <table type="1D" name="Knock Event Fine Learning Correction Threshold" category="Ignition Timing//Knock Control" storagetype="int8" endian="big" userlevel="4" storageaddress="0x02d0d5">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Knocking cylinders are summed while fine learning knock correction is at or below this.</description>
+  </table>
   <table type="1D" name="FLKC Range Boundary RPM 2" category="Ignition Timing//Knock Control" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x01d418">
    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    <description>One of the six rpm boundaries that split fine learning knock correction (FLKC) into rpm ranges. Keep them in increasing order.</description>
+  </table>
+  <table type="1D" name="Knock Event Fine Learning Correction Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x02d0d6">
+   <scaling units="degrees" expression="x*0.3515625" to_byte="x/0.3515625" format="0.00" fineincrement="0.35" coarseincrement="1.4" />
+   <description>Once summing, fine learning knock correction must recover this far above the threshold to stop.</description>
   </table>
   <table type="1D" name="FLKC Range Boundary RPM 3" category="Ignition Timing//Knock Control" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x01d41a">
    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
@@ -3280,7 +3323,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Hysteresis for Knock Window Extension Timing Threshold: once the longer window is in use, timing must rise this far above the threshold before it switches back.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 1, Channel 2)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02bf7a">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3291,7 +3334,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock signal processing for event slot 1, channel 2 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock. Larger = that event less likely to count as knock. Leave alone unless recalibrating knock detection.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 1, Channel 3)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02bffa">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3302,7 +3345,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock signal processing for event slot 1, channel 3 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 1, Channel 4)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02c07a">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3313,7 +3356,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock signal processing for event slot 1, channel 4 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 1, Channel 5)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02c0fa">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3324,7 +3367,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock signal processing for event slot 1, channel 5 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 1, Channel 6)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02c17a">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3335,7 +3378,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock signal processing for event slot 1, channel 6 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 2, Channel 2)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02c37a">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3346,7 +3389,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock signal processing for event slot 2, channel 2 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 2, Channel 3)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02c3fa">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3357,7 +3400,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock signal processing for event slot 2, channel 3 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 2, Channel 4)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02c47a">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3368,7 +3411,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock signal processing for event slot 2, channel 4 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 2, Channel 5)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02c4fa">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3379,7 +3422,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock signal processing for event slot 2, channel 5 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 2, Channel 6)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02c57a">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3390,7 +3433,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock signal processing for event slot 2, channel 6 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 3, Channel 2)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02c77a">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3401,7 +3444,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock signal processing for event slot 3, channel 2 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 3, Channel 3)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02c7fa">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3412,7 +3455,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock signal processing for event slot 3, channel 3 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 3, Channel 4)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02c87a">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3423,7 +3466,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock signal processing for event slot 3, channel 4 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 3, Channel 5)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02c8fa">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3434,7 +3477,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock signal processing for event slot 3, channel 5 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 3, Channel 6)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02c97a">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3445,7 +3488,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock signal processing for event slot 3, channel 6 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 4, Channel 2)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02cb7a">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3456,7 +3499,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock signal processing for event slot 4, channel 2 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 4, Channel 3)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02cbfa">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3467,7 +3510,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock signal processing for event slot 4, channel 3 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 4, Channel 4)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02cc7a">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3478,7 +3521,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock signal processing for event slot 4, channel 4 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 4, Channel 5)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02ccfa">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3489,7 +3532,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock signal processing for event slot 4, channel 5 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 4, Channel 6)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02cd7a">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3500,7 +3543,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock signal processing for event slot 4, channel 6 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 1, Channel 1)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02befa">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3511,7 +3554,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock-detection background step for event slot 1, frequency channel 1.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 1, Channel 7)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02c1fa">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3522,7 +3565,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock-detection background step for event slot 1, frequency channel 7.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 1, Channel 8)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02c27a">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3533,7 +3576,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock-detection background step for event slot 1, frequency channel 8.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 2, Channel 1)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02c2fa">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3544,7 +3587,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock-detection background step for event slot 2, frequency channel 1.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 2, Channel 7)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02c5fa">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3555,7 +3598,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock-detection background step for event slot 2, frequency channel 7.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 2, Channel 8)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02c67a">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3566,7 +3609,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock-detection background step for event slot 2, frequency channel 8.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 3, Channel 1)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02c6fa">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3577,7 +3620,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock-detection background step for event slot 3, frequency channel 1.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 3, Channel 7)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02c9fa">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3588,7 +3631,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock-detection background step for event slot 3, frequency channel 7.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 3, Channel 8)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02ca7a">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3599,7 +3642,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock-detection background step for event slot 3, frequency channel 8.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 4, Channel 1)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02cafa">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3610,7 +3653,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock-detection background step for event slot 4, frequency channel 1.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 4, Channel 7)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02cdfa">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -3621,7 +3664,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>Knock-detection background step for event slot 4, frequency channel 7.</description>
   </table>
   <table type="3D" name="Knock Background Window Step (Event 4, Channel 8)" category="Ignition Timing//Knock Detection" storagetype="int16" endian="big" sizex="8" sizey="8" userlevel="4" storageaddress="0x02ce7a">
-   <scaling units="knock channel level (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="knock channel level" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02bef2">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -4400,7 +4443,7 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
    <description>Position error (commanded minus measured) that counts towards the wastegate actuator fault.</description>
   </table>
   <table type="1D" name="P0244 Wastegate Position Error Passes" category="Boost Control//Wastegate Duty" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x0653ee">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>How long the position error must last before the wastegate actuator fault is set (passes).</description>
   </table>
   <table type="3D" name="Boost Proportional (Wastegate Position)" category="Boost Control//Boost Feedback &amp; Compensations" storagetype="int16" endian="big" sizex="16" sizey="16" userlevel="1" storageaddress="0x063fae">
@@ -4484,7 +4527,7 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
    <description>P0234 (overboost) counts while actual boost is above target by more than this (shown negative).</description>
   </table>
   <table type="1D" name="P0234 Overboost Time" category="Boost Control//Boost Feedback &amp; Compensations" storagetype="uint16" endian="big" userlevel="3" storageaddress="0x065432">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>How long overboost must last before P0234 sets (passes).</description>
   </table>
   <table type="3D" name="Requested Torque (Drive Mode 1, Default)" category="Torque &amp; Throttle//Requested Torque" storagetype="uint16" endian="big" sizex="20" sizey="21" userlevel="1" storageaddress="0x01f580">
@@ -5096,14 +5139,14 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
   <table type="2D" name="Target Torque Rise Path B Low-Speed Time" category="Torque &amp; Throttle//Requested Torque" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x02415e">
    <scaling units="s" expression="x*0.01" to_byte="x*100" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
    <table type="Y Axis" name="Axis" storagetype="uint8" endian="big" storageaddress="0x023ba2">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling units="CAN value" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <description>Part of the condition that lets Path B tip-in smoothing act: probably the time the car has been stopped. Its axis input is not identified (raw).</description>
   </table>
   <table type="2D" name="Target Torque Rise Path B Pedal-Released Low-Speed Time" category="Torque &amp; Throttle//Requested Torque" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x02413e">
    <scaling units="s" expression="x*0.01" to_byte="x*100" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
    <table type="Y Axis" name="Axis" storagetype="uint8" endian="big" storageaddress="0x023ba2">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling units="CAN value" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <description>Part of the condition that lets Path B tip-in smoothing act: probably the time stopped with the pedal released. Its axis input is not identified (raw).</description>
   </table>
@@ -5437,6 +5480,22 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
     <scaling units="DAM" expression="x/16" to_byte="x*16" format="0.000" fineincrement="0.0625" coarseincrement="0.25" min="0" max="1" />
    </table>
    <description>Maximum target torque by DAM (knock learning) and rpm, in the same lowest-wins limit as Maximum Torque (IAT). Losing DAM lowers the torque target and so the boost target.</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Event)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="2" storageaddress="0x025536">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x025218">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling while the knock-event detector has tripped, by engine speed.</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Event, Alternate)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x025560">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x025218">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>The same ceiling, used instead when an ECU flag selects it (not identified).</description>
   </table>
   <table type="2D" name="Rev/Boost Limit Torque (Base)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="11" userlevel="2" storageaddress="0x01f03c">
    <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
@@ -5917,7 +5976,7 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
    <description>Throttle-monitor copy of Torque Fraction from Throttle Area. Keep identical, or expect a plausibility fault (inferred). Area is in mm^2 of effective throttle opening (about 2,150 mm^2 wide open).</description>
   </table>
   <table type="2D" name="Idle Air Request Limit (Coolant)" category="Torque &amp; Throttle//Throttle Control &amp; Throttle Model" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x01e340">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="idle air (ECU units)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x03e9f4">
     <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -5928,7 +5987,7 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
    <scaling category="Default" units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <scaling category="in^2" units="in^2 (effective throttle area)" expression="x/10/645.16" to_byte="x*645.16*10" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x01e300">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling units="idle air (ECU units)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
    </table>
    <description>Converts the idle air request into throttle area, which is added to the pedal-driven opening and sets the idle throttle floor. Edit together with Idle Air Request to Throttle Area (Monitor). Area is in mm^2 of effective throttle opening (about 2,150 mm^2 wide open).</description>
   </table>
@@ -5936,7 +5995,7 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
    <scaling category="Default" units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <scaling category="in^2" units="in^2 (effective throttle area)" expression="x/10/645.16" to_byte="x*645.16*10" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x04ddd0">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling units="idle air (ECU units)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
    </table>
    <description>Throttle-monitor copy of Idle Air Request to Throttle Area. Keep identical, or expect a plausibility fault (inferred). Area is in mm^2 of effective throttle opening (about 2,150 mm^2 wide open).</description>
   </table>
@@ -6229,14 +6288,14 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
    <description>How fast the modelled air charge catches up with the request (per 10 ms) outside a big torque rise. Used for spark-based torque reduction and the cylinder-cut level, not for throttle. Leave alone unless you know the model.</description>
   </table>
   <table type="2D" name="Torque Response Filter Weight (Throttle Opening)" category="Torque &amp; Throttle//Torque Model" storagetype="uint16" endian="big" sizey="8" userlevel="4" storageaddress="0x03e8f6">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="filter weight" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x03e906">
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>How quickly the torque model expects delivered torque to follow after the throttle opens quickly (larger = faster), by rpm. Part of the modelled torque used for spark compensation. Leave alone unless you know the model.</description>
   </table>
   <table type="2D" name="Torque Response Filter Weight (Throttle Closing)" category="Torque &amp; Throttle//Torque Model" storagetype="uint16" endian="big" sizey="8" userlevel="4" storageaddress="0x010752">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="filter weight" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x03e906">
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
@@ -6682,7 +6741,7 @@ When that bit is set, 0x11E308 uses this table instead of the Volumetric Efficie
 Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-throttle pressure; the ratio is inverted). 0x11DD04 (read), enabled by FFF8A8FB bit 0 (0x11E43C): modelled throttle flow FFF8C24C [g/min] = (P_up/101325) x Throttle Flow Function(r) x FFF8ADEC (Throttle Area from Throttle Position, 0.05 mm^2) x Throttle Flow Temperature Correction x this x 60000 x 2.98e-15, which feeds the manifold/airflow observer 0x11DB50 / 0x11D938. Normally leave alone. LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (2 reads)). Confidence: inferred.</description>
   </table>
   <table type="3D" name="Exhaust Temperature Model Map A (No Enrichment)" category="Airflow &amp; Engine Model//Exhaust &amp; Temperature Models" storagetype="uint16" endian="big" sizex="12" sizey="16" userlevel="3" storageaddress="0x0199e0">
-   <scaling units="raw (model units)" expression="x" to_byte="x" format="0" fineincrement="100" coarseincrement="400.0" />
+   <scaling units="exhaust model units" expression="x" to_byte="x" format="0" fineincrement="100" coarseincrement="400.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x013188">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -6693,7 +6752,7 @@ Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-th
    <description>Exhaust temperature estimate (inferred) that decides when Primary Open Loop Fueling kicks in. Map A is the fast-reacting part, by rpm and load, used while no open loop enrichment is active. Raising it brings enrichment in earlier; lowering it delays it.</description>
   </table>
   <table type="3D" name="Exhaust Temperature Model Map A (Standstill High Load)" category="Airflow &amp; Engine Model//Exhaust &amp; Temperature Models" storagetype="uint16" endian="big" sizex="12" sizey="16" userlevel="3" storageaddress="0x019e60">
-   <scaling units="raw (model units)" expression="x" to_byte="x" format="0" fineincrement="100" coarseincrement="400.0" />
+   <scaling units="exhaust model units" expression="x" to_byte="x" format="0" fineincrement="100" coarseincrement="400.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x013188">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -6704,7 +6763,7 @@ Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-th
    <description>Exhaust temperature estimate (inferred) that decides when Primary Open Loop Fueling kicks in. Map A is the fast-reacting part, by rpm and load, used instead of the other Map A tables while the car is at a standstill under high load (speed 5 km/h or less, pedal 80 % or more, load 40 % or more, for 1 s). Raising it brings enrichment in earlier; lowering it delays it.</description>
   </table>
   <table type="3D" name="Exhaust Temperature Model Map B (Standstill High Load)" category="Airflow &amp; Engine Model//Exhaust &amp; Temperature Models" storagetype="uint16" endian="big" sizex="12" sizey="16" userlevel="3" storageaddress="0x01a798">
-   <scaling units="raw (model units)" expression="x" to_byte="x" format="0" fineincrement="100" coarseincrement="400.0" />
+   <scaling units="exhaust model units" expression="x" to_byte="x" format="0" fineincrement="100" coarseincrement="400.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x013188">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -6767,7 +6826,7 @@ Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-th
   <table type="3D" name="Exhaust Temperature Model Filter B (Rising)" category="Airflow &amp; Engine Model//Exhaust &amp; Temperature Models" storagetype="uint8" endian="big" sizex="16" sizey="12" userlevel="4" storageaddress="0x01a498">
    <scaling units="fraction per 80 ms" expression="x/256" to_byte="x*256" format="0.000" fineincrement="0.004" coarseincrement="0.016" />
    <table type="X Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x019ff8">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling units="multiplier" expression="x/8192" to_byte="x*8192" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    </table>
    <table type="Y Axis" name="Airflow" storagetype="uint16" endian="big" storageaddress="0x019fe0">
     <scaling units="g/s" expression="x/300" to_byte="x*300" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -6777,7 +6836,7 @@ Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-th
   <table type="3D" name="Exhaust Temperature Model Filter B (Falling)" category="Airflow &amp; Engine Model//Exhaust &amp; Temperature Models" storagetype="uint8" endian="big" sizex="16" sizey="12" userlevel="4" storageaddress="0x01a618">
    <scaling units="fraction per 80 ms" expression="x/256" to_byte="x*256" format="0.000" fineincrement="0.004" coarseincrement="0.016" />
    <table type="X Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x019ff8">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling units="multiplier" expression="x/8192" to_byte="x*8192" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    </table>
    <table type="Y Axis" name="Airflow" storagetype="uint16" endian="big" storageaddress="0x019fe0">
     <scaling units="g/s" expression="x/300" to_byte="x*300" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -6785,9 +6844,9 @@ Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-th
    <description>Exhaust temperature estimate (inferred) that decides when Primary Open Loop Fueling kicks in. How quickly the Map B part of the estimate follows a falling value (higher = faster).</description>
   </table>
   <table type="3D" name="Exhaust Temperature Model Fuel Cut Step" category="Airflow &amp; Engine Model//Exhaust &amp; Temperature Models" storagetype="uint16" endian="big" sizex="16" sizey="12" userlevel="4" storageaddress="0x01a018">
-   <scaling units="raw (model units)" expression="x" to_byte="x" format="0" fineincrement="100" coarseincrement="400.0" />
+   <scaling units="exhaust model units" expression="x" to_byte="x" format="0" fineincrement="100" coarseincrement="400.0" />
    <table type="X Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x019ff8">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling units="multiplier" expression="x/8192" to_byte="x*8192" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    </table>
    <table type="Y Axis" name="Airflow" storagetype="uint16" endian="big" storageaddress="0x019fe0">
     <scaling units="g/s" expression="x/300" to_byte="x*300" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -6802,7 +6861,7 @@ Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-th
    <description>Exhaust temperature estimate (inferred): how fast the fuel-cut term from Exhaust Temperature Model Fuel Cut Step decays, by air quantity (1.0 = no decay).</description>
   </table>
   <table type="3D" name="Exhaust Temperature Estimate 2 Map (No Enrichment)" category="Airflow &amp; Engine Model//Exhaust &amp; Temperature Models" storagetype="uint16" endian="big" sizex="12" sizey="16" userlevel="4" storageaddress="0x013406">
-   <scaling units="raw (model units)" expression="x" to_byte="x" format="0" fineincrement="100" coarseincrement="400.0" />
+   <scaling units="exhaust model units" expression="x" to_byte="x" format="0" fineincrement="100" coarseincrement="400.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x013188">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -6813,7 +6872,7 @@ Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-th
    <description>Second exhaust/catalyst temperature estimate (inferred), by rpm and load, with no enrichment active. When it gets high enough the ECU skips the delay before open loop fueling. Raising it brings open loop in sooner.</description>
   </table>
   <table type="3D" name="Exhaust Temperature Estimate 2 Map (Enriched)" category="Airflow &amp; Engine Model//Exhaust &amp; Temperature Models" storagetype="uint16" endian="big" sizex="12" sizey="16" userlevel="4" storageaddress="0x013286">
-   <scaling units="raw (model units)" expression="x" to_byte="x" format="0" fineincrement="100" coarseincrement="400.0" />
+   <scaling units="exhaust model units" expression="x" to_byte="x" format="0" fineincrement="100" coarseincrement="400.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x013188">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -6824,7 +6883,7 @@ Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-th
    <description>Second exhaust/catalyst temperature estimate (inferred), by rpm and load, while open loop enrichment is active. When it gets high enough the ECU skips the delay before open loop fueling.</description>
   </table>
   <table type="3D" name="Exhaust Temperature Estimate 2 Map (Standstill High Load)" category="Airflow &amp; Engine Model//Exhaust &amp; Temperature Models" storagetype="uint16" endian="big" sizex="12" sizey="16" userlevel="4" storageaddress="0x016088">
-   <scaling units="raw (model units)" expression="x" to_byte="x" format="0" fineincrement="100" coarseincrement="400.0" />
+   <scaling units="exhaust model units" expression="x" to_byte="x" format="0" fineincrement="100" coarseincrement="400.0" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x013188">
     <scaling category="Default" units="g/rev" expression="x*0.012929" to_byte="x/0.012929" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
     <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -7734,7 +7793,7 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
    <description>Alternative remap of the CAN idle speed request, used when an unidentified CAN flag is set.</description>
   </table>
   <table type="2D" name="Idle Base Air (Mode 5)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x0286f2">
-   <scaling units="idle air (raw)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
+   <scaling units="idle air (ECU units)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
    <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
     <data>-40</data>
     <data>-22</data>
@@ -7756,7 +7815,7 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
    <description>Base (open-loop) idle air by coolant for normal warm idle (the warm-idle mode on a manual car), used while the TGVs are commanded open. At a settled warm idle the TGVs are normally commanded closed, so Idle Base Air (Mode 5, TGV Closed) is probably the table in use: change both together, and together with Idle Speed Target (Warm Idle, Mode 5) so idle feedback does not have to learn the difference.</description>
   </table>
   <table type="2D" name="Idle Base Air (Mode 5, TGV Closed)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x0285f2">
-   <scaling units="idle air (raw)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
+   <scaling units="idle air (ECU units)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
    <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
     <data>-40</data>
     <data>-22</data>
@@ -7778,7 +7837,7 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
    <description>Base (open-loop) idle air by coolant for normal warm idle while the TGVs are commanded closed (the normal state at low torque, probably including warm idle). Change it together with Idle Speed Target (Warm Idle, Mode 5) and Idle Base Air (Mode 5).</description>
   </table>
   <table type="2D" name="Idle Base Air (Warm Start, Mode 3)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x0286b2">
-   <scaling units="idle air (raw)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
+   <scaling units="idle air (ECU units)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
    <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
     <data>-40</data>
     <data>-22</data>
@@ -7800,7 +7859,7 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
    <description>Base (open-loop) idle air by coolant after a hot restart (coolant at or above 75 degC at start) until the car moves, used while the TGVs are commanded open. Change it together with the matching Idle Speed Target so idle feedback does not have to make up the difference. The TGV Closed table is used whenever the TGVs are commanded closed, which is the normal state at low torque, so change both together.</description>
   </table>
   <table type="2D" name="Idle Base Air (Warm Start, Mode 3, TGV Closed)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x0285b2">
-   <scaling units="idle air (raw)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
+   <scaling units="idle air (ECU units)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
    <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
     <data>-40</data>
     <data>-22</data>
@@ -7822,7 +7881,7 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
    <description>Base (open-loop) idle air by coolant after a hot restart (coolant at or above 75 degC at start) until the car moves, used while the TGVs are commanded closed (the normal state at low torque, probably including warm idle). Change it together with the matching Idle Speed Target and the normal Idle Base Air table for this mode.</description>
   </table>
   <table type="2D" name="Idle Base Air (AT/CVT, Mode 6, TGV Closed)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x028612">
-   <scaling units="idle air (raw)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
+   <scaling units="idle air (ECU units)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
    <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
     <data>-40</data>
     <data>-22</data>
@@ -8433,7 +8492,7 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
   <table type="2D" name="Idle Air Adder (CAN 0x370 Load Value)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="11" userlevel="4" storageaddress="0x029754">
    <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
    <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x02976a">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling units="CAN value" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <description>Extra idle air by a load value received over CAN, probably electrical load (not confirmed), added to the accessory idle air.</description>
   </table>
@@ -8445,7 +8504,7 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
    <description>Extra idle air by a 3-bit stage value received over CAN, used only with one body coding. Possibly the radiator fan stage, but that is a guess.</description>
   </table>
   <table type="2D" name="Idle Air from Throttle Area (Torque Request)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x0298be">
-   <scaling units="idle air (raw)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
+   <scaling units="idle air (ECU units)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
    <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x0298de">
     <scaling category="Default" units="mm^2 (effective throttle area)" expression="x/10" to_byte="x*10" format="0.0" fineincrement="1" coarseincrement="4.0" />
     <scaling category="in^2" units="in^2 (effective throttle area)" expression="x/10/645.16" to_byte="x*645.16*10" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
@@ -8453,7 +8512,7 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
    <description>Converts a throttle area back into idle air units when another module requests torque over CAN. Area is in mm^2 of effective throttle opening (about 2,150 mm^2 wide open).</description>
   </table>
   <table type="2D" name="Idle Base Air (Cold Idle, Mode 4)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x0286d2">
-   <scaling units="idle air (raw)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
+   <scaling units="idle air (ECU units)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
    <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
     <data>-40</data>
     <data>-22</data>
@@ -8475,7 +8534,7 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
    <description>Base idle air by coolant for the cold-idle mode 4.</description>
   </table>
   <table type="2D" name="Idle Base Air (Cold Idle, Mode 4, TGV Closed)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="16" userlevel="4" storageaddress="0x0285d2">
-   <scaling units="idle air (raw)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
+   <scaling units="idle air (ECU units)" expression="x" to_byte="x" format="0" fineincrement="16" coarseincrement="64.0" />
    <table type="Static Y Axis" name="Coolant Temp (F)" sizey="16">
     <data>-40</data>
     <data>-22</data>
@@ -8541,14 +8600,14 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
   <table type="2D" name="A/C Idle Air Initial Kick (Alternate)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="7" userlevel="4" storageaddress="0x03aba6">
    <scaling units="idle air (base-air units)" expression="x/2" to_byte="x*2" format="0" fineincrement="8" coarseincrement="32.0" />
    <table type="Y Axis" name="Axis" storagetype="uint8" endian="big" storageaddress="0x03abc2">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling units="CAN code" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <description>Initial A/C idle air kick by an unidentified CAN code, for an alternate A/C idle-air path.</description>
   </table>
   <table type="2D" name="A/C Idle Air Kick Duration (Alternate)" category="Idle//Idle Airflow" storagetype="uint16" endian="big" sizey="7" userlevel="4" storageaddress="0x03abb4">
    <scaling units="s" expression="x*0.01" to_byte="x*100" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
    <table type="Y Axis" name="Axis" storagetype="uint8" endian="big" storageaddress="0x03abc2">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling units="CAN code" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <description>How long the alternate A/C idle air kick is held, by an unidentified CAN code.</description>
   </table>
@@ -8747,7 +8806,7 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
    <description>Multiplier (255 = 1.0) by rpm and load that reduces the target EGR rate while an unidentified module requests it and EGR flow is present. When the request is active is not known.</description>
   </table>
   <table type="2D" name="EGR Enable Minimum Air after Start" category="EGR &amp; TGV//EGR" storagetype="uint32" endian="big" sizey="16" userlevel="3" storageaddress="0x031af8">
-   <scaling units="accumulated air (raw)" expression="x" to_byte="x" format="0" fineincrement="1000000" coarseincrement="4000000.0" />
+   <scaling units="accumulated air (ECU units)" expression="x" to_byte="x" format="0" fineincrement="1000000" coarseincrement="4000000.0" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="big" storageaddress="0x031ad8">
     <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
     <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -9086,7 +9145,8 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
    <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="FFF88AE6 (unidentified)" storagetype="uint16" endian="big" storageaddress="0x023af2">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling category="Default" units="degrees F" expression="(x/256-50)*1.8+32" to_byte="((x-32)/1.8+50)*256" format="0" fineincrement="2" coarseincrement="8.0" />
+    <scaling category="degrees C" units="degrees C" expression="x/256-50" to_byte="(x+50)*256" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x023ae2">
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
@@ -9125,15 +9185,17 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   </table>
   <table type="2D" name="TGV Open Fraction from Position (Closing)" category="EGR &amp; TGV//TGV" storagetype="uint16" endian="big" sizey="6" userlevel="4" storageaddress="0x03e0f0">
    <scaling units="% open" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="1" coarseincrement="4.0" />
-   <table type="Y Axis" name="TGV Position Sensor" storagetype="uint16" endian="big" storageaddress="0x03e0d8">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03e0d8">
+    <scaling category="Default" units="V" expression="x*5/1023" to_byte="x*1023/5" format="0.00" fineincrement="0.02" coarseincrement="0.08" />
+    <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <description>Converts measured TGV position into the open fraction used to blend every TGV-open / TGV-closed table (fuel, timing, AVCS) while the TGVs are closing; the blend also cannot fall faster than about 0.5 s from open to closed.</description>
   </table>
   <table type="2D" name="TGV Open Fraction from Position (Opening)" category="EGR &amp; TGV//TGV" storagetype="uint16" endian="big" sizey="6" userlevel="4" storageaddress="0x03e0e4">
    <scaling units="% open" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="1" coarseincrement="4.0" />
-   <table type="Y Axis" name="TGV Position Sensor" storagetype="uint16" endian="big" storageaddress="0x03e0d8">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03e0d8">
+    <scaling category="Default" units="V" expression="x*5/1023" to_byte="x*1023/5" format="0.00" fineincrement="0.02" coarseincrement="0.08" />
+    <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <description>Converts measured TGV position into the open fraction used to blend every TGV-open / TGV-closed table (fuel, timing, AVCS) while the TGVs are opening; the blend ramps at about 1 s from closed to open unless the valves open faster.</description>
   </table>
@@ -9296,7 +9358,7 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
    <description>Torque margin by rpm that caps the cruise control torque request above a base torque value, limiting how hard cruise can drive the engine. One table edits all three copies (including the monitor copy).</description>
   </table>
   <table type="3D" name="Cruise Speed Error Gain (Default)" category="Vehicle Functions//Cruise Control" storagetype="uint16" endian="big" sizex="15" sizey="13" userlevel="4" storageaddress="0x048896">
-   <scaling units="gain (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="gain" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Speed" storagetype="uint16" endian="big" storageaddress="0x048682">
     <scaling category="Default" units="km/h" expression="(x-32768)/128" to_byte="x*128+32768" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
     <scaling category="mph" units="mph" expression="(x-32768)/128*0.621371" to_byte="x/0.621371*128+32768" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -9309,7 +9371,7 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
    <description>Main cruise controller gain by acceleration and speed error, used while holding speed and in all states without their own table. Higher = more aggressive throttle response.</description>
   </table>
   <table type="3D" name="Cruise Speed Error Gain (State 0x23)" category="Vehicle Functions//Cruise Control" storagetype="uint16" endian="big" sizex="15" sizey="13" userlevel="4" storageaddress="0x048710">
-   <scaling units="gain (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="gain" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Speed" storagetype="uint16" endian="big" storageaddress="0x04864a">
     <scaling category="Default" units="km/h" expression="(x-32768)/128" to_byte="x*128+32768" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
     <scaling category="mph" units="mph" expression="(x-32768)/128*0.621371" to_byte="x/0.621371*128+32768" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -9322,7 +9384,7 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
    <description>Cruise controller gain by acceleration and speed error used after a short tap of the raise (accelerate) switch (tap meaning inferred). Higher = more aggressive throttle response.</description>
   </table>
   <table type="3D" name="Cruise Speed Error Gain (State 0xB0)" category="Vehicle Functions//Cruise Control" storagetype="uint16" endian="big" sizex="15" sizey="13" userlevel="4" storageaddress="0x048a1c">
-   <scaling units="gain (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="gain" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Speed" storagetype="uint16" endian="big" storageaddress="0x0486ba">
     <scaling category="Default" units="km/h" expression="(x-32768)/128" to_byte="x*128+32768" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
     <scaling category="mph" units="mph" expression="(x-32768)/128*0.621371" to_byte="x/0.621371*128+32768" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -9335,7 +9397,7 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
    <description>Cruise controller gain by acceleration and speed error used after a short tap of the lowering (coast) switch (tap meaning inferred).</description>
   </table>
   <table type="3D" name="Cruise Speed Error Gain (Catch-Up)" category="Vehicle Functions//Cruise Control" storagetype="uint16" endian="big" sizex="15" sizey="13" userlevel="4" storageaddress="0x048ba2">
-   <scaling units="gain (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="gain" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Speed" storagetype="uint16" endian="big" storageaddress="0x0486f2">
     <scaling category="Default" units="km/h" expression="(x-32768)/128" to_byte="x*128+32768" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
     <scaling category="mph" units="mph" expression="(x-32768)/128*0.621371" to_byte="x/0.621371*128+32768" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -9348,7 +9410,7 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
    <description>Cruise controller gain by acceleration and speed error, used while the car catches up to a set speed changed by holding a switch (inferred). Higher = more aggressive throttle response.</description>
   </table>
   <table type="3D" name="Cruise Speed Error Gain (State 0x40)" category="Vehicle Functions//Cruise Control" storagetype="uint16" endian="big" sizex="15" sizey="13" userlevel="4" storageaddress="0x0496a8">
-   <scaling units="gain (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="gain" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Speed" storagetype="uint16" endian="big" storageaddress="0x04968a">
     <scaling category="Default" units="km/h" expression="(x-32768)/128" to_byte="x*128+32768" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
     <scaling category="mph" units="mph" expression="(x-32768)/128*0.621371" to_byte="x/0.621371*128+32768" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -9361,7 +9423,7 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
    <description>Cruise controller gain by acceleration and speed error used after the raise switch, while not within 2 km/h of the maximum cruise speed. Higher = more aggressive throttle response.</description>
   </table>
   <table type="3D" name="Cruise Speed Error Gain (Set-Speed Approach)" category="Vehicle Functions//Cruise Control" storagetype="uint16" endian="big" sizex="15" sizey="13" userlevel="4" storageaddress="0x049866">
-   <scaling units="gain (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="gain" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Speed" storagetype="uint16" endian="big" storageaddress="0x049848">
     <scaling category="Default" units="km/h" expression="(x-32768)/128" to_byte="x*128+32768" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
     <scaling category="mph" units="mph" expression="(x-32768)/128*0.621371" to_byte="x/0.621371*128+32768" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -9443,7 +9505,7 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
    <description>With one cruise option only: if the car accelerates faster than this (by speed) for 3 s while cruise is on, cruise is cancelled and stays unavailable for the rest of the drive (probably a runaway check).</description>
   </table>
   <table type="3D" name="Cruise Speed Error Gain (State 0xC0)" category="Vehicle Functions//Cruise Control" storagetype="uint16" endian="big" sizex="15" sizey="13" userlevel="4" storageaddress="0x0494ea">
-   <scaling units="gain (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="gain" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Speed" storagetype="uint16" endian="big" storageaddress="0x0494cc">
     <scaling category="Default" units="km/h" expression="(x-32768)/128" to_byte="x*128+32768" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
     <scaling category="mph" units="mph" expression="(x-32768)/128*0.621371" to_byte="x/0.621371*128+32768" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -9488,7 +9550,7 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
    <description>Time, by vehicle speed, over which full pedal is restored after brake override ends (recovery ends early if the pedal is released or reached). Part of the brake override, which limits the accelerator signal when the brake is applied while the accelerator is held.</description>
   </table>
   <table type="3D" name="Brake Override Brake Pressure Threshold" category="Vehicle Functions//Brake Override &amp; VDC" storagetype="uint8" endian="big" sizex="6" sizey="5" userlevel="4" storageaddress="0x04b128">
-   <scaling units="VDC brake pressure (raw)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="VDC brake pressure value" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Vehicle Speed" storagetype="uint8" endian="big" storageaddress="0x04b122">
     <scaling category="Default" units="km/h" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
     <scaling category="mph" units="mph" expression="x*0.621371" to_byte="x/0.621371" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -9595,7 +9657,7 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table type="2D" name="Charging Target Temperature Correction" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int16" endian="big" sizey="16" userlevel="3" storageaddress="0x03ffa8">
    <scaling units="V" expression="x/1000" to_byte="x*1000" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
    <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03fef2">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling units="LIN battery sensor value" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <description>Subtracted from the charging target (when that target is at or above the threshold): negative values raise the target. The axis is a raw value from the battery sensor, probably its temperature.</description>
   </table>
@@ -9618,20 +9680,37 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table type="2D" name="Battery Charge Efficiency (Charging)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" sizey="14" userlevel="4" storageaddress="0x03ffc8">
    <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03fe16">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling units="LIN battery sensor value" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <description>How much of the charging current the state-of-charge estimate counts, by battery-sensor value.</description>
   </table>
   <table type="2D" name="Battery Charge Efficiency (Discharging)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint8" endian="big" sizey="14" userlevel="4" storageaddress="0x03ffd6">
    <scaling units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x03fe16">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling units="LIN battery sensor value" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <description>How much of the discharge current the state-of-charge estimate counts, by battery-sensor value.</description>
+  </table>
+  <table type="3D" name="Charge Control Delay After Start (SOC, Battery Sensor)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" sizex="3" sizey="3" userlevel="4" storageaddress="0x040f54">
+   <scaling units="s" expression="x" to_byte="x" format="0" fineincrement="10" coarseincrement="40.0" />
+   <table type="X Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x04093a">
+    <scaling units="LIN battery sensor value" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x040934">
+    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   </table>
+   <description>After a start, charge control (the battery-charged decision and adaptive charging) may begin this long after the engine starts, by the estimated state of charge at start and the battery sensor value.</description>
   </table>
   <table type="1D" name="Battery State of Charge Reset Value" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x040924">
    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <description>The state of charge the ECU assumes when its estimate is reset.</description>
+  </table>
+  <table type="2D" name="Charge Control Charge After Start (SOC)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" sizey="8" userlevel="4" storageaddress="0x040f66">
+   <scaling units="Ah" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.1" coarseincrement="0.4" />
+   <table type="Y Axis" name="Axis" storagetype="uint16" endian="big" storageaddress="0x040940">
+    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
+   </table>
+   <description>Charge control may also begin once the battery has taken back this much charge since the start, by the estimated state of charge at start.</description>
   </table>
   <table type="1D" name="Battery Charged SOC Threshold" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="2" storageaddress="0x03fe42">
    <scaling units="%" expression="x/10" to_byte="x*10" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
@@ -9654,7 +9733,7 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
    <description>Adaptive charging (the self-computed target) ends after this time in the cycle.</description>
   </table>
   <table type="1D" name="Adaptive Charging Charge Limit" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint32" endian="big" userlevel="5" storageaddress="0x03fe48">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="charge (ECU units)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Adaptive charging also ends once this much charge has gone back into the battery (raw units).
 
 Details: Compared with FFF81848, the integral of charging current while in mode 5 (0x1368C4, read; unit not confirmed). Confidence: read.</description>
@@ -9680,31 +9759,31 @@ Details: 0x137E7C, mode 5 only (read). Confidence: read.</description>
 Details: 0x137E7C, mode 5 only (read). Confidence: read.</description>
   </table>
   <table type="1D" name="Adaptive Charging Integral Step Down" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="5" storageaddress="0x03fe50">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Integral step each 40 ms pass while the battery current is above the target.
 
 Details: 0x137E7C (read). Confidence: read.</description>
   </table>
   <table type="1D" name="Adaptive Charging Integral Step Up" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="5" storageaddress="0x03fe52">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Integral step each 40 ms pass while the battery current is below the target.
 
 Details: 0x137E7C (read). Confidence: read.</description>
   </table>
   <table type="1D" name="Adaptive Charging Integral Gain" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="5" storageaddress="0x03fe54">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="mV per 1000 counts" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Converts the adaptive integral into a voltage correction (mV per count x 1000).
 
 Details: B6FA = integral x this / 1000 mV (0x137E7C, read). Confidence: read.</description>
   </table>
   <table type="1D" name="Adaptive Charging Integral Maximum" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int16" endian="big" userlevel="5" storageaddress="0x03fe56">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Upper clamp of the adaptive integral (counts).
 
 Details: 0x137E7C (read). Confidence: read.</description>
   </table>
   <table type="1D" name="Adaptive Charging Integral Minimum" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="int16" endian="big" userlevel="5" storageaddress="0x03fe58">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>Lower clamp of the adaptive integral (counts).
 
 Details: 0x137E7C (read). Confidence: read.</description>
@@ -9735,7 +9814,7 @@ Details: 0x137E7C (read). Confidence: read.</description>
   <table type="2D" name="Radiator Fan Duty (A/C, CAN 0x280 Value)" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" sizey="9" userlevel="4" storageaddress="0x0394c4">
    <scaling units="% duty" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <table type="Y Axis" name="Axis" storagetype="uint8" endian="big" storageaddress="0x0394d6">
-    <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling units="CAN value" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <description>Radiator fan duty with the A/C requested, by an unidentified CAN value.</description>
   </table>
@@ -9962,7 +10041,7 @@ Details: 0x137E7C (read). Confidence: read.</description>
    <scaling category="Default" units="AFR (gasoline)" expression="x/43194*14.7" to_byte="x*43194/14.7" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
    <scaling category="lambda" units="lambda" expression="x/43194" to_byte="x*43194" format="0.000" fineincrement="0.005" coarseincrement="0.02" />
    <table type="Y Axis" name="A/F Sensor Signal" storagetype="int16" endian="big" storageaddress="0x0617ac">
-    <scaling units="raw (signed)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling units="A/F sensor signal" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <description>Converts the front wideband A/F sensor signal to lambda when the reading is outside about lambda 0.90-1.37. This is the measured lambda used by closed loop fueling.</description>
   </table>
@@ -9970,7 +10049,7 @@ Details: 0x137E7C (read). Confidence: read.</description>
    <scaling category="Default" units="AFR (gasoline)" expression="x/43194*14.7" to_byte="x*43194/14.7" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
    <scaling category="lambda" units="lambda" expression="x/43194" to_byte="x*43194" format="0.000" fineincrement="0.005" coarseincrement="0.02" />
    <table type="Y Axis" name="A/F Sensor Signal" storagetype="int16" endian="big" storageaddress="0x0617ac">
-    <scaling units="raw (signed)" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+    <scaling units="A/F sensor signal" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    </table>
    <description>Converts the front A/F sensor signal to lambda when it reads within about lambda 0.90-1.37, at a higher gain.</description>
   </table>
@@ -10200,7 +10279,7 @@ Details: 0x137E7C (read). Confidence: read.</description>
    <description>During adaptive charging the ECU steers the charging voltage so the battery takes this current, by state of charge: positive charges, negative lets the battery discharge.</description>
   </table>
   <table type="1D" name="Adaptive Charging Current Gain" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03fe6a">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="mV per A" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>How strongly adaptive charging moves its voltage target to reach the target battery current.</description>
   </table>
   <table type="1D" name="Charging Feedback Integral Step Up" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03fe74">
@@ -13598,6 +13677,13 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="FLKC Advance Learning Inhibit Zones" storageaddress="0x02b896">
    <table type="Y Axis" storageaddress="0x02b8b9" />
   </table>
+  <table name="Knock Event Detector: Knocking Cylinders" storageaddress="0x03b69b" />
+  <table name="Knock Event Cylinder Count Limit (Feedback)" storageaddress="0x02d641" />
+  <table name="Knock Event Feedback Correction Threshold" storageaddress="0x02d642" />
+  <table name="Knock Event Feedback Correction Hysteresis" storageaddress="0x02d643" />
+  <table name="Knock Event Cylinder Count Limit (Fine Learning)" storageaddress="0x02d644" />
+  <table name="Knock Event Fine Learning Correction Threshold" storageaddress="0x02d645" />
+  <table name="Knock Event Fine Learning Correction Hysteresis" storageaddress="0x02d646" />
   <table name="Base Timing DAM Blend (DAM 0)" storageaddress="0x0371a4" />
   <table name="Base Timing DAM Blend (DAM 1)" storageaddress="0x037304" />
   <table name="Base Timing DAM Blend B (DAM 0)" storageaddress="0x038f3a" />
@@ -15171,7 +15257,14 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="Battery Charge Efficiency (Discharging)" storageaddress="0x04095e">
    <table type="Y Axis" storageaddress="0x04079e" />
   </table>
+  <table name="Charge Control Delay After Start (SOC, Battery Sensor)" storageaddress="0x0418dc">
+   <table type="X Axis" storageaddress="0x0412c2" />
+   <table type="Y Axis" storageaddress="0x0412bc" />
+  </table>
   <table name="Battery State of Charge Reset Value" storageaddress="0x0412ac" />
+  <table name="Charge Control Charge After Start (SOC)" storageaddress="0x0418ee">
+   <table type="Y Axis" storageaddress="0x0412c8" />
+  </table>
   <table name="Battery Charged SOC Threshold" storageaddress="0x0407ca" />
   <table name="Battery Charged SOC Hysteresis" storageaddress="0x0407cc" />
   <table name="Battery Charged Check Window" storageaddress="0x0407bc" />
@@ -15189,7 +15282,7 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
    <description>During adaptive charging the ECU steers the charging voltage so the battery takes this current, by state of charge: positive charges, negative lets the battery discharge.</description>
   </table>
   <table type="1D" name="Adaptive Charging Current Gain" category="Vehicle Functions//Radiator Fan, Charging &amp; A/C" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x0407f2">
-   <scaling units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling units="mV per A" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>How strongly adaptive charging moves its voltage target to reach the target battery current.</description>
   </table>
   <table name="Adaptive Charging Integral Deadband Above" storageaddress="0x0407d4" />
@@ -18917,7 +19010,14 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="FLKC Range Boundary Load 3" storageaddress="0x01d448" />
   <table name="FLKC Range Boundary Load 4" storageaddress="0x01d44a" />
   <table name="FLKC Range Boundary RPM 1" storageaddress="0x01d44e" />
+  <table name="Knock Event Detector: Knocking Cylinders" storageaddress="0x03ba7f" />
+  <table name="Knock Event Cylinder Count Limit (Feedback)" storageaddress="0x02d7d9" />
+  <table name="Knock Event Feedback Correction Threshold" storageaddress="0x02d7da" />
+  <table name="Knock Event Feedback Correction Hysteresis" storageaddress="0x02d7db" />
+  <table name="Knock Event Cylinder Count Limit (Fine Learning)" storageaddress="0x02d7dc" />
+  <table name="Knock Event Fine Learning Correction Threshold" storageaddress="0x02d7dd" />
   <table name="FLKC Range Boundary RPM 2" storageaddress="0x01d450" />
+  <table name="Knock Event Fine Learning Correction Hysteresis" storageaddress="0x02d7de" />
   <table name="FLKC Range Boundary RPM 3" storageaddress="0x01d452" />
   <table name="FLKC Range Boundary RPM 4" storageaddress="0x01d454" />
   <table name="FLKC Range Boundary RPM 5" storageaddress="0x01d456" />
@@ -19835,6 +19935,12 @@ Weighted DAM/16. 0x0D9BD4 (read): FFF8A73F = ((16 - DAM) x 05B54C + DAM x 05B560
   <table name="Maximum Torque (DAM)" storageaddress="0x01f116">
    <table type="X Axis" storageaddress="0x01f1c4" />
    <table type="Y Axis" storageaddress="0x01f1be" />
+  </table>
+  <table name="Maximum Torque (Knock Event)" storageaddress="0x02556e">
+   <table type="Y Axis" storageaddress="0x025250" />
+  </table>
+  <table name="Maximum Torque (Knock Event, Alternate)" storageaddress="0x025598">
+   <table type="Y Axis" storageaddress="0x025250" />
   </table>
   <table name="Rev/Boost Limit Torque (Base)" storageaddress="0x01f074">
    <table type="Y Axis" storageaddress="0x01f032" />
@@ -21094,7 +21200,14 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="Battery Charge Efficiency (Discharging)" storageaddress="0x040d42">
    <table type="Y Axis" storageaddress="0x040b82" />
   </table>
+  <table name="Charge Control Delay After Start (SOC, Battery Sensor)" storageaddress="0x041cc0">
+   <table type="X Axis" storageaddress="0x0416a6" />
+   <table type="Y Axis" storageaddress="0x0416a0" />
+  </table>
   <table name="Battery State of Charge Reset Value" storageaddress="0x041690" />
+  <table name="Charge Control Charge After Start (SOC)" storageaddress="0x041cd2">
+   <table type="Y Axis" storageaddress="0x0416ac" />
+  </table>
   <table name="Battery Charged SOC Threshold" storageaddress="0x040bae" />
   <table name="Battery Charged SOC Hysteresis" storageaddress="0x040bb0" />
   <table name="Battery Charged Check Window" storageaddress="0x040ba0" />

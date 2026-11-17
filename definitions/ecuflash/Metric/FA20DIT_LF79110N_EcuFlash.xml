@@ -1228,7 +1228,28 @@
  <table name="FLKC Range Boundary Load 3" address="022734" />
  <table name="FLKC Range Boundary Load 4" address="022736" />
  <table name="FLKC Range Boundary RPM 1" address="02273a" />
+ <table name="Knock Event Detector: Low Timing" address="03dfbf" />
+ <table name="Knock Event Detector: Knocking Cylinders" address="03dfc0" />
+ <table name="Knock Event Low Timing Passes" address="030ccf" />
+ <table name="Knock Event Low Timing Hysteresis" address="030cd0" />
+ <table name="Knock Event Cylinder Count Limit (Feedback)" address="030cd1" />
+ <table name="Knock Event Feedback Correction Threshold" address="030cd2" />
+ <table name="Knock Event Feedback Correction Hysteresis" address="030cd3" />
+ <table name="Knock Event Cylinder Count Limit (Fine Learning)" address="030cd4" />
+ <table name="Knock Event Fine Learning Correction Threshold" address="030cd5" />
  <table name="FLKC Range Boundary RPM 2" address="02273c" />
+ <table name="Knock Event Fine Learning Correction Hysteresis" address="030cd6" />
+ <table name="Knock Event Low Timing Floor" address="030d18">
+  <table name="Engine Load" address="030cf8" />
+  <table name="Engine Speed" address="030cd8" />
+ </table>
+ <table name="Knock Event Low Timing Floor (DAM Adder)" address="030e18">
+  <table name="Engine Load" address="030cf8" />
+  <table name="Engine Speed" address="030cd8" />
+ </table>
+ <table name="Knock Event Low Timing DAM Factor" address="030f18">
+  <table name="Dynamic Advance Multiplier" address="030d08" />
+ </table>
  <table name="FLKC Range Boundary RPM 3" address="02273e" />
  <table name="FLKC Range Boundary RPM 4" address="022740" />
  <table name="FLKC Range Boundary RPM 5" address="022742" />
@@ -2109,6 +2130,10 @@
  <table name="Maximum Torque (DAM)" address="024402">
   <table name="Engine Speed" address="0244b0" />
   <table name="Dynamic Advance Multiplier" address="0244aa" />
+ </table>
+ <table name="Maximum Torque (Knock Event)" address="02a196">
+  <table name="Accelerator Pedal" address="02a142" />
+  <table name="Engine Speed" address="02a118" />
  </table>
  <table name="Overboost Limit" address="031bd2">
   <table name="Engine Speed" address="031be6" />
@@ -3503,10 +3528,10 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
   <table name="Vehicle Speed" address="0404e4" />
  </table>
  <table name="TGV Open Fraction from Position (Closing)" address="0404c0">
-  <table name="TGV Position Sensor" address="0404a8" />
+  <table name="Y Axis" address="0404a8" />
  </table>
  <table name="TGV Open Fraction from Position (Opening)" address="0404b4">
-  <table name="TGV Position Sensor" address="0404a8" />
+  <table name="Y Axis" address="0404a8" />
  </table>
  <table name="TGV Motor Duty Compensation" address="04040a">
   <table name="Battery Voltage" address="040406" />
@@ -3691,7 +3716,14 @@ Brake override module 0x181B38 (10 ms task 0x1DFE3C, read): it limits the accele
  <table name="Battery Charge Efficiency (Discharging)" address="0423ea">
   <table name="Y Axis" address="04220a" />
  </table>
+ <table name="Charge Control Delay After Start (SOC, Battery Sensor)" address="0432aa">
+  <table name="X Axis" address="042c8e" />
+  <table name="Y Axis" address="042c88" />
+ </table>
  <table name="Battery State of Charge Reset Value" address="042c78" />
+ <table name="Charge Control Charge After Start (SOC)" address="0432bc">
+  <table name="Y Axis" address="042c94" />
+ </table>
  <table name="Battery Charged SOC Threshold" address="042236" />
  <table name="Battery Charged SOC Hysteresis" address="042238" />
  <table name="Battery Charged Check Window" address="042228" />

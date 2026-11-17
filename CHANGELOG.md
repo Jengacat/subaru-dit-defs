@@ -4,6 +4,31 @@
 
 First public release.
 
+- New: **charge-control enable for 2017 and later ROMs** (including the 1.6 and the Ascent). These ROMs replaced
+  the fixed delay after start with two tables: a delay by estimated state of charge at start and battery sensor
+  value, and an amount of charge the battery must take back since the start. Charge control may begin when either
+  is reached. Also found on the 2015 1.6 ROMs, where an older entry was sitting on one of these tables; that entry
+  is removed.
+- New: **knock-event detector on more ROMs and on the Ascent.** The 2016-2017 2.0 ROMs and the 2014 ROMs now have
+  it too (their trip latches by itself, so they have no latch switch). On the Ascent the knocking-cylinder part is
+  switched on in stock and a trip caps torque by rpm (122 to 207 ft-lb); both its tables are defined.
+- Changed: **units audit.** I checked every table on every ROM (about 150,000 table entries): each one is in the
+  RomRaider file and both EcuFlash sets, every axis has a unit, the Imperial set shows no metric unit (and the
+  reverse) wherever both exist, and each table shows the same unit on every ROM. Fixed along the way:
+  - two axes of the injection timing and rail pressure multipliers and one of the TGV torque threshold offset are
+    oil temperature (they showed raw);
+  - the cranking fuel tables now show milliseconds (raw still available in RomRaider; the unit is inferred);
+  - TGV position axes show volts, the exhaust model's ratio axis shows a ratio, and the idle air request axes use
+    the idle air unit;
+  - gains, model units, CAN values and sensor values that have no physical unit now say what they are instead of
+    "raw";
+  - the adaptive charging settings show mV per A, counts and so on.
+  About 25 tables still show raw, because the input they are indexed by is not identified yet.
+- Changed: **1.6 re-read finished.** Every 1.6 "off in stock" entry whose switch differs from the 2.0 is now
+  settled: about 22-62 per ROM are on in the 1.6 calibration and show at their normal level, the rest stay at Debug.
+  The 1.6 ROMs from 2016 on use only the sea-level AVCS targets (the altitude set is zeroed and never blended in),
+  and their drive-mode maps differ per mode as on the 2.0.
+
 - New: **knock-event detector and its torque limit** (2017 Forester XT, 2018-2021 WRX and the 2017-2020 1.6 ROMs:
   21 ROMs; older ROMs either lack it or have a version I have not defined). These ROMs carry a
   detector beside DAM: one part counts cylinders knocking while knock correction is already deep, the other watches

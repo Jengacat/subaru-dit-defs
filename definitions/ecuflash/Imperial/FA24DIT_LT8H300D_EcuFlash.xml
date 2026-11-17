@@ -1144,7 +1144,14 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
  <table name="FLKC Range Boundary Load 3" address="01d448" />
  <table name="FLKC Range Boundary Load 4" address="01d44a" />
  <table name="FLKC Range Boundary RPM 1" address="01d44e" />
+ <table name="Knock Event Detector: Knocking Cylinders" address="03ba7f" />
+ <table name="Knock Event Cylinder Count Limit (Feedback)" address="02d7d9" />
+ <table name="Knock Event Feedback Correction Threshold" address="02d7da" />
+ <table name="Knock Event Feedback Correction Hysteresis" address="02d7db" />
+ <table name="Knock Event Cylinder Count Limit (Fine Learning)" address="02d7dc" />
+ <table name="Knock Event Fine Learning Correction Threshold" address="02d7dd" />
  <table name="FLKC Range Boundary RPM 2" address="01d450" />
+ <table name="Knock Event Fine Learning Correction Hysteresis" address="02d7de" />
  <table name="FLKC Range Boundary RPM 3" address="01d452" />
  <table name="FLKC Range Boundary RPM 4" address="01d454" />
  <table name="FLKC Range Boundary RPM 5" address="01d456" />
@@ -2052,6 +2059,12 @@ Weighted DAM/16. 0x0D9BD4 (read): FFF8A73F = ((16 - DAM) x 05B54C + DAM x 05B560
  <table name="Maximum Torque (DAM)" address="01f116">
   <table name="Engine Speed" address="01f1c4" />
   <table name="Dynamic Advance Multiplier" address="01f1be" />
+ </table>
+ <table name="Maximum Torque (Knock Event)" address="02556e">
+  <table name="Engine Speed" address="025250" />
+ </table>
+ <table name="Maximum Torque (Knock Event, Alternate)" address="025598">
+  <table name="Engine Speed" address="025250" />
  </table>
  <table name="Rev/Boost Limit Torque (Base)" address="01f074">
   <table name="Engine Speed" address="01f032" />
@@ -3259,10 +3272,10 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
   <table name="Vehicle Speed" address="03ee80" />
  </table>
  <table name="TGV Open Fraction from Position (Closing)" address="03ee5c">
-  <table name="TGV Position Sensor" address="03ee44" />
+  <table name="Y Axis" address="03ee44" />
  </table>
  <table name="TGV Open Fraction from Position (Opening)" address="03ee50">
-  <table name="TGV Position Sensor" address="03ee44" />
+  <table name="Y Axis" address="03ee44" />
  </table>
  <table name="TGV Motor Duty Compensation" address="03eda6">
   <table name="Battery Voltage" address="03eda2" />
@@ -3432,7 +3445,14 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
  <table name="Battery Charge Efficiency (Discharging)" address="040d42">
   <table name="Y Axis" address="040b82" />
  </table>
+ <table name="Charge Control Delay After Start (SOC, Battery Sensor)" address="041cc0">
+  <table name="X Axis" address="0416a6" />
+  <table name="Y Axis" address="0416a0" />
+ </table>
  <table name="Battery State of Charge Reset Value" address="041690" />
+ <table name="Charge Control Charge After Start (SOC)" address="041cd2">
+  <table name="Y Axis" address="0416ac" />
+ </table>
  <table name="Battery Charged SOC Threshold" address="040bae" />
  <table name="Battery Charged SOC Hysteresis" address="040bb0" />
  <table name="Battery Charged Check Window" address="040ba0" />

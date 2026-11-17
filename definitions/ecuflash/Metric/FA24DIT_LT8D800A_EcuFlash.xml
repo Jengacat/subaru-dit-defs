@@ -1084,7 +1084,14 @@
  <table name="FLKC Range Boundary Load 3" address="01d410" />
  <table name="FLKC Range Boundary Load 4" address="01d412" />
  <table name="FLKC Range Boundary RPM 1" address="01d416" />
+ <table name="Knock Event Detector: Knocking Cylinders" address="03ad13" />
+ <table name="Knock Event Cylinder Count Limit (Feedback)" address="02d0d1" />
+ <table name="Knock Event Feedback Correction Threshold" address="02d0d2" />
+ <table name="Knock Event Feedback Correction Hysteresis" address="02d0d3" />
+ <table name="Knock Event Cylinder Count Limit (Fine Learning)" address="02d0d4" />
+ <table name="Knock Event Fine Learning Correction Threshold" address="02d0d5" />
  <table name="FLKC Range Boundary RPM 2" address="01d418" />
+ <table name="Knock Event Fine Learning Correction Hysteresis" address="02d0d6" />
  <table name="FLKC Range Boundary RPM 3" address="01d41a" />
  <table name="FLKC Range Boundary RPM 4" address="01d41c" />
  <table name="FLKC Range Boundary RPM 5" address="01d41e" />
@@ -1968,6 +1975,12 @@
  <table name="Maximum Torque (DAM)" address="01f0de">
   <table name="Engine Speed" address="01f18c" />
   <table name="Dynamic Advance Multiplier" address="01f186" />
+ </table>
+ <table name="Maximum Torque (Knock Event)" address="025536">
+  <table name="Engine Speed" address="025218" />
+ </table>
+ <table name="Maximum Torque (Knock Event, Alternate)" address="025560">
+  <table name="Engine Speed" address="025218" />
  </table>
  <table name="Rev/Boost Limit Torque (Base)" address="01f03c">
   <table name="Engine Speed" address="01effa" />
@@ -3121,10 +3134,10 @@ Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-th
   <table name="Vehicle Speed" address="03e114" />
  </table>
  <table name="TGV Open Fraction from Position (Closing)" address="03e0f0">
-  <table name="TGV Position Sensor" address="03e0d8" />
+  <table name="Y Axis" address="03e0d8" />
  </table>
  <table name="TGV Open Fraction from Position (Opening)" address="03e0e4">
-  <table name="TGV Position Sensor" address="03e0d8" />
+  <table name="Y Axis" address="03e0d8" />
  </table>
  <table name="TGV Motor Duty Compensation" address="03e03a">
   <table name="Battery Voltage" address="03e036" />
@@ -3294,7 +3307,14 @@ Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-th
  <table name="Battery Charge Efficiency (Discharging)" address="03ffd6">
   <table name="Y Axis" address="03fe16" />
  </table>
+ <table name="Charge Control Delay After Start (SOC, Battery Sensor)" address="040f54">
+  <table name="X Axis" address="04093a" />
+  <table name="Y Axis" address="040934" />
+ </table>
  <table name="Battery State of Charge Reset Value" address="040924" />
+ <table name="Charge Control Charge After Start (SOC)" address="040f66">
+  <table name="Y Axis" address="040940" />
+ </table>
  <table name="Battery Charged SOC Threshold" address="03fe42" />
  <table name="Battery Charged SOC Hysteresis" address="03fe44" />
  <table name="Battery Charged Check Window" address="03fe34" />

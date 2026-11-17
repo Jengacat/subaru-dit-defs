@@ -1186,7 +1186,28 @@
  <table name="FLKC Range Boundary Load 3" address="019b88" />
  <table name="FLKC Range Boundary Load 4" address="019b8a" />
  <table name="FLKC Range Boundary RPM 1" address="019b8e" />
+ <table name="Knock Event Detector: Low Timing" address="033a13" />
+ <table name="Knock Event Detector: Knocking Cylinders" address="033a14" />
+ <table name="Knock Event Low Timing Passes" address="026913" />
+ <table name="Knock Event Low Timing Hysteresis" address="026914" />
+ <table name="Knock Event Cylinder Count Limit (Feedback)" address="026915" />
+ <table name="Knock Event Feedback Correction Threshold" address="026916" />
+ <table name="Knock Event Feedback Correction Hysteresis" address="026917" />
+ <table name="Knock Event Cylinder Count Limit (Fine Learning)" address="026918" />
+ <table name="Knock Event Fine Learning Correction Threshold" address="026919" />
  <table name="FLKC Range Boundary RPM 2" address="019b90" />
+ <table name="Knock Event Fine Learning Correction Hysteresis" address="02691a" />
+ <table name="Knock Event Low Timing Floor" address="02695c">
+  <table name="Engine Load" address="02693c" />
+  <table name="Engine Speed" address="02691c" />
+ </table>
+ <table name="Knock Event Low Timing Floor (DAM Adder)" address="026a5c">
+  <table name="Engine Load" address="02693c" />
+  <table name="Engine Speed" address="02691c" />
+ </table>
+ <table name="Knock Event Low Timing DAM Factor" address="026b5c">
+  <table name="Dynamic Advance Multiplier" address="02694c" />
+ </table>
  <table name="FLKC Range Boundary RPM 3" address="019b92" />
  <table name="FLKC Range Boundary RPM 4" address="019b94" />
  <table name="FLKC Range Boundary RPM 5" address="019b96" />
@@ -2072,6 +2093,10 @@
  <table name="Maximum Torque (DAM)" address="01b856">
   <table name="Engine Speed" address="01b904" />
   <table name="Dynamic Advance Multiplier" address="01b8fe" />
+ </table>
+ <table name="Maximum Torque (Knock Event)" address="020f2e">
+  <table name="Accelerator Pedal" address="020eda" />
+  <table name="Engine Speed" address="020eb0" />
  </table>
  <table name="Overboost Limit" address="027816">
   <table name="Engine Speed" address="02782a" />
@@ -3289,10 +3314,10 @@
   <table name="Vehicle Speed" address="03543e" />
  </table>
  <table name="TGV Open Fraction from Position (Closing)" address="03541a">
-  <table name="TGV Position Sensor" address="035402" />
+  <table name="Y Axis" address="035402" />
  </table>
  <table name="TGV Open Fraction from Position (Opening)" address="03540e">
-  <table name="TGV Position Sensor" address="035402" />
+  <table name="Y Axis" address="035402" />
  </table>
  <table name="TGV Motor Duty Compensation" address="035362">
   <table name="Battery Voltage" address="03535e" />

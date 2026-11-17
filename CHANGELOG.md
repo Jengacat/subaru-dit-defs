@@ -4,8 +4,8 @@
 
 First public release.
 
-- New: **logging without the patch (SUBUDS).** `logger/FA20DIT_Logger_SUBUDS.xml` and `logger/FA24DIT_Logger_SUBUDS.xml`
-  read the stock and logging-patch parameters straight from RAM on a stock ROM, for a RomRaider build with the
+- New: **logging without the patch (SUBUDS).** `logger/DIT_Logger_SUBUDS.xml`, one file for every model,
+  reads the stock and logging-patch parameters straight from RAM on a stock ROM, for a RomRaider build with the
   SUBUDS protocol (test builds on my RomRaider fork). Every address is checked in an emulator against the ECU's own
   SSM read, on all 103 ROMs. Not yet run on a car.
 - Changed: the stock logger files' header comment no longer lists ROMs (it was out of date).

@@ -8,7 +8,7 @@ For RomRaider Logger over CAN (Tactrix OpenPort 2.0 or another J2534 interface).
 | `FA20DIT_Logger_LogPatch.xml` | ROMs with the [logging patch](../tools/logpatch/): everything in the stock file plus L01–L24. Valid for every supported ROM (the patch uses the same slots in each). |
 | `FA20DIT_Logger_LogPatch_only.xml` | Only the logging-patch parameters, to merge into your own logger file. |
 | `FA24DIT_Logger.xml`, `FA24DIT_Logger_LogPatch.xml`, `FA24DIT_Logger_LogPatch_only.xml` | The same three for the Ascent (FA24DIT). See [Ascent](#ascent) below. |
-| `FA20DIT_Logger_SUBUDS.xml`, `FA24DIT_Logger_SUBUDS.xml` | **Stock ROMs, no patch:** every parameter above, read straight from RAM with the SUBUDS protocol. Needs a RomRaider build with SUBUDS. See [Logging without the patch](#logging-without-the-patch-subuds). |
+| `DIT_Logger_SUBUDS.xml` | **Stock ROMs, no patch, every model in one file:** every parameter above, read straight from RAM with the SUBUDS protocol. Needs a RomRaider build with SUBUDS. See [Logging without the patch](#logging-without-the-patch-subuds). |
 
 ## What a stock ROM gives you
 
@@ -69,8 +69,8 @@ collect (0x2C, define by memory address) and then reads them all in one request 
   Windows and Linux builds are on the fork's
   [subuds-test-1 release](https://github.com/Jengacat/RomRaider/releases/tag/subuds-test-1).
 * A J2534 cable (Tactrix OpenPort 2.0 or similar), as for SSM over CAN.
-* `FA20DIT_Logger_SUBUDS.xml` (WRX, WRX S4, Levorg, Forester XT, Legacy / Outback and the Levorg 1.6), or
-  `FA24DIT_Logger_SUBUDS.xml` (Ascent).
+* `DIT_Logger_SUBUDS.xml`: one file for every supported ROM (WRX, WRX S4, Levorg, Forester XT, Legacy / Outback,
+  the Levorg 1.6 and the Ascent).
 
 **How to use it:** load the SUBUDS file as the logger definition, choose **SUBUDS** under Settings → Logger
 Protocol, and connect. RomRaider reads the ECU ID first and picks that ROM's RAM addresses; the parameters then
@@ -78,10 +78,12 @@ work like any other.
 
 **What's in the files:**
 
-| File | Parameters | ROMs |
+78 parameters in all. RomRaider reads the ECU ID first, and each ECU only gets the parameters that exist on it:
+
+| ROMs | Parameters shown | RAM layouts |
 |---|---|---|
-| `FA20DIT_Logger_SUBUDS.xml` | 70: the 46 stock parameters (J01–J46) and the 24 logging-patch ones (L01–L24) | all 100 supported 2.0 and 1.6 ROMs, 24 RAM layouts |
-| `FA24DIT_Logger_SUBUDS.xml` | 75: 45 stock (wastegate duty J10 left out, as in the Ascent SSM file) and 30 logging-patch ones (L01–L12, L15–L32) | the three Ascent ROMs |
+| all 100 supported 2.0 and 1.6 ROMs | 70: the 46 stock parameters (J01–J46) and the 24 logging-patch ones (L01–L24) | 24 |
+| the three Ascent ROMs | 75: 45 stock (wastegate duty J10 left out, as in the Ascent SSM file) and 30 logging-patch ones (L01–L12, L15–L32: the electric wastegate in place of L13 / L14) | 3 |
 
 The names, conversions and IDs match the SSM files, so a log from either protocol reads the same.
 

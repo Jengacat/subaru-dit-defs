@@ -4,6 +4,10 @@
 
 First public release.
 
+- New: **11 earlier calibrations** from the dealer update packages, each placed from the calibration that later
+  replaced it: WRX LF75403G, LF75403T, LF79102N, LF9C002N, LF9D011g; Forester XT LF75403A, LF78106B, LF9C002B;
+  Ascent LT8D700A, LT8F200C; Legacy / Outback XT LG7D430B. No logging patch for them yet.
+- New: the ROM lists mark the newest calibration for each car with ★ (see the README).
 - New: **2020 and 2021 Legacy / Outback XT** (LG7D501B, LG7F301F), in the FA24DIT files next to the Ascent. Same
   software as the Ascent, electric wastegate included; a few tables are not placed yet and there is no logging patch
   for them yet (see the README).

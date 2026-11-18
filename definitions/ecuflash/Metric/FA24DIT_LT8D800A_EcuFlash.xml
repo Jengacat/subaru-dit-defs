@@ -637,6 +637,9 @@ Coolant-indexed base of the cranking pulse FFF8AFC6 (0x0C9038, read); used when 
  </table>
  <table name="Cranking Fuel Coolant Multiplier (Special Start)" address="016438">
   <table name="Coolant Temp" address="03e934" />
+  <description>
+
+A first start (type 0) uses x1.0. Multiplier in the normal cranking pulse FFF8AFC6 when FFF8A6E7 = 3 (0x0C9038, coolant FFF8CD65 = degC + 50, read from the call at 0x0C6896); 255 (x1.0) for other values. LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Cranking Fuel Coolant Multiplier (Unused Routine, Restart after Key-Off)" address="015ecd">
   <table name="Coolant Temp" address="03e934" />

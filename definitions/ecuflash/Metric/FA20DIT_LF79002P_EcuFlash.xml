@@ -2786,11 +2786,7 @@ Details: u16 rpm x 0.1953125, subtracted from the limit while the latch FFF8A63B
   <table name="Engine Speed" address="0324a4" />
  </table>
  <table name="Throttle Flow Coefficient (Forward Flow)" address="032424" />
- <table name="Throttle Flow Coefficient (Reverse Flow)" address="032425">
-  <description>Coefficient of the throttle airflow model when the manifold is above the pre-throttle pressure. Leave alone.
-
-Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-throttle pressure; the ratio is inverted). 0x11DD04 (read), enabled by FFF8A8FB bit 0 (0x11E43C): modelled throttle flow FFF8C24C [g/min] = (P_up/101325) x Throttle Flow Function(r) x FFF8ADEC (Throttle Area from Throttle Position, 0.05 mm^2) x Throttle Flow Temperature Correction x this x 60000 x 2.98e-15, which feeds the manifold/airflow observer 0x11DB50 / 0x11D938. Normally leave alone. Confidence: inferred.</description>
- </table>
+ <table name="Throttle Flow Coefficient (Reverse Flow)" address="032425" />
  <table name="Exhaust Temperature Model Map A (No Enrichment)" address="019cb0">
   <table name="Engine Load" address="013698" />
   <table name="Engine Speed" address="0136a4" />
@@ -3312,11 +3308,7 @@ Details: 0x0F1DD0 (read; selection checked in the disassembly 0x0F1DD0..0x0F2148
 
 Details: 0x0F1DD0 (read; selection checked in the disassembly 0x0F1DD0..0x0F2148): the target ramp step B23E is chosen on a change of idle mode FFF8A7F0 (previous -&gt; new) and kept while the mode stays the same; the target B23C (4 x B238) moves toward the new mode's Idle Speed Target by this step every pass (0x0F1D00). Coolant FFF88A44 axis. Mode 1 -&gt; 1 uses step 0. This table: mode 8 -&gt; 7. Modes 6/8 only occur with the AT/CVT coding: 0x0F2BCC passes A7F6 through when FFF88ADA bit7 is set and 0x0F354C itself only yields 1-5/7, so this step is never used by this MT calibration (read). p16 (read): 0x0F1D00 runs every 10 ms (module 0x0EE338), so rpm/s = shown rpm-per-pass x 100. Confidence: read.</description>
  </table>
- <table name="Idle Speed Target (Cold Idle, Mode 4)" address="02ae90">
-  <description>Idle speed target by coolant for a cold-idle mode used when stopped below a coolant threshold.
-
-Details: When used: idle mode 4, entered from mode 5 when stopped with coolant below cal 0x24E94 for cal 0x24E96 passes. 0x0F1BCC selects this boot-format table by idle mode FFF8A7F0 = 4 and coolant; the result B238 is ramped (0x0F1D00) and becomes the idle target FFF8B236 through the minimum-speed max() in 0x0F2274 (read). Implicit coolant axis -40..110 C in 10 C steps (lookup 0x7414). Confidence: inferred.</description>
- </table>
+ <table name="Idle Speed Target (Cold Idle, Mode 4)" address="02ae90" />
  <table name="Idle Target Ramp Rate (Fallback Latch)" address="02d8a8">
   <table name="Coolant Temp" address="03fd68" />
  </table>
@@ -4046,44 +4038,26 @@ Brake override module 0x181B38 (10 ms task 0x1DFE3C, read): it limits the accele
  <table name="CAN Engine Torque Fuel-Cut Fade Rate" address="03df02">
   <table name="Engine Speed" address="03df06" />
  </table>
- <table name="Gear Road Speed per 1000 RPM" address="03f28e" level="5">
+ <table name="Gear Road Speed per 1000 RPM" address="03f28e">
   <table name="Gear" address="03e89e" />
-  <description>Road speed per 1000 rpm for each gear, used only by the gear advice function. The values do not match the 6MT and probably belong to another transmission.
-
-Same data block as descriptor 05D468 (one entry). Road speed per 1000 rpm for gear index 1-8. 0x11031C (read; called at seg_0x110000.c:1175 with cal 0x57585 bit 3, gear FFF8A8BA, speed FFF88BE8, selector FFF8A8C3): only when cal 0x57585 bit 3 is set, FFF8558A = this(gear) (the Alternate table when FFF8A8C3 = 2) and FFF85588 = speed x 28800 / FFF8558A -&gt; FFF8B434. 0x110398 does the same with the second gear index FFF8A8BC (0x1143CC) through the shared descriptors -&gt; FFF8B436. 0x116A0C (gear advice, gated by the same bit) uses B436/B434 as rpm x 0.1953125 to convert the current power to torque at those engine speeds (read). The values (11.3 to 53.9 km/h per 1000 rpm over 6 steps here, 11.0 to 53.9 over 8 in the Alternate table) do not fit the 6MT, so this belongs to another transmission (inferred). Confidence: inferred.</description>
  </table>
- <table name="Gear Road Speed per 1000 RPM (Alternate)" address="03f29e" level="5">
+ <table name="Gear Road Speed per 1000 RPM (Alternate)" address="03f29e">
   <table name="Gear" address="03e89e" />
-  <description>Alternate road speed per 1000 rpm for each gear, used only by the gear advice function. The values do not match the 6MT and probably belong to another transmission.
-
-Details: When used: used instead of Gear Road Speed per 1000 RPM when FFF8A8C3 = 2. Same data block as descriptor 05D474 (one entry). 0x11031C (read; called at seg_0x110000.c:1175 with cal 0x57585 bit 3, gear FFF8A8BA, speed FFF88BE8, selector FFF8A8C3): only when cal 0x57585 bit 3 is set, FFF8558A = this(gear) (the Alternate table when FFF8A8C3 = 2) and FFF85588 = speed x 28800 / FFF8558A -&gt; FFF8B434. 0x110398 does the same with the second gear index FFF8A8BC (0x1143CC) through the shared descriptors -&gt; FFF8B436. 0x116A0C (gear advice, gated by the same bit) uses B436/B434 as rpm x 0.1953125 to convert the current power to torque at those engine speeds (read). The values (11.0 to 53.9 km/h per 1000 rpm over 8 steps here, 11.3 to 53.9 over 6 in the normal table) do not fit the 6MT, so this belongs to another transmission (inferred). Confidence: inferred.</description>
  </table>
- <table name="Gear Advice Consumption Map" address="03ed6e" level="5">
+ <table name="Gear Advice Consumption Map" address="03ed6e">
   <table name="Engine Speed" address="03e8e6" />
   <table name="Y Axis" address="03e8be" />
-  <description>Fuel consumption map by torque and rpm (probably g/kWh) for a gear-shift advice function that picks the most economical gear. One table edits all three copies.
-
-Gear advice module 0x116A0C. With the bit set it takes the current power (torque x rpm / 9549.3), the engine speed in the gear below (FFF8B434, gear FFF8A8BA = gear - 1, 0x114360) and in the gear above (FFF8B436, gear FFF8A8BC = gear + 1, 0x1143CC), looks up the consumption map at the three points and advises the gear with the lowest value (FFF85678 / FFF85679, biases cal 0x36E4E/0x36E50 = 3 %). 'Alternate' tables are used when FFF8A8C3 = 2. Descriptors 05D4D8, 05D504 and 05D518 share this data block (037352): 05D4D8 at the current torque FFF8B468 = DAM-blended torque FFF8B48A - FFF8A8CC x 128 (0x1161DC) and rpm, 05D504 / 05D518 at the torque needed for the same power in the lower / upper gear (read). One entry edits all three. Confidence: inferred.</description>
  </table>
- <table name="Gear Advice Downshift Maximum RPM (Alternate)" address="03f30e" level="5">
+ <table name="Gear Advice Downshift Maximum RPM (Alternate)" address="03f30e">
   <table name="Gear" address="03e936" />
-  <description>Alternate rpm limit, by gear, below which a downshift may be advised by the gear advice function.
-
-Details: When used: instead of 05D5B8 when FFF8A8C3 = 2. Gear advice module 0x116A0C. With the bit set it takes the current power (torque x rpm / 9549.3), the engine speed in the gear below (FFF8B434, gear FFF8A8BA = gear - 1, 0x114360) and in the gear above (FFF8B436, gear FFF8A8BC = gear + 1, 0x1143CC), looks up the consumption map at the three points and advises the gear with the lowest value (FFF85678 / FFF85679, biases cal 0x36E4E/0x36E50 = 3 %). 'Alternate' tables are used when FFF8A8C3 = 2. 0x116A0C (read): FFF85648 = this(lower gear FFF8A8BA); the lower gear is advised (FFF85679 = 1) only if its engine speed FFF8B434 &lt;= FFF85648. 05D5B8 (normal) is 31232 = 6100 rpm for every gear. Confidence: inferred.</description>
  </table>
- <table name="Gear Advice Upshift Minimum RPM" address="03f08e" level="5">
+ <table name="Gear Advice Upshift Minimum RPM" address="03f08e">
   <table name="Gear" address="03e92e" />
   <table name="Accelerator Pedal" address="03e8a6" />
-  <description>Minimum rpm in the next gear up, by pedal and gear, for an upshift to be advised by the gear advice function.
-
-Details: When used: 05D5E4 replaces it when FFF8A8C3 = 2. Gear advice module 0x116A0C. With the bit set it takes the current power (torque x rpm / 9549.3), the engine speed in the gear below (FFF8B434, gear FFF8A8BA = gear - 1, 0x114360) and in the gear above (FFF8B436, gear FFF8A8BC = gear + 1, 0x1143CC), looks up the consumption map at the three points and advises the gear with the lowest value (FFF85678 / FFF85679, biases cal 0x36E4E/0x36E50 = 3 %). 'Alternate' tables are used when FFF8A8C3 = 2. 0x116A0C (read, lookup by pedal FFF88A5E and upper gear FFF8A8BC): FFF85646 = this; the upper gear is advised only if its engine speed FFF8B436 &gt;= FFF85646. Confidence: inferred.</description>
  </table>
- <table name="Gear Advice Upshift Minimum RPM (Alternate)" address="03f10e" level="5">
+ <table name="Gear Advice Upshift Minimum RPM (Alternate)" address="03f10e">
   <table name="Gear" address="03e92e" />
   <table name="Accelerator Pedal" address="03e8a6" />
-  <description>Alternate minimum rpm in the next gear up, by pedal and gear, for an upshift to be advised by the gear advice function.
-
-Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x116A0C. With the bit set it takes the current power (torque x rpm / 9549.3), the engine speed in the gear below (FFF8B434, gear FFF8A8BA = gear - 1, 0x114360) and in the gear above (FFF8B436, gear FFF8A8BC = gear + 1, 0x1143CC), looks up the consumption map at the three points and advises the gear with the lowest value (FFF85678 / FFF85679, biases cal 0x36E4E/0x36E50 = 3 %). 'Alternate' tables are used when FFF8A8C3 = 2. 0x116A0C (read): FFF85646 = this(pedal FFF88A5E, upper gear FFF8A8BC); the upper gear is advised only if its engine speed FFF8B436 &gt;= FFF85646. Confidence: inferred.</description>
  </table>
  <table name="MAF Sensor Scaling" address="02fed0" />
  <table name="MAP Sensor Multiplier" address="06300c" />
@@ -4222,9 +4196,9 @@ Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x11
  <table name="(P0072) Ambient Air Temperature Sensor Circuit Low [Fail-Safe]" address="61d59" />
  <table name="(P0073) Ambient Air Temperature Sensor Circuit High" address="4b4d9" />
  <table name="(P0073) Ambient Air Temperature Sensor Circuit High [Fail-Safe]" address="61d59" />
- <table name="(P0087) Fuel Rail/System Pressure Too Low" address="4b4dc" scaling="DTC enabled b0 mFF f00 sFE" />
+ <table name="(P0087) Fuel Rail/System Pressure Too Low" address="4b4dc" />
  <table name="(P0087) Fuel Rail/System Pressure Too Low [Fail-Safe]" address="61d5c" />
- <table name="(P0088) Fuel Rail/System Pressure Too High" address="4b4dc" scaling="DTC enabled b1 mFF f00 sFD" />
+ <table name="(P0088) Fuel Rail/System Pressure Too High" address="4b4dc" />
  <table name="(P0088) Fuel Rail/System Pressure Too High [Fail-Safe]" address="61d5c" />
  <table name="(P0096) Intake Air Temperature Sensor 2 Circuit Range/Performance" address="4b4de" scaling="DTC enabled b4 mFF f00 s63" />
  <table name="(P0096) Intake Air Temperature Sensor 2 Circuit Range/Performance [Fail-Safe]" address="61d5e" />
@@ -4454,7 +4428,7 @@ Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x11
  <table name="(P0628) Fuel Pump A Control Circuit Low [Fail-Safe]" address="61d5d" />
  <table name="(P0629) Fuel Pump A Control Circuit High" address="4b4dd" scaling="DTC enabled b5 mFF f00 sC7" />
  <table name="(P0629) Fuel Pump A Control Circuit High [Fail-Safe]" address="61d5d" />
- <table name="(P062D) Fuel Injector Driver Circuit Performance (Bank 1)" address="4b4dc" scaling="DTC enabled b2 mFF f00 sFB" />
+ <table name="(P062D) Fuel Injector Driver Circuit Performance (Bank 1)" address="4b4dc" />
  <table name="(P062D) Fuel Injector Driver Circuit Performance (Bank 1) [Fail-Safe]" address="61d5c" />
  <table name="(P062F) Internal Control Module EEPROM Error" address="4b4cf" />
  <table name="(P062F) Internal Control Module EEPROM Error [Fail-Safe]" address="61d4f" />
@@ -4476,13 +4450,13 @@ Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x11
  <table name="(P1160) manufacturer-specific / not named [Fail-Safe]" address="61d24" />
  <table name="(P1191) manufacturer-specific / not named" address="4b4dd" />
  <table name="(P1191) manufacturer-specific / not named [Fail-Safe]" address="61d5d" />
- <table name="(P1261) manufacturer-specific / not named" address="4b4dc" scaling="DTC enabled b3 mFF f00 sF7" />
+ <table name="(P1261) manufacturer-specific / not named" address="4b4dc" />
  <table name="(P1261) manufacturer-specific / not named [Fail-Safe]" address="61d5c" />
- <table name="(P1262) manufacturer-specific / not named" address="4b4dc" scaling="DTC enabled b4 mFF f00 sEF" />
+ <table name="(P1262) manufacturer-specific / not named" address="4b4dc" />
  <table name="(P1262) manufacturer-specific / not named [Fail-Safe]" address="61d5c" />
- <table name="(P1263) manufacturer-specific / not named" address="4b4dc" scaling="DTC enabled b5 mFF f00 sDF" />
+ <table name="(P1263) manufacturer-specific / not named" address="4b4dc" />
  <table name="(P1263) manufacturer-specific / not named [Fail-Safe]" address="61d5c" />
- <table name="(P1264) manufacturer-specific / not named" address="4b4dc" scaling="DTC enabled b6 mFF f00 sBF" />
+ <table name="(P1264) manufacturer-specific / not named" address="4b4dc" />
  <table name="(P1264) manufacturer-specific / not named [Fail-Safe]" address="61d5c" />
  <table name="(P1449) manufacturer-specific / not named" address="4b4c5" scaling="DTC enabled b2 mBF f00" />
  <table name="(P1449) manufacturer-specific / not named [Fail-Safe]" address="61d45" scaling="DTC yes b2 mBF f00" />

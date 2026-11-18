@@ -4,6 +4,9 @@
 
 First public release.
 
+- New: **2020 and 2021 Legacy / Outback XT** (LG7D501B, LG7F301F), in the FA24DIT files next to the Ascent. Same
+  software as the Ascent, electric wastegate included; a few tables are not placed yet and there is no logging patch
+  for them yet (see the README).
 - New: **per-cylinder ignition timing trim** (four tables, one per cylinder, by rpm and load, plus the enable
   switch). Timing added to or taken from one cylinder only. The switch is already on in the 2017 Forester XT, every
   2018-2021 WRX ROM I have and most 1.6 ROMs, so on those you only need to fill in the tables (they are zero on the WRX;

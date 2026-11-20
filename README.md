@@ -1,6 +1,6 @@
 # subaru-dit-defs
 
-RomRaider and EcuFlash definitions, logging tools and a tuning guide for Subaru's Direct-Injected Turbocharged engine ECU's- encompassing the FA20DIT, FB16DIT, and FA24DIT. The list of supported ROM's is below.
+RomRaider and EcuFlash definitions, logging tools and a tuning guide for Subaru's Direct-Injected Turbocharged engine ECU's- encompassing the FA20DIT, FB16DIT, and FA24DIT engine platforms. The list of supported ROM's is below.
 
 The definitions were built from scratch from my own analysis of stock ROMs. No existing community definition was
 used as a source, so table names, scalings and descriptions are my own. Every table carries a plain-English summary

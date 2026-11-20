@@ -1,12 +1,10 @@
 # subaru-dit-defs
 
-RomRaider and EcuFlash definitions, logging tools and a tuning guide for Subaru's **FA20DIT** and **FB16DIT** engine
-ECUs (Hitachi SH72543R / SH72544R), and a first set for the **FA24DIT** Ascent. The list of supported ROM's is below.
+RomRaider and EcuFlash definitions, logging tools and a tuning guide for Subaru's Direct-Injected Turbocharged engine ECU's. The list of supported ROM's is below.
 
-The definitions were built from scratch from my own analysis of the stock ROMs. No existing community definition was
+The definitions were built from scratch from my own analysis of stock ROMs. No existing community definition was
 used as a source, so table names, scalings and descriptions are my own. Every table carries a plain-English summary
-and a description of what the ECU does with it. The 1.6 and the 2.0 run the same ECU software, so they share table
-names and descriptions.
+and a description of what the ECU does with it.
 
 Across the supported ROMs, each definition averages roughly **1,200 entries**: about 1,000 maps and curves and
 about 140 single values and switches. On top of that, each has a table for every trouble code (about 225), with its enable and fail-safe settings. The exact count for
@@ -200,8 +198,8 @@ values on the 2019 and 2020 ROMs. The
 2020 and 2021 ROMs have 11-character IDs (LT8F300C00G, LT8H300D00G); the definitions match the first eight.
 
 The Legacy / Outback XT runs the same software as the Ascent of the same year, with its own calibration: the 2021
-ROM was placed from the 2021 Ascent, and the 2020 ROM from the 2021 Legacy XT. Boost control and the P0299 split are
-the same as on the Ascent (tables on 2021, single values on 2020). The Legacy XT lists have a few entries fewer than
+ROM was placed from the 2021 Ascent, and the 2020 ROM from the 2021 Legacy XT. Boost control is the same as on the Ascent 
+(tables on 2021, single values on 2020). The Legacy XT lists have a few entries fewer than
 the Ascent's, where the Legacy XT code differs and I have not placed them yet (manifold-model gain multipliers,
 cranking-fuel rpm and coolant multipliers, idle converter slip thresholds, and part of the charging control). The
 2021 ROM's after-start enrichment tables have a fifth start type the Ascent doesn't have; the extra slots are not
@@ -230,7 +228,7 @@ same model year; flashing with a definition for another ID will corrupt the cali
 | 2013–2015 Forester XT with an AF5G…, AF56…, AF6A…, LF61…, LF6A… or LF7B… ID (e.g. LF61803B) | An older 1.5 MB ECU (SH705x) with different software; not covered by these definitions. |
 | Other 2019+ calibrations | These ECUs have 2.5 MB of flash and a newer boot block, like the supported 2019–2021 WRX (LF9D…, LF9G…, LF9K…) and Levorg STI (LF9F000R), so a complete read makes them supportable. EcuFlash can open 2.5 MB ROMs. |
 | Other Ascent and Legacy / Outback XT calibrations (LT8…, LG7… IDs) | Same software family as the supported ROMs; each needs a read and a port. |
-| 2022+ WRX (FA24DIT) | Different ECU generation; not started. |
+| 2022+ WRX (FA24DIT) | Different ECU generation based on the RH850- DEFINITION WORK IN PROGRESS!!! |
 
 </details>
 

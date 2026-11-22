@@ -4,6 +4,9 @@
 
 First public release.
 
+- Fixed: **load in g/rev on the 1.6 (FB16DIT) and 2.4 (FA24DIT) definitions** used the 2.0 L factor, so g/rev read
+  25 % high on the 1.6 and 17 % low on the 2.4. Each engine now uses its own (100 % = 1.034 g/rev on the 1.6, 1.552
+  on the 2.4). Load in % was always right, and the 2.0 definitions are unchanged.
 - New: **11 earlier calibrations** from the dealer update packages, each placed from the calibration that later
   replaced it: WRX LF75403G, LF75403T, LF79102N, LF9C002N, LF9D011g; Forester XT LF75403A, LF78106B, LF9C002B;
   Ascent LT8D700A, LT8F200C; Legacy / Outback XT LG7D430B. No logging patch for them yet.

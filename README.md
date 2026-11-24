@@ -1,6 +1,6 @@
 # subaru-dit-defs
 
-RomRaider and EcuFlash definitions, logging tools and a tuning guide for Subaru's Direct-Injected Turbocharged engine ECU's- encompassing the FA20DIT, FB16DIT, and FA24DIT engine platforms. The FA24DIT comes on two ECU generations: the 2019–2021 Ascent and Legacy / Outback XT (**FA24 Early**, the same ECU family as the FA20DIT) and the 2022+ WRX (**FA24DIT**, a new RH850 ECU). The list of supported ROM's, and which files each car uses, is below.
+RomRaider and EcuFlash definitions, logging tools and a tuning guide for Subaru's Direct-Injected Turbocharged engine ECU's- encompassing the FA20DIT, FB16DIT, and FA24DIT engine platforms. The list of supported ROM's, and which files each car uses, is below.
 
 The definitions were built from scratch from my own analysis of stock ROMs. No existing community definition was
 used as a source, so table names, scalings and descriptions are my own. Every table carries a plain-English summary
@@ -35,8 +35,7 @@ folder.
 **Ascent and Legacy / Outback XT owners: use the FA24 Early files, not FA24DIT.** Your car has the FA24DIT engine,
 but its ECU runs a later build of the FA20DIT software, so its definitions build on the FA20DIT ones: the RomRaider
 sections are in `FA20DIT_RomRaider.xml`, and the EcuFlash files need `FA20DIT_BASE_EcuFlash.xml` as well as
-`FA24_Early_BASE_EcuFlash.xml`. The `FA24DIT_*` files are only for the 2022+ WRX, whose ECU is a different
-generation; they won't match your ROM.
+`FA24_Early_BASE_EcuFlash.xml`. The `FA24DIT_*` files are only for the 2022+ WRX.
 
 ### ROM lists
 

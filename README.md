@@ -87,6 +87,27 @@ were later replaced by an update, or are builds that Subaru's update database do
 </details>
 
 <details>
+<summary><b>WRX 2022+ (FA24DIT, RH850 ECU)</b>: 4 ROMs, 2022–2025+ (first release, read the notes below)</summary>
+
+| Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
+|---|---|---|---|---|---|---|---|
+| WRX | 2022 | 6MT | USDM | **LHBHB10B** | 1266 | 254 | no (see below) |
+| WRX | 2023 | 6MT | USDM | **LHBKC40M** | 1290 | 312 | no (see below) |
+| WRX | 2024 | 6MT | USDM | **LHBP400b** | 1300 | 312 | no (see below) |
+| WRX | 2025 or later (not confirmed) | CVT | USDM | **LHBT210V** | 1332 | 312 | no (see below) |
+
+The 2022+ WRX has a new ECU generation: a Renesas RH850/E1M-S2 with new software, not a build of the SH software
+the other definitions cover. 
+Every tool works a little differently on this ECU, so read [2022+ WRX: what's different](#2022-wrx-whats-different)
+before you start.
+
+There is no logging patch: this ECU has no SSM
+logging over CAN, so the patch has nothing to extend. Mode-22 (UDS) logging works instead; see
+[Logging](#logging).
+
+</details>
+
+<details>
 <summary><b>Forester XT and tS</b>: 18 ROMs, 2015–2018</summary>
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
@@ -197,32 +218,6 @@ scale is inferred; it can also be shown as the position sensor's voltage).
 but their ECU's runs a later build of the FA20DIT software, so their definitions build on the FA20DIT ones. RomRaider
 sections are in `FA20DIT_RomRaider.xml`, and the EcuFlash files need `FA20DIT_BASE_EcuFlash.xml` as well as
 `FA24_Early_BASE_EcuFlash.xml`. The `FA24DIT_*` files are only for the 2022+ WRX.
-
-</details>
-
-<details>
-<summary><b>WRX 2022+ (FA24DIT, RH850 ECU)</b>: 4 ROMs, 2022–2025+ (first release, read the notes below)</summary>
-
-| Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
-|---|---|---|---|---|---|---|---|
-| WRX | 2022 | 6MT | USDM | **LHBHB10B** | 1266 | 254 | no (see below) |
-| WRX | 2023 | 6MT | USDM | **LHBKC40M** | 1290 | 312 | no (see below) |
-| WRX | 2024 | 6MT | USDM | **LHBP400b** | 1300 | 312 | no (see below) |
-| WRX | 2025 or later (not confirmed) | CVT | USDM | **LHBT210V** | 1332 | 312 | no (see below) |
-
-The 2022+ WRX has a new ECU generation: a Renesas RH850/E1M-S2 with new software, not a build of the SH software
-the other definitions cover. I placed every table from these ROMs' own code. Where a table does the same job as one
-in the Ascent definition, it carries that table's name, folder and description, so the two read alike;
-each description ends with how sure I am of it (see the [definitions README](definitions/README.md#notes-on-individual-roms)).
-Every tool works a little differently on this ECU, so read [2022+ WRX: what's different](#2022-wrx-whats-different)
-before you start.
-
-★ is not assigned for these yet: I don't have Subaru's update data for the 2022+ ECUs, so I can't tell which
-calibration replaced which. The CVT ROM's model year is not stored in it; its ID sorts after the 2024 ROM's and it
-monitors a crankcase pressure sensor that the 2022–2024 ROMs don't have, which points to 2025 or later. Its ID has 11
-characters (LHBT210VB0G); the definitions match the first eight. There is no logging patch: this ECU has no SSM
-logging over CAN, so the patch has nothing to extend. Mode-22 (UDS) logging works instead; see
-[Logging](#logging).
 
 </details>
 

@@ -10,8 +10,8 @@ Outback and Ascent. The 2022+ WRX has its own files ([below](#2022-wrx-rh850)).
 |---|---|---|
 | Any model except the Ascent | stock or tuned, no logging patch | `FA20DIT_Logger.xml` |
 | Any model except the Ascent | with the [logging patch](../tools/logpatch/) | `FA20DIT_Logger_LogPatch.xml` |
-| Ascent | stock or tuned, no logging patch | `FA20DIT_FA24_Logger.xml` |
-| Ascent | with the logging patch | `FA20DIT_FA24_Logger_LogPatch.xml` |
+| Ascent | stock or tuned, no logging patch | `FA24_Early_Logger.xml` |
+| Ascent | with the logging patch | `FA24_Early_Logger_LogPatch.xml` |
 | Any model, Ascent included | any, **no patch needed** | `DIT_Logger_SUBUDS.xml`, with a RomRaider build that has the SUBUDS protocol ([below](#logging-without-the-patch-subuds)) |
 | 2022+ WRX | any | `FA24DIT_LHBKC40M_Torque.csv` in an OBD app with custom PIDs, or RomRaider's OBD protocol for the standard parameters ([below](#2022-wrx-rh850)) |
 
@@ -105,7 +105,7 @@ SUBUDS logs only sensors and internal values. For trouble codes and OBD paramete
 
 ## 2022+ WRX (RH850)
 
-(The `FA24DIT_*` logger files are the 2022+ WRX's; the Ascent's are `FA20DIT_FA24_Logger*.xml`.)
+(The `FA24DIT_*` logger files are the 2022+ WRX's; the Ascent's are `FA24_Early_Logger*.xml`.)
 
 This ECU has no SSM logging on CAN, so the RomRaider logger files above don't apply; RomRaider's OBD protocol still
 logs the standard OBD-II parameters. What it does offer is UDS ReadDataByIdentifier (mode 22) on 0x7E0 / 0x7E8,

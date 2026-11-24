@@ -5,7 +5,7 @@ every supported Levorg 1.6 ROM, and `FA24DIT_RomRaider.xml` the 2022+ WRX; RomRa
 ROM's calibration ID. They can all be installed together.
 
 The Ascent and Legacy / Outback XT run a later build of the FA20DIT software, so their sections inherit a small
-`FA20DIT_FA24_BASE` section, which in turn inherits `FA20DIT_BASE`: it holds only their own tables (the electric
+`FA24_Early_BASE` section (FA24 Early), which in turn inherits `FA20DIT_BASE`: it holds only their own tables (the electric
 wastegate group, for one) and what differs (the 2.4 L g/rev factor, user levels, descriptions), and drops the 2.0
 tables they don't have.
 

@@ -4,11 +4,11 @@ EcuFlash shows each table in one unit, so the definitions come in two sets with 
 
 | Folder | Base file | Units |
 |---|---|---|
-| `Imperial/` | `FA20DIT_BASE_EcuFlash.xml` (plus `FA20DIT_FA24_BASE_EcuFlash.xml` for the Ascent / Legacy XT), `FB16DIT_BASE_EcuFlash.xml` (Levorg 1.6), `FA24DIT_BASE_EcuFlash.xml` (2022+ WRX) | psi (gauge for boost), psia, °F, ft-lb, mph |
-| `Metric/` | `FA20DIT_BASE_METRIC_EcuFlash.xml` (plus `FA20DIT_FA24_BASE_METRIC_EcuFlash.xml`), `FB16DIT_BASE_METRIC_EcuFlash.xml` (Levorg 1.6), `FA24DIT_BASE_METRIC_EcuFlash.xml` (2022+ WRX) | kPa (absolute for boost and manifold pressure), MPa (rail pressure), °C, Nm, km/h |
+| `Imperial/` | `FA20DIT_BASE_EcuFlash.xml` (plus `FA24_Early_BASE_EcuFlash.xml` for the Ascent / Legacy XT), `FB16DIT_BASE_EcuFlash.xml` (Levorg 1.6), `FA24DIT_BASE_EcuFlash.xml` (2022+ WRX) | psi (gauge for boost), psia, °F, ft-lb, mph |
+| `Metric/` | `FA20DIT_BASE_METRIC_EcuFlash.xml` (plus `FA24_Early_BASE_METRIC_EcuFlash.xml`), `FB16DIT_BASE_METRIC_EcuFlash.xml` (Levorg 1.6), `FA24DIT_BASE_METRIC_EcuFlash.xml` (2022+ WRX) | kPa (absolute for boost and manifold pressure), MPa (rail pressure), °C, Nm, km/h |
 
-**Ascent and Legacy / Outback XT:** their ROM files (`FA20DIT_LT8…`, `FA20DIT_LG7…`) include
-`FA20DIT_FA24_BASE_EcuFlash.xml`, which includes `FA20DIT_BASE_EcuFlash.xml`: install both base files. EcuFlash
+**Ascent and Legacy / Outback XT (FA24 Early):** their ROM files (`FA24_Early_LT8…`, `FA24_Early_LG7…`) include
+`FA24_Early_BASE_EcuFlash.xml`, which includes `FA20DIT_BASE_EcuFlash.xml`: install both base files. EcuFlash
 1.44.4870 and FastECU both follow the two-level include.
 
 **FastECU** reads these EcuFlash files too. Every scaling is written in a form FastECU evaluates correctly
@@ -18,9 +18,10 @@ EcuFlash shows each table in one unit, so the definitions come in two sets with 
 Units both systems use (g/rev, RPM, %, AFR, degrees, g/s) are the same in both. **Install one set only:** the ROM
 files in both have the same IDs, and EcuFlash would load whichever it finds first.
 
-In each set a base file defines every table once (one base for the 2.0 ROMs, one for the Levorg 1.6 ROMs); each ROM
-has a small file named by calibration ID (`FA20DIT_<calibration ID>_EcuFlash.xml` or
-`FB16DIT_<calibration ID>_EcuFlash.xml`) that gives that ROM's addresses and whatever differs. EcuFlash picks the ROM
+In each set a base file defines every table once (one base for the 2.0 ROMs, one for the Levorg 1.6 ROMs, one for the
+2022+ WRX, and `FA24_Early_BASE` adding the Ascent's differences to the 2.0 base); each ROM has a small file named by
+calibration ID (`FA20DIT_<calibration ID>_EcuFlash.xml`, `FB16DIT_…`, `FA24_Early_…` or `FA24DIT_…`) that gives that
+ROM's addresses and whatever differs. EcuFlash picks the ROM
 file by the ID inside your ROM, and the ROM file pulls in the base.
 
 **Install:** from the folder you chose, copy the base file for your engine **and** the file(s) for your ROM(s) into the same folder

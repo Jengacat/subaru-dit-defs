@@ -26,7 +26,7 @@ refuses to patch if:
 - the ROM's checksum is already bad (fix it first with `../checksum.py` or `../checksum.ps1`);
 - any slot to patch is already in use.
 
-Log with [`FA20DIT_Logger_LogPatch.xml`](../../logger/), or `FA20DIT_FA24_Logger_LogPatch.xml` on the Ascent (LT8…
+Log with [`FA20DIT_Logger_LogPatch.xml`](../../logger/), or `FA24_Early_Logger_LogPatch.xml` on the Ascent (LT8…
 specs). `specs/` holds one spec per supported ROM; the slots are the same in all of them. The Ascent ROMs I have came
 from Subaru's dealer software and carry no boot block, so for them the tools report the boot-block marker without
 requiring it; the patch never touches the boot block. Not yet confirmed on a running ECU.

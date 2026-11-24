@@ -5,8 +5,8 @@ lists).
 
 | Folder | For | Files |
 |---|---|---|
-| [`romraider/`](romraider/) | RomRaider | `FA20DIT_RomRaider.xml` covers every supported 2.0 ROM, `FB16DIT_RomRaider.xml` every supported Levorg 1.6 ROM, the Ascent and Legacy / Outback XT inside the FA20DIT file, and `FA24DIT_RomRaider.xml` the 2022+ WRX (also as `FA24DIT_RomRaider_Checksum.xml`, with the `checksum/` folder). |
-| [`ecuflash/`](ecuflash/) | EcuFlash, FastECU | Imperial and Metric sets: a base file per engine plus one file per ROM, named by calibration ID (the Ascent adds a second base, `FA20DIT_FA24_BASE`; the 2022+ WRX files are made for FastECU). Also `read_subaruhitachish72544.xml`, a read template for the 2.5 MB (2019+) ECUs (untested; see the [main README](../README.md#reading-your-ecu)). |
+| [`romraider/`](romraider/) | RomRaider | `FA20DIT_RomRaider.xml` covers every supported 2.0 ROM, `FB16DIT_RomRaider.xml` every supported Levorg 1.6 ROM, the Ascent and Legacy / Outback XT (FA24 Early) inside the FA20DIT file, and `FA24DIT_RomRaider.xml` the 2022+ WRX (also as `FA24DIT_RomRaider_Checksum.xml`, with the `checksum/` folder). |
+| [`ecuflash/`](ecuflash/) | EcuFlash, FastECU | Imperial and Metric sets: a base file per engine plus one file per ROM, named by calibration ID (the Ascent / Legacy XT files are `FA24_Early_*`, with a second base, `FA24_Early_BASE`, on top of the FA20DIT one; the 2022+ WRX files are made for FastECU). Also `read_subaruhitachish72544.xml`, a read template for the 2.5 MB (2019+) ECUs (untested; see the [main README](../README.md#reading-your-ecu)). |
 
 Both carry the same tables, scalings and descriptions. Each table has a plain-English summary first and the detail
 after it, and tables are grouped by purpose in tuning order. The descriptions say what the ECU does with a table, not

@@ -13,6 +13,6 @@ value), and it can be set by calibration to use 0x393 byte 3 bits 5-7 instead. M
 older platform.
 
 The Ascent and Legacy / Outback XT (FA24DIT on the older SH72544R ECU) have their own dictionary:
-`FA20DIT_FA24_CAN.*`.
+`FA24_Early_CAN.*`.
 
 Listening on the bus is safe; transmitting on a running car's CAN bus is not.

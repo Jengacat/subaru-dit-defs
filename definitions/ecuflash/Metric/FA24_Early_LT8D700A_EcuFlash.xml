@@ -5,7 +5,7 @@
      Units: Metric (kPa / MPa, degrees C, Nm, km/h).
      Checksum: no EcuFlash module (subaruhitachi gets this 2.5 MB layout wrong). Run tools/checksum.py (or tools/checksum.ps1)
      fix on the image and check it with verify before flashing (rule: u16 word sum 0x6000..0x27FFFF = 0x5AA5). -->
-<!-- Needs FA20DIT_FA24_BASE_METRIC_EcuFlash.xml and FA20DIT_BASE_METRIC_EcuFlash.xml in the same folder. This file gives each table's
+<!-- Needs FA24_Early_BASE_METRIC_EcuFlash.xml and FA20DIT_BASE_METRIC_EcuFlash.xml in the same folder. This file gives each table's
      address for this ROM and whatever differs from the base. -->
 <rom>
  <romid>
@@ -23,7 +23,7 @@
   <checksummodule />
   <flashmethod>subaruhitachi</flashmethod>
  </romid>
- <include>FA20DIT_FA24_BASE_METRIC</include>
+ <include>FA24_Early_BASE_METRIC</include>
  <table name="Injector Scaling" address="01d8ba" />
  <table name="Injector Latency" address="03eb7c">
   <table name="Rail Pressure" address="03eb06" />

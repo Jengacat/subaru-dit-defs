@@ -5,8 +5,8 @@ lists).
 
 | Folder | For | Files |
 |---|---|---|
-| [`romraider/`](romraider/) | RomRaider | `FA20DIT_RomRaider.xml` covers every supported 2.0 ROM, `FB16DIT_RomRaider.xml` every supported Levorg 1.6 ROM, `FA24DIT_RomRaider.xml` the Ascent and Legacy / Outback XT, and `FA24DIT_RH850_RomRaider.xml` the 2022+ WRX (also as `FA24DIT_RH850_RomRaider_Checksum.xml`, with the `checksum/` folder). |
-| [`ecuflash/`](ecuflash/) | EcuFlash | Imperial and Metric sets: a base file per engine plus one file per ROM, named by calibration ID. Also `read_subaruhitachish72544.xml`, a read template for the 2.5 MB (2019+) ECUs (untested; see the [main README](../README.md#reading-your-ecu)). |
+| [`romraider/`](romraider/) | RomRaider | `FA20DIT_RomRaider.xml` covers every supported 2.0 ROM, `FB16DIT_RomRaider.xml` every supported Levorg 1.6 ROM, the Ascent and Legacy / Outback XT inside the FA20DIT file, and `FA24DIT_RomRaider.xml` the 2022+ WRX (also as `FA24DIT_RomRaider_Checksum.xml`, with the `checksum/` folder). |
+| [`ecuflash/`](ecuflash/) | EcuFlash, FastECU | Imperial and Metric sets: a base file per engine plus one file per ROM, named by calibration ID (the Ascent adds a second base, `FA20DIT_FA24_BASE`; the 2022+ WRX files are made for FastECU). Also `read_subaruhitachish72544.xml`, a read template for the 2.5 MB (2019+) ECUs (untested; see the [main README](../README.md#reading-your-ecu)). |
 
 Both carry the same tables, scalings and descriptions. Each table has a plain-English summary first and the detail
 after it, and tables are grouped by purpose in tuning order. The descriptions say what the ECU does with a table, not
@@ -72,7 +72,7 @@ ROM and at Advanced in a ROM that uses it.
 *Partial ports:* LF78001H, LF78002H and the LV9N ROMs have fewer tables than the WRX ROMs; tables I could not place with
 confidence are left out rather than guessed.
 
-*2022+ WRX (FA24DIT, RH850: LHBHB10B, LHBKC40M, LHBP400b, LHBT210V):* a new ECU (Renesas RH850/E1M-S2) with new
+*2022+ WRX (FA24DIT files, RH850: LHBHB10B, LHBKC40M, LHBP400b, LHBT210V):* a new ECU (Renesas RH850/E1M-S2) with new
 software, so these definitions are not a port of the SH ones. I placed every table from these ROMs' own code; where
 a table does the same job as one in the Ascent definition, it carries that table's name, folder, user level and
 description. The 2023 ROM is the reference; the 2022, 2024 and CVT ROMs were placed from it table by table and

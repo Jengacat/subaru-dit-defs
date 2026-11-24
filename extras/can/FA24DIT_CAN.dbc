@@ -1,248 +1,170 @@
-VERSION ""
+VERSION "FA24DIT 2022+ WRX (RH850), read from LHBKC40M"
 
 NS_ :
 
 BS_:
 
-BU_: ECU VEHICLE
+BU_: BCM ECM HVAC METER TCM VDC
 
-BO_ 64 MSG_040: 8 ECU
- SG_ tx_040_b0_0_5 : 0|6@1+ (1,0) [0|63] "" VEHICLE
- SG_ tx_040_b0_6_6 : 6|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_040_b0_7_7 : 7|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_040_b1_0_3 : 8|4@1+ (1,0) [0|15] "" VEHICLE
- SG_ tx_040_b1_4_4 : 12|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_040_b1_7_7 : 15|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_040_b2_0_7 : 16|8@1+ (1,0) [0|255] "" VEHICLE
- SG_ engine_speed_040 : 24|6@1+ (1,0) [0|63] "" VEHICLE
- SG_ tx_040_b3_6_6 : 30|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_040_b3_7_7 : 31|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_040_b4_0_7 : 32|8@1+ (1,0) [0|255] "" VEHICLE
- SG_ tx_040_b5_0_7 : 40|8@1+ (1,0) [0|255] "" VEHICLE
- SG_ tx_040_b6_0_7 : 48|8@1+ (1,0) [0|255] "" VEHICLE
- SG_ tx_040_b7_6_6 : 62|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_040_b7_7_7 : 63|1@1+ (1,0) [0|1] "" VEHICLE
+BO_ 64 ECM_Engine_1: 8 ECM
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Counter : 8|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Engine_Speed : 16|14@1+ (1,0) [0|0] "rpm" Vector__XXX
+ SG_ Byte4_Value : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Byte5_Value : 40|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Accelerator_Pedal : 48|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 65 MSG_041: 8 ECU
- SG_ tx_041_b0_0_0 : 0|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_041_b0_1_1 : 1|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_041_b0_2_3 : 2|2@1+ (1,0) [0|3] "" VEHICLE
- SG_ tx_041_b0_4_4 : 4|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_041_b0_5_5 : 5|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_041_b0_6_6 : 6|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_041_b0_7_7 : 7|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_041_b1_0_3 : 8|4@1+ (1,0) [0|15] "" VEHICLE
- SG_ tx_041_b2_0_7 : 16|8@1+ (1,0) [0|255] "" VEHICLE
- SG_ tx_041_b3_0_6 : 24|7@1+ (1,0) [0|127] "" VEHICLE
- SG_ tx_041_b3_7_7 : 31|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_041_b4_0_7 : 32|8@1+ (1,0) [0|255] "" VEHICLE
- SG_ tx_041_b5_0_6 : 40|7@1+ (1,0) [0|127] "" VEHICLE
- SG_ tx_041_b5_7_7 : 47|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_041_b6_0_7 : 48|8@1+ (1,0) [0|255] "" VEHICLE
- SG_ tx_041_b7_0_0 : 56|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_041_b7_1_1 : 57|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_041_b7_2_3 : 58|2@1+ (1,0) [0|3] "" VEHICLE
- SG_ tx_041_b7_4_4 : 60|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_041_b7_5_5 : 61|1@1+ (1,0) [0|1] "" VEHICLE
+BO_ 65 ECM_Torque_1: 8 ECM
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Counter : 8|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Engine_Torque : 16|15@1+ (0.1,-1000) [0|0] "Nm" Vector__XXX
+ SG_ Torque_Value_2 : 32|15@1+ (0.1,-1000) [0|0] "Nm" Vector__XXX
+ SG_ Byte6_Value : 48|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 72 MSG_048: 8 VEHICLE
- SG_ rx_048_b0_0_7 : 0|8@1+ (1,0) [0|255] "" ECU
- SG_ rx_048_b1_0_3 : 8|4@1+ (1,0) [0|15] "" ECU
+BO_ 129 ECM_Ignition: 8 ECM
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Counter : 8|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Ignition_Timing_Fired : 24|8@1- (0.5,0) [0|0] "deg" Vector__XXX
+ SG_ Byte4_Value : 32|8@1- (1,0) [0|0] "" Vector__XXX
 
-BO_ 73 MSG_049: 8 VEHICLE
- SG_ rx_049_b0_0_7 : 0|8@1+ (1,0) [0|255] "" ECU
- SG_ rx_049_b1_0_3 : 8|4@1+ (1,0) [0|15] "" ECU
+BO_ 326 ECM_146: 8 ECM
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Value_16 : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Byte4_Value : 32|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 280 MSG_118: 8 VEHICLE
- SG_ rx_118_b0_0_7 : 0|8@1+ (1,0) [0|255] "" ECU
- SG_ rx_118_b1_0_3 : 8|4@1+ (1,0) [0|15] "" ECU
+BO_ 576 ECM_240: 8 ECM
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Counter : 8|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Byte7_Value : 56|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 313 MSG_139: 8 VEHICLE
- SG_ rx_139_b0_0_7 : 0|8@1+ (1,0) [0|255] "" ECU
- SG_ rx_139_b1_0_3 : 8|4@1+ (1,0) [0|15] "" ECU
+BO_ 577 ECM_241: 8 ECM
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Fuel_Flow_Value : 16|16@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 314 MSG_13A: 8 VEHICLE
- SG_ rx_13a_b0_0_7 : 0|8@1+ (1,0) [0|255] "" ECU
- SG_ rx_13a_b1_0_3 : 8|4@1+ (1,0) [0|15] "" ECU
+BO_ 834 ECM_342: 8 ECM
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 315 MSG_13B: 8 VEHICLE
- SG_ rx_13b_b0_0_7 : 0|8@1+ (1,0) [0|255] "" ECU
- SG_ rx_13b_b1_0_3 : 8|4@1+ (1,0) [0|15] "" ECU
+BO_ 837 ECM_345: 8 ECM
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Temperature_1 : 24|8@1+ (1,-40) [0|0] "degC" Vector__XXX
+ SG_ Temperature_2 : 32|8@1+ (1,-40) [0|0] "degC" Vector__XXX
+ SG_ Baro_Value : 48|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 326 MSG_146: 8 ECU
- SG_ tx_146_b0_0_1 : 0|2@1+ (1,0) [0|3] "" VEHICLE
- SG_ tx_146_b0_2_2 : 2|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_146_b0_3_5 : 3|3@1+ (1,0) [0|7] "" VEHICLE
- SG_ tx_146_b0_6_6 : 6|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_146_b0_7_7 : 7|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_146_b1_0_3 : 8|4@1+ (1,0) [0|15] "" VEHICLE
- SG_ tx_146_b1_4_6 : 12|3@1+ (1,0) [0|7] "" VEHICLE
- SG_ tx_146_b1_7_7 : 15|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_146_b2_0_7 : 16|8@1+ (1,0) [0|255] "" VEHICLE
- SG_ engine_speed_filtered_146 : 24|6@1+ (1,0) [0|63] "" VEHICLE
- SG_ tx_146_b3_6_6 : 30|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_146_b3_7_7 : 31|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_146_b4_0_7 : 32|8@1+ (1,0) [0|255] "" VEHICLE
- SG_ tx_146_b5_0_0 : 40|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_146_b5_1_1 : 41|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_146_b5_2_2 : 42|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_146_b5_3_5 : 43|3@1+ (1,0) [0|7] "" VEHICLE
- SG_ tx_146_b5_6_6 : 46|1@1+ (1,0) [0|1] "" VEHICLE
+BO_ 838 ECM_346: 8 ECM
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Value_16 : 16|16@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 372 MSG_174: 8 VEHICLE
+BO_ 839 ECM_347: 8 ECM
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 545 MSG_221: 8 VEHICLE
- SG_ rx_221_b0_0_7 : 0|8@1+ (1,0) [0|255] "" ECU
- SG_ rx_221_b1_0_3 : 8|4@1+ (1,0) [0|15] "" ECU
+BO_ 313 Vehicle_Speed: 8 VDC
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" ECM
+ SG_ Counter : 8|4@1+ (1,0) [0|0] "" ECM
+ SG_ Vehicle_Speed : 16|13@1+ (0.05625,0) [0|0] "km/h" ECM
 
-BO_ 576 MSG_240: 8 ECU
- SG_ tx_240_b0_0_0 : 0|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_240_b0_1_1 : 1|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_240_b0_2_2 : 2|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_240_b0_3_5 : 3|3@1+ (1,0) [0|7] "" VEHICLE
- SG_ tx_240_b0_6_6 : 6|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_240_b0_7_7 : 7|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_240_b1_0_3 : 8|4@1+ (1,0) [0|15] "" VEHICLE
- SG_ tx_240_b3_0_0 : 24|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_240_b3_1_1 : 25|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_240_b3_2_2 : 26|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_240_b3_3_3 : 27|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_240_b3_4_4 : 28|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_240_b3_5_6 : 29|2@1+ (1,0) [0|3] "" VEHICLE
- SG_ tx_240_b3_7_7 : 31|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_240_b4_0_2 : 32|3@1+ (1,0) [0|7] "" VEHICLE
- SG_ tx_240_b4_3_5 : 35|3@1+ (1,0) [0|7] "" VEHICLE
- SG_ tx_240_b4_6_7 : 38|2@1+ (1,0) [0|3] "" VEHICLE
- SG_ tx_240_b5_0_2 : 40|3@1+ (1,0) [0|7] "" VEHICLE
- SG_ tx_240_b5_3_3 : 43|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_240_b5_4_5 : 44|2@1+ (1,0) [0|3] "" VEHICLE
- SG_ tx_240_b5_6_6 : 46|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_240_b5_7_7 : 47|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_240_b6_0_2 : 48|3@1+ (1,0) [0|7] "" VEHICLE
- SG_ tx_240_b6_3_3 : 51|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_240_b6_6_6 : 54|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_240_b7_5_5 : 61|1@1+ (1,0) [0|1] "" VEHICLE
+BO_ 314 Wheel_Speeds: 8 VDC
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" ECM
+ SG_ Counter : 8|4@1+ (1,0) [0|0] "" ECM
+ SG_ Wheel_Speed_1 : 12|13@1+ (0.05625,0) [0|0] "km/h" ECM
+ SG_ Wheel_Speed_2 : 25|13@1+ (0.05625,0) [0|0] "km/h" ECM
+ SG_ Wheel_Speed_3 : 38|13@1+ (0.05625,0) [0|0] "km/h" ECM
+ SG_ Wheel_Speed_4 : 51|13@1+ (0.05625,0) [0|0] "km/h" ECM
 
-BO_ 577 MSG_241: 8 ECU
- SG_ tx_241_b0_0_1 : 0|2@1+ (1,0) [0|3] "" VEHICLE
- SG_ tx_241_b0_2_2 : 2|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_241_b0_3_4 : 3|2@1+ (1,0) [0|3] "" VEHICLE
- SG_ tx_241_b0_5_5 : 5|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_241_b0_6_7 : 6|2@1+ (1,0) [0|3] "" VEHICLE
- SG_ tx_241_b1_0_3 : 8|4@1+ (1,0) [0|15] "" VEHICLE
- SG_ tx_241_b2_0_7 : 16|8@1+ (1,0) [0|255] "" VEHICLE
- SG_ tx_241_b3_0_7 : 24|8@1+ (1,0) [0|255] "" VEHICLE
- SG_ tx_241_b4_3_5 : 35|3@1+ (1,0) [0|7] "" VEHICLE
- SG_ tx_241_b4_6_7 : 38|2@1+ (1,0) [0|3] "" VEHICLE
- SG_ tx_241_b5_0_0 : 40|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_241_b5_1_1 : 41|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_241_b5_5_5 : 45|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_241_b5_6_6 : 46|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_241_b6_0_4 : 48|5@1+ (1,0) [0|31] "" VEHICLE
- SG_ tx_241_b6_6_7 : 54|2@1+ (1,0) [0|3] "" VEHICLE
- SG_ tx_241_b7_0_7 : 56|8@1+ (1,0) [0|255] "" VEHICLE
+BO_ 315 Torque_Request: 8 VDC
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" ECM
+ SG_ Counter : 8|4@1+ (1,0) [0|0] "" ECM
+ SG_ Torque_Value_A : 16|16@1+ (0.1,-1000) [0|0] "Nm" ECM
+ SG_ Torque_Value_B : 32|16@1+ (0.1,-1000) [0|0] "Nm" ECM
 
-BO_ 722 MSG_2D2: 8 VEHICLE
- SG_ rx_2d2_b0_0_7 : 0|8@1+ (1,0) [0|255] "" ECU
- SG_ rx_2d2_b1_0_3 : 8|4@1+ (1,0) [0|15] "" ECU
+BO_ 72 Idle_Request: 8 TCM
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" ECM
+ SG_ Counter : 8|4@1+ (1,0) [0|0] "" ECM
+ SG_ Idle_Speed_Request : 40|14@1+ (1,0) [0|0] "rpm" ECM
 
-BO_ 826 MSG_33A: 8 VEHICLE
- SG_ rx_33a_b0_0_7 : 0|8@1+ (1,0) [0|255] "" ECU
- SG_ rx_33a_b1_0_3 : 8|4@1+ (1,0) [0|15] "" ECU
+BO_ 722 Climate: 8 HVAC
+ SG_ AC_Value_2 : 48|8@1+ (1,0) [0|0] "" ECM
+ SG_ AC_Value : 56|8@1+ (1,0) [0|0] "" ECM
 
-BO_ 837 MSG_345: 8 ECU
- SG_ tx_345_b0_0_2 : 0|3@1+ (1,0) [0|7] "" VEHICLE
- SG_ tx_345_b0_3_3 : 3|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_345_b0_4_5 : 4|2@1+ (1,0) [0|3] "" VEHICLE
- SG_ tx_345_b0_6_6 : 6|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_345_b0_7_7 : 7|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_345_b1_0_3 : 8|4@1+ (1,0) [0|15] "" VEHICLE
- SG_ tx_345_b1_4_5 : 12|2@1+ (1,0) [0|3] "" VEHICLE
- SG_ coding_byte_345 : 16|7@1+ (1,0) [0|127] "" VEHICLE
- SG_ tx_345_b2_7_7 : 23|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_345_b3_0_7 : 24|8@1+ (1,0) [0|255] "" VEHICLE
- SG_ tx_345_b4_0_7 : 32|8@1+ (1,0) [0|255] "" VEHICLE
- SG_ tx_345_b5_0_7 : 40|8@1+ (1,0) [0|255] "" VEHICLE
- SG_ tx_345_b6_0_7 : 48|8@1+ (1,0) [0|255] "" VEHICLE
- SG_ tx_345_b7_0_7 : 56|8@1+ (1,0) [0|255] "" VEHICLE
+BO_ 280 Electrical_Load: 8 BCM
+ SG_ Electrical_Load_Value : 24|16@1+ (1,0) [0|0] "" ECM
 
-BO_ 838 MSG_346: 8 ECU
- SG_ tx_346_b0_0_0 : 0|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_346_b0_1_2 : 1|2@1+ (1,0) [0|3] "" VEHICLE
- SG_ tx_346_b0_3_3 : 3|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_346_b0_4_4 : 4|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_346_b0_5_5 : 5|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_346_b0_6_6 : 6|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_346_b0_7_7 : 7|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_346_b1_0_3 : 8|4@1+ (1,0) [0|15] "" VEHICLE
- SG_ tx_346_b1_4_4 : 12|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_346_b1_5_5 : 13|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_346_b1_6_6 : 14|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_346_b1_7_7 : 15|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_346_b2_0_7 : 16|8@1+ (1,0) [0|255] "" VEHICLE
- SG_ tx_346_b3_0_7 : 24|8@1+ (1,0) [0|255] "" VEHICLE
- SG_ tx_346_b4_0_7 : 32|8@1+ (1,0) [0|255] "" VEHICLE
- SG_ tx_346_b5_0_7 : 40|8@1+ (1,0) [0|255] "" VEHICLE
- SG_ tx_346_b6_0_7 : 48|8@1+ (1,0) [0|255] "" VEHICLE
- SG_ tx_346_b7_0_7 : 56|8@1+ (1,0) [0|255] "" VEHICLE
+BO_ 912 Meter: 8 METER
+ SG_ Meter_Value : 32|8@1+ (1,0) [0|0] "" ECM
 
-BO_ 839 MSG_347: 8 ECU
- SG_ tx_347_b0_0_0 : 0|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_347_b0_1_1 : 1|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_347_b0_2_2 : 2|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_347_b0_3_3 : 3|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_347_b0_4_5 : 4|2@1+ (1,0) [0|3] "" VEHICLE
- SG_ tx_347_b0_6_6 : 6|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_347_b0_7_7 : 7|1@1+ (1,0) [0|1] "" VEHICLE
- SG_ tx_347_b1_0_3 : 8|4@1+ (1,0) [0|15] "" VEHICLE
- SG_ tx_347_b1_4_7 : 12|4@1+ (1,0) [0|15] "" VEHICLE
-
-BO_ 842 MSG_34A: 8 VEHICLE
- SG_ rx_34a_b0_0_7 : 0|8@1+ (1,0) [0|255] "" ECU
- SG_ rx_34a_b1_0_3 : 8|4@1+ (1,0) [0|15] "" ECU
-
-BO_ 912 MSG_390: 8 VEHICLE
- SG_ rx_390_b0_0_7 : 0|8@1+ (1,0) [0|255] "" ECU
- SG_ rx_390_b1_0_3 : 8|4@1+ (1,0) [0|15] "" ECU
- SG_ rx_390_b1_4_4 : 12|1@1+ (1,0) [0|1] "" ECU
-
-BO_ 915 MSG_393: 8 VEHICLE
- SG_ rx_393_b0_0_7 : 0|8@1+ (1,0) [0|255] "" ECU
- SG_ rx_393_b1_0_3 : 8|4@1+ (1,0) [0|15] "" ECU
-
-BO_ 940 MSG_3AC: 8 VEHICLE
- SG_ rx_3ac_b0_0_7 : 0|8@1+ (1,0) [0|255] "" ECU
- SG_ rx_3ac_b1_0_3 : 8|4@1+ (1,0) [0|15] "" ECU
- SG_ rx_3ac_b1_4_4 : 12|1@1+ (1,0) [0|1] "" ECU
-
-BO_ 1632 MSG_660: 8 VEHICLE
-
-BO_ 1677 MSG_68D: 8 VEHICLE
- SG_ rx_68d_b0_0_7 : 0|8@1+ (1,0) [0|255] "" ECU
- SG_ rx_68d_b1_0_3 : 8|4@1+ (1,0) [0|15] "" ECU
-
-BO_ 1788 MSG_6FC: 8 ECU
- SG_ lin_battery_b0_6fc : 0|4@1+ (1,0) [0|15] "" VEHICLE
- SG_ lin_battery_b1_6fc : 8|8@1+ (1,0) [0|255] "" VEHICLE
- SG_ lin_battery_b2_6fc : 16|8@1+ (1,0) [0|255] "" VEHICLE
- SG_ lin_battery_b3_6fc : 24|8@1+ (1,0) [0|255] "" VEHICLE
- SG_ lin_battery_b4_6fc : 32|8@1+ (1,0) [0|255] "" VEHICLE
- SG_ lin_battery_b5_6fc : 40|5@1+ (1,0) [0|31] "" VEHICLE
- SG_ lin_battery_b6_6fc : 48|8@1+ (1,0) [0|255] "" VEHICLE
-
-BO_ 1905 MSG_771: 8 ECU
-
-BO_ 1906 MSG_772: 8 ECU
-
-BO_ 1907 MSG_773: 8 ECU
-
-BO_ 1908 MSG_774: 8 ECU
-
-BO_ 1909 MSG_775: 8 ECU
-
-BO_ 2015 MSG_7DF: 8 VEHICLE
-
-BO_ 2016 MSG_7E0: 8 VEHICLE
-
-BO_ 2024 MSG_7E8: 8 ECU
-
+CM_ BO_ 64 "Engine speed and accelerator pedal. ID read from the checksum seed.";
+CM_ SG_ 64 Checksum "Sum of bytes 1-7 + ID low byte + ID high byte, low 8 bits (read: 0x31BA28)";
+CM_ SG_ 64 Counter "Rolling counter";
+CM_ SG_ 64 Engine_Speed "read: FEF0662C, 1 rpm/bit";
+CM_ SG_ 64 Byte4_Value "FEF066B6 (FEF09E86 / 257); meaning not read";
+CM_ SG_ 64 Byte5_Value "FEF065E2 (high byte of FEF053D0); meaning not read";
+CM_ SG_ 64 Accelerator_Pedal "FEF066EA, high byte of the pedal value; scale not read (raw)";
+CM_ BO_ 65 "Torque values. ID read from the checksum seed.";
+CM_ SG_ 65 Checksum "Sum of bytes 1-7 + ID low byte + ID high byte, low 8 bits (read: 0x31BA28)";
+CM_ SG_ 65 Counter "Rolling counter";
+CM_ SG_ 65 Engine_Torque "FEF06682; N.m x 10 + 10000 (read from the packer formula)";
+CM_ SG_ 65 Torque_Value_2 "FEF065CC, same 10000 offset; meaning not read";
+CM_ SG_ 65 Byte6_Value "FEF0662B; meaning not read";
+CM_ BO_ 129 "ID read from the checksum seed.";
+CM_ SG_ 129 Checksum "Sum of bytes 1-7 + ID low byte + ID high byte, low 8 bits (read: 0x31BA28)";
+CM_ SG_ 129 Counter "Rolling counter";
+CM_ SG_ 129 Ignition_Timing_Fired "FEF0498C, ignition timing actually fired, 0.5 deg BTDC per bit (scale as in the definitions)";
+CM_ SG_ 129 Byte4_Value "FEF04A0B; meaning not read";
+CM_ BO_ 326 "ID read from the checksum seed.";
+CM_ SG_ 326 Checksum "Sum of bytes 1-7 + ID low byte + ID high byte, low 8 bits (read: 0x31BA28)";
+CM_ SG_ 326 Value_16 "FEF03E54; meaning not read";
+CM_ SG_ 326 Byte4_Value "FEF09E24 x 51 / 5120; meaning not read";
+CM_ BO_ 576 "ID read from the checksum seed.";
+CM_ SG_ 576 Checksum "Sum of bytes 1-7 + ID low byte + ID high byte, low 8 bits (read: 0x31BA28)";
+CM_ SG_ 576 Counter "Rolling counter";
+CM_ SG_ 576 Byte7_Value "FEF0A1A4 / 257; meaning not read";
+CM_ BO_ 577 "ID read from the checksum seed.";
+CM_ SG_ 577 Checksum "Sum of bytes 1-7 + ID low byte + ID high byte, low 8 bits (read: 0x31BA28)";
+CM_ SG_ 577 Fuel_Flow_Value "FEF06630, a fuel-flow style value from rpm and an accumulator; scale not read";
+CM_ BO_ 834 "ID read from the checksum seed. Only the checksum is packed here.";
+CM_ SG_ 834 Checksum "Sum of bytes 1-7 + ID low byte + ID high byte, low 8 bits (read: 0x31BA28)";
+CM_ BO_ 837 "ID read from the checksum seed.";
+CM_ SG_ 837 Checksum "Sum of bytes 1-7 + ID low byte + ID high byte, low 8 bits (read: 0x31BA28)";
+CM_ SG_ 837 Temperature_1 "FEF0A796 - 10; degC + 40 encoding inferred";
+CM_ SG_ 837 Temperature_2 "FEF0A6DB - 10; degC + 40 encoding inferred";
+CM_ SG_ 837 Baro_Value "(5 x FEF09BB6 >> 9) - 33; barometric pressure, scale not settled";
+CM_ BO_ 838 "ID read from the checksum seed.";
+CM_ SG_ 838 Checksum "Sum of bytes 1-7 + ID low byte + ID high byte, low 8 bits (read: 0x31BA28)";
+CM_ SG_ 838 Value_16 "FEF0665E; meaning not read";
+CM_ BO_ 839 "ID read from the checksum seed. Hours counter and battery-sensor data (inferred).";
+CM_ SG_ 839 Checksum "Sum of bytes 1-7 + ID low byte + ID high byte, low 8 bits (read: 0x31BA28)";
+CM_ BO_ 313 "Received; decoded by 0x318DFE.";
+CM_ SG_ 313 Checksum "Assumed same rule as the transmit frames; the receive-side check is not read";
+CM_ SG_ 313 Counter "Rolling counter (assumed from the transmit frames)";
+CM_ SG_ 313 Vehicle_Speed "read: the ECU converts it to whole km/h with x 3686/65536";
+CM_ BO_ 314 "Received; which wheel is which is not read.";
+CM_ SG_ 314 Checksum "Assumed same rule as the transmit frames; the receive-side check is not read";
+CM_ SG_ 314 Counter "Rolling counter (assumed from the transmit frames)";
+CM_ SG_ 314 Wheel_Speed_1 "scale inferred: same correction as vehicle speed";
+CM_ BO_ 315 "Received; the torque-intervention pair (inferred).";
+CM_ SG_ 315 Checksum "Assumed same rule as the transmit frames; the receive-side check is not read";
+CM_ SG_ 315 Counter "Rolling counter (assumed from the transmit frames)";
+CM_ SG_ 315 Torque_Value_A "consumers subtract 10000; N.m x 10 inferred; default 10000";
+CM_ SG_ 315 Torque_Value_B "default 14080; scale inferred";
+CM_ BO_ 72 "Received. Probably absent on the manual car (inferred).";
+CM_ SG_ 72 Checksum "Assumed same rule as the transmit frames; the receive-side check is not read";
+CM_ SG_ 72 Counter "Rolling counter (assumed from the transmit frames)";
+CM_ SG_ 72 Idle_Speed_Request "read: compared with engine speed by the idle state machine";
+CM_ BO_ 722 "Received; sender inferred.";
+CM_ SG_ 722 AC_Value_2 "scales the A/C adder to Decel Fuel Cut Resume RPM; raw";
+CM_ SG_ 722 AC_Value "axis of Radiator Fan Duty (A/C); raw";
+CM_ BO_ 280 "Received; meaning inferred from FA20 0x370.";
+CM_ SG_ 280 Electrical_Load_Value "input of Idle Air Adder (CAN Load Value); raw";
+CM_ BO_ 912 "Received; sender inferred.";
+CM_ SG_ 912 Meter_Value "axis of the Target Torque Rise Path B low-speed times; raw";
+BA_DEF_ BO_ "GenMsgCycleTime" INT 0 10000;
+BA_DEF_DEF_ "GenMsgCycleTime" 0;
+BA_ "GenMsgCycleTime" BO_ 64 10;
+BA_ "GenMsgCycleTime" BO_ 65 10;
+BA_ "GenMsgCycleTime" BO_ 129 10;
+BA_ "GenMsgCycleTime" BO_ 326 20;
+BA_ "GenMsgCycleTime" BO_ 576 50;
+BA_ "GenMsgCycleTime" BO_ 577 50;
+BA_ "GenMsgCycleTime" BO_ 834 100;
+BA_ "GenMsgCycleTime" BO_ 837 100;
+BA_ "GenMsgCycleTime" BO_ 838 100;
+BA_ "GenMsgCycleTime" BO_ 839 120;

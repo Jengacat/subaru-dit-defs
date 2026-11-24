@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- FA24DIT 2022+ WRX (Renesas RH850/E1M-S2) EcuFlash definition, my own clean-room work:
-     https://github.com/Jengacat/subaru-dit-defs. Generated from the RomRaider definition. Do not edit by hand. Units: Imperial (psi, degrees F, ft-lb, mph).
-     Opens a 3 MB view copy of the 4032 KB image (memory model Generic3072K): make it and merge it back with
-     tools/ef_view.py or tools/ef_view.ps1, which also fixes the checksum. -->
-<!-- Needs FA24DIT_RH850_BASE_EcuFlash.xml in the same folder, where every table is defined. This file gives
+<!-- FA24DIT 2022+ WRX (Renesas RH850/E1M-S2) definition in EcuFlash format, my own clean-room work:
+     https://github.com/Jengacat/subaru-dit-defs. Generated from the RomRaider definition. Do not edit by hand. Units: Metric (kPa, degrees C, Nm, km/h).
+     Made for FastECU, which opens the full 4032 KB image with it. EcuFlash itself has no memory model for these
+     images: it can only open a 3 MB view copy (memory model Generic3072K), made and merged back with
+     tools/ef_view.py or tools/ef_view.ps1. -->
+<!-- Needs FA24DIT_BASE_METRIC_EcuFlash.xml in the same folder, where every table is defined. This file gives
      each table's address for this ROM and whatever differs from the base (scaling, level, axis size,
      row labels, description). -->
 <rom>
@@ -22,7 +23,7 @@
   <checksummodule />
   <flashmethod />
  </romid>
- <include>RH850_WRX_BASE</include>
+ <include>FA24DIT_BASE_METRIC</include>
  <table name="Injector Flow Compensation (set 1)" address="02a01c">
   <table name="Fuel rail pressure plus rpm/load offset" address="029fdc" />
  </table>
@@ -75,7 +76,7 @@
  </table>
  <table name="Target Rail Pressure (Combustion Mode 0, Alternate Set)" address="08f9fc">
   <table name="Engine Speed" address="08f7dc" scaling="RPM uint8 #2" />
-  <table name="Coolant Temp" address="08f8bc" scaling="degrees F uint16 #2" />
+  <table name="Coolant Temp" address="08f8bc" scaling="degrees C uint16 #2" />
   <description>Alternate-set version of Target Rail Pressure (Combustion Mode 0), used while a separate state flag is set. Combustion mode is the cold-start sequence: 0 cranking, 1 first warm-up phase, 2 stratified catalyst heating, 3 catalyst-heating phase 2, 4 normal running. Identified from this ECU's code.</description>
  </table>
  <table name="Target Rail Pressure (Combustion Mode 0)" address="08f8cc">
@@ -83,7 +84,7 @@
   <table name="Coolant Temp" address="08f8bc" />
  </table>
  <table name="Target Rail Pressure (Combustion Mode 3, Pedal Applied, Alternate Set)" address="08fc2c">
-  <table name="Coolant Temp" address="00999c" scaling="degrees F uint16 #2" />
+  <table name="Coolant Temp" address="00999c" scaling="degrees C uint16 #2" />
   <description>Alternate-set version of Target Rail Pressure (Combustion Mode 3, Pedal Applied), used while a separate state flag is set. Combustion mode is the cold-start sequence: 0 cranking, 1 first warm-up phase, 2 stratified catalyst heating, 3 catalyst-heating phase 2, 4 normal running. Identified from this ECU's code.</description>
  </table>
  <table name="Target Rail Pressure (Combustion Mode 3, Pedal Released)" address="08fb6c">
@@ -107,7 +108,7 @@
  <table name="Target Rail Pressure (Start)" address="08faac">
   <table name="Coolant Temp" address="00999c" />
  </table>
- <table name="Target Rail Pressure (Combustion Mode 1, Idle State Group 1)" address="08faec" scaling="psi uint32">
+ <table name="Target Rail Pressure (Combustion Mode 1, Idle State Group 1)" address="08faec" scaling="MPa uint32">
   <table name="Coolant Temp" address="08f9dc" />
  </table>
  <table name="Target Rail Pressure (Combustion Mode 1, Idle State Group 2)" address="08fb2c">
@@ -675,7 +676,7 @@
   <table name="Coolant Temp" address="00999c" />
  </table>
  <table name="After-Start Enrichment Decay 3 (Restart after Key-Off)" address="02942c">
-  <table name="Coolant Temp" address="00999c" scaling="degrees F uint16 #2" />
+  <table name="Coolant Temp" address="00999c" scaling="degrees C uint16 #2" />
  </table>
  <table name="After-Start Enrichment Decay 3 (Restart after Stall)" address="02943c">
   <table name="Coolant Temp" address="00999c" />
@@ -689,7 +690,7 @@
   <table name="Coolant Temp" address="00999c" />
  </table>
  <table name="After-Start Enrichment Decay 2 (First Start)" address="02944c">
-  <table name="Coolant Temp" address="00999c" scaling="degrees F uint16 #2" />
+  <table name="Coolant Temp" address="00999c" scaling="degrees C uint16 #2" />
  </table>
  <table name="After-Start Enrichment Decay 2 (Restart after Key-Off)" address="02945c">
   <table name="Coolant Temp" address="00999c" />
@@ -699,24 +700,24 @@
  </table>
  <table name="After-Start Enrichment Decay 2 (Special Start)" address="03d368">
   <table name="Elapsed time fraction" address="029b8c" />
-  <table name="Coolant Temp" address="00999c" scaling="degrees F uint16 #2" />
+  <table name="Coolant Temp" address="00999c" scaling="degrees C uint16 #2" />
  </table>
  <table name="After-Start Enrichment Decay 2 (Special Start, Alternate)" address="03dc68">
   <table name="Elapsed time fraction" address="029b8c" />
   <table name="Coolant Temp" address="00999c" />
  </table>
  <table name="After-Start Enrichment Decay 1 (First Start)" address="0293ec">
-  <table name="Coolant Temp" address="00999c" scaling="degrees F uint16 #2" />
+  <table name="Coolant Temp" address="00999c" scaling="degrees C uint16 #2" />
  </table>
  <table name="After-Start Enrichment Decay 1 (Restart after Key-Off)" address="0293fc">
-  <table name="Coolant Temp" address="00999c" scaling="degrees F uint16 #2" />
+  <table name="Coolant Temp" address="00999c" scaling="degrees C uint16 #2" />
  </table>
  <table name="After-Start Enrichment Decay 1 (Restart after Stall)" address="02940c">
   <table name="Coolant Temp" address="00999c" />
  </table>
  <table name="After-Start Enrichment Decay 1 (Special Start)" address="03d268">
   <table name="Elapsed time fraction" address="029b8c" />
-  <table name="Coolant Temp" address="00999c" scaling="degrees F uint16 #2" />
+  <table name="Coolant Temp" address="00999c" scaling="degrees C uint16 #2" />
  </table>
  <table name="After-Start Enrichment Decay 1 (Special Start, Alternate)" address="03db68">
   <table name="Elapsed time fraction" address="029b8c" />
@@ -726,7 +727,7 @@
   <table name="Coolant Temp" address="00999c" />
  </table>
  <table name="After-Start Enrichment 3 (Restart after Key-Off)" address="028f9c">
-  <table name="Coolant Temp" address="00999c" scaling="degrees F uint16 #2" />
+  <table name="Coolant Temp" address="00999c" scaling="degrees C uint16 #2" />
   <description>After-start enrichment 3 by coolant, for a Restart after Key-Off. This is the non-running after-start path, computed up to 4000 rpm beside the Running After-Start tables, and scaled by After-Start Enrichment RPM Multiplier. Identified from this ECU's code.</description>
  </table>
  <table name="After-Start Enrichment 3 (Restart after Stall)" address="028fbc">
@@ -741,7 +742,7 @@
   <table name="Coolant Temp" address="00999c" />
  </table>
  <table name="After-Start Enrichment 2 (First Start)" address="028fdc">
-  <table name="Coolant Temp" address="00999c" scaling="degrees F uint16 #2" />
+  <table name="Coolant Temp" address="00999c" scaling="degrees C uint16 #2" />
  </table>
  <table name="After-Start Enrichment 2 (Restart after Key-Off)" address="028ffc">
   <table name="Coolant Temp" address="00999c" />
@@ -751,24 +752,24 @@
  </table>
  <table name="After-Start Enrichment 2 (Special Start)" address="03ce68">
   <table name="Elapsed time fraction" address="029b8c" />
-  <table name="Coolant Temp" address="00999c" scaling="degrees F uint16 #2" />
+  <table name="Coolant Temp" address="00999c" scaling="degrees C uint16 #2" />
  </table>
  <table name="After-Start Enrichment 2 (Special Start, Alternate)" address="03d768">
   <table name="Elapsed time fraction" address="029b8c" />
   <table name="Coolant Temp" address="00999c" />
  </table>
  <table name="After-Start Enrichment 1 (First Start)" address="028f1c">
-  <table name="Coolant Temp" address="00999c" scaling="degrees F uint16 #2" />
+  <table name="Coolant Temp" address="00999c" scaling="degrees C uint16 #2" />
  </table>
  <table name="After-Start Enrichment 1 (Restart after Key-Off)" address="028f3c">
-  <table name="Coolant Temp" address="00999c" scaling="degrees F uint16 #2" />
+  <table name="Coolant Temp" address="00999c" scaling="degrees C uint16 #2" />
  </table>
  <table name="After-Start Enrichment 1 (Restart after Stall)" address="028f5c">
   <table name="Coolant Temp" address="00999c" />
  </table>
  <table name="After-Start Enrichment 1 (Special Start)" address="03cc68">
   <table name="Elapsed time fraction" address="029b8c" />
-  <table name="Coolant Temp" address="00999c" scaling="degrees F uint16 #2" />
+  <table name="Coolant Temp" address="00999c" scaling="degrees C uint16 #2" />
  </table>
  <table name="After-Start Enrichment 1 (Special Start, Alternate)" address="03d568">
   <table name="Elapsed time fraction" address="029b8c" />
@@ -1827,7 +1828,7 @@
   <table name="Coolant Temp" address="00999c" />
  </table>
  <table name="Target Rail Pressure (Combustion Mode 3, Pedal Released, Alternate Set)" address="08fbec">
-  <table name="Coolant Temp" address="00999c" scaling="degrees F uint16 #2" />
+  <table name="Coolant Temp" address="00999c" scaling="degrees C uint16 #2" />
   <description>Alternate-set version of Target Rail Pressure (Combustion Mode 3, Pedal Released), used while a separate state flag is set. Combustion mode is the cold-start sequence: 0 cranking, 1 first warm-up phase, 2 stratified catalyst heating, 3 catalyst-heating phase 2, 4 normal running. Identified from this ECU's code.</description>
  </table>
  <table name="Start Spark Target Base (Mode 1, AT/CVT, Warm-Up Fallback) (Idle State Group 1)" address="098c78">

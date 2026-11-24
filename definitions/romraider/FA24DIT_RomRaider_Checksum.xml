@@ -3,12 +3,15 @@
      Tables that do the same job as a table of the Ascent (FA24DIT, SH72544R) definition carry its name, folder,
      user level and description. Generated from my table list. Do not edit by hand. How sure I am of each table
      is in its description. Checksum: 16-bit little-endian word sum of the whole file = 0x5AA5 (tools/checksum.py). -->
-<!-- Inheritance: the first <rom> (RH850DIT_BASE) is a shared base that no image matches; each image's <rom>
+<!-- This file adds RomRaider's checksum element (class RH850Sum16 in the checksum/ folder next to it). It needs a
+     RomRaider that loads checksum classes shipped with a definition (RomRaider pull request #248). RomRaider
+     1.0.0 and 1.1.0 cannot open the images with this file: use FA24DIT_RomRaider.xml and tools/checksum.py. -->
+<!-- Inheritance: the first <rom> (FA24DIT_BASE) is a shared base that no image matches; each image's <rom>
      names its base and lists only its addresses and its own tables. -->
 <roms>
  <rom>
   <romid>
-   <xmlid>RH850DIT_BASE</xmlid>
+   <xmlid>FA24DIT_BASE</xmlid>
    <internalidaddress>0</internalidaddress>
    <internalidstring />
    <make>Subaru</make>
@@ -10927,7 +10930,7 @@
    <description>Calibration switch byte. Matched to the FA24 switch of this name by value and code context; check the bit meanings before changing it. Identified from this ECU's code.</description>
   </table>
  </rom>
- <rom base="RH850DIT_BASE">
+ <rom base="FA24DIT_BASE">
   <romid>
    <xmlid>LHBHB10B</xmlid>
    <internalidaddress>1907a</internalidaddress>
@@ -10944,6 +10947,7 @@
    <filesize>4032kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="RH850Sum16" path="/checksum/" start="0x0" end="0x3F0000" sumloc="0x3EFF7E" target="0x5AA5" />
   <table type="2D" name="Injector Flow Compensation (set 1)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint16" endian="little" sizey="16" userlevel="3" storageaddress="0x041fd4">
    <scaling units="multiplier" expression="x*0.00390625" to_byte="(x)/0.00390625" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4" />
@@ -18275,7 +18279,7 @@
    <description>1 = this code can set and report, 0 = it never sets (its monitor still runs, and other logic that reads the raw result may still react). This ECU has one enable bit per code; there is no separate fail-safe bit.</description>
   </table>
  </rom>
- <rom base="RH850DIT_BASE">
+ <rom base="FA24DIT_BASE">
   <romid>
    <xmlid>LHBKC40M</xmlid>
    <internalidaddress>1611</internalidaddress>
@@ -18292,6 +18296,7 @@
    <filesize>4032kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="RH850Sum16" path="/checksum/" start="0x0" end="0x3F0000" sumloc="0x3EFF7E" target="0x5AA5" />
   <table type="2D" name="Injector Flow Compensation (set 1)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint16" endian="little" sizey="16" userlevel="3" storageaddress="0x02a01c">
    <scaling units="multiplier" expression="x*0.00390625" to_byte="(x)/0.00390625" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4" />
@@ -22910,7 +22915,7 @@
    <description>1 = this code can set and report, 0 = it never sets (its monitor still runs, and other logic that reads the raw result may still react). This ECU has one enable bit per code; there is no separate fail-safe bit.</description>
   </table>
  </rom>
- <rom base="RH850DIT_BASE">
+ <rom base="FA24DIT_BASE">
   <romid>
    <xmlid>LHBP400b</xmlid>
    <internalidaddress>1611</internalidaddress>
@@ -22927,6 +22932,7 @@
    <filesize>4032kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="RH850Sum16" path="/checksum/" start="0x0" end="0x3F0000" sumloc="0x3EFF7E" target="0x5AA5" />
   <table type="2D" name="Injector Flow Compensation (set 1)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint16" endian="little" sizey="16" userlevel="3" storageaddress="0x02a1c0">
    <scaling units="multiplier" expression="x*0.00390625" to_byte="(x)/0.00390625" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4" />
@@ -30615,7 +30621,7 @@
    <description>1 = this code can set and report, 0 = it never sets (its monitor still runs, and other logic that reads the raw result may still react). This ECU has one enable bit per code; there is no separate fail-safe bit.</description>
   </table>
  </rom>
- <rom base="RH850DIT_BASE">
+ <rom base="FA24DIT_BASE">
   <romid>
    <xmlid>LHBT210V</xmlid>
    <internalidaddress>165d</internalidaddress>
@@ -30632,6 +30638,7 @@
    <filesize>4032kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="RH850Sum16" path="/checksum/" start="0x0" end="0x3F0000" sumloc="0x3EFF7E" target="0x5AA5" />
   <table type="2D" name="Injector Flow Compensation (set 1)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint16" endian="little" sizey="16" userlevel="3" storageaddress="0x02ab48">
    <scaling units="multiplier" expression="x*0.00390625" to_byte="(x)/0.00390625" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4" />

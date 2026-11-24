@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- FA24DIT 2022+ WRX (Renesas RH850/E1M-S2) EcuFlash definition, my own clean-room work:
+<!-- FA24DIT 2022+ WRX (Renesas RH850/E1M-S2) definition in EcuFlash format, my own clean-room work:
      https://github.com/Jengacat/subaru-dit-defs. Generated from the RomRaider definition. Do not edit by hand. Units: Imperial (psi, degrees F, ft-lb, mph).
-     Opens a 3 MB view copy of the 4032 KB image (memory model Generic3072K): make it and merge it back with
-     tools/ef_view.py or tools/ef_view.ps1, which also fixes the checksum. -->
-<!-- Needs FA24DIT_RH850_BASE_EcuFlash.xml in the same folder, where every table is defined. This file gives
+     Made for FastECU, which opens the full 4032 KB image with it. EcuFlash itself has no memory model for these
+     images: it can only open a 3 MB view copy (memory model Generic3072K), made and merged back with
+     tools/ef_view.py or tools/ef_view.ps1. -->
+<!-- Needs FA24DIT_BASE_EcuFlash.xml in the same folder, where every table is defined. This file gives
      each table's address for this ROM and whatever differs from the base (scaling, level, axis size,
      row labels, description). -->
 <rom>
@@ -22,7 +23,7 @@
   <checksummodule />
   <flashmethod />
  </romid>
- <include>RH850_WRX_BASE</include>
+ <include>FA24DIT_BASE</include>
  <table name="Injector Flow Compensation (set 1)" address="041fd4">
   <table name="Fuel rail pressure plus rpm/load offset" address="041fb4" scaling="psi uint16" />
  </table>

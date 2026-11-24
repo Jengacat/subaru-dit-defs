@@ -36,6 +36,6 @@ python3 ef_view.py view  stock.bin  stock_view.bin
 python3 ef_view.py merge stock.bin  stock_view.bin  edited.bin
 ```
 
-`view` writes the first 3 MB, which EcuFlash opens with the `FA24DIT_RH850` definitions. `merge` puts the edited copy
+`view` writes the first 3 MB, which EcuFlash opens with the `FA24DIT` definitions (FastECU needs no copy). `merge` puts the edited copy
 back in front of the rest of the original, fixes the checksum and lists the changed ranges; it refuses a copy that
 wasn't made from that image. `ef_view.ps1` does the same on Windows (PowerShell 5.1 or later).

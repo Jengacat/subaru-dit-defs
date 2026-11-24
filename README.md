@@ -206,6 +206,13 @@ cranking-fuel rpm and coolant multipliers, idle converter slip thresholds, and p
 defined yet. There is no logging patch, logger file or CAN dictionary for the Legacy XT yet. Its IDs also have 11
 characters (LG7D501B00G, LG7F301F00G).
 
+**Where the files are:** the Ascent and Legacy / Outback XT are in the FA20DIT files, because they run the same
+software family: `FA20DIT_RomRaider.xml`, and in EcuFlash `FA20DIT_<calibration ID>_EcuFlash.xml` with
+`FA20DIT_FA24_BASE_EcuFlash.xml` next to `FA20DIT_BASE_EcuFlash.xml` (Metric: the `…_METRIC_…` pair). Their
+logger and CAN files are `FA20DIT_FA24_*`. The `FA24DIT_*` names now belong to the 2022+ WRX below. If you
+installed an earlier copy of the Ascent files, delete the old `FA24DIT_RomRaider.xml` and `FA24DIT_*_EcuFlash.xml`
+files first: the new ones use the same ROM IDs.
+
 </details>
 
 <details>
@@ -220,7 +227,7 @@ characters (LG7D501B00G, LG7F301F00G).
 
 The 2022+ WRX has a new ECU generation: a Renesas RH850/E1M-S2 with new software, not a build of the SH software
 the other definitions cover. I placed every table from these ROMs' own code. Where a table does the same job as one
-in the Ascent (FA24DIT) definition, it carries that table's name, folder and description, so the two read alike;
+in the Ascent definition, it carries that table's name, folder and description, so the two read alike;
 each description ends with how sure I am of it (see the [definitions README](definitions/README.md#notes-on-individual-roms)).
 Every tool works a little differently on this ECU, so read [2022+ WRX: what's different](#2022-wrx-whats-different)
 before you start.
@@ -265,21 +272,21 @@ A list of the calibration IDs known for these ECUs, and how each relates to the 
 
 | Folder | Contents |
 |---|---|
-| `definitions/romraider/` | `FA20DIT_RomRaider.xml`: one file covering every supported 2.0 ROM. `FB16DIT_RomRaider.xml`: the same for the Levorg 1.6. `FA24DIT_RomRaider.xml`: the Ascent. `FA24DIT_RH850_RomRaider.xml`: the 2022+ WRX, plus `FA24DIT_RH850_RomRaider_Checksum.xml` and its `checksum/` folder for a RomRaider that can load checksum modules. |
-| `definitions/ecuflash/Imperial/`, `definitions/ecuflash/Metric/` | The same EcuFlash definitions in two unit systems (EcuFlash can't switch units itself). Each folder has a base file per engine (every table) plus one small file per ROM; install one of the two. The 2022+ WRX files are `FA24DIT_RH850_*`. |
-| `logger/` | `FA20DIT_Logger.xml` (stock SSM and OBD parameters, trouble codes; also for the Levorg 1.6) and `FA20DIT_Logger_LogPatch.xml` (stock plus the logging-patch parameters). `FA20DIT_Logger_LogPatch_only.xml` holds only the new parameters, for merging into your own logger file. `FA24DIT_Logger*.xml`: the same three for the Ascent. `DIT_Logger_SUBUDS.xml`: every model, stock ROMs without the patch, for a RomRaider build with the SUBUDS protocol. `FA24DIT_RH850_*.csv`: the 2022+ WRX's mode-22 data identifiers, and 88 of them as custom PIDs for OBD apps. |
+| `definitions/romraider/` | `FA20DIT_RomRaider.xml`: one file covering every supported 2.0 ROM and the Ascent / Legacy XT. `FB16DIT_RomRaider.xml`: the same for the Levorg 1.6. `FA24DIT_RomRaider.xml`: the 2022+ WRX, plus `FA24DIT_RomRaider_Checksum.xml` and its `checksum/` folder for a RomRaider that can load checksum modules. |
+| `definitions/ecuflash/Imperial/`, `definitions/ecuflash/Metric/` | The same EcuFlash definitions in two unit systems (EcuFlash can't switch units itself). Each folder has a base file per engine (every table) plus one small file per ROM; install one of the two. The Ascent adds `FA20DIT_FA24_BASE` on top of the FA20DIT base. The 2022+ WRX files (`FA24DIT_*`) are made for FastECU; EcuFlash can only open a 3 MB copy of those ROMs. |
+| `logger/` | `FA20DIT_Logger.xml` (stock SSM and OBD parameters, trouble codes; also for the Levorg 1.6) and `FA20DIT_Logger_LogPatch.xml` (stock plus the logging-patch parameters). `FA20DIT_Logger_LogPatch_only.xml` holds only the new parameters, for merging into your own logger file. `FA20DIT_FA24_Logger*.xml`: the same three for the Ascent. `DIT_Logger_SUBUDS.xml`: every model, stock ROMs without the patch, for a RomRaider build with the SUBUDS protocol. `FA24DIT_*.csv`: the 2022+ WRX's mode-22 data identifiers, and 88 of them as custom PIDs for OBD apps. |
 | `tools/checksum.py`, `tools/checksum.ps1` | Check and fix the ROM checksum of 2 MB, 2.5 MB and 2022+ WRX (4032 KB) ROMs (Python, or PowerShell for Windows). **Required for ROMs edited in RomRaider**, and `verify` before any flash (see below). |
 | `tools/ef_view.py`, `tools/ef_view.ps1` | 2022+ WRX only: make the 3 MB copy of a ROM that EcuFlash can open, and merge the edited copy back with the checksum fixed. |
 | `tools/logpatch/` | The logging patch: `make_logpatch.py` (and `make_logpatch.ps1` for Windows) and a spec for every supported ROM, the Ascent included. |
 | `docs/guide/` | [The tuning guide](docs/guide/README.md): workflows, how the logic works, appendices and a table reference. |
-| `extras/can/` | The CAN dictionary: every frame the ECU receives and sends, for every supported 2.0 and 1.6 ROM, with a DBC for CAN tools and each signal's RAM address per ROM. `FA24DIT_CAN.*`: a first pass for the Ascent, which uses different frame IDs. `FA24DIT_RH850_CAN.dbc`: the 2022+ WRX. |
+| `extras/can/` | The CAN dictionary: every frame the ECU receives and sends, for every supported 2.0 and 1.6 ROM, with a DBC for CAN tools and each signal's RAM address per ROM. `FA20DIT_FA24_CAN.*`: a first pass for the Ascent, which uses different frame IDs. `FA24DIT_CAN.dbc`: the 2022+ WRX. |
 
 ## Quick start
 
 ### Editing with RomRaider
 1. Add `definitions/romraider/FA20DIT_RomRaider.xml` in RomRaider's Definition Manager (for a Levorg 1.6,
-   `FB16DIT_RomRaider.xml`; for an Ascent, `FA24DIT_RomRaider.xml`; for a 2022+ WRX, `FA24DIT_RH850_RomRaider.xml`,
-   see [below](#2022-wrx-whats-different); having several installed is fine).
+   `FB16DIT_RomRaider.xml`; for a 2022+ WRX, `FA24DIT_RomRaider.xml`, see [below](#2022-wrx-whats-different); the
+   Ascent and Legacy XT are in the FA20DIT file; having several installed is fine).
 2. Open your ROM. Tables are grouped by purpose (Fueling, Ignition Timing, Boost Control, …) in tuning order.
 3. Set the user level (Settings → User Level) to match what you want to see: **Beginner** and **Intermediate** cover
    normal tuning; **Debug** shows tables your ROM's own calibration switches off, tables of unused code paths, and
@@ -295,8 +302,8 @@ the wrong bit.
 ### Editing with EcuFlash
 Pick a unit system: `definitions/ecuflash/Imperial/` (psi, °F, ft-lb, mph) or `definitions/ecuflash/Metric/` (kPa /
 MPa, °C, Nm, km/h). Copy that folder's base file (`FA20DIT_BASE_EcuFlash.xml`, or `FA20DIT_BASE_METRIC_EcuFlash.xml`;
-for a Levorg 1.6, `FB16DIT_BASE_EcuFlash.xml` or `FB16DIT_BASE_METRIC_EcuFlash.xml`; for an Ascent, `FA24DIT_BASE_EcuFlash.xml`
-or `FA24DIT_BASE_METRIC_EcuFlash.xml`)
+for a Levorg 1.6, `FB16DIT_BASE_EcuFlash.xml` or `FB16DIT_BASE_METRIC_EcuFlash.xml`; for an Ascent or Legacy XT,
+the FA20DIT base **and** `FA20DIT_FA24_BASE_EcuFlash.xml` or `FA20DIT_FA24_BASE_METRIC_EcuFlash.xml`)
 and the file for your ROM into one folder under your EcuFlash metadata folder (for example
 `rommetadata/subaru/FA20DIT/`) and restart EcuFlash. The base file is required: it holds the table definitions, and
 the ROM file only its addresses. Install only one of the two sets: both use the same ROM IDs. Table folders are numbered in tuning order
@@ -316,14 +323,17 @@ The [EcuFlash README](definitions/ecuflash/README.md) explains why.
 - **Checksum.** A different rule from the other ECUs: the 16-bit sum of all little-endian words of the file is 0x5AA5,
   and the correction word is the one at address 0x3FFF7E. `tools/checksum.py` and `checksum.ps1` handle it (same
   commands as below). That this is the word the ECU expects to change is inferred, not yet proven on a car.
-- **RomRaider.** `FA24DIT_RH850_RomRaider.xml` opens in any RomRaider 1.0.0 or later; fix the checksum with the
-  tool after saving. `FA24DIT_RH850_RomRaider_Checksum.xml` (keep its `checksum/` folder next to it) corrects the
+- **RomRaider.** `FA24DIT_RomRaider.xml` opens in any RomRaider 1.0.0 or later; fix the checksum with the
+  tool after saving. `FA24DIT_RomRaider_Checksum.xml` (keep its `checksum/` folder next to it) corrects the
   sum when you save, but needs a RomRaider that can load a checksum module from the definition folder: my
   [RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248), or my fork's branch
   [Fix-Custom-Checksum-Modules](https://github.com/Jengacat/RomRaider/tree/Fix-Custom-Checksum-Modules) until it is
   merged. RomRaider 1.0.0 and 1.1.0 can't open the images with that file at all, so install only one of the two.
-- **EcuFlash** (1.44) has no memory model the size of these images, so the EcuFlash files open a 3 MB copy (every
-  table is in the first 1 MB). Make the copy, edit and save it, then merge it back; the merge fixes the checksum:
+- **FastECU, or EcuFlash with a copy.** The EcuFlash-format files (`FA24DIT_*_EcuFlash.xml`) are made for
+  **FastECU**, which opens the full image with them (below). EcuFlash itself (1.44) can't load the right memory model
+  for these ROMs: none of its built-in models is the size of these images, so it only opens a 3 MB copy (every table
+  is in the first 1 MB). To use EcuFlash anyway, make the copy, edit and save it, then merge it back; the merge fixes
+  the checksum:
 
   ```
   python3 tools/ef_view.py view  stock.bin  stock_view.bin
@@ -332,7 +342,7 @@ The [EcuFlash README](definitions/ecuflash/README.md) explains why.
 
   (`powershell -ExecutionPolicy Bypass -File tools\ef_view.ps1 …` on Windows, same arguments.) **Never flash the
   view copy**: it lacks the end of the image. Install the base file and your ROM's file as for the other ECUs
-  (`FA24DIT_RH850_BASE_EcuFlash.xml`, or `…_BASE_METRIC_…`, plus `FA24DIT_RH850_<calibration ID>_EcuFlash.xml`).
+  (`FA24DIT_BASE_EcuFlash.xml`, or `FA24DIT_BASE_METRIC_EcuFlash.xml`, plus `FA24DIT_<calibration ID>_EcuFlash.xml`).
 - **FastECU** reads the EcuFlash files and opens the full image directly, no copy needed. Its checksum module for
   this ECU is on my branch [rh850-checksum](https://github.com/Jengacat/FastECU/tree/rh850-checksum) (not in a
   FastECU release yet): with the vehicle set to "WRX 2.4 DIT (VB)" it corrects the sum on save. Otherwise use the
@@ -385,7 +395,7 @@ parameters, including actual fuel rail pressure. On a stock ROM some of the most
 correction, target boost, target torque, combustion mode, the rail-pressure target) can't be read with RomRaider at
 all. The **logging patch** fixes that. See the [logger README](logger/README.md).
 
-The **Ascent** has its own logger files, `logger/FA24DIT_Logger*.xml`. Its SSM table has the same layout, so the stock
+The **Ascent** has its own logger files, `logger/FA20DIT_FA24_Logger*.xml`. Its SSM table has the same layout, so the stock
 parameters carry over, except wastegate duty: the Ascent drives an electric wastegate, and that slot shows a value
 nothing uses. Its DTC tab lists the Ascent's own codes at each position.
 
@@ -405,16 +415,16 @@ Every supported ROM has a spec, the Levorg 1.6 and the Ascent included. The tool
 unused. Then log with `logger/FA20DIT_Logger_LogPatch.xml` (parameters L01–L24). The patch uses the same slots on
 every ROM with a spec, so one logger file covers all of them.
 
-On the **Ascent**, log with `logger/FA24DIT_Logger_LogPatch.xml` instead. It has L01–L24 except the WRX wastegate pair
+On the **Ascent**, log with `logger/FA20DIT_FA24_Logger_LogPatch.xml` instead. It has L01–L24 except the WRX wastegate pair
 (L13, L14), and adds the electric wastegate: motor duty, position, position command, the feed-forward position,
 control mode and position sensor voltage, plus boost error and the boost target before its corrections (L25–L32).
 Target boost (L11) and boost pressure (L12) are the Ascent's own.
 
 The logger files above are for the SH ECUs and don't cover the **2022+ WRX**: it has no SSM logging over CAN.
 RomRaider's OBD protocol still logs its standard parameters. It does answer UDS ReadDataByIdentifier (mode 22) on
-0x7E0 / 0x7E8 without a security unlock: `logger/FA24DIT_RH850_LHBKC40M_Torque.csv` is 88 of those as custom PIDs
+0x7E0 / 0x7E8 without a security unlock: `logger/FA24DIT_LHBKC40M_Torque.csv` is 88 of those as custom PIDs
 for OBD apps (feedback and fine-learning knock correction, DAM, target boost, wideband lambda, cam and OCV values and
-more), and `FA24DIT_RH850_LHBKC40M_DIDs.csv` lists all 933 identifiers, scaled where I worked the scaling out. Read
+more), and `FA24DIT_LHBKC40M_DIDs.csv` lists all 933 identifiers, scaled where I worked the scaling out. Read
 from the 2023 ROM; the named ones exist with the same length on 2022 and 2024. Not tested on a car yet.
 
 ### Logging without a patch (SUBUDS)
@@ -461,6 +471,11 @@ Every table whose unit depends on the system has both an imperial and a metric s
   correction word is inferred (see [above](#2022-wrx-whats-different)). The "(Monitor)" tables are copies the ECU's
   torque monitor reads: keep each one equal to its main table, or the monitor can close the throttle (see the
   [definitions README](definitions/README.md#notes-on-individual-roms)). Some codes in the DTC list have no name yet.
+  Its EcuFlash-format files are only fully usable in FastECU: EcuFlash can't load the right memory model for these
+  ROMs and needs the 3 MB copy.
+- **Ascent files moved.** The Ascent and Legacy / Outback XT now live in the FA20DIT files (`FA20DIT_FA24_*` for
+  the extra base, logger and CAN files). Delete any earlier `FA24DIT_RomRaider.xml` or `FA24DIT_*_EcuFlash.xml` you
+  installed for them; those names are the 2022+ WRX's now.
 - **Inferred items** are marked "inferred" in their descriptions; everything else is read from the ECU code.
 
 ## Reading your ECU

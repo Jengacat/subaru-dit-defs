@@ -10,10 +10,10 @@ Outback and Ascent. The 2022+ WRX has its own files ([below](#2022-wrx-rh850)).
 |---|---|---|
 | Any model except the Ascent | stock or tuned, no logging patch | `FA20DIT_Logger.xml` |
 | Any model except the Ascent | with the [logging patch](../tools/logpatch/) | `FA20DIT_Logger_LogPatch.xml` |
-| Ascent | stock or tuned, no logging patch | `FA24DIT_Logger.xml` |
-| Ascent | with the logging patch | `FA24DIT_Logger_LogPatch.xml` |
+| Ascent | stock or tuned, no logging patch | `FA20DIT_FA24_Logger.xml` |
+| Ascent | with the logging patch | `FA20DIT_FA24_Logger_LogPatch.xml` |
 | Any model, Ascent included | any, **no patch needed** | `DIT_Logger_SUBUDS.xml`, with a RomRaider build that has the SUBUDS protocol ([below](#logging-without-the-patch-subuds)) |
-| 2022+ WRX | any | `FA24DIT_RH850_LHBKC40M_Torque.csv` in an OBD app with custom PIDs, or RomRaider's OBD protocol for the standard parameters ([below](#2022-wrx-rh850)) |
+| 2022+ WRX | any | `FA24DIT_LHBKC40M_Torque.csv` in an OBD app with custom PIDs, or RomRaider's OBD protocol for the standard parameters ([below](#2022-wrx-rh850)) |
 
 The `..._LogPatch_only.xml` files hold only the extra logging-patch parameters, if you want to add them to a logger
 file of your own.
@@ -105,6 +105,8 @@ SUBUDS logs only sensors and internal values. For trouble codes and OBD paramete
 
 ## 2022+ WRX (RH850)
 
+(The `FA24DIT_*` logger files are the 2022+ WRX's; the Ascent's are `FA20DIT_FA24_Logger*.xml`.)
+
 This ECU has no SSM logging on CAN, so the RomRaider logger files above don't apply; RomRaider's OBD protocol still
 logs the standard OBD-II parameters. What it does offer is UDS ReadDataByIdentifier (mode 22) on 0x7E0 / 0x7E8,
 with no security unlock: 933 data identifiers, almost all readable in the default session, each reading a fixed
@@ -112,8 +114,8 @@ place in the ECU's memory.
 
 | File | Contents |
 |---|---|
-| `FA24DIT_RH850_LHBKC40M_Torque.csv` | 88 ready-made mode-22 PIDs in the custom-PID CSV layout that Torque Pro and similar apps import (header 7E0, bytes A, B big-endian) |
-| `FA24DIT_RH850_LHBKC40M_DIDs.csv` | All 933 identifiers: length, session, the memory address each one reads in the 2023 ROM, and the scaling where I worked it out (134 of them) |
+| `FA24DIT_LHBKC40M_Torque.csv` | 88 ready-made mode-22 PIDs in the custom-PID CSV layout that Torque Pro and similar apps import (header 7E0, bytes A, B big-endian) |
+| `FA24DIT_LHBKC40M_DIDs.csv` | All 933 identifiers: length, session, the memory address each one reads in the 2023 ROM, and the scaling where I worked it out (134 of them) |
 
 The scaled ones include feedback and fine-learning knock correction, DAM, target boost, wastegate position, wideband
 lambda, manifold pressure, the cam advances, targets and OCV duties and currents, the throttle and pedal channels,

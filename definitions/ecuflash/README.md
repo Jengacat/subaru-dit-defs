@@ -4,15 +4,24 @@ EcuFlash shows each table in one unit, so the definitions come in two sets with 
 
 | Folder | Base file | Units |
 |---|---|---|
-| `Imperial/` | `FA20DIT_BASE_EcuFlash.xml`, `FB16DIT_BASE_EcuFlash.xml` (Levorg 1.6) | psi (gauge for boost), psia, °F, ft-lb, mph |
-| `Metric/` | `FA20DIT_BASE_METRIC_EcuFlash.xml`, `FB16DIT_BASE_METRIC_EcuFlash.xml` (Levorg 1.6) | kPa (absolute for boost and manifold pressure), MPa (rail pressure), °C, Nm, km/h |
+| `Imperial/` | `FA20DIT_BASE_EcuFlash.xml` (plus `FA24_Early_BASE_EcuFlash.xml` for the Ascent / Legacy XT), `FB16DIT_BASE_EcuFlash.xml` (Levorg 1.6), `FA24DIT_BASE_EcuFlash.xml` (2022+ WRX) | psi (gauge for boost), psia, °F, ft-lb, mph |
+| `Metric/` | `FA20DIT_BASE_METRIC_EcuFlash.xml` (plus `FA24_Early_BASE_METRIC_EcuFlash.xml`), `FB16DIT_BASE_METRIC_EcuFlash.xml` (Levorg 1.6), `FA24DIT_BASE_METRIC_EcuFlash.xml` (2022+ WRX) | kPa (absolute for boost and manifold pressure), MPa (rail pressure), °C, Nm, km/h |
+
+**Ascent and Legacy / Outback XT (FA24 Early):** their ROM files (`FA24_Early_LT8…`, `FA24_Early_LG7…`) include
+`FA24_Early_BASE_EcuFlash.xml`, which includes `FA20DIT_BASE_EcuFlash.xml`: install both base files. EcuFlash
+1.44.4870 and FastECU both follow the two-level include.
+
+**FastECU** reads these EcuFlash files too. Every scaling is written in a form FastECU evaluates correctly
+(FastECU evaluates `x/256*0.015516` as `x/(256*0.015516)`, so the definitions write such scalings as one factor,
+`x*0.000060609375`); EcuFlash shows the same values either way.
 
 Units both systems use (g/rev, RPM, %, AFR, degrees, g/s) are the same in both. **Install one set only:** the ROM
 files in both have the same IDs, and EcuFlash would load whichever it finds first.
 
-In each set a base file defines every table once (one base for the 2.0 ROMs, one for the Levorg 1.6 ROMs); each ROM
-has a small file named by calibration ID (`FA20DIT_<calibration ID>_EcuFlash.xml` or
-`FB16DIT_<calibration ID>_EcuFlash.xml`) that gives that ROM's addresses and whatever differs. EcuFlash picks the ROM
+In each set a base file defines every table once (one base for the 2.0 ROMs, one for the Levorg 1.6 ROMs, one for the
+2022+ WRX, and `FA24_Early_BASE` adding the Ascent's differences to the 2.0 base); each ROM has a small file named by
+calibration ID (`FA20DIT_<calibration ID>_EcuFlash.xml`, `FB16DIT_…`, `FA24_Early_…` or `FA24DIT_…`) that gives that
+ROM's addresses and whatever differs. EcuFlash picks the ROM
 file by the ID inside your ROM, and the ROM file pulls in the base.
 
 **Install:** from the folder you chose, copy the base file for your engine **and** the file(s) for your ROM(s) into the same folder
@@ -45,3 +54,26 @@ first.
   flash (see the main README).
 
 Writing to the ECU with EcuFlash has not been tested on this ECU yet.
+
+## 2022+ WRX (FA24DIT files): made for FastECU
+
+`FA24DIT_BASE_EcuFlash.xml` (Metric: `FA24DIT_BASE_METRIC_EcuFlash.xml`) plus `FA24DIT_<calibration ID>_EcuFlash.xml`
+for LHBHB10B, LHBKC40M, LHBP400b and LHBT210V.
+
+**As they are, these files are only fully compatible with FastECU.** FastECU opens the full 4032 KB image with them
+(set its EcuFlash definitions folder to `Imperial/` or `Metric/`), and with my
+[rh850-checksum](https://github.com/Jengacat/FastECU/tree/rh850-checksum) branch it also corrects the checksum on save.
+EcuFlash itself can't load the right memory model: it only opens a ROM through one of its built-in models, and none is
+the size of these images (the full image gives "Unknown ROM Image"). The files name its 3 MB model
+**Generic3072K**, so EcuFlash can open a copy of the first 3 MB; every table is in the first 1 MB, so the copy shows
+the whole calibration. To edit in EcuFlash anyway (tested in 1.44.4870), install the files as above (for example under
+`rommetadata\subaru\FA24DIT\`) and:
+
+1. `python3 tools/ef_view.py view stock.bin stock_view.bin` (or `tools\ef_view.ps1` with the same arguments).
+2. Open `stock_view.bin` in EcuFlash, edit, save.
+3. `python3 tools/ef_view.py merge stock.bin stock_view.bin edited.bin`: writes the full 4032 KB image with the
+   checksum corrected, and refuses a copy made from a different image.
+
+**Never flash the view copy.** The files have no checksum module; the merge step does that job. DTCs show one table
+per code (enabled or disabled); flip one with Increment ( `]` ) as above. FastECU reads these same files and opens the
+full image without a copy (see the [main README](../../README.md#2022-wrx-whats-different)).

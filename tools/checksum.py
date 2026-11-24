@@ -35,6 +35,15 @@ Ascent (FA24DIT, 2.5 MB; read in LT8H300D, LT8F300C and LT8D800A): the applicati
     dealer images carry no Ascent boot block. On those images the 0x006C marker therefore reads BAD; a full read from
     a car should pass it. CVN routine 0x083424: 0x10000..split and split..0x27FFE0 (split 0x6C5D0 in LT8H300D).
 
+2022+ WRX (FA24DIT, Renesas RH850; 4032 KB images, a read of addresses 0x10000-0x3FFFFF): a different rule.
+  * The 16-bit sum of all little-endian words of the whole file must be 0x5AA5. That holds on every stock 2022+
+    image I have checked, the four supported ROMs included.
+  * The correction word is the one at file offset 0x3EFF7E (address 0x3FFF7E): it is the trailer word that differs
+    between otherwise identical builds. That it is the word the factory balances is inferred; I have not read the
+    ECU's own check. No validity markers or reference words are known for this ECU, so verify checks the sum only.
+  * A 4 MB file (the same image with the 64 KB boot block in front) is refused: the definitions and this rule use
+    the 4032 KB layout. Drop the first 65536 bytes to get it.
+
 usage: checksum.py verify IMAGE...
        checksum.py fix IMAGE [OUT]      (in place without OUT)
 """
@@ -45,6 +54,28 @@ START, END, SUMLOC, TARGET = 0x6000, 0x200000, 0x1FFFFE, 0x5AA5
 MARKERS = [(0x6000, 0x5555, 'word 0x6000 = 0x5555'), (0x1FFFF2, 0xAAAA, 'word 0x1FFFF2 = 0xAAAA')]
 REFWORDS = 0x1FFFE0
 SIZES = (0x200000, 0x280000)
+RH850_SIZE, RH850_SUMLOC = 0x3F0000, 0x3EFF7E      # 2022+ WRX: little-endian sum of the whole file, see above
+
+
+def rh850_sum(d, skip=None):
+    s = sum(struct.unpack('<%dH' % (len(d) // 2), bytes(d)))
+    if skip is not None:
+        s -= struct.unpack_from('<H', d, skip)[0]
+    return s & 0xFFFF
+
+
+def rh850_report(d):
+    s = rh850_sum(d)
+    good = s == TARGET
+    word = struct.unpack_from('<H', d, RH850_SUMLOC)[0]
+    print('  2022+ WRX (RH850) image: sum16 of all little-endian words = 0x%04X (need 0x%04X) %s; correction word '
+          '0x%06X (address 0x%06X) = 0x%04X%s' % (s, TARGET, 'OK' if good else 'BAD', RH850_SUMLOC,
+                                                   RH850_SUMLOC + 0x10000, word, '' if good else ' (should be 0x%04X)'
+                                                   % ((TARGET - rh850_sum(d, RH850_SUMLOC)) & 0xFFFF)))
+    i = d.find(b'LHB', 0, 0x100000)
+    if i >= 0:
+        print('  info: calibration ID %s' % bytes(d[i:i + 8]).decode('ascii', 'replace'))
+    return good
 
 
 def set_size(n):
@@ -115,8 +146,13 @@ def report(d, boot_block=True):
     """Print the checks; True when all pass. boot_block=False: the 0x006C marker is printed but not required (the
     Ascent dealer images carry no boot block; patching the application region does not touch it)."""
     ok = True
+    if len(d) == RH850_SIZE:
+        return rh850_report(d)
+    if len(d) == 0x400000:
+        print('  size 4194304: a 4 MB 2022+ WRX image with its boot block; use the 4032 KB image (drop the first 65536 bytes)')
+        return False
     if len(d) not in SIZES:
-        print('  size %d, expected %d or %d' % (len(d), SIZES[0], SIZES[1]))
+        print('  size %d, expected %d or %d (or %d for a 2022+ WRX)' % (len(d), SIZES[0], SIZES[1], RH850_SIZE))
         return False
     set_size(len(d))
     s = sum16(d)
@@ -155,6 +191,13 @@ def main():
     src = sys.argv[2]
     out = sys.argv[3] if len(sys.argv) > 3 else src
     d = bytearray(open(src, 'rb').read())
+    if len(d) == RH850_SIZE:
+        old, new = struct.unpack_from('<H', d, RH850_SUMLOC)[0], (TARGET - rh850_sum(d, RH850_SUMLOC)) & 0xFFFF
+        struct.pack_into('<H', d, RH850_SUMLOC, new)
+        open(out, 'wb').write(d)
+        print('%s: correction word 0x%04X -> 0x%04X, written to %s' % (src, old, new, out))
+        print(out)
+        sys.exit(0 if report(d) else 1)
     if len(d) not in SIZES:
         sys.exit('%s: size %d, expected %d or %d' % (src, len(d), SIZES[0], SIZES[1]))
     set_size(len(d))

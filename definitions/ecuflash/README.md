@@ -45,3 +45,22 @@ first.
   flash (see the main README).
 
 Writing to the ECU with EcuFlash has not been tested on this ECU yet.
+
+## 2022+ WRX (RH850)
+
+`FA24DIT_RH850_BASE_EcuFlash.xml` (Metric: `FA24DIT_RH850_BASE_METRIC_EcuFlash.xml`) plus
+`FA24DIT_RH850_<calibration ID>_EcuFlash.xml` for LHBHB10B, LHBKC40M, LHBP400b and LHBT210V; install them as above,
+for example under `rommetadata\subaru\FA24DIT_RH850\`. Tested in EcuFlash 1.44.4870.
+
+EcuFlash only opens a ROM through one of its built-in memory models, and none is the size of these 4032 KB images
+(the full image gives "Unknown ROM Image"). The files therefore use the 3 MB model **Generic3072K** and open a copy of
+the first 3 MB; every table is in the first 1 MB, so the copy shows the whole calibration.
+
+1. `python3 tools/ef_view.py view stock.bin stock_view.bin` (or `tools\ef_view.ps1` with the same arguments).
+2. Open `stock_view.bin` in EcuFlash, edit, save.
+3. `python3 tools/ef_view.py merge stock.bin stock_view.bin edited.bin`: writes the full 4032 KB image with the
+   checksum corrected, and refuses a copy made from a different image.
+
+**Never flash the view copy.** The files have no checksum module; the merge step does that job. DTCs show one table
+per code (enabled or disabled); flip one with Increment ( `]` ) as above. FastECU reads these same files and opens the
+full image without a copy (see the [main README](../../README.md#2022-wrx-whats-different)).

@@ -1,0 +1,170 @@
+VERSION "FA24DIT 2022+ WRX (RH850), read from LHBKC40M"
+
+NS_ :
+
+BS_:
+
+BU_: BCM ECM HVAC METER TCM VDC
+
+BO_ 64 ECM_Engine_1: 8 ECM
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Counter : 8|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Engine_Speed : 16|14@1+ (1,0) [0|0] "rpm" Vector__XXX
+ SG_ Byte4_Value : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Byte5_Value : 40|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Accelerator_Pedal : 48|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 65 ECM_Torque_1: 8 ECM
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Counter : 8|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Engine_Torque : 16|15@1+ (0.1,-1000) [0|0] "Nm" Vector__XXX
+ SG_ Torque_Value_2 : 32|15@1+ (0.1,-1000) [0|0] "Nm" Vector__XXX
+ SG_ Byte6_Value : 48|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 129 ECM_Ignition: 8 ECM
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Counter : 8|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Ignition_Timing_Fired : 24|8@1- (0.5,0) [0|0] "deg" Vector__XXX
+ SG_ Byte4_Value : 32|8@1- (1,0) [0|0] "" Vector__XXX
+
+BO_ 326 ECM_146: 8 ECM
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Value_16 : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Byte4_Value : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 576 ECM_240: 8 ECM
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Counter : 8|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Byte7_Value : 56|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 577 ECM_241: 8 ECM
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Fuel_Flow_Value : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 834 ECM_342: 8 ECM
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 837 ECM_345: 8 ECM
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Temperature_1 : 24|8@1+ (1,-40) [0|0] "degC" Vector__XXX
+ SG_ Temperature_2 : 32|8@1+ (1,-40) [0|0] "degC" Vector__XXX
+ SG_ Baro_Value : 48|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 838 ECM_346: 8 ECM
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Value_16 : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 839 ECM_347: 8 ECM
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 313 Vehicle_Speed: 8 VDC
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" ECM
+ SG_ Counter : 8|4@1+ (1,0) [0|0] "" ECM
+ SG_ Vehicle_Speed : 16|13@1+ (0.05625,0) [0|0] "km/h" ECM
+
+BO_ 314 Wheel_Speeds: 8 VDC
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" ECM
+ SG_ Counter : 8|4@1+ (1,0) [0|0] "" ECM
+ SG_ Wheel_Speed_1 : 12|13@1+ (0.05625,0) [0|0] "km/h" ECM
+ SG_ Wheel_Speed_2 : 25|13@1+ (0.05625,0) [0|0] "km/h" ECM
+ SG_ Wheel_Speed_3 : 38|13@1+ (0.05625,0) [0|0] "km/h" ECM
+ SG_ Wheel_Speed_4 : 51|13@1+ (0.05625,0) [0|0] "km/h" ECM
+
+BO_ 315 Torque_Request: 8 VDC
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" ECM
+ SG_ Counter : 8|4@1+ (1,0) [0|0] "" ECM
+ SG_ Torque_Value_A : 16|16@1+ (0.1,-1000) [0|0] "Nm" ECM
+ SG_ Torque_Value_B : 32|16@1+ (0.1,-1000) [0|0] "Nm" ECM
+
+BO_ 72 Idle_Request: 8 TCM
+ SG_ Checksum : 0|8@1+ (1,0) [0|0] "" ECM
+ SG_ Counter : 8|4@1+ (1,0) [0|0] "" ECM
+ SG_ Idle_Speed_Request : 40|14@1+ (1,0) [0|0] "rpm" ECM
+
+BO_ 722 Climate: 8 HVAC
+ SG_ AC_Value_2 : 48|8@1+ (1,0) [0|0] "" ECM
+ SG_ AC_Value : 56|8@1+ (1,0) [0|0] "" ECM
+
+BO_ 280 Electrical_Load: 8 BCM
+ SG_ Electrical_Load_Value : 24|16@1+ (1,0) [0|0] "" ECM
+
+BO_ 912 Meter: 8 METER
+ SG_ Meter_Value : 32|8@1+ (1,0) [0|0] "" ECM
+
+CM_ BO_ 64 "Engine speed and accelerator pedal. ID read from the checksum seed.";
+CM_ SG_ 64 Checksum "Sum of bytes 1-7 + ID low byte + ID high byte, low 8 bits (read: 0x31BA28)";
+CM_ SG_ 64 Counter "Rolling counter";
+CM_ SG_ 64 Engine_Speed "read: FEF0662C, 1 rpm/bit";
+CM_ SG_ 64 Byte4_Value "FEF066B6 (FEF09E86 / 257); meaning not read";
+CM_ SG_ 64 Byte5_Value "FEF065E2 (high byte of FEF053D0); meaning not read";
+CM_ SG_ 64 Accelerator_Pedal "FEF066EA, high byte of the pedal value; scale not read (raw)";
+CM_ BO_ 65 "Torque values. ID read from the checksum seed.";
+CM_ SG_ 65 Checksum "Sum of bytes 1-7 + ID low byte + ID high byte, low 8 bits (read: 0x31BA28)";
+CM_ SG_ 65 Counter "Rolling counter";
+CM_ SG_ 65 Engine_Torque "FEF06682; N.m x 10 + 10000 (read from the packer formula)";
+CM_ SG_ 65 Torque_Value_2 "FEF065CC, same 10000 offset; meaning not read";
+CM_ SG_ 65 Byte6_Value "FEF0662B; meaning not read";
+CM_ BO_ 129 "ID read from the checksum seed.";
+CM_ SG_ 129 Checksum "Sum of bytes 1-7 + ID low byte + ID high byte, low 8 bits (read: 0x31BA28)";
+CM_ SG_ 129 Counter "Rolling counter";
+CM_ SG_ 129 Ignition_Timing_Fired "FEF0498C, ignition timing actually fired, 0.5 deg BTDC per bit (scale as in the definitions)";
+CM_ SG_ 129 Byte4_Value "FEF04A0B; meaning not read";
+CM_ BO_ 326 "ID read from the checksum seed.";
+CM_ SG_ 326 Checksum "Sum of bytes 1-7 + ID low byte + ID high byte, low 8 bits (read: 0x31BA28)";
+CM_ SG_ 326 Value_16 "FEF03E54; meaning not read";
+CM_ SG_ 326 Byte4_Value "FEF09E24 x 51 / 5120; meaning not read";
+CM_ BO_ 576 "ID read from the checksum seed.";
+CM_ SG_ 576 Checksum "Sum of bytes 1-7 + ID low byte + ID high byte, low 8 bits (read: 0x31BA28)";
+CM_ SG_ 576 Counter "Rolling counter";
+CM_ SG_ 576 Byte7_Value "FEF0A1A4 / 257; meaning not read";
+CM_ BO_ 577 "ID read from the checksum seed.";
+CM_ SG_ 577 Checksum "Sum of bytes 1-7 + ID low byte + ID high byte, low 8 bits (read: 0x31BA28)";
+CM_ SG_ 577 Fuel_Flow_Value "FEF06630, a fuel-flow style value from rpm and an accumulator; scale not read";
+CM_ BO_ 834 "ID read from the checksum seed. Only the checksum is packed here.";
+CM_ SG_ 834 Checksum "Sum of bytes 1-7 + ID low byte + ID high byte, low 8 bits (read: 0x31BA28)";
+CM_ BO_ 837 "ID read from the checksum seed.";
+CM_ SG_ 837 Checksum "Sum of bytes 1-7 + ID low byte + ID high byte, low 8 bits (read: 0x31BA28)";
+CM_ SG_ 837 Temperature_1 "FEF0A796 - 10; degC + 40 encoding inferred";
+CM_ SG_ 837 Temperature_2 "FEF0A6DB - 10; degC + 40 encoding inferred";
+CM_ SG_ 837 Baro_Value "(5 x FEF09BB6 >> 9) - 33; barometric pressure, scale not settled";
+CM_ BO_ 838 "ID read from the checksum seed.";
+CM_ SG_ 838 Checksum "Sum of bytes 1-7 + ID low byte + ID high byte, low 8 bits (read: 0x31BA28)";
+CM_ SG_ 838 Value_16 "FEF0665E; meaning not read";
+CM_ BO_ 839 "ID read from the checksum seed. Hours counter and battery-sensor data (inferred).";
+CM_ SG_ 839 Checksum "Sum of bytes 1-7 + ID low byte + ID high byte, low 8 bits (read: 0x31BA28)";
+CM_ BO_ 313 "Received; decoded by 0x318DFE.";
+CM_ SG_ 313 Checksum "Assumed same rule as the transmit frames; the receive-side check is not read";
+CM_ SG_ 313 Counter "Rolling counter (assumed from the transmit frames)";
+CM_ SG_ 313 Vehicle_Speed "read: the ECU converts it to whole km/h with x 3686/65536";
+CM_ BO_ 314 "Received; which wheel is which is not read.";
+CM_ SG_ 314 Checksum "Assumed same rule as the transmit frames; the receive-side check is not read";
+CM_ SG_ 314 Counter "Rolling counter (assumed from the transmit frames)";
+CM_ SG_ 314 Wheel_Speed_1 "scale inferred: same correction as vehicle speed";
+CM_ BO_ 315 "Received; the torque-intervention pair (inferred).";
+CM_ SG_ 315 Checksum "Assumed same rule as the transmit frames; the receive-side check is not read";
+CM_ SG_ 315 Counter "Rolling counter (assumed from the transmit frames)";
+CM_ SG_ 315 Torque_Value_A "consumers subtract 10000; N.m x 10 inferred; default 10000";
+CM_ SG_ 315 Torque_Value_B "default 14080; scale inferred";
+CM_ BO_ 72 "Received. Probably absent on the manual car (inferred).";
+CM_ SG_ 72 Checksum "Assumed same rule as the transmit frames; the receive-side check is not read";
+CM_ SG_ 72 Counter "Rolling counter (assumed from the transmit frames)";
+CM_ SG_ 72 Idle_Speed_Request "read: compared with engine speed by the idle state machine";
+CM_ BO_ 722 "Received; sender inferred.";
+CM_ SG_ 722 AC_Value_2 "scales the A/C adder to Decel Fuel Cut Resume RPM; raw";
+CM_ SG_ 722 AC_Value "axis of Radiator Fan Duty (A/C); raw";
+CM_ BO_ 280 "Received; meaning inferred from FA20 0x370.";
+CM_ SG_ 280 Electrical_Load_Value "input of Idle Air Adder (CAN Load Value); raw";
+CM_ BO_ 912 "Received; sender inferred.";
+CM_ SG_ 912 Meter_Value "axis of the Target Torque Rise Path B low-speed times; raw";
+BA_DEF_ BO_ "GenMsgCycleTime" INT 0 10000;
+BA_DEF_DEF_ "GenMsgCycleTime" 0;
+BA_ "GenMsgCycleTime" BO_ 64 10;
+BA_ "GenMsgCycleTime" BO_ 65 10;
+BA_ "GenMsgCycleTime" BO_ 129 10;
+BA_ "GenMsgCycleTime" BO_ 326 20;
+BA_ "GenMsgCycleTime" BO_ 576 50;
+BA_ "GenMsgCycleTime" BO_ 577 50;
+BA_ "GenMsgCycleTime" BO_ 834 100;
+BA_ "GenMsgCycleTime" BO_ 837 100;
+BA_ "GenMsgCycleTime" BO_ 838 100;
+BA_ "GenMsgCycleTime" BO_ 839 120;

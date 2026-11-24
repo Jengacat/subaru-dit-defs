@@ -31,6 +31,14 @@ LF75200T, LF75300F, LF75300H, LF75300L, LF75300S, LF75301K, LF75301P, LF75401D, 
 
 (1.6) = Levorg 1.6 (FB16DIT); (2.4) = Ascent (FA24DIT); the rest are 2.0 (FA20DIT). Not on the list: LF75401M, LF75500T, LF76500R, LF78002D, LF79103P, LF9C100M, LF9C100X, LF9C102P, LF9C200N, LF9F100Q, LT8D800A, LT8H300D, LV3C100T, LV9N302G, LV9N302I, LV9N302L, LV9N303K.
 
+## 2022+ WRX (RH850 ECU)
+
+Supported: LHBHB10B (2022, 6MT), LHBKC40M (2023, 6MT), LHBP400b (2024, 6MT), LHBT210V (2025 or later, CVT; the full ID
+is LHBT210VB0G). These are a different ECU generation (Renesas RH850) from everything else on this page, and none of
+them was on the list above. The first four characters (LHBH 2022, LHBK 2023, LHBP 2024, LHBT later) appear
+to follow the model year; within one year several builds exist, so as with the older ECUs a definition fits only
+ROMs that run the same code.
+
 ## Same first five characters as a supported ROM, no complete read yet (118)
 
 These share the first five characters of the ID with a supported ROM. Where all my ROMs of the group run the same code

@@ -28,3 +28,22 @@ scales (%, Nm, kPa, MPa, °C) are available from each table's View menu.
 RomRaider can't correct this ECU's checksum on save yet: versions 1.0.0 and 1.1.0 can't load a checksum module from
 a definition folder. My fix is in [RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248); once it is merged and released, the definition
 will correct the checksum on save. Until then, use the [checksum tool](../../tools/) before flashing.
+
+## 2022+ WRX (RH850)
+
+`FA24DIT_RH850_RomRaider.xml` covers the four supported 2022+ WRX ROMs, with a shared `RH850DIT_BASE` section like
+the others. It comes in two versions; install only one:
+
+| File | Checksum | RomRaider |
+|---|---|---|
+| `FA24DIT_RH850_RomRaider.xml` | Not corrected: run `tools/checksum.py` (or `.ps1`) after saving | 1.0.0 or later |
+| `FA24DIT_RH850_RomRaider_Checksum.xml` | Corrected on save, by the `RH850Sum16` module in `checksum/` | Only a build that loads checksum modules from the definition folder ([pull request #248](https://github.com/RomRaider/RomRaider/pull/248), or my fork's [Fix-Custom-Checksum-Modules](https://github.com/Jengacat/RomRaider/tree/Fix-Custom-Checksum-Modules) branch). RomRaider 1.0.0 and 1.1.0 can't open the images with it |
+
+For the checksum version, keep the `checksum/` folder in the same folder as the XML: RomRaider loads
+`checksum/com/romraider/maps/checksum/RH850Sum16.class` from there. The source is `checksum/RH850Sum16.java`
+(compile against RomRaider with `javac -cp RomRaider.jar -source 8 -target 8 -d checksum checksum/RH850Sum16.java`
+if you'd rather build it yourself). With it, RomRaider marks an edited ROM's checksum as invalid until you save, and
+the saved file passes `checksum.py verify`.
+
+Images are 4032 KB (see the [main README](../../README.md#2022-wrx-whats-different)). The user levels and units work
+as above; trouble codes have one Enabled switch per code, without a Fail-Safe cell.

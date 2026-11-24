@@ -4,6 +4,18 @@
 
 First public release.
 
+- New: **2022+ WRX (FA24DIT, RH850 ECU)**: LHBHB10B (2022 6MT), LHBKC40M (2023 6MT), LHBP400b (2024 6MT) and
+  LHBT210V (CVT, 2025 or later). A new ECU generation with new software, placed from its own code; tables that do the
+  same job as an Ascent table carry its name. 1,266–1,332 tables, values and switches per ROM, plus one switch per
+  trouble code (254 / 312). RomRaider file in two versions (plain, and one that corrects the checksum on save with a
+  RomRaider that loads checksum modules), EcuFlash Imperial and Metric sets. See "2022+ WRX: what's different" in
+  the README.
+- New: **`tools/checksum.py` and `checksum.ps1` handle 2022+ WRX ROMs** (4032 KB, little-endian sum, picked by file
+  size). The 2 MB and 2.5 MB behaviour is unchanged.
+- New: **`tools/ef_view.py` / `ef_view.ps1`**: the 3 MB copy of a 2022+ WRX ROM that EcuFlash can open, and merging
+  the edited copy back with the checksum fixed.
+- New: 2022+ WRX mode-22 logging list (`logger/FA24DIT_RH850_*.csv`, 88 ready-made PIDs for OBD apps) and a CAN DBC
+  (`extras/can/FA24DIT_RH850_CAN.dbc`).
 - Fixed: **load in g/rev on the 1.6 (FB16DIT) and 2.4 (FA24DIT) definitions** used the 2.0 L factor, so g/rev read
   25 % high on the 1.6 and 17 % low on the 2.4. Each engine now uses its own (100 % = 1.034 g/rev on the 1.6, 1.552
   on the 2.4). Load in % was always right, and the 2.0 definitions are unchanged.

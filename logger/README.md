@@ -1,8 +1,8 @@
 # Logger definitions
 
 Files for **RomRaider Logger**, to log your car over the OBD port with a J2534 cable (Tactrix OpenPort 2.0 or
-similar). They cover every ROM this repo supports: WRX and WRX S4, Levorg 2.0 and 1.6, Forester XT, Legacy / Outback
-and Ascent.
+similar). They cover every SH-ECU ROM this repo supports: WRX and WRX S4, Levorg 2.0 and 1.6, Forester XT, Legacy /
+Outback and Ascent. The 2022+ WRX has its own files ([below](#2022-wrx-rh850)).
 
 ## Which file do I use?
 
@@ -13,6 +13,7 @@ and Ascent.
 | Ascent | stock or tuned, no logging patch | `FA24DIT_Logger.xml` |
 | Ascent | with the logging patch | `FA24DIT_Logger_LogPatch.xml` |
 | Any model, Ascent included | any, **no patch needed** | `DIT_Logger_SUBUDS.xml`, with a RomRaider build that has the SUBUDS protocol ([below](#logging-without-the-patch-subuds)) |
+| 2022+ WRX | any | `FA24DIT_RH850_LHBKC40M_Torque.csv` in an OBD app with custom PIDs, or RomRaider's OBD protocol for the standard parameters ([below](#2022-wrx-rh850)) |
 
 The `..._LogPatch_only.xml` files hold only the extra logging-patch parameters, if you want to add them to a logger
 file of your own.
@@ -101,6 +102,25 @@ own code: it had to return the same value the ECU's normal SSM read does, on all
 the supported calibrations, it still connects, but no parameters show up; nothing is guessed.
 
 SUBUDS logs only sensors and internal values. For trouble codes and OBD parameters, use the regular files.
+
+## 2022+ WRX (RH850)
+
+This ECU has no SSM logging on CAN, so the RomRaider logger files above don't apply; RomRaider's OBD protocol still
+logs the standard OBD-II parameters. What it does offer is UDS ReadDataByIdentifier (mode 22) on 0x7E0 / 0x7E8,
+with no security unlock: 933 data identifiers, almost all readable in the default session, each reading a fixed
+place in the ECU's memory.
+
+| File | Contents |
+|---|---|
+| `FA24DIT_RH850_LHBKC40M_Torque.csv` | 88 ready-made mode-22 PIDs in the custom-PID CSV layout that Torque Pro and similar apps import (header 7E0, bytes A, B big-endian) |
+| `FA24DIT_RH850_LHBKC40M_DIDs.csv` | All 933 identifiers: length, session, the memory address each one reads in the 2023 ROM, and the scaling where I worked it out (134 of them) |
+
+The scaled ones include feedback and fine-learning knock correction, DAM, target boost, wastegate position, wideband
+lambda, manifold pressure, the cam advances, targets and OCV duties and currents, the throttle and pedal channels,
+and the clutch, brake and cruise switches. The rest are listed raw. Identifiers marked in the Note column read a
+snapshot or history copy rather than a live value, and are left out of the PID list. Read from the 2023 ROM
+(LHBKC40M); the 134 named identifiers exist with the same length and session on the 2022 and 2024 ROMs. Not tested
+on a car yet.
 
 ## Status and feedback
 

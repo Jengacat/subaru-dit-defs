@@ -1,4 +1,4 @@
-# FA24DIT (Ascent) CAN
+# FA24 Early (Ascent, Legacy / Outback XT) CAN
 
 Built from each ROM's own CAN code, run in an emulator. The Ascent uses a different set of frame IDs from the FA20DIT (WRX, Levorg, Forester), so the FA20DIT dictionary does not apply. Field names ending in a frame ID were matched to a WRX signal through the ECU variable they feed or come from (inferred); the others are raw fields. Received frames: only the first byte and the low nibble of the second are mapped (the decoder copies those to RAM unconditionally); the payloads are not mapped yet. Bit numbers: byte, then bit 0 = LSB.
 

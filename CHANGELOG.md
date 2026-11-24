@@ -23,6 +23,12 @@ First public release.
   and new files in RomRaider and compared every value, address, user level, folder, unit and description, and checked
   the EcuFlash set table by table and in EcuFlash and FastECU. Delete any earlier `FA24DIT_RomRaider.xml` or
   `FA24DIT_*_EcuFlash.xml` you installed for the Ascent.
+- Fixed: **SI-Drive names of the Requested Torque maps on the 2019 and 2020 Ascent** (LT8D700A, LT8D800A, LT8F200C,
+  LT8F300C). The eight main maps had their drive modes in the wrong order: the map the ECU uses in Sport Sharp (the one
+  that reaches full torque by half pedal) was named Intelligent, and so on. I ran each ROM's own torque code with the
+  drive mode set to each position to confirm which map it uses. The 2021 Ascent, the Legacy / Outback XT, the monitor
+  copies and the other drive-mode tables were already right. If you edited one of these maps on a 2019 or 2020
+  Ascent, check that your change is on the map for the mode you meant.
 - Fixed: **FastECU showed some EcuFlash scalings wrong** (load in g/rev, boost in psi, mph and a few others, on every
   engine): FastECU evaluates `x/256*0.015516` as `x/(256*0.015516)` and doesn't read exponent notation. Those
   scalings are now written as a single factor (`x*0.000060609375`), which FastECU, EcuFlash and RomRaider all read

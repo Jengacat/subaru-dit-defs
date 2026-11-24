@@ -175889,7 +175889,7 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
    <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
    <description>How long overboost must last before P0234 sets (passes).</description>
   </table>
-  <table type="3D" name="Requested Torque (Drive Mode 1, Default, AT/CVT)" category="Torque &amp; Throttle//Requested Torque" storagetype="uint16" endian="big" sizex="20" sizey="21" userlevel="3" storageaddress="0x01ff58">
+  <table type="3D" name="Requested Torque (Drive Mode 1, Default, AT/CVT)" category="Torque &amp; Throttle//Requested Torque" storagetype="uint16" endian="big" sizex="20" sizey="21" userlevel="3" storageaddress="0x0202a0">
    <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Accelerator Pedal" storagetype="uint16" endian="big" storageaddress="0x01f210">
@@ -175911,7 +175911,7 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
    </table>
    <description>Monitor copy of Requested Torque (Drive Mode 1, Default, AT/CVT): keep identical to it or expect a throttle plausibility fault. Used only on the AT/CVT coding.</description>
   </table>
-  <table type="3D" name="Requested Torque (Drive Mode 2, Sport, AT/CVT)" category="Torque &amp; Throttle//Requested Torque" storagetype="uint16" endian="big" sizex="20" sizey="21" userlevel="3" storageaddress="0x0202a0">
+  <table type="3D" name="Requested Torque (Drive Mode 2, Sport, AT/CVT)" category="Torque &amp; Throttle//Requested Torque" storagetype="uint16" endian="big" sizex="20" sizey="21" userlevel="3" storageaddress="0x01fc10">
    <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <table type="X Axis" name="Accelerator Pedal" storagetype="uint16" endian="big" storageaddress="0x01f210">
@@ -175933,13 +175933,13 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
    </table>
    <description>Monitor copy of Requested Torque (Drive Mode 2, Sport, AT/CVT): keep identical to it or expect a throttle plausibility fault. Used only on the AT/CVT coding.</description>
   </table>
-  <table type="3D" name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT)" category="Torque &amp; Throttle//Requested Torque" storagetype="uint16" endian="big" sizex="20" sizey="21" userlevel="3" storageaddress="0x02063a">
+  <table type="3D" name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT)" category="Torque &amp; Throttle//Requested Torque" storagetype="uint16" endian="big" sizex="20" sizey="21" userlevel="3" storageaddress="0x01ff58">
    <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
-   <table type="X Axis" name="Accelerator Pedal" storagetype="uint16" endian="big" storageaddress="0x020612">
+   <table type="X Axis" name="Accelerator Pedal" storagetype="uint16" endian="big" storageaddress="0x01f210">
     <scaling units="%" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    </table>
-   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0205e8">
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x01f1e6">
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Drive mode 3: SI-Drive Intelligent (I). On the AT/CVT coding this is the whole requested-torque map for this drive mode (Requested Torque (Drive Mode 3, Intelligent) is then ignored); unused on manual cars. Edit it, and its Monitor copy, when tuning an AT/CVT car.</description>
@@ -175955,13 +175955,13 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
    </table>
    <description>Monitor copy of Requested Torque (Drive Mode 3, Intelligent, AT/CVT): keep identical to it or expect a throttle plausibility fault. Used only on the AT/CVT coding.</description>
   </table>
-  <table type="3D" name="Requested Torque (Drive Mode 4, Sport Sharp, AT/CVT)" category="Torque &amp; Throttle//Requested Torque" storagetype="uint16" endian="big" sizex="20" sizey="21" userlevel="3" storageaddress="0x01fc10">
+  <table type="3D" name="Requested Torque (Drive Mode 4, Sport Sharp, AT/CVT)" category="Torque &amp; Throttle//Requested Torque" storagetype="uint16" endian="big" sizex="20" sizey="21" userlevel="3" storageaddress="0x02063a">
    <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
    <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
-   <table type="X Axis" name="Accelerator Pedal" storagetype="uint16" endian="big" storageaddress="0x01f210">
+   <table type="X Axis" name="Accelerator Pedal" storagetype="uint16" endian="big" storageaddress="0x020612">
     <scaling units="%" expression="x/655.35" to_byte="x*655.35" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    </table>
-   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x01f1e6">
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0205e8">
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Drive mode 4: SI-Drive Sport Sharp (S#). On the AT/CVT coding this is the whole requested-torque map for this drive mode (Requested Torque (Drive Mode 4, Sport Sharp) is then ignored); unused on manual cars. Edit it, and its Monitor copy, when tuning an AT/CVT car.</description>
@@ -178650,7 +178650,7 @@ Details: 0x0DD0DC (read). Confidence: read.</description>
    <table type="X Axis" storageaddress="0x02ebf2" />
    <table type="Y Axis" storageaddress="0x02ec12" />
   </table>
-  <table name="Requested Torque (Drive Mode 1, Default)" storageaddress="0x01f580">
+  <table name="Requested Torque (Drive Mode 1, Default)" storageaddress="0x01f8c8">
    <table type="X Axis" storageaddress="0x01f210" />
    <table type="Y Axis" storageaddress="0x01f1e6" />
   </table>
@@ -178658,7 +178658,7 @@ Details: 0x0DD0DC (read). Confidence: read.</description>
    <table type="X Axis" storageaddress="0x04de3a" />
    <table type="Y Axis" storageaddress="0x04de10" />
   </table>
-  <table name="Requested Torque (Drive Mode 2, Sport)" storageaddress="0x01f8c8">
+  <table name="Requested Torque (Drive Mode 2, Sport)" storageaddress="0x01f238">
    <table type="X Axis" storageaddress="0x01f210" />
    <table type="Y Axis" storageaddress="0x01f1e6" />
   </table>
@@ -178666,17 +178666,17 @@ Details: 0x0DD0DC (read). Confidence: read.</description>
    <table type="X Axis" storageaddress="0x04de3a" />
    <table type="Y Axis" storageaddress="0x04de10" />
   </table>
-  <table name="Requested Torque (Drive Mode 3, Intelligent)" storageaddress="0x020982">
-   <table type="X Axis" storageaddress="0x020612" />
-   <table type="Y Axis" storageaddress="0x0205e8" />
+  <table name="Requested Torque (Drive Mode 3, Intelligent)" storageaddress="0x01f580">
+   <table type="X Axis" storageaddress="0x01f210" />
+   <table type="Y Axis" storageaddress="0x01f1e6" />
   </table>
   <table name="Requested Torque (Drive Mode 3, Intelligent, Monitor)" storageaddress="0x04e1aa">
    <table type="X Axis" storageaddress="0x04de3a" />
    <table type="Y Axis" storageaddress="0x04de10" />
   </table>
-  <table name="Requested Torque (Drive Mode 4, Sport Sharp)" storageaddress="0x01f238">
-   <table type="X Axis" storageaddress="0x01f210" />
-   <table type="Y Axis" storageaddress="0x01f1e6" />
+  <table name="Requested Torque (Drive Mode 4, Sport Sharp)" storageaddress="0x020982">
+   <table type="X Axis" storageaddress="0x020612" />
+   <table type="Y Axis" storageaddress="0x0205e8" />
   </table>
   <table name="Requested Torque (Drive Mode 4, Sport Sharp, Monitor)" storageaddress="0x04f5ac">
    <table type="X Axis" storageaddress="0x04f23c" />
@@ -183997,7 +183997,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Boost Feedback Minimum (Wastegate Position)" storageaddress="0x064d74" />
   <table name="P0234 Overboost Error Threshold" storageaddress="0x065dcc" />
   <table name="P0234 Overboost Time" storageaddress="0x065dce" />
-  <table name="Requested Torque (Drive Mode 1, Default)" storageaddress="0x01f580">
+  <table name="Requested Torque (Drive Mode 1, Default)" storageaddress="0x01f8c8">
    <table type="X Axis" storageaddress="0x01f210" />
    <table type="Y Axis" storageaddress="0x01f1e6" />
   </table>
@@ -184005,7 +184005,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <table type="X Axis" storageaddress="0x04e942" />
    <table type="Y Axis" storageaddress="0x04e918" />
   </table>
-  <table name="Requested Torque (Drive Mode 2, Sport)" storageaddress="0x01f8c8">
+  <table name="Requested Torque (Drive Mode 2, Sport)" storageaddress="0x01f238">
    <table type="X Axis" storageaddress="0x01f210" />
    <table type="Y Axis" storageaddress="0x01f1e6" />
   </table>
@@ -184013,17 +184013,17 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <table type="X Axis" storageaddress="0x04e942" />
    <table type="Y Axis" storageaddress="0x04e918" />
   </table>
-  <table name="Requested Torque (Drive Mode 3, Intelligent)" storageaddress="0x020982">
-   <table type="X Axis" storageaddress="0x020612" />
-   <table type="Y Axis" storageaddress="0x0205e8" />
+  <table name="Requested Torque (Drive Mode 3, Intelligent)" storageaddress="0x01f580">
+   <table type="X Axis" storageaddress="0x01f210" />
+   <table type="Y Axis" storageaddress="0x01f1e6" />
   </table>
   <table name="Requested Torque (Drive Mode 3, Intelligent, Monitor)" storageaddress="0x04ecb2">
    <table type="X Axis" storageaddress="0x04e942" />
    <table type="Y Axis" storageaddress="0x04e918" />
   </table>
-  <table name="Requested Torque (Drive Mode 4, Sport Sharp)" storageaddress="0x01f238">
-   <table type="X Axis" storageaddress="0x01f210" />
-   <table type="Y Axis" storageaddress="0x01f1e6" />
+  <table name="Requested Torque (Drive Mode 4, Sport Sharp)" storageaddress="0x020982">
+   <table type="X Axis" storageaddress="0x020612" />
+   <table type="Y Axis" storageaddress="0x0205e8" />
   </table>
   <table name="Requested Torque (Drive Mode 4, Sport Sharp, Monitor)" storageaddress="0x0500b4">
    <table type="X Axis" storageaddress="0x04fd44" />
@@ -208388,7 +208388,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Boost Feedback Minimum (Wastegate Position)" storageaddress="0x0643d0" />
   <table name="P0234 Overboost Error Threshold" storageaddress="0x06542c" />
   <table name="P0234 Overboost Time" storageaddress="0x06542e" />
-  <table name="Requested Torque (Drive Mode 1, Default)" storageaddress="0x01f580">
+  <table name="Requested Torque (Drive Mode 1, Default)" storageaddress="0x01f8c8">
    <table type="X Axis" storageaddress="0x01f210" />
    <table type="Y Axis" storageaddress="0x01f1e6" />
   </table>
@@ -208396,7 +208396,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <table type="X Axis" storageaddress="0x04de36" />
    <table type="Y Axis" storageaddress="0x04de0c" />
   </table>
-  <table name="Requested Torque (Drive Mode 2, Sport)" storageaddress="0x01f8c8">
+  <table name="Requested Torque (Drive Mode 2, Sport)" storageaddress="0x01f238">
    <table type="X Axis" storageaddress="0x01f210" />
    <table type="Y Axis" storageaddress="0x01f1e6" />
   </table>
@@ -208404,17 +208404,17 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <table type="X Axis" storageaddress="0x04de36" />
    <table type="Y Axis" storageaddress="0x04de0c" />
   </table>
-  <table name="Requested Torque (Drive Mode 3, Intelligent)" storageaddress="0x020982">
-   <table type="X Axis" storageaddress="0x020612" />
-   <table type="Y Axis" storageaddress="0x0205e8" />
+  <table name="Requested Torque (Drive Mode 3, Intelligent)" storageaddress="0x01f580">
+   <table type="X Axis" storageaddress="0x01f210" />
+   <table type="Y Axis" storageaddress="0x01f1e6" />
   </table>
   <table name="Requested Torque (Drive Mode 3, Intelligent, Monitor)" storageaddress="0x04e1a6">
    <table type="X Axis" storageaddress="0x04de36" />
    <table type="Y Axis" storageaddress="0x04de0c" />
   </table>
-  <table name="Requested Torque (Drive Mode 4, Sport Sharp)" storageaddress="0x01f238">
-   <table type="X Axis" storageaddress="0x01f210" />
-   <table type="Y Axis" storageaddress="0x01f1e6" />
+  <table name="Requested Torque (Drive Mode 4, Sport Sharp)" storageaddress="0x020982">
+   <table type="X Axis" storageaddress="0x020612" />
+   <table type="Y Axis" storageaddress="0x0205e8" />
   </table>
   <table name="Requested Torque (Drive Mode 4, Sport Sharp, Monitor)" storageaddress="0x04f5a8">
    <table type="X Axis" storageaddress="0x04f238" />
@@ -214084,7 +214084,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Boost Feedback Minimum (Wastegate Position)" storageaddress="0x064d70" />
   <table name="P0234 Overboost Error Threshold" storageaddress="0x065dc8" />
   <table name="P0234 Overboost Time" storageaddress="0x065dca" />
-  <table name="Requested Torque (Drive Mode 1, Default)" storageaddress="0x01f580">
+  <table name="Requested Torque (Drive Mode 1, Default)" storageaddress="0x01f8c8">
    <table type="X Axis" storageaddress="0x01f210" />
    <table type="Y Axis" storageaddress="0x01f1e6" />
   </table>
@@ -214092,7 +214092,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <table type="X Axis" storageaddress="0x04e93e" />
    <table type="Y Axis" storageaddress="0x04e914" />
   </table>
-  <table name="Requested Torque (Drive Mode 2, Sport)" storageaddress="0x01f8c8">
+  <table name="Requested Torque (Drive Mode 2, Sport)" storageaddress="0x01f238">
    <table type="X Axis" storageaddress="0x01f210" />
    <table type="Y Axis" storageaddress="0x01f1e6" />
   </table>
@@ -214100,17 +214100,17 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <table type="X Axis" storageaddress="0x04e93e" />
    <table type="Y Axis" storageaddress="0x04e914" />
   </table>
-  <table name="Requested Torque (Drive Mode 3, Intelligent)" storageaddress="0x020982">
-   <table type="X Axis" storageaddress="0x020612" />
-   <table type="Y Axis" storageaddress="0x0205e8" />
+  <table name="Requested Torque (Drive Mode 3, Intelligent)" storageaddress="0x01f580">
+   <table type="X Axis" storageaddress="0x01f210" />
+   <table type="Y Axis" storageaddress="0x01f1e6" />
   </table>
   <table name="Requested Torque (Drive Mode 3, Intelligent, Monitor)" storageaddress="0x04ecae">
    <table type="X Axis" storageaddress="0x04e93e" />
    <table type="Y Axis" storageaddress="0x04e914" />
   </table>
-  <table name="Requested Torque (Drive Mode 4, Sport Sharp)" storageaddress="0x01f238">
-   <table type="X Axis" storageaddress="0x01f210" />
-   <table type="Y Axis" storageaddress="0x01f1e6" />
+  <table name="Requested Torque (Drive Mode 4, Sport Sharp)" storageaddress="0x020982">
+   <table type="X Axis" storageaddress="0x020612" />
+   <table type="Y Axis" storageaddress="0x0205e8" />
   </table>
   <table name="Requested Torque (Drive Mode 4, Sport Sharp, Monitor)" storageaddress="0x0500b0">
    <table type="X Axis" storageaddress="0x04fd40" />

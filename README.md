@@ -14,29 +14,6 @@ each ROM is in the [lists below](#supported-roms).
 > RomRaider and EcuFlash, but **nothing has been validated on a running engine or flashed to a car yet.** Read the
 > [known issues](#known-issues) before you use them, and always keep a stock read of the ECU.
 
-## Supported ROMs
-
-### Which files for my car
-
-| Car | Model years | Engine, ECU | RomRaider | EcuFlash / FastECU (Imperial; Metric adds `_METRIC` to the base) | Logger |
-|---|---|---|---|---|---|
-| WRX and WRX S4 | 2014–2021 | FA20DIT, Hitachi SH7254x | `FA20DIT_RomRaider.xml` | `FA20DIT_BASE` + `FA20DIT_<ID>` | `FA20DIT_Logger*.xml` |
-| Forester XT and tS | 2015–2018 | FA20DIT, SH7254x | `FA20DIT_RomRaider.xml` | `FA20DIT_BASE` + `FA20DIT_<ID>` | `FA20DIT_Logger*.xml` |
-| Legacy and Outback | 2015–2017 | FA20DIT, SH7254x | `FA20DIT_RomRaider.xml` | `FA20DIT_BASE` + `FA20DIT_<ID>` | `FA20DIT_Logger*.xml` |
-| Levorg 2.0 | 2014–2019 | FA20DIT, SH7254x | `FA20DIT_RomRaider.xml` | `FA20DIT_BASE` + `FA20DIT_<ID>` | `FA20DIT_Logger*.xml` |
-| Levorg 1.6 | 2014–2020 | FB16DIT, SH7254x | `FB16DIT_RomRaider.xml` | `FB16DIT_BASE` + `FB16DIT_<ID>` | `FA20DIT_Logger*.xml` |
-| Ascent, Legacy / Outback XT | 2019–2021 | FA24DIT, SH72544R (**FA24 Early**) | `FA20DIT_RomRaider.xml` | `FA20DIT_BASE` + `FA24_Early_BASE` + `FA24_Early_<ID>` | `FA24_Early_Logger*.xml` (Ascent) |
-| WRX | 2022 and later | FA24DIT, Renesas RH850 (**FA24DIT**) | `FA24DIT_RomRaider.xml` (or `FA24DIT_RomRaider_Checksum.xml`) | `FA24DIT_BASE` + `FA24DIT_<ID>`, for FastECU; EcuFlash only through a 3 MB copy | `FA24DIT_LHBKC40M_*.csv` (mode 22) |
-
-`<ID>` is the ROM's calibration ID, for example `FA20DIT_LF75404S_EcuFlash.xml`. In RomRaider you add the one file and it
-picks your ROM's section by ID. In EcuFlash or FastECU, install the base file(s) and your ROM's file from the same
-folder.
-
-**Ascent and Legacy / Outback XT owners: use the FA24 Early files, not FA24DIT.** Your car has the FA24DIT engine,
-but its ECU runs a later build of the FA20DIT software, so its definitions build on the FA20DIT ones: the RomRaider
-sections are in `FA20DIT_RomRaider.xml`, and the EcuFlash files need `FA20DIT_BASE_EcuFlash.xml` as well as
-`FA24_Early_BASE_EcuFlash.xml`. The `FA24DIT_*` files are only for the 2022+ WRX.
-
 ### ROM lists
 
 Open your model for its ROM list. Model years and markets are as the ROMs were supplied to me. For the ROMs I took
@@ -215,27 +192,11 @@ own boost group: the boost target (by rpm and target torque) and its corrections
 feed-forward and compensations, boost feedback, the actuator and motor limits, and the overboost (P0234) and
 underboost (P0299) limits. Motor drive is in % duty. Position is shown as % open, 0 % = closed on its seat (the %
 scale is inferred; it can also be shown as the position sensor's voltage).
-The three ROMs carry the same set of tables, placed from the 2020 WRX and from each other; wherever two sources place
-the same table they agree. The one difference is the underboost (P0299) limit: two tables on the 2021 ROM, two single
-values on the 2019 and 2020 ROMs. The
-2020 and 2021 ROMs have 11-character IDs (LT8F300C00G, LT8H300D00G); the definitions match the first eight.
 
-The Legacy / Outback XT runs the same software as the Ascent of the same year, with its own calibration: the 2021
-ROM was placed from the 2021 Ascent, and the 2020 ROM from the 2021 Legacy XT. Boost control is the same as on the Ascent 
-(tables on 2021, single values on 2020). The Legacy XT lists have a few entries fewer than
-the Ascent's, where the Legacy XT code differs and I have not placed them yet (manifold-model gain multipliers,
-cranking-fuel rpm and coolant multipliers, idle converter slip thresholds, and part of the charging control). The
-2021 ROM's after-start enrichment tables have a fifth start type the Ascent doesn't have; the extra slots are not
-defined yet. There is no logging patch, logger file or CAN dictionary for the Legacy XT yet. Its IDs also have 11
-characters (LG7D501B00G, LG7F301F00G).
-
-**Which files:** the **FA24 Early** set (see [Which files for my car](#which-files-for-my-car)). These cars run the
-same software family as the FA20DIT, so their RomRaider sections are in `FA20DIT_RomRaider.xml`, and in EcuFlash
-`FA24_Early_<calibration ID>_EcuFlash.xml` needs `FA24_Early_BASE_EcuFlash.xml` and `FA20DIT_BASE_EcuFlash.xml` next
-to it (Metric: the `…_METRIC_…` pair). Their logger and CAN files are `FA24_Early_*`. The `FA24DIT_*` files are the
-2022+ WRX's. If you installed an earlier copy of the Ascent files, delete the old `FA24DIT_RomRaider.xml` and
-`FA24DIT_*_EcuFlash.xml` (or `FA20DIT_FA24_*` / `FA20DIT_LT8…` / `FA20DIT_LG7…`) files first: the new ones use
-the same ROM IDs.
+**Use the FA24 Early files, not FA24DIT.** The above models have the FA24DIT engine,
+but their ECU's runs a later build of the FA20DIT software, so their definitions build on the FA20DIT ones. RomRaider
+sections are in `FA20DIT_RomRaider.xml`, and the EcuFlash files need `FA20DIT_BASE_EcuFlash.xml` as well as
+`FA24_Early_BASE_EcuFlash.xml`. The `FA24DIT_*` files are only for the 2022+ WRX.
 
 </details>
 

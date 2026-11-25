@@ -85,4 +85,5 @@ checked against their own code. Things worth knowing before you edit:
   definitions and tools on real cars, and many suggestions: the EcuFlash SH72544R read-template tip for 2.5 MB ECUs,
   listing the supported ROMs per model, and leads on tables to add (the engine-speed limit in P and N on the CVT ROMs,
   the alternator charge control).
+- **Gekido and RayTheSavage** Supplied multiple RH850 ROM's and contributed significantly to building a FastECU module for reading RH850 ECU's
 - The RomRaider forum, where several of the ROMs were posted.

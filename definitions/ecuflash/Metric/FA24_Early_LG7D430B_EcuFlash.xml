@@ -605,8 +605,9 @@
  <table name="Start History Reset Delay (Coolant)" address="013d62">
   <table name="Coolant Temp" address="041e74" />
  </table>
- <table name="Cranking Fuel (Repeat Attempt, Special Start)" address="01cbec">
+ <table name="Cranking Fuel (Repeat Attempt, Special Start)" address="01cbec" level="4">
   <table name="Coolant Temp" address="026320" />
+  <description>Cranking fuel pulse by coolant for a repeat attempt in the special start type.</description>
  </table>
  <table name="Cranking Fuel (Stall Window, First Attempt)" address="011c80">
   <table name="Coolant Temp" address="026320" />
@@ -630,8 +631,9 @@
   <table name="Coolant Temp" address="012456" />
   <table name="Engine Speed" address="015e90" />
  </table>
- <table name="Cranking Fuel Pedal Multiplier (Special Start)" address="01684e">
+ <table name="Cranking Fuel Pedal Multiplier (Special Start)" address="01684e" level="4">
   <table name="Accelerator Pedal" address="01483e" />
+  <description>Special-start copy of Cranking Fuel Pedal Multiplier.</description>
  </table>
  <table name="Cranking Fuel Decay (Stall Window, First Attempt)" address="0147fe">
   <table name="Temperature" address="041e14" />
@@ -729,26 +731,33 @@
  <table name="Cranking Fuel Secondary Decay by Start Type (Stall Window, Special Start, Initial)" address="01679e">
   <table name="Coolant Temp" address="041e94" />
  </table>
- <table name="Cranking Prime Pulse Coolant Multiplier" address="0189b8">
+ <table name="Cranking Prime Pulse Coolant Multiplier" address="0189b8" level="4">
   <table name="Coolant Temp" address="041db4" />
+  <description>Size of what appears to be a one-shot priming injection at key-on/cranking, by coolant; the pulse is proportional to it.</description>
  </table>
- <table name="Running After-Start Enrichment 1 (Special Start)" address="01643e">
+ <table name="Running After-Start Enrichment 1 (Special Start)" address="01643e" level="4">
   <table name="Coolant Temp" address="041e74" />
+  <description>Running After-Start Enrichment 1 for the special start type, which is disabled by calibration.</description>
  </table>
- <table name="Running After-Start Enrichment 2 (Special Start)" address="01647e">
+ <table name="Running After-Start Enrichment 2 (Special Start)" address="01647e" level="4">
   <table name="Coolant Temp" address="041e74" />
+  <description>Running After-Start Enrichment 2 for the special start type, which is disabled by calibration.</description>
  </table>
- <table name="Running After-Start Enrichment 3 (Special Start)" address="01645e">
+ <table name="Running After-Start Enrichment 3 (Special Start)" address="01645e" level="4">
   <table name="Coolant Temp" address="041e74" />
+  <description>Running After-Start Enrichment 3 for the special start type, which is disabled by calibration.</description>
  </table>
- <table name="Running After-Start Enrichment Decay 1 (Special Start)" address="01691e">
+ <table name="Running After-Start Enrichment Decay 1 (Special Start)" address="01691e" level="4">
   <table name="Coolant Temp" address="041e74" />
+  <description>Fade time of Running After-Start Enrichment 1 (Special Start). That start type is disabled by calibration.</description>
  </table>
- <table name="Running After-Start Enrichment Decay 2 (Special Start)" address="01693e">
+ <table name="Running After-Start Enrichment Decay 2 (Special Start)" address="01693e" level="4">
   <table name="Coolant Temp" address="041e74" />
+  <description>Fade time of Running After-Start Enrichment 2 (Special Start). That start type is disabled by calibration.</description>
  </table>
- <table name="Running After-Start Enrichment Decay 3 (Special Start)" address="01692e">
+ <table name="Running After-Start Enrichment Decay 3 (Special Start)" address="01692e" level="4">
   <table name="Coolant Temp" address="041e74" />
+  <description>Fade time of Running After-Start Enrichment 3 (Special Start). That start type is disabled by calibration.</description>
  </table>
  <table name="Injection Timing (Single Injection)" address="011dd2">
   <table name="Engine Load" address="011dca" />
@@ -2433,11 +2442,7 @@
   <table name="Engine Speed" address="031760" />
  </table>
  <table name="Throttle Flow Coefficient (Forward Flow)" address="0316e0" />
- <table name="Throttle Flow Coefficient (Reverse Flow)" address="0316e1">
-  <description>Coefficient of the throttle airflow model when the manifold is above the pre-throttle pressure. Leave alone.
-
-Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-throttle pressure; the ratio is inverted). 0x11DD04 (read), enabled by FFF8A8FB bit 0 (0x11E43C): modelled throttle flow FFF8C24C [g/min] = (P_up/101325) x Throttle Flow Function(r) x FFF8ADEC (Throttle Area from Throttle Position, 0.05 mm^2) x Throttle Flow Temperature Correction x this x 60000 x 2.98e-15, which feeds the manifold/airflow observer 0x11DB50 / 0x11D938. Normally leave alone. LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). LG7F301F: same code as LT8H300D; address from the same instruction (between exact neighbours (228 bytes below, 49 above, both moved by the same amount; inferred)). LG7D501B: same code as LG7F301F; address from the same instruction (between exact neighbours (228 bytes below, 49 above, both moved by the same amount; inferred)). LG7D430B: same code as LG7D501B; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
- </table>
+ <table name="Throttle Flow Coefficient (Reverse Flow)" address="0316e1" />
  <table name="Exhaust Temperature Model Map A (No Enrichment)" address="019a44">
   <table name="Engine Load" address="0131f0" />
   <table name="Engine Speed" address="0131fc" />
@@ -3082,44 +3087,26 @@ Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-th
  <table name="EGR Target Rate (TGV Open, Multi-Injection)" address="033a1c">
   <table name="Engine Load" address="032ec2" />
   <table name="Engine Speed" address="032ea2" />
-  <description>EGR rate target by rpm and load with the TGVs open and multiple injections per cycle.
-
-Details: When used: TGVs not closed and multi-injection active (FFF8A775 bit 1); cal 0x2F797 bit 5 clear. Base target EGR rate A818, looked up by 0x0FA10C with rpm FFF8CD54 x load FFF8A616 (read, disassembly). Target EGR rate (0x0FA260, read): FFF8A81A = base A817 x Coolant Multiplier 05CB04/255 x 255/255 (A816) x Reduction Multiplier A81C/255 x DAM Multiplier 05CB10/128, x 640 (1/640 units), capped at cal 0x2C4E6 (192 = 30 %) and forced to 0 unless the enable conditions FFF8A811 bit 0 hold (0x0FAAFC). A817 follows the base table A818 (0x0FA068). Multi-injection = FFF8A775 bit 1, set by 0x0FAABC when the multi-injection enable FFF8A775 bit 0 is set and all four per-injector strategy bytes FFF8A69F..A6A2 are 2 or 3 (read). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). 0 = no EGR. LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). LG7F301F: same code as LT8H300D; address from the same instruction (exact (1 reads)). LG7D430B: same code as LG7D501B; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="EGR Target Rate (TGV Closed, Multi-Injection)" address="033b1c">
   <table name="Engine Load" address="032ec2" />
   <table name="Engine Speed" address="032ea2" />
-  <description>EGR rate target by rpm and load with the TGVs closed and multiple injections per cycle.
-
-Details: When used: TGVs closed and multi-injection active (FFF8A775 bit 1); cal 0x2F797 bit 5 clear. Base target EGR rate A818, looked up by 0x0FA10C with rpm FFF8CD54 x load FFF8A616 (read, disassembly). Target EGR rate (0x0FA260, read): FFF8A81A = base A817 x Coolant Multiplier 05CB04/255 x 255/255 (A816) x Reduction Multiplier A81C/255 x DAM Multiplier 05CB10/128, x 640 (1/640 units), capped at cal 0x2C4E6 (192 = 30 %) and forced to 0 unless the enable conditions FFF8A811 bit 0 hold (0x0FAAFC). A817 follows the base table A818 (0x0FA068). Multi-injection = FFF8A775 bit 1, set by 0x0FAABC when the multi-injection enable FFF8A775 bit 0 is set and all four per-injector strategy bytes FFF8A69F..A6A2 are 2 or 3 (read). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). 0 = no EGR. LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). LG7F301F: same code as LT8H300D; address from the same instruction (exact (1 reads)). LG7D430B: same code as LG7D501B; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="EGR Target Rate (Alternate, TGV Open)" address="032ee2">
   <table name="X Axis" address="032ed2" />
   <table name="Engine Speed" address="032ea2" />
-  <description>Alternate EGR rate target by rpm and throttle position (instead of load) with the TGVs open.
-
-Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EGR rate A818 (0x0FA10C, read), indexed by rpm FFF8CD54 and throttle position FFF8CD77 (about 0.56 % per count, see below) instead of load. Target EGR rate (0x0FA260, read): FFF8A81A = base A817 x Coolant Multiplier 05CB04/255 x 255/255 (A816) x Reduction Multiplier A81C/255 x DAM Multiplier 05CB10/128, x 640 (1/640 units), capped at cal 0x2C4E6 (192 = 30 %) and forced to 0 unless the enable conditions FFF8A811 bit 0 hold (0x0FAAFC). A817 follows the base table A818 (0x0FA068). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). p16 (read): second axis FFF8CD77 = (ETC throttle position FFF8A342 - 10)/4 = (ETC actual position FFF8A2B6 - 1000)/256 (0x09D58E, 0x09DAAE, 0x0A0680, 0x06AB94): a throttle-position byte, about 0.56 % per count (inferred). LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). LG7F301F: same code as LT8H300D; address from the same instruction (exact (1 reads)). LG7D430B: same code as LG7D501B; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="EGR Target Rate (Alternate, TGV Closed)" address="032fe2">
   <table name="X Axis" address="032ed2" />
   <table name="Engine Speed" address="032ea2" />
-  <description>Alternate EGR rate target by rpm and throttle position (instead of load) with the TGVs closed.
-
-Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EGR rate A818 (0x0FA10C, read), indexed by rpm FFF8CD54 and throttle position FFF8CD77 (about 0.56 % per count, see below) instead of load. Target EGR rate (0x0FA260, read): FFF8A81A = base A817 x Coolant Multiplier 05CB04/255 x 255/255 (A816) x Reduction Multiplier A81C/255 x DAM Multiplier 05CB10/128, x 640 (1/640 units), capped at cal 0x2C4E6 (192 = 30 %) and forced to 0 unless the enable conditions FFF8A811 bit 0 hold (0x0FAAFC). A817 follows the base table A818 (0x0FA068). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). p16 (read): second axis FFF8CD77 = (ETC throttle position FFF8A342 - 10)/4 = (ETC actual position FFF8A2B6 - 1000)/256 (0x09D58E, 0x09DAAE, 0x0A0680, 0x06AB94): a throttle-position byte, about 0.56 % per count (inferred). LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). LG7F301F: same code as LT8H300D; address from the same instruction (exact (1 reads)). LG7D430B: same code as LG7D501B; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="EGR Target Rate (Alternate, TGV Open, Multi-Injection)" address="03381c">
   <table name="X Axis" address="032ed2" />
   <table name="Engine Speed" address="032ea2" />
-  <description>Alternate EGR rate target by rpm and throttle position with the TGVs open and multiple injections per cycle.
-
-Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EGR rate A818 (0x0FA10C, read), indexed by rpm FFF8CD54 and throttle position FFF8CD77 (about 0.56 % per count, see below) instead of load. Target EGR rate (0x0FA260, read): FFF8A81A = base A817 x Coolant Multiplier 05CB04/255 x 255/255 (A816) x Reduction Multiplier A81C/255 x DAM Multiplier 05CB10/128, x 640 (1/640 units), capped at cal 0x2C4E6 (192 = 30 %) and forced to 0 unless the enable conditions FFF8A811 bit 0 hold (0x0FAAFC). A817 follows the base table A818 (0x0FA068). Multi-injection = FFF8A775 bit 1, set by 0x0FAABC when the multi-injection enable FFF8A775 bit 0 is set and all four per-injector strategy bytes FFF8A69F..A6A2 are 2 or 3 (read). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). p16 (read): second axis FFF8CD77 = (ETC throttle position FFF8A342 - 10)/4 = (ETC actual position FFF8A2B6 - 1000)/256 (0x09D58E, 0x09DAAE, 0x0A0680, 0x06AB94): a throttle-position byte, about 0.56 % per count (inferred). LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). LG7F301F: same code as LT8H300D; address from the same instruction (exact (1 reads)). LG7D430B: same code as LG7D501B; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="EGR Target Rate (Alternate, TGV Closed, Multi-Injection)" address="03391c">
   <table name="X Axis" address="032ed2" />
   <table name="Engine Speed" address="032ea2" />
-  <description>Alternate EGR rate target by rpm and throttle position with the TGVs closed and multiple injections per cycle.
-
-Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EGR rate A818 (0x0FA10C, read), indexed by rpm FFF8CD54 and throttle position FFF8CD77 (about 0.56 % per count, see below) instead of load. Target EGR rate (0x0FA260, read): FFF8A81A = base A817 x Coolant Multiplier 05CB04/255 x 255/255 (A816) x Reduction Multiplier A81C/255 x DAM Multiplier 05CB10/128, x 640 (1/640 units), capped at cal 0x2C4E6 (192 = 30 %) and forced to 0 unless the enable conditions FFF8A811 bit 0 hold (0x0FAAFC). A817 follows the base table A818 (0x0FA068). Multi-injection = FFF8A775 bit 1, set by 0x0FAABC when the multi-injection enable FFF8A775 bit 0 is set and all four per-injector strategy bytes FFF8A69F..A6A2 are 2 or 3 (read). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). p16 (read): second axis FFF8CD77 = (ETC throttle position FFF8A342 - 10)/4 = (ETC actual position FFF8A2B6 - 1000)/256 (0x09D58E, 0x09DAAE, 0x0A0680, 0x06AB94): a throttle-position byte, about 0.56 % per count (inferred). LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). LG7F301F: same code as LT8H300D; address from the same instruction (exact (1 reads)). LG7D430B: same code as LG7D501B; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="EGR Target Rate Tip-Out Limit (TGV Open)" address="033c22">
   <table name="Engine Load" address="032ec2" />
@@ -3151,22 +3138,13 @@ Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EG
  <table name="EGR Timing Advance DAM Term (Multi-Injection, TGV Closed)" address="0396a4">
   <table name="Engine Load" address="01d062" />
   <table name="Engine Speed" address="01d036" />
-  <description>As the EGR DAM term, with multiple injection.
-
-Details: 0x0DD0DC (read), used while FFF8A775 bit 2 is set. LG7F301F: same code as LT8H300D; address from the same instruction (similarity port (code)). LG7D501B: same code as LG7F301F; address from the same instruction (exact (1 reads)). LG7D430B: same code as LG7D501B; address from the same instruction (exact (1 reads)). Confidence: read.</description>
  </table>
  <table name="EGR Timing Advance DAM Term (Multi-Injection, TGV Open)" address="039964">
   <table name="Engine Load" address="01d062" />
   <table name="Engine Speed" address="01d036" />
-  <description>As the EGR DAM term, with multiple injection.
-
-Details: 0x0DD0DC (read). LG7F301F: same code as LT8H300D; address from the same instruction (similarity port (code)). LG7D501B: same code as LG7F301F; address from the same instruction (exact (1 reads)). LG7D430B: same code as LG7D501B; address from the same instruction (exact (1 reads)). Confidence: read.</description>
  </table>
  <table name="EGR Timing Advance DAM Term Weight (Multi-Injection)" address="0265c6">
   <table name="Dynamic Advance Multiplier" address="0265bc" />
-  <description>How much of the multiple-injection DAM term applies, by DAM.
-
-Details: 0x0DD0DC (read). LG7F301F: same code as LT8H300D; address from the same instruction (similarity port (code)). LG7D501B: same code as LG7F301F; address from the same instruction (exact (1 reads)). LG7D430B: same code as LG7D501B; address from the same instruction (exact (1 reads)). Confidence: read.</description>
  </table>
  <table name="TGV Torque Threshold Enter (Drive Modes 1/4, Default/Sport Sharp)" address="0411ec">
   <table name="Engine Speed" address="0411ac" />

@@ -599,8 +599,9 @@
  <table name="Start History Reset Delay (Coolant)" address="013d62">
   <table name="Coolant Temp" address="041e94" />
  </table>
- <table name="Cranking Fuel (Repeat Attempt, Special Start)" address="01cbec">
+ <table name="Cranking Fuel (Repeat Attempt, Special Start)" address="01cbec" level="4">
   <table name="Coolant Temp" address="026320" />
+  <description>Cranking fuel pulse by coolant for a repeat attempt in the special start type.</description>
  </table>
  <table name="Cranking Fuel (Stall Window, First Attempt)" address="011c80">
   <table name="Coolant Temp" address="026320" />
@@ -624,8 +625,9 @@
   <table name="Coolant Temp" address="012456" />
   <table name="Engine Speed" address="015e90" />
  </table>
- <table name="Cranking Fuel Pedal Multiplier (Special Start)" address="01684e">
+ <table name="Cranking Fuel Pedal Multiplier (Special Start)" address="01684e" level="4">
   <table name="Accelerator Pedal" address="01483e" />
+  <description>Special-start copy of Cranking Fuel Pedal Multiplier.</description>
  </table>
  <table name="Cranking Fuel Decay (Stall Window, First Attempt)" address="0147fe">
   <table name="Temperature" address="041e34" />
@@ -723,26 +725,33 @@
  <table name="Cranking Fuel Secondary Decay by Start Type (Stall Window, Special Start, Initial)" address="01679e">
   <table name="Coolant Temp" address="041eb4" />
  </table>
- <table name="Cranking Prime Pulse Coolant Multiplier" address="0189b8">
+ <table name="Cranking Prime Pulse Coolant Multiplier" address="0189b8" level="4">
   <table name="Coolant Temp" address="041dd4" />
+  <description>Size of what appears to be a one-shot priming injection at key-on/cranking, by coolant; the pulse is proportional to it.</description>
  </table>
- <table name="Running After-Start Enrichment 1 (Special Start)" address="01643e">
+ <table name="Running After-Start Enrichment 1 (Special Start)" address="01643e" level="4">
   <table name="Coolant Temp" address="041e94" />
+  <description>Running After-Start Enrichment 1 for the special start type, which is disabled by calibration.</description>
  </table>
- <table name="Running After-Start Enrichment 2 (Special Start)" address="01647e">
+ <table name="Running After-Start Enrichment 2 (Special Start)" address="01647e" level="4">
   <table name="Coolant Temp" address="041e94" />
+  <description>Running After-Start Enrichment 2 for the special start type, which is disabled by calibration.</description>
  </table>
- <table name="Running After-Start Enrichment 3 (Special Start)" address="01645e">
+ <table name="Running After-Start Enrichment 3 (Special Start)" address="01645e" level="4">
   <table name="Coolant Temp" address="041e94" />
+  <description>Running After-Start Enrichment 3 for the special start type, which is disabled by calibration.</description>
  </table>
- <table name="Running After-Start Enrichment Decay 1 (Special Start)" address="01691e">
+ <table name="Running After-Start Enrichment Decay 1 (Special Start)" address="01691e" level="4">
   <table name="Coolant Temp" address="041e94" />
+  <description>Fade time of Running After-Start Enrichment 1 (Special Start). That start type is disabled by calibration.</description>
  </table>
- <table name="Running After-Start Enrichment Decay 2 (Special Start)" address="01693e">
+ <table name="Running After-Start Enrichment Decay 2 (Special Start)" address="01693e" level="4">
   <table name="Coolant Temp" address="041e94" />
+  <description>Fade time of Running After-Start Enrichment 2 (Special Start). That start type is disabled by calibration.</description>
  </table>
- <table name="Running After-Start Enrichment Decay 3 (Special Start)" address="01692e">
+ <table name="Running After-Start Enrichment Decay 3 (Special Start)" address="01692e" level="4">
   <table name="Coolant Temp" address="041e94" />
+  <description>Fade time of Running After-Start Enrichment 3 (Special Start). That start type is disabled by calibration.</description>
  </table>
  <table name="Injection Timing (Single Injection)" address="011dd2">
   <table name="Engine Load" address="011dca" />
@@ -782,42 +791,24 @@
  </table>
  <table name="Start Injection Angle (Stop-Start Restart, Low Rail Pressure)" address="015e48">
   <table name="Coolant Temp" address="041e94" />
-  <description>Injection angle while cranking for a stop-start restart with rail pressure below 2 MPa. Stop-start cannot activate in this calibration, so probably unused. Not clamped by the ECU: keep it within 0.5-180 BTDC. Edit with the High Rail Pressure table.
-
-Details: When used: while cranking (fuel state FFF8906B = 2) with the stop-start restart request FFF89066 bit 0 set and rail pressure FFF88884 below cal 0x2A65E (3279 = 2.0 MPa / 290 psi) (0x0CFB28, called from 0x0C589C with (906B, coolant FFF88A44, rpm/50, cal 0x38448 bit 7, FFF89066 bit 0, FFF88884, &amp;FFF8B050, &amp;FFF8B008), args read in the caller's disassembly). Units (FU_UNITS): degrees BTDC of the injected cylinder's compression TDC (720 - code/2; larger = earlier), same scale as every injection-angle table (my research notes). It replaces Start Injection Angle (Fuel Mode 0) in FFF8B050, which 0x0CB394 uses as the first-pulse angle of injectors in fuel mode 0 (segment 3, offset B050 - 1080) (read). Unlike that table it is only floored at code 0, not clamped to 1080-1439, so keep it within 180-0.5 BTDC (code 1080-1439) (read). Setting cal 0x38448 bit 7 would force cal 0x11EBC (clamped to 1080-1439) instead. FFF89066 bit 0 = CAN 0x15A byte 2 bit 0, the restart request of the engine stop-start feature (signals_rates_can.md, my research notes, read). Edit with the High Rail Pressure table. LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). LG7F301F: same code as LT8H300D; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Start Injection Angle (Stop-Start Restart, High Rail Pressure)" address="015e28">
   <table name="Coolant Temp" address="041e94" />
-  <description>Injection angle while cranking for a stop-start restart with rail pressure at or above 2 MPa. Probably unused (stop-start cannot activate). Not clamped: keep within 0.5-180 BTDC.
-
-Details: When used: as Start Injection Angle (Stop-Start Restart, Low Rail Pressure), but with rail pressure FFF88884 at or above cal 0x2A65E (3279 = 2.0 MPa / 290 psi) (0x0CFB28, read). Units (FU_UNITS): degrees BTDC of the injected cylinder's compression TDC (720 - code/2; larger = earlier), same scale as every injection-angle table (my research notes). Only floored at code 0, not clamped (read): keep it within 180-0.5 BTDC (code 1080-1439). FFF89066 bit 0 = CAN 0x15A byte 2 bit 0, the restart request of the engine stop-start feature (signals_rates_can.md, my research notes, read). LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). LG7F301F: same code as LT8H300D; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Cranking Injection Timing (Stop-Start Restart)" address="015e68">
   <table name="Coolant Temp" address="041e94" />
-  <description>Replaces Cranking Injection Timing while cranking for a stop-start restart. Stop-start cannot activate in this calibration, so probably unused.
-
-Details: When used: while cranking (FFF8906B = 2) with the stop-start restart request FFF89066 bit 0 set; then it replaces Cranking Injection Timing as the main injection angle FFF8B052 (0x0CFE8C, read; args read in 0x0C589C: param_5 = coolant FFF88A44, param_11 = FFF89066 bit 0). Units (FU_UNITS): degrees BTDC of the injected cylinder's compression TDC (720 - code/2; larger = earlier), same scale as every injection-angle table (my research notes). Clamped to code 360-1079 = 180.5-540 BTDC (read). Cal 0x38448 bit 6 would force cal 0x11FE6. FFF89066 bit 0 = CAN 0x15A byte 2 bit 0, the restart request of the engine stop-start feature (signals_rates_can.md, my research notes, read). LT8H300D: same code as LF9K000D; address from the same instruction (similarity port (code)). LG7F301F: same code as LT8H300D; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Double Injection Split" address="018416">
   <table name="Engine Load" address="017e72" />
   <table name="Engine Speed" address="017e62" />
-  <description>Share of the fuel in the first of two injections; the second gets the rest.
-
-Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B068 -&gt; FFF8A6D1, read); the second gets the rest (0x0D0D50). Limited by FFF8A6DA (read). LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). LG7F301F: same code as LT8H300D; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Triple Injection Split 1" address="018456">
   <table name="Engine Load" address="017e8a" />
   <table name="Engine Speed" address="017e7a" />
-  <description>Share of the fuel in the first of three injections (the third gets what the first two leave).
-
-Details: Share of the fuel in the first of three injections (0x0D06EC -&gt; FFF8A6C9 -&gt; FFF8A6D3, read); the third gets 128 minus the first two (0x0D0DC0). LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). LG7F301F: same code as LT8H300D; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Triple Injection Split 2" address="018496">
   <table name="Engine Load" address="017e8a" />
   <table name="Engine Speed" address="017e7a" />
-  <description>Share of the fuel in the second of three injections.
-
-Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF8A6CA -&gt; FFF8A6D4, read). LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). LG7F301F: same code as LT8H300D; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Catalyst Heating Spark Retard" address="01d0c6">
   <table name="Requested Spark Torque Share" address="01d0ce" />
@@ -2448,16 +2439,9 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
  <table name="Volumetric Efficiency (AVCS Not Ready)" address="031d2c">
   <table name="Manifold Pressure" address="03178c" />
   <table name="Engine Speed" address="031760" />
-  <description>VE table that would replace the normal TGV-blended VE while the cams are probably not yet ready.
-
-When that bit is set, 0x11E308 uses this table instead of the Volumetric Efficiency (TGV Closed) / (TGV Open) blend while FFF8A83B bit 7 is clear (read). That bit is an AVCS-ready flag from 0x1050F4 that needs both cam references learned (inferred meaning). LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). LG7F301F: same code as LT8H300D; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Throttle Flow Coefficient (Forward Flow)" address="0316e0" />
- <table name="Throttle Flow Coefficient (Reverse Flow)" address="0316e1">
-  <description>Coefficient of the throttle airflow model when the manifold is above the pre-throttle pressure. Leave alone.
-
-Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-throttle pressure; the ratio is inverted). 0x11DD04 (read), enabled by FFF8A8FB bit 0 (0x11E43C): modelled throttle flow FFF8C24C [g/min] = (P_up/101325) x Throttle Flow Function(r) x FFF8ADEC (Throttle Area from Throttle Position, 0.05 mm^2) x Throttle Flow Temperature Correction x this x 60000 x 2.98e-15, which feeds the manifold/airflow observer 0x11DB50 / 0x11D938. Normally leave alone. LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). LG7F301F: same code as LT8H300D; address from the same instruction (between exact neighbours (228 bytes below, 49 above, both moved by the same amount; inferred)). Confidence: inferred.</description>
- </table>
+ <table name="Throttle Flow Coefficient (Reverse Flow)" address="0316e1" />
  <table name="Exhaust Temperature Model Map A (No Enrichment)" address="019a44">
   <table name="Engine Load" address="0131f0" />
   <table name="Engine Speed" address="0131fc" />
@@ -2729,27 +2713,15 @@ Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-th
  </table>
  <table name="Intake OCV Base Duty (Cam 1, Legacy Path)" address="02d434">
   <table name="Engine Speed" address="02d3ea" />
-  <description>Base intake cam 1 valve duty by rpm for an older, byte-based cam control path.
-
-Base term by rpm of the intake cam 1 OCV duty in the legacy byte-based AVCS path: about 49.2-52.0 % duty before the FFF88AA4 factor; the learned and feedback bytes are added around 128 (= 51.2 %). Module (read): seg 0x100000 0x104xxx-0x106xxx is the byte-based cam path; 0x10466C (intake, called at seg_0x100000.c:3516 with rpm CD54, FFF88AA4, learned bytes FFF8147A/147C/147E, feedback bytes FFF8B368, cam errors B956/B954) forms per cam: B352 = this(rpm) x 026EB0/026EC0(FFF88AA4)/128; B356 = 147A if the cam error &gt;= cal 0x26E82 (364 = 2.0 deg), 147C if &lt;= cal 0x26E84 (-2.0 deg), else 128; B366 = clamp(B368 + B352 + 147E + B356 - 384, 0, 250). 0x106A0C does the same for the exhaust cams (05CF08/05CF14, factors 0298F4/029904, errors B916/B914, thresholds cal 0x298C6/0x298C8) into B380. The OCV duty routines 0x15DF20 / 0x15E63C (intake cam 1 / 2) and 0x16269C / 0x162D18 (exhaust) set duty B8DE = B366[cam] x 10 (B380 for exhaust) only when cal 0x3CCC4 bit 0 is clear (read). FFF88AA4 = (FFF88AE6 &gt;&gt; 8 - 10) x 1.6 (0x060000 area, read); FFF88AE6 not identified. LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). LG7F301F: same code as LT8H300D; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Intake OCV Base Duty (Cam 2, Legacy Path)" address="02d449">
   <table name="Engine Speed" address="02d3ea" />
-  <description>Base intake cam 2 valve duty by rpm for an older, byte-based cam control path.
-
-Base term by rpm of the intake cam 2 OCV duty in the legacy byte-based AVCS path: about 48.8-50.8 % duty before the FFF88AA4 factor; the learned and feedback bytes are added around 128 (= 51.2 %). Module (read): seg 0x100000 0x104xxx-0x106xxx is the byte-based cam path; 0x10466C (intake, called at seg_0x100000.c:3516 with rpm CD54, FFF88AA4, learned bytes FFF8147A/147C/147E, feedback bytes FFF8B368, cam errors B956/B954) forms per cam: B352 = this(rpm) x 026EB0/026EC0(FFF88AA4)/128; B356 = 147A if the cam error &gt;= cal 0x26E82 (364 = 2.0 deg), 147C if &lt;= cal 0x26E84 (-2.0 deg), else 128; B366 = clamp(B368 + B352 + 147E + B356 - 384, 0, 250). 0x106A0C does the same for the exhaust cams (05CF08/05CF14, factors 0298F4/029904, errors B916/B914, thresholds cal 0x298C6/0x298C8) into B380. The OCV duty routines 0x15DF20 / 0x15E63C (intake cam 1 / 2) and 0x16269C / 0x162D18 (exhaust) set duty B8DE = B366[cam] x 10 (B380 for exhaust) only when cal 0x3CCC4 bit 0 is clear (read). FFF88AA4 = (FFF88AE6 &gt;&gt; 8 - 10) x 1.6 (0x060000 area, read); FFF88AE6 not identified. LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). LG7F301F: same code as LT8H300D; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Exhaust OCV Base Duty (Cam 1, Legacy Path)" address="0305f4">
   <table name="Engine Speed" address="0305aa" />
-  <description>Base exhaust cam 1 valve duty by rpm for an older, byte-based cam control path.
-
-Base term by rpm of the exhaust cam 1 OCV duty in the legacy byte-based AVCS path: about 48.8-50 % duty before the FFF88AA4 factor; the learned and feedback bytes are added around 128 (= 51.2 %). Module (read): seg 0x100000 0x104xxx-0x106xxx is the byte-based cam path; 0x10466C (intake, called at seg_0x100000.c:3516 with rpm CD54, FFF88AA4, learned bytes FFF8147A/147C/147E, feedback bytes FFF8B368, cam errors B956/B954) forms per cam: B352 = this(rpm) x 026EB0/026EC0(FFF88AA4)/128; B356 = 147A if the cam error &gt;= cal 0x26E82 (364 = 2.0 deg), 147C if &lt;= cal 0x26E84 (-2.0 deg), else 128; B366 = clamp(B368 + B352 + 147E + B356 - 384, 0, 250). 0x106A0C does the same for the exhaust cams (05CF08/05CF14, factors 0298F4/029904, errors B916/B914, thresholds cal 0x298C6/0x298C8) into B380. The OCV duty routines 0x15DF20 / 0x15E63C (intake cam 1 / 2) and 0x16269C / 0x162D18 (exhaust) set duty B8DE = B366[cam] x 10 (B380 for exhaust) only when cal 0x3CCC4 bit 0 is clear (read). FFF88AA4 = (FFF88AE6 &gt;&gt; 8 - 10) x 1.6 (0x060000 area, read); FFF88AE6 not identified. LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). LG7F301F: same code as LT8H300D; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Exhaust OCV Base Duty (Cam 2, Legacy Path)" address="030609">
   <table name="Engine Speed" address="0305aa" />
-  <description>Base exhaust cam 2 valve duty by rpm for an older, byte-based cam control path.
-
-Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS path: about 47.2-50.8 % duty before the FFF88AA4 factor; the learned and feedback bytes are added around 128 (= 51.2 %). Module (read): seg 0x100000 0x104xxx-0x106xxx is the byte-based cam path; 0x10466C (intake, called at seg_0x100000.c:3516 with rpm CD54, FFF88AA4, learned bytes FFF8147A/147C/147E, feedback bytes FFF8B368, cam errors B956/B954) forms per cam: B352 = this(rpm) x 026EB0/026EC0(FFF88AA4)/128; B356 = 147A if the cam error &gt;= cal 0x26E82 (364 = 2.0 deg), 147C if &lt;= cal 0x26E84 (-2.0 deg), else 128; B366 = clamp(B368 + B352 + 147E + B356 - 384, 0, 250). 0x106A0C does the same for the exhaust cams (05CF08/05CF14, factors 0298F4/029904, errors B916/B914, thresholds cal 0x298C6/0x298C8) into B380. The OCV duty routines 0x15DF20 / 0x15E63C (intake cam 1 / 2) and 0x16269C / 0x162D18 (exhaust) set duty B8DE = B366[cam] x 10 (B380 for exhaust) only when cal 0x3CCC4 bit 0 is clear (read). FFF88AA4 = (FFF88AE6 &gt;&gt; 8 - 10) x 1.6 (0x060000 area, read); FFF88AE6 not identified. LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). LG7F301F: same code as LT8H300D; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Idle Speed Target (Warm Idle, Mode 5)" address="029904" />
  <table name="Idle Speed Target (Warm Idle, AT/CVT, Mode 6)" address="029924" />
@@ -3165,22 +3137,13 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
  <table name="EGR Timing Advance DAM Term (Multi-Injection, TGV Closed)" address="0396c4">
   <table name="Engine Load" address="01d062" />
   <table name="Engine Speed" address="01d036" />
-  <description>As the EGR DAM term, with multiple injection.
-
-Details: 0x0DD0DC (read), used while FFF8A775 bit 2 is set. LG7F301F: same code as LT8H300D; address from the same instruction (similarity port (code)). Confidence: read.</description>
  </table>
  <table name="EGR Timing Advance DAM Term (Multi-Injection, TGV Open)" address="039984">
   <table name="Engine Load" address="01d062" />
   <table name="Engine Speed" address="01d036" />
-  <description>As the EGR DAM term, with multiple injection.
-
-Details: 0x0DD0DC (read). LG7F301F: same code as LT8H300D; address from the same instruction (similarity port (code)). Confidence: read.</description>
  </table>
  <table name="EGR Timing Advance DAM Term Weight (Multi-Injection)" address="0265c6">
   <table name="Dynamic Advance Multiplier" address="0265bc" />
-  <description>How much of the multiple-injection DAM term applies, by DAM.
-
-Details: 0x0DD0DC (read). LG7F301F: same code as LT8H300D; address from the same instruction (similarity port (code)). Confidence: read.</description>
  </table>
  <table name="TGV Torque Threshold Enter (Drive Modes 1/4, Default/Sport Sharp)" address="04120c">
   <table name="Engine Speed" address="0411cc" />
@@ -3384,7 +3347,7 @@ Details: 0x0DD0DC (read). LG7F301F: same code as LT8H300D; address from the same
  <table name="Adaptive Charging Charge Limit" address="0432e8">
   <description>Adaptive charging also ends once this much charge has gone back into the battery (raw units).
 
-Details: Compared with FFF81848, the integral of charging current while in mode 5 (0x1368C4, read; unit not confirmed). LG7F301F: same code as LT8H300D; address from the same instruction (between exact neighbours (52 bytes below, 74 above, both moved by the same amount; inferred)). Confidence: inferred.</description>
+Details: Compared with FFF81848, the integral of charging current while in mode 5 (0x1368C4, read; unit not confirmed). Confidence: inferred.</description>
  </table>
  <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" address="03c154">
   <table name="Coolant Temp" address="03c166" />
@@ -3392,37 +3355,37 @@ Details: Compared with FFF81848, the integral of charging current while in mode 
  <table name="Adaptive Charging Integral Deadband Above" address="0432ec">
   <description>Battery current may be this far above the target before the adaptive integral steps down.
 
-Details: 0x137E7C, mode 5 only (read). LG7F301F: same code as LT8H300D; address from the same instruction (between exact neighbours (56 bytes below, 70 above, both moved by the same amount; inferred)). Confidence: inferred.</description>
+Details: 0x137E7C, mode 5 only (read). Confidence: inferred.</description>
  </table>
  <table name="Adaptive Charging Integral Deadband Below" address="0432ee">
   <description>Battery current may be this far below the target before the adaptive integral steps up.
 
-Details: 0x137E7C, mode 5 only (read). LG7F301F: same code as LT8H300D; address from the same instruction (between exact neighbours (58 bytes below, 68 above, both moved by the same amount; inferred)). Confidence: inferred.</description>
+Details: 0x137E7C, mode 5 only (read). Confidence: inferred.</description>
  </table>
  <table name="Adaptive Charging Integral Step Down" address="0432f0">
   <description>Integral step each 40 ms pass while the battery current is above the target.
 
-Details: 0x137E7C (read). LG7F301F: same code as LT8H300D; address from the same instruction (between exact neighbours (60 bytes below, 66 above, both moved by the same amount; inferred)). Confidence: inferred.</description>
+Details: 0x137E7C (read). Confidence: inferred.</description>
  </table>
  <table name="Adaptive Charging Integral Step Up" address="0432f2">
   <description>Integral step each 40 ms pass while the battery current is below the target.
 
-Details: 0x137E7C (read). LG7F301F: same code as LT8H300D; address from the same instruction (between exact neighbours (62 bytes below, 64 above, both moved by the same amount; inferred)). Confidence: inferred.</description>
+Details: 0x137E7C (read). Confidence: inferred.</description>
  </table>
  <table name="Adaptive Charging Integral Gain" address="0432f4">
   <description>Converts the adaptive integral into a voltage correction (mV per count x 1000).
 
-Details: B6FA = integral x this / 1000 mV (0x137E7C, read). LG7F301F: same code as LT8H300D; address from the same instruction (between exact neighbours (64 bytes below, 62 above, both moved by the same amount; inferred)). Confidence: inferred.</description>
+Details: B6FA = integral x this / 1000 mV (0x137E7C, read). Confidence: inferred.</description>
  </table>
  <table name="Adaptive Charging Integral Maximum" address="0432f6">
   <description>Upper clamp of the adaptive integral (counts).
 
-Details: 0x137E7C (read). LG7F301F: same code as LT8H300D; address from the same instruction (between exact neighbours (66 bytes below, 60 above, both moved by the same amount; inferred)). Confidence: inferred.</description>
+Details: 0x137E7C (read). Confidence: inferred.</description>
  </table>
  <table name="Adaptive Charging Integral Minimum" address="0432f8">
   <description>Lower clamp of the adaptive integral (counts).
 
-Details: 0x137E7C (read). LG7F301F: same code as LT8H300D; address from the same instruction (between exact neighbours (68 bytes below, 58 above, both moved by the same amount; inferred)). Confidence: inferred.</description>
+Details: 0x137E7C (read). Confidence: inferred.</description>
  </table>
  <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" address="03c130">
   <table name="Coolant Temp" address="03c166" />

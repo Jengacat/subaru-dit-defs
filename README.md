@@ -25,7 +25,7 @@ for that ROM.
 were later replaced by an update, or are builds that Subaru's update database doesn't cover (mostly JDM).
 
 <details>
-<summary><b>WRX and WRX S4</b>: 98 ROMs, 2014–2021</summary>
+<summary><b>WRX and WRX S4</b>: 99 ROMs, 2014–2021</summary>
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
@@ -39,6 +39,7 @@ were later replaced by an update, or are builds that Subaru's update database do
 | WRX | 2015–2016 (not stated) | CVT | not confirmed | **LF75300L** | 1275 | 226 | yes |
 | WRX | 2015 | 6MT | USDM | **LF75300S** | 1275 | 226 | yes |
 | WRX | 2015 | 6MT | Middle East | **LF75301P** | 1275 | 226 | yes |
+| WRX | 2015 | 6MT | USDM | **LV9H000D** | 1153 | 222 | not yet |
 | WRX | 2015 | 6MT | USDM | **LF75404S** ★ | 1275 | 226 | yes |
 | WRX | 2015 | 6MT | USDM | **LF75200S** | 1251 | 226 | not yet |
 | WRX | 2015 | 6MT | USDM | **LF75400S** | 1275 | 226 | not yet |
@@ -301,7 +302,7 @@ logging over CAN, so the patch has nothing to extend. Mode-22 (UDS) logging work
 </details>
 
 <details>
-<summary><b>2.0, model not confirmed</b>: 38 ROMs</summary>
+<summary><b>2.0, model not confirmed</b>: 44 ROMs</summary>
 
 Calibrations that aren't in Subaru's update database, so model, year and market aren't known. The transmission is read from each ROM's own coding.
 
@@ -345,6 +346,12 @@ Calibrations that aren't in Subaru's update database, so model, year and market 
 | not confirmed | not confirmed | 6MT | not confirmed | **LF9D050h** | 1308 | 229 | not yet |
 | not confirmed | not confirmed | CVT | not confirmed | **LF9J000C** | 1308 | 231 | not yet |
 | not confirmed | not confirmed | 6MT | not confirmed | **LF9L000E** | 1308 | 231 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF73100A** | 1221 | 226 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF77000C** | 1278 | 227 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF77000D** | 1193 | 227 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF77000Q** | 1193 | 227 | not yet |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF79130P** | 1298 | 228 | not yet |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF9C400P** | 1301 | 228 | not yet |
 
 </details>
 
@@ -353,15 +360,15 @@ Calibrations that aren't in Subaru's update database, so model, year and market 
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
-| Ascent 2.4 | 2019 | CVT | USA | **LT8D700A** | 1272 | 250 | not yet |
-| Ascent 2.4 | 2019 | CVT | USA | **LT8D800A** ★ | 1272 | 250 | yes |
-| Ascent 2.4 | 2020 | CVT | USA | **LT8F200C** | 1272 | 250 | not yet |
-| Ascent 2.4 | 2020 | CVT | USA | **LT8F300C** ★ | 1272 | 250 | yes |
-| Ascent 2.4 | 2021 | CVT | USA | **LT8H300D** ★ | 1272 | 251 | yes |
-| Legacy / Outback XT 2.4 | 2020 | CVT | USA | **LG7D430B** | 1272 | 250 | not yet |
-| Legacy / Outback XT 2.4 | 2020 | CVT | USA | **LG7D501B** ★ | 1272 | 250 | not yet |
-| Legacy / Outback XT 2.4 | not confirmed | CVT | not confirmed | **LG7F300F** | 1270 | 250 | not yet |
-| Legacy / Outback XT 2.4 | 2021 | CVT | USA | **LG7F301F** ★ | 1270 | 250 | not yet |
+| Ascent 2.4 | 2019 | CVT | USA | **LT8D700A** | 1252 | 250 | not yet |
+| Ascent 2.4 | 2019 | CVT | USA | **LT8D800A** ★ | 1252 | 250 | yes |
+| Ascent 2.4 | 2020 | CVT | USA | **LT8F200C** | 1252 | 250 | not yet |
+| Ascent 2.4 | 2020 | CVT | USA | **LT8F300C** ★ | 1252 | 250 | yes |
+| Ascent 2.4 | 2021 | CVT | USA | **LT8H300D** ★ | 1252 | 251 | yes |
+| Legacy / Outback XT 2.4 | 2020 | CVT | USA | **LG7D430B** | 1252 | 250 | not yet |
+| Legacy / Outback XT 2.4 | 2020 | CVT | USA | **LG7D501B** ★ | 1252 | 250 | not yet |
+| Legacy / Outback XT 2.4 | not confirmed | CVT | not confirmed | **LG7F300F** | 1250 | 250 | not yet |
+| Legacy / Outback XT 2.4 | 2021 | CVT | USA | **LG7F301F** ★ | 1250 | 250 | not yet |
 
 The Ascent and Legacy XT run a later build of the same ECU software, so most tables are the FA20DIT ones. Boost
 control is different: they have an electric wastegate, with its own Boost Control group (target, wastegate

@@ -619,11 +619,8 @@
  <table name="Start History Reset Delay (Coolant)" address="013cfa">
   <table name="Coolant Temp" address="03e9f4" />
  </table>
- <table name="Cranking Fuel (Repeat Attempt, Special Start)" address="0165a8" level="5">
+ <table name="Cranking Fuel (Repeat Attempt, Special Start)" address="0165a8">
   <table name="Coolant Temp" address="025600" />
-  <description>Cranking fuel pulse by coolant for a repeat attempt in the special start type.
-
-Coolant-indexed base of the cranking pulse FFF8AFC6 (0x0C9038, read); used when flag s4 (= TGV-module flag FFF8A881 bit 2, read) set, s8 set, FFF8A6E7 = 3 (s8 = FFF811A7 bit 7, the repeat-crank history; argument mapping read from the calls at 0x0C589C). Cranking pulse (read, 0x0C9038): FFF842C8 = clamp(base x 256 x A67E x A687 x C535 x coolant multiplier x 64 / (2^32 x 255), 0, 524280) x 0.125 (the 64 is fixed, folded into the constant 5.843592e-11; Cranking Fuel Secondary Low Rail Pressure Multiplier 05A1FC acts only on the secondary pulse in 0x0C8A28), and the per-injector quantity is never below 10 x that (0x0D168C), in 0.8 us counts. Raw units: the factors' normalisation is not fully resolved, so change it proportionally. FFF8AFC6 feeds injectors in fuel mode 0 or 3. LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Cranking Fuel (Stall Window, First Attempt)" address="011c18">
   <table name="Coolant Temp" address="025600" />
@@ -636,9 +633,6 @@ Coolant-indexed base of the cranking pulse FFF8AFC6 (0x0C9038, read); used when 
  </table>
  <table name="Cranking Fuel Coolant Multiplier (Special Start)" address="016438">
   <table name="Coolant Temp" address="03e934" />
-  <description>
-
-A first start (type 0) uses x1.0. Multiplier in the normal cranking pulse FFF8AFC6 when FFF8A6E7 = 3 (0x0C9038, coolant FFF8CD65 = degC + 50, read from the call at 0x0C6896); 255 (x1.0) for other values. LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Cranking Fuel Coolant Multiplier (Unused Routine, Restart after Key-Off)" address="015ecd">
   <table name="Coolant Temp" address="03e934" />
@@ -653,11 +647,8 @@ A first start (type 0) uses x1.0. Multiplier in the normal cranking pulse FFF8AF
   <table name="Coolant Temp" address="0123ee" />
   <table name="Engine Speed" address="015e2a" />
  </table>
- <table name="Cranking Fuel Pedal Multiplier (Special Start)" address="0167e8" level="5">
+ <table name="Cranking Fuel Pedal Multiplier (Special Start)" address="0167e8">
   <table name="Accelerator Pedal" address="0147d8" />
-  <description>Special-start copy of Cranking Fuel Pedal Multiplier.
-
-Details: When used: start type FFF8A6E7 = 3. 0x0CD7E4 (read): FFF8A67E = this(accelerator FFF88A5E), updated only while rpm FFF8CD54 &lt;= cal 0x1CBD8 (4000 rpm). FFF8A67E is the first factor of both cranking pulses (0x0C8A28 -&gt; FFF8AFC4, 0x0C9038 -&gt; FFF8AFC6, read). LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Cranking Fuel Decay (Stall Window, First Attempt)" address="014798">
   <table name="Temperature" address="03e994" />
@@ -755,47 +746,26 @@ Details: When used: start type FFF8A6E7 = 3. 0x0CD7E4 (read): FFF8A67E = this(ac
  <table name="Cranking Fuel Secondary Decay by Start Type (Stall Window, Special Start, Initial)" address="016738">
   <table name="Coolant Temp" address="03ea14" />
  </table>
- <table name="Cranking Prime Pulse Coolant Multiplier" address="018952" level="5">
+ <table name="Cranking Prime Pulse Coolant Multiplier" address="018952">
   <table name="Coolant Temp" address="03e934" />
-  <description>Size of what appears to be a one-shot priming injection at key-on/cranking, by coolant; the pulse is proportional to it.
-
-Details: When used: only if cal 0x28D98 = 1 or 2. 0x0CD4AC (read): FFF8A67D = this(coolant FFF8CD65 = degC + 50) during key-on and cranking (fuel state 1/2), held afterwards. 0x0CD500 / 0x0CD5DC compute the pulses FFF8C040 / FFF8C044 = 05A8F4 / 05A908(rail pressure FFF89266, FFF8A652) x flow compensation FFF8AFEA x barometric factor FFF8A687 x FFF8A67D x 2^-18 x 1.25 + latency, and 0x1D296C fires each of them once per injector (flags FFF8C6F4-C6F7) when cal 0x28D98 = 1 or 2 (read): a one-shot priming injection at start (inferred). The pulse is proportional to this value. LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
- <table name="Running After-Start Enrichment 1 (Special Start)" address="0163d8" level="5">
+ <table name="Running After-Start Enrichment 1 (Special Start)" address="0163d8">
   <table name="Coolant Temp" address="03e9f4" />
-  <description>Running After-Start Enrichment 1 for the special start type, which is disabled by calibration.
-
-Details: When used: start type FFF8A6E7 = 3 or above, in fuel states 2 (cranking) and 3 (running). Amount E1 (1/256 of fuel) for this start type, on coolant FFF88A44. 0x0CDD8C (read) builds FFF8B010: three amounts E1/E2/E3, each from a coolant table chosen by start type FFF8A6E7 (0 first start, 1 restart after key-off, 2 restart after stall, else special start; type and coolant FFF88A44 latched when fuel state 2/3 is entered (start of cranking, or a return from 3 to 2) for the amounts E1-E3, and latched again when fuel state 3 is entered (end of cranking) for the decay tables D1-D3), each faded linearly to zero over 8 x D passes of FFF8B06A (passes since fuel state 3, 0x0D1354) by its own decay table D1/D2/D3 (factor = clamp((8D - FFF8B06A) x 32 / D, 0, 255) / 256; no fade while cranking); FFF8B010 = max(E1, E2, E3) x 05AA60(rpm)/128 x FFF8A696/128 + Low Rail Pressure Start Enrichment, forced to 0 at load FFF8A616 &gt;= cal 0x237C8 (255, hysteresis cal 0x237C9) and outside fuel states 2/3. FFF8B010 is summed with Warm-Up Enrichment FFF8B030 in the enrichment term of the fuel factor 0x0C558C (read), blocks long-term trim learning (0x0FFE40) and is read by the closed-loop controller 0x0FD76C. This is the running-path counterpart of After-Start Enrichment 1-3 (0x0CD834 -&gt; FFF8B012, start path). LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
- <table name="Running After-Start Enrichment 2 (Special Start)" address="016418" level="5">
+ <table name="Running After-Start Enrichment 2 (Special Start)" address="016418">
   <table name="Coolant Temp" address="03e9f4" />
-  <description>Running After-Start Enrichment 2 for the special start type, which is disabled by calibration.
-
-Details: When used: start type FFF8A6E7 = 3 or above, in fuel states 2 (cranking) and 3 (running). Amount E2 (1/256 of fuel) for this start type, on coolant FFF88A44. 0x0CDD8C (read) builds FFF8B010: three amounts E1/E2/E3, each from a coolant table chosen by start type FFF8A6E7 (0 first start, 1 restart after key-off, 2 restart after stall, else special start; type and coolant FFF88A44 latched when fuel state 2/3 is entered (start of cranking, or a return from 3 to 2) for the amounts E1-E3, and latched again when fuel state 3 is entered (end of cranking) for the decay tables D1-D3), each faded linearly to zero over 8 x D passes of FFF8B06A (passes since fuel state 3, 0x0D1354) by its own decay table D1/D2/D3 (factor = clamp((8D - FFF8B06A) x 32 / D, 0, 255) / 256; no fade while cranking); FFF8B010 = max(E1, E2, E3) x 05AA60(rpm)/128 x FFF8A696/128 + Low Rail Pressure Start Enrichment, forced to 0 at load FFF8A616 &gt;= cal 0x237C8 (255, hysteresis cal 0x237C9) and outside fuel states 2/3. FFF8B010 is summed with Warm-Up Enrichment FFF8B030 in the enrichment term of the fuel factor 0x0C558C (read), blocks long-term trim learning (0x0FFE40) and is read by the closed-loop controller 0x0FD76C. This is the running-path counterpart of After-Start Enrichment 1-3 (0x0CD834 -&gt; FFF8B012, start path). LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
- <table name="Running After-Start Enrichment 3 (Special Start)" address="0163f8" level="5">
+ <table name="Running After-Start Enrichment 3 (Special Start)" address="0163f8">
   <table name="Coolant Temp" address="03e9f4" />
-  <description>Running After-Start Enrichment 3 for the special start type, which is disabled by calibration.
-
-Details: When used: start type FFF8A6E7 = 3 or above, in fuel states 2 (cranking) and 3 (running). Amount E3 (1/256 of fuel) for this start type, on coolant FFF88A44. 0x0CDD8C (read) builds FFF8B010: three amounts E1/E2/E3, each from a coolant table chosen by start type FFF8A6E7 (0 first start, 1 restart after key-off, 2 restart after stall, else special start; type and coolant FFF88A44 latched when fuel state 2/3 is entered (start of cranking, or a return from 3 to 2) for the amounts E1-E3, and latched again when fuel state 3 is entered (end of cranking) for the decay tables D1-D3), each faded linearly to zero over 8 x D passes of FFF8B06A (passes since fuel state 3, 0x0D1354) by its own decay table D1/D2/D3 (factor = clamp((8D - FFF8B06A) x 32 / D, 0, 255) / 256; no fade while cranking); FFF8B010 = max(E1, E2, E3) x 05AA60(rpm)/128 x FFF8A696/128 + Low Rail Pressure Start Enrichment, forced to 0 at load FFF8A616 &gt;= cal 0x237C8 (255, hysteresis cal 0x237C9) and outside fuel states 2/3. FFF8B010 is summed with Warm-Up Enrichment FFF8B030 in the enrichment term of the fuel factor 0x0C558C (read), blocks long-term trim learning (0x0FFE40) and is read by the closed-loop controller 0x0FD76C. This is the running-path counterpart of After-Start Enrichment 1-3 (0x0CD834 -&gt; FFF8B012, start path). LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
- <table name="Running After-Start Enrichment Decay 1 (Special Start)" address="0168b8" level="5">
+ <table name="Running After-Start Enrichment Decay 1 (Special Start)" address="0168b8">
   <table name="Coolant Temp" address="03e9f4" />
-  <description>Fade time of Running After-Start Enrichment 1 (Special Start). That start type is disabled by calibration.
-
-Details: When used: start type FFF8A6E7 = 3 or above, in fuel states 2 (cranking) and 3 (running). Decay time D1, applied to E1 (8 x value passes of FFF8B06A to fade out) for this start type, on coolant FFF88A44. 0x0CDD8C (read) builds FFF8B010: three amounts E1/E2/E3, each from a coolant table chosen by start type FFF8A6E7 (0 first start, 1 restart after key-off, 2 restart after stall, else special start; type and coolant FFF88A44 latched when fuel state 2/3 is entered (start of cranking, or a return from 3 to 2) for the amounts E1-E3, and latched again when fuel state 3 is entered (end of cranking) for the decay tables D1-D3), each faded linearly to zero over 8 x D passes of FFF8B06A (passes since fuel state 3, 0x0D1354) by its own decay table D1/D2/D3 (factor = clamp((8D - FFF8B06A) x 32 / D, 0, 255) / 256; no fade while cranking); FFF8B010 = max(E1, E2, E3) x 05AA60(rpm)/128 x FFF8A696/128 + Low Rail Pressure Start Enrichment, forced to 0 at load FFF8A616 &gt;= cal 0x237C8 (255, hysteresis cal 0x237C9) and outside fuel states 2/3. FFF8B010 is summed with Warm-Up Enrichment FFF8B030 in the enrichment term of the fuel factor 0x0C558C (read), blocks long-term trim learning (0x0FFE40) and is read by the closed-loop controller 0x0FD76C. This is the running-path counterpart of After-Start Enrichment 1-3 (0x0CD834 -&gt; FFF8B012, start path). LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
- <table name="Running After-Start Enrichment Decay 2 (Special Start)" address="0168d8" level="5">
+ <table name="Running After-Start Enrichment Decay 2 (Special Start)" address="0168d8">
   <table name="Coolant Temp" address="03e9f4" />
-  <description>Fade time of Running After-Start Enrichment 2 (Special Start). That start type is disabled by calibration.
-
-Details: When used: start type FFF8A6E7 = 3 or above, in fuel states 2 (cranking) and 3 (running). Decay time D2, applied to E2 (8 x value passes of FFF8B06A to fade out) for this start type, on coolant FFF88A44. 0x0CDD8C (read) builds FFF8B010: three amounts E1/E2/E3, each from a coolant table chosen by start type FFF8A6E7 (0 first start, 1 restart after key-off, 2 restart after stall, else special start; type and coolant FFF88A44 latched when fuel state 2/3 is entered (start of cranking, or a return from 3 to 2) for the amounts E1-E3, and latched again when fuel state 3 is entered (end of cranking) for the decay tables D1-D3), each faded linearly to zero over 8 x D passes of FFF8B06A (passes since fuel state 3, 0x0D1354) by its own decay table D1/D2/D3 (factor = clamp((8D - FFF8B06A) x 32 / D, 0, 255) / 256; no fade while cranking); FFF8B010 = max(E1, E2, E3) x 05AA60(rpm)/128 x FFF8A696/128 + Low Rail Pressure Start Enrichment, forced to 0 at load FFF8A616 &gt;= cal 0x237C8 (255, hysteresis cal 0x237C9) and outside fuel states 2/3. FFF8B010 is summed with Warm-Up Enrichment FFF8B030 in the enrichment term of the fuel factor 0x0C558C (read), blocks long-term trim learning (0x0FFE40) and is read by the closed-loop controller 0x0FD76C. This is the running-path counterpart of After-Start Enrichment 1-3 (0x0CD834 -&gt; FFF8B012, start path). LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
- <table name="Running After-Start Enrichment Decay 3 (Special Start)" address="0168c8" level="5">
+ <table name="Running After-Start Enrichment Decay 3 (Special Start)" address="0168c8">
   <table name="Coolant Temp" address="03e9f4" />
-  <description>Fade time of Running After-Start Enrichment 3 (Special Start). That start type is disabled by calibration.
-
-Details: When used: start type FFF8A6E7 = 3 or above, in fuel states 2 (cranking) and 3 (running). Decay time D3, applied to E3 (8 x value passes of FFF8B06A to fade out) for this start type, on coolant FFF88A44. 0x0CDD8C (read) builds FFF8B010: three amounts E1/E2/E3, each from a coolant table chosen by start type FFF8A6E7 (0 first start, 1 restart after key-off, 2 restart after stall, else special start; type and coolant FFF88A44 latched when fuel state 2/3 is entered (start of cranking, or a return from 3 to 2) for the amounts E1-E3, and latched again when fuel state 3 is entered (end of cranking) for the decay tables D1-D3), each faded linearly to zero over 8 x D passes of FFF8B06A (passes since fuel state 3, 0x0D1354) by its own decay table D1/D2/D3 (factor = clamp((8D - FFF8B06A) x 32 / D, 0, 255) / 256; no fade while cranking); FFF8B010 = max(E1, E2, E3) x 05AA60(rpm)/128 x FFF8A696/128 + Low Rail Pressure Start Enrichment, forced to 0 at load FFF8A616 &gt;= cal 0x237C8 (255, hysteresis cal 0x237C9) and outside fuel states 2/3. FFF8B010 is summed with Warm-Up Enrichment FFF8B030 in the enrichment term of the fuel factor 0x0C558C (read), blocks long-term trim learning (0x0FFE40) and is read by the closed-loop controller 0x0FD76C. This is the running-path counterpart of After-Start Enrichment 1-3 (0x0CD834 -&gt; FFF8B012, start path). LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Injection Timing (Single Injection)" address="011d6a">
   <table name="Engine Load" address="011d62" />
@@ -835,42 +805,24 @@ Details: When used: start type FFF8A6E7 = 3 or above, in fuel states 2 (cranking
  </table>
  <table name="Start Injection Angle (Stop-Start Restart, Low Rail Pressure)" address="015de2">
   <table name="Coolant Temp" address="03e9f4" />
-  <description>Injection angle while cranking for a stop-start restart with rail pressure below 2 MPa. Stop-start cannot activate in this calibration, so probably unused. Not clamped by the ECU: keep it within 0.5-180 BTDC. Edit with the High Rail Pressure table.
-
-Details: When used: while cranking (fuel state FFF8906B = 2) with the stop-start restart request FFF89066 bit 0 set and rail pressure FFF88884 below cal 0x2A65E (3279 = 2.0 MPa / 290 psi) (0x0CFB28, called from 0x0C589C with (906B, coolant FFF88A44, rpm/50, cal 0x38448 bit 7, FFF89066 bit 0, FFF88884, &amp;FFF8B050, &amp;FFF8B008), args read in the caller's disassembly). Units (FU_UNITS): degrees BTDC of the injected cylinder's compression TDC (720 - code/2; larger = earlier), same scale as every injection-angle table (my research notes). It replaces Start Injection Angle (Fuel Mode 0) in FFF8B050, which 0x0CB394 uses as the first-pulse angle of injectors in fuel mode 0 (segment 3, offset B050 - 1080) (read). Unlike that table it is only floored at code 0, not clamped to 1080-1439, so keep it within 180-0.5 BTDC (code 1080-1439) (read). Setting cal 0x38448 bit 7 would force cal 0x11EBC (clamped to 1080-1439) instead. FFF89066 bit 0 = CAN 0x15A byte 2 bit 0, the restart request of the engine stop-start feature (signals_rates_can.md, my research notes, read). Edit with the High Rail Pressure table. LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Start Injection Angle (Stop-Start Restart, High Rail Pressure)" address="015dc2">
   <table name="Coolant Temp" address="03e9f4" />
-  <description>Injection angle while cranking for a stop-start restart with rail pressure at or above 2 MPa. Probably unused (stop-start cannot activate). Not clamped: keep within 0.5-180 BTDC.
-
-Details: When used: as Start Injection Angle (Stop-Start Restart, Low Rail Pressure), but with rail pressure FFF88884 at or above cal 0x2A65E (3279 = 2.0 MPa / 290 psi) (0x0CFB28, read). Units (FU_UNITS): degrees BTDC of the injected cylinder's compression TDC (720 - code/2; larger = earlier), same scale as every injection-angle table (my research notes). Only floored at code 0, not clamped (read): keep it within 180-0.5 BTDC (code 1080-1439). FFF89066 bit 0 = CAN 0x15A byte 2 bit 0, the restart request of the engine stop-start feature (signals_rates_can.md, my research notes, read). LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Cranking Injection Timing (Stop-Start Restart)" address="015e02">
   <table name="Coolant Temp" address="03e9f4" />
-  <description>Replaces Cranking Injection Timing while cranking for a stop-start restart. Stop-start cannot activate in this calibration, so probably unused.
-
-Details: When used: while cranking (FFF8906B = 2) with the stop-start restart request FFF89066 bit 0 set; then it replaces Cranking Injection Timing as the main injection angle FFF8B052 (0x0CFE8C, read; args read in 0x0C589C: param_5 = coolant FFF88A44, param_11 = FFF89066 bit 0). Units (FU_UNITS): degrees BTDC of the injected cylinder's compression TDC (720 - code/2; larger = earlier), same scale as every injection-angle table (my research notes). Clamped to code 360-1079 = 180.5-540 BTDC (read). Cal 0x38448 bit 6 would force cal 0x11FE6. FFF89066 bit 0 = CAN 0x15A byte 2 bit 0, the restart request of the engine stop-start feature (signals_rates_can.md, my research notes, read). LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Double Injection Split" address="0183b0">
   <table name="Engine Load" address="017e0c" />
   <table name="Engine Speed" address="017dfc" />
-  <description>Share of the fuel in the first of two injections; the second gets the rest.
-
-Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B068 -&gt; FFF8A6D1, read); the second gets the rest (0x0D0D50). Limited by FFF8A6DA (read). LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). LT8F300C: same code as LT8H300D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Triple Injection Split 1" address="0183f0">
   <table name="Engine Load" address="017e24" />
   <table name="Engine Speed" address="017e14" />
-  <description>Share of the fuel in the first of three injections (the third gets what the first two leave).
-
-Details: Share of the fuel in the first of three injections (0x0D06EC -&gt; FFF8A6C9 -&gt; FFF8A6D3, read); the third gets 128 minus the first two (0x0D0DC0). LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Triple Injection Split 2" address="018430">
   <table name="Engine Load" address="017e24" />
   <table name="Engine Speed" address="017e14" />
-  <description>Share of the fuel in the second of three injections.
-
-Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF8A6CA -&gt; FFF8A6D4, read). LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Catalyst Heating Spark Retard" address="01ca9a">
   <table name="Requested Spark Torque Share" address="01caa2" />
@@ -2516,16 +2468,9 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
  <table name="Volumetric Efficiency (AVCS Not Ready)" address="02fac0">
   <table name="Manifold Pressure" address="02f520" />
   <table name="Engine Speed" address="02f4f4" />
-  <description>VE table that would replace the normal TGV-blended VE while the cams are probably not yet ready.
-
-When that bit is set, 0x11E308 uses this table instead of the Volumetric Efficiency (TGV Closed) / (TGV Open) blend while FFF8A83B bit 7 is clear (read). That bit is an AVCS-ready flag from 0x1050F4 that needs both cam references learned (inferred meaning). LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Throttle Flow Coefficient (Forward Flow)" address="02f474" />
- <table name="Throttle Flow Coefficient (Reverse Flow)" address="02f475">
-  <description>Coefficient of the throttle airflow model when the manifold is above the pre-throttle pressure. Leave alone.
-
-Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-throttle pressure; the ratio is inverted). 0x11DD04 (read), enabled by FFF8A8FB bit 0 (0x11E43C): modelled throttle flow FFF8C24C [g/min] = (P_up/101325) x Throttle Flow Function(r) x FFF8ADEC (Throttle Area from Throttle Position, 0.05 mm^2) x Throttle Flow Temperature Correction x this x 60000 x 2.98e-15, which feeds the manifold/airflow observer 0x11DB50 / 0x11D938. Normally leave alone. LT8H300D: same code as LF9K000D; address from the same instruction (exact (1 reads)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (2 reads)). Confidence: inferred.</description>
- </table>
+ <table name="Throttle Flow Coefficient (Reverse Flow)" address="02f475" />
  <table name="Exhaust Temperature Model Map A (No Enrichment)" address="0199e0">
   <table name="Engine Load" address="013188" />
   <table name="Engine Speed" address="013194" />
@@ -2797,27 +2742,15 @@ Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-th
  </table>
  <table name="Intake OCV Base Duty (Cam 1, Legacy Path)" address="02b22c">
   <table name="Engine Speed" address="02b1e2" />
-  <description>Base intake cam 1 valve duty by rpm for an older, byte-based cam control path.
-
-Base term by rpm of the intake cam 1 OCV duty in the legacy byte-based AVCS path: about 49.2-52.0 % duty before the FFF88AA4 factor; the learned and feedback bytes are added around 128 (= 51.2 %). Module (read): seg 0x100000 0x104xxx-0x106xxx is the byte-based cam path; 0x10466C (intake, called at seg_0x100000.c:3516 with rpm CD54, FFF88AA4, learned bytes FFF8147A/147C/147E, feedback bytes FFF8B368, cam errors B956/B954) forms per cam: B352 = this(rpm) x 026EB0/026EC0(FFF88AA4)/128; B356 = 147A if the cam error &gt;= cal 0x26E82 (364 = 2.0 deg), 147C if &lt;= cal 0x26E84 (-2.0 deg), else 128; B366 = clamp(B368 + B352 + 147E + B356 - 384, 0, 250). 0x106A0C does the same for the exhaust cams (05CF08/05CF14, factors 0298F4/029904, errors B916/B914, thresholds cal 0x298C6/0x298C8) into B380. The OCV duty routines 0x15DF20 / 0x15E63C (intake cam 1 / 2) and 0x16269C / 0x162D18 (exhaust) set duty B8DE = B366[cam] x 10 (B380 for exhaust) only when cal 0x3CCC4 bit 0 is clear (read). FFF88AA4 = (FFF88AE6 &gt;&gt; 8 - 10) x 1.6 (0x060000 area, read); FFF88AE6 not identified. LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Intake OCV Base Duty (Cam 2, Legacy Path)" address="02b241">
   <table name="Engine Speed" address="02b1e2" />
-  <description>Base intake cam 2 valve duty by rpm for an older, byte-based cam control path.
-
-Base term by rpm of the intake cam 2 OCV duty in the legacy byte-based AVCS path: about 48.8-50.8 % duty before the FFF88AA4 factor; the learned and feedback bytes are added around 128 (= 51.2 %). Module (read): seg 0x100000 0x104xxx-0x106xxx is the byte-based cam path; 0x10466C (intake, called at seg_0x100000.c:3516 with rpm CD54, FFF88AA4, learned bytes FFF8147A/147C/147E, feedback bytes FFF8B368, cam errors B956/B954) forms per cam: B352 = this(rpm) x 026EB0/026EC0(FFF88AA4)/128; B356 = 147A if the cam error &gt;= cal 0x26E82 (364 = 2.0 deg), 147C if &lt;= cal 0x26E84 (-2.0 deg), else 128; B366 = clamp(B368 + B352 + 147E + B356 - 384, 0, 250). 0x106A0C does the same for the exhaust cams (05CF08/05CF14, factors 0298F4/029904, errors B916/B914, thresholds cal 0x298C6/0x298C8) into B380. The OCV duty routines 0x15DF20 / 0x15E63C (intake cam 1 / 2) and 0x16269C / 0x162D18 (exhaust) set duty B8DE = B366[cam] x 10 (B380 for exhaust) only when cal 0x3CCC4 bit 0 is clear (read). FFF88AA4 = (FFF88AE6 &gt;&gt; 8 - 10) x 1.6 (0x060000 area, read); FFF88AE6 not identified. LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Exhaust OCV Base Duty (Cam 1, Legacy Path)" address="02e3ec">
   <table name="Engine Speed" address="02e3a2" />
-  <description>Base exhaust cam 1 valve duty by rpm for an older, byte-based cam control path.
-
-Base term by rpm of the exhaust cam 1 OCV duty in the legacy byte-based AVCS path: about 48.8-50 % duty before the FFF88AA4 factor; the learned and feedback bytes are added around 128 (= 51.2 %). Module (read): seg 0x100000 0x104xxx-0x106xxx is the byte-based cam path; 0x10466C (intake, called at seg_0x100000.c:3516 with rpm CD54, FFF88AA4, learned bytes FFF8147A/147C/147E, feedback bytes FFF8B368, cam errors B956/B954) forms per cam: B352 = this(rpm) x 026EB0/026EC0(FFF88AA4)/128; B356 = 147A if the cam error &gt;= cal 0x26E82 (364 = 2.0 deg), 147C if &lt;= cal 0x26E84 (-2.0 deg), else 128; B366 = clamp(B368 + B352 + 147E + B356 - 384, 0, 250). 0x106A0C does the same for the exhaust cams (05CF08/05CF14, factors 0298F4/029904, errors B916/B914, thresholds cal 0x298C6/0x298C8) into B380. The OCV duty routines 0x15DF20 / 0x15E63C (intake cam 1 / 2) and 0x16269C / 0x162D18 (exhaust) set duty B8DE = B366[cam] x 10 (B380 for exhaust) only when cal 0x3CCC4 bit 0 is clear (read). FFF88AA4 = (FFF88AE6 &gt;&gt; 8 - 10) x 1.6 (0x060000 area, read); FFF88AE6 not identified. LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Exhaust OCV Base Duty (Cam 2, Legacy Path)" address="02e401">
   <table name="Engine Speed" address="02e3a2" />
-  <description>Base exhaust cam 2 valve duty by rpm for an older, byte-based cam control path.
-
-Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS path: about 47.2-50.8 % duty before the FFF88AA4 factor; the learned and feedback bytes are added around 128 (= 51.2 %). Module (read): seg 0x100000 0x104xxx-0x106xxx is the byte-based cam path; 0x10466C (intake, called at seg_0x100000.c:3516 with rpm CD54, FFF88AA4, learned bytes FFF8147A/147C/147E, feedback bytes FFF8B368, cam errors B956/B954) forms per cam: B352 = this(rpm) x 026EB0/026EC0(FFF88AA4)/128; B356 = 147A if the cam error &gt;= cal 0x26E82 (364 = 2.0 deg), 147C if &lt;= cal 0x26E84 (-2.0 deg), else 128; B366 = clamp(B368 + B352 + 147E + B356 - 384, 0, 250). 0x106A0C does the same for the exhaust cams (05CF08/05CF14, factors 0298F4/029904, errors B916/B914, thresholds cal 0x298C6/0x298C8) into B380. The OCV duty routines 0x15DF20 / 0x15E63C (intake cam 1 / 2) and 0x16269C / 0x162D18 (exhaust) set duty B8DE = B366[cam] x 10 (B380 for exhaust) only when cal 0x3CCC4 bit 0 is clear (read). FFF88AA4 = (FFF88AE6 &gt;&gt; 8 - 10) x 1.6 (0x060000 area, read); FFF88AE6 not identified. LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="Idle Speed Target (Warm Idle, Mode 5)" address="0281a4" />
  <table name="Idle Speed Target (Warm Idle, AT/CVT, Mode 6)" address="0281c4" />
@@ -3188,44 +3121,26 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
  <table name="EGR Target Rate (TGV Open, Multi-Injection)" address="0314b0">
   <table name="Engine Load" address="030956" />
   <table name="Engine Speed" address="030936" />
-  <description>EGR rate target by rpm and load with the TGVs open and multiple injections per cycle.
-
-Details: When used: TGVs not closed and multi-injection active (FFF8A775 bit 1); cal 0x2F797 bit 5 clear. Base target EGR rate A818, looked up by 0x0FA10C with rpm FFF8CD54 x load FFF8A616 (read, disassembly). Target EGR rate (0x0FA260, read): FFF8A81A = base A817 x Coolant Multiplier 05CB04/255 x 255/255 (A816) x Reduction Multiplier A81C/255 x DAM Multiplier 05CB10/128, x 640 (1/640 units), capped at cal 0x2C4E6 (192 = 30 %) and forced to 0 unless the enable conditions FFF8A811 bit 0 hold (0x0FAAFC). A817 follows the base table A818 (0x0FA068). Multi-injection = FFF8A775 bit 1, set by 0x0FAABC when the multi-injection enable FFF8A775 bit 0 is set and all four per-injector strategy bytes FFF8A69F..A6A2 are 2 or 3 (read). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). 0 = no EGR. LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="EGR Target Rate (TGV Closed, Multi-Injection)" address="0315b0">
   <table name="Engine Load" address="030956" />
   <table name="Engine Speed" address="030936" />
-  <description>EGR rate target by rpm and load with the TGVs closed and multiple injections per cycle.
-
-Details: When used: TGVs closed and multi-injection active (FFF8A775 bit 1); cal 0x2F797 bit 5 clear. Base target EGR rate A818, looked up by 0x0FA10C with rpm FFF8CD54 x load FFF8A616 (read, disassembly). Target EGR rate (0x0FA260, read): FFF8A81A = base A817 x Coolant Multiplier 05CB04/255 x 255/255 (A816) x Reduction Multiplier A81C/255 x DAM Multiplier 05CB10/128, x 640 (1/640 units), capped at cal 0x2C4E6 (192 = 30 %) and forced to 0 unless the enable conditions FFF8A811 bit 0 hold (0x0FAAFC). A817 follows the base table A818 (0x0FA068). Multi-injection = FFF8A775 bit 1, set by 0x0FAABC when the multi-injection enable FFF8A775 bit 0 is set and all four per-injector strategy bytes FFF8A69F..A6A2 are 2 or 3 (read). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). 0 = no EGR. LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="EGR Target Rate (Alternate, TGV Open)" address="030976">
   <table name="X Axis" address="030966" />
   <table name="Engine Speed" address="030936" />
-  <description>Alternate EGR rate target by rpm and throttle position (instead of load) with the TGVs open.
-
-Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EGR rate A818 (0x0FA10C, read), indexed by rpm FFF8CD54 and throttle position FFF8CD77 (about 0.56 % per count, see below) instead of load. Target EGR rate (0x0FA260, read): FFF8A81A = base A817 x Coolant Multiplier 05CB04/255 x 255/255 (A816) x Reduction Multiplier A81C/255 x DAM Multiplier 05CB10/128, x 640 (1/640 units), capped at cal 0x2C4E6 (192 = 30 %) and forced to 0 unless the enable conditions FFF8A811 bit 0 hold (0x0FAAFC). A817 follows the base table A818 (0x0FA068). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). p16 (read): second axis FFF8CD77 = (ETC throttle position FFF8A342 - 10)/4 = (ETC actual position FFF8A2B6 - 1000)/256 (0x09D58E, 0x09DAAE, 0x0A0680, 0x06AB94): a throttle-position byte, about 0.56 % per count (inferred). LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="EGR Target Rate (Alternate, TGV Closed)" address="030a76">
   <table name="X Axis" address="030966" />
   <table name="Engine Speed" address="030936" />
-  <description>Alternate EGR rate target by rpm and throttle position (instead of load) with the TGVs closed.
-
-Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EGR rate A818 (0x0FA10C, read), indexed by rpm FFF8CD54 and throttle position FFF8CD77 (about 0.56 % per count, see below) instead of load. Target EGR rate (0x0FA260, read): FFF8A81A = base A817 x Coolant Multiplier 05CB04/255 x 255/255 (A816) x Reduction Multiplier A81C/255 x DAM Multiplier 05CB10/128, x 640 (1/640 units), capped at cal 0x2C4E6 (192 = 30 %) and forced to 0 unless the enable conditions FFF8A811 bit 0 hold (0x0FAAFC). A817 follows the base table A818 (0x0FA068). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). p16 (read): second axis FFF8CD77 = (ETC throttle position FFF8A342 - 10)/4 = (ETC actual position FFF8A2B6 - 1000)/256 (0x09D58E, 0x09DAAE, 0x0A0680, 0x06AB94): a throttle-position byte, about 0.56 % per count (inferred). LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="EGR Target Rate (Alternate, TGV Open, Multi-Injection)" address="0312b0">
   <table name="X Axis" address="030966" />
   <table name="Engine Speed" address="030936" />
-  <description>Alternate EGR rate target by rpm and throttle position with the TGVs open and multiple injections per cycle.
-
-Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EGR rate A818 (0x0FA10C, read), indexed by rpm FFF8CD54 and throttle position FFF8CD77 (about 0.56 % per count, see below) instead of load. Target EGR rate (0x0FA260, read): FFF8A81A = base A817 x Coolant Multiplier 05CB04/255 x 255/255 (A816) x Reduction Multiplier A81C/255 x DAM Multiplier 05CB10/128, x 640 (1/640 units), capped at cal 0x2C4E6 (192 = 30 %) and forced to 0 unless the enable conditions FFF8A811 bit 0 hold (0x0FAAFC). A817 follows the base table A818 (0x0FA068). Multi-injection = FFF8A775 bit 1, set by 0x0FAABC when the multi-injection enable FFF8A775 bit 0 is set and all four per-injector strategy bytes FFF8A69F..A6A2 are 2 or 3 (read). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). p16 (read): second axis FFF8CD77 = (ETC throttle position FFF8A342 - 10)/4 = (ETC actual position FFF8A2B6 - 1000)/256 (0x09D58E, 0x09DAAE, 0x0A0680, 0x06AB94): a throttle-position byte, about 0.56 % per count (inferred). LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="EGR Target Rate (Alternate, TGV Closed, Multi-Injection)" address="0313b0">
   <table name="X Axis" address="030966" />
   <table name="Engine Speed" address="030936" />
-  <description>Alternate EGR rate target by rpm and throttle position with the TGVs closed and multiple injections per cycle.
-
-Details: When used: only when cal 0x2F797 bit 5 is set. Alternate base target EGR rate A818 (0x0FA10C, read), indexed by rpm FFF8CD54 and throttle position FFF8CD77 (about 0.56 % per count, see below) instead of load. Target EGR rate (0x0FA260, read): FFF8A81A = base A817 x Coolant Multiplier 05CB04/255 x 255/255 (A816) x Reduction Multiplier A81C/255 x DAM Multiplier 05CB10/128, x 640 (1/640 units), capped at cal 0x2C4E6 (192 = 30 %) and forced to 0 unless the enable conditions FFF8A811 bit 0 hold (0x0FAAFC). A817 follows the base table A818 (0x0FA068). Multi-injection = FFF8A775 bit 1, set by 0x0FAABC when the multi-injection enable FFF8A775 bit 0 is set and all four per-injector strategy bytes FFF8A69F..A6A2 are 2 or 3 (read). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). p16 (read): second axis FFF8CD77 = (ETC throttle position FFF8A342 - 10)/4 = (ETC actual position FFF8A2B6 - 1000)/256 (0x09D58E, 0x09DAAE, 0x0A0680, 0x06AB94): a throttle-position byte, about 0.56 % per count (inferred). LT8F300C: same code as LF9K000D; address from the same instruction (similarity port (code)). LT8D800A: same code as LT8F300C; address from the same instruction (exact (1 reads)). Confidence: inferred.</description>
  </table>
  <table name="EGR Target Rate Tip-Out Limit (TGV Open)" address="0316b6">
   <table name="Engine Load" address="030956" />

@@ -4,6 +4,13 @@
 
 First public release.
 
+- New: **7 more 2.0 ROMs**, the last FA20DIT ones I hold except one: LV9H000D (2015 USDM WRX 6MT, the calibration
+  LF75404S replaced) and six whose model isn't confirmed (LF73100A, LF77000C, LF77000D, LF77000Q, LF79130P,
+  LF9C400P). Each runs a build of its own, ported from the two closest supported builds and checked through RomRaider
+  and EcuFlash like the others; tables I couldn't place from the code are left out (LV9H000D has about 50 fewer than
+  the 2015 WRX, LF77000D / Q about 90 fewer than the LF780 ROMs). AV9D100E is held back: its trouble-code table
+  differs from every supported ROM's, so it still needs its DTC switches placed by hand. No logging-patch spec for
+  these yet.
 - New: **11 RH850 ROMs for the 2023+ Ascent and Legacy / Outback XT** (`FA24DIT_*`, the same ECU and software line
   as the 2022+ WRX): LHBK240Y (2023 Ascent), LHBK240G (2023 Legacy / Outback XT), LHBKG01H / 00H / 01G (2024 Outback
   XT), LHBR200G / 300G (2025 Legacy / Outback XT) and, year unknown, LHBP201A, LHBK230H, LHBK240Z, LHBK231Z (model

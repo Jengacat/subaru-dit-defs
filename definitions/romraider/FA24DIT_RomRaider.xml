@@ -2508,7 +2508,7 @@
    <description>How far spark is retarded from base timing during cold-start catalyst heating (combustion mode 2), by the requested spark torque share: the less of the torque the spark is asked to deliver, the more retard, which heats the catalyst faster. The spark moves toward this target in steps. Identified from this ECU's code.</description>
   </table>
   <table type="2D" name="Catalyst Heating Phase 2 Exit Threshold (Neutral Switch On)" category="Fueling//Catalyst Heating &amp; Start Sequence" storagetype="uint8" endian="little" sizey="16" userlevel="4" storageaddress="0x0988e0">
-   <scaling units="multiplier" expression="x*0.00390625" to_byte="(x)/0.00390625" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
+   <scaling units="% torque from spark" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="little" storageaddress="0x00999c">
     <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
@@ -2518,7 +2518,7 @@
    <description>Same as Catalyst Heating Phase 2 Exit Threshold (Neutral Switch Off), used while the neutral switch is on. Identified from this ECU's code.</description>
   </table>
   <table type="2D" name="Catalyst Heating Phase 2 Exit Threshold (Neutral Switch Off)" category="Fueling//Catalyst Heating &amp; Start Sequence" storagetype="uint8" endian="little" sizey="16" userlevel="4" storageaddress="0x098790">
-   <scaling units="multiplier" expression="x*0.00390625" to_byte="(x)/0.00390625" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
+   <scaling units="% torque from spark" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4" />
    <table type="Y Axis" name="Coolant Temp" storagetype="uint16" endian="little" storageaddress="0x00999c">
     <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
@@ -2639,10 +2639,10 @@
    <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4" />
    <description>Engine speed needed to enter and stay in stratified catalyst heating (combustion mode 2). Set above the rev limit, mode 2 is never entered and the start goes from mode 1 to catalyst-heating phase 2 (mode 3). Identified from this ECU's code.</description>
   </table>
-  <table type="1D" name="Catalyst Heating Progress Maximum" category="Fueling//Catalyst Heating &amp; Start Sequence" storagetype="uint8" endian="little" userlevel="4" storageaddress="0x098738">
-   <scaling units="multiplier" expression="x*0.00390625" to_byte="(x)/0.00390625" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
+  <table type="1D" name="Catalyst Heating Spark Torque Share Maximum" category="Fueling//Catalyst Heating &amp; Start Sequence" storagetype="uint8" endian="little" userlevel="4" storageaddress="0x098738">
+   <scaling units="% torque from spark" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.5" coarseincrement="2.0" />
    <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4" />
-   <description>Stratified catalyst heating (mode 2) is entered only while the spark torque share is at or below this, i.e. with a large retard requested. Identified from this ECU's code.</description>
+   <description>Stratified catalyst heating (mode 2) is entered only while the requested spark torque share is at or below this, i.e. with a large retard requested. Identified from this ECU's code.</description>
   </table>
   <table type="1D" name="Catalyst Heating Vehicle Speed Maximum" category="Fueling//Catalyst Heating &amp; Start Sequence" storagetype="uint8" endian="little" userlevel="4" storageaddress="0x09873a">
    <scaling category="Default" units="mph" expression="x*0.621371" to_byte="(x)/0.621371" format="0" fineincrement="1" coarseincrement="4.0" />
@@ -11937,7 +11937,7 @@
   </table>
   <table name="Catalyst Heating Minimum RPM" storageaddress="0x0bf9fd">
   </table>
-  <table name="Catalyst Heating Progress Maximum" storageaddress="0x0bf9fe">
+  <table name="Catalyst Heating Spark Torque Share Maximum" storageaddress="0x0bf9fe">
   </table>
   <table name="Catalyst Heating Vehicle Speed Maximum" storageaddress="0x0bfa00">
   </table>
@@ -24197,7 +24197,7 @@
   </table>
   <table name="Catalyst Heating Minimum RPM" storageaddress="0x0988db">
   </table>
-  <table name="Catalyst Heating Progress Maximum" storageaddress="0x0988dc">
+  <table name="Catalyst Heating Spark Torque Share Maximum" storageaddress="0x0988dc">
   </table>
   <table name="Catalyst Heating Vehicle Speed Maximum" storageaddress="0x0988de">
   </table>
@@ -32167,7 +32167,7 @@
   </table>
   <table name="Catalyst Heating Minimum RPM" storageaddress="0x09a6bf">
   </table>
-  <table name="Catalyst Heating Progress Maximum" storageaddress="0x09a6c0">
+  <table name="Catalyst Heating Spark Torque Share Maximum" storageaddress="0x09a6c0">
   </table>
   <table name="Catalyst Heating Vehicle Speed Maximum" storageaddress="0x09a6c2">
   </table>
@@ -40690,7 +40690,7 @@
   </table>
   <table name="Catalyst Heating Minimum RPM" storageaddress="0x0bf9fd">
   </table>
-  <table name="Catalyst Heating Progress Maximum" storageaddress="0x0bf9fe">
+  <table name="Catalyst Heating Spark Torque Share Maximum" storageaddress="0x0bf9fe">
   </table>
   <table name="Catalyst Heating Vehicle Speed Maximum" storageaddress="0x0bfa00">
   </table>
@@ -48176,7 +48176,7 @@
   </table>
   <table name="Catalyst Heating Minimum RPM" storageaddress="0x0bfa01">
   </table>
-  <table name="Catalyst Heating Progress Maximum" storageaddress="0x0bfa02">
+  <table name="Catalyst Heating Spark Torque Share Maximum" storageaddress="0x0bfa02">
   </table>
   <table name="Catalyst Heating Vehicle Speed Maximum" storageaddress="0x0bfa04">
   </table>
@@ -55607,7 +55607,7 @@
   </table>
   <table name="Catalyst Heating Minimum RPM" storageaddress="0x0988db">
   </table>
-  <table name="Catalyst Heating Progress Maximum" storageaddress="0x0988dc">
+  <table name="Catalyst Heating Spark Torque Share Maximum" storageaddress="0x0988dc">
   </table>
   <table name="Catalyst Heating Vehicle Speed Maximum" storageaddress="0x0988de">
   </table>
@@ -63450,7 +63450,7 @@
   </table>
   <table name="Catalyst Heating Minimum RPM" storageaddress="0x0988db">
   </table>
-  <table name="Catalyst Heating Progress Maximum" storageaddress="0x0988dc">
+  <table name="Catalyst Heating Spark Torque Share Maximum" storageaddress="0x0988dc">
   </table>
   <table name="Catalyst Heating Vehicle Speed Maximum" storageaddress="0x0988de">
   </table>
@@ -71416,7 +71416,7 @@
   </table>
   <table name="Catalyst Heating Minimum RPM" storageaddress="0x098733">
   </table>
-  <table name="Catalyst Heating Progress Maximum" storageaddress="0x098734">
+  <table name="Catalyst Heating Spark Torque Share Maximum" storageaddress="0x098734">
   </table>
   <table name="Catalyst Heating Vehicle Speed Maximum" storageaddress="0x098736">
   </table>
@@ -79393,7 +79393,7 @@
   </table>
   <table name="Catalyst Heating Minimum RPM" storageaddress="0x098733">
   </table>
-  <table name="Catalyst Heating Progress Maximum" storageaddress="0x098734">
+  <table name="Catalyst Heating Spark Torque Share Maximum" storageaddress="0x098734">
   </table>
   <table name="Catalyst Heating Vehicle Speed Maximum" storageaddress="0x098736">
   </table>
@@ -87370,7 +87370,7 @@
   </table>
   <table name="Catalyst Heating Minimum RPM" storageaddress="0x098733">
   </table>
-  <table name="Catalyst Heating Progress Maximum" storageaddress="0x098734">
+  <table name="Catalyst Heating Spark Torque Share Maximum" storageaddress="0x098734">
   </table>
   <table name="Catalyst Heating Vehicle Speed Maximum" storageaddress="0x098736">
   </table>
@@ -95347,7 +95347,7 @@
   </table>
   <table name="Catalyst Heating Minimum RPM" storageaddress="0x098733">
   </table>
-  <table name="Catalyst Heating Progress Maximum" storageaddress="0x098734">
+  <table name="Catalyst Heating Spark Torque Share Maximum" storageaddress="0x098734">
   </table>
   <table name="Catalyst Heating Vehicle Speed Maximum" storageaddress="0x098736">
   </table>
@@ -103324,7 +103324,7 @@
   </table>
   <table name="Catalyst Heating Minimum RPM" storageaddress="0x0988d7">
   </table>
-  <table name="Catalyst Heating Progress Maximum" storageaddress="0x0988d8">
+  <table name="Catalyst Heating Spark Torque Share Maximum" storageaddress="0x0988d8">
   </table>
   <table name="Catalyst Heating Vehicle Speed Maximum" storageaddress="0x0988da">
   </table>
@@ -111437,7 +111437,7 @@
   </table>
   <table name="Catalyst Heating Minimum RPM" storageaddress="0x0988d7">
   </table>
-  <table name="Catalyst Heating Progress Maximum" storageaddress="0x0988d8">
+  <table name="Catalyst Heating Spark Torque Share Maximum" storageaddress="0x0988d8">
   </table>
   <table name="Catalyst Heating Vehicle Speed Maximum" storageaddress="0x0988da">
   </table>
@@ -119482,7 +119482,7 @@
   </table>
   <table name="Catalyst Heating Minimum RPM" storageaddress="0x0bf9fd">
   </table>
-  <table name="Catalyst Heating Progress Maximum" storageaddress="0x0bf9fe">
+  <table name="Catalyst Heating Spark Torque Share Maximum" storageaddress="0x0bf9fe">
   </table>
   <table name="Catalyst Heating Vehicle Speed Maximum" storageaddress="0x0bfa00">
   </table>
@@ -126968,7 +126968,7 @@
   </table>
   <table name="Catalyst Heating Minimum RPM" storageaddress="0x0bf9fd">
   </table>
-  <table name="Catalyst Heating Progress Maximum" storageaddress="0x0bf9fe">
+  <table name="Catalyst Heating Spark Torque Share Maximum" storageaddress="0x0bf9fe">
   </table>
   <table name="Catalyst Heating Vehicle Speed Maximum" storageaddress="0x0bfa00">
   </table>
@@ -134454,7 +134454,7 @@
   </table>
   <table name="Catalyst Heating Minimum RPM" storageaddress="0x0bf9ed">
   </table>
-  <table name="Catalyst Heating Progress Maximum" storageaddress="0x0bf9ee">
+  <table name="Catalyst Heating Spark Torque Share Maximum" storageaddress="0x0bf9ee">
   </table>
   <table name="Catalyst Heating Vehicle Speed Maximum" storageaddress="0x0bf9f0">
   </table>
@@ -141940,7 +141940,7 @@
   </table>
   <table name="Catalyst Heating Minimum RPM" storageaddress="0x0bf87d">
   </table>
-  <table name="Catalyst Heating Progress Maximum" storageaddress="0x0bf87e">
+  <table name="Catalyst Heating Spark Torque Share Maximum" storageaddress="0x0bf87e">
   </table>
   <table name="Catalyst Heating Vehicle Speed Maximum" storageaddress="0x0bf880">
   </table>
@@ -149426,7 +149426,7 @@
   </table>
   <table name="Catalyst Heating Minimum RPM" storageaddress="0x0bf87d">
   </table>
-  <table name="Catalyst Heating Progress Maximum" storageaddress="0x0bf87e">
+  <table name="Catalyst Heating Spark Torque Share Maximum" storageaddress="0x0bf87e">
   </table>
   <table name="Catalyst Heating Vehicle Speed Maximum" storageaddress="0x0bf880">
   </table>
@@ -156912,7 +156912,7 @@
   </table>
   <table name="Catalyst Heating Minimum RPM" storageaddress="0x0bf87d">
   </table>
-  <table name="Catalyst Heating Progress Maximum" storageaddress="0x0bf87e">
+  <table name="Catalyst Heating Spark Torque Share Maximum" storageaddress="0x0bf87e">
   </table>
   <table name="Catalyst Heating Vehicle Speed Maximum" storageaddress="0x0bf880">
   </table>
@@ -164466,7 +164466,7 @@
   </table>
   <table name="Catalyst Heating Minimum RPM" storageaddress="0x099b0b">
   </table>
-  <table name="Catalyst Heating Progress Maximum" storageaddress="0x099b0c">
+  <table name="Catalyst Heating Spark Torque Share Maximum" storageaddress="0x099b0c">
   </table>
   <table name="Catalyst Heating Vehicle Speed Maximum" storageaddress="0x099b0e">
   </table>
@@ -173057,7 +173057,7 @@
   </table>
   <table name="Catalyst Heating Minimum RPM" storageaddress="0x099b0b">
   </table>
-  <table name="Catalyst Heating Progress Maximum" storageaddress="0x099b0c">
+  <table name="Catalyst Heating Spark Torque Share Maximum" storageaddress="0x099b0c">
   </table>
   <table name="Catalyst Heating Vehicle Speed Maximum" storageaddress="0x099b0e">
   </table>
@@ -181648,7 +181648,7 @@
   </table>
   <table name="Catalyst Heating Minimum RPM" storageaddress="0x099b0b">
   </table>
-  <table name="Catalyst Heating Progress Maximum" storageaddress="0x099b0c">
+  <table name="Catalyst Heating Spark Torque Share Maximum" storageaddress="0x099b0c">
   </table>
   <table name="Catalyst Heating Vehicle Speed Maximum" storageaddress="0x099b0e">
   </table>
@@ -190239,7 +190239,7 @@
   </table>
   <table name="Catalyst Heating Minimum RPM" storageaddress="0x099b0b">
   </table>
-  <table name="Catalyst Heating Progress Maximum" storageaddress="0x099b0c">
+  <table name="Catalyst Heating Spark Torque Share Maximum" storageaddress="0x099b0c">
   </table>
   <table name="Catalyst Heating Vehicle Speed Maximum" storageaddress="0x099b0e">
   </table>

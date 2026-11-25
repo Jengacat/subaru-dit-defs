@@ -19,6 +19,9 @@ First public release.
   LHBH800A, LHBHA00A, LHBHB00A, LHBP100e, LHBP100a, LHBT110a, LHBT120a, LHBT120g, LHBT130h (two 6MT, the rest CVT).
 - Changed: LHBKC20P / 20R / 20L and LHBP300d are now listed with year unknown (they have no engine string; sharing
   code with a dated ROM doesn't date them, since the 2023 Ascent and Legacy/Outback share code too).
+- Changed: **2022+ WRX**: Catalyst Heating Progress Maximum is now Catalyst Heating Spark Torque Share Maximum, shown in
+  % torque from spark (256 = 100 %), like the two Catalyst Heating Phase 2 Exit Threshold tables. The value the
+  ECU compares with these is the requested spark torque share, the same one as the FA20/FA24 axis of that name.
 - Fixed: **2024 and 2026 WRX**: HPFP Solenoid Window End Limit and its Alternate were on each other's addresses.
 - Fixed: **2024 and 2026 WRX** (LHBP400b, LHBP300d, LHBP301c, LHBT210V): the eight Target Torque Rise Stage 2 Torque
   and Start Torque tables of path B were on each other's addresses (stage 2 and start swapped, modes shifted). These

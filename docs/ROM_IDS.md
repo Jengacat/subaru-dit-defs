@@ -34,10 +34,10 @@ LF75200A, LF75200S, LF75200T, LF75300D, LF75300E, LF75300F, LF75300G, LF75300H, 
 
 ## 2022+ WRX (RH850 ECU)
 
-Supported (12): LHBHB10B, LHBHD00B (2022, 6MT); LHBHC01C (2022–2023, CVT); LHBKC40M, LHBKC30M, LHBKC20P (2023, 6MT);
-LHBKC20R, LHBKC20L (2023, CVT); LHBP400b, LHBP300d (2024, 6MT); LHBP301c (2024, CVT); LHBT210V (2026, CVT; the
-full ID is LHBT210VB0G). Years for LHBKC20P / 20R / 20L and LHBP300d are not confirmed; see the
-[2022+ WRX guide](WRX_2022plus.md). These are a different ECU generation (Renesas RH850) from everything else on this page, and none of
+Supported (24): LHBHB10B, LHBHD00B (2022, 6MT); LHBH740C (2022, CVT); LHBHC01C (2022–2023, CVT); LHBKC40M,
+LHBKC30M (2023, 6MT); LHBP400b (2024, 6MT); LHBP301c (2024, CVT); LHBT210V (2026, CVT; the full ID is LHBT210VB0G);
+and, year unknown: LHBH720D, LHBKC20P, LHBP300d, LHBT130h (6MT); LHBH740A, LHBH800A, LHBHA00A, LHBHB00A, LHBKC20R,
+LHBKC20L, LHBP100e, LHBP100a, LHBT120a, LHBT120g, LHBT110a (CVT). See the [2022+ WRX guide](WRX_2022plus.md). These are a different ECU generation (Renesas RH850) from everything else on this page, and none of
 them was on the list above. The first four characters (LHBH 2022, LHBK 2023, LHBP 2024, LHBT later) appear
 to follow the model year; within one year several builds exist, so as with the older ECUs a definition fits only
 ROMs that run the same code.

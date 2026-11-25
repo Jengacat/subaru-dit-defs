@@ -114,6 +114,7 @@
  </table>
  <table name="Target Rail Pressure (Combustion Mode 1, Idle State Group 2)" address="08fb2c">
   <table name="Coolant Temp" address="08f9dc" />
+  <description>Target rail pressure by coolant in combustion mode 1, idle controller state group 2. Group 1: out of neutral, moving, or engine speed at or above a received idle-speed request; group 2: neutral (default state) or stopped below the request. On the manual car, probably without that request (inferred), group 1 = out of neutral and group 2 = neutral. Edit both together unless you know the difference. Combustion mode is the cold-start sequence: 0 cranking, 1 first warm-up phase, 2 stratified catalyst heating, 3 catalyst-heating phase 2, 4 normal running. Idle state groups: Group 1 is used out of neutral, while moving, or at or above a received idle-speed request; Group 2 in neutral (the default state) or stopped below that request. On this manual car probably in gear (Group 1) versus neutral (Group 2) (inferred). Identified from this ECU's code.</description>
  </table>
  <table name="Target Rail Pressure (Combustion Mode 1, Alternate Set)" address="08fc6c">
   <table name="Coolant Temp" address="08f9dc" />
@@ -889,7 +890,7 @@
   <table name="Coolant Temp" address="06d358" />
  </table>
  <table name="Catalyst Heating Spark Retard" address="06cd30">
-  <table name="Catalyst Heating Progress" address="06d378" />
+  <table name="Requested Spark Torque Share" address="06d378" />
  </table>
  <table name="Catalyst Heating Phase 2 Exit Threshold (Neutral Switch On)" address="0988e0">
   <table name="Coolant Temp" address="00999c" />
@@ -1333,7 +1334,7 @@
   <table name="Engine Speed" address="06e320" />
  </table>
  <table name="Torque Reduction Spark Retard" address="06d3e8">
-  <table name="Spark Torque Reduction" address="06d3c8" />
+  <table name="Requested Spark Torque Share" address="06d3c8" />
  </table>
  <table name="Timing Advance Term A (EGR Timing Advance) 1" address="06e964">
   <table name="Engine Load" address="06d328" />
@@ -1370,11 +1371,13 @@
  <table name="A/C Cut Timing Retard Hold (RPM)" address="06cd40">
   <table name="Engine Speed" address="06d3f8" />
  </table>
- <table name="Surge Damping Timing Coolant Factor" address="06d498">
+ <table name="Surge Damping Timing Coolant Factor" address="06d498" level="3">
   <table name="Coolant Temp" address="00999c" />
+  <description>Scales the surge damping timing correction by coolant temperature on this manual-transmission car. Identified from this ECU's code.</description>
  </table>
- <table name="Surge Damping Timing Coolant Factor (AT/CVT)" address="06d488">
+ <table name="Surge Damping Timing Coolant Factor (AT/CVT)" address="06d488" level="5">
   <table name="Coolant Temp" address="00999c" />
+  <description>AT/CVT version of Surge Damping Timing Coolant Factor. Identified from this ECU's code. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
  <table name="Surge Damping Timing Combustion Mode Factor" address="06d060">
   <table name="Combustion mode" address="06d058" />
@@ -1385,23 +1388,29 @@
  <table name="Tip-In Timing Retard End (From 200 km/h)" address="06d1c8">
   <table name="Engine Speed" address="06d188" />
  </table>
- <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 3)" address="06e7d4">
+ <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 3)" address="06e7d4" level="5">
   <table name="Surge Damping Step Count" address="06e780" />
+  <description>AT/CVT version of the surge damping phase factor for gear 3. Identified from this ECU's code. Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 4)" address="06e7f8">
+ <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 4)" address="06e7f8" level="5">
   <table name="Surge Damping Step Count" address="06e780" />
+  <description>AT/CVT version of the surge damping phase factor for gear 4. Identified from this ECU's code. Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 5)" address="06e81c">
+ <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 5)" address="06e81c" level="5">
   <table name="Surge Damping Step Count" address="06e780" />
+  <description>AT/CVT version of the surge damping phase factor for gear 5. Identified from this ECU's code. Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Surge Damping Timing Phase Factor (Gear 1, Below 1800 RPM)" address="06e798">
+ <table name="Surge Damping Timing Phase Factor (Gear 1, Below 1800 RPM)" address="06e798" level="3">
   <table name="Surge Damping Step Count" address="06e780" />
+  <description>Manual transmission, gear 1, below 1800 rpm: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. Identified from this ECU's code. Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
- <table name="Surge Damping Timing Phase Factor (Gear 1, From 1800 RPM)" address="06e7a4">
+ <table name="Surge Damping Timing Phase Factor (Gear 1, From 1800 RPM)" address="06e7a4" level="3">
   <table name="Surge Damping Step Count" address="06e780" />
+  <description>Manual transmission, gear 1, from 1800 rpm up: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. Identified from this ECU's code. Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
- <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 1)" address="06e78c">
+ <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 1)" address="06e78c" level="5">
   <table name="Surge Damping Step Count" address="06e780" />
+  <description>AT/CVT version of the surge damping phase factor for gear 1. Identified from this ECU's code. Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor Map (Gear 1)" address="07af94">
   <table name="Engine Speed" address="06e598" />
@@ -1415,14 +1424,17 @@
   <table name="Engine Speed" address="06e5c0" />
   <table name="Surge Damping Input" address="06e1e0" />
  </table>
- <table name="Surge Damping Timing Phase Factor (Gear 2, Below 1800 RPM)" address="06e7bc">
+ <table name="Surge Damping Timing Phase Factor (Gear 2, Below 1800 RPM)" address="06e7bc" level="3">
   <table name="Surge Damping Step Count" address="06e780" />
+  <description>Manual transmission, gear 2, below 1800 rpm: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. Identified from this ECU's code. Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
- <table name="Surge Damping Timing Phase Factor (Gear 2, From 1800 RPM)" address="06e7c8">
+ <table name="Surge Damping Timing Phase Factor (Gear 2, From 1800 RPM)" address="06e7c8" level="3">
   <table name="Surge Damping Step Count" address="06e780" />
+  <description>Manual transmission, gear 2, from 1800 rpm up: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. Identified from this ECU's code. Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
- <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 2)" address="06e7b0">
+ <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 2)" address="06e7b0" level="5">
   <table name="Surge Damping Step Count" address="06e780" />
+  <description>AT/CVT version of the surge damping phase factor for gear 2. Identified from this ECU's code. Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor Map (Gear 2)" address="07aff0">
   <table name="Engine Speed" address="06e598" />
@@ -1436,11 +1448,13 @@
   <table name="Engine Speed" address="06e5c0" />
   <table name="Surge Damping Input" address="06e1e0" />
  </table>
- <table name="Surge Damping Timing Phase Factor (Gear 3, Below 1800 RPM)" address="06e7e0">
+ <table name="Surge Damping Timing Phase Factor (Gear 3, Below 1800 RPM)" address="06e7e0" level="3">
   <table name="Surge Damping Step Count" address="06e780" />
+  <description>Manual transmission, gear 3, below 1800 rpm: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. Identified from this ECU's code. Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
- <table name="Surge Damping Timing Phase Factor (Gear 3, From 1800 RPM)" address="06e7ec">
+ <table name="Surge Damping Timing Phase Factor (Gear 3, From 1800 RPM)" address="06e7ec" level="3">
   <table name="Surge Damping Step Count" address="06e780" />
+  <description>Manual transmission, gear 3, from 1800 rpm up: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. Identified from this ECU's code. Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor Map (Gear 3)" address="07b04c">
   <table name="Engine Speed" address="06e598" />
@@ -1454,11 +1468,13 @@
   <table name="Engine Speed" address="06e5c0" />
   <table name="Surge Damping Input" address="06e1e0" />
  </table>
- <table name="Surge Damping Timing Phase Factor (Gear 4, Below 1800 RPM)" address="06e804">
+ <table name="Surge Damping Timing Phase Factor (Gear 4, Below 1800 RPM)" address="06e804" level="3">
   <table name="Surge Damping Step Count" address="06e780" />
+  <description>Manual transmission, gear 4, below 1800 rpm: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. Identified from this ECU's code. Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
- <table name="Surge Damping Timing Phase Factor (Gear 4, From 1800 RPM)" address="06e810">
+ <table name="Surge Damping Timing Phase Factor (Gear 4, From 1800 RPM)" address="06e810" level="3">
   <table name="Surge Damping Step Count" address="06e780" />
+  <description>Manual transmission, gear 4, from 1800 rpm up: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. Identified from this ECU's code. Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor Map (Gear 4)" address="07b0a8">
   <table name="Engine Speed" address="06e598" />
@@ -1472,11 +1488,13 @@
   <table name="Engine Speed" address="06e5c0" />
   <table name="Surge Damping Input" address="06e1e0" />
  </table>
- <table name="Surge Damping Timing Phase Factor (Gear 5, Below 1800 RPM)" address="06e828">
+ <table name="Surge Damping Timing Phase Factor (Gear 5, Below 1800 RPM)" address="06e828" level="3">
   <table name="Surge Damping Step Count" address="06e780" />
+  <description>Manual transmission, gear 5, below 1800 rpm: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. Identified from this ECU's code. Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
- <table name="Surge Damping Timing Phase Factor (Gear 5, From 1800 RPM)" address="06e834">
+ <table name="Surge Damping Timing Phase Factor (Gear 5, From 1800 RPM)" address="06e834" level="3">
   <table name="Surge Damping Step Count" address="06e780" />
+  <description>Manual transmission, gear 5, from 1800 rpm up: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. Identified from this ECU's code. Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor Map (Gear 5)" address="07b104">
   <table name="Engine Speed" address="06e598" />
@@ -1490,14 +1508,17 @@
   <table name="Engine Speed" address="06e5c0" />
   <table name="Surge Damping Input" address="06e1e0" />
  </table>
- <table name="Surge Damping Timing Phase Factor (Gear 6, Below 1800 RPM)" address="06e84c">
+ <table name="Surge Damping Timing Phase Factor (Gear 6, Below 1800 RPM)" address="06e84c" level="3">
   <table name="Surge Damping Step Count" address="06e780" />
+  <description>Manual transmission, 6th gear, below 1800 rpm: how much of the surge damping timing correction is applied at each step of the rpm swing count. Identified from this ECU's code.</description>
  </table>
- <table name="Surge Damping Timing Phase Factor (Gear 6, From 1800 RPM)" address="06e858">
+ <table name="Surge Damping Timing Phase Factor (Gear 6, From 1800 RPM)" address="06e858" level="3">
   <table name="Surge Damping Step Count" address="06e780" />
+  <description>Manual transmission, 6th gear, from 1800 rpm up: how much of the surge damping timing correction is applied at each step of the rpm swing count. Identified from this ECU's code.</description>
  </table>
- <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 6)" address="06e840">
+ <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 6)" address="06e840" level="5">
   <table name="Surge Damping Step Count" address="06e780" />
+  <description>AT/CVT version of the surge damping phase factor for gear 6. Identified from this ECU's code. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor Map (Gear 6)" address="07b160">
   <table name="Engine Speed" address="06e598" />
@@ -1964,19 +1985,21 @@
  <table name="Boost Integral Maximum (Wastegate Position)" address="0010a6" />
  <table name="Boost Feedback Maximum (Wastegate Position)" address="0010aa" />
  <table name="Boost Feedback Minimum (Wastegate Position)" address="0010ac" />
- <table name="Requested Torque (Drive Mode 7, AT/CVT)" address="011254">
+ <table name="Requested Torque (Drive Mode 7, AT/CVT)" address="011254" level="5">
   <table name="Accelerator Pedal" address="00d02c" />
   <table name="Engine Speed" address="00dfc0" />
+  <description>Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 7, AT/CVT) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
  <table name="Requested Torque (Drive Mode 4, Sport Sharp)" address="00fcdc">
   <table name="Accelerator Pedal" address="00c8b4" />
   <table name="Engine Speed" address="00d88c" />
  </table>
- <table name="Requested Torque (Drive Mode 4, Sport Sharp, AT/CVT)" address="00f994">
+ <table name="Requested Torque (Drive Mode 4, Sport Sharp, AT/CVT)" address="00f994" level="5">
   <table name="Accelerator Pedal" address="00c8b4" />
   <table name="Engine Speed" address="00d88c" />
+  <description>AT/CVT partner of Requested Torque (Drive Mode 4, Sport Sharp): on a car coded AT/CVT the request is a blend of the two by a weight from the transmission side. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 4, Sport Sharp, AT/CVT) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 7, AT/CVT) (Monitor)" address="0cce1c">
+ <table name="Requested Torque (Drive Mode 7, AT/CVT) (Monitor)" address="0cce1c" level="5">
   <table name="Accelerator Pedal" address="0c9f04" />
   <table name="Engine Speed" address="0ca210" />
  </table>
@@ -1984,7 +2007,7 @@
   <table name="Accelerator Pedal" address="0c9f04" />
   <table name="Engine Speed" address="0ca210" />
  </table>
- <table name="Requested Torque (Drive Mode 4, Sport Sharp, AT/CVT) (Monitor)" address="0cc58c">
+ <table name="Requested Torque (Drive Mode 4, Sport Sharp, AT/CVT) (Monitor)" address="0cc58c" level="5">
   <table name="Accelerator Pedal" address="0c97dc" />
   <table name="Engine Speed" address="0ca16c" />
  </table>
@@ -2010,7 +2033,7 @@
  <table name="Target Torque Rise Path B Coolant Rise" address="00cc54">
   <table name="Coolant Temp" address="00cc24" />
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 5) (Monitor)" address="0d9ce0">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 5) (Monitor)" address="0d9ce0" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
@@ -2018,7 +2041,7 @@
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT) (Monitor)" address="0cb524">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT) (Monitor)" address="0cb524" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
@@ -2026,7 +2049,7 @@
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT) (Monitor)" address="0cbbb4">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT) (Monitor)" address="0cbbb4" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
@@ -2034,7 +2057,7 @@
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT) (Monitor)" address="0cc244">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT) (Monitor)" address="0cc244" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
@@ -2238,587 +2261,663 @@
  <table name="Target Torque Rise Path B Low-Speed Time" address="00cc94">
   <table name="Meter Signal (CAN)" address="00cc44" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default)" address="00ec74">
+ <table name="Requested Torque (Drive Mode 1, Default)" address="00ec74" level="4">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Requested torque by accelerator pedal and engine speed for the default drive mode. On the manual car the ECU uses it only while Requested Torque Gear Maps Switch is off; while the switch is on, the per-gear maps (Neutral, Gear 1-6) of this mode are used instead. On an AT/CVT car it is blended with the AT/CVT map. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value).</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT)" address="00f64c">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT)" address="00f64c" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>AT/CVT partner of Requested Torque (Drive Mode 1, Default): on a car coded AT/CVT the request is a blend of the two by a weight from the transmission side. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, AT/CVT) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 1)" address="016ddc">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 1)" address="016ddc" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 1 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, AT/CVT Index 1) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 1)" address="01539c">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 1)" address="01539c" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 1 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, AT/CVT, Index 1) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 2)" address="017124">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 2)" address="017124" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 2 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, AT/CVT Index 2) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 2)" address="0156e4">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 2)" address="0156e4" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 2 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, AT/CVT, Index 2) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 3)" address="01746c">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 3)" address="01746c" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 3 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, AT/CVT Index 3) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 3)" address="015a2c">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 3)" address="015a2c" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 3 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, AT/CVT, Index 3) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 4)" address="0177b4">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 4)" address="0177b4" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 4 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, AT/CVT Index 4) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 4)" address="015d74">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 4)" address="015d74" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 4 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, AT/CVT, Index 4) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 5)" address="017afc">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 5)" address="017afc" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 5 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, AT/CVT Index 5) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 5)" address="0160bc">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 5)" address="0160bc" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 5 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, AT/CVT, Index 5) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 6)" address="017e44">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 6)" address="017e44" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 6 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, AT/CVT Index 6) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 6)" address="016404">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 6)" address="016404" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 6 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, AT/CVT, Index 6) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 7)" address="01818c">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 7)" address="01818c" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 7 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, AT/CVT Index 7) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 7)" address="01674c">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 7)" address="01674c" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 7 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, AT/CVT, Index 7) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 8)" address="0184d4">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 8)" address="0184d4" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 8 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, AT/CVT Index 8) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 8)" address="016a94">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 8)" address="016a94" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 8 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, AT/CVT, Index 8) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT State 14)" address="01881c">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT State 14)" address="01881c" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Used alone, instead of the AT/CVT blend, on a car coded AT/CVT while the transmission state value is 14. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, AT/CVT State 14) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). The ECU also reads this table as: Requested Torque (Drive Mode 2, Sport, AT/CVT State 14); Requested Torque (Drive Mode 3, Intelligent, AT/CVT State 14). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, Neutral)" address="01f694">
+ <table name="Requested Torque (Drive Mode 1, Default, Neutral)" address="01f694" level="2">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Requested torque by accelerator pedal and engine speed for Neutral (the ECU's gear count: 1-6, with 0 taken as neutral, inferred) for the default drive mode. On the manual car, while Requested Torque Gear Maps Switch is on, this per-gear set is the pedal map: the ECU uses these instead of Requested Torque (Drive Mode 1, Default). Above gear 6 it holds the last value. The result is capped by Requested Torque Cap (Drive Mode 1, Default). Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, Neutral) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value).</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, Gear 1)" address="01f9dc">
+ <table name="Requested Torque (Drive Mode 1, Default, Gear 1)" address="01f9dc" level="2">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Requested torque by accelerator pedal and engine speed for Gear 1 (the ECU's gear count: 1-6, with 0 taken as neutral, inferred) for the default drive mode. On the manual car, while Requested Torque Gear Maps Switch is on, this per-gear set is the pedal map: the ECU uses these instead of Requested Torque (Drive Mode 1, Default). Above gear 6 it holds the last value. The result is capped by Requested Torque Cap (Drive Mode 1, Default). Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, Gear 1) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, Gear 2)" address="01fd24">
+ <table name="Requested Torque (Drive Mode 1, Default, Gear 2)" address="01fd24" level="2">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Requested torque by accelerator pedal and engine speed for Gear 2 (the ECU's gear count: 1-6, with 0 taken as neutral, inferred) for the default drive mode. On the manual car, while Requested Torque Gear Maps Switch is on, this per-gear set is the pedal map: the ECU uses these instead of Requested Torque (Drive Mode 1, Default). Above gear 6 it holds the last value. The result is capped by Requested Torque Cap (Drive Mode 1, Default). Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, Gear 2) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, Gear 3)" address="02006c">
+ <table name="Requested Torque (Drive Mode 1, Default, Gear 3)" address="02006c" level="2">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Requested torque by accelerator pedal and engine speed for Gear 3 (the ECU's gear count: 1-6, with 0 taken as neutral, inferred) for the default drive mode. On the manual car, while Requested Torque Gear Maps Switch is on, this per-gear set is the pedal map: the ECU uses these instead of Requested Torque (Drive Mode 1, Default). Above gear 6 it holds the last value. The result is capped by Requested Torque Cap (Drive Mode 1, Default). Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, Gear 3) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, Gear 4)" address="0203b4">
+ <table name="Requested Torque (Drive Mode 1, Default, Gear 4)" address="0203b4" level="2">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Requested torque by accelerator pedal and engine speed for Gear 4 (the ECU's gear count: 1-6, with 0 taken as neutral, inferred) for the default drive mode. On the manual car, while Requested Torque Gear Maps Switch is on, this per-gear set is the pedal map: the ECU uses these instead of Requested Torque (Drive Mode 1, Default). Above gear 6 it holds the last value. The result is capped by Requested Torque Cap (Drive Mode 1, Default). Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, Gear 4) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, Gear 5)" address="0206fc">
+ <table name="Requested Torque (Drive Mode 1, Default, Gear 5)" address="0206fc" level="2">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Requested torque by accelerator pedal and engine speed for Gear 5 (the ECU's gear count: 1-6, with 0 taken as neutral, inferred) for the default drive mode. On the manual car, while Requested Torque Gear Maps Switch is on, this per-gear set is the pedal map: the ECU uses these instead of Requested Torque (Drive Mode 1, Default). Above gear 6 it holds the last value. The result is capped by Requested Torque Cap (Drive Mode 1, Default). Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, Gear 5) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, Gear 6)" address="020a44">
+ <table name="Requested Torque (Drive Mode 1, Default, Gear 6)" address="020a44" level="2">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Requested torque by accelerator pedal and engine speed for Gear 6 (the ECU's gear count: 1-6, with 0 taken as neutral, inferred) for the default drive mode. On the manual car, while Requested Torque Gear Maps Switch is on, this per-gear set is the pedal map: the ECU uses these instead of Requested Torque (Drive Mode 1, Default). Above gear 6 it holds the last value. The result is capped by Requested Torque Cap (Drive Mode 1, Default). Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 1, Default, Gear 6) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport)" address="00e5e4">
+ <table name="Requested Torque (Drive Mode 2, Sport)" address="00e5e4" level="4">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Requested torque by accelerator pedal and engine speed for drive mode 2 (Sport). On the manual car it is used only while Requested Torque Gear Maps Switch is off; while the switch is on, this mode's per-gear maps are used. On an AT/CVT car it is blended with the AT/CVT map. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value).</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT)" address="00efbc">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT)" address="00efbc" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>AT/CVT partner of Requested Torque (Drive Mode 2, Sport): on a car coded AT/CVT the request is a blend of the two by a weight from the transmission side. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport, AT/CVT) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 1)" address="01a5a4">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 1)" address="01a5a4" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 1 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport, AT/CVT Index 1) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 1)" address="018b64">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 1)" address="018b64" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 1 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 1) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 2)" address="01a8ec">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 2)" address="01a8ec" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 2 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport, AT/CVT Index 2) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 2)" address="018eac">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 2)" address="018eac" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 2 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 2) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 3)" address="01ac34">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 3)" address="01ac34" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 3 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport, AT/CVT Index 3) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 3)" address="0191f4">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 3)" address="0191f4" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 3 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 3) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 4)" address="01af7c">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 4)" address="01af7c" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 4 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport, AT/CVT Index 4) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 4)" address="01953c">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 4)" address="01953c" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 4 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 4) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 5)" address="01b2c4">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 5)" address="01b2c4" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 5 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport, AT/CVT Index 5) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 5)" address="019884">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 5)" address="019884" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 5 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 5) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 6)" address="01b60c">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 6)" address="01b60c" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 6 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport, AT/CVT Index 6) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 6)" address="019bcc">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 6)" address="019bcc" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 6 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 6) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 7)" address="01b954">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 7)" address="01b954" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 7 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport, AT/CVT Index 7) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 7)" address="019f14">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 7)" address="019f14" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 7 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 7) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 8)" address="01bc9c">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 8)" address="01bc9c" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 8 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport, AT/CVT Index 8) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 8)" address="01a25c">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 8)" address="01a25c" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 8 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 8) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, Neutral)" address="020d8c">
+ <table name="Requested Torque (Drive Mode 2, Sport, Neutral)" address="020d8c" level="4">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Requested torque by accelerator pedal and engine speed for Neutral in drive mode 2 (Sport), which the ECU selects when the drive-mode value it receives over CAN is 2. Like the default mode, this per-gear set replaces the mode's base map on the manual car while Requested Torque Gear Maps Switch is on. The manual car probably stays in drive mode 1 (inferred). Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport, Neutral) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value).</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, Gear 1)" address="0210d4">
+ <table name="Requested Torque (Drive Mode 2, Sport, Gear 1)" address="0210d4" level="4">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Requested torque by accelerator pedal and engine speed for Gear 1 in drive mode 2 (Sport), which the ECU selects when the drive-mode value it receives over CAN is 2. Like the default mode, this per-gear set replaces the mode's base map on the manual car while Requested Torque Gear Maps Switch is on. The manual car probably stays in drive mode 1 (inferred). Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport, Gear 1) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, Gear 2)" address="02141c">
+ <table name="Requested Torque (Drive Mode 2, Sport, Gear 2)" address="02141c" level="4">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Requested torque by accelerator pedal and engine speed for Gear 2 in drive mode 2 (Sport), which the ECU selects when the drive-mode value it receives over CAN is 2. Like the default mode, this per-gear set replaces the mode's base map on the manual car while Requested Torque Gear Maps Switch is on. The manual car probably stays in drive mode 1 (inferred). Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport, Gear 2) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, Gear 3)" address="021764">
+ <table name="Requested Torque (Drive Mode 2, Sport, Gear 3)" address="021764" level="4">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Requested torque by accelerator pedal and engine speed for Gear 3 in drive mode 2 (Sport), which the ECU selects when the drive-mode value it receives over CAN is 2. Like the default mode, this per-gear set replaces the mode's base map on the manual car while Requested Torque Gear Maps Switch is on. The manual car probably stays in drive mode 1 (inferred). Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport, Gear 3) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, Gear 4)" address="021aac">
+ <table name="Requested Torque (Drive Mode 2, Sport, Gear 4)" address="021aac" level="4">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Requested torque by accelerator pedal and engine speed for Gear 4 in drive mode 2 (Sport), which the ECU selects when the drive-mode value it receives over CAN is 2. Like the default mode, this per-gear set replaces the mode's base map on the manual car while Requested Torque Gear Maps Switch is on. The manual car probably stays in drive mode 1 (inferred). Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport, Gear 4) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, Gear 5)" address="021df4">
+ <table name="Requested Torque (Drive Mode 2, Sport, Gear 5)" address="021df4" level="4">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Requested torque by accelerator pedal and engine speed for Gear 5 in drive mode 2 (Sport), which the ECU selects when the drive-mode value it receives over CAN is 2. Like the default mode, this per-gear set replaces the mode's base map on the manual car while Requested Torque Gear Maps Switch is on. The manual car probably stays in drive mode 1 (inferred). Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport, Gear 5) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, Gear 6)" address="02213c">
+ <table name="Requested Torque (Drive Mode 2, Sport, Gear 6)" address="02213c" level="4">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Requested torque by accelerator pedal and engine speed for Gear 6 in drive mode 2 (Sport), which the ECU selects when the drive-mode value it receives over CAN is 2. Like the default mode, this per-gear set replaces the mode's base map on the manual car while Requested Torque Gear Maps Switch is on. The manual car probably stays in drive mode 1 (inferred). Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 2, Sport, Gear 6) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent)" address="00e92c">
+ <table name="Requested Torque (Drive Mode 3, Intelligent)" address="00e92c" level="4">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Requested torque by accelerator pedal and engine speed for drive mode 3 (Intelligent). On the manual car it is used only while Requested Torque Gear Maps Switch is off; while the switch is on, this mode's per-gear maps are used. On an AT/CVT car it is blended with the AT/CVT map. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value).</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT)" address="00f304">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT)" address="00f304" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>AT/CVT partner of Requested Torque (Drive Mode 3, Intelligent): on a car coded AT/CVT the request is a blend of the two by a weight from the transmission side. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent, AT/CVT) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 1)" address="01da24">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 1)" address="01da24" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 1 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 1) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 1)" address="01bfe4">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 1)" address="01bfe4" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 1 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 1) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 2)" address="01dd6c">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 2)" address="01dd6c" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 2 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 2) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 2)" address="01c32c">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 2)" address="01c32c" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 2 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 2) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 3)" address="01e0b4">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 3)" address="01e0b4" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 3 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 3) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 3)" address="01c674">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 3)" address="01c674" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 3 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 3) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 4)" address="01e3fc">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 4)" address="01e3fc" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 4 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 4) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 4)" address="01c9bc">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 4)" address="01c9bc" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 4 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 4) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 5)" address="01e744">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 5)" address="01e744" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 5 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 5) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 5)" address="01cd04">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 5)" address="01cd04" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 5 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 5) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 6)" address="01ea8c">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 6)" address="01ea8c" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 6 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 6) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 6)" address="01d04c">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 6)" address="01d04c" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 6 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 6) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 7)" address="01edd4">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 7)" address="01edd4" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 7 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 7) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 7)" address="01d394">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 7)" address="01d394" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 7 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 7) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced. The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 8)" address="01f11c">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 8)" address="01f11c" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 8 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 8) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 8)" address="01d6dc">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 8)" address="01d6dc" level="5">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Alternate map for a car coded AT/CVT: replaces the mode's base or AT/CVT map when the transmission controller reports a particular state and selects index 8 over CAN. Not used on the manual car. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 8) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). The ECU reads this table only on AT/CVT coding; this ROM is coded manual.</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, Neutral)" address="022484">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, Neutral)" address="022484" level="4">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Requested torque by accelerator pedal and engine speed for Neutral in drive mode 3 (Intelligent), which the ECU selects when the drive-mode value it receives over CAN is 3. Like the default mode, this per-gear set replaces the mode's base map on the manual car while Requested Torque Gear Maps Switch is on. The manual car probably stays in drive mode 1 (inferred). Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent, Neutral) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value).</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, Gear 1)" address="0227cc">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, Gear 1)" address="0227cc" level="4">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Requested torque by accelerator pedal and engine speed for Gear 1 in drive mode 3 (Intelligent), which the ECU selects when the drive-mode value it receives over CAN is 3. Like the default mode, this per-gear set replaces the mode's base map on the manual car while Requested Torque Gear Maps Switch is on. The manual car probably stays in drive mode 1 (inferred). Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent, Gear 1) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, Gear 2)" address="022b14">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, Gear 2)" address="022b14" level="4">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Requested torque by accelerator pedal and engine speed for Gear 2 in drive mode 3 (Intelligent), which the ECU selects when the drive-mode value it receives over CAN is 3. Like the default mode, this per-gear set replaces the mode's base map on the manual car while Requested Torque Gear Maps Switch is on. The manual car probably stays in drive mode 1 (inferred). Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent, Gear 2) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, Gear 3)" address="022e5c">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, Gear 3)" address="022e5c" level="4">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Requested torque by accelerator pedal and engine speed for Gear 3 in drive mode 3 (Intelligent), which the ECU selects when the drive-mode value it receives over CAN is 3. Like the default mode, this per-gear set replaces the mode's base map on the manual car while Requested Torque Gear Maps Switch is on. The manual car probably stays in drive mode 1 (inferred). Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent, Gear 3) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, Gear 4)" address="0231a4">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, Gear 4)" address="0231a4" level="4">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Requested torque by accelerator pedal and engine speed for Gear 4 in drive mode 3 (Intelligent), which the ECU selects when the drive-mode value it receives over CAN is 3. Like the default mode, this per-gear set replaces the mode's base map on the manual car while Requested Torque Gear Maps Switch is on. The manual car probably stays in drive mode 1 (inferred). Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent, Gear 4) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, Gear 5)" address="0234ec">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, Gear 5)" address="0234ec" level="4">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Requested torque by accelerator pedal and engine speed for Gear 5 in drive mode 3 (Intelligent), which the ECU selects when the drive-mode value it receives over CAN is 3. Like the default mode, this per-gear set replaces the mode's base map on the manual car while Requested Torque Gear Maps Switch is on. The manual car probably stays in drive mode 1 (inferred). Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent, Gear 5) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, Gear 6)" address="023834">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, Gear 6)" address="023834" level="4">
   <table name="Accelerator Pedal" address="00c88c" />
   <table name="Engine Speed" address="00d860" />
+  <description>Requested torque by accelerator pedal and engine speed for Gear 6 in drive mode 3 (Intelligent), which the ECU selects when the drive-mode value it receives over CAN is 3. Like the default mode, this per-gear set replaces the mode's base map on the manual car while Requested Torque Gear Maps Switch is on. The manual car probably stays in drive mode 1 (inferred). Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified. Identified from this ECU's code. Its (Monitor) copy, Requested Torque (Drive Mode 3, Intelligent, Gear 6) (Monitor), must hold the same data unless Torque Monitor Fault Mode is 0 (see that value). Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
  </table>
  <table name="Requested Torque (Drive Mode 7)" address="010f0c">
   <table name="Accelerator Pedal" address="00d02c" />
   <table name="Engine Speed" address="00dfc0" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 1) (Monitor)" address="0cf588">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 1) (Monitor)" address="0cf588" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 2) (Monitor)" address="0cf8d0">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 2) (Monitor)" address="0cf8d0" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 3) (Monitor)" address="0cfc18">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 3) (Monitor)" address="0cfc18" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 4) (Monitor)" address="0cff60">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 4) (Monitor)" address="0cff60" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 5) (Monitor)" address="0d02a8">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 5) (Monitor)" address="0d02a8" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 6) (Monitor)" address="0d05f0">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 6) (Monitor)" address="0d05f0" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 7) (Monitor)" address="0d0938">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 7) (Monitor)" address="0d0938" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 8) (Monitor)" address="0d0c80">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT Index 8) (Monitor)" address="0d0c80" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT State 14) (Monitor)" address="0d0fc8">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT State 14) (Monitor)" address="0d0fc8" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, Neutral) (Monitor)" address="0d1310">
+ <table name="Requested Torque (Drive Mode 1, Default, Neutral) (Monitor)" address="0d1310" level="4">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, Gear 1) (Monitor)" address="0d1658">
+ <table name="Requested Torque (Drive Mode 1, Default, Gear 1) (Monitor)" address="0d1658" level="4">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, Gear 2) (Monitor)" address="0d19a0">
+ <table name="Requested Torque (Drive Mode 1, Default, Gear 2) (Monitor)" address="0d19a0" level="4">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, Gear 3) (Monitor)" address="0d1ce8">
+ <table name="Requested Torque (Drive Mode 1, Default, Gear 3) (Monitor)" address="0d1ce8" level="4">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, Gear 4) (Monitor)" address="0d2030">
+ <table name="Requested Torque (Drive Mode 1, Default, Gear 4) (Monitor)" address="0d2030" level="4">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, Gear 5) (Monitor)" address="0d2378">
+ <table name="Requested Torque (Drive Mode 1, Default, Gear 5) (Monitor)" address="0d2378" level="4">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, Gear 6) (Monitor)" address="0d26c0">
+ <table name="Requested Torque (Drive Mode 1, Default, Gear 6) (Monitor)" address="0d26c0" level="4">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 1) (Monitor)" address="0cdb48">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 1) (Monitor)" address="0cdb48" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 2) (Monitor)" address="0cde90">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 2) (Monitor)" address="0cde90" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 3) (Monitor)" address="0ce1d8">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 3) (Monitor)" address="0ce1d8" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 4) (Monitor)" address="0ce520">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 4) (Monitor)" address="0ce520" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 5) (Monitor)" address="0ce868">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 5) (Monitor)" address="0ce868" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 6) (Monitor)" address="0cebb0">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 6) (Monitor)" address="0cebb0" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 7) (Monitor)" address="0ceef8">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 7) (Monitor)" address="0ceef8" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 8) (Monitor)" address="0cf240">
+ <table name="Requested Torque (Drive Mode 1, Default, AT/CVT, Index 8) (Monitor)" address="0cf240" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 1) (Monitor)" address="0d5b40">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 1) (Monitor)" address="0d5b40" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 2) (Monitor)" address="0d5e88">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 2) (Monitor)" address="0d5e88" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 3) (Monitor)" address="0d61d0">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 3) (Monitor)" address="0d61d0" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 4) (Monitor)" address="0d6518">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 4) (Monitor)" address="0d6518" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 5) (Monitor)" address="0d6860">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 5) (Monitor)" address="0d6860" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 6) (Monitor)" address="0d6ba8">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 6) (Monitor)" address="0d6ba8" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 7) (Monitor)" address="0d6ef0">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 7) (Monitor)" address="0d6ef0" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 8) (Monitor)" address="0d7238">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT Index 8) (Monitor)" address="0d7238" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, Neutral) (Monitor)" address="0d4448">
+ <table name="Requested Torque (Drive Mode 2, Sport, Neutral) (Monitor)" address="0d4448" level="4">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, Gear 1) (Monitor)" address="0d4790">
+ <table name="Requested Torque (Drive Mode 2, Sport, Gear 1) (Monitor)" address="0d4790" level="4">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, Gear 2) (Monitor)" address="0d4ad8">
+ <table name="Requested Torque (Drive Mode 2, Sport, Gear 2) (Monitor)" address="0d4ad8" level="4">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, Gear 3) (Monitor)" address="0d4e20">
+ <table name="Requested Torque (Drive Mode 2, Sport, Gear 3) (Monitor)" address="0d4e20" level="4">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, Gear 4) (Monitor)" address="0d5168">
+ <table name="Requested Torque (Drive Mode 2, Sport, Gear 4) (Monitor)" address="0d5168" level="4">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, Gear 5) (Monitor)" address="0d54b0">
+ <table name="Requested Torque (Drive Mode 2, Sport, Gear 5) (Monitor)" address="0d54b0" level="4">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, Gear 6) (Monitor)" address="0d57f8">
+ <table name="Requested Torque (Drive Mode 2, Sport, Gear 6) (Monitor)" address="0d57f8" level="4">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 1) (Monitor)" address="0d2a08">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 1) (Monitor)" address="0d2a08" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 2) (Monitor)" address="0d2d50">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 2) (Monitor)" address="0d2d50" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 3) (Monitor)" address="0d3098">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 3) (Monitor)" address="0d3098" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 4) (Monitor)" address="0d33e0">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 4) (Monitor)" address="0d33e0" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 5) (Monitor)" address="0d3728">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 5) (Monitor)" address="0d3728" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 6) (Monitor)" address="0d3a70">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 6) (Monitor)" address="0d3a70" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 7) (Monitor)" address="0d3db8">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 7) (Monitor)" address="0d3db8" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 8) (Monitor)" address="0d4100">
+ <table name="Requested Torque (Drive Mode 2, Sport, AT/CVT, Index 8) (Monitor)" address="0d4100" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, Neutral) (Monitor)" address="0daa00">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, Neutral) (Monitor)" address="0daa00" level="4">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, Gear 1) (Monitor)" address="0dad48">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, Gear 1) (Monitor)" address="0dad48" level="4">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, Gear 2) (Monitor)" address="0db090">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, Gear 2) (Monitor)" address="0db090" level="4">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, Gear 3) (Monitor)" address="0db3d8">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, Gear 3) (Monitor)" address="0db3d8" level="4">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, Gear 4) (Monitor)" address="0db720">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, Gear 4) (Monitor)" address="0db720" level="4">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, Gear 5) (Monitor)" address="0dba68">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, Gear 5) (Monitor)" address="0dba68" level="4">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, Gear 6) (Monitor)" address="0dbdb0">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, Gear 6) (Monitor)" address="0dbdb0" level="4">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 1) (Monitor)" address="0d8fc0">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 1) (Monitor)" address="0d8fc0" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 2) (Monitor)" address="0d9308">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 2) (Monitor)" address="0d9308" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 3) (Monitor)" address="0d9650">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 3) (Monitor)" address="0d9650" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 4) (Monitor)" address="0d9998">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 4) (Monitor)" address="0d9998" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 6) (Monitor)" address="0da028">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 6) (Monitor)" address="0da028" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 7) (Monitor)" address="0da370">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 7) (Monitor)" address="0da370" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 8) (Monitor)" address="0da6b8">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT Index 8) (Monitor)" address="0da6b8" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 1) (Monitor)" address="0d7580">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 1) (Monitor)" address="0d7580" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 2) (Monitor)" address="0d78c8">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 2) (Monitor)" address="0d78c8" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 3) (Monitor)" address="0d7c10">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 3) (Monitor)" address="0d7c10" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 4) (Monitor)" address="0d7f58">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 4) (Monitor)" address="0d7f58" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 5) (Monitor)" address="0d82a0">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 5) (Monitor)" address="0d82a0" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 6) (Monitor)" address="0d85e8">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 6) (Monitor)" address="0d85e8" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 7) (Monitor)" address="0d8930">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 7) (Monitor)" address="0d8930" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
- <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 8) (Monitor)" address="0d8c78">
+ <table name="Requested Torque (Drive Mode 3, Intelligent, AT/CVT, Index 8) (Monitor)" address="0d8c78" level="5">
   <table name="Accelerator Pedal" address="0c96ec" />
   <table name="Engine Speed" address="0ca140" />
  </table>
@@ -3127,9 +3226,11 @@
  </table>
  <table name="Torque Model Filter Multiplier A (Idle State Group 1, Alt)" address="0243a0">
   <table name="Coolant Temp" address="00999c" />
+  <description>Torque-model smoothing multiplier by coolant (1.0 = normal; very high values mean no smoothing), used for a while after a combustion-mode change while final timing is still well short of the spark target. Leave alone unless you know the model. Idle state groups: Group 1 is used out of neutral, while moving, or at or above a received idle-speed request; Group 2 in neutral (the default state) or stopped below that request. On this manual car probably in gear (Group 1) versus neutral (Group 2) (inferred). Identified from this ECU's code.</description>
  </table>
  <table name="Torque Model Filter Multiplier A (Idle State Group 2, Alt)" address="0243c0">
   <table name="Coolant Temp" address="00999c" />
+  <description>Torque-model smoothing multiplier by coolant (1.0 = normal; very high values mean no smoothing), used for a while after a combustion-mode change while final timing is still well short of the spark target. Leave alone unless you know the model. Idle state groups: Group 1 is used out of neutral, while moving, or at or above a received idle-speed request; Group 2 in neutral (the default state) or stopped below that request. On this manual car probably in gear (Group 1) versus neutral (Group 2) (inferred). Identified from this ECU's code.</description>
  </table>
  <table name="Torque Model Filter Multiplier C (Idle State Group 1)" address="0241a0">
   <table name="Coolant Temp" address="00999c" />
@@ -4257,14 +4358,14 @@
  <table name="(P0700) Transmission Control System (MIL Request)" address="0ac2b7" />
  <table name="(P0196) Engine Oil Temperature Sensor Range/Performance" address="0ac2b8" />
  <table name="(P0198) Engine Oil Temperature Sensor High" address="0ac2b8" />
- <table name="(P2004) Intake Manifold Runner Control Stuck Open (Bank 1)" address="0ac2bb" />
- <table name="(P2006) Intake Manifold Runner Control Stuck Closed (Bank 1)" address="0ac2bb" />
- <table name="(P2005) Intake Manifold Runner Control Stuck Open (Bank 2)" address="0ac2bb" />
- <table name="(P2007) Intake Manifold Runner Control Stuck Closed (Bank 2)" address="0ac2bb" />
+ <table name="(P2004) Intake Manifold Runner Control Stuck Open (Bank 1)" address="0ac2bb" scaling="DTC enabled b0 mFF f00 sFE" />
+ <table name="(P2006) Intake Manifold Runner Control Stuck Closed (Bank 1)" address="0ac2bb" scaling="DTC enabled b1 mFF f00 sFD" />
+ <table name="(P2005) Intake Manifold Runner Control Stuck Open (Bank 2)" address="0ac2bb" scaling="DTC enabled b2 mFF f00 sFB" />
+ <table name="(P2007) Intake Manifold Runner Control Stuck Closed (Bank 2)" address="0ac2bb" scaling="DTC enabled b3 mFF f00 sF7" />
  <table name="(P2227) Barometric Pressure Sensor A Circuit Range/Performance" address="0ac2bb" />
- <table name="(P2226) Barometric Pressure Sensor A Circuit" address="0ac2bb" />
- <table name="(P2229) Barometric Pressure Sensor A Circuit High" address="0ac2bb" />
- <table name="(P2228) Barometric Pressure Sensor A Circuit Low" address="0ac2bb" />
+ <table name="(P2226) Barometric Pressure Sensor A Circuit" address="0ac2bb" scaling="DTC enabled b5 mFF f00 sDF" />
+ <table name="(P2229) Barometric Pressure Sensor A Circuit High" address="0ac2bb" scaling="DTC enabled b6 mFF f00 sBF" />
+ <table name="(P2228) Barometric Pressure Sensor A Circuit Low" address="0ac2bb" scaling="DTC enabled b7 mFF f00 s7F" />
  <table name="(P2016) Intake Manifold Runner Position Sensor/Switch Circuit Low (Bank 1)" address="0ac2bc" />
  <table name="(P2017) Intake Manifold Runner Position Sensor/Switch Circuit High (Bank 1)" address="0ac2bc" />
  <table name="(P2021) Intake Manifold Runner Position Sensor/Switch Circuit Low (Bank 2)" address="0ac2bc" />
@@ -4285,27 +4386,27 @@
  <table name="(P0017) Crankshaft/Camshaft Position Correlation (Bank 1 Sensor B)" address="0ac2c3" />
  <table name="(P1627)" address="0ac2c9" />
  <table name="(P1628)" address="0ac2c9" />
- <table name="(P2B08) Cold Start Cylinder 1 Injection Pulse Performance" address="0ac2ca" />
- <table name="(P2B09) Cold Start Cylinder 2 Injection Pulse Performance" address="0ac2ca" />
- <table name="(P2B0A) Cold Start Cylinder 3 Injection Pulse Performance" address="0ac2ca" />
- <table name="(P2B0B) Cold Start Cylinder 4 Injection Pulse Performance" address="0ac2ca" />
- <table name="(P2B00) Cylinder 1 Injection Pulse Performance" address="0ac2ca" />
- <table name="(P2B01) Cylinder 2 Injection Pulse Performance" address="0ac2ca" />
- <table name="(P2B02) Cylinder 3 Injection Pulse Performance" address="0ac2ca" />
- <table name="(P2B03) Cylinder 4 Injection Pulse Performance" address="0ac2ca" />
+ <table name="(P2B08) Cold Start Cylinder 1 Injection Pulse Performance" address="0ac2ca" scaling="DTC enabled b0 mFF f00 sFE" />
+ <table name="(P2B09) Cold Start Cylinder 2 Injection Pulse Performance" address="0ac2ca" scaling="DTC enabled b1 mFF f00 sFD" />
+ <table name="(P2B0A) Cold Start Cylinder 3 Injection Pulse Performance" address="0ac2ca" scaling="DTC enabled b2 mFF f00 sFB" />
+ <table name="(P2B0B) Cold Start Cylinder 4 Injection Pulse Performance" address="0ac2ca" scaling="DTC enabled b3 mFF f00 sF7" />
+ <table name="(P2B00) Cylinder 1 Injection Pulse Performance" address="0ac2ca" scaling="DTC enabled b4 mFF f00 sEF" />
+ <table name="(P2B01) Cylinder 2 Injection Pulse Performance" address="0ac2ca" scaling="DTC enabled b5 mFF f00 sDF" />
+ <table name="(P2B02) Cylinder 3 Injection Pulse Performance" address="0ac2ca" scaling="DTC enabled b6 mFF f00 sBF" />
+ <table name="(P2B03) Cylinder 4 Injection Pulse Performance" address="0ac2ca" scaling="DTC enabled b7 mFF f00 s7F" />
  <table name="(U0402) Invalid Data Received from TCM" address="0ac2cf" />
  <table name="(U0101) Lost Communication with TCM" address="0ac2cf" />
  <table name="(U0416) Invalid Data Received from Vehicle Dynamics Control Module" address="0ac2cf" />
  <table name="(U0122) Lost Communication with Vehicle Dynamics Control Module" address="0ac2cf" />
  <table name="(U0073) Control Module Communication Bus Off" address="0ac2cf" />
- <table name="(P050B) Cold Start Ignition Timing Performance" address="0ac2d2" />
- <table name="(P050A) Cold Start Idle Air Control System Performance" address="0ac2d2" />
- <table name="(P2610) ECM/PCM Internal Engine Off Timer Performance" address="0ac2d2" />
- <table name="(P2420) Evaporative Emission System Switching Valve Control Circuit High" address="0ac2d2" />
- <table name="(P2419) Evaporative Emission System Switching Valve Control Circuit Low" address="0ac2d2" />
- <table name="(P2401) Evaporative Emission System Leak Detection Pump Control Circuit Low" address="0ac2d2" />
- <table name="(P24BB)" address="0ac2d2" />
- <table name="(P24BA)" address="0ac2d2" />
+ <table name="(P050B) Cold Start Ignition Timing Performance" address="0ac2d2" scaling="DTC enabled b0 mFF f00 sFE" />
+ <table name="(P050A) Cold Start Idle Air Control System Performance" address="0ac2d2" scaling="DTC enabled b1 mFF f00 sFD" />
+ <table name="(P2610) ECM/PCM Internal Engine Off Timer Performance" address="0ac2d2" scaling="DTC enabled b2 mFF f00 sFB" />
+ <table name="(P2420) Evaporative Emission System Switching Valve Control Circuit High" address="0ac2d2" scaling="DTC enabled b3 mFF f00 sF7" />
+ <table name="(P2419) Evaporative Emission System Switching Valve Control Circuit Low" address="0ac2d2" scaling="DTC enabled b4 mFF f00 sEF" />
+ <table name="(P2401) Evaporative Emission System Leak Detection Pump Control Circuit Low" address="0ac2d2" scaling="DTC enabled b5 mFF f00 sDF" />
+ <table name="(P24BB)" address="0ac2d2" scaling="DTC enabled b6 mFF f00 sBF" />
+ <table name="(P24BA)" address="0ac2d2" scaling="DTC enabled b7 mFF f00 s7F" />
  <table name="(P015B) O2 Sensor Delayed Response - Lean to Rich (Bank 1 Sensor 1)" address="0ac2d3" />
  <table name="(P015A) O2 Sensor Delayed Response - Rich to Lean (Bank 1 Sensor 1)" address="0ac2d3" />
  <table name="(P014D) O2 Sensor Slow Response - Lean to Rich (Bank 1 Sensor 1)" address="0ac2d3" />
@@ -4351,14 +4452,14 @@
  <table name="(P000D) Exhaust Camshaft Position Slow Response (Bank 2)" address="0ac2db" />
  <table name="(P0558) Brake Booster Pressure Sensor Circuit High" address="0ac2db" />
  <table name="(P0557) Brake Booster Pressure Sensor Circuit Low" address="0ac2db" />
- <table name="(P0512) Starter Request Circuit" address="0ac2dc" />
- <table name="(P0616) Starter Relay Circuit Low" address="0ac2dc" />
- <table name="(P0617) Starter Relay Circuit High" address="0ac2dc" />
- <table name="(P2196) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 1)" address="0ac2dc" />
- <table name="(P2195) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 1)" address="0ac2dc" />
- <table name="(P0560) System Voltage" address="0ac2dc" />
- <table name="(P0116) Engine Coolant Temperature Circuit Range/Performance" address="0ac2dc" />
- <table name="(P081A) Starter Disable Circuit Low" address="0ac2dc" />
+ <table name="(P0512) Starter Request Circuit" address="0ac2dc" scaling="DTC enabled b0 mFF f00 sFE" />
+ <table name="(P0616) Starter Relay Circuit Low" address="0ac2dc" scaling="DTC enabled b1 mFF f00 sFD" />
+ <table name="(P0617) Starter Relay Circuit High" address="0ac2dc" scaling="DTC enabled b2 mFF f00 sFB" />
+ <table name="(P2196) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 1)" address="0ac2dc" scaling="DTC enabled b3 mFF f00 sF7" />
+ <table name="(P2195) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 1)" address="0ac2dc" scaling="DTC enabled b4 mFF f00 sEF" />
+ <table name="(P0560) System Voltage" address="0ac2dc" scaling="DTC enabled b5 mFF f00 sDF" />
+ <table name="(P0116) Engine Coolant Temperature Circuit Range/Performance" address="0ac2dc" scaling="DTC enabled b6 mFF f00 sBF" />
+ <table name="(P081A) Starter Disable Circuit Low" address="0ac2dc" scaling="DTC enabled b7 mFF f00 s7F" />
  <table name="(P062F) Internal Control Module EEPROM Error" address="0ac2de" />
  <table name="(P060B) Internal Control Module A/D Processing Performance" address="0ac2de" />
  <table name="(P060A) Internal Control Module Monitoring Processor Performance" address="0ac2de" />
@@ -4382,36 +4483,36 @@
  <table name="(P24D8)" address="0ac2e2" />
  <table name="(P1192)" address="0ac2e2" />
  <table name="(P1193)" address="0ac2e2" />
- <table name="(P0191) Fuel Rail Pressure Sensor A Circuit Range/Performance (Entry 1)" address="0ac2e3" />
- <table name="(P0401) Exhaust Gas Recirculation Flow Insufficient Detected" address="0ac2e3" />
- <table name="(P0402) Exhaust Gas Recirculation Flow Excessive Detected" address="0ac2e3" />
- <table name="(P003A) Turbocharger/Supercharger Boost Control 'A' Position Exceeded Learning Limit" address="0ac2e3" />
- <table name="(P0039) Turbocharger/Supercharger Bypass Valve 'A' Control Circuit Range/Performance" address="0ac2e3" />
- <table name="(P0234) Turbocharger/Supercharger 'A' Overboost Condition" address="0ac2e3" />
- <table name="(P0299) Turbocharger/Supercharger 'A' Underboost Condition" address="0ac2e3" />
- <table name="(P0244) Turbocharger Wastegate Solenoid A Range/Performance" address="0ac2e3" />
- <table name="(P0480) Fan 1 Control Circuit" address="0ac2e4" />
- <table name="(P0481) Fan 2 Control Circuit" address="0ac2e4" />
- <table name="(P04F1)" address="0ac2e4" />
- <table name="(P04F0) Evaporative Emission System High Pressure Purge Line Performance (Entry 2)" address="0ac2e4" />
- <table name="(P04AE)" address="0ac2e4" />
- <table name="(P24D6)" address="0ac2e4" />
- <table name="(P0045) Turbocharger/Supercharger Boost Control 'A' Circuit/Open" address="0ac2e4" />
- <table name="(P0047) Turbocharger/Supercharger Boost Control A Circuit Low" address="0ac2e4" />
+ <table name="(P0191) Fuel Rail Pressure Sensor A Circuit Range/Performance (Entry 1)" address="0ac2e3" scaling="DTC enabled b0 mFF f00 sEE" />
+ <table name="(P0401) Exhaust Gas Recirculation Flow Insufficient Detected" address="0ac2e3" scaling="DTC enabled b1 mFF f00 sED" />
+ <table name="(P0402) Exhaust Gas Recirculation Flow Excessive Detected" address="0ac2e3" scaling="DTC enabled b2 mFF f00 sEB" />
+ <table name="(P003A) Turbocharger/Supercharger Boost Control 'A' Position Exceeded Learning Limit" address="0ac2e3" scaling="DTC enabled b3 mFF f00 sE7" />
+ <table name="(P0039) Turbocharger/Supercharger Bypass Valve 'A' Control Circuit Range/Performance" address="0ac2e3" scaling="DTC enabled b4 mFF f00 sEF" />
+ <table name="(P0234) Turbocharger/Supercharger 'A' Overboost Condition" address="0ac2e3" scaling="DTC enabled b5 mFF f00 sCF" />
+ <table name="(P0299) Turbocharger/Supercharger 'A' Underboost Condition" address="0ac2e3" scaling="DTC enabled b6 mFF f00 sAF" />
+ <table name="(P0244) Turbocharger Wastegate Solenoid A Range/Performance" address="0ac2e3" scaling="DTC enabled b7 mFF f00 s6F" />
+ <table name="(P0480) Fan 1 Control Circuit" address="0ac2e4" scaling="DTC enabled b0 mFF f00 sFE" />
+ <table name="(P0481) Fan 2 Control Circuit" address="0ac2e4" scaling="DTC enabled b1 mFF f00 sFD" />
+ <table name="(P04F1)" address="0ac2e4" scaling="DTC enabled b2 mFF f00 sFB" />
+ <table name="(P04F0) Evaporative Emission System High Pressure Purge Line Performance (Entry 2)" address="0ac2e4" scaling="DTC enabled b3 mFF f00 sF7" />
+ <table name="(P04AE)" address="0ac2e4" scaling="DTC enabled b4 mFF f00 sEF" />
+ <table name="(P24D6)" address="0ac2e4" scaling="DTC enabled b5 mFF f00 sDF" />
+ <table name="(P0045) Turbocharger/Supercharger Boost Control 'A' Circuit/Open" address="0ac2e4" scaling="DTC enabled b6 mFF f00 sBF" />
+ <table name="(P0047) Turbocharger/Supercharger Boost Control A Circuit Low" address="0ac2e4" scaling="DTC enabled b7 mFF f00 s7F" />
  <table name="(P0072) Ambient Air Temperature Sensor Circuit Low" address="0ac2e8" />
  <table name="(P0073) Ambient Air Temperature Sensor Circuit High" address="0ac2e8" />
  <table name="(P0071) Ambient Air Temperature Sensor Range/Performance" address="0ac2e8" />
  <table name="(P0500) Vehicle Speed Sensor A (Entry 2)" address="0ac2e8" />
  <table name="(P2158) Vehicle Speed Sensor B" address="0ac2e8" />
  <table name="(P06EF) Engine Restart Performance" address="0ac2e8" />
- <table name="(P0010) Intake Camshaft Position Actuator Circuit (Bank 1)" address="0ac2ea" />
- <table name="(P0020) Intake Camshaft Position Actuator Circuit (Bank 2)" address="0ac2ea" />
- <table name="(P0013) Exhaust Camshaft Position Actuator Circuit (Bank 1)" address="0ac2ea" />
- <table name="(P0023) Exhaust Camshaft Position Actuator Circuit (Bank 2)" address="0ac2ea" />
+ <table name="(P0010) Intake Camshaft Position Actuator Circuit (Bank 1)" address="0ac2ea" scaling="DTC enabled b0 mFF f00 sDE" />
+ <table name="(P0020) Intake Camshaft Position Actuator Circuit (Bank 2)" address="0ac2ea" scaling="DTC enabled b1 mFF f00 sDD" />
+ <table name="(P0013) Exhaust Camshaft Position Actuator Circuit (Bank 1)" address="0ac2ea" scaling="DTC enabled b2 mFF f00 sDB" />
+ <table name="(P0023) Exhaust Camshaft Position Actuator Circuit (Bank 2)" address="0ac2ea" scaling="DTC enabled b3 mFF f00 sD7" />
  <table name="(P0685) ECM/PCM Power Relay Control Circuit/Open" address="0ac2ea" />
- <table name="(P2A01) O2 Sensor Circuit Range/Performance (Bank 1 Sensor 2)" address="0ac2ea" />
- <table name="(P2270) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 2)" address="0ac2ea" />
- <table name="(P2271) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 2)" address="0ac2ea" />
+ <table name="(P2A01) O2 Sensor Circuit Range/Performance (Bank 1 Sensor 2)" address="0ac2ea" scaling="DTC enabled b5 mFF f00 sDF" />
+ <table name="(P2270) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 2)" address="0ac2ea" scaling="DTC enabled b6 mFF f00 s9F" />
+ <table name="(P2271) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 2)" address="0ac2ea" scaling="DTC enabled b7 mFF f00 s5F" />
  <table name="(P0087) Fuel Rail/System Pressure Too Low" address="0ac2eb" />
  <table name="(P0088) Fuel Rail/System Pressure Too High" address="0ac2eb" />
  <table name="(P062D) Fuel Injector Driver Circuit Performance (Bank 1)" address="0ac2eb" />
@@ -4425,13 +4526,13 @@
  <table name="(P1191)" address="0ac2ec" />
  <table name="(P023F) Fuel Pump Secondary Circuit/Open" address="0ac2ec" />
  <table name="(P0130) O2 Sensor Circuit (Bank 1 Sensor 1)" address="0ac2ec" />
- <table name="(P0097) Intake Air Temperature Sensor 2 Circuit Low" address="0ac2ed" />
- <table name="(P0098) Intake Air Temperature Sensor 2 Circuit High" address="0ac2ed" />
- <table name="(P2627) O2 Sensor Pumping Current Trim Circuit/Open (Bank 1 Sensor 1)" address="0ac2ed" />
- <table name="(P2628) O2 Sensor Pumping Current Trim Circuit Low (Bank 1 Sensor 1)" address="0ac2ed" />
+ <table name="(P0097) Intake Air Temperature Sensor 2 Circuit Low" address="0ac2ed" scaling="DTC enabled b0 mFF f00 s72" />
+ <table name="(P0098) Intake Air Temperature Sensor 2 Circuit High" address="0ac2ed" scaling="DTC enabled b1 mFF f00 s71" />
+ <table name="(P2627) O2 Sensor Pumping Current Trim Circuit/Open (Bank 1 Sensor 1)" address="0ac2ed" scaling="DTC enabled b2 mFF f00 s73" />
+ <table name="(P2628) O2 Sensor Pumping Current Trim Circuit Low (Bank 1 Sensor 1)" address="0ac2ed" scaling="DTC enabled b3 mFF f00 s73" />
  <table name="(P0096) Intake Air Temperature Sensor 2 Circuit Range/Performance" address="0ac2ed" />
- <table name="(P1134) A/F Sensor Micro-Computer Problem" address="0ac2ed" />
- <table name="(P2146) Fuel Injector Group A Supply Voltage Circuit/Open" address="0ac2ed" />
- <table name="(P113A) O2 Sensor Circuit Open (Bank 1 Sensor 2)" address="0ac2ed" />
+ <table name="(P1134) A/F Sensor Micro-Computer Problem" address="0ac2ed" scaling="DTC enabled b5 mFF f00 s53" />
+ <table name="(P2146) Fuel Injector Group A Supply Voltage Circuit/Open" address="0ac2ed" scaling="DTC enabled b6 mFF f00 s33" />
+ <table name="(P113A) O2 Sensor Circuit Open (Bank 1 Sensor 2)" address="0ac2ed" scaling="DTC enabled b7 mFF f00 s73" />
  <table name="Enable Mask (bit per DTC)" address="ac287" />
 </rom>

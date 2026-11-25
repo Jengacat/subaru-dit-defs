@@ -4,6 +4,11 @@
 
 First public release.
 
+- New: **12 more 2022+ WRX ROMs** (`FA24DIT_*`): LHBH740C (2022 CVT) and, year unknown, LHBH720D, LHBH740A,
+  LHBH800A, LHBHA00A, LHBHB00A, LHBP100e, LHBP100a, LHBT110a, LHBT120a, LHBT120g, LHBT130h (two 6MT, the rest CVT).
+- Changed: LHBKC20P / 20R / 20L and LHBP300d are now listed with year unknown (they have no engine string; sharing
+  code with a dated ROM doesn't date them, since the 2023 Ascent and Legacy/Outback share code too).
+- Fixed: **2024 and 2026 WRX**: HPFP Solenoid Window End Limit and its Alternate were on each other's addresses.
 - Fixed: **2024 and 2026 WRX** (LHBP400b, LHBP300d, LHBP301c, LHBT210V): the eight Target Torque Rise Stage 2 Torque
   and Start Torque tables of path B were on each other's addresses (stage 2 and start swapped, modes shifted). These
   ROMs keep the tables in a different order from the 2023 one; they are now placed by where the code stores each

@@ -123,27 +123,40 @@ were later replaced by an update, or are builds that Subaru's update database do
 </details>
 
 <details>
-<summary><b>WRX 2022+ (FA24DIT, RH850 ECU)</b>: 12 ROMs, 2022–2026 (first release, read the notes below)</summary>
+<summary><b>WRX 2022+ (FA24DIT, RH850 ECU)</b>: 24 ROMs, 2022–2026 (first release, read the notes below)</summary>
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
 | WRX | 2022 | 6MT | USDM | **LHBHB10B** | 1266 | 254 | no (see below) |
 | WRX | 2022 | 6MT | USDM | LHBHD00B | 1266 | 254 | no (see below) |
+| WRX | 2022 | CVT | USDM | LHBH740C | 1266 | 254 | no (see below) |
 | WRX | 2022–2023 | CVT | USDM | LHBHC01C | 1266 | 254 | no (see below) |
+| WRX | unknown | 6MT | not confirmed | LHBH720D | 1266 | 254 | no (see below) |
+| WRX | unknown | CVT | not confirmed | LHBH740A | 1266 | 254 | no (see below) |
+| WRX | unknown | CVT | not confirmed | LHBH800A | 1266 | 254 | no (see below) |
+| WRX | unknown | CVT | not confirmed | LHBHA00A | 1266 | 254 | no (see below) |
+| WRX | unknown | CVT | not confirmed | LHBHB00A | 1266 | 254 | no (see below) |
 | WRX | 2023 | 6MT | USDM | **LHBKC40M** | 1290 | 312 | no (see below) |
 | WRX | 2023 | 6MT | USDM | LHBKC30M | 1290 | 312 | no (see below) |
-| WRX | 2023 (not confirmed) | 6MT | USDM (not confirmed) | LHBKC20P | 1290 | 312 | no (see below) |
-| WRX | 2023 (not confirmed) | CVT | USDM (not confirmed) | LHBKC20R | 1290 | 312 | no (see below) |
-| WRX | 2023 (not confirmed) | CVT | USDM (not confirmed) | LHBKC20L | 1290 | 312 | no (see below) |
+| WRX | unknown | 6MT | not confirmed | LHBKC20P | 1290 | 312 | no (see below) |
+| WRX | unknown | CVT | not confirmed | LHBKC20R | 1290 | 312 | no (see below) |
+| WRX | unknown | CVT | not confirmed | LHBKC20L | 1290 | 312 | no (see below) |
 | WRX | 2024 | 6MT | USDM | **LHBP400b** | 1300 | 312 | no (see below) |
-| WRX | 2024 (not confirmed) | 6MT | USDM (not confirmed) | LHBP300d | 1300 | 312 | no (see below) |
 | WRX | 2024 | CVT | USDM | LHBP301c | 1300 | 312 | no (see below) |
+| WRX | unknown | 6MT | not confirmed | LHBP300d | 1300 | 312 | no (see below) |
+| WRX | unknown | CVT | not confirmed | LHBP100e | 1300 | 312 | no (see below) |
+| WRX | unknown | CVT | not confirmed | LHBP100a | 1300 | 312 | no (see below) |
 | WRX | 2026 | CVT | USDM | **LHBT210V** | 1332 | 312 | no (see below) |
+| WRX | unknown | 6MT | not confirmed | LHBT130h | 1332 | 312 | no (see below) |
+| WRX | unknown | CVT | not confirmed | LHBT120a | 1332 | 312 | no (see below) |
+| WRX | unknown | CVT | not confirmed | LHBT120g | 1332 | 312 | no (see below) |
+| WRX | unknown | CVT | not confirmed | LHBT110a | 1332 | 312 | no (see below) |
 
-The eight added ROMs run the same code as the first four or a close revision of it; their tables were placed from
-their own code, through the closest supported ROM, and checked through RomRaider, EcuFlash and FastECU like the
-first four. Year and model come from the engine string in each ROM where it has one; LHBKC20P / 20R / 20L and
-LHBP300d have none, so theirs are taken from the ROMs whose code they share.
+Every ROM here was placed from its own code, through the closest supported ROM, and checked through RomRaider,
+EcuFlash and FastECU like the first four (in bold). Year and market come from the engine string in the ROM where it
+has one; where it doesn't, they are "unknown". The model is WRX for all of them: those without an engine string share
+most of their calibration with the WRX ROMs (60–85 %) and only about a third with the Legacy, Outback and Ascent ROMs
+on this ECU. The transmission is read from each ROM's coding.
 
 The 2022+ WRX has a new ECU generation: a Renesas RH850/E1M-S2 with new software, not a build of the SH software
 the other definitions cover. 

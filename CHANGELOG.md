@@ -4,6 +4,13 @@
 
 First public release.
 
+- New: **44 more ROMs** that run exactly the same code as a supported ROM, with only the calibration different:
+  38 for the 2.0 and 6 for the Levorg 1.6. None of them is in Subaru's update database, so model, year and market
+  aren't confirmed; most are in a new "2.0, model not confirmed" list, and the transmission shown is read from each
+  ROM's coding. Each ROM is filed under its own engine, read from its calibration (some run the other engine's code).
+  No logging-patch spec for these yet.
+- Fixed: **LF79101T and LF9F000Q** (Levorg 1.6) showed load in g/rev with the 2.0's factor, about 25 % too high; they
+  now use the 1.6's (100 % = 1.034 g/rev).
 - New: **49 more ROMs**, all earlier calibrations that a dealer update replaced (unstarred in the ROM lists): 45 for
   the 2.0 (WRX, Forester XT, Legacy, Levorg 2.0) and 4 for the Levorg 1.6 (LF9B002G, LF9D001e, LF79101T, LF9F000Q).
   Each runs exactly the same code as a ROM that was already supported, with only the calibration different, so its

@@ -25,13 +25,17 @@ for that ROM.
 were later replaced by an update, or are builds that Subaru's update database doesn't cover (mostly JDM).
 
 <details>
-<summary><b>WRX and WRX S4</b>: 85 ROMs, 2014–2021</summary>
+<summary><b>WRX and WRX S4</b>: 90 ROMs, 2014–2021</summary>
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
 | WRX | 2016 (supplied as 2014) | 6MT | Middle East | **LF75401P** ★ | 1234 | 226 | yes |
 | WRX | 2015 | CVT | Canada | **LF75200T** | 1212 | 226 | yes |
 | WRX S4 | 2015 | CVT | Japan | **LF75300F** | 1234 | 226 | yes |
+| WRX S4 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF79001M** | 1250 | 228 | not yet |
+| WRX S4 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF79100M** | 1250 | 228 | not yet |
+| WRX S4 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF79101L** | 1250 | 228 | not yet |
+| WRX S4 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF79101M** | 1250 | 228 | not yet |
 | WRX | 2015–2016 (not stated) | CVT | not confirmed | **LF75300L** | 1234 | 226 | yes |
 | WRX | 2015 | 6MT | USDM | **LF75300S** | 1234 | 226 | yes |
 | WRX | 2015 | 6MT | Middle East | **LF75301P** | 1234 | 226 | yes |
@@ -45,6 +49,7 @@ were later replaced by an update, or are builds that Subaru's update database do
 | WRX | 2015 | CVT | USDM | **LF75300T** | 1234 | 226 | not yet |
 | WRX | 2015 | CVT | USDM | **LF75402T** | 1234 | 226 | not yet |
 | WRX S4 (early software) | 2015 | CVT | Japan | **LV9N100B** | 1166 | 222 | yes |
+| WRX S4 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LV9N301B** | 1188 | 222 | not yet |
 | WRX (early software) | 2015 | 6MT | Australia | **LV9N100F** | 1166 | 222 | yes |
 | WRX (early software) | 2015 | CVT | USDM | **LV9N101C** | 1166 | 222 | yes |
 | WRX (early software) | 2015 | 6MT | not confirmed | **LV9N101F** | 1166 | 222 | yes |
@@ -139,7 +144,7 @@ logging over CAN, so the patch has nothing to extend. Mode-22 (UDS) logging work
 </details>
 
 <details>
-<summary><b>Forester XT and tS</b>: 30 ROMs, 2015–2018</summary>
+<summary><b>Forester XT and tS</b>: 32 ROMs, 2015–2018</summary>
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
@@ -152,6 +157,7 @@ logging over CAN, so the patch has nothing to extend. Mode-22 (UDS) logging work
 | Forester XT | 2016 | CVT | not confirmed | **LF78001F** ★ | 1241 | 227 | yes |
 | Forester XT | 2016 | CVT | Europe / General | **LF78000F** | 1241 | 227 | not yet |
 | Forester tS (STI) | 2016 | CVT | Australia | **LF78001H** | 1241 | 227 | yes |
+| Forester XT (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF78003A** | 1241 | 227 | not yet |
 | Forester XT | 2016 | CVT | not confirmed | **LF78002D** ★ | 1241 | 227 | yes |
 | Forester XT | 2016 | CVT | Europe / General | **LF78000D** | 1241 | 227 | not yet |
 | Forester XT | 2016 | CVT | not confirmed | **LF78002E** ★ | 1241 | 227 | yes |
@@ -169,6 +175,7 @@ logging over CAN, so the patch has nothing to extend. Mode-22 (UDS) logging work
 | Forester XT | 2017 | CVT | USDM | **LF78102B** | 1241 | 228 | not yet |
 | Forester XT | 2017 | CVT | USDM | **LF78104B** | 1241 | 228 | not yet |
 | Forester XT | 2017 | CVT | Europe | **LF9C000C** | 1255 | 228 | yes |
+| Forester XT (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF9C000A** | 1255 | 228 | not yet |
 | Forester XT | 2018 | CVT | Malaysia | **LF9C000a** | 1255 | 228 | yes |
 | Forester XT | 2018 | CVT | USDM | **LF9C002B** | 1255 | 228 | not yet |
 | Forester XT | 2018 | CVT | USDM | **LF9C200B** ★ | 1255 | 228 | yes |
@@ -190,16 +197,19 @@ logging over CAN, so the patch has nothing to extend. Mode-22 (UDS) logging work
 </details>
 
 <details>
-<summary><b>Levorg 2.0</b>: 9 ROMs, 2014–2019</summary>
+<summary><b>Levorg 2.0</b>: 12 ROMs, 2014–2019</summary>
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
 | Levorg 2.0GT-S (early software) | 2014 | CVT | Japan | **LV9N100A** | 1166 | 222 | yes |
 | Levorg 2.0 (early software) | 2014 | CVT | Japan | **LV9N301A** | 1188 | 222 | yes |
 | Levorg 2.0 (early software) | 2014 | CVT | Japan | **LV9N302A** | 1188 | 222 | yes |
+| Levorg 2.0 or WRX S4 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LV9N302B** | 1188 | 222 | not yet |
 | Levorg 2.0 | 2015 | CVT | Japan | **LF75401D** | 1234 | 226 | yes |
 | Levorg 2.0 STI | 2017 | CVT | Japan | **LF79100K** | 1250 | 228 | yes |
 | Levorg 2.0 STI | 2017 | CVT | Japan | **LF79101K** | 1250 | 228 | yes |
+| Levorg 2.0 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF75300D** | 1234 | 226 | not yet |
+| Levorg 2.0 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF79001K** | 1250 | 228 | not yet |
 | Levorg 2.0GT-S | 2017 | CVT | Australia | **LF79100S** ★ | 1250 | 228 | yes |
 | Levorg 2.0GT-S | 2017 | CVT | Europe / General | **LF79002S** | 1250 | 228 | not yet |
 | Levorg STI 2.0 (2.5 MB ECU) | 2019 | CVT | Japan | **LF9F000R** | 1254 | 231 | yes |
@@ -207,25 +217,30 @@ logging over CAN, so the patch has nothing to extend. Mode-22 (UDS) logging work
 </details>
 
 <details>
-<summary><b>Levorg 1.6 (FB16DIT)</b>: 28 ROMs, 2014–2020</summary>
+<summary><b>Levorg 1.6 (FB16DIT)</b>: 34 ROMs, 2014–2020</summary>
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
 | Levorg 1.6 | 2014 | CVT | Japan | **LV9N303J** | 1193 | 222 | yes |
 | Levorg 1.6 | 2014 | CVT | Japan | **LV9N340J** | 1191 | 222 | yes |
+| Levorg 1.6 | not confirmed | CVT | not confirmed | **LV9N301J** | 1188 | 222 | not yet |
+| Levorg 1.6 | not confirmed | CVT | not confirmed | **LV9N302J** | 1193 | 222 | not yet |
 | Levorg 1.6 | 2015 | CVT | Europe | **LF76400Q** | 1224 | 226 | yes |
 | Levorg 1.6 | 2015 | CVT | Japan | **LF76401R** | 1224 | 226 | yes |
 | Levorg 1.6 | 2016 (supplied as 2015) | CVT | Europe | **LF76500Q** ★ | 1224 | 226 | yes |
 | Levorg 1.6 | 2015 | CVT | Japan | **LF76500R** | 1224 | 226 | yes |
 | Levorg 1.6 | 2015 | CVT | Japan | **LF76600R** | 1224 | 226 | yes |
 | Levorg 1.6 | 2016 | CVT | Japan | **LF76402R** | 1224 | 226 | yes |
+| Levorg 1.6 | not confirmed | CVT | not confirmed | **LF76400R** | 1224 | 226 | not yet |
 | Levorg 1.6 | 2016 | CVT | Japan | **LF79201U** | 1254 | 228 | yes |
 | Levorg 1.6 | 2016 | CVT | Japan | **LF79202U** | 1254 | 228 | yes |
 | Levorg 1.6 | 2016 | CVT | Japan | **LF79400U** | 1254 | 228 | yes |
 | Levorg 1.6 | 2017 | CVT | Europe | **LF79200T** | 1254 | 228 | yes |
 | Levorg 1.6 | 2017 | CVT | Japan | **LF79200U** | 1254 | 228 | yes |
 | Levorg 1.6 | 2017 | CVT | Europe | **LF79300T** ★ | 1254 | 228 | yes |
+| Levorg 1.6 | not confirmed | CVT | not confirmed | **LF79300U** | 1254 | 228 | not yet |
 | Levorg 1.6 | 2017 | CVT | Europe / General | **LF79101T** | 1250 | 228 | not yet |
+| Levorg 1.6 | not confirmed | CVT | not confirmed | **LF79101U** | 1250 | 228 | not yet |
 | Levorg 1.6 | 2017 (facelift) | CVT | Japan | **LF9B003U** | 1259 | 228 | yes |
 | Levorg 1.6 | 2018 (facelift; supplied as 2017) | CVT | Europe | **LF9B100G** ★ | 1259 | 228 | yes |
 | Levorg 1.6 | 2018 | CVT | Europe / General | **LF9B002G** | 1259 | 228 | not yet |
@@ -238,7 +253,46 @@ logging over CAN, so the patch has nothing to extend. Mode-22 (UDS) logging work
 | Levorg 1.6 | 2020 (2.5 MB ECU) | CVT | Japan | **LF9F100P** | 1254 | 231 | yes |
 | Levorg 1.6 | 2020 (2.5 MB ECU) | CVT | Europe | **LF9F100Q** ★ | 1254 | 231 | yes |
 | Levorg 1.6 | 2020 | CVT | Europe / General | **LF9F000Q** | 1254 | 231 | not yet |
+| Levorg 1.6 | not confirmed | CVT | not confirmed | **LF9F000P** | 1254 | 231 | not yet |
 | Levorg 1.6 | 2020 (2.5 MB ECU) | CVT | Japan | **LF9F200P** | 1254 | 231 | yes |
+
+</details>
+
+<details>
+<summary><b>2.0, model not confirmed</b>: 28 ROMs</summary>
+
+Calibrations that aren't in Subaru's update database, so model, year and market aren't known. The transmission is read from each ROM's own coding.
+
+| Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
+|---|---|---|---|---|---|---|---|
+| not confirmed | not confirmed | CVT | not confirmed | **LF75300E** | 1234 | 226 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF75401E** | 1234 | 226 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF75401F** | 1234 | 226 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF78001C** | 1241 | 227 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF78002C** | 1241 | 227 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF780Z2E** | 1241 | 227 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF79001L** | 1250 | 228 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF79100L** | 1250 | 228 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9C000E** | 1255 | 228 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9C000F** | 1255 | 228 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9C000L** | 1255 | 228 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9C000Q** | 1255 | 228 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9C000Y** | 1255 | 228 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9C000Z** | 1255 | 228 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9C000b** | 1255 | 228 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9C001D** | 1255 | 228 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9D000f** | 1255 | 229 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9D000i** | 1255 | 229 | not yet |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF9D000j** | 1255 | 229 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9D000k** | 1255 | 229 | not yet |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF9D000m** | 1255 | 229 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9D000n** | 1255 | 229 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9F000U** | 1254 | 231 | not yet |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF9F000V** | 1254 | 231 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9F000W** | 1254 | 231 | not yet |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF9F000Y** | 1254 | 231 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9F000Z** | 1254 | 231 | not yet |
+| not confirmed | not confirmed | CVT | not confirmed | **LV9N000A** | 1166 | 222 | not yet |
 
 </details>
 

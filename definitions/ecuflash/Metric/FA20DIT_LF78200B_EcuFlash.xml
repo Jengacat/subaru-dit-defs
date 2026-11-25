@@ -2638,11 +2638,7 @@ Details: Feedback knock correction (0x0E2BE4, read): FFF8A79A is an s8 integrato
   <table name="Engine Speed" address="03160c" />
  </table>
  <table name="Throttle Flow Coefficient (Forward Flow)" address="03158c" />
- <table name="Throttle Flow Coefficient (Reverse Flow)" address="03158d">
-  <description>Coefficient of the throttle airflow model when the manifold is above the pre-throttle pressure. Leave alone.
-
-Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-throttle pressure; the ratio is inverted). 0x11DD04 (read), enabled by FFF8A8FB bit 0 (0x11E43C): modelled throttle flow FFF8C24C [g/min] = (P_up/101325) x Throttle Flow Function(r) x FFF8ADEC (Throttle Area from Throttle Position, 0.05 mm^2) x Throttle Flow Temperature Correction x this x 60000 x 2.98e-15, which feeds the manifold/airflow observer 0x11DB50 / 0x11D938. Normally leave alone. Confidence: inferred.</description>
- </table>
+ <table name="Throttle Flow Coefficient (Reverse Flow)" address="03158d" />
  <table name="Exhaust Temperature Model Map A (No Enrichment)" address="0199f0">
   <table name="Engine Load" address="0133d8" />
   <table name="Engine Speed" address="0133e4" />
@@ -3114,11 +3110,7 @@ Details: When used: while open-loop enrichment is active (FFF8ABF4 != 0) and FFF
  <table name="Idle Target Ramp Rate (AT/CVT, Mode 8 to 7)" address="02abd8">
   <table name="Coolant Temp" address="03eed0" />
  </table>
- <table name="Idle Speed Target (Cold Idle, Mode 4)" address="02a8d8">
-  <description>Idle speed target by coolant for a cold-idle mode used when stopped below a coolant threshold.
-
-Details: When used: idle mode 4, entered from mode 5 when stopped with coolant below cal 0x24E94 for cal 0x24E96 passes. 0x0F1BCC selects this boot-format table by idle mode FFF8A7F0 = 4 and coolant; the result B238 is ramped (0x0F1D00) and becomes the idle target FFF8B236 through the minimum-speed max() in 0x0F2274 (read). Implicit coolant axis -40..110 C in 10 C steps (lookup 0x7414). Confidence: inferred.</description>
- </table>
+ <table name="Idle Speed Target (Cold Idle, Mode 4)" address="02a8d8" />
  <table name="Idle Target Ramp Rate (Fallback Latch)" address="02d2f0">
   <table name="Coolant Temp" address="03eed0" />
  </table>
@@ -3817,26 +3809,44 @@ Brake override module 0x181B38 (10 ms task 0x1DFE3C, read): it limits the accele
  <table name="CAN Engine Torque Fuel-Cut Fade Rate" address="03d06a">
   <table name="Engine Speed" address="03d06e" />
  </table>
- <table name="Gear Road Speed per 1000 RPM" address="03e3f6">
+ <table name="Gear Road Speed per 1000 RPM" address="03e3f6" level="5">
   <table name="Gear" address="03da06" />
+  <description>Road speed per 1000 rpm for each gear, used only by the gear advice function. The values do not match the 6MT and probably belong to another transmission.
+
+Same data block as descriptor 05D468 (one entry). Road speed per 1000 rpm for gear index 1-8. 0x11031C (read; called at seg_0x110000.c:1175 with cal 0x57585 bit 3, gear FFF8A8BA, speed FFF88BE8, selector FFF8A8C3): only when cal 0x57585 bit 3 is set, FFF8558A = this(gear) (the Alternate table when FFF8A8C3 = 2) and FFF85588 = speed x 28800 / FFF8558A -&gt; FFF8B434. 0x110398 does the same with the second gear index FFF8A8BC (0x1143CC) through the shared descriptors -&gt; FFF8B436. 0x116A0C (gear advice, gated by the same bit) uses B436/B434 as rpm x 0.1953125 to convert the current power to torque at those engine speeds (read). The values (11.3 to 53.9 km/h per 1000 rpm over 6 steps here, 11.0 to 53.9 over 8 in the Alternate table) do not fit the 6MT, so this belongs to another transmission (inferred). Confidence: inferred.</description>
  </table>
- <table name="Gear Road Speed per 1000 RPM (Alternate)" address="03e406">
+ <table name="Gear Road Speed per 1000 RPM (Alternate)" address="03e406" level="5">
   <table name="Gear" address="03da06" />
+  <description>Alternate road speed per 1000 rpm for each gear, used only by the gear advice function. The values do not match the 6MT and probably belong to another transmission.
+
+Details: When used: used instead of Gear Road Speed per 1000 RPM when FFF8A8C3 = 2. Same data block as descriptor 05D474 (one entry). 0x11031C (read; called at seg_0x110000.c:1175 with cal 0x57585 bit 3, gear FFF8A8BA, speed FFF88BE8, selector FFF8A8C3): only when cal 0x57585 bit 3 is set, FFF8558A = this(gear) (the Alternate table when FFF8A8C3 = 2) and FFF85588 = speed x 28800 / FFF8558A -&gt; FFF8B434. 0x110398 does the same with the second gear index FFF8A8BC (0x1143CC) through the shared descriptors -&gt; FFF8B436. 0x116A0C (gear advice, gated by the same bit) uses B436/B434 as rpm x 0.1953125 to convert the current power to torque at those engine speeds (read). The values (11.0 to 53.9 km/h per 1000 rpm over 8 steps here, 11.3 to 53.9 over 6 in the normal table) do not fit the 6MT, so this belongs to another transmission (inferred). Confidence: inferred.</description>
  </table>
- <table name="Gear Advice Consumption Map" address="03ded6">
+ <table name="Gear Advice Consumption Map" address="03ded6" level="5">
   <table name="Engine Speed" address="03da4e" />
   <table name="Y Axis" address="03da26" />
+  <description>Fuel consumption map by torque and rpm (probably g/kWh) for a gear-shift advice function that picks the most economical gear. One table edits all three copies.
+
+Gear advice module 0x116A0C. With the bit set it takes the current power (torque x rpm / 9549.3), the engine speed in the gear below (FFF8B434, gear FFF8A8BA = gear - 1, 0x114360) and in the gear above (FFF8B436, gear FFF8A8BC = gear + 1, 0x1143CC), looks up the consumption map at the three points and advises the gear with the lowest value (FFF85678 / FFF85679, biases cal 0x36E4E/0x36E50 = 3 %). 'Alternate' tables are used when FFF8A8C3 = 2. Descriptors 05D4D8, 05D504 and 05D518 share this data block (037352): 05D4D8 at the current torque FFF8B468 = DAM-blended torque FFF8B48A - FFF8A8CC x 128 (0x1161DC) and rpm, 05D504 / 05D518 at the torque needed for the same power in the lower / upper gear (read). One entry edits all three. Confidence: inferred.</description>
  </table>
- <table name="Gear Advice Downshift Maximum RPM (Alternate)" address="03e476">
+ <table name="Gear Advice Downshift Maximum RPM (Alternate)" address="03e476" level="5">
   <table name="Gear" address="03da9e" />
+  <description>Alternate rpm limit, by gear, below which a downshift may be advised by the gear advice function.
+
+Details: When used: instead of 05D5B8 when FFF8A8C3 = 2. Gear advice module 0x116A0C. With the bit set it takes the current power (torque x rpm / 9549.3), the engine speed in the gear below (FFF8B434, gear FFF8A8BA = gear - 1, 0x114360) and in the gear above (FFF8B436, gear FFF8A8BC = gear + 1, 0x1143CC), looks up the consumption map at the three points and advises the gear with the lowest value (FFF85678 / FFF85679, biases cal 0x36E4E/0x36E50 = 3 %). 'Alternate' tables are used when FFF8A8C3 = 2. 0x116A0C (read): FFF85648 = this(lower gear FFF8A8BA); the lower gear is advised (FFF85679 = 1) only if its engine speed FFF8B434 &lt;= FFF85648. 05D5B8 (normal) is 31232 = 6100 rpm for every gear. Confidence: inferred.</description>
  </table>
- <table name="Gear Advice Upshift Minimum RPM" address="03e1f6">
+ <table name="Gear Advice Upshift Minimum RPM" address="03e1f6" level="5">
   <table name="Gear" address="03da96" />
   <table name="Accelerator Pedal" address="03da0e" />
+  <description>Minimum rpm in the next gear up, by pedal and gear, for an upshift to be advised by the gear advice function.
+
+Details: When used: 05D5E4 replaces it when FFF8A8C3 = 2. Gear advice module 0x116A0C. With the bit set it takes the current power (torque x rpm / 9549.3), the engine speed in the gear below (FFF8B434, gear FFF8A8BA = gear - 1, 0x114360) and in the gear above (FFF8B436, gear FFF8A8BC = gear + 1, 0x1143CC), looks up the consumption map at the three points and advises the gear with the lowest value (FFF85678 / FFF85679, biases cal 0x36E4E/0x36E50 = 3 %). 'Alternate' tables are used when FFF8A8C3 = 2. 0x116A0C (read, lookup by pedal FFF88A5E and upper gear FFF8A8BC): FFF85646 = this; the upper gear is advised only if its engine speed FFF8B436 &gt;= FFF85646. Confidence: inferred.</description>
  </table>
- <table name="Gear Advice Upshift Minimum RPM (Alternate)" address="03e276">
+ <table name="Gear Advice Upshift Minimum RPM (Alternate)" address="03e276" level="5">
   <table name="Gear" address="03da96" />
   <table name="Accelerator Pedal" address="03da0e" />
+  <description>Alternate minimum rpm in the next gear up, by pedal and gear, for an upshift to be advised by the gear advice function.
+
+Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x116A0C. With the bit set it takes the current power (torque x rpm / 9549.3), the engine speed in the gear below (FFF8B434, gear FFF8A8BA = gear - 1, 0x114360) and in the gear above (FFF8B436, gear FFF8A8BC = gear + 1, 0x1143CC), looks up the consumption map at the three points and advises the gear with the lowest value (FFF85678 / FFF85679, biases cal 0x36E4E/0x36E50 = 3 %). 'Alternate' tables are used when FFF8A8C3 = 2. 0x116A0C (read): FFF85646 = this(pedal FFF88A5E, upper gear FFF8A8BC); the upper gear is advised only if its engine speed FFF8B436 &gt;= FFF85646. Confidence: inferred.</description>
  </table>
  <table name="MAF Sensor Scaling" address="02f0b8" />
  <table name="MAP Sensor Multiplier" address="062114" />
@@ -3975,9 +3985,9 @@ Brake override module 0x181B38 (10 ms task 0x1DFE3C, read): it limits the accele
  <table name="(P0072) Ambient Air Temperature Sensor Circuit Low [Fail-Safe]" address="60e65" />
  <table name="(P0073) Ambient Air Temperature Sensor Circuit High" address="4a5e5" />
  <table name="(P0073) Ambient Air Temperature Sensor Circuit High [Fail-Safe]" address="60e65" />
- <table name="(P0087) Fuel Rail/System Pressure Too Low" address="4a5e8" />
+ <table name="(P0087) Fuel Rail/System Pressure Too Low" address="4a5e8" scaling="DTC enabled b0 mFF f00 sFE" />
  <table name="(P0087) Fuel Rail/System Pressure Too Low [Fail-Safe]" address="60e68" />
- <table name="(P0088) Fuel Rail/System Pressure Too High" address="4a5e8" />
+ <table name="(P0088) Fuel Rail/System Pressure Too High" address="4a5e8" scaling="DTC enabled b1 mFF f00 sFD" />
  <table name="(P0088) Fuel Rail/System Pressure Too High [Fail-Safe]" address="60e68" />
  <table name="(P0096) Intake Air Temperature Sensor 2 Circuit Range/Performance" address="4a5ea" scaling="DTC enabled b4 mFF f00 s63" />
  <table name="(P0096) Intake Air Temperature Sensor 2 Circuit Range/Performance [Fail-Safe]" address="60e6a" />
@@ -4207,7 +4217,7 @@ Brake override module 0x181B38 (10 ms task 0x1DFE3C, read): it limits the accele
  <table name="(P0628) Fuel Pump A Control Circuit Low [Fail-Safe]" address="60e69" />
  <table name="(P0629) Fuel Pump A Control Circuit High" address="4a5e9" scaling="DTC enabled b5 mFF f00 sC7" />
  <table name="(P0629) Fuel Pump A Control Circuit High [Fail-Safe]" address="60e69" />
- <table name="(P062D) Fuel Injector Driver Circuit Performance (Bank 1)" address="4a5e8" />
+ <table name="(P062D) Fuel Injector Driver Circuit Performance (Bank 1)" address="4a5e8" scaling="DTC enabled b2 mFF f00 sFB" />
  <table name="(P062D) Fuel Injector Driver Circuit Performance (Bank 1) [Fail-Safe]" address="60e68" />
  <table name="(P062F) Internal Control Module EEPROM Error" address="4a5db" />
  <table name="(P062F) Internal Control Module EEPROM Error [Fail-Safe]" address="60e5b" />
@@ -4229,13 +4239,13 @@ Brake override module 0x181B38 (10 ms task 0x1DFE3C, read): it limits the accele
  <table name="(P1160) manufacturer-specific / not named [Fail-Safe]" address="60e30" />
  <table name="(P1191) manufacturer-specific / not named" address="4a5e9" />
  <table name="(P1191) manufacturer-specific / not named [Fail-Safe]" address="60e69" />
- <table name="(P1261) manufacturer-specific / not named" address="4a5e8" />
+ <table name="(P1261) manufacturer-specific / not named" address="4a5e8" scaling="DTC enabled b3 mFF f00 sF7" />
  <table name="(P1261) manufacturer-specific / not named [Fail-Safe]" address="60e68" />
- <table name="(P1262) manufacturer-specific / not named" address="4a5e8" />
+ <table name="(P1262) manufacturer-specific / not named" address="4a5e8" scaling="DTC enabled b4 mFF f00 sEF" />
  <table name="(P1262) manufacturer-specific / not named [Fail-Safe]" address="60e68" />
- <table name="(P1263) manufacturer-specific / not named" address="4a5e8" />
+ <table name="(P1263) manufacturer-specific / not named" address="4a5e8" scaling="DTC enabled b5 mFF f00 sDF" />
  <table name="(P1263) manufacturer-specific / not named [Fail-Safe]" address="60e68" />
- <table name="(P1264) manufacturer-specific / not named" address="4a5e8" />
+ <table name="(P1264) manufacturer-specific / not named" address="4a5e8" scaling="DTC enabled b6 mFF f00 sBF" />
  <table name="(P1264) manufacturer-specific / not named [Fail-Safe]" address="60e68" />
  <table name="(P1449) manufacturer-specific / not named" address="4a5d1" scaling="DTC enabled b2 mBF f00" />
  <table name="(P1449) manufacturer-specific / not named [Fail-Safe]" address="60e51" scaling="DTC yes b2 mBF f00" />
@@ -4389,218 +4399,6 @@ Brake override module 0x181B38 (10 ms task 0x1DFE3C, read): it limits the accele
  <table name="(U0422) Invalid Data Received from Body Control Module [Fail-Safe]" address="60e4c" />
  <table name="(U0423) Invalid Data Received from Instrument Panel Control Module" address="4a5d5" />
  <table name="(U0423) Invalid Data Received from Instrument Panel Control Module [Fail-Safe]" address="60e55" />
- <table name="Enable Mask (bit per DTC)" address="4a584">
-  <table name="Byte: codes by bit">
-   <data>+0: b0=P0335 b2=P0336 b6=P0604</data>
-   <data>+1: b0=P0102 b1=P0103 b4=P0500 b6=P0332 b7=P0333</data>
-   <data>+2: b2=P0327 b3=P0328 b4=P0122 b5=P0123</data>
-   <data>+3: b0=P0117 b1=P0118 b3=P0125 b4=P0462 b5=P0463 b6=P0461</data>
-   <data>+4: -</data>
-   <data>+5: -</data>
-   <data>+6: b3=P0851 b7=P0852</data>
-   <data>+7: -</data>
-   <data>+8: b0=P1492 b1=P1493 b2=P1494 b3=P1495 b4=P1496 b5=P1497 b6=P1498 b7=P1499</data>
-   <data>+9: -</data>
-   <data>+10: b3=P0506 b4=P0507</data>
-   <data>+11: -</data>
-   <data>+12: b2=P0011 b3=P0021 b6=P0458 b7=P0459</data>
-   <data>+13: -</data>
-   <data>+14: -</data>
-   <data>+15: -</data>
-   <data>+16: b5=P0141</data>
-   <data>+17: b0=P0133</data>
-   <data>+18: b0=P0420 b3=P0456 b4=P0400 b6=P0171 b7=P0172</data>
-   <data>+19: b0=P0301 b1=P0302 b2=P0303 b3=P0304</data>
-   <data>+20: -</data>
-   <data>+21: b0=P0137 b2=P0131 b4=P0132 b6=P0138</data>
-   <data>+22: b0=P0112 b1=P0113 b2=P0111 b4=P0038 b5=P0032 b6=P0037 b7=P0031</data>
-   <data>+23: b4=P0107 b5=P0108</data>
-   <data>+24: -</data>
-   <data>+25: -</data>
-   <data>+26: b0=P0128</data>
-   <data>+27: b6=P0562 b7=P0563</data>
-   <data>+28: b0=P0245 b1=P0246 b3=P0244</data>
-   <data>+29: -</data>
-   <data>+30: -</data>
-   <data>+31: -</data>
-   <data>+32: -</data>
-   <data>+33: -</data>
-   <data>+34: -</data>
-   <data>+35: -</data>
-   <data>+36: -</data>
-   <data>+37: -</data>
-   <data>+38: -</data>
-   <data>+39: b1=P0230 b3=P0068 b7=P0101</data>
-   <data>+40: b1=P0134 b5=P0030</data>
-   <data>+41: -</data>
-   <data>+42: -</data>
-   <data>+43: b0=P2109</data>
-   <data>+44: b0=P0222 b1=P0223 b2=P1160 b3=P2102 b4=P2103 b5=P2101 b6=P2096</data>
-   <data>+45: b1=P2138 b2=P2127 b3=P2128 b4=P2122 b5=P2123 b6=P2135 b7=P2097</data>
-   <data>+46: b1=P0390 b2=P0365 b3=P0345 b4=P0340 b5=P0605</data>
-   <data>+47: b0=P2095 b1=P2094 b2=P2091 b3=P2090 b4=P2093 b5=P2092 b6=P2089 b7=P2088</data>
-   <data>+48: b0=P0197 b7=P0700</data>
-   <data>+49: b6=P0196 b7=P0198</data>
-   <data>+50: -</data>
-   <data>+51: -</data>
-   <data>+52: b0=P2004 b1=P2006 b2=P2005 b3=P2007 b4=P2227 b6=P2229 b7=P2228</data>
-   <data>+53: b0=P2016 b1=P2017 b2=P2021 b3=P2022 b4=P2009 b5=P2012</data>
-   <data>+54: -</data>
-   <data>+55: -</data>
-   <data>+56: -</data>
-   <data>+57: b6=P0018 b7=P0016</data>
-   <data>+58: -</data>
-   <data>+59: b0=P0024 b1=P0014 b5=P04F0 b6=P1458 b7=P1459</data>
-   <data>+60: b2=P050E b6=P0019 b7=P0017</data>
-   <data>+61: -</data>
-   <data>+62: -</data>
-   <data>+63: -</data>
-   <data>+64: -</data>
-   <data>+65: -</data>
-   <data>+66: -</data>
-   <data>+67: -</data>
-   <data>+68: -</data>
-   <data>+69: -</data>
-   <data>+70: -</data>
-   <data>+71: -</data>
-   <data>+72: b0=U0422 b1=U0140 b2=U0402 b3=U0101 b4=U0416 b5=U0122 b6=U0073</data>
-   <data>+73: -</data>
-   <data>+74: -</data>
-   <data>+75: b0=P050B b1=P050A b2=P2610 b3=P2420 b4=P2419 b5=P2401 b6=P0453 b7=P0452</data>
-   <data>+76: b2=P015B b3=P015A b6=P014D b7=P014C</data>
-   <data>+77: b0=P04AF b1=P1451 b2=P1449 b3=P0455 b4=P0451 b5=P0441 b7=P219A</data>
-   <data>+78: b5=P2404 b6=P2402</data>
-   <data>+79: b2=P013F b3=P013E b6=P013B b7=P013A</data>
-   <data>+80: -</data>
-   <data>+81: b2=U0423 b3=U0155</data>
-   <data>+82: -</data>
-   <data>+83: b2=P0354 b3=P0353 b4=P0352 b5=P0351</data>
-   <data>+84: b0=P000A b1=P000B b2=P000C b3=P000D b5=P0558 b6=P0557</data>
-   <data>+85: b0=P0512 b1=P0616 b2=P0617 b3=P2196 b4=P2195 b5=P0560 b6=P0116 b7=P081A</data>
-   <data>+86: -</data>
-   <data>+87: b2=P062F b3=P060B b4=P060A b6=P0606 b7=P2119</data>
-   <data>+88: b2=P0403 b3=P0391 b4=P0366 b5=P0346 b6=P0341 b7=P0300</data>
-   <data>+89: b0=P2530 b3=P04AC b4=P04AD b7=P04DB</data>
-   <data>+90: -</data>
-   <data>+91: -</data>
-   <data>+92: -</data>
-   <data>+93: -</data>
-   <data>+94: -</data>
-   <data>+95: -</data>
-   <data>+96: -</data>
-   <data>+97: b0=P0072 b1=P0073 b2=P0071 b3=P0500 b4=P2158</data>
-   <data>+98: -</data>
-   <data>+99: b0=P0010 b1=P0020 b2=P0013 b3=P0023 b4=P0685 b5=P2A01 b6=P2270 b7=P2271</data>
-   <data>+100: b0=P0087 b1=P0088 b2=P062D b3=P1261 b4=P1262 b5=P1263 b6=P1264 b7=P0191</data>
-   <data>+101: b0=P0192 b1=P0193 b2=P1191 b3=P0627 b4=P0628 b5=P0629 b6=P023F b7=P0130</data>
-   <data>+102: b0=P0097 b1=P0098 b2=P2627 b3=P2628 b4=P0096 b5=P1134 b6=P2146 b7=P113A</data>
-  </table>
- </table>
- <table name="Fail-Safe Trigger Mask (bit per DTC)" address="60e04">
-  <table name="Byte: codes by bit">
-   <data>+0: b0=P0335 b2=P0336 b6=P0604</data>
-   <data>+1: b0=P0102 b1=P0103 b4=P0500 b6=P0332 b7=P0333</data>
-   <data>+2: b2=P0327 b3=P0328 b4=P0122 b5=P0123</data>
-   <data>+3: b0=P0117 b1=P0118 b3=P0125 b4=P0462 b5=P0463 b6=P0461</data>
-   <data>+4: -</data>
-   <data>+5: -</data>
-   <data>+6: b3=P0851 b7=P0852</data>
-   <data>+7: -</data>
-   <data>+8: b0=P1492 b1=P1493 b2=P1494 b3=P1495 b4=P1496 b5=P1497 b6=P1498 b7=P1499</data>
-   <data>+9: -</data>
-   <data>+10: b3=P0506 b4=P0507</data>
-   <data>+11: -</data>
-   <data>+12: b2=P0011 b3=P0021 b6=P0458 b7=P0459</data>
-   <data>+13: -</data>
-   <data>+14: -</data>
-   <data>+15: -</data>
-   <data>+16: b5=P0141</data>
-   <data>+17: b0=P0133</data>
-   <data>+18: b0=P0420 b3=P0456 b4=P0400 b6=P0171 b7=P0172</data>
-   <data>+19: b0=P0301 b1=P0302 b2=P0303 b3=P0304</data>
-   <data>+20: -</data>
-   <data>+21: b0=P0137 b2=P0131 b4=P0132 b6=P0138</data>
-   <data>+22: b0=P0112 b1=P0113 b2=P0111 b4=P0038 b5=P0032 b6=P0037 b7=P0031</data>
-   <data>+23: b4=P0107 b5=P0108</data>
-   <data>+24: -</data>
-   <data>+25: -</data>
-   <data>+26: b0=P0128</data>
-   <data>+27: b6=P0562 b7=P0563</data>
-   <data>+28: b0=P0245 b1=P0246 b3=P0244</data>
-   <data>+29: -</data>
-   <data>+30: -</data>
-   <data>+31: -</data>
-   <data>+32: -</data>
-   <data>+33: -</data>
-   <data>+34: -</data>
-   <data>+35: -</data>
-   <data>+36: -</data>
-   <data>+37: -</data>
-   <data>+38: -</data>
-   <data>+39: b1=P0230 b3=P0068 b7=P0101</data>
-   <data>+40: b1=P0134 b5=P0030</data>
-   <data>+41: -</data>
-   <data>+42: -</data>
-   <data>+43: b0=P2109</data>
-   <data>+44: b0=P0222 b1=P0223 b2=P1160 b3=P2102 b4=P2103 b5=P2101 b6=P2096</data>
-   <data>+45: b1=P2138 b2=P2127 b3=P2128 b4=P2122 b5=P2123 b6=P2135 b7=P2097</data>
-   <data>+46: b1=P0390 b2=P0365 b3=P0345 b4=P0340 b5=P0605</data>
-   <data>+47: b0=P2095 b1=P2094 b2=P2091 b3=P2090 b4=P2093 b5=P2092 b6=P2089 b7=P2088</data>
-   <data>+48: b0=P0197 b7=P0700</data>
-   <data>+49: b6=P0196 b7=P0198</data>
-   <data>+50: -</data>
-   <data>+51: -</data>
-   <data>+52: b0=P2004 b1=P2006 b2=P2005 b3=P2007 b4=P2227 b6=P2229 b7=P2228</data>
-   <data>+53: b0=P2016 b1=P2017 b2=P2021 b3=P2022 b4=P2009 b5=P2012</data>
-   <data>+54: -</data>
-   <data>+55: -</data>
-   <data>+56: -</data>
-   <data>+57: b6=P0018 b7=P0016</data>
-   <data>+58: -</data>
-   <data>+59: b0=P0024 b1=P0014 b5=P04F0 b6=P1458 b7=P1459</data>
-   <data>+60: b2=P050E b6=P0019 b7=P0017</data>
-   <data>+61: -</data>
-   <data>+62: -</data>
-   <data>+63: -</data>
-   <data>+64: -</data>
-   <data>+65: -</data>
-   <data>+66: -</data>
-   <data>+67: -</data>
-   <data>+68: -</data>
-   <data>+69: -</data>
-   <data>+70: -</data>
-   <data>+71: -</data>
-   <data>+72: b0=U0422 b1=U0140 b2=U0402 b3=U0101 b4=U0416 b5=U0122 b6=U0073</data>
-   <data>+73: -</data>
-   <data>+74: -</data>
-   <data>+75: b0=P050B b1=P050A b2=P2610 b3=P2420 b4=P2419 b5=P2401 b6=P0453 b7=P0452</data>
-   <data>+76: b2=P015B b3=P015A b6=P014D b7=P014C</data>
-   <data>+77: b0=P04AF b1=P1451 b2=P1449 b3=P0455 b4=P0451 b5=P0441 b7=P219A</data>
-   <data>+78: b5=P2404 b6=P2402</data>
-   <data>+79: b2=P013F b3=P013E b6=P013B b7=P013A</data>
-   <data>+80: -</data>
-   <data>+81: b2=U0423 b3=U0155</data>
-   <data>+82: -</data>
-   <data>+83: b2=P0354 b3=P0353 b4=P0352 b5=P0351</data>
-   <data>+84: b0=P000A b1=P000B b2=P000C b3=P000D b5=P0558 b6=P0557</data>
-   <data>+85: b0=P0512 b1=P0616 b2=P0617 b3=P2196 b4=P2195 b5=P0560 b6=P0116 b7=P081A</data>
-   <data>+86: -</data>
-   <data>+87: b2=P062F b3=P060B b4=P060A b6=P0606 b7=P2119</data>
-   <data>+88: b2=P0403 b3=P0391 b4=P0366 b5=P0346 b6=P0341 b7=P0300</data>
-   <data>+89: b0=P2530 b3=P04AC b4=P04AD b7=P04DB</data>
-   <data>+90: -</data>
-   <data>+91: -</data>
-   <data>+92: -</data>
-   <data>+93: -</data>
-   <data>+94: -</data>
-   <data>+95: -</data>
-   <data>+96: -</data>
-   <data>+97: b0=P0072 b1=P0073 b2=P0071 b3=P0500 b4=P2158</data>
-   <data>+98: -</data>
-   <data>+99: b0=P0010 b1=P0020 b2=P0013 b3=P0023 b4=P0685 b5=P2A01 b6=P2270 b7=P2271</data>
-   <data>+100: b0=P0087 b1=P0088 b2=P062D b3=P1261 b4=P1262 b5=P1263 b6=P1264 b7=P0191</data>
-   <data>+101: b0=P0192 b1=P0193 b2=P1191 b3=P0627 b4=P0628 b5=P0629 b6=P023F b7=P0130</data>
-   <data>+102: b0=P0097 b1=P0098 b2=P2627 b3=P2628 b4=P0096 b5=P1134 b6=P2146 b7=P113A</data>
-  </table>
- </table>
+ <table name="Enable Mask (bit per DTC)" address="4a584" />
+ <table name="Fail-Safe Trigger Mask (bit per DTC)" address="60e04" />
 </rom>

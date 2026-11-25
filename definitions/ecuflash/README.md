@@ -8,12 +8,10 @@ EcuFlash shows each table in one unit, so the definitions come in two sets with 
 | `Metric/` | `FA20DIT_BASE_METRIC_EcuFlash.xml` (plus `FA24_Early_BASE_METRIC_EcuFlash.xml`), `FB16DIT_BASE_METRIC_EcuFlash.xml` (Levorg 1.6), `FA24DIT_BASE_METRIC_EcuFlash.xml` (2022+ WRX) | kPa (absolute for boost and manifold pressure), MPa (rail pressure), °C, Nm, km/h |
 
 **Ascent and Legacy / Outback XT (FA24 Early):** their ROM files (`FA24_Early_LT8…`, `FA24_Early_LG7…`) include
-`FA24_Early_BASE_EcuFlash.xml`, which includes `FA20DIT_BASE_EcuFlash.xml`: install both base files. EcuFlash
-1.44.4870 and FastECU both follow the two-level include.
+`FA24_Early_BASE_EcuFlash.xml`, which includes `FA20DIT_BASE_EcuFlash.xml`: install both base files. EcuFlash and
+FastECU both handle this.
 
-**FastECU** reads these EcuFlash files too. Every scaling is written in a form FastECU evaluates correctly
-(FastECU evaluates `x/256*0.015516` as `x/(256*0.015516)`, so the definitions write such scalings as one factor,
-`x*0.000060609375`); EcuFlash shows the same values either way.
+**FastECU** reads these EcuFlash files too, and shows the same values as EcuFlash.
 
 Units both systems use (g/rev, RPM, %, AFR, degrees, g/s) are the same in both. **Install one set only:** the ROM
 files in both have the same IDs, and EcuFlash would load whichever it finds first.
@@ -47,10 +45,8 @@ first.
   Increment ( `]` ). Most switches have their byte to themselves. Where a byte holds several (EGR Enable, for
   example), the value also shows the whole byte in brackets, `on [20]`, and the DTC rule applies: Increment once,
   no Decrement. The byte's other bits belong to other functions and are left as the ROM has them.
-- **Checksum:** the 2015–2018 (2 MB) definitions use EcuFlash's built-in `subaruhitachi` checksum module, which
-  corrects the checksum when you save. I checked it in EcuFlash 1.44.4870: the result is byte-identical to the
-  checksum tool's. The 2.5 MB definitions (2019 Levorg STI LF9F000R and the 2019–2020 Levorg 1.6 ROMs) have no checksum module, because that module gets
-  the 2.5 MB layout wrong: fix those ROMs with the checksum tool. Either way, run `verify` on the file you're about to
+- **Checksum:** EcuFlash corrects the checksum when you save a 2015–2018 (2 MB) ROM. It can't for the 2019+ (2.5 MB)
+  ROMs: fix those with the checksum tool. Either way, run `verify` on the file you're about to
   flash (see the main README).
 
 Writing to the ECU with EcuFlash has not been tested on this ECU yet.

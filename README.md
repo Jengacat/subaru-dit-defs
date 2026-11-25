@@ -256,12 +256,9 @@ logging over CAN, so the patch has nothing to extend. Mode-22 (UDS) logging work
 | Legacy / Outback XT 2.4 | 2020 | CVT | USA | **LG7D501B** ★ | 1173 | 250 | not yet |
 | Legacy / Outback XT 2.4 | 2021 | CVT | USA | **LG7F301F** ★ | 1158 | 250 | not yet |
 
-The Ascent runs a later build of the same ECU software, so most tables are the FA20DIT ones at the Ascent's own
-addresses. Boost control is different: the Ascent has an electric wastegate actuator, and its definitions have their
-own boost group: the boost target (by rpm and target torque) and its corrections, the wastegate position
-feed-forward and compensations, boost feedback, the actuator and motor limits, and the overboost (P0234) and
-underboost (P0299) limits. Motor drive is in % duty. Position is shown as % open, 0 % = closed on its seat (the %
-scale is inferred; it can also be shown as the position sensor's voltage).
+The Ascent and Legacy XT run a later build of the same ECU software, so most tables are the FA20DIT ones. Boost
+control is different: they have an electric wastegate, with its own Boost Control group (target, wastegate
+position, feedback and actuator limits).
 
 **Use the FA24 Early files, not FA24DIT.** The above models have the FA24DIT engine,
 but their ECU's runs a later build of the FA20DIT software, so their definitions build on the FA20DIT ones. RomRaider
@@ -346,12 +343,10 @@ The [EcuFlash README](definitions/ecuflash/README.md) explains why.
 
 ### 2022+ WRX: what's different
 
-- **ROM files.** The definitions use a 4032 KB image: the flash from address 0x10000 to the end, so file offset =
-  address − 0x10000. A 4 MB image that starts with the 64 KB boot block works once its first 65,536 bytes are
-  removed; the checksum tool tells you if you have one.
-- **Checksum.** A different rule from the other ECUs: the 16-bit sum of all little-endian words of the file is 0x5AA5,
-  and the correction word is the one at address 0x3FFF7E. `tools/checksum.py` and `checksum.ps1` handle it (same
-  commands as below). That this is the word the ECU expects to change is inferred, not yet proven on a car.
+- **ROM files.** The definitions use a 4032 KB image (the flash without its 64 KB boot block). A 4 MB image works
+  once its first 65,536 bytes are removed; the checksum tool tells you if you have one.
+- **Checksum.** A different rule from the other ECUs, which `tools/checksum.py` and `checksum.ps1` handle (same
+  commands as below). Not yet proven on a car.
 - **RomRaider.** `FA24DIT_RomRaider.xml` opens in any RomRaider 1.0.0 or later; fix the checksum with the
   tool after saving. `FA24DIT_RomRaider_Checksum.xml` (keep its `checksum/` folder next to it) corrects the
   sum when you save, but needs a RomRaider that can load a checksum module from the definition folder: my change for that ([RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)) is merged into RomRaider after 1.1.0, so use the next RomRaider release, or until it is out a RomRaider built from the current source. RomRaider 1.0.0 and 1.1.0 can't open the images with that file
@@ -374,9 +369,8 @@ The [EcuFlash README](definitions/ecuflash/README.md) explains why.
   this ECU is on my branch [rh850-checksum](https://github.com/Jengacat/FastECU/tree/rh850-checksum) (not in a
   FastECU release yet): with the vehicle set to "WRX 2.4 DIT (VB)" it corrects the sum on save. Otherwise use the
   checksum tool.
-- **Same edit, same file.** On all four ROMs I made one edit in RomRaider (checksum file), FastECU (that branch) and
-  EcuFlash (copy and merge): the three saved files were byte-identical, and identical to the checksum tool's.
-  That shows the tools agree; it doesn't show the ECU accepts the result.
+- **The three tools agree:** the same edit saved in RomRaider, FastECU and EcuFlash gives the same file as the
+  checksum tool. Whether the ECU accepts it is not yet tested.
 - **DTCs** have one switch per code (enabled or not): this ECU has no separate fail-safe bit per code.
 - **Drive modes.** Tables marked Drive Mode 1–4 follow the SI-Drive mode the ECU receives over CAN (1 Default,
   2 Sport, 3 Intelligent, 4 Sport Sharp; the names of 2–4 are inferred from the older platform). The manual ROMs
@@ -386,14 +380,9 @@ The [EcuFlash README](definitions/ecuflash/README.md) explains why.
 ### Fix the checksum before every flash
 
 This ECU checks a 16-bit checksum over the whole flash, and a ROM with a bad checksum won't run. **EcuFlash corrects
-it when you save** a 2015–2018 (2 MB) ROM: those EcuFlash definitions use its built-in `subaruhitachi` checksum module,
-and in EcuFlash 1.44.4870 the saved file is byte-identical to the checksum tool's output. That module gets the 2019+
-(2.5 MB) layout wrong, so the 2.5 MB definitions (LF9F000R, the 2019–2020 Levorg 1.6 ROMs and the Ascent) don't use it: fix those
-with the checksum tool. **RomRaider corrects it when you save** with the `_Checksum` definitions
+it when you save** a 2015–2018 (2 MB) ROM. It can't for the 2019+ (2.5 MB) ROMs: fix those with the checksum tool. **RomRaider corrects it when you save** with the `_Checksum` definitions
 (`FA20DIT_RomRaider_Checksum.xml`, `FB16DIT_RomRaider_Checksum.xml`, `FA24DIT_RomRaider_Checksum.xml`, each with the
-`checksum/` folder next to it), for 2 MB and 2.5 MB ROMs alike. Those need a RomRaider that can load a checksum module from the definition folder: my change for that ([RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)) is merged into RomRaider after 1.1.0, so use the next RomRaider release, or until it is out a RomRaider built from the current source. On 2 MB and 2.5 MB
-ROMs of all three families (FA20DIT, FA24 Early, FB16DIT) I edited a cell and saved in RomRaider with them: every saved
-file was byte-identical to the checksum tool's output. RomRaider 1.0.0 and 1.1.0 can't open the images with the
+`checksum/` folder next to it), for 2 MB and 2.5 MB ROMs alike. Those need a RomRaider that can load a checksum module from the definition folder: my change for that ([RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)) is merged into RomRaider after 1.1.0, so use the next RomRaider release, or until it is out a RomRaider built from the current source. RomRaider 1.0.0 and 1.1.0 can't open the images with the
 `_Checksum` files, so with those versions install the plain files and run every edited ROM through the checksum
 tool, as for every 2.5 MB ROM edited in EcuFlash. **PCMFlash** is reported to correct the checksum as it writes (not tested by me;
 see [Reading your ECU](#reading-your-ecu)). Either way, confirm the file you're about to flash with `verify`:
@@ -464,8 +453,7 @@ the logging patch adds can be logged without it. One logger file covers every su
 included: `logger/DIT_Logger_SUBUDS.xml`. It needs a RomRaider build with the protocol:
 [my fork of RomRaider](https://github.com/Jengacat/RomRaider/tree/Subaru-UDS-Logging) has it, with Windows and Linux
 builds on the fork's [subuds-test-1 release](https://github.com/Jengacat/RomRaider/releases/tag/subuds-test-1).
-Every address was checked in an emulator against what the ECU's own SSM read returns, but it hasn't been run on a car
-yet. Once it has, the protocol will go to the RomRaider project. If you try it, please
+It hasn't been run on a car yet. Once it has, the protocol will go to the RomRaider project. If you try it, please
 [open an issue](../../issues/new/choose) with how it went. Details: [logger README](logger/README.md#logging-without-the-patch-subuds).
 
 ## Units
@@ -473,7 +461,7 @@ yet. Once it has, the protocol will go to the RomRaider project. If you try it, 
 Every table whose unit depends on the system has both an imperial and a metric scale.
 
 - **RomRaider:** one file with both. Tables open in: engine load in **g/rev** (% available as an alternate scale;
-  100 % = 1.293 g/rev), torque in **ft-lb** (Nm), boost in **psi gauge** (kPa absolute, psia), manifold pressure in
+  100 % = 1.293 g/rev on the 2.0, 1.034 on the 1.6, 1.552 on the 2.4), torque in **ft-lb** (Nm), boost in **psi gauge** (kPa absolute, psia), manifold pressure in
   psia (kPa absolute), rail pressure in **psi** (MPa, kPa), temperatures in **°F** (°C), vehicle speed in **km/h** as
   stored (mph), AFR (λ), timing in degrees BTDC, injector size as flow in g/s. Switch scales from the table's View
   menu. Exception: about 40 tables (mostly coolant-temperature compensations) have a fixed list of temperatures as
@@ -489,15 +477,15 @@ Every table whose unit depends on the system has both an imperial and a metric s
   good stock read, change little at a time and log everything.
 - **Checksum.** A ROM with a bad checksum won't run, so check it before every flash
   ([how](#fix-the-checksum-before-every-flash)). EcuFlash corrects it on save for 2 MB ROMs, and PCMFlash is reported
-  to correct it when it flashes (not tested by me). RomRaider (1.0.0, 1.1.0) and EcuFlash with 2.5 MB ROMs don't:
-  use `tools/checksum.py` or `tools/checksum.ps1`.
+  to correct it when it flashes (not tested by me). RomRaider corrects it with the `_Checksum` files and a current
+  RomRaider. Otherwise, and for 2.5 MB ROMs in EcuFlash, use `tools/checksum.py` or `tools/checksum.ps1`.
 - **Use RomRaider 1.0.0 or later.** Older versions read the DTC tables wrong.
 - **Ascent: first release.** Fewer tables than the 2.0 and 1.6 definitions (about 1,100 against 1,200), and
-  not yet checked against a read from a car. The ECU's own running checksum check uses the same rule as the 2.5 MB
-  WRX, which the checksum tool follows; the boot block's check could not be read, because the dealer-software images
-  have no boot block. On those images `verify` reports one boot marker as BAD; a full read from a car should pass.
-- **2022+ WRX: first release.** Placed from the ROMs' own code, not yet checked against a car. The checksum
-  correction word is inferred (see [above](#2022-wrx-whats-different)). The "(Monitor)" tables are copies the ECU's
+  not yet checked against a read from a car. The checksum is the same as the 2.5 MB WRX's. These ROMs come
+  from Subaru's dealer software, which has no boot block, so `verify` reports one boot marker as BAD on them; a full
+  read from a car should pass.
+- **2022+ WRX: first release.** Placed from the ROMs' own code, not yet checked against a car. Its checksum
+  rule is not yet proven on a car (see [above](#2022-wrx-whats-different)). The "(Monitor)" tables are copies the ECU's
   torque monitor reads: keep each one equal to its main table, or the monitor can close the throttle (see the
   [definitions README](definitions/README.md#notes-on-individual-roms)). Some codes in the DTC list have no name yet.
   Its EcuFlash-format files are only fully usable in FastECU: EcuFlash can't load the right memory model for these

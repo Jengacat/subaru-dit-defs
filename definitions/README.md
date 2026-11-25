@@ -12,10 +12,9 @@ Both carry the same tables, scalings and descriptions. Each table has a plain-En
 after it, and tables are grouped by purpose in tuning order. The descriptions say what the ECU does with a table, not
 what a particular car's calibration holds: stock values differ between markets, models and the two engines.
 
-EcuFlash corrects this ECU's checksum on save for 2 MB ROMs; RomRaider can't until
-[pull request #248](https://github.com/RomRaider/RomRaider/pull/248) is merged and released. Until then, run
-[`tools/checksum.py`](../tools/) or `tools/checksum.ps1` on every ROM edited in RomRaider, and on every 2.5 MB ROM,
-before flashing. The 2022+ WRX has its own rule and its own options; see
+EcuFlash corrects this ECU's checksum on save for 2 MB ROMs, and RomRaider does with the `_Checksum` files (see the
+[RomRaider README](romraider/)). Otherwise, and for every 2.5 MB ROM edited in EcuFlash, run
+[`tools/checksum.py`](../tools/) or `tools/checksum.ps1` before flashing. The 2022+ WRX has its own rule and its own options; see
 [2022+ WRX: what's different](../README.md#2022-wrx-whats-different).
 
 ## Notes on individual ROMs

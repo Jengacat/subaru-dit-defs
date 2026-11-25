@@ -4,10 +4,8 @@
 every supported Levorg 1.6 ROM, and `FA24DIT_RomRaider.xml` the 2022+ WRX; RomRaider picks the right section from the
 ROM's calibration ID. They can all be installed together.
 
-The Ascent and Legacy / Outback XT run a later build of the FA20DIT software, so their sections inherit a small
-`FA24_Early_BASE` section (FA24 Early), which in turn inherits `FA20DIT_BASE`: it holds only their own tables (the electric
-wastegate group, for one) and what differs (the 2.4 L g/rev factor, user levels, descriptions), and drops the 2.0
-tables they don't have.
+The Ascent and Legacy / Outback XT (FA24 Early) run a later build of the FA20DIT software, so their sections are in
+the FA20DIT file and build on it.
 
 Each file uses RomRaider's inheritance to stay small (about 12 MB and 8 MB): the tables common to every ROM are in a
 shared `FA20DIT_BASE` / `FB16DIT_BASE` section, which never matches a ROM, and each ROM's section lists only its own
@@ -40,9 +38,7 @@ of the two for each engine:
 | `FA20DIT_RomRaider_Checksum.xml`, `FB16DIT_RomRaider_Checksum.xml` | Corrected on save, 2 MB and 2.5 MB ROMs alike, by the `FA20Sum16` module in `checksum/` | A RomRaider that can load a checksum module from the definition folder: my change for that ([RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)) is merged into RomRaider after 1.1.0, so use the next RomRaider release, or until it is out a RomRaider built from the current source. RomRaider 1.0.0 and 1.1.0 can't open the images with it |
 
 Keep the `checksum/` folder in the same folder as the XML: RomRaider loads
-`checksum/com/romraider/maps/checksum/FA20Sum16.class` from there (source: `checksum/FA20Sum16.java`). On 2 MB and
-2.5 MB ROMs of all three families (FA20DIT, FA24 Early, FB16DIT) I edited a cell and saved with it: every saved file
-was byte-identical to the checksum tool's output. Either way, run `checksum.py verify` before flashing.
+`checksum/com/romraider/maps/checksum/FA20Sum16.class` from there (source: `checksum/FA20Sum16.java`). Either way, run `checksum.py verify` before flashing.
 
 ## 2022+ WRX (FA24DIT_RomRaider.xml)
 

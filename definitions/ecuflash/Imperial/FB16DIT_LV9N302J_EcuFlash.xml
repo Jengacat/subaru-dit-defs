@@ -953,10 +953,10 @@ Details: When used: only with cal 0x38448 bit 0 set, FFF8A881 bit 2 clear, and s
   <table name="Engine Speed" address="0175aa" />
  </table>
  <table name="Catalyst Heating Spark Retard" address="019210">
-  <table name="Catalyst Heating Progress FFF8A64B" address="019218" />
+  <table name="Requested Spark Torque Share" address="019218" />
  </table>
  <table name="Catalyst Heating Spark Retard (Phase 2)" address="02dd10">
-  <table name="Catalyst Heating Progress FFF8A64B" address="02dcf0" />
+  <table name="Requested Spark Torque Share" address="02dcf0" />
  </table>
  <table name="Catalyst Heating Injection Angle" address="0123d6">
   <table name="Spark Angle" address="0123c6" />
@@ -1761,7 +1761,7 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF
   <table name="Y Axis" address="02ddcd" />
  </table>
  <table name="Torque Reduction Spark Retard" address="02dd10">
-  <table name="Y Axis" address="02dcf0" />
+  <table name="Requested Spark Torque Share" address="02dcf0" />
  </table>
  <table name="Ignition Timing Per-Cylinder Trim Enable" address="035b77" />
  <table name="Ignition Timing Per-Cylinder Trim (Cylinder 1)" address="035b98">
@@ -4074,8 +4074,8 @@ TGV request logic 0x10D93C (read): the request byte FFF8A888 is 3 unless all of 
  <table name="(P0420) Catalyst System Efficiency Below Threshold (Bank 1) [Fail-Safe]" address="4f862" />
  <table name="(P0441) Evaporative Emission System Incorrect Purge Flow" address="3ec65" scaling="DTC enabled b5 mBE f00" />
  <table name="(P0441) Evaporative Emission System Incorrect Purge Flow [Fail-Safe]" address="4f89d" scaling="DTC yes b5 mBE f00" />
- <table name="(P0451) Evaporative Emission System Pressure Sensor Range/Performance" address="3ec65" scaling="DTC enabled b4 mBE f00" />
- <table name="(P0451) Evaporative Emission System Pressure Sensor Range/Performance [Fail-Safe]" address="4f89d" scaling="DTC yes b4 mBE f00" />
+ <table name="(P0451) Evaporative Emission System Pressure Sensor Range/Performance" address="3ec65" />
+ <table name="(P0451) Evaporative Emission System Pressure Sensor Range/Performance [Fail-Safe]" address="4f89d" />
  <table name="(P0452) Evaporative Emission System Pressure Sensor Low" address="3ec63" />
  <table name="(P0452) Evaporative Emission System Pressure Sensor Low [Fail-Safe]" address="4f89b" />
  <table name="(P0453) Evaporative Emission System Pressure Sensor High" address="3ec63" />

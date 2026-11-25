@@ -86,17 +86,18 @@
  <scaling name="deg BTDC int16 #2" units="deg BTDC" toexpr="x/2" frexpr="x*2" format="%0.1f" min="-16384" max="16383.5" inc="0.5" storagetype="int16" endian="big" />
  <scaling name="% of fuel uint8" units="% of fuel" toexpr="x/1.28" frexpr="x*1.28" format="%0.1f" min="0" max="199.219" inc="0.8" storagetype="uint8" endian="big" />
  <scaling name="degrees retard uint8" units="degrees retard" toexpr="x/2" frexpr="x*2" format="%0.1f" min="0" max="127.5" inc="0.5" storagetype="uint8" endian="big" />
- <scaling name="progress (x128) uint16" units="progress (x128)" toexpr="x" frexpr="x" format="%0.0f" min="0" max="65535" inc="1" storagetype="uint16" endian="big" />
+ <scaling name="% torque from spark uint16" units="% torque from spark" toexpr="x/327.68" frexpr="x*327.68" format="%0.1f" min="0" max="199.997" inc="0.5" storagetype="uint16" endian="big" />
  <scaling name="degrees BTDC int8" units="degrees BTDC" toexpr="x/2" frexpr="x*2" format="%0.1f" min="-64" max="63.5" inc="0.5" storagetype="int8" endian="big" />
  <scaling name="deg BTDC (neg  ATDC) int16" units="deg BTDC (neg = ATDC)" toexpr="x*-0.5" frexpr="x*-2" format="%0.1f" min="-16383.5" max="16384" inc="0.5" storagetype="int16" endian="big" />
  <scaling name="% of fuel uint8 #2" units="% of fuel" toexpr="x/2.56" frexpr="x*2.56" format="%0.1f" min="0" max="99.6094" inc="0.4" storagetype="uint8" endian="big" />
  <scaling name="deg later int8" units="deg later" toexpr="x/2" frexpr="x*2" format="%0.1f" min="-64" max="63.5" inc="0.5" storagetype="int8" endian="big" />
- <scaling name="raw uint8" units="raw" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
+ <scaling name="% torque from spark uint8" units="% torque from spark" toexpr="x/2.56" frexpr="x*2.56" format="%0.1f" min="0" max="99.6094" inc="0.5" storagetype="uint8" endian="big" />
  <scaling name="RPM difference int16" units="RPM difference" toexpr="x*0.1953125" frexpr="x/0.1953125" format="%0.0f" min="-6400" max="6399.8" inc="5" storagetype="int16" endian="big" />
  <scaling name="RPM change per combustion event int16" units="RPM change per combustion event" toexpr="x*0.1953125" frexpr="x/0.1953125" format="%0.0f" min="-6400" max="6399.8" inc="1" storagetype="int16" endian="big" />
  <scaling name="cylinders cut uint8" units="cylinders cut" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
  <scaling name="rpm band (1 1800 2 2800 3 3800 4 4800 5 5800 6 from 5800 rpm) uint8" units="rpm band (1: &lt;1800, 2: &lt;2800, 3: &lt;3800, 4: &lt;4800, 5: &lt;5800, 6: from 5800 rpm)" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
  <scaling name="km/h uint16" units="km/h" toexpr="x*0.05625" frexpr="x/0.05625" format="%0.0f" min="0" max="3686.34" inc="1" storagetype="uint16" endian="big" />
+ <scaling name="raw uint8" units="raw" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
  <scaling name="% of intake air uint8" units="% of intake air" toexpr="x/2.56" frexpr="x*2.56" format="%0.1f" min="0" max="99.6094" inc="0.4" storagetype="uint8" endian="big" />
  <scaling name="% fuel removed at 100 % purge rate uint16" units="% fuel removed at 100 % purge rate" toexpr="(x-32768)/655.36" frexpr="x*655.36+32768" format="%0.2f" min="-50" max="49.9985" inc="0.05" storagetype="uint16" endian="big" />
  <scaling name="% of purge rate per update uint16" units="% of purge rate per update" toexpr="x/655.36" frexpr="x*655.36" format="%0.1f" min="0" max="99.9985" inc="0.5" storagetype="uint16" endian="big" />
@@ -144,7 +145,6 @@
  <scaling name="combustion mode uint8" units="combustion mode" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
  <scaling name="% (32768  100) uint16" units="% (32768 = 100)" toexpr="x/327.68" frexpr="x*327.68" format="%0.1f" min="0" max="199.997" inc="0.5" storagetype="uint16" endian="big" />
  <scaling name="degrees retard uint16" units="degrees retard" toexpr="x/512" frexpr="x*512" format="%0.1f" min="0" max="127.998" inc="0.5" storagetype="uint16" endian="big" />
- <scaling name="% torque from spark uint16" units="% torque from spark" toexpr="x/327.68" frexpr="x*327.68" format="%0.1f" min="0" max="199.997" inc="0.5" storagetype="uint16" endian="big" />
  <scaling name="multiplier int8" units="multiplier" toexpr="x/128" frexpr="x*128" format="%0.2f" min="-1" max="0.992188" inc="0.01" storagetype="int8" endian="big" />
  <scaling name="RPM uint8 #4" units="RPM" toexpr="x*12.5" frexpr="x/12.5" format="%0.0f" min="0" max="3187.5" inc="1" storagetype="uint8" endian="big" />
  <scaling name="% of full-load torque uint8" units="% of full-load torque" toexpr="x/2.56" frexpr="x*2.56" format="%0.1f" min="0" max="99.6094" inc="0.4" storagetype="uint8" endian="big" />
@@ -278,7 +278,9 @@
  <scaling name="% duty uint16 #3" units="% duty" toexpr="x/655.35" frexpr="x*655.35" format="%0.1f" min="0" max="100" inc="1" storagetype="uint16" endian="big" />
  <scaling name="Ah uint8" units="Ah" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
  <scaling name="% uint8" units="%" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
+ <scaling name="s uint16 #4" units="s" toexpr="x" frexpr="x" format="%0.0f" min="0" max="65535" inc="10" storagetype="uint16" endian="big" />
  <scaling name="% uint16 #3" units="%" toexpr="x/10" frexpr="x*10" format="%0.1f" min="0" max="6553.5" inc="0.5" storagetype="uint16" endian="big" />
+ <scaling name="Ah uint16" units="Ah" toexpr="x/10" frexpr="x*10" format="%0.1f" min="0" max="6553.5" inc="0.1" storagetype="uint16" endian="big" />
  <scaling name="s uint32" units="s" toexpr="x*0.04" frexpr="x/0.04" format="%0.1f" min="0" max="1.71799e+08" inc="10" storagetype="uint32" endian="big" />
  <scaling name="charge (ECU units) uint32" units="charge (ECU units)" toexpr="x" frexpr="x" format="%0.0f" min="0" max="4.29497e+09" inc="1" storagetype="uint32" endian="big" />
  <scaling name="A int32" units="A" toexpr="x/1000" frexpr="x*1000" format="%0.1f" min="-2.14748e+06" max="2.14748e+06" inc="0.5" storagetype="int32" endian="big" />
@@ -354,9 +356,9 @@
   <data name="off" value="01" />
   <data name="on" value="41" />
  </scaling>
- <scaling name="Switch b4 f84" storagetype="bloblist">
-  <data name="off" value="84" />
-  <data name="on" value="94" />
+ <scaling name="Switch b4 f8F" storagetype="bloblist">
+  <data name="off" value="8F" />
+  <data name="on" value="9F" />
  </scaling>
  <scaling name="Switch on b0 m07 fE0" storagetype="bloblist">
   <data name="on [E1]" value="E1" />
@@ -41267,11 +41269,9 @@
   <data name="yes [0C]+" value="0C" />
  </scaling>
  <scaling name="bits uint8" units="bits" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
- <scaling name="s uint16 #4" units="s" toexpr="x" frexpr="x" format="%0.0f" min="0" max="65535" inc="10" storagetype="uint16" endian="big" />
- <scaling name="Ah uint16" units="Ah" toexpr="x/10" frexpr="x*10" format="%0.1f" min="0" max="6553.5" inc="0.1" storagetype="uint16" endian="big" />
- <scaling name="Switch b4 f8F" storagetype="bloblist">
-  <data name="off" value="8F" />
-  <data name="on" value="9F" />
+ <scaling name="Switch b4 f84" storagetype="bloblist">
+  <data name="off" value="84" />
+  <data name="on" value="94" />
  </scaling>
  <scaling name="count uint8" units="count" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
  <scaling name="degrees int8 #2" units="degrees" toexpr="x*0.3515625" frexpr="x/0.3515625" format="%0.2f" min="-45" max="44.6484" inc="0.35" storagetype="int8" endian="big" />
@@ -44243,6 +44243,8 @@
   <data name="no [02]" value="02" />
   <data name="yes [06]+" value="06" />
  </scaling>
+ <scaling name="ms uint32" units="ms" toexpr="x*0.0008" frexpr="x/0.0008" format="%0.2f" min="0" max="3.43597e+06" inc="0.05" storagetype="uint32" endian="big" />
+ <scaling name="degrees C uint16 #6" units="degrees C" toexpr="x-50" frexpr="x+50" format="%0.0f" min="-50" max="65485" inc="1" storagetype="uint16" endian="big" />
  <scaling name="Switch b6 fB8" storagetype="bloblist">
   <data name="off" value="B8" />
   <data name="on" value="F8" />
@@ -45791,12 +45793,12 @@ Details: Share of the fuel in the first of three injections (0x0D06EC -&gt; FFF8
 Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF8A6CA -&gt; FFF8A6D4, read). Confidence: inferred.</description>
  </table>
  <table name="Catalyst Heating Spark Retard" category="01.07 Fueling - Catalyst Heating &amp; Stratified Start" type="2D" level="3" scaling="degrees retard uint8">
-  <table name="Catalyst Heating Progress FFF8A64B" type="Y Axis" elements="8" scaling="progress (x128) uint16" />
-  <description>How far spark is retarded from base timing during cold-start catalyst heating, which heats the catalyst faster. The spark moves toward this target in steps.</description>
+  <table name="Requested Spark Torque Share" type="Y Axis" elements="8" scaling="% torque from spark uint16" />
+  <description>How far spark is retarded from base timing during cold-start catalyst heating (combustion mode 2), by the requested spark torque share: the less of the torque the spark is asked to deliver, the more retard, which heats the catalyst faster. The spark moves toward this target in steps.</description>
  </table>
  <table name="Catalyst Heating Spark Retard (Phase 2)" category="01.07 Fueling - Catalyst Heating &amp; Stratified Start" type="2D" level="3" scaling="degrees retard uint8">
-  <table name="Catalyst Heating Progress FFF8A64B" type="Y Axis" elements="16" scaling="progress (x128) uint16" />
-  <description>Same as Catalyst Heating Spark Retard for the second catalyst-heating phase; its result also selects the phase 2 injection angles.</description>
+  <table name="Requested Spark Torque Share" type="Y Axis" elements="16" scaling="% torque from spark uint16" />
+  <description>Same as Catalyst Heating Spark Retard for the split-injection warm-up phases (combustion modes 1 and 3); its result also selects the phase 2 injection angles. It holds the same data as Torque Reduction Spark Retard: editing one edits the other.</description>
  </table>
  <table name="Catalyst Heating Injection Angle" category="01.07 Fueling - Catalyst Heating &amp; Stratified Start" type="3D" level="3" scaling="deg BTDC int16">
   <table name="Spark Angle" type="X Axis" elements="16" scaling="degrees BTDC int8" />
@@ -45889,13 +45891,13 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
   <description>Spark value assumed before the engine reaches running mode, used only to choose the catalyst-heating phase 2 injection angles; it is not the actual cranking spark.</description>
  </table>
- <table name="Catalyst Heating Phase 2 Exit Threshold (Neutral Switch On)" category="01.07 Fueling - Catalyst Heating &amp; Stratified Start" type="2D" level="4" scaling="raw uint8">
+ <table name="Catalyst Heating Phase 2 Exit Threshold (Neutral Switch On)" category="01.07 Fueling - Catalyst Heating &amp; Stratified Start" type="2D" level="4" scaling="% torque from spark uint8">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
-  <description>Coolant-based threshold of an internal counter at which catalyst-heating phase 2 ends and normal running starts, used while the neutral switch is on.</description>
+  <description>Same as Catalyst Heating Phase 2 Exit Threshold (Neutral Switch Off), used while the neutral switch is on.</description>
  </table>
- <table name="Catalyst Heating Phase 2 Exit Threshold (Neutral Switch Off)" category="01.07 Fueling - Catalyst Heating &amp; Stratified Start" type="2D" level="4" scaling="raw uint8">
+ <table name="Catalyst Heating Phase 2 Exit Threshold (Neutral Switch Off)" category="01.07 Fueling - Catalyst Heating &amp; Stratified Start" type="2D" level="4" scaling="% torque from spark uint8">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
-  <description>Coolant-based threshold of an internal counter at which catalyst-heating phase 2 ends and normal running starts, used in gear (neutral switch off).</description>
+  <description>Catalyst-heating phase 2 (combustion mode 3) ends and normal running starts once the requested spark torque share reaches this, by coolant; used in gear (neutral switch off). Phase 2 also ends at Catalyst Heating Phase 2 Maximum Time.</description>
  </table>
  <table name="Catalyst Heating Phase 2 Maximum Time" category="01.07 Fueling - Catalyst Heating &amp; Stratified Start" type="2D" level="4" scaling="s uint16 #2">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
@@ -46765,7 +46767,7 @@ Details: event slot FFF8CDC0 = 1 (Event 1), knock channel 7 of 8 (index 6 of FFF
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #3" />
   <description>Knock-detection background step for event slot 1, frequency channel 8.
 
-Details: event slot FFF8CDC0 = 1 (Event 1), knock channel 8 of 8 (index 7 of FFF8CDB0), which is masked: bit 7 of cal 0x1B97C is set (0xC1 = channels 1, 7 and 8 off for every slot). 0x0E51E4 (read) then writes a fixed ratio for the channel instead of 256 x measured/reference, and the reference ref_7 (the only place this step enters, statics FFF84AB4..FFF84AD0 read only by 0x0E51E4, ram_xref) is not used; the reference copies FFF8C130.. have no reader. So editing it has no effect unless that cal bit is cleared, which would make the channel count (then this would be the background step for FFF8C180[7] when FFF8A7C2 changes; overlap flag FFF8A7D2, gain curve cal 0x26F6F). Knock signal processing 0x0E51E4 (read; called once per knock window from 0x0E43B8 with load FFF8A616, after the event chain 0x0E433C): for the event slot FFF8CDC0 (1-4, the slot of the Knock Threshold tables) each of 8 knock channels i gets a reference ref_i = 32 x step_i + g x background_i, and the channel ratio is 256 x FFF8CDB0[i] / (ref_i / 32), i.e. measured / reference with 256 = equal (0x0E51E4 tail, read). Channels with their bit set in cal 0x1B97C..0x1B97F give 0; a channel flagged in FFF8CEED (driver flag, value at its lower limit, inferred) gives 256. The ratios are sorted and the largest min(cal 0x1B988, 5) = 3 are summed into the knock intensity FFF8C1C0[slot], which 0x0E80B4/0x0E8654 compare with Knock Threshold (read). The measured channels come from the knock sensor ADC: 0x1E7868 DMA-collects 32-sample blocks, 0x1E725A runs FFT-style butterflies, 0x1E73A4 takes sqrt(re^2+im^2) of 8 selected bins (pointer tables 0x34A88/0x34AA8), and 0x1E7724 sums them over the window into FFF8D1D4[8] -&gt; FFF8CDB0[8] (read), so the 8 channels are 8 frequency bins of the knock sensor signal (inferred). background_i is the per-slot channel background FFF8C180.. (slot 1) / C190.. / C1A0.. / C1B0.. (slot 4), a lag filter of the measured channel kept by 0x0E4500 when the event is not knocking, floored at the per-channel rpm curve FFF8C0D8 (0x0E22A4) (read). step_i is this table family: it is non-zero only on the one event where the slot's window-length flag changes: +table when the flag goes 0 -&gt; 1 (window switched to the extended length) and -table when it goes 1 -&gt; 0 (back to the nominal length); on that event the reference is also floored at 32 x FFF8C0D8[i] (read). The flag is set when the extended knock window is used (0x0E20E0, read: B11A = nominal + Knock Window Length Extension only while timing FFF8A744 &lt;= Knock Window Extension Timing Threshold and the extended window ends before the event angle). The step is skipped (0) and g is changed instead when the slot's overlap flag (FFF8A7D2..D5) changes while the window is nominal: g = gain curve cal (implicit rpm axis, x/32) on 0 -&gt; 1 and min(1024 / gain, cal 0x26FAF = 64) on 1 -&gt; 0, else g = 32 (x1.0) (read). On the event after a flag change 0x0E4500 resets the background almost fully to the new measurement (filter weight 255/256 while FFF8A7BC is set, read), so the step only bridges that single event: a larger value raises that channel's reference when the window lengthens (lower intensity, less likely to count as knock on that event) and lowers it when the window shortens (read). Axes: rpm FFF8CDC2 (x 31.25 + 500, 500-4000 rpm) x load FFF8A616 (read). Confidence: inferred.</description>
+Details: event slot FFF8CDC0 = 1 (Event 1), knock channel 8 of 8 (index 7 of FFF8CDB0), which is masked: bit 7 of cal 0x1B97C is set (0xC1 = channels 1, 7 and 8 off for every slot). 0x0E51E4 (read) then writes a fixed ratio for the channel instead of 256 x measured/reference, and the reference ref_7 (the only place this step enters, statics FFF84AB4..FFF84AD0 read only by 0x0E51E4, ram_xref) is not used; the reference copies FFF8C130.. have no reader. So editing it has no effect unless that cal bit is cleared, which would make the channel count (then this would be the background step for FFF8C180[7] when FFF8A7C2 changes; overlap flag FFF8A7D2, gain curve cal 0x26F6F). Knock signal processing 0x0E51E4 (read; called once per knock window from 0x0E43B8 with load FFF8A616, after the event chain 0x0E433C): for the event slot FFF8CDC0 (1-4, the slot of the Knock Threshold tables) each of 8 knock channels i gets a reference ref_i = 32 x step_i + g x background_i, and the channel ratio is 256 x FFF8CDB0[i] / (ref_i / 32), i.e. measured / reference with 256 = equal (0x0E51E4 tail, read). Channels with their bit set in cal 0x1B97C..0x1B97F give 0; a channel flagged in FFF8CEED (driver flag, value at its lower limit, inferred) gives 256. The ratios are sorted and the largest min(cal 0x1B988, 5) = 3 are summed into the knock intensity FFF8C1C0[slot], which 0x0E80B4/0x0E8654 compare with Knock Threshold (read). The measured channels come from the knock sensor ADC: 0x1E7868 DMA-collects 32-sample blocks, 0x1E725A runs FFT-style butterflies, 0x1E73A4 takes sqrt(re^2+im^2) of 8 selected bins (pointer tables 0x34A88/0x34AA8), and 0x1E7724 sums them over the window into FFF8D1D4[8] -&gt; FFF8CDB0[8] (read), so the 8 channels are 8 frequency bins of the knock sensor signal (inferred). background_i is the per-slot channel background FFF8C180.. (slot 1) / C190.. / C1A0.. / C1B0.. (slot 4), a lag filter of the measured channel kept by 0x0E4500 when the event is not knocking, floored at the per-channel rpm curve FFF8C0D8 (0x0E22A4) (read). step_i is this table family: it is non-zero only on the one event where the slot's window-length flag changes: +table when the flag goes 0 -&gt; 1 (window switched to the extended length) and -table when it goes 1 -&gt; 0 (back to the nominal length); on that event the reference is also floored at 32 x FFF8C0D8[i] (read). The flag is set when the extended knock window is used (0x0E20E0, read: B11A = nominal + Knock Window Length Extension only while timing FFF8A744 &lt;= Knock Window Extension Timing Threshold and the extended window ends before the event angle). The step is skipped (0) and g is changed instead when the slot's overlap flag (FFF8A7D2..D5) changes while the window is nominal: g = gain curve cal (implicit rpm axis, x/32) on 0 -&gt; 1 and min(1024 / gain, cal 0x26FAF = 64) on 1 -&gt; 0, else g = 32 (x1.0) (read). On the event after a flag change 0x0E4500 resets the background almost fully to the new measurement (filter weight 255/256 while FFF8A7BC is set, read), so the step only bridges that single event: a larger value raises that channel's reference when the window lengthens (lower intensity, less likely to count as knock on that event) and lowers it when the window shortens (read). Axes: rpm FFF8CDC2 (x 31.25 + 500, 500-4000 rpm) x load FFF8A616 (read). Confidence: read.</description>
  </table>
  <table name="Knock Background Window Step (Event 2, Channel 1)" category="02.04 Ignition Timing - Knock Detection" type="3D" level="5" scaling="knock channel level int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8" />
@@ -47064,8 +47066,8 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF
 0x0D8E3C (called from 0x0DF02C; args read: FFF88A2D bit 0, cal 0x1D0AE bit 0, FFF8A9A3 bit 0, FFF8A9A2 bit 6, FFF8A65F bit 7) loads FFF8B0CC with this table (by FFF8A8C7) instead of cal 0x2FE82 (2560 = 5 degrees) only when its second argument, the calibration bit 0x1D0AE bit 0, is set. With that bit set the trigger also changes from the A/C engagement edge (FFF8A9A2 bit 6) to FFF8A9A3 bit 0. B0CC &gt;&gt; 8 is subtracted from the final timing sum (0x0D9E40) while the A/C Cut Timing Retard Hold counter runs, then decays (read). Axis FFF8A8C7 is not identified: 0x116034 writes it as a latched copy of FFF8A8C6 (latch conditions involve FFF88B8B bit 0 and FFF8A9A3 bit 1; not worked out in detail), and FFF8A8C6 comes from 0x115F80, which takes it from FFF88B91 (a received input byte, meaning not identified); FFF8A8C6 is read by several other functions together with the same cal bit 0x1D0AE bit 0 (read). Confidence: read.</description>
  </table>
  <table name="Torque Reduction Spark Retard" category="02.05 Ignition Timing - Retards &amp; Transient Timing" type="2D" level="3" scaling="degrees retard uint8">
-  <table name="Y Axis" type="Y Axis" elements="16" scaling="% torque from spark uint16" />
-  <description>Turns a torque or efficiency shortfall back into spark retard on base timing. Besides torque reduction, it is how the ECU pulls fired timing down to Primary Ignition (or the closed-pedal target) plus knock correction advance where that is below Base Timing, so it must stay the inverse of Ignition Efficiency vs Retard; don't edit one without the other. Not used in the rev/overboost-cut states.</description>
+  <table name="Requested Spark Torque Share" type="Y Axis" elements="16" scaling="% torque from spark uint16" />
+  <description>Turns a torque or efficiency shortfall back into spark retard on base timing. Besides torque reduction, it is how the ECU pulls fired timing down to Primary Ignition (or the closed-pedal target) plus knock correction advance where that is below Base Timing, so it must stay the inverse of Ignition Efficiency vs Retard; don't edit one without the other. Not used in the rev/overboost-cut states. It holds the same data as Catalyst Heating Spark Retard (Phase 2): editing one edits the other.</description>
  </table>
  <table name="Ignition Timing Per-Cylinder Trim Enable" category="02.05 Ignition Timing - Retards &amp; Transient Timing" type="1D" level="3" scaling="Switch b0 f00">
   <description>Switches on the per-cylinder timing trim tables. On/off switch: select the value and press Increment ( ] ) to flip it.</description>
@@ -52047,10 +52049,10 @@ Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x11
  <table name="(P0441) Evaporative Emission System Incorrect Purge Flow [Fail-Safe]" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="4" scaling="DTC yes b5 mBF f00">
   <description>Bit 5 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P0451) Evaporative Emission System Pressure Sensor Range/Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b4 mBF f00">
+ <table name="(P0451) Evaporative Emission System Pressure Sensor Range/Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b4 mBE f00">
   <description>Bit 4 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P0451) Evaporative Emission System Pressure Sensor Range/Performance [Fail-Safe]" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="4" scaling="DTC yes b4 mBF f00">
+ <table name="(P0451) Evaporative Emission System Pressure Sensor Range/Performance [Fail-Safe]" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="4" scaling="DTC yes b4 mBE f00">
   <description>Bit 4 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
  <table name="(P0452) Evaporative Emission System Pressure Sensor Low" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b7 mFF f00 s00">

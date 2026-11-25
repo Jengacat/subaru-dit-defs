@@ -4,6 +4,17 @@
 
 First public release.
 
+- New: **27 more ROMs**, most of them builds whose code differs from every supported ROM, each ported from the two
+  closest supported builds and checked through RomRaider and EcuFlash like the others: 20 for the 2.0 (WRX, Legacy,
+  Outback and ten whose model isn't confirmed), 6 for the Levorg 1.6 and LG7F300F (Legacy / Outback XT, FA24 Early).
+  A few tables whose reading code changed in these builds are left out of them until I can place them from the code
+  (some knock and cam limit tables on the LF76… Levorg 1.6 ROMs, the knock event group on LV9N300x / LV9N301K, the
+  A/F sensor scaling on LV9N002I). LF76000C is a 2.0 calibration on Levorg 1.6 code. No logging-patch spec for these
+  yet.
+- Changed: the catalyst-heating spark retard tables and the phase 2 exit thresholds are scaled as the requested spark
+  torque share (% torque from spark), replacing a raw "progress" axis; Catalyst Heating Spark Retard (Phase 2) and
+  Torque Reduction Spark Retard are one table in the ROM, and both descriptions now say so.
+- Changed: the table counts in the ROM lists are refreshed from the current files.
 - New: **12 more 2022+ WRX ROMs** (`FA24DIT_*`): LHBH740C (2022 CVT) and, year unknown, LHBH720D, LHBH740A,
   LHBH800A, LHBHA00A, LHBHB00A, LHBP100e, LHBP100a, LHBT110a, LHBT120a, LHBT120g, LHBT130h (two 6MT, the rest CVT).
 - Changed: LHBKC20P / 20R / 20L and LHBP300d are now listed with year unknown (they have no engine string; sharing

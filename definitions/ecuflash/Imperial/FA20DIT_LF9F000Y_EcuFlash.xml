@@ -1283,6 +1283,14 @@ Details: When used: Only with the automatic/CVT transmission coding (Cal Switche
   <table name="Dynamic Advance Multiplier" address="0328c4" />
  </table>
  <table name="FLKC Range Boundary RPM 3" address="023d6a" />
+ <table name="Knock Torque Cap: Margin Trigger" address="041be6" />
+ <table name="Knock Torque Cap: Coolant Condition Bypass" address="041be6" />
+ <table name="Knock Torque Cap Margin Threshold" address="033005">
+  <table name="Engine Load" address="032bf4" />
+  <table name="Engine Speed" address="032bd4" />
+ </table>
+ <table name="Knock Torque Cap Margin Hysteresis" address="032b30" />
+ <table name="Knock Torque Cap Coolant Minimum" address="032b4a" />
  <table name="FLKC Range Boundary RPM 4" address="023d6c" />
  <table name="FLKC Range Boundary RPM 5" address="023d6e" />
  <table name="FLKC Range Boundary RPM 6" address="023d70" />
@@ -2306,6 +2314,27 @@ Details: When used: drive mode 4 with FFF88ADA bit 7 clear and FFF8AE0A &gt;= ca
  <table name="Maximum Torque (Knock Event)" address="02b7c2">
   <table name="Accelerator Pedal" address="02b76e" />
   <table name="Engine Speed" address="02b744" />
+ </table>
+ <table name="Maximum Torque (Knock Cap, Margin)" address="02c002">
+  <table name="Engine Speed" address="02bf32" />
+ </table>
+ <table name="Maximum Torque (Knock Cap, Margin, Selector)" address="02c02c">
+  <table name="Engine Speed" address="02bf32" />
+ </table>
+ <table name="Maximum Torque (Knock Cap, Trigger A)" address="02bfae">
+  <table name="Engine Speed" address="02bf32" />
+ </table>
+ <table name="Maximum Torque (Knock Cap, Trigger A, Selector)" address="02bfd8">
+  <table name="Engine Speed" address="02bf32" />
+ </table>
+ <table name="Maximum Torque (Knock Cap, Trigger B)" address="02bf84">
+  <table name="Engine Speed" address="02bf32" />
+ </table>
+ <table name="Maximum Torque (Knock Cap, Trigger B, Selector)" address="02c056">
+  <table name="Engine Speed" address="02bf32" />
+ </table>
+ <table name="Knock Torque Cap Ramp Rate" address="02c080">
+  <table name="Engine Speed" address="02bf5c" />
  </table>
  <table name="Overboost Limit" address="033f42">
   <table name="Engine Speed" address="033f56" />

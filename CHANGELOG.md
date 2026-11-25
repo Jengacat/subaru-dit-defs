@@ -4,6 +4,12 @@
 
 First public release.
 
+- New: **knock torque cap** on the 2019+ ROMs (WRX, Levorg STI and Levorg 1.6) and on the Ascent and Legacy / Outback
+  XT: six **Maximum Torque (Knock Cap, …)** curves by rpm, the ramp rate, the margin trigger's threshold, hysteresis,
+  switch and coolant condition. This is code the 2015 WRX doesn't have, found by comparing a 2021 WRX against it, and
+  it caps target torque on its own, next to Maximum Torque (Knock Event). The tuning guide (5.3) explains the three
+  triggers. LF9D010h, LF9D012h and LG7D501B don't get it yet: their trigger code differs, so I couldn't place all of
+  it.
 - New: **7 more 2.0 ROMs**, the last FA20DIT ones I hold except one: LV9H000D (2015 USDM WRX 6MT, the calibration
   LF75404S replaced) and six whose model isn't confirmed (LF73100A, LF77000C, LF77000D, LF77000Q, LF79130P,
   LF9C400P). Each runs a build of its own, ported from the two closest supported builds and checked through RomRaider

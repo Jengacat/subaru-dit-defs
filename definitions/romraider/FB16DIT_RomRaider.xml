@@ -68138,6 +68138,34 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>How much of the DAM adder applies, by DAM (128 = all of it).</description>
   </table>
   <table name="FLKC Range Boundary RPM 3" storageaddress="0x023b0a" />
+  <table type="BitwiseSwitch" name="Knock Torque Cap: Margin Trigger" category="Ignition Timing//Knock Control" storageaddress="0x0400d6" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Switches on the margin trigger of the knock torque cap: when the knock margin index falls to Knock Torque Cap Margin Threshold, the torque ceiling ramps down to the Margin curve.</description>
+  </table>
+  <table type="BitwiseSwitch" name="Knock Torque Cap: Coolant Condition Bypass" category="Ignition Timing//Knock Control" storageaddress="0x0400d6" userlevel="4">
+   <bit position="1" name="On" />
+   <description>With this set, the margin trigger also works below Knock Torque Cap Coolant Minimum (unless an ECU flag blocks it).</description>
+  </table>
+  <table type="3D" name="Knock Torque Cap Margin Threshold" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" sizex="16" sizey="16" userlevel="4" storageaddress="0x032b05">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0326f4">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0326d4">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Knock margin index at or below which the margin trigger of the knock torque cap sets, by engine speed and load. Lower values let the engine run with less margin before the cap comes in.</description>
+  </table>
+  <table type="1D" name="Knock Torque Cap Margin Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x032630">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Once the margin trigger is set, the threshold is raised by this much, so the margin index must climb clearly above it before the trigger releases.</description>
+  </table>
+  <table type="1D" name="Knock Torque Cap Coolant Minimum" category="Ignition Timing//Knock Control" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03264a">
+   <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
+   <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Coolant temperature from which the margin trigger works without the bypass.</description>
+  </table>
   <table name="FLKC Range Boundary RPM 4" storageaddress="0x023b0c" />
   <table name="FLKC Range Boundary RPM 5" storageaddress="0x023b0e" />
   <table name="FLKC Range Boundary RPM 6" storageaddress="0x023b10" />
@@ -69193,6 +69221,61 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Torque ceiling while the knock-event detector has tripped, by engine speed.</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Margin)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bda2">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bcd2">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its margin trigger is set and the selector flag is clear, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Margin, Selector)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bdcc">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bcd2">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its margin trigger is set and the selector flag is set, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Trigger A)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bd4e">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bcd2">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its trigger a trigger is set and the selector flag is clear, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Trigger A, Selector)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bd78">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bcd2">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its trigger a trigger is set and the selector flag is set, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Trigger B)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bd24">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bcd2">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its trigger b trigger is set and the selector flag is clear, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Trigger B, Selector)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bdf6">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bcd2">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its trigger b trigger is set and the selector flag is set, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Knock Torque Cap Ramp Rate" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="20" userlevel="4" storageaddress="0x02be20">
+   <scaling units="ft-lb per pass" expression="x/80*0.7375621" to_byte="x*80/0.7375621" format="0.0" fineincrement="0.1" coarseincrement="0.4" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bcfc">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>How fast the margin torque ceiling moves toward its curve, and back up afterwards, per pass, by engine speed.</description>
   </table>
   <table name="Overboost Limit" storageaddress="0x033a42">
    <table type="Y Axis" storageaddress="0x033a56" />
@@ -76155,6 +76238,34 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>How much of the DAM adder applies, by DAM (128 = all of it).</description>
   </table>
   <table name="FLKC Range Boundary RPM 3" storageaddress="0x023b0a" />
+  <table type="BitwiseSwitch" name="Knock Torque Cap: Margin Trigger" category="Ignition Timing//Knock Control" storageaddress="0x0400d6" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Switches on the margin trigger of the knock torque cap: when the knock margin index falls to Knock Torque Cap Margin Threshold, the torque ceiling ramps down to the Margin curve.</description>
+  </table>
+  <table type="BitwiseSwitch" name="Knock Torque Cap: Coolant Condition Bypass" category="Ignition Timing//Knock Control" storageaddress="0x0400d6" userlevel="4">
+   <bit position="1" name="On" />
+   <description>With this set, the margin trigger also works below Knock Torque Cap Coolant Minimum (unless an ECU flag blocks it).</description>
+  </table>
+  <table type="3D" name="Knock Torque Cap Margin Threshold" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" sizex="16" sizey="16" userlevel="4" storageaddress="0x032b05">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0326f4">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0326d4">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Knock margin index at or below which the margin trigger of the knock torque cap sets, by engine speed and load. Lower values let the engine run with less margin before the cap comes in.</description>
+  </table>
+  <table type="1D" name="Knock Torque Cap Margin Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x032630">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Once the margin trigger is set, the threshold is raised by this much, so the margin index must climb clearly above it before the trigger releases.</description>
+  </table>
+  <table type="1D" name="Knock Torque Cap Coolant Minimum" category="Ignition Timing//Knock Control" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03264a">
+   <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
+   <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Coolant temperature from which the margin trigger works without the bypass.</description>
+  </table>
   <table name="FLKC Range Boundary RPM 4" storageaddress="0x023b0c" />
   <table name="FLKC Range Boundary RPM 5" storageaddress="0x023b0e" />
   <table name="FLKC Range Boundary RPM 6" storageaddress="0x023b10" />
@@ -77138,6 +77249,61 @@ Details: Feedback knock correction (0x0E2BE4, read): FFF8A79A is an s8 integrato
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Torque ceiling while the knock-event detector has tripped, by engine speed.</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Margin)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bda2">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bcd2">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its margin trigger is set and the selector flag is clear, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Margin, Selector)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bdcc">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bcd2">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its margin trigger is set and the selector flag is set, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Trigger A)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bd4e">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bcd2">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its trigger a trigger is set and the selector flag is clear, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Trigger A, Selector)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bd78">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bcd2">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its trigger a trigger is set and the selector flag is set, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Trigger B)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bd24">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bcd2">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its trigger b trigger is set and the selector flag is clear, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Trigger B, Selector)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bdf6">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bcd2">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its trigger b trigger is set and the selector flag is set, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Knock Torque Cap Ramp Rate" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="20" userlevel="4" storageaddress="0x02be20">
+   <scaling units="ft-lb per pass" expression="x/80*0.7375621" to_byte="x*80/0.7375621" format="0.0" fineincrement="0.1" coarseincrement="0.4" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bcfc">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>How fast the margin torque ceiling moves toward its curve, and back up afterwards, per pass, by engine speed.</description>
   </table>
   <table name="Overboost Limit" storageaddress="0x033a42">
    <table type="Y Axis" storageaddress="0x033a56" />
@@ -84070,6 +84236,34 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>How much of the DAM adder applies, by DAM (128 = all of it).</description>
   </table>
   <table name="FLKC Range Boundary RPM 3" storageaddress="0x023d6a" />
+  <table type="BitwiseSwitch" name="Knock Torque Cap: Margin Trigger" category="Ignition Timing//Knock Control" storageaddress="0x041be6" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Switches on the margin trigger of the knock torque cap: when the knock margin index falls to Knock Torque Cap Margin Threshold, the torque ceiling ramps down to the Margin curve.</description>
+  </table>
+  <table type="BitwiseSwitch" name="Knock Torque Cap: Coolant Condition Bypass" category="Ignition Timing//Knock Control" storageaddress="0x041be6" userlevel="4">
+   <bit position="1" name="On" />
+   <description>With this set, the margin trigger also works below Knock Torque Cap Coolant Minimum (unless an ECU flag blocks it).</description>
+  </table>
+  <table type="3D" name="Knock Torque Cap Margin Threshold" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" sizex="16" sizey="16" userlevel="4" storageaddress="0x033005">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x032bf4">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x032bd4">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Knock margin index at or below which the margin trigger of the knock torque cap sets, by engine speed and load. Lower values let the engine run with less margin before the cap comes in.</description>
+  </table>
+  <table type="1D" name="Knock Torque Cap Margin Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x032b30">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Once the margin trigger is set, the threshold is raised by this much, so the margin index must climb clearly above it before the trigger releases.</description>
+  </table>
+  <table type="1D" name="Knock Torque Cap Coolant Minimum" category="Ignition Timing//Knock Control" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x032b4a">
+   <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
+   <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Coolant temperature from which the margin trigger works without the bypass.</description>
+  </table>
   <table name="FLKC Range Boundary RPM 4" storageaddress="0x023d6c" />
   <table name="FLKC Range Boundary RPM 5" storageaddress="0x023d6e" />
   <table name="FLKC Range Boundary RPM 6" storageaddress="0x023d70" />
@@ -85125,6 +85319,61 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Torque ceiling while the knock-event detector has tripped, by engine speed.</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Margin)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02c002">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bf32">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its margin trigger is set and the selector flag is clear, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Margin, Selector)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02c02c">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bf32">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its margin trigger is set and the selector flag is set, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Trigger A)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bfae">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bf32">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its trigger a trigger is set and the selector flag is clear, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Trigger A, Selector)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bfd8">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bf32">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its trigger a trigger is set and the selector flag is set, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Trigger B)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bf84">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bf32">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its trigger b trigger is set and the selector flag is clear, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Trigger B, Selector)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02c056">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bf32">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its trigger b trigger is set and the selector flag is set, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Knock Torque Cap Ramp Rate" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="20" userlevel="4" storageaddress="0x02c080">
+   <scaling units="ft-lb per pass" expression="x/80*0.7375621" to_byte="x*80/0.7375621" format="0.0" fineincrement="0.1" coarseincrement="0.4" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bf5c">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>How fast the margin torque ceiling moves toward its curve, and back up afterwards, per pass, by engine speed.</description>
   </table>
   <table name="Overboost Limit" storageaddress="0x033f42">
    <table type="Y Axis" storageaddress="0x033f56" />
@@ -92097,6 +92346,34 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>How much of the DAM adder applies, by DAM (128 = all of it).</description>
   </table>
   <table name="FLKC Range Boundary RPM 3" storageaddress="0x023d6a" />
+  <table type="BitwiseSwitch" name="Knock Torque Cap: Margin Trigger" category="Ignition Timing//Knock Control" storageaddress="0x041be6" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Switches on the margin trigger of the knock torque cap: when the knock margin index falls to Knock Torque Cap Margin Threshold, the torque ceiling ramps down to the Margin curve.</description>
+  </table>
+  <table type="BitwiseSwitch" name="Knock Torque Cap: Coolant Condition Bypass" category="Ignition Timing//Knock Control" storageaddress="0x041be6" userlevel="4">
+   <bit position="1" name="On" />
+   <description>With this set, the margin trigger also works below Knock Torque Cap Coolant Minimum (unless an ECU flag blocks it).</description>
+  </table>
+  <table type="3D" name="Knock Torque Cap Margin Threshold" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" sizex="16" sizey="16" userlevel="4" storageaddress="0x033005">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x032bf4">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x032bd4">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Knock margin index at or below which the margin trigger of the knock torque cap sets, by engine speed and load. Lower values let the engine run with less margin before the cap comes in.</description>
+  </table>
+  <table type="1D" name="Knock Torque Cap Margin Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x032b30">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Once the margin trigger is set, the threshold is raised by this much, so the margin index must climb clearly above it before the trigger releases.</description>
+  </table>
+  <table type="1D" name="Knock Torque Cap Coolant Minimum" category="Ignition Timing//Knock Control" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x032b4a">
+   <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
+   <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Coolant temperature from which the margin trigger works without the bypass.</description>
+  </table>
   <table name="FLKC Range Boundary RPM 4" storageaddress="0x023d6c" />
   <table name="FLKC Range Boundary RPM 5" storageaddress="0x023d6e" />
   <table name="FLKC Range Boundary RPM 6" storageaddress="0x023d70" />
@@ -93080,6 +93357,61 @@ Details: Feedback knock correction (0x0E2BE4, read): FFF8A79A is an s8 integrato
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Torque ceiling while the knock-event detector has tripped, by engine speed.</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Margin)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02c002">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bf32">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its margin trigger is set and the selector flag is clear, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Margin, Selector)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02c02c">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bf32">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its margin trigger is set and the selector flag is set, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Trigger A)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bfae">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bf32">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its trigger a trigger is set and the selector flag is clear, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Trigger A, Selector)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bfd8">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bf32">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its trigger a trigger is set and the selector flag is set, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Trigger B)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bf84">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bf32">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its trigger b trigger is set and the selector flag is clear, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Trigger B, Selector)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02c056">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bf32">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its trigger b trigger is set and the selector flag is set, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Knock Torque Cap Ramp Rate" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="20" userlevel="4" storageaddress="0x02c080">
+   <scaling units="ft-lb per pass" expression="x/80*0.7375621" to_byte="x*80/0.7375621" format="0.0" fineincrement="0.1" coarseincrement="0.4" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bf5c">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>How fast the margin torque ceiling moves toward its curve, and back up afterwards, per pass, by engine speed.</description>
   </table>
   <table name="Overboost Limit" storageaddress="0x033f42">
    <table type="Y Axis" storageaddress="0x033f56" />
@@ -115187,6 +115519,34 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>How much of the DAM adder applies, by DAM (128 = all of it).</description>
   </table>
   <table name="FLKC Range Boundary RPM 3" storageaddress="0x023b0a" />
+  <table type="BitwiseSwitch" name="Knock Torque Cap: Margin Trigger" category="Ignition Timing//Knock Control" storageaddress="0x0400d6" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Switches on the margin trigger of the knock torque cap: when the knock margin index falls to Knock Torque Cap Margin Threshold, the torque ceiling ramps down to the Margin curve.</description>
+  </table>
+  <table type="BitwiseSwitch" name="Knock Torque Cap: Coolant Condition Bypass" category="Ignition Timing//Knock Control" storageaddress="0x0400d6" userlevel="4">
+   <bit position="1" name="On" />
+   <description>With this set, the margin trigger also works below Knock Torque Cap Coolant Minimum (unless an ECU flag blocks it).</description>
+  </table>
+  <table type="3D" name="Knock Torque Cap Margin Threshold" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" sizex="16" sizey="16" userlevel="4" storageaddress="0x032b05">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0326f4">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0326d4">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Knock margin index at or below which the margin trigger of the knock torque cap sets, by engine speed and load. Lower values let the engine run with less margin before the cap comes in.</description>
+  </table>
+  <table type="1D" name="Knock Torque Cap Margin Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x032630">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Once the margin trigger is set, the threshold is raised by this much, so the margin index must climb clearly above it before the trigger releases.</description>
+  </table>
+  <table type="1D" name="Knock Torque Cap Coolant Minimum" category="Ignition Timing//Knock Control" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x03264a">
+   <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
+   <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Coolant temperature from which the margin trigger works without the bypass.</description>
+  </table>
   <table name="FLKC Range Boundary RPM 4" storageaddress="0x023b0c" />
   <table name="FLKC Range Boundary RPM 5" storageaddress="0x023b0e" />
   <table name="FLKC Range Boundary RPM 6" storageaddress="0x023b10" />
@@ -116218,6 +116578,61 @@ Details: Feedback knock correction (0x0E2BE4, read): FFF8A79A is an s8 integrato
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Torque ceiling while the knock-event detector has tripped, by engine speed.</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Margin)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bda2">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bcd2">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its margin trigger is set and the selector flag is clear, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Margin, Selector)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bdcc">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bcd2">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its margin trigger is set and the selector flag is set, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Trigger A)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bd4e">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bcd2">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its trigger a trigger is set and the selector flag is clear, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Trigger A, Selector)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bd78">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bcd2">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its trigger a trigger is set and the selector flag is set, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Trigger B)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bd24">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bcd2">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its trigger b trigger is set and the selector flag is clear, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Trigger B, Selector)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bdf6">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bcd2">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its trigger b trigger is set and the selector flag is set, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Knock Torque Cap Ramp Rate" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="20" userlevel="4" storageaddress="0x02be20">
+   <scaling units="ft-lb per pass" expression="x/80*0.7375621" to_byte="x*80/0.7375621" format="0.0" fineincrement="0.1" coarseincrement="0.4" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bcfc">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>How fast the margin torque ceiling moves toward its curve, and back up afterwards, per pass, by engine speed.</description>
   </table>
   <table name="Overboost Limit" storageaddress="0x033a42">
    <table type="Y Axis" storageaddress="0x033a56" />
@@ -131112,6 +131527,34 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
    <description>How much of the DAM adder applies, by DAM (128 = all of it).</description>
   </table>
   <table name="FLKC Range Boundary RPM 3" storageaddress="0x023d6a" />
+  <table type="BitwiseSwitch" name="Knock Torque Cap: Margin Trigger" category="Ignition Timing//Knock Control" storageaddress="0x041be6" userlevel="3">
+   <bit position="0" name="On" />
+   <description>Switches on the margin trigger of the knock torque cap: when the knock margin index falls to Knock Torque Cap Margin Threshold, the torque ceiling ramps down to the Margin curve.</description>
+  </table>
+  <table type="BitwiseSwitch" name="Knock Torque Cap: Coolant Condition Bypass" category="Ignition Timing//Knock Control" storageaddress="0x041be6" userlevel="4">
+   <bit position="1" name="On" />
+   <description>With this set, the margin trigger also works below Knock Torque Cap Coolant Minimum (unless an ECU flag blocks it).</description>
+  </table>
+  <table type="3D" name="Knock Torque Cap Margin Threshold" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" sizex="16" sizey="16" userlevel="4" storageaddress="0x033005">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x032bf4">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x032bd4">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Knock margin index at or below which the margin trigger of the knock torque cap sets, by engine speed and load. Lower values let the engine run with less margin before the cap comes in.</description>
+  </table>
+  <table type="1D" name="Knock Torque Cap Margin Hysteresis" category="Ignition Timing//Knock Control" storagetype="uint8" endian="big" userlevel="4" storageaddress="0x032b30">
+   <scaling units="count" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Once the margin trigger is set, the threshold is raised by this much, so the margin index must climb clearly above it before the trigger releases.</description>
+  </table>
+  <table type="1D" name="Knock Torque Cap Coolant Minimum" category="Ignition Timing//Knock Control" storagetype="uint16" endian="big" userlevel="4" storageaddress="0x032b4a">
+   <scaling category="Default" units="degrees F" expression="(x/409.6-40)*1.8+32" to_byte="((x-32)/1.8+40)*409.6" format="0" fineincrement="2" coarseincrement="8.0" />
+   <scaling category="degrees C" units="degrees C" expression="x/409.6-40" to_byte="(x+40)*409.6" format="0" fineincrement="1" coarseincrement="4.0" />
+   <description>Coolant temperature from which the margin trigger works without the bypass.</description>
+  </table>
   <table name="FLKC Range Boundary RPM 4" storageaddress="0x023d6c" />
   <table name="FLKC Range Boundary RPM 5" storageaddress="0x023d6e" />
   <table name="FLKC Range Boundary RPM 6" storageaddress="0x023d70" />
@@ -132143,6 +132586,61 @@ Details: Feedback knock correction (0x0E2BE4, read): FFF8A79A is an s8 integrato
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Torque ceiling while the knock-event detector has tripped, by engine speed.</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Margin)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02c002">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bf32">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its margin trigger is set and the selector flag is clear, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Margin, Selector)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02c02c">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bf32">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its margin trigger is set and the selector flag is set, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Trigger A)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bfae">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bf32">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its trigger a trigger is set and the selector flag is clear, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Trigger A, Selector)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bfd8">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bf32">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its trigger a trigger is set and the selector flag is set, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Trigger B)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02bf84">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bf32">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its trigger b trigger is set and the selector flag is clear, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Maximum Torque (Knock Cap, Trigger B, Selector)" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="21" userlevel="3" storageaddress="0x02c056">
+   <scaling category="Default" units="ft-lb" expression="(x/80-200)*0.7375621" to_byte="(x/0.7375621+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="Nm" units="Nm" expression="x/80-200" to_byte="(x+200)*80" format="0.0" fineincrement="1" coarseincrement="4.0" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bf32">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Torque ceiling of the knock torque cap while its trigger b trigger is set and the selector flag is set, by engine speed (no limit at the top of the scale).</description>
+  </table>
+  <table type="2D" name="Knock Torque Cap Ramp Rate" category="Torque &amp; Throttle//Torque Limits &amp; Engine Protection" storagetype="uint16" endian="big" sizey="20" userlevel="4" storageaddress="0x02c080">
+   <scaling units="ft-lb per pass" expression="x/80*0.7375621" to_byte="x*80/0.7375621" format="0.0" fineincrement="0.1" coarseincrement="0.4" />
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02bf5c">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>How fast the margin torque ceiling moves toward its curve, and back up afterwards, per pass, by engine speed.</description>
   </table>
   <table name="Overboost Limit" storageaddress="0x033f42">
    <table type="Y Axis" storageaddress="0x033f56" />

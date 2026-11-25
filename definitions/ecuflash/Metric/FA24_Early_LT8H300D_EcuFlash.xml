@@ -1123,6 +1123,13 @@ Details: When used: see Additional Enrichment A: B applies when coolant &lt; cal
  <table name="FLKC Range Boundary RPM 2" address="01d450" />
  <table name="Knock Event Fine Learning Correction Hysteresis" address="02d7de" />
  <table name="FLKC Range Boundary RPM 3" address="01d452" />
+ <table name="Knock Torque Cap: Margin Trigger" address="03ba80" />
+ <table name="Knock Torque Cap: Coolant Condition Bypass" address="03ba80" />
+ <table name="Knock Torque Cap Margin Threshold" address="02db58">
+  <table name="Engine Load" address="02d800" />
+  <table name="Engine Speed" address="02d7e0" />
+ </table>
+ <table name="Knock Torque Cap Margin Hysteresis" address="02d7d8" />
  <table name="FLKC Range Boundary RPM 4" address="01d454" />
  <table name="FLKC Range Boundary RPM 5" address="01d456" />
  <table name="FLKC Range Boundary RPM 6" address="01d458" />
@@ -2051,6 +2058,27 @@ Weighted DAM/16. 0x0D9BD4 (read): FFF8A73F = ((16 - DAM) x 05B54C + DAM x 05B560
  </table>
  <table name="Maximum Torque (Knock Event, Alternate)" address="025598">
   <table name="Engine Speed" address="025250" />
+ </table>
+ <table name="Maximum Torque (Knock Cap, Margin)" address="025318">
+  <table name="Engine Speed" address="0251be" />
+ </table>
+ <table name="Maximum Torque (Knock Cap, Margin, Selector)" address="025342">
+  <table name="Engine Speed" address="0251be" />
+ </table>
+ <table name="Maximum Torque (Knock Cap, Trigger A)" address="0252c4">
+  <table name="Engine Speed" address="0251be" />
+ </table>
+ <table name="Maximum Torque (Knock Cap, Trigger A, Selector)" address="0252ee">
+  <table name="Engine Speed" address="0251be" />
+ </table>
+ <table name="Maximum Torque (Knock Cap, Trigger B)" address="02529a">
+  <table name="Engine Speed" address="0251be" />
+ </table>
+ <table name="Maximum Torque (Knock Cap, Trigger B, Selector)" address="02536c">
+  <table name="Engine Speed" address="0251be" />
+ </table>
+ <table name="Knock Torque Cap Ramp Rate" address="025506">
+  <table name="Engine Speed" address="025196" />
  </table>
  <table name="Rev/Boost Limit Torque (Base)" address="01f074">
   <table name="Engine Speed" address="01f032" />

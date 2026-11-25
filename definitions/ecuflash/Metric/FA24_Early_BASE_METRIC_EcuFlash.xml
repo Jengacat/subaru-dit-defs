@@ -13292,6 +13292,11 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
  <table name="FLKC Range Boundary Load 4" category="02.03 Ignition Timing - Knock Control" type="1D" level="3" scaling="g/rev uint16 (2.4)">
   <description>One of the four load boundaries that split fine learning knock correction (FLKC) into load ranges; each learning cell covers one rpm range by one load range. Moving it changes which conditions share a learned correction. Keep them in increasing order.</description>
  </table>
+ <table name="Knock Torque Cap Margin Threshold" category="02.03 Ignition Timing - Knock Control" type="3D" level="4" scaling="count uint8">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
+  <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
+  <description>Knock margin index at or below which the margin trigger of the knock torque cap sets, by engine speed and load. Lower values let the engine run with less margin before the cap comes in.</description>
+ </table>
  <table name="FLKC Range Load Hysteresis" category="02.03 Ignition Timing - Knock Control" type="1D" level="3" scaling="g/rev uint16 (2.4)">
   <description>Load hysteresis used when switching between fine learning knock correction load ranges, to stop flicking between cells at a boundary.</description>
  </table>

@@ -56,5 +56,5 @@ For the checksum version, keep the `checksum/` folder in the same folder as the 
 if you'd rather build it yourself). With it, RomRaider marks an edited ROM's checksum as invalid until you save, and
 the saved file passes `checksum.py verify`.
 
-Images are 4032 KB (see the [main README](../../README.md#2022-wrx-whats-different)). The user levels and units work
+Images are 4032 KB (see the [2022+ WRX guide](../../docs/WRX_2022plus.md)). The user levels and units work
 as above; trouble codes have one Enabled switch per code, without a Fail-Safe cell.

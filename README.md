@@ -147,7 +147,7 @@ LHBP300d have none, so theirs are taken from the ROMs whose code they share.
 
 The 2022+ WRX has a new ECU generation: a Renesas RH850/E1M-S2 with new software, not a build of the SH software
 the other definitions cover. 
-Every tool works a little differently on this ECU, so read [2022+ WRX: what's different](#2022-wrx-whats-different)
+Every tool works a little differently on this ECU, so read [2022+ WRX: what's different](docs/WRX_2022plus.md)
 before you start.
 
 There is no logging patch: this ECU has no SSM
@@ -378,7 +378,7 @@ A list of the calibration IDs known for these ECUs, and how each relates to the 
 
 ### Editing with RomRaider
 1. Add `definitions/romraider/FA20DIT_RomRaider.xml` in RomRaider's Definition Manager (for a Levorg 1.6,
-   `FB16DIT_RomRaider.xml`; for a 2022+ WRX, `FA24DIT_RomRaider.xml`, see [below](#2022-wrx-whats-different); the
+   `FB16DIT_RomRaider.xml`; for a 2022+ WRX, `FA24DIT_RomRaider.xml`, see the [2022+ WRX guide](docs/WRX_2022plus.md); the
    Ascent and Legacy XT (FA24 Early) are in the FA20DIT file; having several installed is fine).
 2. Open your ROM. Tables are grouped by purpose (Fueling, Ignition Timing, Boost Control, …) in tuning order.
 3. Set the user level (Settings → User Level) to match what you want to see: **Beginner** and **Intermediate** cover
@@ -408,42 +408,6 @@ Each DTC has two tables next to each other, in code order: the code itself (enab
 Decrement. The calibration switches (folder 11.02, EGR Enable and the like) show as on/off and flip the same way.
 The [EcuFlash README](definitions/ecuflash/README.md) explains why.
 
-### 2022+ WRX: what's different
-
-- **ROM files.** The definitions use a 4032 KB image (the flash without its 64 KB boot block). A 4 MB image works
-  once its first 65,536 bytes are removed; the checksum tool tells you if you have one.
-- **Checksum.** A different rule from the other ECUs, which `tools/checksum.py` and `checksum.ps1` handle (same
-  commands as below). Not yet proven on a car.
-- **RomRaider.** `FA24DIT_RomRaider.xml` opens in any RomRaider 1.0.0 or later; fix the checksum with the
-  tool after saving. `FA24DIT_RomRaider_Checksum.xml` (keep its `checksum/` folder next to it) corrects the
-  sum when you save, but needs a RomRaider that can load a checksum module from the definition folder: my change for that ([RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)) is merged into RomRaider after 1.1.0, so use the next RomRaider release, or until it is out a RomRaider built from the current source. RomRaider 1.0.0 and 1.1.0 can't open the images with that file
-  at all, so install only one of the two.
-- **FastECU, or EcuFlash with a copy.** The EcuFlash-format files (`FA24DIT_*_EcuFlash.xml`) are made for
-  **FastECU**, which opens the full image with them (below). EcuFlash itself (1.44) can't load the right memory model
-  for these ROMs: none of its built-in models is the size of these images, so it only opens a 3 MB copy (every table
-  is in the first 1 MB). To use EcuFlash anyway, make the copy, edit and save it, then merge it back; the merge fixes
-  the checksum:
-
-  ```
-  python3 tools/ef_view.py view  stock.bin  stock_view.bin
-  python3 tools/ef_view.py merge stock.bin  stock_view.bin  edited.bin
-  ```
-
-  (`powershell -ExecutionPolicy Bypass -File tools\ef_view.ps1 …` on Windows, same arguments.) **Never flash the
-  view copy**: it lacks the end of the image. Install the base file and your ROM's file as for the other ECUs
-  (`FA24DIT_BASE_EcuFlash.xml`, or `FA24DIT_BASE_METRIC_EcuFlash.xml`, plus `FA24DIT_<calibration ID>_EcuFlash.xml`).
-- **FastECU** reads the EcuFlash files and opens the full image directly, no copy needed. Its checksum module for
-  this ECU is on my branch [rh850-checksum](https://github.com/Jengacat/FastECU/tree/rh850-checksum) (not in a
-  FastECU release yet): with the vehicle set to "WRX 2.4 DIT (VB)" it corrects the sum on save. Otherwise use the
-  checksum tool.
-- **The three tools agree:** the same edit saved in RomRaider, FastECU and EcuFlash gives the same file as the
-  checksum tool. Whether the ECU accepts it is not yet tested.
-- **DTCs** have one switch per code (enabled or not): this ECU has no separate fail-safe bit per code.
-- **Drive modes.** Tables marked Drive Mode 1–4 follow the SI-Drive mode the ECU receives over CAN (1 Default,
-  2 Sport, 3 Intelligent, 4 Sport Sharp; the names of 2–4 are inferred from the older platform). The manual ROMs
-  carry maps for every mode, but the manual car probably stays in mode 1 (inferred), so edit mode 1 there.
-- **Reading and writing the ECU:** nothing in this repository does either, and I haven't tested a tool for it.
-
 ### Fix the checksum before every flash
 
 This ECU checks a 16-bit checksum over the whole flash, and a ROM with a bad checksum won't run. **EcuFlash corrects
@@ -468,7 +432,7 @@ powershell -ExecutionPolicy Bypass -File tools\checksum.ps1 verify  edited_fixed
 
 Every line of `verify` must say OK. A ROM with a bad checksum sets P0605 or is refused by the ECU. The same commands
 work for a 2022+ WRX ROM; its rule is different, and the tool picks it by the file size
-([details](#2022-wrx-whats-different)). The Python tool
+([details](docs/WRX_2022plus.md)). The Python tool
 needs only Python 3 (no extra packages).
 
 ### Logging
@@ -552,7 +516,7 @@ Every table whose unit depends on the system has both an imperial and a metric s
   from Subaru's dealer software, which has no boot block, so `verify` reports one boot marker as BAD on them; a full
   read from a car should pass.
 - **2022+ WRX: first release.** Placed from the ROMs' own code, not yet checked against a car. Its checksum
-  rule is not yet proven on a car (see [above](#2022-wrx-whats-different)). The "(Monitor)" tables are copies the ECU's
+  rule is not yet proven on a car (see the [2022+ WRX guide](docs/WRX_2022plus.md)). The "(Monitor)" tables are copies the ECU's
   torque monitor reads: keep each one equal to its main table, or the monitor can close the throttle (see the
   [definitions README](definitions/README.md#notes-on-individual-roms)). Some codes in the DTC list have no name yet.
   Its EcuFlash-format files are only fully usable in FastECU: EcuFlash can't load the right memory model for these

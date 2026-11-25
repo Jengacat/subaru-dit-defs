@@ -72,4 +72,4 @@ the whole calibration. To edit in EcuFlash anyway (tested in 1.44.4870), install
 
 **Never flash the view copy.** The files have no checksum module; the merge step does that job. DTCs show one table
 per code (enabled or disabled); flip one with Increment ( `]` ) as above. FastECU reads these same files and opens the
-full image without a copy (see the [main README](../../README.md#2022-wrx-whats-different)).
+full image without a copy (see the [2022+ WRX guide](../../docs/WRX_2022plus.md)).

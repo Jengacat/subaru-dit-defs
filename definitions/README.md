@@ -15,7 +15,7 @@ what a particular car's calibration holds: stock values differ between markets, 
 EcuFlash corrects this ECU's checksum on save for 2 MB ROMs, and RomRaider does with the `_Checksum` files (see the
 [RomRaider README](romraider/)). Otherwise, and for every 2.5 MB ROM edited in EcuFlash, run
 [`tools/checksum.py`](../tools/) or `tools/checksum.ps1` before flashing. The 2022+ WRX has its own rule and its own options; see
-[2022+ WRX: what's different](../README.md#2022-wrx-whats-different).
+[2022+ WRX: what's different](../docs/WRX_2022plus.md).
 
 ## Notes on individual ROMs
 
@@ -54,7 +54,7 @@ checked against their own code. Things worth knowing before you edit:
   in practice group 1 = in gear and group 2 = neutral. Edit both together unless you know the difference.
 - **"(AT/CVT …)" tables** are used only when the ROM is coded AT/CVT or the transmission controller asks for them
   over CAN. On the manual ROMs they are at Debug.
-- **Drive Mode tables.** See the [main README](../README.md#2022-wrx-whats-different). On the manual car the pedal
+- **Drive Mode tables.** See the [2022+ WRX guide](../docs/WRX_2022plus.md). On the manual car the pedal
   map is the per-gear set Requested Torque (Drive Mode 1, Default, Neutral / Gear 1–6), used while Requested Torque
   Gear Maps Switch is on; the plain Requested Torque (Drive Mode 1, Default) is used while it is off. Mode 2 copies
   of a few tables (surge damping, torque fall, pedal scaling) are listed next to the default ones; edit both to keep

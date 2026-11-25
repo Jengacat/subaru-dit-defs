@@ -4,6 +4,10 @@
 
 First public release.
 
+- New: **8 more 2022+ WRX ROMs** (`FA24DIT_*`): LHBHD00B (2022 6MT), LHBHC01C (2022–23 CVT), LHBKC30M (2023 6MT),
+  LHBKC20P / LHBKC20R / LHBKC20L (2023 6MT / CVT / CVT, year not confirmed), LHBP300d (2024 6MT, year not confirmed)
+  and LHBP301c (2024 CVT). Each is placed from its own code through the closest supported ROM; the first four ROMs'
+  tables are unchanged.
 - Fixed: **2022+ WRX mode-22 PIDs** (`logger/FA24DIT_LHBKC40M_Torque.csv`) used header 7E0, which this ECU only
   answers with OBD services; they now use 7DF.
 - New: **44 more ROMs** that run exactly the same code as a supported ROM, with only the calibration different:

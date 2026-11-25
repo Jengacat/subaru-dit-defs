@@ -107,8 +107,9 @@
  <table name="Target Rail Pressure (Start)" address="0b8634" scaling="MPa uint16">
   <table name="Coolant Temp" address="020a68" />
  </table>
- <table name="Target Rail Pressure (Combustion Mode 1, Idle State Group 1)" address="0b8504">
+ <table name="Target Rail Pressure (Combustion Mode 1, Idle State Group 1)" address="0b8504" scaling="MPa uint16">
   <table name="Coolant Temp" address="0b84e4" />
+  <description>Target rail pressure by coolant in combustion mode 1, idle controller state group 1. Group 1: out of neutral, moving, or engine speed at or above a received idle-speed request; group 2: neutral (default state) or stopped below the request. On the manual car, probably without that request (inferred), group 1 = out of neutral and group 2 = neutral. Edit both together unless you know the difference. Combustion mode is the cold-start sequence: 0 cranking, 1 first warm-up phase, 2 stratified catalyst heating, 3 catalyst-heating phase 2, 4 normal running. Idle state groups: Group 1 is used out of neutral, while moving, or at or above a received idle-speed request; Group 2 in neutral (the default state) or stopped below that request. On this manual car probably in gear (Group 1) versus neutral (Group 2) (inferred). Identified from this ECU's code.</description>
  </table>
  <table name="Target Rail Pressure (Combustion Mode 1, Idle State Group 2)" address="0b8564" scaling="MPa uint16">
   <table name="Coolant Temp" address="0b84e4" />

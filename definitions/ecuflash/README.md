@@ -54,7 +54,7 @@ Writing to the ECU with EcuFlash has not been tested on this ECU yet.
 ## 2022+ WRX (FA24DIT files): made for FastECU
 
 `FA24DIT_BASE_EcuFlash.xml` (Metric: `FA24DIT_BASE_METRIC_EcuFlash.xml`) plus `FA24DIT_<calibration ID>_EcuFlash.xml`
-for LHBHB10B, LHBKC40M, LHBP400b and LHBT210V.
+for each supported 2022+ WRX ROM (the list is in the main README).
 
 **As they are, these files are only fully compatible with FastECU.** FastECU opens the full 4032 KB image with them
 (set its EcuFlash definitions folder to `Imperial/` or `Metric/`), and with my

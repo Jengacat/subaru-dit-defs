@@ -123,14 +123,27 @@ were later replaced by an update, or are builds that Subaru's update database do
 </details>
 
 <details>
-<summary><b>WRX 2022+ (FA24DIT, RH850 ECU)</b>: 4 ROMs, 2022–2025+ (first release, read the notes below)</summary>
+<summary><b>WRX 2022+ (FA24DIT, RH850 ECU)</b>: 12 ROMs, 2022–2025+ (first release, read the notes below)</summary>
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
 | WRX | 2022 | 6MT | USDM | **LHBHB10B** | 1266 | 254 | no (see below) |
+| WRX | 2022 | 6MT | USDM | LHBHD00B | 1266 | 254 | no (see below) |
+| WRX | 2022–2023 | CVT | USDM | LHBHC01C | 1266 | 254 | no (see below) |
 | WRX | 2023 | 6MT | USDM | **LHBKC40M** | 1290 | 312 | no (see below) |
+| WRX | 2023 | 6MT | USDM | LHBKC30M | 1290 | 312 | no (see below) |
+| WRX | 2023 (not confirmed) | 6MT | USDM (not confirmed) | LHBKC20P | 1290 | 312 | no (see below) |
+| WRX | 2023 (not confirmed) | CVT | USDM (not confirmed) | LHBKC20R | 1290 | 312 | no (see below) |
+| WRX | 2023 (not confirmed) | CVT | USDM (not confirmed) | LHBKC20L | 1290 | 312 | no (see below) |
 | WRX | 2024 | 6MT | USDM | **LHBP400b** | 1300 | 312 | no (see below) |
+| WRX | 2024 (not confirmed) | 6MT | USDM (not confirmed) | LHBP300d | 1300 | 312 | no (see below) |
+| WRX | 2024 | CVT | USDM | LHBP301c | 1300 | 312 | no (see below) |
 | WRX | 2025 or later (not confirmed) | CVT | USDM | **LHBT210V** | 1332 | 312 | no (see below) |
+
+The eight added ROMs run the same code as the first four or a close revision of it; their tables were placed from
+their own code, through the closest supported ROM, and checked through RomRaider, EcuFlash and FastECU like the
+first four. Year and model come from the engine string in each ROM where it has one; LHBKC20P / 20R / 20L and
+LHBP300d have none, so theirs are taken from the ROMs whose code they share.
 
 The 2022+ WRX has a new ECU generation: a Renesas RH850/E1M-S2 with new software, not a build of the SH software
 the other definitions cover. 

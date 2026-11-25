@@ -123,7 +123,7 @@ were later replaced by an update, or are builds that Subaru's update database do
 </details>
 
 <details>
-<summary><b>WRX 2022+ (FA24DIT, RH850 ECU)</b>: 12 ROMs, 2022–2025+ (first release, read the notes below)</summary>
+<summary><b>WRX 2022+ (FA24DIT, RH850 ECU)</b>: 12 ROMs, 2022–2026 (first release, read the notes below)</summary>
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
@@ -138,7 +138,7 @@ were later replaced by an update, or are builds that Subaru's update database do
 | WRX | 2024 | 6MT | USDM | **LHBP400b** | 1300 | 312 | no (see below) |
 | WRX | 2024 (not confirmed) | 6MT | USDM (not confirmed) | LHBP300d | 1300 | 312 | no (see below) |
 | WRX | 2024 | CVT | USDM | LHBP301c | 1300 | 312 | no (see below) |
-| WRX | 2025 or later (not confirmed) | CVT | USDM | **LHBT210V** | 1332 | 312 | no (see below) |
+| WRX | 2026 | CVT | USDM | **LHBT210V** | 1332 | 312 | no (see below) |
 
 The eight added ROMs run the same code as the first four or a close revision of it; their tables were placed from
 their own code, through the closest supported ROM, and checked through RomRaider, EcuFlash and FastECU like the

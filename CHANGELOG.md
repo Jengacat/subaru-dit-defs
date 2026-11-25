@@ -4,6 +4,11 @@
 
 First public release.
 
+- Fixed: **2024 and 2026 WRX** (LHBP400b, LHBP300d, LHBP301c, LHBT210V): the eight Target Torque Rise Stage 2 Torque
+  and Start Torque tables of path B were on each other's addresses (stage 2 and start swapped, modes shifted). These
+  ROMs keep the tables in a different order from the 2023 one; they are now placed by where the code stores each
+  result. Stock values are all zero, so only edits made to them are affected.
+- Changed: LHBT210V is listed as a 2026 (from the engine string in the ROM).
 - New: **8 more 2022+ WRX ROMs** (`FA24DIT_*`): LHBHD00B (2022 6MT), LHBHC01C (2022–23 CVT), LHBKC30M (2023 6MT),
   LHBKC20P / LHBKC20R / LHBKC20L (2023 6MT / CVT / CVT, year not confirmed), LHBP300d (2024 6MT, year not confirmed)
   and LHBP301c (2024 CVT). Each is placed from its own code through the closest supported ROM; the first four ROMs'

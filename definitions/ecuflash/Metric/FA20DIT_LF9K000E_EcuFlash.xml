@@ -183,9 +183,6 @@ Details: When used: Only with the automatic/CVT transmission coding (Cal Switche
  </table>
  <table name="Target Rail Pressure (Combustion Mode 1, Fallback, AT/CVT Coding)" address="050480">
   <table name="Coolant Temp" address="050146" />
-  <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1, Fallback).
-
-Details: When used: Only with the automatic/CVT transmission coding (Cal Switches: Transmission Coding: Automatic/CVT); unused on a manual car (read). LF9F000R: a table LF75404S does not have; scaling and axes as Target Rail Pressure (Combustion Mode 1, Fallback). Confidence: read.</description>
  </table>
  <table name="Primary Open Loop Fueling" address="019070">
   <table name="Engine Load" address="01205c" />
@@ -2819,7 +2816,11 @@ Details: u16 rpm x 0.1953125, subtracted from the limit while the latch FFF8A63B
   <table name="Engine Speed" address="0358d4" />
  </table>
  <table name="Throttle Flow Coefficient (Forward Flow)" address="035854" />
- <table name="Throttle Flow Coefficient (Reverse Flow)" address="035855" />
+ <table name="Throttle Flow Coefficient (Reverse Flow)" address="035855">
+  <description>Coefficient of the throttle airflow model when the manifold is above the pre-throttle pressure. Leave alone.
+
+Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-throttle pressure; the ratio is inverted). 0x11DD04 (read), enabled by FFF8A8FB bit 0 (0x11E43C): modelled throttle flow FFF8C24C [g/min] = (P_up/101325) x Throttle Flow Function(r) x FFF8ADEC (Throttle Area from Throttle Position, 0.05 mm^2) x Throttle Flow Temperature Correction x this x 60000 x 2.98e-15, which feeds the manifold/airflow observer 0x11DB50 / 0x11D938. Normally leave alone. Confidence: inferred.</description>
+ </table>
  <table name="Exhaust Temperature Model Map A (No Enrichment)" address="019b50">
   <table name="Engine Load" address="013698" />
   <table name="Engine Speed" address="0136a4" />
@@ -3366,7 +3367,11 @@ Details: 0x0F1DD0 (read; selection checked in the disassembly 0x0F1DD0..0x0F2148
 
 Details: 0x0F1DD0 (read; selection checked in the disassembly 0x0F1DD0..0x0F2148): the target ramp step B23E is chosen on a change of idle mode FFF8A7F0 (previous -&gt; new) and kept while the mode stays the same; the target B23C (4 x B238) moves toward the new mode's Idle Speed Target by this step every pass (0x0F1D00). Coolant FFF88A44 axis. Mode 1 -&gt; 1 uses step 0. This table: mode 8 -&gt; 7. Modes 6/8 only occur with the AT/CVT coding: 0x0F2BCC passes A7F6 through when FFF88ADA bit7 is set and 0x0F354C itself only yields 1-5/7, so this step is never used by this MT calibration (read). p16 (read): 0x0F1D00 runs every 10 ms (module 0x0EE338), so rpm/s = shown rpm-per-pass x 100. Confidence: read.</description>
  </table>
- <table name="Idle Speed Target (Cold Idle, Mode 4)" address="02d5e4" />
+ <table name="Idle Speed Target (Cold Idle, Mode 4)" address="02d5e4">
+  <description>Idle speed target by coolant for a cold-idle mode used when stopped below a coolant threshold.
+
+Details: When used: idle mode 4, entered from mode 5 when stopped with coolant below cal 0x24E94 for cal 0x24E96 passes. 0x0F1BCC selects this boot-format table by idle mode FFF8A7F0 = 4 and coolant; the result B238 is ramped (0x0F1D00) and becomes the idle target FFF8B236 through the minimum-speed max() in 0x0F2274 (read). Implicit coolant axis -40..110 C in 10 C steps (lookup 0x7414). Confidence: inferred.</description>
+ </table>
  <table name="Idle Target Ramp Rate (Fallback Latch)" address="03029c">
   <table name="Coolant Temp" address="045420" />
  </table>

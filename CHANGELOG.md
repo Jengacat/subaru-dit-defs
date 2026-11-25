@@ -4,6 +4,21 @@
 
 First public release.
 
+- New: **49 more ROMs**, all earlier calibrations that a dealer update replaced (unstarred in the ROM lists): 45 for
+  the 2.0 (WRX, Forester XT, Legacy, Levorg 2.0) and 4 for the Levorg 1.6 (LF9B002G, LF9D001e, LF79101T, LF9F000Q).
+  Each runs exactly the same code as a ROM that was already supported, with only the calibration different, so its
+  definition is that ROM's, at the same addresses; every table was checked through RomRaider and EcuFlash as for the
+  others. LF75300G and LF75300T are among them: I now have complete reads of both. Two of the Levorg ROMs (LF79101T,
+  LF9F000Q) run the 2.0's code but carry a 1.6 calibration, so they are in the FB16DIT files. No logging-patch spec
+  for these yet.
+- New: **RomRaider files that correct the checksum when you save** for the 2.0 and 1.6 ROMs:
+  `FA20DIT_RomRaider_Checksum.xml` (Ascent / Legacy XT included) and `FB16DIT_RomRaider_Checksum.xml`, with the
+  `FA20Sum16` module in `definitions/romraider/checksum/`. They need a RomRaider that loads checksum modules from the
+  definition folder: my change for that (RomRaider pull request #248) is merged, so the next RomRaider release, or a
+  build from the current source. The plain files are unchanged.
+- Fixed: on the Ascent and Legacy / Outback XT, P0299 Underboost Error Threshold and Underboost Time sat in an
+  "Unsorted" folder with code addresses in their descriptions; they are now with the other boost trouble-code
+  settings, described in plain words.
 - New: **2022+ WRX (FA24DIT files, RH850 ECU)**: LHBHB10B (2022 6MT), LHBKC40M (2023 6MT), LHBP400b (2024 6MT) and
   LHBT210V (CVT, 2025 or later). A new ECU generation with new software, placed from its own code; tables that do the
   same job as an Ascent table carry its name. 1,266–1,332 tables, values and switches per ROM, plus one switch per

@@ -38360,6 +38360,10 @@
   <data name="yes [0C]+" value="0C" />
  </scaling>
  <scaling name="bits uint8" units="bits" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
+ <scaling name="Switch b1 fFD" storagetype="bloblist">
+  <data name="off" value="FD" />
+  <data name="on" value="FF" />
+ </scaling>
  <scaling name="DTC enabled b0 mFF f00 sCE" storagetype="bloblist">
   <data name="enabled [CF]" value="CF" />
   <data name="disabled [CE]" value="CE" />
@@ -45150,10 +45154,6 @@
   <data name="disabled [1F]" value="1F" />
   <data name="enabled [3F]+" value="3F" />
  </scaling>
- <scaling name="Switch b1 fFD" storagetype="bloblist">
-  <data name="off" value="FD" />
-  <data name="on" value="FF" />
- </scaling>
  <scaling name="Ah uint16" units="Ah" toexpr="x/10" frexpr="x*10" format="%0.1f" min="0" max="6553.5" inc="0.1" storagetype="uint16" endian="big" />
  <scaling name="DTC enabled b3 m99 f00" storagetype="bloblist">
   <data name="enabled [08]" value="08" />
@@ -48080,6 +48080,7 @@
   <data name="no [3F]" value="3F" />
   <data name="yes [BF]+" value="BF" />
  </scaling>
+ <scaling name="deg BTDC (neg  ATDC) uint16" units="deg BTDC (neg = ATDC)" toexpr="x*-0.5" frexpr="x*-2" format="%0.1f" min="-32767.5" max="0" inc="0.5" storagetype="uint16" endian="big" />
  <scaling name="count uint8" units="count" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
  <scaling name="degrees int8 #2" units="degrees" toexpr="x*0.3515625" frexpr="x/0.3515625" format="%0.2f" min="-45" max="44.6484" inc="0.35" storagetype="int8" endian="big" />
  <scaling name="fraction uint8" units="fraction" toexpr="x/128" frexpr="x*128" format="%0.2f" min="0" max="1.99219" inc="0.01" storagetype="uint8" endian="big" />
@@ -49728,7 +49729,7 @@ Details: When used: Used only while FFF899D7 bit 0 is set, a once-per-drive warm
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees F uint16" />
   <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1, Fallback).
 
-Details: When used: Only with the automatic/CVT transmission coding (Cal Switches: Transmission Coding: Automatic/CVT); unused on a manual car (read). LF79100P: a table LF75404S does not have; scaling and axes as Target Rail Pressure (Combustion Mode 1, Fallback). Confidence: read.</description>
+Details: When used: Only with the automatic/CVT transmission coding (Cal Switches: Transmission Coding: Automatic/CVT); unused on a manual car (read). LF9F000R: a table LF75404S does not have; scaling and axes as Target Rail Pressure (Combustion Mode 1, Fallback). Confidence: read.</description>
  </table>
  <table name="Primary Open Loop Fueling" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="1" scaling="AFR (gasoline) uint8">
   <table name="Engine Load" type="X Axis" elements="20" scaling="g/rev uint8" />
@@ -53684,7 +53685,7 @@ When that bit is set, 0x11E308 uses this table instead of the Volumetric Efficie
  <table name="Throttle Flow Coefficient (Reverse Flow)" category="05.01 Airflow &amp; Engine Model - Airflow / Load Model" type="1D" level="5" scaling="coefficient int8">
   <description>Coefficient of the throttle airflow model when the manifold is above the pre-throttle pressure. Leave alone.
 
-Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-throttle pressure; the ratio is inverted). 0x11DD04 (read), enabled by FFF8A8FB bit 0 (0x11E43C): modelled throttle flow FFF8C24C [g/min] = (P_up/101325) x Throttle Flow Function(r) x FFF8ADEC (Throttle Area from Throttle Position, 0.05 mm^2) x Throttle Flow Temperature Correction x this x 60000 x 2.98e-15, which feeds the manifold/airflow observer 0x11DB50 / 0x11D938. Normally leave alone. Confidence: inferred.</description>
+Details: When used: every model pass while r &gt; 1.0 (manifold above the pre-throttle pressure; the ratio is inverted). 0x11DD04 (read), enabled by FFF8A8FB bit 0 (0x11E43C): modelled throttle flow FFF8C24C [g/min] = (P_up/101325) x Throttle Flow Function(r) x FFF8ADEC (Throttle Area from Throttle Position, 0.05 mm^2) x Throttle Flow Temperature Correction x this x 60000 x 2.98e-15, which feeds the manifold/airflow observer 0x11DB50 / 0x11D938. Normally leave alone. Confidence: read.</description>
  </table>
  <table name="Exhaust Temperature Model Map A (No Enrichment)" category="05.02 Airflow &amp; Engine Model - Exhaust &amp; Temperature Models" type="3D" level="3" scaling="exhaust model units uint16">
   <table name="Engine Load" type="X Axis" elements="12" scaling="g/rev uint8" />
@@ -54504,7 +54505,7 @@ Details: 0x0F1DD0 (read; selection checked in the disassembly 0x0F1DD0..0x0F2148
   </table>
   <description>Idle speed target by coolant for a cold-idle mode used when stopped below a coolant threshold.
 
-Details: When used: idle mode 4, entered from mode 5 when stopped with coolant below cal 0x24E94 for cal 0x24E96 passes. 0x0F1BCC selects this boot-format table by idle mode FFF8A7F0 = 4 and coolant; the result B238 is ramped (0x0F1D00) and becomes the idle target FFF8B236 through the minimum-speed max() in 0x0F2274 (read). Implicit coolant axis -40..110 C in 10 C steps (lookup 0x7414). Confidence: inferred.</description>
+Details: When used: idle mode 4, entered from mode 5 when stopped with coolant below cal 0x24E94 for cal 0x24E96 passes. 0x0F1BCC selects this boot-format table by idle mode FFF8A7F0 = 4 and coolant; the result B238 is ramped (0x0F1D00) and becomes the idle target FFF8B236 through the minimum-speed max() in 0x0F2274 (read). Implicit coolant axis -40..110 C in 10 C steps (lookup 0x7414). Confidence: read.</description>
  </table>
  <table name="Idle Target Ramp Rate (Fallback Latch)" category="07.01 Idle - Idle Speed Targets" type="2D" level="5" scaling="RPM per 10 ms int16">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees F uint16" />
@@ -57951,7 +57952,7 @@ Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x11
    <data>+74: -</data>
    <data>+75: b0=P050B b1=P050A b2=P2610 b3=P2420 b4=P2419 b5=P2401 b6=P0453 b7=P0452</data>
    <data>+76: b2=P015B b3=P015A b6=P014D b7=P014C</data>
-   <data>+77: b0=P04AF b1=P1451 b2=P1449 b3=P0455 b4=P0451 b5=P0441 b7=P219A</data>
+   <data>+77: b1=P1451 b2=P1449 b3=P0455 b4=P0451 b5=P0441 b7=P219A</data>
    <data>+78: b5=P2404 b6=P2402</data>
    <data>+79: b2=P013F b3=P013E b6=P013B b7=P013A</data>
    <data>+80: -</data>
@@ -57959,11 +57960,11 @@ Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x11
    <data>+82: -</data>
    <data>+83: b2=P0354 b3=P0353 b4=P0352 b5=P0351</data>
    <data>+84: b0=P000A b1=P000B b2=P000C b3=P000D b5=P0558 b6=P0557</data>
-   <data>+85: b0=P0512 b1=P0616 b2=P0617 b3=P2196 b4=P2195 b5=P0560 b6=P0116 b7=P081A</data>
+   <data>+85: b0=P0512 b1=P0616 b2=P0617 b3=P2195 b4=P2196 b5=P0560 b6=P0116 b7=P081A</data>
    <data>+86: -</data>
    <data>+87: b2=P062F b3=P060B b4=P060A b6=P0606 b7=P2119</data>
    <data>+88: b2=P0403 b3=P0391 b4=P0366 b5=P0346 b6=P0341 b7=P0300</data>
-   <data>+89: b0=P2530 b3=P04AC b4=P04AD b7=P04DB</data>
+   <data>+89: b0=P2530 b3=P04AC b4=P04AD</data>
    <data>+90: -</data>
    <data>+91: -</data>
    <data>+92: -</data>
@@ -58059,7 +58060,7 @@ Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x11
    <data>+74: -</data>
    <data>+75: b0=P050B b1=P050A b2=P2610 b3=P2420 b4=P2419 b5=P2401 b6=P0453 b7=P0452</data>
    <data>+76: b2=P015B b3=P015A b6=P014D b7=P014C</data>
-   <data>+77: b0=P04AF b1=P1451 b2=P1449 b3=P0455 b4=P0451 b5=P0441 b7=P219A</data>
+   <data>+77: b1=P1451 b2=P1449 b3=P0455 b4=P0451 b5=P0441 b7=P219A</data>
    <data>+78: b5=P2404 b6=P2402</data>
    <data>+79: b2=P013F b3=P013E b6=P013B b7=P013A</data>
    <data>+80: -</data>
@@ -58067,11 +58068,11 @@ Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x11
    <data>+82: -</data>
    <data>+83: b2=P0354 b3=P0353 b4=P0352 b5=P0351</data>
    <data>+84: b0=P000A b1=P000B b2=P000C b3=P000D b5=P0558 b6=P0557</data>
-   <data>+85: b0=P0512 b1=P0616 b2=P0617 b3=P2196 b4=P2195 b5=P0560 b6=P0116 b7=P081A</data>
+   <data>+85: b0=P0512 b1=P0616 b2=P0617 b3=P2195 b4=P2196 b5=P0560 b6=P0116 b7=P081A</data>
    <data>+86: -</data>
    <data>+87: b2=P062F b3=P060B b4=P060A b6=P0606 b7=P2119</data>
    <data>+88: b2=P0403 b3=P0391 b4=P0366 b5=P0346 b6=P0341 b7=P0300</data>
-   <data>+89: b0=P2530 b3=P04AC b4=P04AD b7=P04DB</data>
+   <data>+89: b0=P2530 b3=P04AC b4=P04AD</data>
    <data>+90: -</data>
    <data>+91: -</data>
    <data>+92: -</data>

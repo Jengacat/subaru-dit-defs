@@ -25,7 +25,7 @@ for that ROM.
 were later replaced by an update, or are builds that Subaru's update database doesn't cover (mostly JDM).
 
 <details>
-<summary><b>WRX and WRX S4</b>: 54 ROMs, 2014–2021</summary>
+<summary><b>WRX and WRX S4</b>: 85 ROMs, 2014–2021</summary>
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
@@ -36,8 +36,14 @@ were later replaced by an update, or are builds that Subaru's update database do
 | WRX | 2015 | 6MT | USDM | **LF75300S** | 1234 | 226 | yes |
 | WRX | 2015 | 6MT | Middle East | **LF75301P** | 1234 | 226 | yes |
 | WRX | 2015 | 6MT | USDM | **LF75404S** ★ | 1234 | 226 | yes |
+| WRX | 2015 | 6MT | USDM | **LF75200S** | 1212 | 226 | not yet |
+| WRX | 2015 | 6MT | USDM | **LF75400S** | 1234 | 226 | not yet |
+| WRX | 2015 | 6MT | USDM | **LF75402S** | 1234 | 226 | not yet |
+| WRX | 2015 | 6MT | USDM | **LF75403S** | 1234 | 226 | not yet |
 | WRX | 2015 | CVT | USDM | **LF75403T** | 1234 | 226 | not yet |
 | WRX | 2015 | CVT | USDM | **LF75500T** ★ | 1234 | 226 | yes |
+| WRX | 2015 | CVT | USDM | **LF75300T** | 1234 | 226 | not yet |
+| WRX | 2015 | CVT | USDM | **LF75402T** | 1234 | 226 | not yet |
 | WRX S4 (early software) | 2015 | CVT | Japan | **LV9N100B** | 1166 | 222 | yes |
 | WRX (early software) | 2015 | 6MT | Australia | **LV9N100F** | 1166 | 222 | yes |
 | WRX (early software) | 2015 | CVT | USDM | **LV9N101C** | 1166 | 222 | yes |
@@ -45,42 +51,67 @@ were later replaced by an update, or are builds that Subaru's update database do
 | WRX (early software) | 2015 | 6MT | Gulf (GCC) | **LV9N101I** | 1166 | 222 | yes |
 | WRX (early software) | 2015 | not confirmed | not confirmed | **LV9N002E** | 1166 | 222 | yes |
 | WRX (early software) | 2015 | CVT | not confirmed | **LV9N302E** ★ | 1188 | 222 | yes |
+| WRX (early software) | 2015 | CVT | Europe / General | **LV9N001E** | 1166 | 222 | not yet |
+| WRX (early software) | 2015 | CVT | Europe / General | **LV9N301E** | 1188 | 222 | not yet |
 | WRX (early software) | 2015 | 6MT | not confirmed | **LV9N302F** ★ | 1188 | 222 | yes |
+| WRX (early software) | 2015 | 6MT | Europe / General | **LV9N301F** | 1188 | 222 | not yet |
 | WRX (early software) | 2015 | CVT | not confirmed | **LV9N302G** ★ | 1188 | 222 | yes |
+| WRX (early software) | 2015 | CVT | Europe / General | **LV9N101G** | 1166 | 222 | not yet |
 | WRX (early software) | 2015 | CVT | not confirmed | **LV9N302H** ★ | 1188 | 222 | yes |
+| WRX (early software) | 2015 | CVT | Europe / General | **LV9N101H** | 1166 | 222 | not yet |
 | WRX (early software) | 2015 | 6MT | not confirmed | **LV9N302I** ★ | 1188 | 222 | yes |
 | WRX | 2016 | 6MT | not confirmed | **LF75300H** | 1234 | 226 | yes |
 | WRX | 2016 | 6MT | Singapore | **LF75301K** | 1234 | 226 | yes |
 | WRX | 2016 | CVT | not confirmed | **LF75401J** ★ | 1234 | 226 | yes |
+| WRX | 2016 | CVT | Europe / General | **LF75300J** | 1234 | 226 | not yet |
+| WRX | 2016 | CVT | Europe / General | **LF75301J** | 1234 | 226 | not yet |
 | WRX | 2016 | 6MT | not confirmed | **LF75401K** ★ | 1234 | 226 | yes |
+| WRX | 2016 | 6MT | Europe / General | **LF75300K** | 1234 | 226 | not yet |
+| WRX | 2016 | 6MT | Europe / General | **LF75400K** | 1234 | 226 | not yet |
 | WRX | 2016 | CVT | not confirmed | **LF75401L** ★ | 1234 | 226 | yes |
+| WRX | 2016 | CVT | Europe / General | **LF75301L** | 1234 | 226 | not yet |
 | WRX | 2016 | 6MT | not confirmed | **LF75401M** ★ | 1234 | 226 | yes |
+| WRX | 2016 | 6MT | Europe / General | **LF75300M** | 1234 | 226 | not yet |
 | WRX | 2016 | CVT | not confirmed | **LF75401N** ★ | 1234 | 226 | yes |
+| WRX | 2016 | CVT | Europe / General | **LF75400N** | 1234 | 226 | not yet |
 | WRX | 2016 | 6MT | USDM | **LF75404H** ★ | 1234 | 226 | yes |
+| WRX | 2016 | 6MT | USDM | **LF75402H** | 1234 | 226 | not yet |
 | WRX | 2016 | CVT | USDM | **LF75403G** | 1234 | 226 | not yet |
 | WRX | 2016 | CVT | USDM | **LF75500G** ★ | 1234 | 226 | yes |
+| WRX | 2016 | CVT | USDM | **LF75300G** | 1234 | 226 | not yet |
+| WRX | 2016 | CVT | USDM | **LF75401G** | 1234 | 226 | not yet |
 | WRX | 2017 | 6MT | not confirmed | **LF79002P** | 1250 | 228 | yes |
 | WRX | 2017 | CVT | not confirmed | **LF79100N** | 1250 | 228 | yes |
 | WRX | 2017 | 6MT (later revision) | not confirmed | **LF79100P** | 1250 | 228 | yes |
 | WRX | 2017 | CVT | not confirmed | **LF79100Q** ★ | 1250 | 228 | yes |
+| WRX | 2017 | CVT | Europe / General | **LF79002Q** | 1250 | 228 | not yet |
 | WRX | 2017 | 6MT | not confirmed | **LF79100R** ★ | 1250 | 228 | yes |
 | WRX | 2017 | 6MT | USDM | **LF79103P** ★ | 1250 | 228 | yes |
+| WRX | 2017 | 6MT | USDM | **LF79101P** | 1250 | 228 | not yet |
 | WRX | 2017 | CVT | USDM | **LF79102N** | 1250 | 228 | not yet |
 | WRX | 2017 | CVT | USDM | **LF79110N** ★ | 1250 | 228 | yes |
+| WRX | 2017 | CVT | USDM | **LF79002N** | 1250 | 228 | not yet |
 | WRX | 2017 | 6MT | not confirmed | **LF9C100M** ★ | 1255 | 228 | yes |
 | WRX | 2017 | 6MT | not confirmed | **LF9C100R** ★ | 1255 | 228 | yes |
+| WRX | 2017 | 6MT | Europe / General | **LF9C000R** | 1255 | 228 | not yet |
 | WRX | 2017 | 6MT | not confirmed | **LF9C100X** ★ | 1255 | 228 | yes |
 | WRX S4 | 2018 | CVT | Japan | **LF9C001K** | 1255 | 228 | yes |
 | WRX | 2018 | 6MT | USDM | **LF9C001P** | 1255 | 228 | yes |
 | WRX | 2018 | 6MT | not confirmed | **LF9C100P** | 1255 | 228 | yes |
 | WRX | 2018 | 6MT | USDM | **LF9C102P** ★ | 1255 | 228 | yes |
+| WRX | 2018 | 6MT | USDM | **LF9C101P** | 1255 | 228 | not yet |
 | WRX | 2018 | CVT | USDM | **LF9C002N** | 1255 | 228 | not yet |
 | WRX | 2018 | CVT | USDM | **LF9C200N** ★ | 1255 | 228 | yes |
+| WRX | 2018 | CVT | USDM | **LF9C001N** | 1255 | 228 | not yet |
 | WRX | 2019 (2.5 MB ECU) | 6MT | USDM | **LF9D012h** ★ | 1255 | 229 | yes |
+| WRX | 2019 | 6MT | USDM | **LF9D010h** | 1261 | 229 | not yet |
 | WRX | 2019 (2.5 MB ECU) | CVT | USDM | **LF9D011g** | 1261 | 229 | not yet |
 | WRX | 2019 (2.5 MB ECU) | CVT | USDM | **LF9D030g** ★ | 1255 | 229 | yes |
+| WRX | 2019 | CVT | USDM | **LF9D010g** | 1261 | 229 | not yet |
 | WRX | 2020 (2.5 MB ECU) | CVT | USDM | **LF9G002S** ★ | 1254 | 231 | yes |
 | WRX | 2020 (2.5 MB ECU) | 6MT | USDM | **LF9G003T** ★ | 1254 | 231 | yes |
+| WRX | 2020 | 6MT | USDM | **LF9G001T** | 1254 | 231 | not yet |
+| WRX | 2020 | 6MT | USDM | **LF9G002T** | 1254 | 231 | not yet |
 | WRX | 2021 (2.5 MB ECU) | CVT | USDM | **LF9K000D** ★ | 1254 | 231 | yes |
 | WRX | 2021 (2.5 MB ECU) | 6MT | USDM | **LF9K000E** ★ | 1254 | 231 | yes |
 
@@ -108,45 +139,58 @@ logging over CAN, so the patch has nothing to extend. Mode-22 (UDS) logging work
 </details>
 
 <details>
-<summary><b>Forester XT and tS</b>: 18 ROMs, 2015–2018</summary>
+<summary><b>Forester XT and tS</b>: 30 ROMs, 2015–2018</summary>
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
 | Forester XT (early software; briefly also the WRX CVT) — *outdated* | early 2015 | CVT | USDM | **LV9N000C** | 1166 | 222 | yes |
 | Forester XT (unconfirmed) | 2016 | CVT | USDM | **LF75403A** | 1234 | 226 | not yet |
 | Forester XT (unconfirmed) | 2016 | CVT | USDM | **LF75500A** ★ | 1234 | 226 | yes |
+| Forester XT (unconfirmed) | 2016 | CVT | USDM | **LF75200A** | 1212 | 226 | not yet |
+| Forester XT (unconfirmed) | 2016 | CVT | USDM | **LF75301A** | 1234 | 226 | not yet |
+| Forester XT (unconfirmed) | 2016 | CVT | USDM | **LF75402A** | 1234 | 226 | not yet |
 | Forester XT | 2016 | CVT | not confirmed | **LF78001F** ★ | 1241 | 227 | yes |
+| Forester XT | 2016 | CVT | Europe / General | **LF78000F** | 1241 | 227 | not yet |
 | Forester tS (STI) | 2016 | CVT | Australia | **LF78001H** | 1241 | 227 | yes |
 | Forester XT | 2016 | CVT | not confirmed | **LF78002D** ★ | 1241 | 227 | yes |
+| Forester XT | 2016 | CVT | Europe / General | **LF78000D** | 1241 | 227 | not yet |
 | Forester XT | 2016 | CVT | not confirmed | **LF78002E** ★ | 1241 | 227 | yes |
+| Forester XT | 2016 | CVT | Europe / General | **LF78001E** | 1241 | 227 | not yet |
 | Forester XT | 2016 | CVT | not confirmed | **LF78002G** ★ | 1241 | 227 | yes |
+| Forester XT | 2016 | CVT | Europe / General | **LF78001G** | 1241 | 227 | not yet |
 | Forester XT | 2016 | CVT | not confirmed | **LF78002J** ★ | 1241 | 227 | yes |
 | Forester XT | 2016 | CVT | not confirmed | **LF78002Z** ★ | 1241 | 227 | yes |
+| Forester XT | 2016 | CVT | Europe / General | **LF78001Z** | 1241 | 227 | not yet |
 | Forester XT | 2016 (supplied as 2017) | CVT | Australia | **LF78002H** ★ | 1241 | 227 | yes |
 | Forester XT | 2017 | CVT | USDM | **LF78103B** | 1238 | 228 | yes |
 | Forester XT | 2017 | CVT | USDM | **LF78106B** | 1241 | 228 | not yet |
 | Forester XT | 2017 | CVT | USDM | **LF78200B** ★ | 1241 | 228 | yes |
+| Forester XT | 2017 | CVT | USDM | **LF78101B** | 1241 | 228 | not yet |
+| Forester XT | 2017 | CVT | USDM | **LF78102B** | 1241 | 228 | not yet |
+| Forester XT | 2017 | CVT | USDM | **LF78104B** | 1241 | 228 | not yet |
 | Forester XT | 2017 | CVT | Europe | **LF9C000C** | 1255 | 228 | yes |
 | Forester XT | 2018 | CVT | Malaysia | **LF9C000a** | 1255 | 228 | yes |
 | Forester XT | 2018 | CVT | USDM | **LF9C002B** | 1255 | 228 | not yet |
 | Forester XT | 2018 | CVT | USDM | **LF9C200B** ★ | 1255 | 228 | yes |
+| Forester XT | 2018 | CVT | USDM | **LF9C000B** | 1255 | 228 | not yet |
 
 </details>
 
 <details>
-<summary><b>Legacy and Outback</b>: 4 ROMs, 2015–2017</summary>
+<summary><b>Legacy and Outback</b>: 5 ROMs, 2015–2017</summary>
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
 | Outback (unconfirmed) | 2015 | CVT | not confirmed | **LV9N303K** ★ | 1188 | 222 | yes |
 | Legacy (unconfirmed) | 2016 | CVT | not confirmed | **LV9N302L** ★ | 1188 | 222 | yes |
 | Legacy (unconfirmed) | 2017 | CVT | not confirmed | **LV9N601M** ★ | 1188 | 222 | yes |
+| Legacy (unconfirmed) | 2017 | CVT | Europe / General | **LV9N600M** | 1188 | 222 | not yet |
 | Outback (unconfirmed) | 2017 | CVT | not confirmed | **LV9N601N** ★ | 1188 | 222 | yes |
 
 </details>
 
 <details>
-<summary><b>Levorg 2.0</b>: 8 ROMs, 2014–2019</summary>
+<summary><b>Levorg 2.0</b>: 9 ROMs, 2014–2019</summary>
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
@@ -157,12 +201,13 @@ logging over CAN, so the patch has nothing to extend. Mode-22 (UDS) logging work
 | Levorg 2.0 STI | 2017 | CVT | Japan | **LF79100K** | 1250 | 228 | yes |
 | Levorg 2.0 STI | 2017 | CVT | Japan | **LF79101K** | 1250 | 228 | yes |
 | Levorg 2.0GT-S | 2017 | CVT | Australia | **LF79100S** ★ | 1250 | 228 | yes |
+| Levorg 2.0GT-S | 2017 | CVT | Europe / General | **LF79002S** | 1250 | 228 | not yet |
 | Levorg STI 2.0 (2.5 MB ECU) | 2019 | CVT | Japan | **LF9F000R** | 1254 | 231 | yes |
 
 </details>
 
 <details>
-<summary><b>Levorg 1.6 (FB16DIT)</b>: 24 ROMs, 2014–2020</summary>
+<summary><b>Levorg 1.6 (FB16DIT)</b>: 28 ROMs, 2014–2020</summary>
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
@@ -180,15 +225,19 @@ logging over CAN, so the patch has nothing to extend. Mode-22 (UDS) logging work
 | Levorg 1.6 | 2017 | CVT | Europe | **LF79200T** | 1254 | 228 | yes |
 | Levorg 1.6 | 2017 | CVT | Japan | **LF79200U** | 1254 | 228 | yes |
 | Levorg 1.6 | 2017 | CVT | Europe | **LF79300T** ★ | 1254 | 228 | yes |
+| Levorg 1.6 | 2017 | CVT | Europe / General | **LF79101T** | 1250 | 228 | not yet |
 | Levorg 1.6 | 2017 (facelift) | CVT | Japan | **LF9B003U** | 1259 | 228 | yes |
 | Levorg 1.6 | 2018 (facelift; supplied as 2017) | CVT | Europe | **LF9B100G** ★ | 1259 | 228 | yes |
+| Levorg 1.6 | 2018 | CVT | Europe / General | **LF9B002G** | 1259 | 228 | not yet |
 | Levorg 1.6 | 2017 (facelift) | CVT | Japan | **LF9B200U** | 1259 | 228 | yes |
 | Levorg 1.6 | 2018 | CVT | not confirmed | **LV3C100T** ★ | 1169 | 228 | yes |
 | Levorg 1.6 | 2019 (2.5 MB ECU) | CVT | Japan | **LF9D000d** | 1255 | 229 | yes |
 | Levorg 1.6 | 2019 (2.5 MB ECU) | CVT | Europe | **LF9D100e** ★ | 1255 | 229 | yes |
+| Levorg 1.6 | 2019 | CVT | Europe / General | **LF9D001e** | 1255 | 229 | not yet |
 | Levorg 1.6 | 2019 (2.5 MB ECU) | CVT | Japan | **LF9D200d** | 1255 | 229 | yes |
 | Levorg 1.6 | 2020 (2.5 MB ECU) | CVT | Japan | **LF9F100P** | 1254 | 231 | yes |
 | Levorg 1.6 | 2020 (2.5 MB ECU) | CVT | Europe | **LF9F100Q** ★ | 1254 | 231 | yes |
+| Levorg 1.6 | 2020 | CVT | Europe / General | **LF9F000Q** | 1254 | 231 | not yet |
 | Levorg 1.6 | 2020 (2.5 MB ECU) | CVT | Japan | **LF9F200P** | 1254 | 231 | yes |
 
 </details>
@@ -236,7 +285,7 @@ same model year; flashing with a definition for another ID will corrupt the cali
 
 | ROM | Why |
 |---|---|
-| LF75300G (2016 WRX CVT), LF75300T (2015 WRX CVT), LV9N101D (2015 USDM WRX), LV9N002F (2014 Australian WRX) | The only copies I have are incomplete (1.5 MB) reads. A complete read would make them supportable quickly. |
+| LV9N101D (2015 USDM WRX), LV9N002F (2014 Australian WRX) | The only copies I have are incomplete (1.5 MB) reads. A complete read would make them supportable quickly. |
 | Other 2015–2018 WRX and Forester XT calibrations | I don't have these ROMs. [Submit one](#submitting-a-rom) and I can add it. |
 | 2013–2015 Forester XT with an AF5G…, AF56…, AF6A…, LF61…, LF6A… or LF7B… ID (e.g. LF61803B) | An older 1.5 MB ECU (SH705x) with different software; not covered by these definitions. |
 | Other 2019+ calibrations | These ECUs have 2.5 MB of flash and a newer boot block, like the supported 2019–2021 WRX (LF9D…, LF9G…, LF9K…) and Levorg STI (LF9F000R), so a complete read makes them supportable. EcuFlash can open 2.5 MB ROMs. |
@@ -252,10 +301,10 @@ A list of the calibration IDs known for these ECUs, and how each relates to the 
 
 | Folder | Contents |
 |---|---|
-| `definitions/romraider/` | `FA20DIT_RomRaider.xml`: one file covering every supported 2.0 ROM and the Ascent / Legacy XT (FA24 Early). `FB16DIT_RomRaider.xml`: the same for the Levorg 1.6. `FA24DIT_RomRaider.xml`: the 2022+ WRX, plus `FA24DIT_RomRaider_Checksum.xml` and its `checksum/` folder for a RomRaider that can load checksum modules. |
+| `definitions/romraider/` | `FA20DIT_RomRaider.xml`: one file covering every supported 2.0 ROM and the Ascent / Legacy XT (FA24 Early). `FB16DIT_RomRaider.xml`: the same for the Levorg 1.6. `FA24DIT_RomRaider.xml`: the 2022+ WRX. Each also comes as `…_Checksum.xml`, which corrects the checksum when you save, with the `checksum/` folder it needs (see [Fix the checksum](#fix-the-checksum-before-every-flash)). |
 | `definitions/ecuflash/Imperial/`, `definitions/ecuflash/Metric/` | The same EcuFlash definitions in two unit systems (EcuFlash can't switch units itself). Each folder has a base file per engine (every table) plus one small file per ROM; install one of the two. The Ascent / Legacy XT files are `FA24_Early_*`, on top of the FA20DIT base. The 2022+ WRX files (`FA24DIT_*`) are made for FastECU; EcuFlash can only open a 3 MB copy of those ROMs. |
 | `logger/` | `FA20DIT_Logger.xml` (stock SSM and OBD parameters, trouble codes; also for the Levorg 1.6) and `FA20DIT_Logger_LogPatch.xml` (stock plus the logging-patch parameters). `FA20DIT_Logger_LogPatch_only.xml` holds only the new parameters, for merging into your own logger file. `FA24_Early_Logger*.xml`: the same three for the Ascent. `DIT_Logger_SUBUDS.xml`: every model, stock ROMs without the patch, for a RomRaider build with the SUBUDS protocol. `FA24DIT_*.csv`: the 2022+ WRX's mode-22 data identifiers, and 88 of them as custom PIDs for OBD apps. |
-| `tools/checksum.py`, `tools/checksum.ps1` | Check and fix the ROM checksum of 2 MB, 2.5 MB and 2022+ WRX (4032 KB) ROMs (Python, or PowerShell for Windows). **Required for ROMs edited in RomRaider**, and `verify` before any flash (see below). |
+| `tools/checksum.py`, `tools/checksum.ps1` | Check and fix the ROM checksum of 2 MB, 2.5 MB and 2022+ WRX (4032 KB) ROMs (Python, or PowerShell for Windows). Needed after an edit in RomRaider unless you use a `_Checksum` definition, and `verify` before any flash (see below). |
 | `tools/ef_view.py`, `tools/ef_view.ps1` | 2022+ WRX only: make the 3 MB copy of a ROM that EcuFlash can open, and merge the edited copy back with the checksum fixed. |
 | `tools/logpatch/` | The logging patch: `make_logpatch.py` (and `make_logpatch.ps1` for Windows) and a spec for every supported ROM, the Ascent included. |
 | `docs/guide/` | [The tuning guide](docs/guide/README.md): workflows, how the logic works, appendices and a table reference. |
@@ -305,10 +354,8 @@ The [EcuFlash README](definitions/ecuflash/README.md) explains why.
   commands as below). That this is the word the ECU expects to change is inferred, not yet proven on a car.
 - **RomRaider.** `FA24DIT_RomRaider.xml` opens in any RomRaider 1.0.0 or later; fix the checksum with the
   tool after saving. `FA24DIT_RomRaider_Checksum.xml` (keep its `checksum/` folder next to it) corrects the
-  sum when you save, but needs a RomRaider that can load a checksum module from the definition folder: my
-  [RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248), or my fork's branch
-  [Fix-Custom-Checksum-Modules](https://github.com/Jengacat/RomRaider/tree/Fix-Custom-Checksum-Modules) until it is
-  merged. RomRaider 1.0.0 and 1.1.0 can't open the images with that file at all, so install only one of the two.
+  sum when you save, but needs a RomRaider that can load a checksum module from the definition folder: my change for that ([RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)) is merged into RomRaider after 1.1.0, so use the next RomRaider release, or until it is out a RomRaider built from the current source. RomRaider 1.0.0 and 1.1.0 can't open the images with that file
+  at all, so install only one of the two.
 - **FastECU, or EcuFlash with a copy.** The EcuFlash-format files (`FA24DIT_*_EcuFlash.xml`) are made for
   **FastECU**, which opens the full image with them (below). EcuFlash itself (1.44) can't load the right memory model
   for these ROMs: none of its built-in models is the size of these images, so it only opens a 3 MB copy (every table
@@ -342,11 +389,13 @@ This ECU checks a 16-bit checksum over the whole flash, and a ROM with a bad che
 it when you save** a 2015–2018 (2 MB) ROM: those EcuFlash definitions use its built-in `subaruhitachi` checksum module,
 and in EcuFlash 1.44.4870 the saved file is byte-identical to the checksum tool's output. That module gets the 2019+
 (2.5 MB) layout wrong, so the 2.5 MB definitions (LF9F000R, the 2019–2020 Levorg 1.6 ROMs and the Ascent) don't use it: fix those
-with the checksum tool. **RomRaider can't correct it yet**:
-RomRaider 1.0.0 and 1.1.0 can't load a checksum module from a definition folder, so the definition can't include one
-until my fix
-([RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)) is merged and released. Until then, run every ROM edited in RomRaider, and every
-2.5 MB ROM, through the checksum tool. **PCMFlash** is reported to correct the checksum as it writes (not tested by me;
+with the checksum tool. **RomRaider corrects it when you save** with the `_Checksum` definitions
+(`FA20DIT_RomRaider_Checksum.xml`, `FB16DIT_RomRaider_Checksum.xml`, `FA24DIT_RomRaider_Checksum.xml`, each with the
+`checksum/` folder next to it), for 2 MB and 2.5 MB ROMs alike. Those need a RomRaider that can load a checksum module from the definition folder: my change for that ([RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)) is merged into RomRaider after 1.1.0, so use the next RomRaider release, or until it is out a RomRaider built from the current source. On 2 MB and 2.5 MB
+ROMs of all three families (FA20DIT, FA24 Early, FB16DIT) I edited a cell and saved in RomRaider with them: every saved
+file was byte-identical to the checksum tool's output. RomRaider 1.0.0 and 1.1.0 can't open the images with the
+`_Checksum` files, so with those versions install the plain files and run every edited ROM through the checksum
+tool, as for every 2.5 MB ROM edited in EcuFlash. **PCMFlash** is reported to correct the checksum as it writes (not tested by me;
 see [Reading your ECU](#reading-your-ecu)). Either way, confirm the file you're about to flash with `verify`:
 
 ```

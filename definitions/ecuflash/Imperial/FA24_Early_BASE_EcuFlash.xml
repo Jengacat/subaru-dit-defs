@@ -15692,6 +15692,12 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
   <table name="Barometric Pressure" type="Y Axis" elements="16" scaling="psia uint16" />
   <description>How long underboost must last before P0299 sets (passes), by barometric pressure.</description>
  </table>
+ <table name="P0299 Underboost Error Threshold" category="03.03 Boost Control - Boost Feedback &amp; Compensations" type="1D" level="3" scaling="psi int16 #2">
+  <description>Underboost (P0299) check: the fail count runs while boost is short of the target by at least this much (read).</description>
+ </table>
+ <table name="P0299 Underboost Time" category="03.03 Boost Control - Boost Feedback &amp; Compensations" type="1D" level="3" scaling="raw uint16">
+  <description>Underboost (P0299) check: the time setting of the check, the counterpart of the 2.0's P0299 Underboost Time (inferred from the code pairing).</description>
+ </table>
  <table name="Accelerator Pedal Span" category="04.01 Torque &amp; Throttle - Requested Torque" type="1D" level="4" scaling="V uint16 #2 (2.4)">
   <description>Pedal sensor voltage travel that counts as 100 % pedal. Normally leave alone; change only for a different pedal sensor.</description>
  </table>
@@ -16559,12 +16565,6 @@ Details: 0x0DD0DC (read). Confidence: read.</description>
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint16" />
   <description>Second, higher reference for the P219A (A/F imbalance) monitor, used with A/F Imbalance Monitor Crank Roughness Threshold 2 as confirmation. Raising it makes P219A harder to set. Above about 4000 rpm the reference climbs steeply (interpolating to the 4500 rpm row, which is effectively infinite), so running above about 4000 rpm during the window stops the test from failing.</description>
- </table>
- <table name="P0299 Underboost Error Threshold" category="Unsorted" type="1D" level="3" scaling="psi int16 #2">
-  <description>Fail count while FFF8AB1E (target - actual) &gt;= this.</description>
- </table>
- <table name="P0299 Underboost Time" category="Unsorted" type="1D" level="3" scaling="raw uint16">
-  <description>LT8F300C 0x097A16 (read).</description>
  </table>
  <table name="(P0010) Intake Camshaft Position Actuator Circuit (Bank 1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b0 mFF f00 sDE">
   <description>Bit 0 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>

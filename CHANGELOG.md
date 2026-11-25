@@ -4,6 +4,8 @@
 
 First public release.
 
+- Fixed: **2022+ WRX mode-22 PIDs** (`logger/FA24DIT_LHBKC40M_Torque.csv`) used header 7E0, which this ECU only
+  answers with OBD services; they now use 7DF.
 - New: **44 more ROMs** that run exactly the same code as a supported ROM, with only the calibration different:
   38 for the 2.0 and 6 for the Levorg 1.6. None of them is in Subaru's update database, so model, year and market
   aren't confirmed; most are in a new "2.0, model not confirmed" list, and the transmission shown is read from each

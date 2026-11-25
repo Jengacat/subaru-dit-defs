@@ -494,7 +494,7 @@ Target boost (L11) and boost pressure (L12) are the Ascent's own.
 
 The logger files above are for the SH ECUs and don't cover the **2022+ WRX**: it has no SSM logging over CAN.
 RomRaider's OBD protocol still logs its standard parameters. It does answer UDS ReadDataByIdentifier (mode 22) on
-0x7E0 / 0x7E8 without a security unlock: `logger/FA24DIT_LHBKC40M_Torque.csv` is 88 of those as custom PIDs
+the functional address 0x7DF without a security unlock (not on 0x7E0, which takes only OBD services): `logger/FA24DIT_LHBKC40M_Torque.csv` is 88 of those as custom PIDs
 for OBD apps (feedback and fine-learning knock correction, DAM, target boost, wideband lambda, cam and OCV values and
 more), and `FA24DIT_LHBKC40M_DIDs.csv` lists all 933 identifiers, scaled where I worked the scaling out. Read
 from the 2023 ROM; the named ones exist with the same length on 2022 and 2024. Not tested on a car yet.

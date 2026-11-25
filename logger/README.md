@@ -85,7 +85,7 @@ allows without any unlock, and it only reads: it changes nothing in the ROM or i
 
 * A RomRaider build with SUBUDS. Stock RomRaider doesn't have it yet; Windows and Linux test builds are on my
   [RomRaider fork's subuds-test-1 release](https://github.com/Jengacat/RomRaider/releases/tag/subuds-test-1)
-  (source: the [`Subaru-UDS-Logging` branch](https://github.com/Jengacat/RomRaider/tree/Subaru-UDS-Logging)).
+  (source: the [`subuds-pr` branch](https://github.com/Jengacat/RomRaider/tree/subuds-pr)).
 * `DIT_Logger_SUBUDS.xml`: one file for every supported car, the Ascent included.
 * The same J2534 cable as for SSM.
 

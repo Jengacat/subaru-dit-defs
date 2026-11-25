@@ -518,7 +518,7 @@ from the 2023 ROM; the named ones exist with the same length on 2022 and 2024. N
 diagnostic services the ECU allows without a security unlock. It works on a stock ROM with no reflash, so everything
 the logging patch adds can be logged without it. One logger file covers every supported ROM, the Ascent
 included: `logger/DIT_Logger_SUBUDS.xml`. It needs a RomRaider build with the protocol:
-[my fork of RomRaider](https://github.com/Jengacat/RomRaider/tree/Subaru-UDS-Logging) has it, with Windows and Linux
+[my fork of RomRaider](https://github.com/Jengacat/RomRaider/tree/subuds-pr) has it, with Windows and Linux
 builds on the fork's [subuds-test-1 release](https://github.com/Jengacat/RomRaider/releases/tag/subuds-test-1).
 It hasn't been run on a car yet. Once it has, the protocol will go to the RomRaider project. If you try it, please
 [open an issue](../../issues/new/choose) with how it went. Details: [logger README](logger/README.md#logging-without-the-patch-subuds).

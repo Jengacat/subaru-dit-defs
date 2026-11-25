@@ -1,7 +1,8 @@
 # 2022+ WRX (FA24DIT, RH850 ECU): what's different
 
 The 2022+ WRX has a new ECU generation (a Renesas RH850/E1M-S2 with new software), so every tool works a little
-differently on it. Read this before you start; the supported ROMs are listed in the
+differently on it. The 2023+ Ascent and Legacy / Outback XT have the same ECU and the same software line, and
+everything here applies to their ROMs too. Read this before you start; the supported ROMs are listed in the
 [main README](../README.md#rom-lists).
 
 - **ROM files.** The definitions use a 4032 KB image (the flash without its 64 KB boot block). A 4 MB image works

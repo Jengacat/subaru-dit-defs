@@ -4,6 +4,12 @@
 
 First public release.
 
+- New: **11 RH850 ROMs for the 2023+ Ascent and Legacy / Outback XT** (`FA24DIT_*`, the same ECU and software line
+  as the 2022+ WRX): LHBK240Y (2023 Ascent), LHBK240G (2023 Legacy / Outback XT), LHBKG01H / 00H / 01G (2024 Outback
+  XT), LHBR200G / 300G (2025 Legacy / Outback XT) and, year unknown, LHBP201A, LHBK230H, LHBK240Z, LHBK231Z (model
+  from the calibration; the last two unconfirmed). Each placed from its own code through the closest supported ROM
+  and checked through RomRaider, EcuFlash and FastECU. The 2023 builds have no second surge damping phase factor
+  set, so those tables are left out of them.
 - New: **27 more ROMs**, most of them builds whose code differs from every supported ROM, each ported from the two
   closest supported builds and checked through RomRaider and EcuFlash like the others: 20 for the 2.0 (WRX, Legacy,
   Outback and ten whose model isn't confirmed), 6 for the Levorg 1.6 and LG7F300F (Legacy / Outback XT, FA24 Early).

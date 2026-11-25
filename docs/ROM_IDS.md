@@ -33,15 +33,23 @@ LF75100D, LF75200A, LF75200S, LF75200T, LF75300D, LF75300E, LF75300F, LF75300G, 
 
 (1.6) = Levorg 1.6 (FB16DIT); (2.4) = Ascent / Legacy XT (FA24DIT engine on the older ECU: the FA24 Early files); the rest are 2.0 (FA20DIT). Not on the list: LF75401M, LF75403A, LF75500T, LF76500R, LF78002D, LF79103P, LF9C002N, LF9C100M, LF9C100X, LF9C102P, LF9C200N, LF9D011g, LF9F100Q, LG7F301F, LT8D800A, LT8F200C, LT8H300D, LV3C100T, LV9N302G, LV9N302I, LV9N302L, LV9N303K.
 
-## 2022+ WRX (RH850 ECU)
+## RH850 ECU: 2022+ WRX, 2023+ Ascent and Legacy / Outback XT
 
-Supported (24): LHBHB10B, LHBHD00B (2022, 6MT); LHBH740C (2022, CVT); LHBHC01C (2022–2023, CVT); LHBKC40M,
+WRX, supported (24): LHBHB10B, LHBHD00B (2022, 6MT); LHBH740C (2022, CVT); LHBHC01C (2022–2023, CVT); LHBKC40M,
 LHBKC30M (2023, 6MT); LHBP400b (2024, 6MT); LHBP301c (2024, CVT); LHBT210V (2026, CVT; the full ID is LHBT210VB0G);
 and, year unknown: LHBH720D, LHBKC20P, LHBP300d, LHBT130h (6MT); LHBH740A, LHBH800A, LHBHA00A, LHBHB00A, LHBKC20R,
-LHBKC20L, LHBP100e, LHBP100a, LHBT120a, LHBT120g, LHBT110a (CVT). See the [2022+ WRX guide](WRX_2022plus.md). These are a different ECU generation (Renesas RH850) from everything else on this page, and none of
-them was on the list above. The first four characters (LHBH 2022, LHBK 2023, LHBP 2024, LHBT later) appear
-to follow the model year; within one year several builds exist, so as with the older ECUs a definition fits only
-ROMs that run the same code.
+LHBKC20L, LHBP100e, LHBP100a, LHBT120a, LHBT120g, LHBT110a (CVT).
+
+Ascent and Legacy / Outback XT, supported (11, all CVT): LHBK240Y (2023 Ascent); LHBK240G (2023 Legacy / Outback XT);
+LHBKG01H, LHBKG00H, LHBKG01G (2024 Outback XT); LHBR200G, LHBR300G (2025 Legacy / Outback XT); and, year unknown,
+model from the calibration: LHBP201A (Ascent), LHBK230H (Legacy / Outback XT), LHBK240Z and LHBK231Z (Ascent,
+unconfirmed).
+
+See the [2022+ WRX guide](WRX_2022plus.md), which applies to all of them. These are a different ECU generation
+(Renesas RH850) from everything else on this page, and none of them was on the list above. The first four
+characters don't identify the car: the LHBK… builds include 2023 WRX, Ascent and Legacy / Outback XT ROMs, and
+LHBP201A is an Ascent calibration on 2024 WRX code. Within one family several builds exist, so as with the older
+ECUs a definition fits only ROMs that run the same code.
 
 ## Same first five characters as a supported ROM, not supported yet (9)
 

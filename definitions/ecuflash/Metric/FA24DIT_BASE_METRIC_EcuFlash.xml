@@ -27676,6 +27676,7 @@
   <data name="disabled [71]" value="71" />
   <data name="enabled [F1]+" value="F1" />
  </scaling>
+ <scaling name="MPa uint32 #2" units="MPa" toexpr="x*0.0915" frexpr="x/0.0915" format="%0.2f" min="0" max="3.9299e+08" inc="0.1" storagetype="uint32" endian="little" />
  <scaling name="degrees uint8 #5" units="degrees" toexpr="x*0.5-16" frexpr="(x+16)/0.5" format="%0.1f" min="-16" max="111.5" inc="0.5" storagetype="uint8" endian="little" />
  <scaling name="count uint8" units="count" toexpr="x*1" frexpr="(x)/1" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="little" />
  <scaling name="raw (16384  closed inferred) uint16" units="raw (16384 = closed, inferred)" toexpr="x*1" frexpr="(x)/1" format="%0.0f" min="0" max="65535" inc="1" storagetype="uint16" endian="little" />
@@ -37289,28 +37290,28 @@
  <table name="(P0198) Engine Oil Temperature Sensor High" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b7 mC0 f00">
   <description>Bit 7 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2004) Intake Manifold Runner Control Stuck Open (Bank 1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b0 mFF f00 sEE">
+ <table name="(P2004) Intake Manifold Runner Control Stuck Open (Bank 1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b0 mFF f00 sFE">
   <description>Bit 0 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2006) Intake Manifold Runner Control Stuck Closed (Bank 1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b1 mFF f00 sED">
+ <table name="(P2006) Intake Manifold Runner Control Stuck Closed (Bank 1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b1 mFF f00 sFD">
   <description>Bit 1 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2005) Intake Manifold Runner Control Stuck Open (Bank 2)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b2 mFF f00 sEB">
+ <table name="(P2005) Intake Manifold Runner Control Stuck Open (Bank 2)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b2 mFF f00 sFB">
   <description>Bit 2 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2007) Intake Manifold Runner Control Stuck Closed (Bank 2)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b3 mFF f00 sE7">
+ <table name="(P2007) Intake Manifold Runner Control Stuck Closed (Bank 2)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b3 mFF f00 sF7">
   <description>Bit 3 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
  <table name="(P2227) Barometric Pressure Sensor A Circuit Range/Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b4 mFF f00 sEF">
   <description>Bit 4 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2226) Barometric Pressure Sensor A Circuit" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b5 mFF f00 sCF">
+ <table name="(P2226) Barometric Pressure Sensor A Circuit" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b5 mFF f00 sDF">
   <description>Bit 5 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2229) Barometric Pressure Sensor A Circuit High" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b6 mFF f00 sAF">
+ <table name="(P2229) Barometric Pressure Sensor A Circuit High" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b6 mFF f00 sBF">
   <description>Bit 6 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2228) Barometric Pressure Sensor A Circuit Low" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b7 mFF f00 s6F">
+ <table name="(P2228) Barometric Pressure Sensor A Circuit Low" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b7 mFF f00 s7F">
   <description>Bit 7 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
  <table name="(P2016) Intake Manifold Runner Position Sensor/Switch Circuit Low (Bank 1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b0 mFF f00 s3E">
@@ -37373,28 +37374,28 @@
  <table name="(P1628)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b1 m03 f00">
   <description>Bit 1 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2B08) Cold Start Cylinder 1 Injection Pulse Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b0 mFF f00 s00">
+ <table name="(P2B08) Cold Start Cylinder 1 Injection Pulse Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b0 mFF f00 sFE">
   <description>Bit 0 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2B09) Cold Start Cylinder 2 Injection Pulse Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b1 mFF f00 s00">
+ <table name="(P2B09) Cold Start Cylinder 2 Injection Pulse Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b1 mFF f00 sFD">
   <description>Bit 1 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2B0A) Cold Start Cylinder 3 Injection Pulse Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b2 mFF f00 s00">
+ <table name="(P2B0A) Cold Start Cylinder 3 Injection Pulse Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b2 mFF f00 sFB">
   <description>Bit 2 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2B0B) Cold Start Cylinder 4 Injection Pulse Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b3 mFF f00 s00">
+ <table name="(P2B0B) Cold Start Cylinder 4 Injection Pulse Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b3 mFF f00 sF7">
   <description>Bit 3 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2B00) Cylinder 1 Injection Pulse Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b4 mFF f00 s00">
+ <table name="(P2B00) Cylinder 1 Injection Pulse Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b4 mFF f00 sEF">
   <description>Bit 4 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2B01) Cylinder 2 Injection Pulse Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b5 mFF f00 s00">
+ <table name="(P2B01) Cylinder 2 Injection Pulse Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b5 mFF f00 sDF">
   <description>Bit 5 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2B02) Cylinder 3 Injection Pulse Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b6 mFF f00 s00">
+ <table name="(P2B02) Cylinder 3 Injection Pulse Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b6 mFF f00 sBF">
   <description>Bit 6 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2B03) Cylinder 4 Injection Pulse Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b7 mFF f00 s00">
+ <table name="(P2B03) Cylinder 4 Injection Pulse Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b7 mFF f00 s7F">
   <description>Bit 7 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
  <table name="(U0402) Invalid Data Received from TCM" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b2 m7C f00">
@@ -37412,28 +37413,28 @@
  <table name="(U0073) Control Module Communication Bus Off" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b6 m7C f00">
   <description>Bit 6 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P050B) Cold Start Ignition Timing Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b0 mFF f00 s00">
+ <table name="(P050B) Cold Start Ignition Timing Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b0 mFF f00 sFE">
   <description>Bit 0 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P050A) Cold Start Idle Air Control System Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b1 mFF f00 s00">
+ <table name="(P050A) Cold Start Idle Air Control System Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b1 mFF f00 sFD">
   <description>Bit 1 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2610) ECM/PCM Internal Engine Off Timer Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b2 mFF f00 s00">
+ <table name="(P2610) ECM/PCM Internal Engine Off Timer Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b2 mFF f00 sFB">
   <description>Bit 2 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2420) Evaporative Emission System Switching Valve Control Circuit High" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b3 mFF f00 s00">
+ <table name="(P2420) Evaporative Emission System Switching Valve Control Circuit High" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b3 mFF f00 sF7">
   <description>Bit 3 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2419) Evaporative Emission System Switching Valve Control Circuit Low" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b4 mFF f00 s00">
+ <table name="(P2419) Evaporative Emission System Switching Valve Control Circuit Low" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b4 mFF f00 sEF">
   <description>Bit 4 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2401) Evaporative Emission System Leak Detection Pump Control Circuit Low" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b5 mFF f00 s00">
+ <table name="(P2401) Evaporative Emission System Leak Detection Pump Control Circuit Low" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b5 mFF f00 sDF">
   <description>Bit 5 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P24BB)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b6 mFF f00 s00">
+ <table name="(P24BB)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b6 mFF f00 sBF">
   <description>Bit 6 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P24BA)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b7 mFF f00 s00">
+ <table name="(P24BA)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b7 mFF f00 s7F">
   <description>Bit 7 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
  <table name="(P015B) O2 Sensor Delayed Response - Lean to Rich (Bank 1 Sensor 1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b2 mCC f00">
@@ -37571,28 +37572,28 @@
  <table name="(P0557) Brake Booster Pressure Sensor Circuit Low" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b6 m6F f00">
   <description>Bit 6 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P0512) Starter Request Circuit" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b0 mFF f00 sA6">
+ <table name="(P0512) Starter Request Circuit" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b0 mFF f00 sFE">
   <description>Bit 0 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P0616) Starter Relay Circuit Low" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b1 mFF f00 sA5">
+ <table name="(P0616) Starter Relay Circuit Low" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b1 mFF f00 sFD">
   <description>Bit 1 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P0617) Starter Relay Circuit High" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b2 mFF f00 sA3">
+ <table name="(P0617) Starter Relay Circuit High" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b2 mFF f00 sFB">
   <description>Bit 2 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2196) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b3 mFF f00 sA7">
+ <table name="(P2196) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b3 mFF f00 sF7">
   <description>Bit 3 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2195) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b4 mFF f00 sA7">
+ <table name="(P2195) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b4 mFF f00 sEF">
   <description>Bit 4 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P0560) System Voltage" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b5 mFF f00 s87">
+ <table name="(P0560) System Voltage" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b5 mFF f00 sDF">
   <description>Bit 5 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P0116) Engine Coolant Temperature Circuit Range/Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b6 mFF f00 sA7">
+ <table name="(P0116) Engine Coolant Temperature Circuit Range/Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b6 mFF f00 sBF">
   <description>Bit 6 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P081A) Starter Disable Circuit Low" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b7 mFF f00 s27">
+ <table name="(P081A) Starter Disable Circuit Low" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b7 mFF f00 s7F">
   <description>Bit 7 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
  <table name="(P062F) Internal Control Module EEPROM Error" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b2 mDC f00">
@@ -37670,49 +37671,49 @@
  <table name="(P0191) Fuel Rail Pressure Sensor A Circuit Range/Performance (Entry 1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b0 mFF f00 s00">
   <description>Bit 0 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P0401) Exhaust Gas Recirculation Flow Insufficient Detected" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b1 mFF f00 s01">
+ <table name="(P0401) Exhaust Gas Recirculation Flow Insufficient Detected" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b1 mFF f00 sED">
   <description>Bit 1 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P0402) Exhaust Gas Recirculation Flow Excessive Detected" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b2 mFF f00 s01">
+ <table name="(P0402) Exhaust Gas Recirculation Flow Excessive Detected" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b2 mFF f00 sEB">
   <description>Bit 2 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P003A) Turbocharger/Supercharger Boost Control 'A' Position Exceeded Learning Limit" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b3 mFF f00 s01">
+ <table name="(P003A) Turbocharger/Supercharger Boost Control 'A' Position Exceeded Learning Limit" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b3 mFF f00 sE7">
   <description>Bit 3 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P0039) Turbocharger/Supercharger Bypass Valve 'A' Control Circuit Range/Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b4 mFF f00 s01">
+ <table name="(P0039) Turbocharger/Supercharger Bypass Valve 'A' Control Circuit Range/Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b4 mFF f00 sEF">
   <description>Bit 4 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P0234) Turbocharger/Supercharger 'A' Overboost Condition" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b5 mFF f00 s01">
+ <table name="(P0234) Turbocharger/Supercharger 'A' Overboost Condition" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b5 mFF f00 sCF">
   <description>Bit 5 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P0299) Turbocharger/Supercharger 'A' Underboost Condition" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b6 mFF f00 s01">
+ <table name="(P0299) Turbocharger/Supercharger 'A' Underboost Condition" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b6 mFF f00 sAF">
   <description>Bit 6 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P0244) Turbocharger Wastegate Solenoid A Range/Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b7 mFF f00 s01">
+ <table name="(P0244) Turbocharger Wastegate Solenoid A Range/Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b7 mFF f00 s6F">
   <description>Bit 7 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P0480) Fan 1 Control Circuit" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b0 mFF f00 sC0">
+ <table name="(P0480) Fan 1 Control Circuit" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b0 m3F f00">
   <description>Bit 0 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P0481) Fan 2 Control Circuit" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b1 mFF f00 sC0">
+ <table name="(P0481) Fan 2 Control Circuit" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b1 m3F f00">
   <description>Bit 1 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P04F1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b2 mFF f00 sC0">
+ <table name="(P04F1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b2 m3F f00">
   <description>Bit 2 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P04F0) Evaporative Emission System High Pressure Purge Line Performance (Entry 2)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b3 mFF f00 sC0">
+ <table name="(P04F0) Evaporative Emission System High Pressure Purge Line Performance (Entry 2)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b3 m3F f00">
   <description>Bit 3 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P04AE)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b4 mFF f00 sC0">
+ <table name="(P04AE)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b4 m3F f00">
   <description>Bit 4 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P24D6)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b5 mFF f00 sC0">
+ <table name="(P24D6)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b5 m3F f00">
   <description>Bit 5 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P0045) Turbocharger/Supercharger Boost Control 'A' Circuit/Open" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b6 mFF f00 s80">
+ <table name="(P0045) Turbocharger/Supercharger Boost Control 'A' Circuit/Open" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b6 mFF f00 sBF">
   <description>Bit 6 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P0047) Turbocharger/Supercharger Boost Control A Circuit Low" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b7 mFF f00 s40">
+ <table name="(P0047) Turbocharger/Supercharger Boost Control A Circuit Low" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b7 mFF f00 s7F">
   <description>Bit 7 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
  <table name="(P0072) Ambient Air Temperature Sensor Circuit Low" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b0 m3F f00">
@@ -37733,28 +37734,28 @@
  <table name="(P06EF) Engine Restart Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b5 m3F f00">
   <description>Bit 5 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P0010) Intake Camshaft Position Actuator Circuit (Bank 1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b0 mFF f00 sCE">
+ <table name="(P0010) Intake Camshaft Position Actuator Circuit (Bank 1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b0 mFF f00 sDE">
   <description>Bit 0 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P0020) Intake Camshaft Position Actuator Circuit (Bank 2)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b1 mFF f00 sCD">
+ <table name="(P0020) Intake Camshaft Position Actuator Circuit (Bank 2)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b1 mFF f00 sDD">
   <description>Bit 1 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P0013) Exhaust Camshaft Position Actuator Circuit (Bank 1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b2 mFF f00 sCB">
+ <table name="(P0013) Exhaust Camshaft Position Actuator Circuit (Bank 1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b2 mFF f00 sDB">
   <description>Bit 2 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P0023) Exhaust Camshaft Position Actuator Circuit (Bank 2)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b3 mFF f00 sC7">
+ <table name="(P0023) Exhaust Camshaft Position Actuator Circuit (Bank 2)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b3 mFF f00 sD7">
   <description>Bit 3 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
  <table name="(P0685) ECM/PCM Power Relay Control Circuit/Open" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b4 mFF f00 sCF">
   <description>Bit 4 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2A01) O2 Sensor Circuit Range/Performance (Bank 1 Sensor 2)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b5 mFF f00 sCF">
+ <table name="(P2A01) O2 Sensor Circuit Range/Performance (Bank 1 Sensor 2)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b5 mFF f00 sDF">
   <description>Bit 5 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2270) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 2)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b6 mFF f00 s8F">
+ <table name="(P2270) O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 2)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b6 mFF f00 s9F">
   <description>Bit 6 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2271) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 2)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b7 mFF f00 s4F">
+ <table name="(P2271) O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 2)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b7 mFF f00 s5F">
   <description>Bit 7 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
  <table name="(P0087) Fuel Rail/System Pressure Too Low" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b0 mFF f00 s7E">
@@ -37796,28 +37797,28 @@
  <table name="(P0130) O2 Sensor Circuit (Bank 1 Sensor 1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b7 mC7 f00">
   <description>Bit 7 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P0097) Intake Air Temperature Sensor 2 Circuit Low" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b0 mFF f00 s62">
+ <table name="(P0097) Intake Air Temperature Sensor 2 Circuit Low" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b0 mFF f00 s72">
   <description>Bit 0 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P0098) Intake Air Temperature Sensor 2 Circuit High" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b1 mFF f00 s61">
+ <table name="(P0098) Intake Air Temperature Sensor 2 Circuit High" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b1 mFF f00 s71">
   <description>Bit 1 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2627) O2 Sensor Pumping Current Trim Circuit/Open (Bank 1 Sensor 1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b2 mFF f00 s63">
+ <table name="(P2627) O2 Sensor Pumping Current Trim Circuit/Open (Bank 1 Sensor 1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b2 mFF f00 s73">
   <description>Bit 2 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2628) O2 Sensor Pumping Current Trim Circuit Low (Bank 1 Sensor 1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b3 mFF f00 s63">
+ <table name="(P2628) O2 Sensor Pumping Current Trim Circuit Low (Bank 1 Sensor 1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b3 mFF f00 s73">
   <description>Bit 3 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
  <table name="(P0096) Intake Air Temperature Sensor 2 Circuit Range/Performance" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b4 mFF f00 s63">
   <description>Bit 4 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P1134) A/F Sensor Micro-Computer Problem" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b5 mFF f00 s43">
+ <table name="(P1134) A/F Sensor Micro-Computer Problem" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b5 mFF f00 s53">
   <description>Bit 5 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P2146) Fuel Injector Group A Supply Voltage Circuit/Open" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b6 mFF f00 s23">
+ <table name="(P2146) Fuel Injector Group A Supply Voltage Circuit/Open" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b6 mFF f00 s33">
   <description>Bit 6 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
- <table name="(P113A) O2 Sensor Circuit Open (Bank 1 Sensor 2)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b7 mFF f00 s63">
+ <table name="(P113A) O2 Sensor Circuit Open (Bank 1 Sensor 2)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b7 mFF f00 s73">
   <description>Bit 7 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>
  </table>
  <table name="Enable Mask (bit per DTC)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="2D" level="2" scaling="bits uint8">

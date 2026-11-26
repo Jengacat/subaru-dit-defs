@@ -41,6 +41,22 @@
  <table name="Injector Minimum Pulse Width" address="01215c">
   <table name="Rail Pressure" address="0495b2" />
  </table>
+ <table name="Per-Injector Fuel Trim 1" address="012c90">
+  <table name="Engine Speed" address="012c58" />
+  <table name="Injector Pulse Width" address="012c6c" scaling="ms uint32" />
+ </table>
+ <table name="Per-Injector Fuel Trim 2" address="012d44">
+  <table name="Engine Speed" address="012c58" />
+  <table name="Injector Pulse Width" address="012c6c" scaling="ms uint32" />
+ </table>
+ <table name="Per-Injector Fuel Trim 3" address="012df8">
+  <table name="Engine Speed" address="012c58" />
+  <table name="Injector Pulse Width" address="012c6c" scaling="ms uint32" />
+ </table>
+ <table name="Per-Injector Fuel Trim 4" address="012eac">
+  <table name="Engine Speed" address="012c58" />
+  <table name="Injector Pulse Width" address="012c6c" scaling="ms uint32" />
+ </table>
  <table name="Injector 2/4 Rail Pressure Offset" address="06752c">
   <table name="Engine Load" address="06751c" />
   <table name="Engine Speed" address="0674fc" />
@@ -484,6 +500,14 @@
  <table name="Low Rail Pressure Start Enrichment" address="014870">
   <table name="Coolant Temp" address="0493dc" />
  </table>
+ <table name="Start Enrichment (Load, TGV Open)" address="01f6ae">
+  <table name="Coolant Temp" address="012438" />
+  <table name="Engine Load" address="012428" />
+ </table>
+ <table name="Start Enrichment (Load, TGV Closed)" address="012458">
+  <table name="Coolant Temp" address="012438" />
+  <table name="Engine Load" address="012428" />
+ </table>
  <table name="Start Enrichment (Load) RPM Multiplier" address="0120d0">
   <table name="Engine Speed" address="04946c" />
  </table>
@@ -726,6 +750,10 @@
  </table>
  <table name="Running After-Start Enrichment Decay 3 (Special Start)" address="015812">
   <table name="Coolant Temp" address="04949c" />
+ </table>
+ <table name="Injection Timing Additive Multiplier" address="0210ae">
+  <table name="Intake Air Temp" address="01f5f0" scaling="degrees F uint16 #6" />
+  <table name="FFF88A9D (unidentified)" address="01f5d0" elements="16" scaling="degrees F uint16 #6" />
  </table>
  <table name="Catalyst Heating Spark Retard" address="027d2a">
   <table name="Requested Spark Torque Share" address="027d32" />
@@ -2026,9 +2054,8 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF
  <table name="Fail-Safe Rev Limit (Unused Fault Flag)" address="0107d4" />
  <table name="Fail-Safe Rev Limit Hysteresis" address="0107cc" />
  <table name="Fail-Safe Rev Limit Minimum Above Idle Target" address="0107ce" />
- <table name="Limit-State Spark: Normal Target in Speed Limit" address="030b8e" scaling="Switch b6 fB8">
-  <description>Keeps normal spark timing during the vehicle-speed limiter. On/off switch: select the value and press Increment ( ] ) to flip it.</description>
- </table>
+ <table name="Limit-State Spark: Normal Target in Speed Limit" address="030b8e" />
+ <table name="Limit-State Spark: Normal Target in Rev/Overboost Cut" address="030b8e" />
  <table name="External Torque Limit Baro Factor" address="02d330">
   <table name="Barometric Pressure" address="02d320" />
  </table>
@@ -3238,6 +3265,10 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
  <table name="Idle Learn Bias" address="033496">
   <table name="Y Axis" address="03348a" />
  </table>
+ <table name="EGR Target Rate (TGV Open)" address="03c146">
+  <table name="Engine Load" address="03ba22" />
+  <table name="Engine Speed" address="03ba02" />
+ </table>
  <table name="EGR Target Rate (TGV Closed)" address="03c346">
   <table name="Engine Load" address="03ba22" />
   <table name="Engine Speed" address="03ba02" />
@@ -3343,6 +3374,12 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
  </table>
  <table name="EGR Tip-Out Limit Duration" address="03cd92">
   <table name="Pressure" address="03cd82" />
+ </table>
+ <table name="EGR Timing Advance DAM Term Weight (Multi-Injection)" address="030b9e">
+  <table name="Dynamic Advance Multiplier" address="030b94" />
+  <description>How much of the multiple-injection DAM term applies, by DAM.
+
+Details: 0x0DD0DC (read). Confidence: inferred.</description>
  </table>
  <table name="TGV Torque Threshold Enter (Drive Modes 1/4, Default/Sport Sharp)" address="048c32">
   <table name="Engine Speed" address="048bb2" />

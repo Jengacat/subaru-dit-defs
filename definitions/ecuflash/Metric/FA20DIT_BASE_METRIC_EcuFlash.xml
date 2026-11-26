@@ -101,6 +101,7 @@
  <scaling name="% of intake air uint8" units="% of intake air" toexpr="x/2.56" frexpr="x*2.56" format="%0.1f" min="0" max="99.6094" inc="0.4" storagetype="uint8" endian="big" />
  <scaling name="% fuel removed at 100 % purge rate uint16" units="% fuel removed at 100 % purge rate" toexpr="(x-32768)/655.36" frexpr="x*655.36+32768" format="%0.2f" min="-50" max="49.9985" inc="0.05" storagetype="uint16" endian="big" />
  <scaling name="% of purge rate per update uint16" units="% of purge rate per update" toexpr="x/655.36" frexpr="x*655.36" format="%0.1f" min="0" max="99.9985" inc="0.5" storagetype="uint16" endian="big" />
+ <scaling name="g/L (air density) uint8" units="g/L (air density)" toexpr="x/128" frexpr="x*128" format="%0.3f" min="0" max="1.99219" inc="0.01" storagetype="uint8" endian="big" />
  <scaling name="% duty uint8" units="% duty" toexpr="x/2.56" frexpr="x*2.56" format="%0.1f" min="0" max="99.6094" inc="0.4" storagetype="uint8" endian="big" />
  <scaling name="kPa uint16" units="kPa" toexpr="x/256" frexpr="x*256" format="%0.1f" min="0" max="255.996" inc="1" storagetype="uint16" endian="big" />
  <scaling name="g/s uint16" units="g/s" toexpr="x/300" frexpr="x*300" format="%0.1f" min="0" max="218.45" inc="0.5" storagetype="uint16" endian="big" />
@@ -37335,7 +37336,6 @@
   <data name="yes [5C]+" value="5C" />
  </scaling>
  <scaling name="bits uint8" units="bits" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
- <scaling name="g/L (air density) uint8" units="g/L (air density)" toexpr="x/128" frexpr="x*128" format="%0.3f" min="0" max="1.99219" inc="0.01" storagetype="uint8" endian="big" />
  <scaling name="fraction per 80 ms uint16" units="fraction per 80 ms" toexpr="x/65536" frexpr="x*65536" format="%0.4f" min="0" max="0.999985" inc="0.001" storagetype="uint16" endian="big" />
  <scaling name="rear O2 heater drive (accumulated counts) uint16" units="rear O2 heater drive (accumulated counts)" toexpr="x" frexpr="x" format="%0.0f" min="0" max="65535" inc="500" storagetype="uint16" endian="big" />
  <scaling name="DTC yes b0 m6F f00" storagetype="bloblist">
@@ -56903,6 +56903,8 @@
   <data name="no [98]" value="98" />
   <data name="yes [99]+" value="99" />
  </scaling>
+ <scaling name="count uint8" units="count" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
+ <scaling name="degrees int8 #2" units="degrees" toexpr="x*0.3515625" frexpr="x/0.3515625" format="%0.2f" min="-45" max="44.6484" inc="0.35" storagetype="int8" endian="big" />
  <scaling name="exhaust model units int16" units="exhaust model units" toexpr="x" frexpr="x" format="%0.0f" min="-32768" max="32767" inc="100" storagetype="int16" endian="big" />
  <scaling name="DTC enabled b5 mBF f00" storagetype="bloblist">
   <data name="enabled [20]" value="20" />
@@ -59621,8 +59623,6 @@
   <data name="yes [BF]+" value="BF" />
  </scaling>
  <scaling name="deg BTDC (neg  ATDC) uint16" units="deg BTDC (neg = ATDC)" toexpr="x*-0.5" frexpr="x*-2" format="%0.1f" min="-32767.5" max="0" inc="0.5" storagetype="uint16" endian="big" />
- <scaling name="count uint8" units="count" toexpr="x" frexpr="x" format="%0.0f" min="0" max="255" inc="1" storagetype="uint8" endian="big" />
- <scaling name="degrees int8 #2" units="degrees" toexpr="x*0.3515625" frexpr="x/0.3515625" format="%0.2f" min="-45" max="44.6484" inc="0.35" storagetype="int8" endian="big" />
  <scaling name="fraction uint8" units="fraction" toexpr="x/128" frexpr="x*128" format="%0.2f" min="0" max="1.99219" inc="0.01" storagetype="uint8" endian="big" />
  <scaling name="ft-lb per pass uint16" units="ft-lb per pass" toexpr="x*0.00921952625" frexpr="x*80/0.7375621" format="%0.1f" min="0" max="604.202" inc="0.1" storagetype="uint16" endian="big" />
  <scaling name="Switch on b0 m03 f00" storagetype="bloblist">

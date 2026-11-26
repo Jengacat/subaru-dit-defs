@@ -105,7 +105,12 @@
  <table name="Target Rail Pressure (Combustion Mode 3, Pedal Applied)" address="047afe">
   <table name="Coolant Temp" address="03f37c" />
  </table>
+ <table name="Target Rail Pressure (Combustion Mode 1)" address="047db8">
+  <table name="Coolant Temp" address="047a9e" />
+ </table>
  <table name="Target Rail Pressure (Catalyst Heating)" address="047814" />
+ <table name="Rail Pressure Fail-Safe Target A" address="047a98" />
+ <table name="Rail Pressure Fail-Safe Target B" address="047a96" />
  <table name="HPFP Feedforward Command" address="047b32">
   <table name="Engine Speed" address="047b1e" />
   <table name="Fuel Quantity" address="04788e" />
@@ -165,6 +170,9 @@
  <table name="Per-Injector Fuel Multiplier 4 (Triple Injection)" address="0180f0">
   <table name="Engine Load" address="017df4" />
   <table name="Engine Speed" address="017de4" />
+ </table>
+ <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" address="047abe">
+  <table name="Coolant Temp" address="047a9e" />
  </table>
  <table name="Primary Open Loop Fueling" address="018f00">
   <table name="Engine Load" address="011b38" />
@@ -296,6 +304,10 @@
  <table name="Closed Loop Target Lean Limit (TGVs Open, Normal Mode)" address="034996">
   <table name="Engine Load" address="033cea" />
   <table name="Coolant Temp" address="033cca" />
+ </table>
+ <table name="Closed Loop Target Cold-Start Trim (TGVs Open)" address="0341a4">
+  <table name="X Axis" address="034164" />
+  <table name="Coolant Temp" address="034144" />
  </table>
  <table name="Closed Loop Target Override" address="033f14">
   <table name="Engine Load" address="033f04" />
@@ -554,6 +566,78 @@
   <table name="Engine Load" address="015c02" />
  </table>
  <table name="Start Enrichment (Coolant Window Override)" address="011b88">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="After-Start Enrichment 1 (Index 0)" address="016258">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="After-Start Enrichment 1 (Index 1)" address="016278">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="After-Start Enrichment 1 (Index 2)" address="016298">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="After-Start Enrichment 1 (Index 3)" address="0162b8">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="After-Start Enrichment Decay 1 (Index 0)" address="0167f8">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="After-Start Enrichment Decay 1 (Index 1)" address="016808">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="After-Start Enrichment Decay 1 (Index 2)" address="016818">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="After-Start Enrichment Decay 1 (Index 3)" address="016828">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="After-Start Enrichment 2 (Index 0)" address="0162d8">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="After-Start Enrichment 2 (Index 1)" address="0162f8">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="After-Start Enrichment 2 (Index 2)" address="016318">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="After-Start Enrichment 2 (Index 3)" address="016338">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="After-Start Enrichment Decay 2 (Index 0)" address="016838">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="After-Start Enrichment Decay 2 (Index 1)" address="016848">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="After-Start Enrichment Decay 2 (Index 2)" address="016858">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="After-Start Enrichment Decay 2 (Index 3)" address="016868">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="After-Start Enrichment 3 (Index 0)" address="016358">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="After-Start Enrichment 3 (Index 1)" address="016378">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="After-Start Enrichment 3 (Index 2)" address="016398">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="After-Start Enrichment 3 (Index 3)" address="0163b8">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="After-Start Enrichment Decay 3 (Index 0)" address="016878">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="After-Start Enrichment Decay 3 (Index 1)" address="016888">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="After-Start Enrichment Decay 3 (Index 2)" address="016898">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="After-Start Enrichment Decay 3 (Index 3)" address="0168a8">
   <table name="Coolant Temp" address="03f37c" />
  </table>
  <table name="After-Start Enrichment RPM Multiplier" address="011bc0">
@@ -854,7 +938,15 @@
   <table name="Spark Angle" address="01ae18" />
   <table name="Engine Speed" address="01ae10" />
  </table>
- <table name="Catalyst Heating Phase 2 Injection Angle Base Spark Adder (TGV Closed)" address="015f87">
+ <table name="Catalyst Heating Phase 2 Injection Angle Base (TGV Normal)" address="011f30">
+  <table name="Coolant Temp" address="03f37c" />
+  <table name="Engine Speed" address="011f10" />
+ </table>
+ <table name="Catalyst Heating Phase 2 Injection Angle Base Adder (TGV Normal)" address="0149a8">
+  <table name="Engine Load" address="0149a0" />
+  <table name="Engine Speed" address="014980" />
+ </table>
+ <table name="Catalyst Heating Phase 2 Injection Angle Base Spark Adder (TGV Normal)" address="015f87">
   <table name="Coolant Temp" address="03f37c" />
   <table name="Spark Angle" address="015f76" />
  </table>
@@ -2330,10 +2422,16 @@
  <table name="Torque Model Filter Multiplier A" address="010812">
   <table name="Coolant Temp" address="03f37c" />
  </table>
+ <table name="Torque Model Filter Multiplier A (Below Idle Target)" address="011b18">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
  <table name="Torque Model Filter Multiplier B" address="010852">
   <table name="Coolant Temp" address="03f37c" />
  </table>
  <table name="Torque Model Filter Multiplier A (Alt)" address="010832">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="Torque Model Filter Multiplier A (Alt, Below Idle Target)" address="011af8">
   <table name="Coolant Temp" address="03f37c" />
  </table>
  <table name="Torque Model Filter Multiplier C (Alt)" address="0107b0">
@@ -2803,7 +2901,13 @@
  <table name="Idle Target Ramp Rate (Mode 2 to 5)" address="028794">
   <table name="Coolant Temp" address="03f37c" />
  </table>
+ <table name="Idle Target Ramp Rate (Mode 2 to 7)" address="0287b4">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
  <table name="Idle Target Ramp Rate (Mode 3 to 5)" address="0287d4">
+  <table name="Coolant Temp" address="03f37c" />
+ </table>
+ <table name="Idle Target Ramp Rate (Mode 3 to 7)" address="0287f4">
   <table name="Coolant Temp" address="03f37c" />
  </table>
  <table name="Idle Target Ramp Rate (Mode 7 to 5)" address="028854">
@@ -3121,6 +3225,13 @@
   <table name="Engine Load" address="01ca36" />
   <table name="Engine Speed" address="01ca0a" />
  </table>
+ <table name="EGR Coolant Timing Adjustment (TGV Closed)" address="036280">
+  <table name="Engine Load" address="01ca36" />
+  <table name="Engine Speed" address="01ca0a" />
+ </table>
+ <table name="EGR Coolant Timing Adjustment Coolant Multiplier" address="036540">
+  <table name="Coolant Temp" address="036260" />
+ </table>
  <table name="EGR Target Flow Coolant Multiplier" address="0315f0">
   <table name="Engine Load" address="031640" />
   <table name="Coolant Temp" address="031630" />
@@ -3137,7 +3248,11 @@
  </table>
  <table name="EGR Valve Feedback Integral Minimum" address="0315e6" />
  <table name="EGR Valve Feedback Integral Maximum" address="0315e8" />
- <table name="EGR Upstream Pressure Estimate" address="0320e8">
+ <table name="EGR Upstream Pressure Estimate" address="0314c6">
+  <table name="Engine Load" address="0314b6" />
+  <table name="Engine Speed" address="031496" />
+ </table>
+ <table name="EGR Upstream Pressure Baro Adder" address="0320e8">
   <table name="Engine Load" address="032208" />
   <table name="Engine Speed" address="0321e8" />
  </table>
@@ -3256,6 +3371,14 @@
  <table name="Cruise Pedal Equivalent (Other Drive Modes)" address="0485c6">
   <table name="Engine Speed" address="047ec6" />
   <table name="Y Axis" address="047ea6" />
+ </table>
+ <table name="Cruise Pedal Equivalent (Drive Mode 2, Sport)" address="0489c6">
+  <table name="Engine Speed" address="047f46" />
+  <table name="Y Axis" address="047f26" />
+ </table>
+ <table name="Cruise Pedal Equivalent (Drive Mode 3, Intelligent)" address="0481c6">
+  <table name="Engine Speed" address="047e46" />
+  <table name="Y Axis" address="047e26" />
  </table>
  <table name="Cruise Pedal Equivalent (Other Drive Modes, Meter Cruise Option)" address="0483c6">
   <table name="Engine Speed" address="047e86" />

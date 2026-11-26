@@ -4,6 +4,17 @@
 
 First public release.
 
+- New: **395 more entries on 37 ROMs** (267 tables, 128 scalars), found by checking every ROM against the others that
+  run exactly the same code: when all of them name a table or setting and a ROM's own file didn't, it's added there
+  too. Most of them are on the 2019-2020 Ascent (about 40 each: after-start enrichment, catalyst heating, rail
+  pressure fallbacks, drive-mode cruise tables), the Levorg 1.6 LF76 ROMs (13-15 each), the knock torque cap on
+  LF9D010h / LF9D012h / LG7D501B, and per-cylinder timing trim and knock event settings on LF78002C / LF78002H /
+  LF780Z2E / LF79200T. Where the Ascent or Legacy XT only carries an unused copy of WRX boost code, those boost names
+  are left out.
+- Fixed: on the Ascent and Legacy / Outback XT, **EGR Upstream Pressure Estimate** pointed at the Baro Adder table;
+  both are now where the code reads them (the real estimate added on 8 of the 9 ROMs). On LF73100A the Idle Feedback
+  Carry-Over Limit tables were swapped (Positive / Negative). On the 2019-2020 Ascent, Catalyst Heating Phase 2
+  Injection Angle Base Spark Adder is labelled TGV Normal like on every other ROM with that code.
 - Changed: on the RH850 ROMs (`FA24DIT_*`), the rail pressure axis of **Injector Flow Compensation (set 1)** is now
   titled **Rail Pressure (Plus RPM/Load Offset)**, like the other rail pressure axes. Same values; only the title
   changed.

@@ -12729,6 +12729,10 @@
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint16" />
   <description>Fuel multiplier for injector 4 when it fires three times per cycle (128 = x1.0).</description>
  </table>
+ <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" category="01.01 Fueling - Injectors &amp; Rail Pressure" type="2D" level="4" scaling="psi uint16">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees F uint16" />
+  <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
+ </table>
  <table name="Primary Open Loop Fueling" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="1" scaling="AFR (gasoline) uint8">
   <table name="Engine Load" type="X Axis" elements="20" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="24" scaling="RPM uint16" />
@@ -13185,6 +13189,11 @@ Details: Share of the fuel in the first of three injections (0x0D06EC -&gt; FFF8
 
 Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF8A6CA -&gt; FFF8A6D4, read). Confidence: inferred.</description>
  </table>
+ <table name="Catalyst Heating Phase 2 Injection Angle Base Adder (TGV Normal)" category="01.07 Fueling - Catalyst Heating &amp; Stratified Start" type="3D" level="3" scaling="deg later int16">
+  <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
+  <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
+  <description>Rpm x load correction to Catalyst Heating Phase 2 Injection Angle Base (TGV Normal); positive = later. TGVs not closed.</description>
+ </table>
  <table name="Decel Fuel Cut Resume RPM Adder (A/C, Alternate)" category="01.08 Fueling - Decel Fuel Cut" type="2D" level="4" scaling="RPM uint8 #2">
   <table name="Y Axis" type="Y Axis" elements="8" scaling="raw uint8" />
   <description>Alternate A/C resume-rpm adder for the decel fuel cut, by an unidentified CAN-derived value.</description>
@@ -13207,6 +13216,10 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Y Axis" type="Y Axis" elements="8" scaling="RPM uint8 #2" />
   <description>Purge capacity by rpm and load used instead of the vacuum-based capacity when one of several unidentified fault/status flags is set.</description>
+ </table>
+ <table name="Purge Rate (Open-Loop Enrichment)" category="01.09 Fueling - Evap Purge" type="2D" level="3" scaling="% of intake air uint8">
+  <table name="Engine Load" type="Y Axis" elements="4" scaling="g/rev uint8 (2.4)" />
+  <description>Purge rate by load while open-loop enrichment is active.</description>
  </table>
  <table name="Base Timing (EGR Off, TGV Open)" category="02.01 Ignition Timing - Base Timing" type="3D" level="1" scaling="degrees BTDC int8">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint16 (2.4)" />
@@ -14363,6 +14376,11 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
   <table name="Engine Speed" type="Y Axis" elements="22" scaling="RPM uint16" />
   <description>Extra timing advance requested while EGR is active with the TGVs open, by rpm and load, scaled by how much EGR is flowing. It is added to the Primary Ignition request, so it reaches the spark only where that request (plus knock advance) is below the Base Timing (EGR Active) map, never above it.</description>
  </table>
+ <table name="EGR Coolant Timing Adjustment (TGV Closed)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="3" scaling="degrees uint8">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint16 (2.4)" />
+  <table name="Engine Speed" type="Y Axis" elements="22" scaling="RPM uint16" />
+  <description>Timing adjustment by rpm and load while EGR is active and the TGVs are closed, scaled by EGR Coolant Timing Adjustment Coolant Multiplier so it acts only on a cooler engine. It is added to both base timing and the timing request, so it moves the fired timing directly.</description>
+ </table>
  <table name="EGR Target Flow Coolant Multiplier" category="08.01 EGR &amp; TGV - EGR" type="3D" level="4" scaling="multiplier uint8">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Coolant Temp" type="Y Axis" elements="8" scaling="degrees F uint16" />
@@ -14372,6 +14390,11 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
   <description>Estimated pressure upstream of the EGR valve (probably exhaust side) by rpm and load. The difference to manifold pressure sets the modelled EGR flow and decides whether EGR may be enabled.</description>
+ </table>
+ <table name="EGR Upstream Pressure Baro Adder" category="08.01 EGR &amp; TGV - EGR" type="3D" level="4" scaling="psi uint8 #4">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
+  <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
+  <description>Correction by rpm and load added to EGR Upstream Pressure Estimate, scaled by EGR Upstream Pressure Baro Adder Multiplier.</description>
  </table>
  <table name="EGR Target Rate (TGV Open, Multi-Injection)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="5" scaling="% EGR uint8">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />

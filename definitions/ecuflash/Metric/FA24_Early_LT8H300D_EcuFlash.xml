@@ -3182,6 +3182,13 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
   <table name="Engine Load" address="01ca6e" />
   <table name="Engine Speed" address="01ca42" />
  </table>
+ <table name="EGR Coolant Timing Adjustment (TGV Closed)" address="036434">
+  <table name="Engine Load" address="01ca6e" />
+  <table name="Engine Speed" address="01ca42" />
+ </table>
+ <table name="EGR Coolant Timing Adjustment Coolant Multiplier" address="0366f4">
+  <table name="Coolant Temp" address="036414" />
+ </table>
  <table name="EGR Target Flow Coolant Multiplier" address="031788">
   <table name="Engine Load" address="0317d8" />
   <table name="Coolant Temp" address="0317c8" />
@@ -3198,7 +3205,11 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
  </table>
  <table name="EGR Valve Feedback Integral Minimum" address="03177e" />
  <table name="EGR Valve Feedback Integral Maximum" address="031780" />
- <table name="EGR Upstream Pressure Estimate" address="032280">
+ <table name="EGR Upstream Pressure Estimate" address="03165e">
+  <table name="Engine Load" address="03164e" />
+  <table name="Engine Speed" address="03162e" />
+ </table>
+ <table name="EGR Upstream Pressure Baro Adder" address="032280">
   <table name="Engine Load" address="0323a0" />
   <table name="Engine Speed" address="032380" />
  </table>
@@ -3317,6 +3328,14 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
  <table name="Cruise Pedal Equivalent (Other Drive Modes)" address="0489ba">
   <table name="Engine Speed" address="0482ba" />
   <table name="Y Axis" address="04829a" />
+ </table>
+ <table name="Cruise Pedal Equivalent (Drive Mode 2, Sport)" address="048dba">
+  <table name="Engine Speed" address="04833a" />
+  <table name="Y Axis" address="04831a" />
+ </table>
+ <table name="Cruise Pedal Equivalent (Drive Mode 3, Intelligent)" address="0485ba">
+  <table name="Engine Speed" address="04823a" />
+  <table name="Y Axis" address="04821a" />
  </table>
  <table name="Cruise Pedal Equivalent (Other Drive Modes, Meter Cruise Option)" address="0487ba">
   <table name="Engine Speed" address="04827a" />
@@ -3483,6 +3502,7 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
  <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" address="03a208">
   <table name="Coolant Temp" address="03a21a" />
  </table>
+ <table name="Adaptive Charging Current Gain" address="040bd6" />
  <table name="Adaptive Charging Integral Deadband Above" address="040bb8" />
  <table name="Adaptive Charging Integral Deadband Below" address="040bba" />
  <table name="Adaptive Charging Integral Step Down" address="040bbc" />
@@ -3498,6 +3518,7 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
  </table>
  <table name="Charging Feedback Integral Maximum" address="040d72" />
  <table name="Charging Feedback Integral Minimum" address="040d74" />
+ <table name="Charging Feedback Minimum RPM" address="040be2" />
  <table name="Radiator Fan Duty (A/C, CAN 0x280 Value)" address="03a230">
   <table name="Y Axis" address="03a242" />
  </table>

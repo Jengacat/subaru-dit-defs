@@ -2,7 +2,8 @@
 
 Files for **RomRaider Logger**, to log your car over the OBD port with a J2534 cable (Tactrix OpenPort 2.0 or
 similar). They cover every SH-ECU ROM this repo supports: WRX and WRX S4, Levorg 2.0 and 1.6, Forester XT, Legacy /
-Outback and Ascent. The 2022+ WRX has its own files ([below](#2022-wrx-rh850)).
+Outback and Ascent. The RH850 ECU (2022+ WRX, 2023+ Ascent and Legacy / Outback XT) logs through SUBUDS, under its
+own module ([below](#rh850-ecu-subuds)).
 
 ## Which file do I use?
 
@@ -13,7 +14,7 @@ Outback and Ascent. The 2022+ WRX has its own files ([below](#2022-wrx-rh850)).
 | Ascent | stock or tuned, no logging patch | `FA24_Early_Logger.xml` |
 | Ascent | with the logging patch | `FA24_Early_Logger_LogPatch.xml` |
 | Any model, Ascent included | any, **no patch needed** | `DIT_Logger_SUBUDS.xml`, with a RomRaider build that has the SUBUDS protocol ([below](#logging-without-the-patch-subuds)) |
-| 2022+ WRX | any | `FA24DIT_LHBKC40M_Torque.csv` in an OBD app with custom PIDs, or RomRaider's OBD protocol for the standard parameters ([below](#2022-wrx-rh850)) |
+| RH850 ECU: 2022+ WRX, 2023+ Ascent and Legacy / Outback XT | any | `DIT_Logger_SUBUDS.xml` with the SUBUDS build, module **ECU-RH850** ([below](#rh850-ecu-subuds)) |
 
 The `..._LogPatch_only.xml` files hold only the extra logging-patch parameters, if you want to add them to a logger
 file of your own.
@@ -84,45 +85,51 @@ allows without any unlock, and it only reads: it changes nothing in the ROM or i
 **You need:**
 
 * A RomRaider build with SUBUDS. Stock RomRaider doesn't have it yet; Windows and Linux test builds are on my
-  [RomRaider fork's subuds-test-1 release](https://github.com/Jengacat/RomRaider/releases/tag/subuds-test-1)
-  (source: the [`subuds-pr` branch](https://github.com/Jengacat/RomRaider/tree/subuds-pr)).
-* `DIT_Logger_SUBUDS.xml`: one file for every supported car, the Ascent included.
+  [RomRaider fork's subuds-22plus-update-2 release](https://github.com/Jengacat/RomRaider/releases/tag/subuds-22plus-update-2)
+  (source: the [`subuds-pr` branch](https://github.com/Jengacat/RomRaider/tree/subuds-pr)). The older subuds-test-1
+  build can't read this file any more (it doesn't take the RH850's 8-digit addresses).
+* `DIT_Logger_SUBUDS.xml` from this folder: one file for every supported car, the Ascent and the RH850 cars included.
+  Use this one rather than the copy attached to the release, which predates the RH850 part.
 * The same J2534 cable as for SSM.
 
 **To use it:** load the file, choose **SUBUDS** as the logger protocol, and connect. RomRaider identifies your ECU
 first and shows only the parameters that exist on it:
 
 * 2.0 and 1.6 cars: the 46 stock parameters plus the 24 logging-patch ones (70);
-* Ascent: its 45 stock parameters plus its 30 logging-patch ones (75).
+* Ascent: its 45 stock parameters plus its 30 logging-patch ones (75);
+* RH850 ECU: 97 parameters, with the module **ECU-RH850** selected ([below](#rh850-ecu-subuds)).
 
 The names and units match the other files, so a log from SUBUDS reads the same as one from SSM.
 
 The memory location of each value differs from ROM to ROM. I checked every one in an emulator running each ROM's
-own code: it had to return the same value the ECU's normal SSM read does, on all 103 ROMs. If your ECU isn't one of
+own code: it had to return the same value the ECU's normal SSM read does, on all 103 SH ROMs. If your ECU isn't one of
 the supported calibrations, it still connects, but no parameters show up; nothing is guessed.
 
 SUBUDS logs only sensors and internal values. For trouble codes and OBD parameters, use the regular files.
 
-## 2022+ WRX (RH850)
+## RH850 ECU (SUBUDS)
 
-(The `FA24DIT_*` logger files are the 2022+ WRX's; the Ascent's are `FA24_Early_Logger*.xml`.)
+The 2022+ WRX and the 2023+ Ascent and Legacy / Outback XT use a newer ECU (Renesas RH850) with no SSM logging on CAN,
+so the SSM files above don't apply to them. They log through SUBUDS, with the same `DIT_Logger_SUBUDS.xml`:
 
-This ECU has no SSM logging on CAN, so the RomRaider logger files above don't apply; RomRaider's OBD protocol still
-logs the standard OBD-II parameters. What it does offer is UDS ReadDataByIdentifier (mode 22) on the functional address 0x7DF
-(0x7E0 takes only the OBD services), with no security unlock: 933 data identifiers, almost all readable in the default session, each reading a fixed
-place in the ECU's memory.
+1. Load the file and choose **SUBUDS** as the logger protocol, as above.
+2. Next to the module choice, pick **ECU-RH850** instead of ECU. This ECU takes the SUBUDS requests only on CAN ID
+   0x7A2 (0x7E0 answers OBD services only), and the ECU-RH850 module talks on 0x7A2.
+3. Connect. RomRaider identifies the ECU by its ID (UDS identifier F182) and shows the 97 parameters with that ECU's
+   own addresses. All 35 supported RH850 ROMs are covered.
 
-| File | Contents |
-|---|---|
-| `FA24DIT_LHBKC40M_Torque.csv` | 88 ready-made mode-22 PIDs in the custom-PID CSV layout that Torque Pro and similar apps import (header 7DF, bytes A, B big-endian) |
-| `FA24DIT_LHBKC40M_DIDs.csv` | All 933 identifiers: length, session, the memory address each one reads in the 2023 ROM, and the scaling where I worked it out (134 of them) |
+The 97 parameters are the values the ECU itself publishes as UDS data identifiers (mode 22): feedback and fine-learning
+knock correction, DAM, target boost, wastegate duty and position, wideband lambda, manifold and barometric pressure,
+the cam advances and targets with the OCV duties and currents, throttle and pedal channels, ignition timing, the knock
+gates, the clutch, brake and cruise switches, and the OBD values. SUBUDS reads each one where the ECU keeps it in RAM, so it logs the same raw value the
+identifier returns, many at a time. The addresses come from each ROM's own identifier table, not from another ROM.
+Identifiers that return a snapshot or history copy instead of a live value are left out.
 
-The scaled ones include feedback and fine-learning knock correction, DAM, target boost, wastegate position, wideband
-lambda, manifold pressure, the cam advances, targets and OCV duties and currents, the throttle and pedal channels,
-and the clutch, brake and cruise switches. The rest are listed raw. Identifiers marked in the Note column read a
-snapshot or history copy rather than a live value, and are left out of the PID list. Read from the 2023 ROM
-(LHBKC40M); the 134 named identifiers exist with the same length and session on the 2022 and 2024 ROMs. Not tested
-on a car yet.
+**Not tested on a car yet**, and one thing is open: whether the car passes CAN ID 0x7A2 through the OBD port to the
+ECU. If it doesn't, the ECU won't answer and nothing will log. Please open an issue with your calibration ID and the
+result either way.
+
+The trouble codes and the standard OBD-II parameters still come from RomRaider's OBD protocol.
 
 ## Status and feedback
 

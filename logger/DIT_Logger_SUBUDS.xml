@@ -11,6 +11,7 @@
    <transports>
     <transport id="iso15765" name="CAN bus" desc="Subaru UDS RAM logging over ISO 15765 (CAN), 500 kbit/s (needs a RomRaider build with the SUBUDS protocol)">
      <module id="ecu" address="0x000007E8" desc="Engine Control Unit" tester="0x000007E0" fastpoll="false" />
+     <module id="ECU-RH850" address="0x000007AA" desc="Engine Control Unit, RH850 (2022+ WRX, 2023+ Ascent and Legacy / Outback XT): UDS on 0x7A2" tester="0x000007A2" fastpoll="false" />
     </transport>
    </transports>
    <ecuparams>
@@ -6141,6 +6142,3416 @@
       <conversion units="raw" expr="x" format="0" storagetype="uint16" />
      </conversions>
     </ecuparam>
+    <!-- RH850 (2022+ WRX, 2023+ Ascent and Legacy / Outback XT): rh850/tools/logging/add_to_subuds.py -->
+    <ecuparam id="D10A1" name="Mass Airflow Sensor Voltage" desc="Mass Airflow Sensor Voltage: the ECU's own mode-22 value (DID 10A1), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF065E4</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06604</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06608</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06895</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06899</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF0689D</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF0691D</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06929</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF0692D</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06939</address>
+     </ecu>
+     <conversions>
+      <conversion units="V" expr="x*0.02" format="0.00" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D10A6" name="Accelerator Pedal Angle" desc="Accelerator Pedal Angle: the ECU's own mode-22 value (DID 10A6), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06437</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06457</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF0645B</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF066B3</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007">
+      <address>0xFEF066B5</address>
+     </ecu>
+     <ecu id="E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF066B7</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF066B9</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06739</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06745</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06749</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06755</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D10AC" name="Primary Boost Control (Wastegate Duty)" desc="Primary Boost Control (Wastegate Duty): the ECU's own mode-22 value (DID 10AC), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF0651F</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF0653F</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06543</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF067C2</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF067C6</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF067CA</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF0684A</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06856</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF0685A</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06866</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D10AE" name="Purge Duty" desc="Purge Duty: the ECU's own mode-22 value (DID 10AE), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06515</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06535</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06539</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF067B5</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF067B9</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF067BD</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF0683D</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06849</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF0684D</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06859</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D10B2" name="Alternator Duty" desc="Alternator Duty: the ECU's own mode-22 value (DID 10B2), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF0651A</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF0653A</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF0653E</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF067BA</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF067BE</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF067C2</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06842</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF0684E</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06852</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF0685E</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D10B4" name="Intake Cam Advance (Right)" desc="Intake Cam Advance (Right): the ECU's own mode-22 value (DID 10B4), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF065BA</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF065DA</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF065DE</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06866</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF0686A</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF0686E</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF068EE</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF068FA</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF068FE</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF0690A</address>
+     </ecu>
+     <conversions>
+      <conversion units="deg" expr="x-50" format="0.00" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D10B5" name="Intake Cam Advance (Left)" desc="Intake Cam Advance (Left): the ECU's own mode-22 value (DID 10B5), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF065B9</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF065D9</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF065DD</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06865</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06869</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF0686D</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF068ED</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF068F9</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF068FD</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06909</address>
+     </ecu>
+     <conversions>
+      <conversion units="deg" expr="x-50" format="0.00" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D10B6" name="Intake OCV Duty (Right)" desc="Intake OCV Duty (Right): the ECU's own mode-22 value (DID 10B6), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF0658A</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF065AA</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF065AE</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06836</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF0683A</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF0683E</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF068BE</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF068CA</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF068CE</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF068DA</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*0.39215962" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D10B7" name="Intake OCV Duty (Left)" desc="Intake OCV Duty (Left): the ECU's own mode-22 value (DID 10B7), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06589</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF065A9</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF065AD</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06835</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06839</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF0683D</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF068BD</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF068C9</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF068CD</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF068D9</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*0.39215962" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D10B8" name="Intake OCV Current (Right)" desc="Intake OCV Current (Right): the ECU's own mode-22 value (DID 10B8), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF0658C</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF065AC</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF065B0</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06838</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF0683C</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06840</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF068C0</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF068CC</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF068D0</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF068DC</address>
+     </ecu>
+     <conversions>
+      <conversion units="A" expr="x*0.03200531006" format="0.00" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D10B9" name="Intake OCV Current (Left)" desc="Intake OCV Current (Left): the ECU's own mode-22 value (DID 10B9), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF0658B</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF065AB</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF065AF</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06837</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF0683B</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF0683F</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF068BF</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF068CB</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF068CF</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF068DB</address>
+     </ecu>
+     <conversions>
+      <conversion units="A" expr="x*0.03200531006" format="0.00" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D10BE" name="Lambda (Wideband)" desc="Lambda (Wideband): the ECU's own mode-22 value (DID 10BE), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF065BB</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF065DB</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF065DF</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06867</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF0686B</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF0686F</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF068EF</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF068FB</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF068FF</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF0690B</address>
+     </ecu>
+     <conversions>
+      <conversion units="lambda" expr="x*0.0078125" format="0.000" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D10C5" name="Vehicle Speed" desc="Vehicle Speed: the ECU's own mode-22 value (DID 10C5), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF065E8</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06608</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF0660C</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF0689A</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF0689E</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF068A2</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06922</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF0692E</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06932</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF0693E</address>
+     </ecu>
+     <conversions>
+      <conversion units="mph" expr="(x)*0.621371" format="0" storagetype="uint8" />
+      <conversion units="km/h" expr="x" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D10D4" name="Wastegate Position" desc="Wastegate Position: the ECU's own mode-22 value (DID 10D4), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address length="2">0xFEF09980</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address length="2">0xFEF099A4</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address length="2">0xFEF099A8</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address length="2">0xFEF0A03E</address>
+     </ecu>
+     <ecu id="E52CA07007,E574A07007,ED2CA07207">
+      <address length="2">0xFEF0A042</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007">
+      <address length="2">0xFEF0A04E</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address length="2">0xFEF0A052</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address length="2">0xFEF0A116</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address length="2">0xFEF0A122</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address length="2">0xFEF0A126</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address length="2">0xFEF0A13A</address>
+     </ecu>
+     <conversions>
+      <conversion units="raw" expr="x" format="0.00" storagetype="uint16" endian="little" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D10E3" name="Memorised Cruise Speed" desc="Memorised Cruise Speed: the ECU's own mode-22 value (DID 10E3), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06637</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06657</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF0665B</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF068F1</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF068F5</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF068F9</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06979</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06985</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06989</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06995</address>
+     </ecu>
+     <conversions>
+      <conversion units="mph" expr="(x)*0.621371" format="0" storagetype="uint8" />
+      <conversion units="km/h" expr="x" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D10EE" name="Exhaust OCV Duty (Right)" desc="Exhaust OCV Duty (Right): the ECU's own mode-22 value (DID 10EE), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06524</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06544</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06548</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF067C7</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF067CB</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF067CF</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF0684F</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF0685B</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF0685F</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF0686B</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*0.39215962" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D10EF" name="Exhaust OCV Duty (Left)" desc="Exhaust OCV Duty (Left): the ECU's own mode-22 value (DID 10EF), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06523</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06543</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06547</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF067C6</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF067CA</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF067CE</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF0684E</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF0685A</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF0685E</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF0686A</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*0.39215962" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D10F0" name="Exhaust OCV Current (Right)" desc="Exhaust OCV Current (Right): the ECU's own mode-22 value (DID 10F0), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06535</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06555</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06559</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF067D9</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF067DD</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF067E1</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06861</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF0686D</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06871</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF0687D</address>
+     </ecu>
+     <conversions>
+      <conversion units="A" expr="x*0.03200531006" format="0.00" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D10F1" name="Exhaust OCV Current (Left)" desc="Exhaust OCV Current (Left): the ECU's own mode-22 value (DID 10F1), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06534</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06554</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06558</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF067D8</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF067DC</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF067E0</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06860</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF0686C</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06870</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF0687C</address>
+     </ecu>
+     <conversions>
+      <conversion units="A" expr="x*0.03200531006" format="0.00" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D1113" name="Dynamic Advance Multiplier" desc="Dynamic Advance Multiplier: the ECU's own mode-22 value (DID 1113), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="F02CB17107,FD2CB07007,162CA03007,FDA4B04007,FD2CA05007,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,FDA4A03007,FD04A03007,1204A07007,1204A16107,1204A03007,1204B24007,FE2CA07007,FB2CA27107,FB2CA27007,FB2CA07107,082CA04007,082CA07107,E52CA07007,E574A07007,ED2CA07207,E574A05107,ED2CA27107">
+      <address>0xFEEF959B</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607,EE04A17407,EE04A17207,EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEEF95AB</address>
+     </ecu>
+     <conversions>
+      <conversion units="ratio" expr="x*0.0625" format="0.00" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D1114" name="Feedback Knock Correction" desc="Feedback Knock Correction: the ECU's own mode-22 value (DID 1114), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF0651E</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF0653E</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06542</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF067BE</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF067C2</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF067C6</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06846</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06852</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06856</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06862</address>
+     </ecu>
+     <conversions>
+      <conversion units="deg" expr="x*0.25-32" format="0.00" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D1121" name="Target Idle Speed" desc="Target Idle Speed: the ECU's own mode-22 value (DID 1121), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address length="2">0xFEF06586</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address length="2">0xFEF065A6</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address length="2">0xFEF065AA</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address length="2">0xFEF06832</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address length="2">0xFEF06836</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address length="2">0xFEF0683A</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address length="2">0xFEF068BA</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address length="2">0xFEF068C6</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address length="2">0xFEF068CA</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address length="2">0xFEF068D6</address>
+     </ecu>
+     <conversions>
+      <conversion units="rpm" expr="x*0.25" format="0" storagetype="uint16" endian="little" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D1136" name="Battery Temperature" desc="Battery Temperature: the ECU's own mode-22 value (DID 1136), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF065D0</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF065F0</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF065F4</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF0687C</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06880</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06884</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06904</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06910</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06914</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06920</address>
+     </ecu>
+     <conversions>
+      <conversion units="F" expr="(x-40)*1.8+32" format="0" storagetype="uint8" />
+      <conversion units="degC" expr="x-40" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D1137" name="Alternator Control Mode" desc="Alternator Control Mode: the ECU's own mode-22 value (DID 1137), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607,EE04A17407,EE04A17207,EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF04F7C</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,FE2CA07007">
+      <address>0xFEF05110</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF05114</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007,1204B24007">
+      <address>0xFEF0511C</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207,E574A05107,ED2CA27107">
+      <address>0xFEF05124</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF05128</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF0512C</address>
+     </ecu>
+     <conversions>
+      <conversion units="mode (raw)" expr="x" format="0.00" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D11C6" name="Accelerator Pedal Pressed" desc="Accelerator Pedal Pressed: the ECU's own mode-22 value (DID 11C6), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06550</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06570</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06574</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF067FC</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06800</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06804</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06884</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06890</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06894</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF068A0</address>
+     </ecu>
+     <conversions>
+      <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D11D0" name="Knock Signal" desc="Knock Signal: the ECU's own mode-22 value (DID 11D0), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06602</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06622</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06626</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF068B4</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF068B8</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF068BC</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF0693C</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06948</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF0694C</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06958</address>
+     </ecu>
+     <conversions>
+      <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D122F" name="Clutch Switch" desc="Clutch Switch: the ECU's own mode-22 value (DID 122F), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06512</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06532</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06536</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF067B2</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF067B6</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF067BA</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF0683A</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06846</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF0684A</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06856</address>
+     </ecu>
+     <conversions>
+      <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D1230" name="Stop Light Switch" desc="Stop Light Switch: the ECU's own mode-22 value (DID 1230), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF064E7</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06507</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF0650B</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF0676F</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06773</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06777</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF067F7</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06803</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06807</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06813</address>
+     </ecu>
+     <conversions>
+      <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D1231" name="Cruise Set/Coast Switch" desc="Cruise Set/Coast Switch: the ECU's own mode-22 value (DID 1231), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06630</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06650</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06654</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF068EA</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF068EE</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF068F2</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06972</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF0697E</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06982</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF0698E</address>
+     </ecu>
+     <conversions>
+      <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D1232" name="Cruise Resume/Accelerate Switch" desc="Cruise Resume/Accelerate Switch: the ECU's own mode-22 value (DID 1232), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF0661D</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF0663D</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06641</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF068D7</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF068DB</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF068DF</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF0695F</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF0696B</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF0696F</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF0697B</address>
+     </ecu>
+     <conversions>
+      <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D1233" name="Brake Switch" desc="Brake Switch: the ECU's own mode-22 value (DID 1233), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF064E6</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06506</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF0650A</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF0676E</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06772</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06776</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF067F6</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06802</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06806</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06812</address>
+     </ecu>
+     <conversions>
+      <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D1234" name="Cruise Main Switch" desc="Cruise Main Switch: the ECU's own mode-22 value (DID 1234), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF0660B</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF0662B</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF0662F</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF068C5</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF068C9</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF068CD</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF0694D</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06959</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF0695D</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06969</address>
+     </ecu>
+     <conversions>
+      <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D124A" name="Cruise Cancel Switch" desc="Cruise Cancel Switch: the ECU's own mode-22 value (DID 124A), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF064E8</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06508</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF0650C</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06788</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF0678C</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06790</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06810</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF0681C</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06820</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF0682C</address>
+     </ecu>
+     <conversions>
+      <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D124C" name="Oil Level Switch" desc="Oil Level Switch: the ECU's own mode-22 value (DID 124C), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF0658D</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF065AD</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF065B1</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06839</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF0683D</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06841</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF068C1</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF068CD</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF068D1</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF068DD</address>
+     </ecu>
+     <conversions>
+      <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D128F" name="Intake Cam Target (Right)" desc="Intake Cam Target (Right): the ECU's own mode-22 value (DID 128F), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF065EF</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF0660F</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06613</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF068A1</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF068A5</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF068A9</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06929</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06935</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06939</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06945</address>
+     </ecu>
+     <conversions>
+      <conversion units="deg" expr="x-50" format="0.00" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D1290" name="Intake Cam Target (Left)" desc="Intake Cam Target (Left): the ECU's own mode-22 value (DID 1290), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF065EE</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF0660E</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06612</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF068A0</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF068A4</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF068A8</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06928</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06934</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06938</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06944</address>
+     </ecu>
+     <conversions>
+      <conversion units="deg" expr="x-50" format="0.00" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D1291" name="Exhaust Cam Target (Right)" desc="Exhaust Cam Target (Right): the ECU's own mode-22 value (DID 1291), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06533</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06553</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06557</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF067D7</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF067DB</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF067DF</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF0685F</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF0686B</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF0686F</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF0687B</address>
+     </ecu>
+     <conversions>
+      <conversion units="deg" expr="x-50" format="0.00" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D1292" name="Exhaust Cam Target (Left)" desc="Exhaust Cam Target (Left): the ECU's own mode-22 value (DID 1292), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06532</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06552</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06556</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF067D6</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF067DA</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF067DE</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF0685E</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF0686A</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF0686E</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF0687A</address>
+     </ecu>
+     <conversions>
+      <conversion units="deg" expr="x-50" format="0.00" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D1298" name="Received Idle Speed Request" desc="Received Idle Speed Request: the ECU's own mode-22 value (DID 1298), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address length="2">0xFEF0941A</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address length="2">0xFEF0943E</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address length="2">0xFEF09442</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address length="2">0xFEF09B82</address>
+     </ecu>
+     <ecu id="E52CA07007,E574A07007,ED2CA07207">
+      <address length="2">0xFEF09B86</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007">
+      <address length="2">0xFEF09B92</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address length="2">0xFEF09B96</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address length="2">0xFEF09C5A</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address length="2">0xFEF09C66</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address length="2">0xFEF09C6A</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address length="2">0xFEF09C7E</address>
+     </ecu>
+     <conversions>
+      <conversion units="rpm" expr="x" format="0" storagetype="uint16" endian="little" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D129D" name="A/C Signal 2 (CAN)" desc="A/C Signal 2 (CAN): the ECU's own mode-22 value (DID 129D), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF09FDC</address>
+     </ecu>
+     <ecu id="EE04A17007">
+      <address>0xFEF09FE4</address>
+     </ecu>
+     <ecu id="EE04A17207">
+      <address>0xFEF0A00A</address>
+     </ecu>
+     <ecu id="EE04A17407">
+      <address>0xFEF0A016</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF0A01A</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF0A7D8</address>
+     </ecu>
+     <ecu id="E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF0A7DC</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007">
+      <address>0xFEF0A7E8</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF0A7EC</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF0A8B4</address>
+     </ecu>
+     <ecu id="1204B24007">
+      <address>0xFEF0A8C0</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,FE2CA07007">
+      <address>0xFEF0A8C4</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF0A8C8</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF0A8D8</address>
+     </ecu>
+     <conversions>
+      <conversion units="raw" expr="x" format="0.00" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D130C" name="Fine Learning Knock Correction" desc="Fine Learning Knock Correction: the ECU's own mode-22 value (DID 130C), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06598</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF065B8</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF065BC</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06844</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06848</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF0684C</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF068CC</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF068D8</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF068DC</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF068E8</address>
+     </ecu>
+     <conversions>
+      <conversion units="deg" expr="x*0.5-45" format="0.00" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D1468" name="Knock Flag Gate (Cylinder 1)" desc="Knock Flag Gate (Cylinder 1): the ECU's own mode-22 value (DID 1468), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF0659B</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF065BB</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF065BF</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06847</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF0684B</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF0684F</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF068CF</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF068DB</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF068DF</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF068EB</address>
+     </ecu>
+     <conversions>
+      <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D1469" name="Knock Flag Gate (Cylinder 2)" desc="Knock Flag Gate (Cylinder 2): the ECU's own mode-22 value (DID 1469), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF0659C</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF065BC</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF065C0</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06848</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF0684C</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06850</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF068D0</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF068DC</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF068E0</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF068EC</address>
+     </ecu>
+     <conversions>
+      <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D146A" name="Knock Flag Gate (Cylinder 3)" desc="Knock Flag Gate (Cylinder 3): the ECU's own mode-22 value (DID 146A), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF0659D</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF065BD</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF065C1</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06849</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF0684D</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06851</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF068D1</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF068DD</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF068E1</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF068ED</address>
+     </ecu>
+     <conversions>
+      <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D146B" name="Knock Flag Gate (Cylinder 4)" desc="Knock Flag Gate (Cylinder 4): the ECU's own mode-22 value (DID 146B), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF0659E</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF065BE</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF065C2</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF0684A</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF0684E</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06852</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF068D2</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF068DE</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF068E2</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF068EE</address>
+     </ecu>
+     <conversions>
+      <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D7005" name="Coolant temperature (OBD copy)" desc="Coolant temperature (OBD copy): the ECU's own mode-22 value (DID 7005), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06739</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06759</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF0675D</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06A0F</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06A13</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06A17</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A97</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06AA3</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06AA7</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06AB3</address>
+     </ecu>
+     <conversions>
+      <conversion units="F" expr="(x-40)*1.8+32" format="0" storagetype="uint8" />
+      <conversion units="degC" expr="x-40" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D700C" name="Engine Speed" desc="Engine Speed: the ECU's own mode-22 value (DID 700C), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address length="2">0xFEF06714</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address length="2">0xFEF06734</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address length="2">0xFEF06738</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address length="2">0xFEF069E4</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address length="2">0xFEF069E8</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address length="2">0xFEF069EC</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address length="2">0xFEF06A6C</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address length="2">0xFEF06A78</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address length="2">0xFEF06A7C</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address length="2">0xFEF06A88</address>
+     </ecu>
+     <conversions>
+      <conversion units="rpm" expr="x*0.25" format="0" storagetype="uint16" endian="little" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D700E" name="Ignition timing (OBD copy)" desc="Ignition timing (OBD copy): the ECU's own mode-22 value (DID 700E), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF066DF</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF066FF</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06703</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF069AF</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF069B3</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF069B7</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A37</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A43</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06A47</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06A53</address>
+     </ecu>
+     <conversions>
+      <conversion units="deg BTDC" expr="x*0.5-64" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D7010" name="Airflow" desc="Airflow: the ECU's own mode-22 value (DID 7010), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address length="2">0xFEF06708</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address length="2">0xFEF06728</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address length="2">0xFEF0672C</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address length="2">0xFEF069D8</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address length="2">0xFEF069DC</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address length="2">0xFEF069E0</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address length="2">0xFEF06A60</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address length="2">0xFEF06A6C</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address length="2">0xFEF06A70</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address length="2">0xFEF06A7C</address>
+     </ecu>
+     <conversions>
+      <conversion units="g/s" expr="x*0.01" format="0.00" storagetype="uint16" endian="little" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D7011" name="Throttle Position" desc="Throttle Position: the ECU's own mode-22 value (DID 7011), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06734</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06754</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06758</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06A08</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06A0C</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06A10</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A90</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A9C</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06AA0</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06AAC</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D7033" name="Barometric pressure (kPa)" desc="Barometric pressure (kPa): the ECU's own mode-22 value (DID 7033), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF0671C</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF0673C</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06740</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF069EC</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF069F0</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF069F4</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A74</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A80</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06A84</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06A90</address>
+     </ecu>
+     <conversions>
+      <conversion units="psia" expr="(x)*0.145038" format="0.00" storagetype="uint8" />
+      <conversion units="kPa abs" expr="x" format="0.00" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D703C" name="Catalyst Temp" desc="Catalyst Temp: the ECU's own mode-22 value (DID 703C), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address length="2">0xFEF066E2</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address length="2">0xFEF06702</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address length="2">0xFEF06706</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address length="2">0xFEF069B2</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address length="2">0xFEF069B6</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address length="2">0xFEF069BA</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address length="2">0xFEF06A3A</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address length="2">0xFEF06A46</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address length="2">0xFEF06A4A</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address length="2">0xFEF06A56</address>
+     </ecu>
+     <conversions>
+      <conversion units="F" expr="(x*0.1-40)*1.8+32" format="0" storagetype="uint16" endian="little" />
+      <conversion units="degC" expr="x*0.1-40" format="0" storagetype="uint16" endian="little" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D7042" name="Battery Voltage" desc="Battery Voltage: the ECU's own mode-22 value (DID 7042), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address length="2">0xFEF0673A</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address length="2">0xFEF0675A</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address length="2">0xFEF0675E</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address length="2">0xFEF06A10</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address length="2">0xFEF06A14</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address length="2">0xFEF06A18</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address length="2">0xFEF06A98</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address length="2">0xFEF06AA4</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address length="2">0xFEF06AA8</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address length="2">0xFEF06AB4</address>
+     </ecu>
+     <conversions>
+      <conversion units="V" expr="x*0.001" format="0.00" storagetype="uint16" endian="little" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D7047" name="Throttle Position (Sensor 2)" desc="Throttle Position (Sensor 2): the ECU's own mode-22 value (DID 7047), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06735</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06755</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06759</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06A09</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06A0D</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06A11</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A91</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A9D</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06AA1</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06AAD</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D7049" name="Accelerator pedal sensor 1" desc="Accelerator pedal sensor 1: the ECU's own mode-22 value (DID 7049), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF066E0</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06700</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06704</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF069B0</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF069B4</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF069B8</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A38</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A44</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06A48</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06A54</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D704A" name="Accelerator pedal sensor 2" desc="Accelerator pedal sensor 2: the ECU's own mode-22 value (DID 704A), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF066E1</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06701</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06705</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF069B1</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF069B5</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF069B9</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A39</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A45</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06A49</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06A55</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D704C" name="Target Throttle Position" desc="Target Throttle Position: the ECU's own mode-22 value (DID 704C), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06730</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06750</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06754</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06A00</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06A04</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06A08</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A88</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A94</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06A98</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06AA4</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*0.39215874" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D705C" name="Oil Temp" desc="Oil Temp: the ECU's own mode-22 value (DID 705C), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06743</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06763</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06767</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06A19</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06A1D</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06A21</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06AA1</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06AAD</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06AB1</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06ABD</address>
+     </ecu>
+     <conversions>
+      <conversion units="F" expr="(x-40)*1.8+32" format="0" storagetype="uint8" />
+      <conversion units="degC" expr="x-40" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D7641" name="Knock Gate A (Cylinder 1)" desc="Knock Gate A (Cylinder 1): the ECU's own mode-22 value (DID 7641), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF065A4</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF065C4</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF065C8</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06850</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06854</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06858</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF068D8</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF068E4</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF068E8</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF068F4</address>
+     </ecu>
+     <conversions>
+      <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D7642" name="Knock Gate A (Cylinder 2)" desc="Knock Gate A (Cylinder 2): the ECU's own mode-22 value (DID 7642), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF065A5</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF065C5</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF065C9</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06851</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06855</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06859</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF068D9</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF068E5</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF068E9</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF068F5</address>
+     </ecu>
+     <conversions>
+      <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D7643" name="Knock Gate A (Cylinder 3)" desc="Knock Gate A (Cylinder 3): the ECU's own mode-22 value (DID 7643), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF065A6</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF065C6</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF065CA</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06852</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06856</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF0685A</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF068DA</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF068E6</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF068EA</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF068F6</address>
+     </ecu>
+     <conversions>
+      <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D7644" name="Knock Gate A (Cylinder 4)" desc="Knock Gate A (Cylinder 4): the ECU's own mode-22 value (DID 7644), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF065A7</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF065C7</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF065CB</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06853</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06857</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF0685B</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF068DB</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF068E7</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF068EB</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF068F7</address>
+     </ecu>
+     <conversions>
+      <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D7649" name="Knock Flag Gate (Cylinder 1, Debounced)" desc="Knock Flag Gate (Cylinder 1, Debounced): the ECU's own mode-22 value (DID 7649), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF0659F</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF065BF</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF065C3</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF0684B</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF0684F</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06853</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF068D3</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF068DF</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF068E3</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF068EF</address>
+     </ecu>
+     <conversions>
+      <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D764A" name="Knock Flag Gate (Cylinder 2, Debounced)" desc="Knock Flag Gate (Cylinder 2, Debounced): the ECU's own mode-22 value (DID 764A), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF065A0</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF065C0</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF065C4</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF0684C</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06850</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06854</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF068D4</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF068E0</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF068E4</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF068F0</address>
+     </ecu>
+     <conversions>
+      <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D764B" name="Knock Flag Gate (Cylinder 3, Debounced)" desc="Knock Flag Gate (Cylinder 3, Debounced): the ECU's own mode-22 value (DID 764B), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF065A1</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF065C1</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF065C5</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF0684D</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06851</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06855</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF068D5</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF068E1</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF068E5</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF068F1</address>
+     </ecu>
+     <conversions>
+      <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D764C" name="Knock Flag Gate (Cylinder 4, Debounced)" desc="Knock Flag Gate (Cylinder 4, Debounced): the ECU's own mode-22 value (DID 764C), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF065A2</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF065C2</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF065C6</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF0684E</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06852</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06856</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF068D6</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF068E2</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF068E6</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF068F2</address>
+     </ecu>
+     <conversions>
+      <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D76AF" name="Manifold Pressure" desc="Manifold Pressure: the ECU's own mode-22 value (DID 76AF), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address length="2">0xFEF09A06</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address length="2">0xFEF09A2A</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address length="2">0xFEF09A2E</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address length="2">0xFEF0A0C4</address>
+     </ecu>
+     <ecu id="E52CA07007,E574A07007,ED2CA07207">
+      <address length="2">0xFEF0A0C8</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007">
+      <address length="2">0xFEF0A0D4</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address length="2">0xFEF0A0D8</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address length="2">0xFEF0A19C</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address length="2">0xFEF0A1A8</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address length="2">0xFEF0A1AC</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address length="2">0xFEF0A1C0</address>
+     </ecu>
+     <conversions>
+      <conversion units="psia" expr="(x*0.0078125)*0.145038" format="0.00" storagetype="uint16" endian="little" />
+      <conversion units="kPa abs" expr="x*0.0078125" format="0.00" storagetype="uint16" endian="little" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="D76B0" name="Target Boost" desc="Target Boost: the ECU's own mode-22 value (DID 76B0), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address length="2">0xFEF09AB0</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address length="2">0xFEF09AD4</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address length="2">0xFEF09AD8</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address length="2">0xFEF0A148</address>
+     </ecu>
+     <ecu id="E52CA07007,E574A07007,ED2CA07207">
+      <address length="2">0xFEF0A14C</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007">
+      <address length="2">0xFEF0A158</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address length="2">0xFEF0A15C</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address length="2">0xFEF0A220</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address length="2">0xFEF0A22C</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address length="2">0xFEF0A230</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address length="2">0xFEF0A244</address>
+     </ecu>
+     <conversions>
+      <conversion units="psi" expr="((x*0.0078125+13.3)-101.325)*0.145038" format="0.00" storagetype="uint16" endian="little" />
+      <conversion units="kPa abs" expr="x*0.0078125+13.3" format="0.00" storagetype="uint16" endian="little" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF404" name="Calculated Engine Load" desc="Calculated Engine Load: the ECU's own mode-22 value (DID F404), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06712</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06732</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06736</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF069E2</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF069E6</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF069EA</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A6A</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A76</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06A7A</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06A86</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*100/255" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF405" name="Coolant Temperature (OBD)" desc="Coolant Temperature (OBD): the ECU's own mode-22 value (DID F405), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06739</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06759</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF0675D</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06A0F</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06A13</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06A17</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A97</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06AA3</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06AA7</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06AB3</address>
+     </ecu>
+     <conversions>
+      <conversion units="F" expr="(x-40)*1.8+32" format="0" storagetype="uint8" />
+      <conversion units="degC" expr="x-40" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF406" name="Short Term Fuel Trim (OBD)" desc="Short Term Fuel Trim (OBD): the ECU's own mode-22 value (DID F406), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06700</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06720</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06724</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF069D0</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF069D4</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF069D8</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A58</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A64</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06A68</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06A74</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="(x-128)*100/128" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF407" name="Long Term Fuel Trim (OBD)" desc="Long Term Fuel Trim (OBD): the ECU's own mode-22 value (DID F407), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06703</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06723</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06727</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF069D3</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF069D7</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF069DB</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A5B</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A67</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06A6B</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06A77</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="(x-128)*100/128" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF40B" name="Manifold Absolute Pressure (OBD)" desc="Manifold Absolute Pressure (OBD): the ECU's own mode-22 value (DID F40B), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06722</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06742</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06746</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF069F2</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF069F6</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF069FA</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A7A</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A86</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06A8A</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06A96</address>
+     </ecu>
+     <conversions>
+      <conversion units="psi" expr="(x)*0.145038" format="0.00" storagetype="uint8" />
+      <conversion units="kPa" expr="x" format="0.00" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF40C" name="Engine Speed (OBD)" desc="Engine Speed (OBD): the ECU's own mode-22 value (DID F40C), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address length="2">0xFEF06714</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address length="2">0xFEF06734</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address length="2">0xFEF06738</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address length="2">0xFEF069E4</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address length="2">0xFEF069E8</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address length="2">0xFEF069EC</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address length="2">0xFEF06A6C</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address length="2">0xFEF06A78</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address length="2">0xFEF06A7C</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address length="2">0xFEF06A88</address>
+     </ecu>
+     <conversions>
+      <conversion units="rpm" expr="x*0.25" format="0" storagetype="uint16" endian="little" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF40D" name="Vehicle Speed (OBD)" desc="Vehicle Speed (OBD): the ECU's own mode-22 value (DID F40D), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF0673E</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF0675E</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06762</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06A14</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06A18</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06A1C</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A9C</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06AA8</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06AAC</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06AB8</address>
+     </ecu>
+     <conversions>
+      <conversion units="mph" expr="(x)*0.621371" format="0" storagetype="uint8" />
+      <conversion units="km/h" expr="x" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF40E" name="Timing Advance (OBD)" desc="Timing Advance (OBD): the ECU's own mode-22 value (DID F40E), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF066DF</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF066FF</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06703</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF069AF</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF069B3</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF069B7</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A37</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A43</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06A47</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06A53</address>
+     </ecu>
+     <conversions>
+      <conversion units="deg" expr="x*0.5-64" format="0.00" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF40F" name="Intake Air Temperature (OBD)" desc="Intake Air Temperature (OBD): the ECU's own mode-22 value (DID F40F), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF0672E</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF0674E</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06752</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF069FE</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06A02</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06A06</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A86</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A92</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06A96</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06AA2</address>
+     </ecu>
+     <conversions>
+      <conversion units="F" expr="(x-40)*1.8+32" format="0" storagetype="uint8" />
+      <conversion units="degC" expr="x-40" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF410" name="MAF Air Flow (OBD)" desc="MAF Air Flow (OBD): the ECU's own mode-22 value (DID F410), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address length="2">0xFEF06708</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address length="2">0xFEF06728</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address length="2">0xFEF0672C</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address length="2">0xFEF069D8</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address length="2">0xFEF069DC</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address length="2">0xFEF069E0</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address length="2">0xFEF06A60</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address length="2">0xFEF06A6C</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address length="2">0xFEF06A70</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address length="2">0xFEF06A7C</address>
+     </ecu>
+     <conversions>
+      <conversion units="g/s" expr="x*0.01" format="0.00" storagetype="uint16" endian="little" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF411" name="Throttle Position (OBD)" desc="Throttle Position (OBD): the ECU's own mode-22 value (DID F411), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06734</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06754</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06758</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06A08</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06A0C</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06A10</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A90</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A9C</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06AA0</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06AAC</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF41F" name="Run Time Since Start (OBD)" desc="Run Time Since Start (OBD): the ECU's own mode-22 value (DID F41F), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address length="2">0xFEF066EA</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address length="2">0xFEF0670A</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address length="2">0xFEF0670E</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address length="2">0xFEF069BC</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address length="2">0xFEF069C0</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address length="2">0xFEF069C4</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address length="2">0xFEF06A44</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address length="2">0xFEF06A50</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address length="2">0xFEF06A54</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address length="2">0xFEF06A60</address>
+     </ecu>
+     <conversions>
+      <conversion units="s" expr="x" format="0.00" storagetype="uint16" endian="little" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF423" name="Fuel Rail Pressure (OBD)" desc="Fuel Rail Pressure (OBD): the ECU's own mode-22 value (DID F423), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address length="2">0xFEF066EE</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address length="2">0xFEF0670E</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address length="2">0xFEF06712</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address length="2">0xFEF069C0</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address length="2">0xFEF069C4</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address length="2">0xFEF069C8</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address length="2">0xFEF06A48</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address length="2">0xFEF06A54</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address length="2">0xFEF06A58</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address length="2">0xFEF06A64</address>
+     </ecu>
+     <conversions>
+      <conversion units="psi" expr="(x*10)*0.145038" format="0.00" storagetype="uint16" endian="little" />
+      <conversion units="kPa" expr="x*10" format="0.00" storagetype="uint16" endian="little" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF42C" name="Commanded EGR (OBD)" desc="Commanded EGR (OBD): the ECU's own mode-22 value (DID F42C), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF066E9</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06709</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF0670D</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF069BB</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF069BF</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF069C3</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A43</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A4F</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06A53</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06A5F</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*100/255" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF42E" name="Commanded Evap Purge (OBD)" desc="Commanded Evap Purge (OBD): the ECU's own mode-22 value (DID F42E), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF066E4</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06704</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06708</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF069B4</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF069B8</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF069BC</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A3C</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A48</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06A4C</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06A58</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF42F" name="Fuel Level (OBD)" desc="Fuel Level (OBD): the ECU's own mode-22 value (DID F42F), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06705</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06725</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06729</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF069D5</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF069D9</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF069DD</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A5D</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A69</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06A6D</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06A79</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*100/255" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF433" name="Barometric Pressure (OBD)" desc="Barometric Pressure (OBD): the ECU's own mode-22 value (DID F433), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF0671C</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF0673C</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06740</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF069EC</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF069F0</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF069F4</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A74</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A80</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06A84</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06A90</address>
+     </ecu>
+     <conversions>
+      <conversion units="psi" expr="(x)*0.145038" format="0.00" storagetype="uint8" />
+      <conversion units="kPa" expr="x" format="0.00" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF43C" name="Catalyst Temperature B1S1 (OBD)" desc="Catalyst Temperature B1S1 (OBD): the ECU's own mode-22 value (DID F43C), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address length="2">0xFEF066E2</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address length="2">0xFEF06702</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address length="2">0xFEF06706</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address length="2">0xFEF069B2</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address length="2">0xFEF069B6</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address length="2">0xFEF069BA</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address length="2">0xFEF06A3A</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address length="2">0xFEF06A46</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address length="2">0xFEF06A4A</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address length="2">0xFEF06A56</address>
+     </ecu>
+     <conversions>
+      <conversion units="F" expr="(x*0.1-40)*1.8+32" format="0" storagetype="uint16" endian="little" />
+      <conversion units="degC" expr="x*0.1-40" format="0" storagetype="uint16" endian="little" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF442" name="Control Module Voltage (OBD)" desc="Control Module Voltage (OBD): the ECU's own mode-22 value (DID F442), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address length="2">0xFEF0673A</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address length="2">0xFEF0675A</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address length="2">0xFEF0675E</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address length="2">0xFEF06A10</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address length="2">0xFEF06A14</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address length="2">0xFEF06A18</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address length="2">0xFEF06A98</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address length="2">0xFEF06AA4</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address length="2">0xFEF06AA8</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address length="2">0xFEF06AB4</address>
+     </ecu>
+     <conversions>
+      <conversion units="V" expr="x*0.001" format="0.00" storagetype="uint16" endian="little" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF443" name="Absolute Load (OBD)" desc="Absolute Load (OBD): the ECU's own mode-22 value (DID F443), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address length="2">0xFEF066DC</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address length="2">0xFEF066FC</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address length="2">0xFEF06700</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address length="2">0xFEF069AC</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address length="2">0xFEF069B0</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address length="2">0xFEF069B4</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address length="2">0xFEF06A34</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address length="2">0xFEF06A40</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address length="2">0xFEF06A44</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address length="2">0xFEF06A50</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*100/255" format="0.0" storagetype="uint16" endian="little" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF444" name="Commanded Equivalence Ratio (OBD)" desc="Commanded Equivalence Ratio (OBD): the ECU's own mode-22 value (DID F444), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address length="2">0xFEF06732</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address length="2">0xFEF06752</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address length="2">0xFEF06756</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address length="2">0xFEF06A06</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address length="2">0xFEF06A0A</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address length="2">0xFEF06A0E</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address length="2">0xFEF06A8E</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address length="2">0xFEF06A9A</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address length="2">0xFEF06A9E</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address length="2">0xFEF06AAA</address>
+     </ecu>
+     <conversions>
+      <conversion units="lambda" expr="x/32768" format="0.000" storagetype="uint16" endian="little" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF445" name="Relative Throttle Position (OBD)" desc="Relative Throttle Position (OBD): the ECU's own mode-22 value (DID F445), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06729</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06749</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF0674D</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF069F9</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF069FD</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06A01</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A81</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A8D</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06A91</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06A9D</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*100/255" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF446" name="Ambient Air Temperature (OBD)" desc="Ambient Air Temperature (OBD): the ECU's own mode-22 value (DID F446), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF0672F</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF0674F</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06753</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF069FF</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06A03</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06A07</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A87</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A93</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06A97</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06AA3</address>
+     </ecu>
+     <conversions>
+      <conversion units="F" expr="(x-40)*1.8+32" format="0" storagetype="uint8" />
+      <conversion units="degC" expr="x-40" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF447" name="Absolute Throttle Position B (OBD)" desc="Absolute Throttle Position B (OBD): the ECU's own mode-22 value (DID F447), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06735</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06755</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06759</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06A09</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06A0D</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06A11</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A91</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A9D</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06AA1</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06AAD</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF449" name="Accelerator Pedal Position D (OBD)" desc="Accelerator Pedal Position D (OBD): the ECU's own mode-22 value (DID F449), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF066E0</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06700</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06704</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF069B0</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF069B4</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF069B8</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A38</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A44</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06A48</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06A54</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF44A" name="Accelerator Pedal Position E (OBD)" desc="Accelerator Pedal Position E (OBD): the ECU's own mode-22 value (DID F44A), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF066E1</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06701</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06705</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF069B1</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF069B5</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF069B9</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A39</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A45</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06A49</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06A55</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF44C" name="Commanded Throttle Actuator (OBD)" desc="Commanded Throttle Actuator (OBD): the ECU's own mode-22 value (DID F44C), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06730</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06750</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06754</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06A00</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06A04</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06A08</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A88</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A94</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06A98</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06AA4</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*0.39215874" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF45A" name="Relative Accelerator Pedal Position (OBD)" desc="Relative Accelerator Pedal Position (OBD): the ECU's own mode-22 value (DID F45A), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF066DE</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF066FE</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06702</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF069AE</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF069B2</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF069B6</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06A36</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06A42</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06A46</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06A52</address>
+     </ecu>
+     <conversions>
+      <conversion units="%" expr="x*100/255" format="0.0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+    <ecuparam id="DF45C" name="Engine Oil Temperature (OBD)" desc="Engine Oil Temperature (OBD): the ECU's own mode-22 value (DID F45C), read from its RAM copy; 35 of 35 ECUs" target="1">
+     <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
+      <address>0xFEF06743</address>
+     </ecu>
+     <ecu id="EE04A17407,EE04A17207">
+      <address>0xFEF06763</address>
+     </ecu>
+     <ecu id="EE2CB17407,EE2CA17607,EE2CB17607">
+      <address>0xFEF06767</address>
+     </ecu>
+     <ecu id="E574A05107,ED2CA27107">
+      <address>0xFEF06A19</address>
+     </ecu>
+     <ecu id="F02CB17107,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,E52CA07007,E574A07007,ED2CA07207">
+      <address>0xFEF06A1D</address>
+     </ecu>
+     <ecu id="FB2CA27107,FB2CA27007,FB2CA07107">
+      <address>0xFEF06A21</address>
+     </ecu>
+     <ecu id="1204A07007,1204A16107,1204A03007">
+      <address>0xFEF06AA1</address>
+     </ecu>
+     <ecu id="FD2CB07007,FDA4B04007,FD2CA05007,FDA4A03007,FD04A03007,1204B24007,FE2CA07007">
+      <address>0xFEF06AAD</address>
+     </ecu>
+     <ecu id="082CA04007,082CA07107">
+      <address>0xFEF06AB1</address>
+     </ecu>
+     <ecu id="162CA03007">
+      <address>0xFEF06ABD</address>
+     </ecu>
+     <conversions>
+      <conversion units="F" expr="(x-40)*1.8+32" format="0" storagetype="uint8" />
+      <conversion units="degC" expr="x-40" format="0" storagetype="uint8" />
+     </conversions>
+    </ecuparam>
+   
+    <!-- end of the RH850 parameters -->
    </ecuparams>
   </protocol>
  </protocols>

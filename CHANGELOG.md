@@ -4,6 +4,12 @@
 
 First public release.
 
+- Changed: **RH850 logging (2022+ WRX, 2023+ Ascent and Legacy / Outback XT) moves to SUBUDS.** The mode-22 lists
+  `logger/FA24DIT_LHBKC40M_DIDs.csv` and `_Torque.csv` are replaced by 97 parameters in `DIT_Logger_SUBUDS.xml`, under
+  a new module **ECU-RH850** (CAN ID 0x7A2): the values the ECU publishes as data identifiers, read where it keeps
+  them, with addresses from each of the 35 ROMs' own identifier tables (the CSVs held the 2023 ROM's only).
+  Snapshot copies are left out. Needs the SUBUDS build subuds-22plus-update-2 or later; subuds-test-1 can't read the
+  file any more. Not tested on a car yet.
 - New: **knock torque cap** on the 2019+ ROMs (WRX, Levorg STI and Levorg 1.6) and on the Ascent and Legacy / Outback
   XT: six **Maximum Torque (Knock Cap, …)** curves by rpm, the ramp rate, the margin trigger's threshold, hysteresis,
   switch and coolant condition. This is code the 2015 WRX doesn't have, found by comparing a 2021 WRX against it, and

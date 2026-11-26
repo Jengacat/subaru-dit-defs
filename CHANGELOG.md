@@ -4,6 +4,9 @@
 
 First public release.
 
+- Changed: on the RH850 ROMs (`FA24DIT_*`), the rail pressure axis of **Injector Flow Compensation (set 1)** is now
+  titled **Rail Pressure (Plus RPM/Load Offset)**, like the other rail pressure axes. Same values; only the title
+  changed.
 - Changed: **RH850 logging (2022+ WRX, 2023+ Ascent and Legacy / Outback XT) moves to SUBUDS.** The mode-22 lists
   `logger/FA24DIT_LHBKC40M_DIDs.csv` and `_Torque.csv` are replaced by 97 parameters in `DIT_Logger_SUBUDS.xml`, under
   a new module **ECU-RH850** (CAN ID 0x7A2): the values the ECU publishes as data identifiers, read where it keeps

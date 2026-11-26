@@ -14,6 +14,21 @@ each ROM is in the [ROM lists](#rom-lists).
 > RomRaider and EcuFlash, but **nothing has been validated on a running engine or flashed to a car yet.** Read the
 > [known issues](#known-issues) before you use them, and always keep a stock read of the ECU.
 
+## Downloads
+
+Download the zip for your car from the [latest release](../../releases/latest). Each one has only the files those cars
+need, in this repository's folder layout, plus a `START_HERE.md` with the steps:
+
+| Car | Zip |
+|---|---|
+| 2014–2021 WRX and WRX S4, 2015–2018 Forester XT and tS, 2015–2017 Legacy and Outback, Levorg 2.0 | `subaru-dit-defs_<version>_FA20DIT.zip` |
+| 2014–2020 Levorg 1.6 | `subaru-dit-defs_<version>_FB16DIT.zip` |
+| 2019–2021 Ascent and Legacy / Outback XT | `subaru-dit-defs_<version>_FA24-Early.zip` |
+| 2022+ WRX, 2023+ Ascent and Legacy / Outback XT | `subaru-dit-defs_<version>_RH850.zip` |
+
+The zips are as of their release; this repository always has the newest files (the [changelog](CHANGELOG.md) lists
+what changed).
+
 ## Quick start
 
 Check that your ROM is supported first: find its calibration ID in the [ROM lists](#rom-lists) below. [What's
@@ -144,7 +159,7 @@ It hasn't been run on a car yet. Once it has, the protocol will go to the RomRai
 | `tools/ef_view.py`, `tools/ef_view.ps1` | RH850 ROMs only (2022+ WRX, 2023+ Ascent and Legacy / Outback XT): make the 3 MB copy of a ROM that EcuFlash can open, and merge the edited copy back with the checksum fixed. |
 | `tools/logpatch/` | The logging patch: `make_logpatch.py` (and `make_logpatch.ps1` for Windows) and a spec for each ROM it covers (103 so far; the ROM lists show which). |
 | `docs/guide/` | [The tuning guide](docs/guide/README.md): workflows, how the logic works, appendices and a table reference. |
-| `extras/can/` | The CAN dictionary: every frame the ECU receives and sends, for every supported 2.0 and 1.6 ROM, with a DBC for CAN tools and each signal's RAM address per ROM. `FA24_Early_CAN.*`: a first pass for the Ascent, which uses different frame IDs. `FA24DIT_CAN.dbc`: the 2022+ WRX (read from the WRX; not checked on the RH850 Ascent and Legacy / Outback XT). |
+| `extras/can/` | The CAN dictionary: every frame the ECU receives and sends, for 100 of the 2.0 and 1.6 ROMs (`FA20DIT_CAN_RAM.csv` lists them), with a DBC for CAN tools and each signal's RAM address per ROM. `FA24_Early_CAN.*`: a first pass for the Ascent, which uses different frame IDs. `FA24DIT_CAN.dbc`: the 2022+ WRX (read from the WRX; not checked on the RH850 Ascent and Legacy / Outback XT). |
 
 ## ROM lists
 

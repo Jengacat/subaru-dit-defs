@@ -1,8 +1,9 @@
 # Changelog
 
-## v0.9.0-beta (unreleased)
+## v0.9.0-beta (2026-11-25)
 
-First public release.
+First public release. Downloads: one zip per ECU family (FA20DIT, FB16DIT, FA24 Early, RH850) on the
+[release page](https://github.com/Jengacat/subaru-dit-defs/releases/tag/v0.9.0-beta).
 
 - Docs: the README starts with the quick start, and the ROM lists are sorted by model, year, transmission and market.
   The logging-patch and SUBUDS pages now say which ROMs they cover (the 103 marked "yes", plus the RH850 ROMs for

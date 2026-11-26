@@ -11,7 +11,7 @@ everything here applies to their ROMs too. Read this before you start; the suppo
   commands as in [Fix the checksum before every flash](../README.md#fix-the-checksum-before-every-flash)). Not yet proven on a car.
 - **RomRaider.** `FA24DIT_RomRaider.xml` opens in any RomRaider 1.0.0 or later; fix the checksum with the
   tool after saving. `FA24DIT_RomRaider_Checksum.xml` (keep its `checksum/` folder next to it) corrects the
-  sum when you save, but needs a RomRaider that can load a checksum module from the definition folder: my change for that ([RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)) is merged into RomRaider after 1.1.0, so use the next RomRaider release, or until it is out a RomRaider built from the current source. RomRaider 1.0.0 and 1.1.0 can't open the images with that file
+  sum when you save, but needs a RomRaider that can load a checksum module from the definition folder: my change for that ([RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)) is in [RomRaider 1.1.1](https://github.com/RomRaider/RomRaider/releases) and later. RomRaider 1.0.0 and 1.1.0 can't open the images with that file
   at all, so install only one of the two.
 - **FastECU, or EcuFlash with a copy.** The EcuFlash-format files (`FA24DIT_*_EcuFlash.xml`) are made for
   **FastECU**, which opens the full image with them (see FastECU below). EcuFlash itself (1.44) can't load the right memory model
@@ -28,8 +28,8 @@ everything here applies to their ROMs too. Read this before you start; the suppo
   view copy**: it lacks the end of the image. Install the base file and your ROM's file as for the other ECUs
   (`FA24DIT_BASE_EcuFlash.xml`, or `FA24DIT_BASE_METRIC_EcuFlash.xml`, plus `FA24DIT_<calibration ID>_EcuFlash.xml`).
 - **FastECU** reads the EcuFlash files and opens the full image directly, no copy needed. Its checksum module for
-  this ECU is on my branch [rh850-checksum](https://github.com/Jengacat/FastECU/tree/rh850-checksum) (not in a
-  FastECU release yet): with the vehicle set to "WRX 2.4 DIT (VB)" it corrects the sum on save. Otherwise use the
+  this ECU is in FastECU's current source (merged in
+  [miikasyvanen/FastECU#166](https://github.com/miikasyvanen/FastECU/pull/166), not in a FastECU release yet): with the vehicle set to "WRX 2.4 DIT (VB)" it corrects the sum on save. Otherwise use the
   checksum tool.
 - **The three tools agree:** the same edit saved in RomRaider, FastECU and EcuFlash gives the same file as the
   checksum tool. Whether the ECU accepts it is not yet tested.

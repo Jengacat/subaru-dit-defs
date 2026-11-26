@@ -4,6 +4,11 @@
 
 First public release.
 
+- Docs: the README starts with the quick start, and the ROM lists are sorted by model, year, transmission and market.
+  The logging-patch and SUBUDS pages now say which ROMs they cover (the 103 marked "yes", plus the RH850 ROMs for
+  SUBUDS) instead of "every ROM"; the 2019–2021 Legacy / Outback XT, LT8D700A and LT8F200C log the OBD parameters for
+  now. The `_Checksum` RomRaider files work with RomRaider 1.1.1, and FastECU's current source lists the 2.5 MB read
+  and corrects the 2.5 MB and RH850 checksums (not in a FastECU release yet).
 - New: **395 more entries on 37 ROMs** (267 tables, 128 scalars), found by checking every ROM against the others that
   run exactly the same code: when all of them name a table or setting and a ROM's own file didn't, it's added there
   too. Most of them are on the 2019-2020 Ascent (about 40 each: after-start enrichment, catalyst heating, rail

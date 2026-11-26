@@ -57,8 +57,8 @@ Writing to the ECU with EcuFlash has not been tested on this ECU yet.
 for each supported 2022+ WRX ROM (the list is in the main README).
 
 **As they are, these files are only fully compatible with FastECU.** FastECU opens the full 4032 KB image with them
-(set its EcuFlash definitions folder to `Imperial/` or `Metric/`), and with my
-[rh850-checksum](https://github.com/Jengacat/FastECU/tree/rh850-checksum) branch it also corrects the checksum on save.
+(set its EcuFlash definitions folder to `Imperial/` or `Metric/`), and built from its current source (not a release yet) it also corrects the checksum on save
+([miikasyvanen/FastECU#166](https://github.com/miikasyvanen/FastECU/pull/166)).
 EcuFlash itself can't load the right memory model: it only opens a ROM through one of its built-in models, and none is
 the size of these images (the full image gives "Unknown ROM Image"). The files name its 3 MB model
 **Generic3072K**, so EcuFlash can open a copy of the first 3 MB; every table is in the first 1 MB, so the copy shows

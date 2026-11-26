@@ -35,7 +35,7 @@ of the two for each engine:
 | File | Checksum | RomRaider |
 |---|---|---|
 | `FA20DIT_RomRaider.xml`, `FB16DIT_RomRaider.xml` | Not corrected: run the [checksum tool](../../tools/) after saving | 1.0.0 or later |
-| `FA20DIT_RomRaider_Checksum.xml`, `FB16DIT_RomRaider_Checksum.xml` | Corrected on save, 2 MB and 2.5 MB ROMs alike, by the `FA20Sum16` module in `checksum/` | A RomRaider that can load a checksum module from the definition folder: my change for that ([RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)) is merged into RomRaider after 1.1.0, so use the next RomRaider release, or until it is out a RomRaider built from the current source. RomRaider 1.0.0 and 1.1.0 can't open the images with it |
+| `FA20DIT_RomRaider_Checksum.xml`, `FB16DIT_RomRaider_Checksum.xml` | Corrected on save, 2 MB and 2.5 MB ROMs alike, by the `FA20Sum16` module in `checksum/` | A RomRaider that can load a checksum module from the definition folder: my change for that ([RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)) is in [RomRaider 1.1.1](https://github.com/RomRaider/RomRaider/releases) and later. RomRaider 1.0.0 and 1.1.0 can't open the images with it |
 
 Keep the `checksum/` folder in the same folder as the XML: RomRaider loads
 `checksum/com/romraider/maps/checksum/FA20Sum16.class` from there (source: `checksum/FA20Sum16.java`). Either way, run `checksum.py verify` before flashing.
@@ -48,7 +48,7 @@ the others. It comes in two versions; install only one:
 | File | Checksum | RomRaider |
 |---|---|---|
 | `FA24DIT_RomRaider.xml` | Not corrected: run `tools/checksum.py` (or `.ps1`) after saving | 1.0.0 or later |
-| `FA24DIT_RomRaider_Checksum.xml` | Corrected on save, by the `RH850Sum16` module in `checksum/` | A RomRaider that can load a checksum module from the definition folder: my change for that ([RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)) is merged into RomRaider after 1.1.0, so use the next RomRaider release, or until it is out a RomRaider built from the current source. RomRaider 1.0.0 and 1.1.0 can't open the images with it |
+| `FA24DIT_RomRaider_Checksum.xml` | Corrected on save, by the `RH850Sum16` module in `checksum/` | A RomRaider that can load a checksum module from the definition folder: my change for that ([RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)) is in [RomRaider 1.1.1](https://github.com/RomRaider/RomRaider/releases) and later. RomRaider 1.0.0 and 1.1.0 can't open the images with it |
 
 For the checksum version, keep the `checksum/` folder in the same folder as the XML: RomRaider loads
 `checksum/com/romraider/maps/checksum/RH850Sum16.class` from there. The source is `checksum/RH850Sum16.java`

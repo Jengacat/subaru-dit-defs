@@ -40,6 +40,32 @@ def boot_block(spec):
     return spec.get('family') != 'FA24DIT'
 
 
+def dealer_image(d):
+    """A dealer-software image the checksum report fails only for what a dealer file lacks, none of which the patch
+    touches: the sum is right and the 0x6000 / end markers hold, the runtime reference words hold the pattern that
+    makes the ECU skip its background check (0x0001 / 0xFFFF, read in checksum.py), and the 0x006C marker either holds
+    or the boot area is blank (no boot block in the file). A read from a car passes the full report instead."""
+    if len(d) not in checksum.SIZES:
+        return False
+    checksum.set_size(len(d))
+    if checksum.sum16(d) != checksum.TARGET or not all(checksum.w16(d, a) == v for a, v, _t in checksum.MARKERS):
+        return False
+    ref = (checksum.w16(d, checksum.REFWORDS), checksum.w16(d, checksum.REFWORDS + 2))
+    if ref not in ((checksum.TARGET, checksum.TARGET), (0x0001, 0xFFFF)):
+        return False
+    return checksum.w16(d, 0x6C) == checksum.w16(d, 0x6010) or d[:0x6000] == b'\xff' * 0x6000
+
+
+def gate(d, spec):
+    if checksum.report(d, boot_block(spec)):
+        return True
+    if dealer_image(d):
+        print('  note: a dealer-software image (reference words 0x0001 / 0xFFFF or no boot block); the patch leaves '
+              'both as they are, and the sum and markers hold')
+        return True
+    return False
+
+
 def u32(d, a):
     return struct.unpack_from('>I', d, a)[0]
 
@@ -111,7 +137,7 @@ def verify(spec, src, out):
     for n in notes:
         print('  note:', n)
     print('  checksum (tools/checksum.py (or tools/checksum.ps1) rule):')
-    ok &= checksum.report(out, boot_block(spec))
+    ok &= gate(out, spec)
     print('  RESULT: %s' % ('PASS' if ok else 'FAIL'))
     return ok
 
@@ -124,7 +150,7 @@ def main():
     if len(a) != 3:
         sys.exit(__doc__)
     spec, src = json.load(open(a[0])), open(a[1], 'rb').read()
-    if not checksum.report(src, boot_block(spec)):
+    if not gate(src, spec):
         sys.exit('input image does not pass the checksum check; refusing to patch')
     base, ptrs, spare, patches, notes = check_spec(spec, src)
     d = bytearray(src)

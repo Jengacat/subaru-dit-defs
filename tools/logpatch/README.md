@@ -27,6 +27,6 @@ refuses to patch if:
 - any slot to patch is already in use.
 
 Log with [`FA20DIT_Logger_LogPatch.xml`](../../logger/), or `FA24_Early_Logger_LogPatch.xml` on the Ascent (LT8…
-specs). `specs/` holds one spec per ROM covered so far (103; the README's ROM lists show which); the slots are the same in all of them. The Ascent ROMs I have came
+specs). `specs/` holds one spec per ROM covered so far (238: every supported 2.0 and 1.6 ROM except LV9H000D, and the five 2019–2021 Ascents); the slots are the same in all of them. The Ascent ROMs I have came
 from Subaru's dealer software and carry no boot block, so for them the tools report the boot-block marker without
 requiring it; the patch never touches the boot block. Not yet confirmed on a running ECU.

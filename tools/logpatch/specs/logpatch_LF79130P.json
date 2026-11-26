@@ -1,0 +1,419 @@
+{
+ "calid": "LF79130P",
+ "rom": "LF79130P_delta.bin",
+ "table": "0x1FCFEC",
+ "sibling": "LF79110N",
+ "_comment": "Runs the same code as LF79110N: RAM addresses moved from its spec (method: vote = the exact instruction-pair map, neighbour = the shift of the nearest mapped addresses; both agree where both exist).",
+ "entries": [
+  {
+   "slot": "0x2B0",
+   "ram": "FFF8B654",
+   "param": "L01",
+   "name": "Target Torque",
+   "size": 2,
+   "byte": "high",
+   "sibling_ram": "FFF8B508",
+   "method": "vote+neighbour"
+  },
+  {
+   "slot": "0x2B1",
+   "ram": "FFF8B655",
+   "param": "L01",
+   "name": "Target Torque",
+   "size": 2,
+   "byte": "low",
+   "sibling_ram": "FFF8B509",
+   "method": "neighbour"
+  },
+  {
+   "slot": "0x2B2",
+   "ram": "FFF8B664",
+   "param": "L02",
+   "name": "Throttle Torque Request",
+   "size": 2,
+   "byte": "high",
+   "sibling_ram": "FFF8B518",
+   "method": "vote+neighbour"
+  },
+  {
+   "slot": "0x2B3",
+   "ram": "FFF8B665",
+   "param": "L02",
+   "name": "Throttle Torque Request",
+   "size": 2,
+   "byte": "low",
+   "sibling_ram": "FFF8B519",
+   "method": "neighbour"
+  },
+  {
+   "slot": "0x2B4",
+   "ram": "FFF8AD37",
+   "param": "L03",
+   "name": "Base Timing",
+   "size": 1,
+   "byte": "byte",
+   "sibling_ram": "FFF8AC17",
+   "method": "vote+neighbour"
+  },
+  {
+   "slot": "0x2B5",
+   "ram": "FFF8AEA7",
+   "param": "L04",
+   "name": "Feedback Knock Correction",
+   "size": 1,
+   "byte": "byte",
+   "sibling_ram": "FFF8AD86",
+   "method": "vote+neighbour"
+  },
+  {
+   "slot": "0x2B6",
+   "ram": "FFF8AEB7",
+   "param": "L05",
+   "name": "Fine Learning Knock Correction",
+   "size": 1,
+   "byte": "byte",
+   "sibling_ram": "FFF8AD96",
+   "method": "vote+neighbour"
+  },
+  {
+   "slot": "0x2B7",
+   "ram": "FFF8AE9E",
+   "param": "L06",
+   "name": "Knock Correction Advance",
+   "size": 1,
+   "byte": "byte",
+   "sibling_ram": "FFF8AD7D",
+   "method": "vote+neighbour"
+  },
+  {
+   "slot": "0x2B8",
+   "ram": "FFF8AE87",
+   "param": "L07",
+   "name": "Total Knock Correction",
+   "size": 1,
+   "byte": "byte",
+   "sibling_ram": "FFF8AD66",
+   "method": "vote+neighbour"
+  },
+  {
+   "slot": "0x2B9",
+   "ram": "FFF8AF70",
+   "param": "L08",
+   "name": "Combustion Mode",
+   "size": 1,
+   "byte": "byte",
+   "sibling_ram": "FFF8AE4F",
+   "method": "vote+neighbour"
+  },
+  {
+   "slot": "0x2BA",
+   "ram": "FFF88D64",
+   "param": "L09",
+   "name": "Fuel Rail Pressure",
+   "size": 2,
+   "byte": "high",
+   "sibling_ram": "FFF88C44",
+   "method": "vote+neighbour"
+  },
+  {
+   "slot": "0x2BB",
+   "ram": "FFF88D65",
+   "param": "L09",
+   "name": "Fuel Rail Pressure",
+   "size": 2,
+   "byte": "low",
+   "sibling_ram": "FFF88C45",
+   "method": "neighbour"
+  },
+  {
+   "slot": "0x2BC",
+   "ram": "FFF8C248",
+   "param": "L10",
+   "name": "Target Fuel Rail Pressure",
+   "size": 2,
+   "byte": "high",
+   "sibling_ram": "FFF8C09C",
+   "method": "vote+neighbour"
+  },
+  {
+   "slot": "0x2BD",
+   "ram": "FFF8C249",
+   "param": "L10",
+   "name": "Target Fuel Rail Pressure",
+   "size": 2,
+   "byte": "low",
+   "sibling_ram": "FFF8C09D",
+   "method": "neighbour"
+  },
+  {
+   "slot": "0x2BE",
+   "ram": "FFF8BBB8",
+   "param": "L11",
+   "name": "Target Boost",
+   "size": 2,
+   "byte": "high",
+   "sibling_ram": "FFF8BA6C",
+   "method": "vote+neighbour"
+  },
+  {
+   "slot": "0x2BF",
+   "ram": "FFF8BBB9",
+   "param": "L11",
+   "name": "Target Boost",
+   "size": 2,
+   "byte": "low",
+   "sibling_ram": "FFF8BA6D",
+   "method": "neighbour"
+  },
+  {
+   "slot": "0x2C0",
+   "ram": "FFF89748",
+   "param": "L12",
+   "name": "Boost Control Pressure",
+   "size": 2,
+   "byte": "high",
+   "sibling_ram": "FFF89628",
+   "method": "vote+neighbour"
+  },
+  {
+   "slot": "0x2C1",
+   "ram": "FFF89749",
+   "param": "L12",
+   "name": "Boost Control Pressure",
+   "size": 2,
+   "byte": "low",
+   "sibling_ram": "FFF89629",
+   "method": "neighbour"
+  },
+  {
+   "slot": "0x2C2",
+   "ram": "FFF8BBC0",
+   "param": "L13",
+   "name": "Wastegate Duty (Full Resolution)",
+   "size": 2,
+   "byte": "high",
+   "sibling_ram": "FFF8BA74",
+   "method": "vote+neighbour"
+  },
+  {
+   "slot": "0x2C3",
+   "ram": "FFF8BBC1",
+   "param": "L13",
+   "name": "Wastegate Duty (Full Resolution)",
+   "size": 2,
+   "byte": "low",
+   "sibling_ram": "FFF8BA75",
+   "method": "neighbour"
+  },
+  {
+   "slot": "0x2C4",
+   "ram": "FFF8BBB2",
+   "param": "L14",
+   "name": "Wastegate Duty Feedback",
+   "size": 2,
+   "byte": "high",
+   "sibling_ram": "FFF8BA66",
+   "method": "neighbour"
+  },
+  {
+   "slot": "0x2C5",
+   "ram": "FFF8BBB3",
+   "param": "L14",
+   "name": "Wastegate Duty Feedback",
+   "size": 2,
+   "byte": "low",
+   "sibling_ram": "FFF8BA67",
+   "method": "neighbour"
+  },
+  {
+   "slot": "0x2C6",
+   "ram": "FFF8BB22",
+   "param": "L15",
+   "name": "Closed Loop Target",
+   "size": 2,
+   "byte": "high",
+   "sibling_ram": "FFF8B9D6",
+   "method": "vote+neighbour"
+  },
+  {
+   "slot": "0x2C7",
+   "ram": "FFF8BB23",
+   "param": "L15",
+   "name": "Closed Loop Target",
+   "size": 2,
+   "byte": "low",
+   "sibling_ram": "FFF8B9D7",
+   "method": "neighbour"
+  },
+  {
+   "slot": "0x2C8",
+   "ram": "FFF8BAEE",
+   "param": "L16",
+   "name": "A/F Correction (Closed Loop)",
+   "size": 2,
+   "byte": "high",
+   "sibling_ram": "FFF8B9A2",
+   "method": "vote+neighbour"
+  },
+  {
+   "slot": "0x2C9",
+   "ram": "FFF8BAEF",
+   "param": "L16",
+   "name": "A/F Correction (Closed Loop)",
+   "size": 2,
+   "byte": "low",
+   "sibling_ram": "FFF8B9A3",
+   "method": "neighbour"
+  },
+  {
+   "slot": "0x2CA",
+   "ram": "FFF81269",
+   "param": "L17",
+   "name": "A/F Learning (FFF811D6)",
+   "size": 1,
+   "byte": "byte",
+   "sibling_ram": "FFF81269",
+   "method": "vote+neighbour"
+  },
+  {
+   "slot": "0x2CB",
+   "ram": "FFF8B738",
+   "param": "L18",
+   "name": "Throttle Model Air Requirement",
+   "size": 2,
+   "byte": "high",
+   "sibling_ram": "FFF8B5EC",
+   "method": "vote+neighbour"
+  },
+  {
+   "slot": "0x2CC",
+   "ram": "FFF8B739",
+   "param": "L18",
+   "name": "Throttle Model Air Requirement",
+   "size": 2,
+   "byte": "low",
+   "sibling_ram": "FFF8B5ED",
+   "method": "neighbour"
+  },
+  {
+   "slot": "0x2CD",
+   "ram": "FFF8B6A2",
+   "param": "L19",
+   "name": "Torque Model Throttle Opening",
+   "size": 2,
+   "byte": "high",
+   "sibling_ram": "FFF8B556",
+   "method": "vote+neighbour"
+  },
+  {
+   "slot": "0x2CE",
+   "ram": "FFF8B6A3",
+   "param": "L19",
+   "name": "Torque Model Throttle Opening",
+   "size": 2,
+   "byte": "low",
+   "sibling_ram": "FFF8B557",
+   "method": "neighbour"
+  },
+  {
+   "slot": "0x2CF",
+   "ram": "FFF8B744",
+   "param": "L20",
+   "name": "Throttle Required Area",
+   "size": 2,
+   "byte": "high",
+   "sibling_ram": "FFF8B5F8",
+   "method": "neighbour"
+  },
+  {
+   "slot": "0x2D0",
+   "ram": "FFF8B745",
+   "param": "L20",
+   "name": "Throttle Required Area",
+   "size": 2,
+   "byte": "low",
+   "sibling_ram": "FFF8B5F9",
+   "method": "neighbour"
+  },
+  {
+   "slot": "0x2D1",
+   "ram": "FFF8B74A",
+   "param": "L21",
+   "name": "ETC Target",
+   "size": 2,
+   "byte": "high",
+   "sibling_ram": "FFF8B5FE",
+   "method": "vote+neighbour"
+  },
+  {
+   "slot": "0x2D2",
+   "ram": "FFF8B74B",
+   "param": "L21",
+   "name": "ETC Target",
+   "size": 2,
+   "byte": "low",
+   "sibling_ram": "FFF8B5FF",
+   "method": "neighbour"
+  },
+  {
+   "slot": "0x2D3",
+   "ram": "FFF8C1E4",
+   "param": "L22",
+   "name": "Intake Cam Target",
+   "size": 2,
+   "byte": "high",
+   "sibling_ram": "FFF8C038",
+   "method": "vote+neighbour"
+  },
+  {
+   "slot": "0x2D4",
+   "ram": "FFF8C1E5",
+   "param": "L22",
+   "name": "Intake Cam Target",
+   "size": 2,
+   "byte": "low",
+   "sibling_ram": "FFF8C039",
+   "method": "neighbour"
+  },
+  {
+   "slot": "0x2D5",
+   "ram": "FFF8C198",
+   "param": "L23",
+   "name": "Exhaust Cam Target",
+   "size": 2,
+   "byte": "high",
+   "sibling_ram": "FFF8BFEC",
+   "method": "vote+neighbour"
+  },
+  {
+   "slot": "0x2D6",
+   "ram": "FFF8C199",
+   "param": "L23",
+   "name": "Exhaust Cam Target",
+   "size": 2,
+   "byte": "low",
+   "sibling_ram": "FFF8BFED",
+   "method": "neighbour"
+  },
+  {
+   "slot": "0x2D7",
+   "ram": "FFF8C95E",
+   "param": "L24",
+   "name": "Injector Pulse Width (C0B0)",
+   "size": 2,
+   "byte": "high",
+   "sibling_ram": "FFF8C7AE",
+   "method": "neighbour"
+  },
+  {
+   "slot": "0x2D8",
+   "ram": "FFF8C95F",
+   "param": "L24",
+   "name": "Injector Pulse Width (C0B0)",
+   "size": 2,
+   "byte": "low",
+   "sibling_ram": "FFF8C7AF",
+   "method": "neighbour"
+  }
+ ]
+}

@@ -1,0 +1,477 @@
+{
+ "calid": "LT8D700A",
+ "rom": "LT8D700A_2019_USDM_Ascent.bin",
+ "table": "0x24C848",
+ "family": "FA24DIT",
+ "_comment": "Ascent logging patch (my research notes): L13 / L14 are not patched (the WRX wastegate block is inert here); L25..L32 are Ascent-only.",
+ "entries": [
+  {
+   "slot": "0x2B0",
+   "ram": "FFF8C4CC",
+   "param": "L01",
+   "name": "Target Torque",
+   "size": 2,
+   "byte": "high",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x25"
+  },
+  {
+   "slot": "0x2B1",
+   "ram": "FFF8C4CD",
+   "param": "L01",
+   "name": "Target Torque",
+   "size": 2,
+   "byte": "low",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x25"
+  },
+  {
+   "slot": "0x2B2",
+   "ram": "FFF8C4DC",
+   "param": "L02",
+   "name": "Throttle Torque Request",
+   "size": 2,
+   "byte": "high",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x11"
+  },
+  {
+   "slot": "0x2B3",
+   "ram": "FFF8C4DD",
+   "param": "L02",
+   "name": "Throttle Torque Request",
+   "size": 2,
+   "byte": "low",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x11"
+  },
+  {
+   "slot": "0x2B4",
+   "ram": "FFF8BB28",
+   "param": "L03",
+   "name": "Base Timing",
+   "size": 1,
+   "byte": "byte",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x14"
+  },
+  {
+   "slot": "0x2B5",
+   "ram": "FFF8BCA9",
+   "param": "L04",
+   "name": "Feedback Knock Correction",
+   "size": 1,
+   "byte": "byte",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x27"
+  },
+  {
+   "slot": "0x2B6",
+   "ram": "FFF8BCBF",
+   "param": "L05",
+   "name": "Fine Learning Knock Correction",
+   "size": 1,
+   "byte": "byte",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x37"
+  },
+  {
+   "slot": "0x2B7",
+   "ram": "FFF8BC9C",
+   "param": "L06",
+   "name": "Knock Correction Advance",
+   "size": 1,
+   "byte": "byte",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x20"
+  },
+  {
+   "slot": "0x2B8",
+   "ram": "FFF8BC83",
+   "param": "L07",
+   "name": "Total Knock Correction",
+   "size": 1,
+   "byte": "byte",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x8"
+  },
+  {
+   "slot": "0x2B9",
+   "ram": "FFF8BD7E",
+   "param": "L08",
+   "name": "Combustion Mode",
+   "size": 1,
+   "byte": "byte",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x95"
+  },
+  {
+   "slot": "0x2BA",
+   "ram": "FFF895BC",
+   "param": "L09",
+   "name": "Fuel Rail Pressure",
+   "size": 2,
+   "byte": "high",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x36"
+  },
+  {
+   "slot": "0x2BB",
+   "ram": "FFF895BD",
+   "param": "L09",
+   "name": "Fuel Rail Pressure",
+   "size": 2,
+   "byte": "low",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x36"
+  },
+  {
+   "slot": "0x2BC",
+   "ram": "FFF8D1F4",
+   "param": "L10",
+   "name": "Target Fuel Rail Pressure",
+   "size": 2,
+   "byte": "high",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x29"
+  },
+  {
+   "slot": "0x2BD",
+   "ram": "FFF8D1F5",
+   "param": "L10",
+   "name": "Target Fuel Rail Pressure",
+   "size": 2,
+   "byte": "low",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x29"
+  },
+  {
+   "slot": "0x2BE",
+   "ram": "FFF8AB1C",
+   "param": "L11",
+   "name": "Target Boost",
+   "size": 2,
+   "byte": "high",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x8"
+  },
+  {
+   "slot": "0x2BF",
+   "ram": "FFF8AB1D",
+   "param": "L11",
+   "name": "Target Boost",
+   "size": 2,
+   "byte": "low",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x8"
+  },
+  {
+   "slot": "0x2C0",
+   "ram": "FFF89FA2",
+   "param": "L12",
+   "name": "Boost Control Pressure",
+   "size": 2,
+   "byte": "high",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x12"
+  },
+  {
+   "slot": "0x2C1",
+   "ram": "FFF89FA3",
+   "param": "L12",
+   "name": "Boost Control Pressure",
+   "size": 2,
+   "byte": "low",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x12"
+  },
+  {
+   "slot": "0x2C6",
+   "ram": "FFF8C99A",
+   "param": "L15",
+   "name": "Closed Loop Target",
+   "size": 2,
+   "byte": "high",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x9"
+  },
+  {
+   "slot": "0x2C7",
+   "ram": "FFF8C99B",
+   "param": "L15",
+   "name": "Closed Loop Target",
+   "size": 2,
+   "byte": "low",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x9"
+  },
+  {
+   "slot": "0x2C8",
+   "ram": "FFF8C966",
+   "param": "L16",
+   "name": "A/F Correction (Closed Loop)",
+   "size": 2,
+   "byte": "high",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x10"
+  },
+  {
+   "slot": "0x2C9",
+   "ram": "FFF8C967",
+   "param": "L16",
+   "name": "A/F Correction (Closed Loop)",
+   "size": 2,
+   "byte": "low",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x10"
+  },
+  {
+   "slot": "0x2CA",
+   "ram": "FFF80FE5",
+   "param": "L17",
+   "name": "A/F Learning (FFF811D6)",
+   "size": 1,
+   "byte": "byte",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x7"
+  },
+  {
+   "slot": "0x2CB",
+   "ram": "FFF8C5BC",
+   "param": "L18",
+   "name": "Throttle Model Air Requirement",
+   "size": 2,
+   "byte": "high",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x8"
+  },
+  {
+   "slot": "0x2CC",
+   "ram": "FFF8C5BD",
+   "param": "L18",
+   "name": "Throttle Model Air Requirement",
+   "size": 2,
+   "byte": "low",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x8"
+  },
+  {
+   "slot": "0x2CD",
+   "ram": "FFF8C520",
+   "param": "L19",
+   "name": "Torque Model Throttle Opening",
+   "size": 2,
+   "byte": "high",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x9"
+  },
+  {
+   "slot": "0x2CE",
+   "ram": "FFF8C521",
+   "param": "L19",
+   "name": "Torque Model Throttle Opening",
+   "size": 2,
+   "byte": "low",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x9"
+  },
+  {
+   "slot": "0x2CF",
+   "ram": "FFF8C5C8",
+   "param": "L20",
+   "name": "Throttle Required Area",
+   "size": 2,
+   "byte": "high",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x5"
+  },
+  {
+   "slot": "0x2D0",
+   "ram": "FFF8C5C9",
+   "param": "L20",
+   "name": "Throttle Required Area",
+   "size": 2,
+   "byte": "low",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x5"
+  },
+  {
+   "slot": "0x2D1",
+   "ram": "FFF8C5CE",
+   "param": "L21",
+   "name": "ETC Target",
+   "size": 2,
+   "byte": "high",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x14"
+  },
+  {
+   "slot": "0x2D2",
+   "ram": "FFF8C5CF",
+   "param": "L21",
+   "name": "ETC Target",
+   "size": 2,
+   "byte": "low",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x14"
+  },
+  {
+   "slot": "0x2D3",
+   "ram": "FFF8D19C",
+   "param": "L22",
+   "name": "Intake Cam Target",
+   "size": 2,
+   "byte": "high",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x5"
+  },
+  {
+   "slot": "0x2D4",
+   "ram": "FFF8D19D",
+   "param": "L22",
+   "name": "Intake Cam Target",
+   "size": 2,
+   "byte": "low",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x5"
+  },
+  {
+   "slot": "0x2D5",
+   "ram": "FFF8D14E",
+   "param": "L23",
+   "name": "Exhaust Cam Target",
+   "size": 2,
+   "byte": "high",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x5"
+  },
+  {
+   "slot": "0x2D6",
+   "ram": "FFF8D14F",
+   "param": "L23",
+   "name": "Exhaust Cam Target",
+   "size": 2,
+   "byte": "low",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x5"
+  },
+  {
+   "slot": "0x2D7",
+   "ram": "FFF8D8CA",
+   "param": "L24",
+   "name": "Injector Pulse Width (C0B0)",
+   "size": 2,
+   "byte": "high",
+   "method": "pulse-width pointer table 24D6D8"
+  },
+  {
+   "slot": "0x2D8",
+   "ram": "FFF8D8CB",
+   "param": "L24",
+   "name": "Injector Pulse Width (C0B0)",
+   "size": 2,
+   "byte": "low",
+   "method": "pulse-width pointer table 24D6D8"
+  },
+  {
+   "slot": "0x2D9",
+   "ram": "FFF8A7C4",
+   "param": "L25",
+   "name": "Wastegate Motor Duty",
+   "size": 2,
+   "byte": "high",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x14"
+  },
+  {
+   "slot": "0x2DA",
+   "ram": "FFF8A7C5",
+   "param": "L25",
+   "name": "Wastegate Motor Duty",
+   "size": 2,
+   "byte": "low",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x14"
+  },
+  {
+   "slot": "0x2DB",
+   "ram": "FFF8A7B8",
+   "param": "L26",
+   "name": "Wastegate Position",
+   "size": 2,
+   "byte": "high",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x24"
+  },
+  {
+   "slot": "0x2DC",
+   "ram": "FFF8A7B9",
+   "param": "L26",
+   "name": "Wastegate Position",
+   "size": 2,
+   "byte": "low",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x24"
+  },
+  {
+   "slot": "0x2DD",
+   "ram": "FFF8AAF0",
+   "param": "L27",
+   "name": "Wastegate Position Command",
+   "size": 2,
+   "byte": "high",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x23"
+  },
+  {
+   "slot": "0x2DE",
+   "ram": "FFF8AAF1",
+   "param": "L27",
+   "name": "Wastegate Position Command",
+   "size": 2,
+   "byte": "low",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x23"
+  },
+  {
+   "slot": "0x2DF",
+   "ram": "FFF8AB2A",
+   "param": "L28",
+   "name": "Boost Error",
+   "size": 2,
+   "byte": "high",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x14"
+  },
+  {
+   "slot": "0x2E0",
+   "ram": "FFF8AB2B",
+   "param": "L28",
+   "name": "Boost Error",
+   "size": 2,
+   "byte": "low",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x14"
+  },
+  {
+   "slot": "0x2E1",
+   "ram": "FFF8AB24",
+   "param": "L29",
+   "name": "Target Boost (Table)",
+   "size": 2,
+   "byte": "high",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x4"
+  },
+  {
+   "slot": "0x2E2",
+   "ram": "FFF8AB25",
+   "param": "L29",
+   "name": "Target Boost (Table)",
+   "size": 2,
+   "byte": "low",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x4"
+  },
+  {
+   "slot": "0x2E3",
+   "ram": "FFF8AB0B",
+   "param": "L30",
+   "name": "Wastegate Control Mode",
+   "size": 1,
+   "byte": "byte",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x40"
+  },
+  {
+   "slot": "0x2E4",
+   "ram": "FFF8A7B6",
+   "param": "L31",
+   "name": "Wastegate Position Sensor Voltage",
+   "size": 2,
+   "byte": "high",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x12"
+  },
+  {
+   "slot": "0x2E5",
+   "ram": "FFF8A7B7",
+   "param": "L31",
+   "name": "Wastegate Position Sensor Voltage",
+   "size": 2,
+   "byte": "low",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x12"
+  },
+  {
+   "slot": "0x2E6",
+   "ram": "FFF8AB26",
+   "param": "L32",
+   "name": "Wastegate Position Feed-Forward",
+   "size": 2,
+   "byte": "high",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x5"
+  },
+  {
+   "slot": "0x2E7",
+   "ram": "FFF8AB27",
+   "param": "L32",
+   "name": "Wastegate Position Feed-Forward",
+   "size": 2,
+   "byte": "low",
+   "method": "from LT8D800A: vote+neighbour + aligned readers x5"
+  }
+ ]
+}

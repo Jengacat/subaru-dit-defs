@@ -105,8 +105,7 @@ all. The **logging patch** fixes that. See the [logger README](logger/README.md)
 The **Ascent** has its own logger files, `logger/FA24_Early_Logger*.xml`. Its SSM table has the same layout, so the stock
 parameters carry over, except wastegate duty: the Ascent drives an electric wastegate, and that slot shows a value
 nothing uses. Its DTC tab lists the Ascent's own codes at each position. The **Legacy / Outback XT (FA24 Early)** run
-the same ECU software, but I've only checked these files against three Ascent ROMs' SSM tables (LT8D800A, LT8F300C,
-LT8H300D): on a Legacy / Outback XT, LT8D700A or LT8F200C, only the OBD parameters are checked for now.
+the same ECU software, but the Legacy / Outback XT (2020–2021) ECU has no SSM services at all (its diagnostic service table has no SSM init or read, read from all four ROMs), so neither these files nor the logging patch apply there: log it with RomRaider's OBD protocol for now.
 
 ### The logging patch
 
@@ -120,7 +119,7 @@ and the checksum is fixed for you. Patch your own (stock or tuned) ROM with the 
 python3 tools/logpatch/make_logpatch.py tools/logpatch/specs/logpatch_LF75404S.json your_rom.bin your_rom_logpatch.bin
 ```
 
-103 ROMs have a spec so far, the Levorg 1.6 and the Ascent included: the **Logging patch** column of the ROM lists says which ("yes"). SUBUDS (below), which needs no patch, covers the same 103 ROMs; on the others, the stock SSM and OBD parameters are what's logged for now. The tool refuses a ROM of another calibration ID, a ROM whose checksum is already bad, and any slot that is not
+Every supported 2.0 and 1.6 ROM has a spec except LV9H000D (2015 USA WRX, an early build), and so do all five 2019–2021 Ascent ROMs: 238 in all. The **Logging patch** column of the ROM lists says which ("yes"). SUBUDS (below), which needs no patch, covers the same 238 ROMs. The 2020–2021 Legacy / Outback XT has no SSM, so the patch doesn't apply there (see the Ascent's notes below). The tool refuses a ROM of another calibration ID, a ROM whose checksum is already bad, and any slot that is not
 unused. Then log with `logger/FA20DIT_Logger_LogPatch.xml` (parameters L01–L24). The patch uses the same slots on
 every ROM with a spec, so one logger file covers all of them.
 
@@ -140,8 +139,8 @@ Not tested on a car yet; see [the logger guide](logger/README.md#rh850-ecu-subud
 
 **SUBUDS** is a RomRaider logger protocol I added that reads values straight from the ECU's RAM over CAN, using
 diagnostic services the ECU allows without a security unlock. It works on a stock ROM with no reflash, so everything
-the logging patch adds can be logged without it. One logger file, `logger/DIT_Logger_SUBUDS.xml`, covers the 103 SH-ECU ROMs
-that also have a logging-patch spec (three Ascents included) and all 35 RH850 ROMs. It needs a RomRaider build with the protocol:
+the logging patch adds can be logged without it. One logger file, `logger/DIT_Logger_SUBUDS.xml`, covers the 238 SH-ECU ROMs
+that also have a logging-patch spec (every 2.0 and 1.6 ROM except LV9H000D, and the five Ascents) and all 35 RH850 ROMs. It needs a RomRaider build with the protocol:
 [my fork of RomRaider](https://github.com/Jengacat/RomRaider/tree/subuds-pr) has it, with Windows and Linux
 builds on the fork's [subuds-22plus-update-2 release](https://github.com/Jengacat/RomRaider/releases/tag/subuds-22plus-update-2)
 (the older subuds-test-1 build can't read the file any more).
@@ -154,10 +153,10 @@ It hasn't been run on a car yet. Once it has, the protocol will go to the RomRai
 |---|---|
 | `definitions/romraider/` | `FA20DIT_RomRaider.xml`: one file covering every supported 2.0 ROM and the Ascent / Legacy XT (FA24 Early). `FB16DIT_RomRaider.xml`: the same for the Levorg 1.6. `FA24DIT_RomRaider.xml`: the 2022+ WRX and the 2023+ Ascent and Legacy / Outback XT (RH850 ECU). Each also comes as `…_Checksum.xml`, which corrects the checksum when you save, with the `checksum/` folder it needs (see [Fix the checksum](#fix-the-checksum-before-every-flash)). |
 | `definitions/ecuflash/Imperial/`, `definitions/ecuflash/Metric/` | The same EcuFlash definitions in two unit systems (EcuFlash can't switch units itself). Each folder has a base file per engine (every table) plus one small file per ROM; install one of the two. The Ascent / Legacy XT files are `FA24_Early_*`, on top of the FA20DIT base. The RH850 files (`FA24DIT_*`: 2022+ WRX, 2023+ Ascent and Legacy / Outback XT) are made for FastECU; EcuFlash can only open a 3 MB copy of those ROMs. |
-| `logger/` | `FA20DIT_Logger.xml` (stock SSM and OBD parameters, trouble codes; also for the Levorg 1.6) and `FA20DIT_Logger_LogPatch.xml` (stock plus the logging-patch parameters). `FA20DIT_Logger_LogPatch_only.xml` holds only the new parameters, for merging into your own logger file. `FA24_Early_Logger*.xml`: the same three for the Ascent (not yet checked on the Legacy / Outback XT). `DIT_Logger_SUBUDS.xml`: the same parameters without the patch, on the 103 SH-ECU ROMs with a patch spec and all 35 RH850 ROMs, for a RomRaider build with the SUBUDS protocol. |
+| `logger/` | `FA20DIT_Logger.xml` (stock SSM and OBD parameters, trouble codes; also for the Levorg 1.6) and `FA20DIT_Logger_LogPatch.xml` (stock plus the logging-patch parameters). `FA20DIT_Logger_LogPatch_only.xml` holds only the new parameters, for merging into your own logger file. `FA24_Early_Logger*.xml`: the same three for the 2019–2021 Ascent (the Legacy / Outback XT has no SSM). `DIT_Logger_SUBUDS.xml`: the same parameters without the patch, on the 238 SH-ECU ROMs with a patch spec and all 35 RH850 ROMs, for a RomRaider build with the SUBUDS protocol. |
 | `tools/checksum.py`, `tools/checksum.ps1` | Check and fix the ROM checksum of 2 MB, 2.5 MB and RH850 (4032 KB: 2022+ WRX, 2023+ Ascent and Legacy / Outback XT) ROMs (Python, or PowerShell for Windows). Needed after an edit in RomRaider unless you use a `_Checksum` definition, and `verify` before any flash (see below). |
 | `tools/ef_view.py`, `tools/ef_view.ps1` | RH850 ROMs only (2022+ WRX, 2023+ Ascent and Legacy / Outback XT): make the 3 MB copy of a ROM that EcuFlash can open, and merge the edited copy back with the checksum fixed. |
-| `tools/logpatch/` | The logging patch: `make_logpatch.py` (and `make_logpatch.ps1` for Windows) and a spec for each ROM it covers (103 so far; the ROM lists show which). |
+| `tools/logpatch/` | The logging patch: `make_logpatch.py` (and `make_logpatch.ps1` for Windows) and a spec for each ROM it covers (238: every 2.0 and 1.6 ROM except LV9H000D, and the five Ascents). |
 | `docs/guide/` | [The tuning guide](docs/guide/README.md): workflows, how the logic works, appendices and a table reference. |
 | `extras/can/` | The CAN dictionary: every frame the ECU receives and sends, for 100 of the 2.0 and 1.6 ROMs (`FA20DIT_CAN_RAM.csv` lists them), with a DBC for CAN tools and each signal's RAM address per ROM. `FA24_Early_CAN.*`: a first pass for the Ascent, which uses different frame IDs. `FA24DIT_CAN.dbc`: the 2022+ WRX (read from the WRX; not checked on the RH850 Ascent and Legacy / Outback XT). |
 
@@ -177,32 +176,32 @@ were later replaced by an update, or are builds that Subaru's update database do
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
 | WRX (early software) | 2015 | 6MT | Australia | **LV9N100F** | 1202 | 222 | yes |
-| WRX (early software) | 2015 | 6MT | Europe / General | **LV9N002I** | 1200 | 222 | not yet |
-| WRX (early software) | 2015 | 6MT | Europe / General | **LV9N300F** | 1227 | 222 | not yet |
-| WRX (early software) | 2015 | 6MT | Europe / General | **LV9N300I** | 1227 | 222 | not yet |
-| WRX (early software) | 2015 | 6MT | Europe / General | **LV9N301F** | 1240 | 222 | not yet |
+| WRX (early software) | 2015 | 6MT | Europe / General | **LV9N002I** | 1200 | 222 | yes |
+| WRX (early software) | 2015 | 6MT | Europe / General | **LV9N300F** | 1227 | 222 | yes |
+| WRX (early software) | 2015 | 6MT | Europe / General | **LV9N300I** | 1227 | 222 | yes |
+| WRX (early software) | 2015 | 6MT | Europe / General | **LV9N301F** | 1240 | 222 | yes |
 | WRX (early software) | 2015 | 6MT | Gulf (GCC) | **LV9N101I** | 1202 | 222 | yes |
 | WRX | 2015 | 6MT | Middle East | **LF75301P** | 1275 | 226 | yes |
-| WRX | 2015 | 6MT | USA | **LF75200S** | 1251 | 226 | not yet |
+| WRX | 2015 | 6MT | USA | **LF75200S** | 1251 | 226 | yes |
 | WRX | 2015 | 6MT | USA | **LF75300S** | 1275 | 226 | yes |
-| WRX | 2015 | 6MT | USA | **LF75400S** | 1275 | 226 | not yet |
-| WRX | 2015 | 6MT | USA | **LF75402S** | 1275 | 226 | not yet |
-| WRX | 2015 | 6MT | USA | **LF75403S** | 1275 | 226 | not yet |
+| WRX | 2015 | 6MT | USA | **LF75400S** | 1275 | 226 | yes |
+| WRX | 2015 | 6MT | USA | **LF75402S** | 1275 | 226 | yes |
+| WRX | 2015 | 6MT | USA | **LF75403S** | 1275 | 226 | yes |
 | WRX | 2015 | 6MT | USA | **LF75404S** ★ | 1275 | 226 | yes |
 | WRX | 2015 | 6MT | USA | **LV9H000D** | 1154 | 222 | not yet |
 | WRX (early software) | 2015 | 6MT | not confirmed | **LV9N101F** | 1202 | 222 | yes |
 | WRX (early software) | 2015 | 6MT | not confirmed | **LV9N302F** ★ | 1240 | 222 | yes |
 | WRX (early software) | 2015 | 6MT | not confirmed | **LV9N302I** ★ | 1240 | 222 | yes |
 | WRX | 2015 | CVT | Canada | **LF75200T** | 1251 | 226 | yes |
-| WRX (early software) | 2015 | CVT | Europe / General | **LV9N001E** | 1200 | 222 | not yet |
-| WRX (early software) | 2015 | CVT | Europe / General | **LV9N101G** | 1202 | 222 | not yet |
-| WRX (early software) | 2015 | CVT | Europe / General | **LV9N101H** | 1202 | 222 | not yet |
-| WRX (early software) | 2015 | CVT | Europe / General | **LV9N300E** | 1227 | 222 | not yet |
-| WRX (early software) | 2015 | CVT | Europe / General | **LV9N300H** | 1227 | 222 | not yet |
-| WRX (early software) | 2015 | CVT | Europe / General | **LV9N301E** | 1240 | 222 | not yet |
-| WRX | 2015 | CVT | USA | **LF75300T** | 1275 | 226 | not yet |
-| WRX | 2015 | CVT | USA | **LF75402T** | 1275 | 226 | not yet |
-| WRX | 2015 | CVT | USA | **LF75403T** | 1275 | 226 | not yet |
+| WRX (early software) | 2015 | CVT | Europe / General | **LV9N001E** | 1200 | 222 | yes |
+| WRX (early software) | 2015 | CVT | Europe / General | **LV9N101G** | 1202 | 222 | yes |
+| WRX (early software) | 2015 | CVT | Europe / General | **LV9N101H** | 1202 | 222 | yes |
+| WRX (early software) | 2015 | CVT | Europe / General | **LV9N300E** | 1227 | 222 | yes |
+| WRX (early software) | 2015 | CVT | Europe / General | **LV9N300H** | 1227 | 222 | yes |
+| WRX (early software) | 2015 | CVT | Europe / General | **LV9N301E** | 1240 | 222 | yes |
+| WRX | 2015 | CVT | USA | **LF75300T** | 1275 | 226 | yes |
+| WRX | 2015 | CVT | USA | **LF75402T** | 1275 | 226 | yes |
+| WRX | 2015 | CVT | USA | **LF75403T** | 1275 | 226 | yes |
 | WRX | 2015 | CVT | USA | **LF75500T** ★ | 1275 | 226 | yes |
 | WRX (early software) | 2015 | CVT | USA | **LV9N101C** | 1202 | 222 | yes |
 | WRX | 2015–2016 (not stated) | CVT | not confirmed | **LF75300L** | 1275 | 226 | yes |
@@ -210,30 +209,30 @@ were later replaced by an update, or are builds that Subaru's update database do
 | WRX (early software) | 2015 | CVT | not confirmed | **LV9N302G** ★ | 1240 | 222 | yes |
 | WRX (early software) | 2015 | CVT | not confirmed | **LV9N302H** ★ | 1240 | 222 | yes |
 | WRX (early software) | 2015 | not confirmed | not confirmed | **LV9N002E** | 1202 | 222 | yes |
-| WRX | 2016 | 6MT | Europe / General | **LF75300K** | 1275 | 226 | not yet |
-| WRX | 2016 | 6MT | Europe / General | **LF75300M** | 1275 | 226 | not yet |
-| WRX | 2016 | 6MT | Europe / General | **LF75400K** | 1275 | 226 | not yet |
+| WRX | 2016 | 6MT | Europe / General | **LF75300K** | 1275 | 226 | yes |
+| WRX | 2016 | 6MT | Europe / General | **LF75300M** | 1275 | 226 | yes |
+| WRX | 2016 | 6MT | Europe / General | **LF75400K** | 1275 | 226 | yes |
 | WRX | 2016 (supplied as 2014) | 6MT | Middle East | **LF75401P** ★ | 1275 | 226 | yes |
 | WRX | 2016 | 6MT | Singapore | **LF75301K** | 1275 | 226 | yes |
-| WRX | 2016 | 6MT | USA | **LF75402H** | 1275 | 226 | not yet |
+| WRX | 2016 | 6MT | USA | **LF75402H** | 1275 | 226 | yes |
 | WRX | 2016 | 6MT | USA | **LF75404H** ★ | 1275 | 226 | yes |
 | WRX | 2016 | 6MT | not confirmed | **LF75300H** | 1275 | 226 | yes |
 | WRX | 2016 | 6MT | not confirmed | **LF75401K** ★ | 1275 | 226 | yes |
 | WRX | 2016 | 6MT | not confirmed | **LF75401M** ★ | 1275 | 226 | yes |
-| WRX | 2016 | CVT | Europe / General | **LF75300J** | 1275 | 226 | not yet |
-| WRX | 2016 | CVT | Europe / General | **LF75301J** | 1275 | 226 | not yet |
-| WRX | 2016 | CVT | Europe / General | **LF75301L** | 1275 | 226 | not yet |
-| WRX | 2016 | CVT | Europe / General | **LF75400N** | 1275 | 226 | not yet |
-| WRX | 2016 | CVT | USA | **LF75300G** | 1275 | 226 | not yet |
-| WRX | 2016 | CVT | USA | **LF75401G** | 1275 | 226 | not yet |
-| WRX | 2016 | CVT | USA | **LF75403G** | 1275 | 226 | not yet |
+| WRX | 2016 | CVT | Europe / General | **LF75300J** | 1275 | 226 | yes |
+| WRX | 2016 | CVT | Europe / General | **LF75301J** | 1275 | 226 | yes |
+| WRX | 2016 | CVT | Europe / General | **LF75301L** | 1275 | 226 | yes |
+| WRX | 2016 | CVT | Europe / General | **LF75400N** | 1275 | 226 | yes |
+| WRX | 2016 | CVT | USA | **LF75300G** | 1275 | 226 | yes |
+| WRX | 2016 | CVT | USA | **LF75401G** | 1275 | 226 | yes |
+| WRX | 2016 | CVT | USA | **LF75403G** | 1275 | 226 | yes |
 | WRX | 2016 | CVT | USA | **LF75500G** ★ | 1275 | 226 | yes |
 | WRX | 2016 | CVT | not confirmed | **LF75401J** ★ | 1275 | 226 | yes |
 | WRX | 2016 | CVT | not confirmed | **LF75401L** ★ | 1275 | 226 | yes |
 | WRX | 2016 | CVT | not confirmed | **LF75401N** ★ | 1275 | 226 | yes |
-| WRX | 2017 | 6MT | Europe / General | **LF79001R** | 1291 | 228 | not yet |
-| WRX | 2017 | 6MT | Europe / General | **LF9C000R** | 1309 | 228 | not yet |
-| WRX | 2017 | 6MT | USA | **LF79101P** | 1305 | 228 | not yet |
+| WRX | 2017 | 6MT | Europe / General | **LF79001R** | 1291 | 228 | yes |
+| WRX | 2017 | 6MT | Europe / General | **LF9C000R** | 1309 | 228 | yes |
+| WRX | 2017 | 6MT | USA | **LF79101P** | 1305 | 228 | yes |
 | WRX | 2017 | 6MT | USA | **LF79103P** ★ | 1305 | 228 | yes |
 | WRX | 2017 | 6MT | not confirmed | **LF79002P** | 1291 | 228 | yes |
 | WRX | 2017 | 6MT | not confirmed | **LF79100R** ★ | 1305 | 228 | yes |
@@ -241,40 +240,40 @@ were later replaced by an update, or are builds that Subaru's update database do
 | WRX | 2017 | 6MT | not confirmed | **LF9C100R** ★ | 1309 | 228 | yes |
 | WRX | 2017 | 6MT | not confirmed | **LF9C100X** ★ | 1309 | 228 | yes |
 | WRX | 2017 | 6MT (later revision) | not confirmed | **LF79100P** | 1305 | 228 | yes |
-| WRX | 2017 | CVT | Europe / General | **LF79002Q** | 1291 | 228 | not yet |
-| WRX | 2017 | CVT | USA | **LF79002N** | 1291 | 228 | not yet |
-| WRX | 2017 | CVT | USA | **LF79102N** | 1305 | 228 | not yet |
+| WRX | 2017 | CVT | Europe / General | **LF79002Q** | 1291 | 228 | yes |
+| WRX | 2017 | CVT | USA | **LF79002N** | 1291 | 228 | yes |
+| WRX | 2017 | CVT | USA | **LF79102N** | 1305 | 228 | yes |
 | WRX | 2017 | CVT | USA | **LF79110N** ★ | 1305 | 228 | yes |
 | WRX | 2017 | CVT | not confirmed | **LF79100N** | 1305 | 228 | yes |
 | WRX | 2017 | CVT | not confirmed | **LF79100Q** ★ | 1305 | 228 | yes |
 | WRX | 2018 | 6MT | USA | **LF9C001P** | 1309 | 228 | yes |
-| WRX | 2018 | 6MT | USA | **LF9C101P** | 1309 | 228 | not yet |
+| WRX | 2018 | 6MT | USA | **LF9C101P** | 1309 | 228 | yes |
 | WRX | 2018 | 6MT | USA | **LF9C102P** ★ | 1309 | 228 | yes |
 | WRX | 2018 | 6MT | not confirmed | **LF9C100P** | 1309 | 228 | yes |
-| WRX | 2018 | CVT | USA | **LF9C001N** | 1309 | 228 | not yet |
-| WRX | 2018 | CVT | USA | **LF9C002N** | 1309 | 228 | not yet |
+| WRX | 2018 | CVT | USA | **LF9C001N** | 1309 | 228 | yes |
+| WRX | 2018 | CVT | USA | **LF9C002N** | 1309 | 228 | yes |
 | WRX | 2018 | CVT | USA | **LF9C200N** ★ | 1309 | 228 | yes |
-| WRX | 2019 | 6MT | USA | **LF9D010h** | 1274 | 229 | not yet |
+| WRX | 2019 | 6MT | USA | **LF9D010h** | 1274 | 229 | yes |
 | WRX | 2019 (2.5 MB ECU) | 6MT | USA | **LF9D012h** ★ | 1316 | 229 | yes |
-| WRX | 2019 | CVT | USA | **LF9D010g** | 1321 | 229 | not yet |
-| WRX | 2019 (2.5 MB ECU) | CVT | USA | **LF9D011g** | 1321 | 229 | not yet |
+| WRX | 2019 | CVT | USA | **LF9D010g** | 1321 | 229 | yes |
+| WRX | 2019 (2.5 MB ECU) | CVT | USA | **LF9D011g** | 1321 | 229 | yes |
 | WRX | 2019 (2.5 MB ECU) | CVT | USA | **LF9D030g** ★ | 1315 | 229 | yes |
-| WRX | 2020 | 6MT | USA | **LF9G001T** | 1320 | 231 | not yet |
-| WRX | 2020 | 6MT | USA | **LF9G002T** | 1320 | 231 | not yet |
+| WRX | 2020 | 6MT | USA | **LF9G001T** | 1320 | 231 | yes |
+| WRX | 2020 | 6MT | USA | **LF9G002T** | 1320 | 231 | yes |
 | WRX | 2020 (2.5 MB ECU) | 6MT | USA | **LF9G003T** ★ | 1320 | 231 | yes |
 | WRX | 2020 (2.5 MB ECU) | CVT | USA | **LF9G002S** ★ | 1320 | 231 | yes |
-| WRX | 2021 (2.5 MB ECU) | 6MT | USA | **LF9J001E** | 1320 | 231 | not yet |
+| WRX | 2021 (2.5 MB ECU) | 6MT | USA | **LF9J001E** | 1320 | 231 | yes |
 | WRX | 2021 (2.5 MB ECU) | 6MT | USA | **LF9K000E** ★ | 1320 | 231 | yes |
-| WRX | 2021 (2.5 MB ECU) | CVT | USA | **LF9J000D** | 1320 | 231 | not yet |
+| WRX | 2021 (2.5 MB ECU) | CVT | USA | **LF9J000D** | 1320 | 231 | yes |
 | WRX | 2021 (2.5 MB ECU) | CVT | USA | **LF9K000D** ★ | 1320 | 231 | yes |
 | WRX S4 | 2015 | CVT | Japan | **LF75300F** | 1275 | 226 | yes |
 | WRX S4 (early software) | 2015 | CVT | Japan | **LV9N100B** | 1202 | 222 | yes |
 | WRX S4 | 2018 | CVT | Japan | **LF9C001K** | 1309 | 228 | yes |
-| WRX S4 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF79001M** | 1291 | 228 | not yet |
-| WRX S4 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF79100M** | 1305 | 228 | not yet |
-| WRX S4 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF79101L** | 1305 | 228 | not yet |
-| WRX S4 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF79101M** | 1305 | 228 | not yet |
-| WRX S4 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LV9N301B** | 1240 | 222 | not yet |
+| WRX S4 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF79001M** | 1291 | 228 | yes |
+| WRX S4 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF79100M** | 1305 | 228 | yes |
+| WRX S4 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF79101L** | 1305 | 228 | yes |
+| WRX S4 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF79101M** | 1305 | 228 | yes |
+| WRX S4 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LV9N301B** | 1240 | 222 | yes |
 
 </details>
 
@@ -332,11 +331,11 @@ logging over CAN, so the patch has nothing to extend. Mode-22 (UDS) logging work
 |---|---|---|---|---|---|---|---|
 | Forester XT (early software; briefly also the WRX CVT) — *outdated* | early 2015 | CVT | USA | **LV9N000C** | 1202 | 222 | yes |
 | Forester XT | 2016 (supplied as 2017) | CVT | Australia | **LF78002H** ★ | 1287 | 227 | yes |
-| Forester XT | 2016 | CVT | Europe / General | **LF78000D** | 1282 | 227 | not yet |
-| Forester XT | 2016 | CVT | Europe / General | **LF78000F** | 1282 | 227 | not yet |
-| Forester XT | 2016 | CVT | Europe / General | **LF78001E** | 1282 | 227 | not yet |
-| Forester XT | 2016 | CVT | Europe / General | **LF78001G** | 1282 | 227 | not yet |
-| Forester XT | 2016 | CVT | Europe / General | **LF78001Z** | 1282 | 227 | not yet |
+| Forester XT | 2016 | CVT | Europe / General | **LF78000D** | 1282 | 227 | yes |
+| Forester XT | 2016 | CVT | Europe / General | **LF78000F** | 1282 | 227 | yes |
+| Forester XT | 2016 | CVT | Europe / General | **LF78001E** | 1282 | 227 | yes |
+| Forester XT | 2016 | CVT | Europe / General | **LF78001G** | 1282 | 227 | yes |
+| Forester XT | 2016 | CVT | Europe / General | **LF78001Z** | 1282 | 227 | yes |
 | Forester XT | 2016 | CVT | not confirmed | **LF78001F** ★ | 1287 | 227 | yes |
 | Forester XT | 2016 | CVT | not confirmed | **LF78002D** ★ | 1287 | 227 | yes |
 | Forester XT | 2016 | CVT | not confirmed | **LF78002E** ★ | 1287 | 227 | yes |
@@ -344,24 +343,24 @@ logging over CAN, so the patch has nothing to extend. Mode-22 (UDS) logging work
 | Forester XT | 2016 | CVT | not confirmed | **LF78002J** ★ | 1287 | 227 | yes |
 | Forester XT | 2016 | CVT | not confirmed | **LF78002Z** ★ | 1287 | 227 | yes |
 | Forester XT | 2017 | CVT | Europe | **LF9C000C** | 1309 | 228 | yes |
-| Forester XT | 2017 | CVT | USA | **LF78101B** | 1282 | 228 | not yet |
-| Forester XT | 2017 | CVT | USA | **LF78102B** | 1282 | 228 | not yet |
+| Forester XT | 2017 | CVT | USA | **LF78101B** | 1282 | 228 | yes |
+| Forester XT | 2017 | CVT | USA | **LF78102B** | 1282 | 228 | yes |
 | Forester XT | 2017 | CVT | USA | **LF78103B** | 1282 | 228 | yes |
-| Forester XT | 2017 | CVT | USA | **LF78104B** | 1282 | 228 | not yet |
-| Forester XT | 2017 | CVT | USA | **LF78106B** | 1282 | 228 | not yet |
+| Forester XT | 2017 | CVT | USA | **LF78104B** | 1282 | 228 | yes |
+| Forester XT | 2017 | CVT | USA | **LF78106B** | 1282 | 228 | yes |
 | Forester XT | 2017 | CVT | USA | **LF78200B** ★ | 1282 | 228 | yes |
 | Forester XT | 2018 | CVT | Malaysia | **LF9C000a** | 1309 | 228 | yes |
-| Forester XT | 2018 | CVT | USA | **LF9C000B** | 1309 | 228 | not yet |
-| Forester XT | 2018 | CVT | USA | **LF9C002B** | 1309 | 228 | not yet |
+| Forester XT | 2018 | CVT | USA | **LF9C000B** | 1309 | 228 | yes |
+| Forester XT | 2018 | CVT | USA | **LF9C002B** | 1309 | 228 | yes |
 | Forester XT | 2018 | CVT | USA | **LF9C200B** ★ | 1309 | 228 | yes |
 | Forester tS (STI) | 2016 | CVT | Australia | **LF78001H** | 1282 | 227 | yes |
-| Forester XT (unconfirmed) | 2016 | CVT | USA | **LF75200A** | 1251 | 226 | not yet |
-| Forester XT (unconfirmed) | 2016 | CVT | USA | **LF75301A** | 1275 | 226 | not yet |
-| Forester XT (unconfirmed) | 2016 | CVT | USA | **LF75402A** | 1275 | 226 | not yet |
-| Forester XT (unconfirmed) | 2016 | CVT | USA | **LF75403A** | 1275 | 226 | not yet |
+| Forester XT (unconfirmed) | 2016 | CVT | USA | **LF75200A** | 1251 | 226 | yes |
+| Forester XT (unconfirmed) | 2016 | CVT | USA | **LF75301A** | 1275 | 226 | yes |
+| Forester XT (unconfirmed) | 2016 | CVT | USA | **LF75402A** | 1275 | 226 | yes |
+| Forester XT (unconfirmed) | 2016 | CVT | USA | **LF75403A** | 1275 | 226 | yes |
 | Forester XT (unconfirmed) | 2016 | CVT | USA | **LF75500A** ★ | 1275 | 226 | yes |
-| Forester XT (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF78003A** | 1282 | 227 | not yet |
-| Forester XT (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF9C000A** | 1309 | 228 | not yet |
+| Forester XT (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF78003A** | 1282 | 227 | yes |
+| Forester XT (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF9C000A** | 1309 | 228 | yes |
 
 </details>
 
@@ -370,10 +369,10 @@ logging over CAN, so the patch has nothing to extend. Mode-22 (UDS) logging work
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
-| Legacy | 2016 | CVT | Europe / General | **LV9N300L** | 1227 | 222 | not yet |
-| Outback | 2015 | CVT | Europe / General | **LV9N301K** | 1227 | 222 | not yet |
+| Legacy | 2016 | CVT | Europe / General | **LV9N300L** | 1227 | 222 | yes |
+| Outback | 2015 | CVT | Europe / General | **LV9N301K** | 1227 | 222 | yes |
 | Legacy (unconfirmed) | 2016 | CVT | not confirmed | **LV9N302L** ★ | 1240 | 222 | yes |
-| Legacy (unconfirmed) | 2017 | CVT | Europe / General | **LV9N600M** | 1240 | 222 | not yet |
+| Legacy (unconfirmed) | 2017 | CVT | Europe / General | **LV9N600M** | 1240 | 222 | yes |
 | Legacy (unconfirmed) | 2017 | CVT | not confirmed | **LV9N601M** ★ | 1240 | 222 | yes |
 | Outback (unconfirmed) | 2015 | CVT | not confirmed | **LV9N303K** ★ | 1240 | 222 | yes |
 | Outback (unconfirmed) | 2017 | CVT | not confirmed | **LV9N601N** ★ | 1240 | 222 | yes |
@@ -392,11 +391,11 @@ logging over CAN, so the patch has nothing to extend. Mode-22 (UDS) logging work
 | Levorg 2.0 STI | 2017 | CVT | Japan | **LF79101K** | 1305 | 228 | yes |
 | Levorg 2.0GT-S (early software) | 2014 | CVT | Japan | **LV9N100A** | 1202 | 222 | yes |
 | Levorg 2.0GT-S | 2017 | CVT | Australia | **LF79100S** ★ | 1305 | 228 | yes |
-| Levorg 2.0GT-S | 2017 | CVT | Europe / General | **LF79002S** | 1291 | 228 | not yet |
+| Levorg 2.0GT-S | 2017 | CVT | Europe / General | **LF79002S** | 1291 | 228 | yes |
 | Levorg STI 2.0 (2.5 MB ECU) | 2019 | CVT | Japan | **LF9F000R** | 1320 | 231 | yes |
-| Levorg 2.0 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF75300D** | 1275 | 226 | not yet |
-| Levorg 2.0 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF79001K** | 1291 | 228 | not yet |
-| Levorg 2.0 or WRX S4 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LV9N302B** | 1240 | 222 | not yet |
+| Levorg 2.0 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF75300D** | 1275 | 226 | yes |
+| Levorg 2.0 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF79001K** | 1291 | 228 | yes |
+| Levorg 2.0 or WRX S4 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LV9N302B** | 1240 | 222 | yes |
 
 </details>
 
@@ -412,39 +411,39 @@ logging over CAN, so the patch has nothing to extend. Mode-22 (UDS) logging work
 | Levorg 1.6 | 2015 | CVT | Japan | **LF76500R** | 1278 | 226 | yes |
 | Levorg 1.6 | 2015 | CVT | Japan | **LF76600R** | 1278 | 226 | yes |
 | Levorg 1.6 | 2016 (supplied as 2015) | CVT | Europe | **LF76500Q** ★ | 1278 | 226 | yes |
-| Levorg 1.6 | 2016 | CVT | Europe / General | **LF76200Q** | 1258 | 226 | not yet |
-| Levorg 1.6 | 2016 | CVT | Europe / General | **LF76301Q** | 1274 | 226 | not yet |
+| Levorg 1.6 | 2016 | CVT | Europe / General | **LF76200Q** | 1258 | 226 | yes |
+| Levorg 1.6 | 2016 | CVT | Europe / General | **LF76301Q** | 1274 | 226 | yes |
 | Levorg 1.6 | 2016 | CVT | Japan | **LF76402R** | 1278 | 226 | yes |
 | Levorg 1.6 | 2016 | CVT | Japan | **LF79201U** | 1304 | 228 | yes |
 | Levorg 1.6 | 2016 | CVT | Japan | **LF79202U** | 1309 | 228 | yes |
 | Levorg 1.6 | 2016 | CVT | Japan | **LF79400U** | 1304 | 228 | yes |
 | Levorg 1.6 | 2017 | CVT | Europe | **LF79200T** | 1304 | 228 | yes |
 | Levorg 1.6 | 2017 | CVT | Europe | **LF79300T** ★ | 1304 | 228 | yes |
-| Levorg 1.6 | 2017 | CVT | Europe / General | **LF79101T** | 1305 | 228 | not yet |
+| Levorg 1.6 | 2017 | CVT | Europe / General | **LF79101T** | 1305 | 228 | yes |
 | Levorg 1.6 | 2017 | CVT | Japan | **LF79200U** | 1304 | 228 | yes |
 | Levorg 1.6 | 2017 (facelift) | CVT | Japan | **LF9B003U** | 1313 | 228 | yes |
 | Levorg 1.6 | 2017 (facelift) | CVT | Japan | **LF9B200U** | 1309 | 228 | yes |
 | Levorg 1.6 | 2018 (facelift; supplied as 2017) | CVT | Europe | **LF9B100G** ★ | 1313 | 228 | yes |
-| Levorg 1.6 | 2018 | CVT | Europe / General | **LF9B002G** | 1313 | 228 | not yet |
-| Levorg 1.6 | 2018 | CVT | Europe / General | **LV3C001T** | 1230 | 228 | not yet |
+| Levorg 1.6 | 2018 | CVT | Europe / General | **LF9B002G** | 1313 | 228 | yes |
+| Levorg 1.6 | 2018 | CVT | Europe / General | **LV3C001T** | 1230 | 228 | yes |
 | Levorg 1.6 | 2018 | CVT | not confirmed | **LV3C100T** ★ | 1230 | 228 | yes |
 | Levorg 1.6 | 2019 (2.5 MB ECU) | CVT | Europe | **LF9D100e** ★ | 1317 | 229 | yes |
-| Levorg 1.6 | 2019 | CVT | Europe / General | **LF9D001e** | 1321 | 229 | not yet |
+| Levorg 1.6 | 2019 | CVT | Europe / General | **LF9D001e** | 1321 | 229 | yes |
 | Levorg 1.6 | 2019 (2.5 MB ECU) | CVT | Japan | **LF9D000d** | 1321 | 229 | yes |
 | Levorg 1.6 | 2019 (2.5 MB ECU) | CVT | Japan | **LF9D200d** | 1321 | 229 | yes |
 | Levorg 1.6 | 2020 (2.5 MB ECU) | CVT | Europe | **LF9F100Q** ★ | 1318 | 231 | yes |
-| Levorg 1.6 | 2020 | CVT | Europe / General | **LF9F000Q** | 1320 | 231 | not yet |
+| Levorg 1.6 | 2020 | CVT | Europe / General | **LF9F000Q** | 1320 | 231 | yes |
 | Levorg 1.6 | 2020 (2.5 MB ECU) | CVT | Japan | **LF9F100P** | 1320 | 231 | yes |
 | Levorg 1.6 | 2020 (2.5 MB ECU) | CVT | Japan | **LF9F200P** | 1320 | 231 | yes |
-| Levorg 1.6 | not confirmed | CVT | not confirmed | **LF76100R** | 1258 | 226 | not yet |
-| Levorg 1.6 | not confirmed | CVT | not confirmed | **LF76200R** | 1258 | 226 | not yet |
-| Levorg 1.6 | not confirmed | CVT | not confirmed | **LF76301R** | 1274 | 226 | not yet |
-| Levorg 1.6 | not confirmed | CVT | not confirmed | **LF76400R** | 1278 | 226 | not yet |
-| Levorg 1.6 | not confirmed | CVT | not confirmed | **LF79101U** | 1305 | 228 | not yet |
-| Levorg 1.6 | not confirmed | CVT | not confirmed | **LF79300U** | 1304 | 228 | not yet |
-| Levorg 1.6 | not confirmed | CVT | not confirmed | **LF9F000P** | 1320 | 231 | not yet |
-| Levorg 1.6 | not confirmed | CVT | not confirmed | **LV9N301J** | 1240 | 222 | not yet |
-| Levorg 1.6 | not confirmed | CVT | not confirmed | **LV9N302J** | 1245 | 222 | not yet |
+| Levorg 1.6 | not confirmed | CVT | not confirmed | **LF76100R** | 1258 | 226 | yes |
+| Levorg 1.6 | not confirmed | CVT | not confirmed | **LF76200R** | 1258 | 226 | yes |
+| Levorg 1.6 | not confirmed | CVT | not confirmed | **LF76301R** | 1274 | 226 | yes |
+| Levorg 1.6 | not confirmed | CVT | not confirmed | **LF76400R** | 1278 | 226 | yes |
+| Levorg 1.6 | not confirmed | CVT | not confirmed | **LF79101U** | 1305 | 228 | yes |
+| Levorg 1.6 | not confirmed | CVT | not confirmed | **LF79300U** | 1304 | 228 | yes |
+| Levorg 1.6 | not confirmed | CVT | not confirmed | **LF9F000P** | 1320 | 231 | yes |
+| Levorg 1.6 | not confirmed | CVT | not confirmed | **LV9N301J** | 1240 | 222 | yes |
+| Levorg 1.6 | not confirmed | CVT | not confirmed | **LV9N302J** | 1245 | 222 | yes |
 
 </details>
 
@@ -455,50 +454,50 @@ Calibrations that aren't in Subaru's update database, so model, year and market 
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
-| not confirmed | not confirmed | 6MT | not confirmed | **LF75600H** | 1275 | 226 | not yet |
-| not confirmed | not confirmed | 6MT | not confirmed | **LF75600S** | 1275 | 226 | not yet |
-| not confirmed | not confirmed | 6MT | not confirmed | **LF79120P** | 1305 | 228 | not yet |
-| not confirmed | not confirmed | 6MT | not confirmed | **LF79130P** | 1298 | 228 | not yet |
-| not confirmed | not confirmed | 6MT | not confirmed | **LF9C300P** | 1309 | 228 | not yet |
-| not confirmed | not confirmed | 6MT | not confirmed | **LF9C400P** | 1301 | 228 | not yet |
-| not confirmed | not confirmed | 6MT | not confirmed | **LF9D000j** | 1321 | 229 | not yet |
-| not confirmed | not confirmed | 6MT | not confirmed | **LF9D000m** | 1321 | 229 | not yet |
-| not confirmed | not confirmed | 6MT | not confirmed | **LF9D040h** | 1321 | 229 | not yet |
-| not confirmed | not confirmed | 6MT | not confirmed | **LF9D050h** | 1320 | 229 | not yet |
-| not confirmed | not confirmed | 6MT | not confirmed | **LF9F000V** | 1320 | 231 | not yet |
-| not confirmed | not confirmed | 6MT | not confirmed | **LF9F000Y** | 1320 | 231 | not yet |
-| not confirmed | not confirmed | 6MT | not confirmed | **LF9L000E** | 1320 | 231 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF73100A** | 1226 | 226 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF75100D** | 1251 | 226 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF75300E** | 1275 | 226 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF75401E** | 1275 | 226 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF75401F** | 1275 | 226 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF76000C** | 1253 | 199 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF77000C** | 1278 | 227 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF77000D** | 1195 | 227 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF77000Q** | 1195 | 227 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF78001C** | 1282 | 227 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF78002C** | 1287 | 227 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF780Z2E** | 1287 | 227 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF79001L** | 1291 | 228 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF79100L** | 1305 | 228 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF9C000E** | 1309 | 228 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF9C000F** | 1309 | 228 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF9C000L** | 1309 | 228 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF9C000Q** | 1309 | 228 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF9C000Y** | 1309 | 228 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF9C000Z** | 1309 | 228 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF9C000b** | 1309 | 228 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF9C001D** | 1309 | 228 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF9D000f** | 1321 | 229 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF9D000i** | 1321 | 229 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF9D000k** | 1321 | 229 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF9D000n** | 1321 | 229 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF9F000U** | 1320 | 231 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF9F000W** | 1320 | 231 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF9F000Z** | 1320 | 231 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LF9J000C** | 1320 | 231 | not yet |
-| not confirmed | not confirmed | CVT | not confirmed | **LV9N000A** | 1200 | 222 | not yet |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF75600H** | 1275 | 226 | yes |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF75600S** | 1275 | 226 | yes |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF79120P** | 1305 | 228 | yes |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF79130P** | 1298 | 228 | yes |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF9C300P** | 1309 | 228 | yes |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF9C400P** | 1301 | 228 | yes |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF9D000j** | 1321 | 229 | yes |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF9D000m** | 1321 | 229 | yes |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF9D040h** | 1321 | 229 | yes |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF9D050h** | 1320 | 229 | yes |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF9F000V** | 1320 | 231 | yes |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF9F000Y** | 1320 | 231 | yes |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF9L000E** | 1320 | 231 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF73100A** | 1226 | 226 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF75100D** | 1251 | 226 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF75300E** | 1275 | 226 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF75401E** | 1275 | 226 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF75401F** | 1275 | 226 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF76000C** | 1253 | 199 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF77000C** | 1278 | 227 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF77000D** | 1195 | 227 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF77000Q** | 1195 | 227 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF78001C** | 1282 | 227 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF78002C** | 1287 | 227 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF780Z2E** | 1287 | 227 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF79001L** | 1291 | 228 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF79100L** | 1305 | 228 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9C000E** | 1309 | 228 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9C000F** | 1309 | 228 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9C000L** | 1309 | 228 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9C000Q** | 1309 | 228 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9C000Y** | 1309 | 228 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9C000Z** | 1309 | 228 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9C000b** | 1309 | 228 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9C001D** | 1309 | 228 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9D000f** | 1321 | 229 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9D000i** | 1321 | 229 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9D000k** | 1321 | 229 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9D000n** | 1321 | 229 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9F000U** | 1320 | 231 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9F000W** | 1320 | 231 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9F000Z** | 1320 | 231 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9J000C** | 1320 | 231 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LV9N000A** | 1200 | 222 | yes |
 
 </details>
 
@@ -507,19 +506,23 @@ Calibrations that aren't in Subaru's update database, so model, year and market 
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
-| Ascent 2.4 | 2019 | CVT | USA | **LT8D700A** | 1293 | 250 | not yet |
+| Ascent 2.4 | 2019 | CVT | USA | **LT8D700A** | 1293 | 250 | yes |
 | Ascent 2.4 | 2019 | CVT | USA | **LT8D800A** ★ | 1293 | 250 | yes |
-| Ascent 2.4 | 2020 | CVT | USA | **LT8F200C** | 1293 | 250 | not yet |
+| Ascent 2.4 | 2020 | CVT | USA | **LT8F200C** | 1293 | 250 | yes |
 | Ascent 2.4 | 2020 | CVT | USA | **LT8F300C** ★ | 1293 | 250 | yes |
 | Ascent 2.4 | 2021 | CVT | USA | **LT8H300D** ★ | 1266 | 251 | yes |
-| Legacy / Outback XT 2.4 | 2020 | CVT | USA | **LG7D430B** | 1266 | 250 | not yet |
-| Legacy / Outback XT 2.4 | 2020 | CVT | USA | **LG7D501B** ★ | 1262 | 250 | not yet |
-| Legacy / Outback XT 2.4 | 2021 | CVT | USA | **LG7F301F** ★ | 1264 | 250 | not yet |
-| Legacy / Outback XT 2.4 | not confirmed | CVT | not confirmed | **LG7F300F** | 1264 | 250 | not yet |
+| Legacy / Outback XT 2.4 | 2020 | CVT | USA | **LG7D430B** | 1266 | 250 | no SSM (see notes) |
+| Legacy / Outback XT 2.4 | 2020 | CVT | USA | **LG7D501B** ★ | 1262 | 250 | no SSM (see notes) |
+| Legacy / Outback XT 2.4 | 2021 | CVT | USA | **LG7F301F** ★ | 1264 | 250 | no SSM (see notes) |
+| Legacy / Outback XT 2.4 | not confirmed | CVT | not confirmed | **LG7F300F** | 1264 | 250 | no SSM (see notes) |
 
 The Ascent and Legacy XT run a later build of the same ECU software, so most tables are the FA20DIT ones. Boost
 control is different: they have an electric wastegate, with its own Boost Control group (target, wastegate
 position, feedback and actuator limits).
+
+**Logging.** The Ascent logs over SSM with `FA24_Early_Logger*.xml`, the logging patch and SUBUDS, like the 2.0. The
+Legacy / Outback XT ECU has no SSM services (its diagnostic service table has no SSM init or read; read in all four
+ROMs), so for now only RomRaider's OBD protocol logs it.
 
 **Use the FA24 Early files, not FA24DIT.** The above models have the FA24DIT engine,
 but their ECU's runs a later build of the FA20DIT software, so their definitions build on the FA20DIT ones. RomRaider

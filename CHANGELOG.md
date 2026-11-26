@@ -5,10 +5,20 @@
 First public release. Downloads: one zip per ECU family (FA20DIT, FB16DIT, FA24 Early, RH850) on the
 [release page](https://github.com/Jengacat/subaru-dit-defs/releases/tag/v0.9.0-beta).
 
+- New: **the logging patch and SUBUDS for 135 more ROMs**, 238 in all: every supported 2.0 and 1.6 ROM except
+  LV9H000D, and all five 2019–2021 Ascents (LT8D700A and LT8F200C added). 101 of the new ones run byte-identical code to
+  a ROM that already had a spec; 32 were moved from a sibling through its address map with a second sibling as the
+  cross-check. Every patched image passes the patch tool's checks, and every SUBUDS address was checked in the emulator
+  against the ECU's own SSM read (238 images, no mismatches). Not yet run on a car.
+- Found: **the 2020–2021 Legacy / Outback XT ECU has no SSM services** (no SSM init or read in its diagnostic service
+  table, read in all four ROMs), so the SSM logger files, the logging patch and SUBUDS don't apply to it; log it with
+  RomRaider's OBD protocol for now.
+- Changed: `make_logpatch.py` accepts a dealer-software image whose only differences from a car read are the reference
+  words the ECU uses to skip its background checksum check, or a missing boot block; the patch touches neither.
+
 - Docs: the README starts with the quick start, and the ROM lists are sorted by model, year, transmission and market.
-  The logging-patch and SUBUDS pages now say which ROMs they cover (the 103 marked "yes", plus the RH850 ROMs for
-  SUBUDS) instead of "every ROM"; the 2019–2021 Legacy / Outback XT, LT8D700A and LT8F200C log the OBD parameters for
-  now. The `_Checksum` RomRaider files work with RomRaider 1.1.1, and FastECU's current source lists the 2.5 MB read
+  The logging-patch and SUBUDS pages say which ROMs they cover (those marked "yes", plus the RH850 ROMs for
+  SUBUDS) instead of "every ROM". The `_Checksum` RomRaider files work with RomRaider 1.1.1, and FastECU's current source lists the 2.5 MB read
   and corrects the 2.5 MB and RH850 checksums (not in a FastECU release yet).
 - New: **395 more entries on 37 ROMs** (267 tables, 128 scalars), found by checking every ROM against the others that
   run exactly the same code: when all of them name a table or setting and a ROM's own file didn't, it's added there

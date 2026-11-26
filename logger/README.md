@@ -2,7 +2,7 @@
 
 Files for **RomRaider Logger**, to log your car over the OBD port with a J2534 cable (Tactrix OpenPort 2.0 or
 similar). They cover every 2.0 and 1.6 SH-ECU ROM this repo supports (WRX and WRX S4, Levorg 2.0 and 1.6, Forester XT, Legacy /
-Outback) and three of the 2019–2021 Ascent ROMs; the table below has the details. The RH850 ECU (2022+ WRX, 2023+ Ascent and Legacy / Outback XT) logs through SUBUDS, under its
+Outback) and the 2019–2021 Ascent; the table below has the details. The RH850 ECU (2022+ WRX, 2023+ Ascent and Legacy / Outback XT) logs through SUBUDS, under its
 own module ([below](#rh850-ecu-subuds)).
 
 ## Which file do I use?
@@ -11,10 +11,10 @@ own module ([below](#rh850-ecu-subuds)).
 |---|---|---|
 | Any model except the 2019–2021 Ascent and Legacy / Outback XT | stock or tuned, no logging patch | `FA20DIT_Logger.xml` |
 | Any model except the 2019–2021 Ascent and Legacy / Outback XT | with the [logging patch](../tools/logpatch/) | `FA20DIT_Logger_LogPatch.xml` |
-| Ascent (2019–2021) | stock or tuned, no logging patch | `FA24_Early_Logger.xml` (checked on LT8D800A, LT8F300C and LT8H300D) |
+| Ascent (2019–2021) | stock or tuned, no logging patch | `FA24_Early_Logger.xml` |
 | Ascent (2019–2021) | with the logging patch | `FA24_Early_Logger_LogPatch.xml` |
-| Legacy / Outback XT (2020–2021, FA24 Early), Ascent LT8D700A or LT8F200C | any | The OBD parameters only for now (RomRaider's OBD protocol, with `FA24_Early_Logger.xml`): I haven't checked these ROMs' SSM tables yet |
-| A ROM marked "yes" in the [README's](../README.md#rom-lists) Logging patch column (103 SH-ECU ROMs, three Ascents included) | any, **no patch needed** | `DIT_Logger_SUBUDS.xml`, with a RomRaider build that has the SUBUDS protocol ([below](#logging-without-the-patch-subuds)) |
+| Legacy / Outback XT (2020–2021, FA24 Early) | any | RomRaider's OBD protocol only for now (with `FA24_Early_Logger.xml`): this ECU has no SSM services (its diagnostic service table has no SSM init or read, read), so the SSM files, the logging patch and SUBUDS don't connect |
+| A ROM marked "yes" in the [README's](../README.md#rom-lists) Logging patch column (238 SH-ECU ROMs: every 2.0 and 1.6 ROM except LV9H000D, and the five Ascents) | any, **no patch needed** | `DIT_Logger_SUBUDS.xml`, with a RomRaider build that has the SUBUDS protocol ([below](#logging-without-the-patch-subuds)) |
 | RH850 ECU: 2022+ WRX, 2023+ Ascent and Legacy / Outback XT | any | `DIT_Logger_SUBUDS.xml` with the SUBUDS build, module **ECU-RH850** ([below](#rh850-ecu-subuds)) |
 
 The `..._LogPatch_only.xml` files hold only the extra logging-patch parameters, if you want to add them to a logger
@@ -89,8 +89,8 @@ allows without any unlock, and it only reads: it changes nothing in the ROM or i
   [RomRaider fork's subuds-22plus-update-2 release](https://github.com/Jengacat/RomRaider/releases/tag/subuds-22plus-update-2)
   (source: the [`subuds-pr` branch](https://github.com/Jengacat/RomRaider/tree/subuds-pr)). The older subuds-test-1
   build can't read this file any more (it doesn't take the RH850's 8-digit addresses).
-* `DIT_Logger_SUBUDS.xml` from this folder: one file for the 103 SH-ECU ROMs that also have a logging-patch spec (three
-  Ascents included) and all 35 RH850 ROMs.
+* `DIT_Logger_SUBUDS.xml` from this folder: one file for the 238 SH-ECU ROMs that also have a logging-patch spec (every 2.0
+  and 1.6 ROM except LV9H000D, and the five Ascents) and all 35 RH850 ROMs.
   Use this one rather than the copy attached to the release, which predates the RH850 part.
 * The same J2534 cable as for SSM.
 
@@ -104,7 +104,7 @@ first and shows only the parameters that exist on it:
 The names and units match the other files, so a log from SUBUDS reads the same as one from SSM.
 
 The memory location of each value differs from ROM to ROM. I checked every one in an emulator running each ROM's
-own code: it had to return the same value the ECU's normal SSM read does, on all 103 SH ROMs. If your ECU isn't one of
+own code: it had to return the same value the ECU's normal SSM read does, on all 238 SH ROMs. If your ECU isn't one of
 the supported calibrations, it still connects, but no parameters show up; nothing is guessed.
 
 SUBUDS logs only sensors and internal values. For trouble codes and OBD parameters, use the regular files.

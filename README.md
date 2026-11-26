@@ -3,15 +3,15 @@
 RomRaider and EcuFlash definitions, logging tools and a tuning guide for Subaru's Direct-Injected Turbocharged engine ECUs, covering the FA20DIT, FB16DIT and FA24DIT engine platforms. The list of supported ROMs is below.
 
 The definitions were built from scratch from my own analysis of stock ROMs. No existing community definition was
-used as a source, so table names, scalings and descriptions are my own. Every table carries a plain-English summary
-and a description of what the ECU does with it.
+used as a source, so table names, scalings and descriptions are my own. Every table in every ROM's definition is
+placed from that ROM's own code, and every definition is checked in RomRaider, EcuFlash and FastECU. Every table carries
+a plain-English summary and a description of what the ECU does with it.
 
 Across the supported ROMs, each definition averages roughly **1,280 entries**: about 1,090 maps and curves and
 about 190 single values and switches. On top of that, each has a table for every trouble code (about 225), with its enable and fail-safe settings. The exact count for
 each ROM is in the [ROM lists](#rom-lists).
 
-> **Status: beta.** The definitions have been checked table by table against the ECU code and load cleanly in
-> RomRaider and EcuFlash, but **nothing has been validated on a running engine or flashed to a car yet.** Read the
+> **Status: beta. Nothing has been validated on a running engine or flashed to a car yet.** Read the
 > [known issues](#known-issues) before you use them, and always keep a stock read of the ECU.
 
 ## Downloads
@@ -307,8 +307,7 @@ were later replaced by an update, or are builds that Subaru's update database do
 | WRX | not confirmed | CVT | not confirmed | LHBT120a | 1332 | 312 | no (see below) |
 | WRX | not confirmed | CVT | not confirmed | LHBT120g | 1332 | 312 | no (see below) |
 
-Every ROM here was placed from its own code, through the closest supported ROM, and checked through RomRaider,
-EcuFlash and FastECU like the first four (in bold). Year and market come from the engine string in the ROM where it
+Year and market come from the engine string in the ROM where it
 has one, or from Subaru's bulletins; where neither says, they are "unknown". The model is WRX for all of them: those without an engine string share
 most of their calibration with the WRX ROMs (60–85 %) and only about a third with the Legacy, Outback and Ascent ROMs
 on this ECU. The transmission is read from each ROM's coding.
@@ -550,8 +549,7 @@ Outback XT (RH850 ECU, next section).
 | Ascent 2.4 (unconfirmed) | not confirmed | CVT | not confirmed | LHBK240Z | 1271 | 311 | no (see below) |
 
 These cars moved to the same RH850 ECU as the 2022+ WRX, with the same software line: 98–99.7 % of their functions
-are the WRX ROMs' own. I placed every table from each ROM's own code, through the closest WRX or already-supported
-ROM, and checked them through RomRaider, EcuFlash and FastECU like the WRX ones. **Use the `FA24DIT_*` files** and
+are the WRX ROMs' own. **Use the `FA24DIT_*` files** and
 read [2022+ WRX: what's different](docs/WRX_2022plus.md); everything in it (ROM size, checksum, EcuFlash's 3 MB
 copy, FastECU) applies to these ROMs too. The calibration is their own: only about a third of it matches the WRX.
 
@@ -621,7 +619,7 @@ Every table whose unit depends on the system has both an imperial and a metric s
 - **Ascent and Legacy / Outback XT (FA24 Early): first release.** Not yet checked against a read from a car. The checksum is the same as the 2.5 MB WRX's. These ROMs come
   from Subaru's dealer software, which has no boot block, so `verify` reports one boot marker as BAD on them; a full
   read from a car should pass.
-- **RH850 ECU (2022+ WRX, 2023+ Ascent and Legacy / Outback XT): first release.** Placed from the ROMs' own code, not yet checked against a car. Its checksum
+- **RH850 ECU (2022+ WRX, 2023+ Ascent and Legacy / Outback XT): first release.** Not yet checked against a car. Its checksum
   rule is not yet proven on a car (see the [2022+ WRX guide](docs/WRX_2022plus.md)). The "(Monitor)" tables are copies the ECU's
   torque monitor reads: keep each one equal to its main table, or the monitor can close the throttle (see the
   [definitions README](definitions/README.md#notes-on-individual-roms)). Some codes in the DTC list have no name yet.

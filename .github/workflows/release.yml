@@ -1,0 +1,49 @@
+# Publishes a release when CHANGELOG.md gets a new dated version heading ("## v0.9.1-beta (2026-12-01)"):
+# builds the four per-family zips with .github/scripts/release.py, tags the commit and attaches them.
+# "## Unreleased" never releases. Run it by hand (Actions > Release > Run workflow) to release a dated version
+# whose tag doesn't exist yet; an existing tag is left alone.
+name: Release
+
+on:
+  push:
+    branches: [main]
+    paths: [CHANGELOG.md]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (empty: the newest dated heading in CHANGELOG.md)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Which version
+        id: v
+        run: python3 .github/scripts/release.py version "${{ github.event.inputs.version }}" | tee -a "$GITHUB_OUTPUT"
+
+      - name: Build the zips
+        if: steps.v.outputs.release == 'true'
+        run: python3 .github/scripts/release.py build "${{ steps.v.outputs.version }}" dist
+
+      - name: Publish the release
+        if: steps.v.outputs.release == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >
+          gh release create "${{ steps.v.outputs.version }}" dist/*.zip
+          --target "${{ github.sha }}"
+          --title "${{ steps.v.outputs.version }}"
+          --notes-file dist/notes.md

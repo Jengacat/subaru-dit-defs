@@ -1,9 +1,6 @@
 # Changelog
 
-## v0.9.0-beta (2026-11-25)
-
-First public release. Downloads: one zip per ECU family (FA20DIT, FB16DIT, FA24 Early, RH850) on the
-[release page](https://github.com/Jengacat/subaru-dit-defs/releases/tag/v0.9.0-beta).
+## Unreleased
 
 - New: **the logging patch and SUBUDS for 135 more ROMs**, 238 in all: every supported 2.0 and 1.6 ROM except
   LV9H000D, and all five 2019–2021 Ascents (LT8D700A and LT8F200C added). 101 of the new ones run byte-identical code to
@@ -15,6 +12,14 @@ First public release. Downloads: one zip per ECU family (FA20DIT, FB16DIT, FA24 
   RomRaider's OBD protocol for now.
 - Changed: `make_logpatch.py` accepts a dealer-software image whose only differences from a car read are the reference
   words the ECU uses to skip its background checksum check, or a missing boot block; the patch touches neither.
+- Docs: the README says once, in its introduction, that every definition is placed from its ROM's own code.
+- Releases are built automatically: dating a version heading in this changelog makes GitHub build the four zips and
+  publish the release.
+
+## v0.9.0-beta (2026-11-25)
+
+First public release. Downloads: one zip per ECU family (FA20DIT, FB16DIT, FA24 Early, RH850) on the
+[release page](https://github.com/Jengacat/subaru-dit-defs/releases/tag/v0.9.0-beta).
 
 - Docs: the README starts with the quick start, and the ROM lists are sorted by model, year, transmission and market.
   The logging-patch and SUBUDS pages say which ROMs they cover (those marked "yes", plus the RH850 ROMs for

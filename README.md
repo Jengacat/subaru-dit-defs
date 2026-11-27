@@ -74,7 +74,7 @@ Outback XT, see the [2022+ WRX guide](docs/WRX_2022plus.md).
   definition by calibration ID, which also selects the right protocol. FastECU has no user levels, so every table is
   listed. On save it corrects the checksum of both 2015–2018 (2 MB) and 2019+ (2.5 MB) ROMs, Ascent and Legacy XT
   included. Tested with FastECU's current source (0.1.0-beta.7); older FastECU releases don't correct the 2.5 MB
-  checksum, so use the [checksum tool](#fix-the-checksum-before-every-flash) with those.
+  checksum, so use the [checksum tool](tools/README.md#checksum) with those.
 
 Each DTC has two tables next to each other, in code order: the code itself (enabled or not) and `[Fail-Safe]`
 (whether it triggers fail-safe). The calibration switches (folder 11.02, EGR Enable and the like) show as on/off. The
@@ -85,33 +85,6 @@ value in brackets is the whole byte, which the switch shares with others.
   example `yes [0F]` → `no [0E]`), so that only this switch's bit changes.
 
 The [EcuFlash README](definitions/ecuflash/README.md) explains why.
-
-### Fix the checksum before every flash
-
-This ECU checks a 16-bit checksum over the whole flash, and a ROM with a bad checksum won't run. **FastECU corrects it when
-you save**, for 2 MB and 2.5 MB ROMs (its current source). **EcuFlash corrects it when you save** a 2015–2018 (2 MB) ROM
-only: fix 2019+ (2.5 MB) ROMs edited in EcuFlash with the checksum tool. **RomRaider corrects it when you save**, for 2 MB, 2.5 MB and RH850 ROMs alike: the RomRaider definitions load a
-checksum module from the `checksum/` folder next to them. That needs [RomRaider 1.1.1](https://github.com/RomRaider/RomRaider/releases)
-or later (my change [RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)); RomRaider 1.0.0
-and 1.1.0 can't open the ROMs with these definitions. **PCMFlash** is reported to correct the checksum as it writes (not tested by me;
-see [Reading your ECU](#reading-your-ecu)). Either way, confirm the file you're about to flash with `verify`:
-
-```
-python3 tools/checksum.py fix  edited.bin  edited_fixed.bin
-python3 tools/checksum.py verify  edited_fixed.bin
-```
-
-On Windows without Python, use the PowerShell version (Windows PowerShell 5.1 or later, nothing to install):
-
-```
-powershell -ExecutionPolicy Bypass -File tools\checksum.ps1 fix  edited.bin  edited_fixed.bin
-powershell -ExecutionPolicy Bypass -File tools\checksum.ps1 verify  edited_fixed.bin
-```
-
-Every line of `verify` must say OK. A ROM with a bad checksum sets P0605 or is refused by the ECU. The same commands
-work for an RH850 ROM (2022+ WRX, 2023+ Ascent and Legacy / Outback XT); its rule is different, and the tool picks it by the file size
-([details](docs/WRX_2022plus.md)). The Python tool
-needs only Python 3 (no extra packages).
 
 ### Logging
 
@@ -170,10 +143,10 @@ It hasn't been run on a car yet. Once it has, the protocol will go to the RomRai
 
 | Folder | Contents |
 |---|---|
-| `definitions/romraider/` | `FA20DIT_RomRaider.xml`: one file covering every supported 2.0 ROM and the Ascent / Legacy XT (FA24 Early). `FB16DIT_RomRaider.xml`: the same for the Levorg 1.6. `FA24DIT_RomRaider.xml`: the 2022+ WRX and the 2023+ Ascent and Legacy / Outback XT (RH850 ECU). Each corrects the checksum when you save, with the `checksum/` folder next to it (RomRaider 1.1.1 or later; see [Fix the checksum](#fix-the-checksum-before-every-flash)). |
+| `definitions/romraider/` | `FA20DIT_RomRaider.xml`: one file covering every supported 2.0 ROM and the Ascent / Legacy XT (FA24 Early). `FB16DIT_RomRaider.xml`: the same for the Levorg 1.6. `FA24DIT_RomRaider.xml`: the 2022+ WRX and the 2023+ Ascent and Legacy / Outback XT (RH850 ECU). Each corrects the checksum when you save, with the `checksum/` folder next to it (RomRaider 1.1.1 or later). |
 | `definitions/ecuflash/Imperial/`, `definitions/ecuflash/Metric/` | The same EcuFlash definitions in two unit systems (EcuFlash can't switch units itself). Each folder has a base file per engine (every table) plus one small file per ROM; install one of the two. The Ascent / Legacy XT files are `FA24_Early_*`, on top of the FA20DIT base. The RH850 files (`FA24DIT_*`: 2022+ WRX, 2023+ Ascent and Legacy / Outback XT) are made for FastECU; EcuFlash can only open a 3 MB copy of those ROMs. |
 | `logger/` | `FA20DIT_Logger.xml` (stock SSM and OBD parameters, trouble codes; also for the Levorg 1.6) and `FA20DIT_Logger_LogPatch.xml` (stock plus the logging-patch parameters). `FA20DIT_Logger_LogPatch_only.xml` holds only the new parameters, for merging into your own logger file. `FA24_Early_Logger*.xml`: the same three for the 2019–2021 Ascent (the Legacy / Outback XT has no SSM). `DIT_Logger_SUBUDS.xml`: the same parameters without the patch, on the 238 SH-ECU ROMs with a patch spec and all 35 RH850 ROMs, for a RomRaider build with the SUBUDS protocol. |
-| `tools/checksum.py`, `tools/checksum.ps1` | Check and fix the ROM checksum of 2 MB, 2.5 MB and RH850 (4032 KB: 2022+ WRX, 2023+ Ascent and Legacy / Outback XT) ROMs (Python, or PowerShell for Windows). Needed after an edit in RomRaider unless you use a `_Checksum` definition, and `verify` before any flash (see below). |
+| `tools/checksum.py`, `tools/checksum.ps1` | Check and fix the ROM checksum of 2 MB, 2.5 MB and RH850 (4032 KB: 2022+ WRX, 2023+ Ascent and Legacy / Outback XT) ROMs (Python, or PowerShell for Windows). Needed for 2019+ ROMs edited in EcuFlash; `verify` checks any file before you flash it ([how to use](tools/README.md#checksum)). |
 | `tools/ef_view.py`, `tools/ef_view.ps1` | RH850 ROMs only (2022+ WRX, 2023+ Ascent and Legacy / Outback XT): make the 3 MB copy of a ROM that EcuFlash can open, and merge the edited copy back with the checksum fixed. |
 | `tools/logpatch/` | The logging patch: `make_logpatch.py` (and `make_logpatch.ps1` for Windows) and a spec for each ROM it covers (238: every 2.0 and 1.6 ROM except LV9H000D, and the five Ascents). |
 | `docs/guide/` | [The tuning guide](docs/guide/README.md): workflows, how the logic works, appendices and a table reference. |
@@ -630,10 +603,9 @@ Every table whose unit depends on the system has both an imperial and a metric s
 
 - **Untested on hardware.** No ROM edited with these definitions has been flashed and driven yet. Start from a known
   good stock read, change little at a time and log everything.
-- **Checksum.** A ROM with a bad checksum won't run, so check it before every flash
-  ([how](#fix-the-checksum-before-every-flash)). RomRaider 1.1.1 or later and FastECU's current source correct it on
-  save, EcuFlash only for 2 MB ROMs, and PCMFlash is reported to correct it when it flashes (not tested by me). For
-  2.5 MB ROMs edited in EcuFlash, use `tools/checksum.py` or `tools/checksum.ps1`.
+- **Checksum.** A ROM with a bad checksum won't run. RomRaider 1.1.1 and FastECU (current source) fix it when you
+  save; EcuFlash does only for 2015–2018 (2 MB) ROMs, so run 2019+ ROMs edited in EcuFlash through the
+  [checksum tool](tools/README.md#checksum). Its `verify` checks any file before you flash it.
 - **RomRaider 1.1.1 is required.** It's fully supported and tested with these definitions; RomRaider 1.0.0 and 1.1.0
   can't open the ROMs with them.
 - **Ascent and Legacy / Outback XT (FA24 Early): first release.** Not yet checked against a read from a car. The checksum is the same as the 2.5 MB WRX's. These ROMs come

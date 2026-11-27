@@ -8,7 +8,7 @@ everything here applies to their ROMs too. Read this before you start; the suppo
 - **ROM files.** The definitions use a 4032 KB image (the flash without its 64 KB boot block). A 4 MB image works
   once its first 65,536 bytes are removed; the checksum tool tells you if you have one.
 - **Checksum.** A different rule from the other ECUs, which `tools/checksum.py` and `checksum.ps1` handle (same
-  commands as in [Fix the checksum before every flash](../README.md#fix-the-checksum-before-every-flash)). Not yet proven on a car.
+  commands, see [the tools README](../tools/README.md#checksum)). Not yet proven on a car.
 - **RomRaider.** `FA24DIT_RomRaider.xml` (keep its `checksum/` folder next to it) corrects the sum when you save.
   It needs [RomRaider 1.1.1](https://github.com/RomRaider/RomRaider/releases) or later, which can load a checksum
   module from the definition folder (my change, [RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248));

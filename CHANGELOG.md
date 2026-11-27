@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- README: the "Fix the checksum before every flash" section is gone. Each editor's section says whether it fixes the
+  checksum on save, Known issues says when to run the checksum tool, and the commands are in the
+  [tools README](tools/README.md#checksum).
 - **The RomRaider definitions now correct the checksum when you save.** What used to be the `_Checksum` files are now
   the regular ones: `FA20DIT_RomRaider.xml`, `FB16DIT_RomRaider.xml` and `FA24DIT_RomRaider.xml`, each with the
   `checksum/` folder next to it. They need RomRaider 1.1.1 or later; RomRaider 1.0.0 and 1.1.0 can't open the ROMs

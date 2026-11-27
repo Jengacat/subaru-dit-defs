@@ -2,10 +2,10 @@
 
 ## Unreleased
 
-- EcuFlash user levels fixed (the 2.0 / 1.6 files and the `FA24_Early` Ascent / Legacy XT files). EcuFlash counts its levels the
-  other way from RomRaider, so at Beginner the core tables were the ones greyed out. Now Beginner shows the core
-  tables (fueling, timing, boost, requested torque, rev limits, throttle maps), Intermediate and Advanced add more,
-  and Developer shows everything. FastECU has no user levels and is unaffected.
+- EcuFlash user levels fixed (the 2.0 / 1.6 files, the `FA24_Early` Ascent / Legacy XT files and the RH850 `FA24DIT_*`
+  files). EcuFlash counts its levels the other way from RomRaider, so at Beginner the core tables were the ones greyed
+  out. Now Beginner shows the core tables (fueling, timing, boost, requested torque, rev limits, throttle maps),
+  Intermediate and Advanced add more, and Developer shows everything. FastECU has no user levels and is unaffected.
 - EcuFlash file headers reworded.
 - Real units on the RH850 ROMs (`FA24DIT_*`): about 125 tables and 30 axes that showed raw numbers now display in
   units. These include the cranking and after-start fuel multipliers and enrichments, the start-sequence, catalyst

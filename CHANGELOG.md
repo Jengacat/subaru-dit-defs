@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- First car read with FastECU's 2.5 MB protocol: a 2020 USA WRX 6MT (LF9G002T), complete (2,621,440 bytes, valid
+  checksum) and identical to the reference copy. README updated.
+- ROM lists: every 2.5 MB ROM is now marked "(2.5 MB ECU)" (31 were missing it). All 2014–2018 ROMs are 2 MB and all
+  2019–2021 ROMs (Ascent and Legacy / Outback XT included) are 2.5 MB.
 - README: "Reading your ECU" rewritten around what reads which ECU: a table of the three ECUs (2 MB, 2.5 MB and the
   2022+ RH850) with the size of a complete read and the tool for each. FastECU 0.1.0-beta.7 reads the 2.5 MB and RH850
   ECUs (read-only; not run on a car yet). The 2022+ WRX guide says the same.

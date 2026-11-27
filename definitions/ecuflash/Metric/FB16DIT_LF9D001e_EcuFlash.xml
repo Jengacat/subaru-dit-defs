@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- FB16DIT (SH72544R) EcuFlash definition, my own clean-room work: https://github.com/Jengacat/subaru-dit-defs
      Generated from the RomRaider definition. Do not edit by hand.
-     memmodel SH72544R / flashmethod subaruhitachi are EcuFlash built-in names.
+     memmodel SH72544R is an EcuFlash built-in name; flashmethod is FastECU's 2.5 MB protocol, so FastECU picks it.
      Units: Metric (kPa / MPa, degrees C, Nm, km/h).
-     Checksum: no EcuFlash module (subaruhitachi gets this 2.5 MB layout wrong). Run tools/checksum.py (or tools/checksum.ps1)
-     fix on the image and check it with verify before flashing (rule: u16 word sum 0x6000..0x27FFFF = 0x5AA5). -->
+     Checksum: FastECU corrects it on save (flashmethod is its 2.5 MB protocol); EcuFlash has no module for
+     this layout. Otherwise run tools/checksum.py (or tools/checksum.ps1) fix on the image, and check it with verify before
+     flashing (rule: u16 word sum 0x6000..0x27FFFF = 0x5AA5). -->
 <!-- Needs FB16DIT_BASE_METRIC_EcuFlash.xml in the same folder, where every table is defined. This file gives
      each table's address for this ROM and whatever differs from the base (scaling, level, axis size,
      row labels, description). -->
@@ -22,7 +23,7 @@
   <transmission>AT/CVT</transmission>
   <memmodel>SH72544R</memmodel>
   <checksummodule />
-  <flashmethod>subaruhitachi</flashmethod>
+  <flashmethod>sub_ecu_hitachi_sh72544r_can_2_5mb</flashmethod>
  </romid>
  <include>FB16DIT_BASE_METRIC</include>
  <table name="Injector Scaling" address="023faa" />

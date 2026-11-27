@@ -67,13 +67,14 @@ Outback XT, see the [2022+ WRX guide](docs/WRX_2022plus.md).
 - **EcuFlash:** put the files in a folder under your EcuFlash metadata folder (for example
   `rommetadata/subaru/FA20DIT/`) and restart EcuFlash. Its user level (options, gear icon → User Level) works like
   RomRaider's: Beginner shows the core tables and Developer shows everything; tables above your level are greyed out.
-  EcuFlash corrects the checksum on save for 2015–2018 (2 MB) ROMs only.
+  EcuFlash corrects the checksum on save for 2015–2018 (2 MB) ROMs only. On the 2019+ (2.5 MB) ROMs, ROM Info shows
+  FastECU's protocol name as the flash method; that is for FastECU and doesn't affect editing in EcuFlash.
 - **FastECU:** in Edit → Settings, under "EcuFlash Definition Files Directory", choose the folder with the files
   (subfolders are searched too) and make sure EcuFlash definitions are enabled. Open your ROM and FastECU finds its
-  definition by calibration ID. FastECU has no user levels, so every table is listed. On save it corrects the checksum
-  of 2015–2018 (2 MB) ROMs. For 2019+ (2.5 MB) ROMs it currently says "Bad ROM size!" and saves without correcting
-  the checksum: fix those with the [checksum tool](#fix-the-checksum-before-every-flash). Tested with FastECU's
-  current source (0.1.0-beta.7).
+  definition by calibration ID, which also selects the right protocol. FastECU has no user levels, so every table is
+  listed. On save it corrects the checksum of both 2015–2018 (2 MB) and 2019+ (2.5 MB) ROMs, Ascent and Legacy XT
+  included. Tested with FastECU's current source (0.1.0-beta.7); older FastECU releases don't correct the 2.5 MB
+  checksum, so use the [checksum tool](#fix-the-checksum-before-every-flash) with those.
 
 Each DTC has two tables next to each other, in code order: the code itself (enabled or not) and `[Fail-Safe]`
 (whether it triggers fail-safe). The calibration switches (folder 11.02, EGR Enable and the like) show as on/off. The
@@ -87,9 +88,9 @@ The [EcuFlash README](definitions/ecuflash/README.md) explains why.
 
 ### Fix the checksum before every flash
 
-This ECU checks a 16-bit checksum over the whole flash, and a ROM with a bad checksum won't run. **EcuFlash and FastECU
-correct it when you save** a 2015–2018 (2 MB) ROM. Neither does yet for the 2019+ (2.5 MB) ROMs: fix those with the
-checksum tool. **RomRaider corrects it when you save**, for 2 MB, 2.5 MB and RH850 ROMs alike: the RomRaider definitions load a
+This ECU checks a 16-bit checksum over the whole flash, and a ROM with a bad checksum won't run. **FastECU corrects it when
+you save**, for 2 MB and 2.5 MB ROMs (its current source). **EcuFlash corrects it when you save** a 2015–2018 (2 MB) ROM
+only: fix 2019+ (2.5 MB) ROMs edited in EcuFlash with the checksum tool. **RomRaider corrects it when you save**, for 2 MB, 2.5 MB and RH850 ROMs alike: the RomRaider definitions load a
 checksum module from the `checksum/` folder next to them. That needs [RomRaider 1.1.1](https://github.com/RomRaider/RomRaider/releases)
 or later (my change [RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)); RomRaider 1.0.0
 and 1.1.0 can't open the ROMs with these definitions. **PCMFlash** is reported to correct the checksum as it writes (not tested by me;
@@ -630,9 +631,9 @@ Every table whose unit depends on the system has both an imperial and a metric s
 - **Untested on hardware.** No ROM edited with these definitions has been flashed and driven yet. Start from a known
   good stock read, change little at a time and log everything.
 - **Checksum.** A ROM with a bad checksum won't run, so check it before every flash
-  ([how](#fix-the-checksum-before-every-flash)). EcuFlash and FastECU correct it on save for 2 MB ROMs, and PCMFlash is
-  reported to correct it when it flashes (not tested by me). RomRaider 1.1.1 or later corrects it on save. For 2.5 MB
-  ROMs edited in EcuFlash or FastECU, use `tools/checksum.py` or `tools/checksum.ps1`.
+  ([how](#fix-the-checksum-before-every-flash)). RomRaider 1.1.1 or later and FastECU's current source correct it on
+  save, EcuFlash only for 2 MB ROMs, and PCMFlash is reported to correct it when it flashes (not tested by me). For
+  2.5 MB ROMs edited in EcuFlash, use `tools/checksum.py` or `tools/checksum.ps1`.
 - **RomRaider 1.1.1 is required.** It's fully supported and tested with these definitions; RomRaider 1.0.0 and 1.1.0
   can't open the ROMs with them.
 - **Ascent and Legacy / Outback XT (FA24 Early): first release.** Not yet checked against a read from a car. The checksum is the same as the 2.5 MB WRX's. These ROMs come
@@ -682,8 +683,8 @@ whether it covers the 2019+ WRX isn't confirmed.
 ([miikasyvanen/FastECU#159](https://github.com/miikasyvanen/FastECU/pull/159)). It uses the ECU's own diagnostic memory
 read, so nothing is written to the ECU, and it reads the full 2.5 MB (2,621,440 bytes). Two caveats: it isn't in a
 FastECU release yet (only in the current source, where it shows in the protocol list); and I haven't tested it on a
-car yet. FastECU doesn't correct the 2.5 MB checksum when it saves a ROM opened with these definitions yet (see
-[Editing with EcuFlash or FastECU](#editing-with-ecuflash-or-fastecu)), so run the checksum tool. If you try it, a complete read is exactly 2,621,440 bytes; please let me know how it went. Writing
+car yet. With these definitions FastECU also corrects the 2.5 MB checksum when you save (see
+[Editing with EcuFlash or FastECU](#editing-with-ecuflash-or-fastecu)). If you try it, a complete read is exactly 2,621,440 bytes; please let me know how it went. Writing
 the 2.5 MB ECUs isn't supported yet.
 
 ## Submitting a ROM

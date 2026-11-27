@@ -6,9 +6,13 @@
   the regular ones: `FA20DIT_RomRaider.xml`, `FB16DIT_RomRaider.xml` and `FA24DIT_RomRaider.xml`, each with the
   `checksum/` folder next to it. They need RomRaider 1.1.1 or later; RomRaider 1.0.0 and 1.1.0 can't open the ROMs
   with them. The separate `…_Checksum.xml` files are gone: if you installed one, switch to the regular file.
+- **FastECU now corrects the checksum of 2019+ (2.5 MB) ROMs on save.** The EcuFlash files of the 47 2.5 MB ROMs
+  (29 2.0, 9 Levorg 1.6, the 9 Ascent / Legacy XT) name FastECU's 2.5 MB protocol as their flash method, so FastECU
+  selects it by itself. Before, it picked its 2 MB protocol, said "Bad ROM size!" and saved without correcting the
+  checksum. EcuFlash opens, edits and saves these ROMs as before (it isn't expected to write these ECUs).
 - README: "Editing with EcuFlash" is now "Editing with EcuFlash or FastECU": how to point FastECU at the files, what
   it does with the checksum, and how to flip DTC and calibration switches in its drop-downs. Tested in FastECU's
-  current source: 2 MB ROMs save with the checksum corrected; 2.5 MB ROMs save without it (run the checksum tool).
+  current source on 2 MB, 2.5 MB and Ascent ROMs.
 - README: the definitions need RomRaider 1.1.1, which is fully supported. Tested in 1.1.1: opening, editing and saving
   2 MB, 2.5 MB and RH850 ROMs (checksum corrected on save, `checksum.py verify` OK) and the two-cell DTC tables.
 - EcuFlash user levels fixed (the 2.0 / 1.6 files, the `FA24_Early` Ascent / Legacy XT files and the RH850 `FA24DIT_*`

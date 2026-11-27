@@ -3089,6 +3089,12 @@ Details: When used: while open-loop enrichment is active (FFF8ABF4 != 0) and FFF
  <table name="AVCS Activation Delay After Start" address="044692">
   <table name="Coolant Temp" address="04126c" />
  </table>
+ <table name="AVCS Activation Delay After Start (Cam 2)" address="044692">
+  <table name="Coolant Temp" address="04126c" />
+ </table>
+ <table name="AVCS Activation Delay After Start (Second, Cam 2)" address="046990">
+  <table name="Coolant Temp" address="04126c" />
+ </table>
  <table name="AVCS Minimum Oil Temp (IAT at Start)" address="0446b2">
   <table name="Intake Air Temp" address="044672" />
  </table>
@@ -3147,6 +3153,18 @@ Details: When used: while open-loop enrichment is active (FFF8ABF4 != 0) and FFF
  </table>
  <table name="Exhaust AVCS Feedback Oil Factor (Normal, Positive Error)" address="046282">
   <table name="Oil Temp" address="0460ec" />
+ </table>
+ <table name="Exhaust AVCS Feedback Oil Factor (Normal, Positive Error, Cam 2)" address="046282">
+  <table name="Oil Temp" address="0460ec" />
+ </table>
+ <table name="Exhaust AVCS Feedback Oil Factor (Normal, Negative Error, Cam 2)" address="0462b2">
+  <table name="Oil Temp" address="04614c" />
+ </table>
+ <table name="Exhaust AVCS Feedback Oil Factor (Idle, Positive Error, Cam 2)" address="046292">
+  <table name="Oil Temp" address="04610c" />
+ </table>
+ <table name="Exhaust AVCS Feedback Oil Factor (Idle, Negative Error, Cam 2)" address="0462a2">
+  <table name="Oil Temp" address="04612c" />
  </table>
  <table name="Exhaust AVCS Feedback Oil Factor (Normal, Negative Error)" address="0462b2">
   <table name="Oil Temp" address="04614c" />
@@ -4200,6 +4218,82 @@ Details: When used: instead of 05D5D0 when FFF8A8C3 = 2. Gear advice module 0x11
  <table name="A/F Imbalance Monitor Swing Threshold 2" address="05098c">
   <table name="Engine Load" address="050622" />
   <table name="Engine Speed" address="050612" />
+ </table>
+ <table name="Misfire Threshold A (Transmission Flag 6)" address="051b08">
+  <table name="Engine Load" address="05077a" />
+  <table name="Engine Speed" address="05075a" />
+ </table>
+ <table name="Misfire Threshold A (Transmission Flag 5)" address="051f08">
+  <table name="Engine Load" address="05077a" />
+  <table name="Engine Speed" address="05075a" />
+ </table>
+ <table name="Misfire Threshold A" address="051d08">
+  <table name="Engine Load" address="05077a" />
+  <table name="Engine Speed" address="05075a" />
+ </table>
+ <table name="Misfire Threshold A (Alternate)" address="051230">
+  <table name="Engine Load" address="051020" />
+  <table name="Engine Speed" address="051000" />
+ </table>
+ <table name="Misfire Threshold A (Window)" address="050c8c">
+  <table name="Engine Load" address="05074a" />
+  <table name="Engine Speed" address="05072a" />
+ </table>
+ <table name="Misfire Threshold A Coolant Multiplier (Transmission Flag 6)" address="052168">
+  <table name="Coolant Temp" address="0514e8" />
+ </table>
+ <table name="Misfire Threshold A Coolant Multiplier (Transmission Flag 5)" address="052188">
+  <table name="Coolant Temp" address="0514e8" />
+ </table>
+ <table name="Misfire Threshold A Coolant Multiplier" address="0521a8">
+  <table name="Coolant Temp" address="0514e8" />
+ </table>
+ <table name="Misfire Threshold A Coolant Multiplier (Alternate)" address="050f1c">
+  <table name="Coolant Temp" address="05070a" />
+ </table>
+ <table name="Misfire Threshold A Coolant Multiplier (Window)" address="050efc">
+  <table name="Coolant Temp" address="0506ea" />
+ </table>
+ <table name="Misfire Threshold A Learned-Value Multiplier" address="0514c0">
+  <table name="Learned Value" address="051488" />
+ </table>
+ <table name="Misfire Threshold B (Transmission Flag 6)" address="051908">
+  <table name="Engine Load" address="0506da" />
+  <table name="Engine Speed" address="0506ba" />
+ </table>
+ <table name="Misfire Threshold B (Transmission Flag 5)" address="051708">
+  <table name="Engine Load" address="0506da" />
+  <table name="Engine Speed" address="0506ba" />
+ </table>
+ <table name="Misfire Threshold B" address="051508">
+  <table name="Engine Load" address="0506da" />
+  <table name="Engine Speed" address="0506ba" />
+ </table>
+ <table name="Misfire Threshold B (Alternate)" address="051030">
+  <table name="Engine Load" address="050ff0" />
+  <table name="Engine Speed" address="050fd0" />
+ </table>
+ <table name="Misfire Threshold B (Window)" address="050a8c">
+  <table name="Engine Load" address="0506aa" />
+  <table name="Engine Speed" address="05068a" />
+ </table>
+ <table name="Misfire Threshold B Coolant Multiplier (Transmission Flag 6)" address="052108">
+  <table name="Coolant Temp" address="0514c8" />
+ </table>
+ <table name="Misfire Threshold B Coolant Multiplier (Transmission Flag 5)" address="052128">
+  <table name="Coolant Temp" address="0514c8" />
+ </table>
+ <table name="Misfire Threshold B Coolant Multiplier" address="052148">
+  <table name="Coolant Temp" address="0514c8" />
+ </table>
+ <table name="Misfire Threshold B Coolant Multiplier (Alternate)" address="050edc">
+  <table name="Coolant Temp" address="05066a" />
+ </table>
+ <table name="Misfire Threshold B Coolant Multiplier (Window)" address="050ebc">
+  <table name="Coolant Temp" address="05064a" />
+ </table>
+ <table name="Misfire Threshold B Learned-Value Multiplier" address="0514b8">
+  <table name="Learned Value" address="051478" />
  </table>
  <table name="EGR Enable" address="037fee" />
  <table name="Transmission Coding: Automatic/CVT" address="037fec" scaling="Switch b1 fFD" />

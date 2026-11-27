@@ -13451,6 +13451,21 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
   <description>Knock margin index at or below which the margin trigger of the knock torque cap sets, by engine speed and load. Lower values let the engine run with less margin before the cap comes in.</description>
  </table>
+ <table name="Knock Margin Base" category="02.03 Ignition Timing - Knock Control" type="3D" level="4" scaling="count uint8">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
+  <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
+  <description>Starting value of the knock margin index by engine speed and load. The index is this, less intake air temperature 2 in degrees C, plus the spark and A/F terms; the knock torque cap's margin trigger sets when it falls to Knock Torque Cap Margin Threshold. Lower values bring the cap and the margin enrichment in sooner.</description>
+ </table>
+ <table name="Knock Margin Spark Weight" category="02.03 Ignition Timing - Knock Control" type="3D" level="4" scaling="% weight uint8">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
+  <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
+  <description>How strongly Knock Margin Spark Factor moves the knock margin index, by engine speed and load.</description>
+ </table>
+ <table name="Knock Margin A/F Weight" category="02.03 Ignition Timing - Knock Control" type="3D" level="4" scaling="% weight uint8">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
+  <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
+  <description>How strongly Knock Margin A/F Factor moves the knock margin index, by engine speed and load.</description>
+ </table>
  <table name="FLKC Range Load Hysteresis" category="02.03 Ignition Timing - Knock Control" type="1D" level="3" scaling="g/rev uint16 (2.4)">
   <description>Load hysteresis used when switching between fine learning knock correction load ranges, to stop flicking between cells at a boundary.</description>
  </table>
@@ -14743,6 +14758,56 @@ Details: 0x0DD0DC (read). Confidence: read.</description>
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint16" />
   <description>Second, higher reference for the P219A (A/F imbalance) monitor, used with A/F Imbalance Monitor Crank Roughness Threshold 2 as confirmation. Raising it makes P219A harder to set. Above about 4000 rpm the reference climbs steeply (interpolating to the 4500 rpm row, which is effectively infinite), so running above about 4000 rpm during the window stops the test from failing.</description>
+ </table>
+ <table name="Misfire Threshold A (Transmission Flag 6)" category="11.01 Diagnostics &amp; Switches - Monitor Thresholds" type="3D" level="4" scaling="threshold count uint16">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
+  <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
+  <description>Misfire detection limit A by engine speed and load, used while the transmission sets bit 6 of byte 1 in its CAN message 368 (hex); higher = less sensitive, 65535 = no detection.</description>
+ </table>
+ <table name="Misfire Threshold A (Transmission Flag 5)" category="11.01 Diagnostics &amp; Switches - Monitor Thresholds" type="3D" level="4" scaling="threshold count uint16">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
+  <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
+  <description>Misfire detection limit A by engine speed and load, used while the transmission sets bit 5 of byte 1 in its CAN message 368 (hex); higher = less sensitive, 65535 = no detection.</description>
+ </table>
+ <table name="Misfire Threshold A" category="11.01 Diagnostics &amp; Switches - Monitor Thresholds" type="3D" level="4" scaling="threshold count uint16">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
+  <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
+  <description>Misfire detection limit A by engine speed and load (the normal map); higher = less sensitive, 65535 = no detection.</description>
+ </table>
+ <table name="Misfire Threshold A (Alternate)" category="11.01 Diagnostics &amp; Switches - Monitor Thresholds" type="3D" level="4" scaling="threshold count uint16">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
+  <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
+  <description>Misfire detection limit A by engine speed and load, used while detection is inhibited or at low vehicle speed; higher = less sensitive, 65535 = no detection.</description>
+ </table>
+ <table name="Misfire Threshold A (Window)" category="11.01 Diagnostics &amp; Switches - Monitor Thresholds" type="3D" level="4" scaling="threshold count uint16">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
+  <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
+  <description>Misfire detection limit A by engine speed and load, used in a particular engine speed and load window; higher = less sensitive, 65535 = no detection.</description>
+ </table>
+ <table name="Misfire Threshold B (Transmission Flag 6)" category="11.01 Diagnostics &amp; Switches - Monitor Thresholds" type="3D" level="4" scaling="threshold count uint16">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
+  <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
+  <description>Misfire detection limit B by engine speed and load, used while the transmission sets bit 6 of byte 1 in its CAN message 368 (hex); higher = less sensitive, 65535 = no detection.</description>
+ </table>
+ <table name="Misfire Threshold B (Transmission Flag 5)" category="11.01 Diagnostics &amp; Switches - Monitor Thresholds" type="3D" level="4" scaling="threshold count uint16">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
+  <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
+  <description>Misfire detection limit B by engine speed and load, used while the transmission sets bit 5 of byte 1 in its CAN message 368 (hex); higher = less sensitive, 65535 = no detection.</description>
+ </table>
+ <table name="Misfire Threshold B" category="11.01 Diagnostics &amp; Switches - Monitor Thresholds" type="3D" level="4" scaling="threshold count uint16">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
+  <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
+  <description>Misfire detection limit B by engine speed and load (the normal map); higher = less sensitive, 65535 = no detection.</description>
+ </table>
+ <table name="Misfire Threshold B (Alternate)" category="11.01 Diagnostics &amp; Switches - Monitor Thresholds" type="3D" level="4" scaling="threshold count uint16">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
+  <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
+  <description>Misfire detection limit B by engine speed and load, used while detection is inhibited or at low vehicle speed; higher = less sensitive, 65535 = no detection.</description>
+ </table>
+ <table name="Misfire Threshold B (Window)" category="11.01 Diagnostics &amp; Switches - Monitor Thresholds" type="3D" level="4" scaling="threshold count uint16">
+  <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
+  <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
+  <description>Misfire detection limit B by engine speed and load, used in a particular engine speed and load window; higher = less sensitive, 65535 = no detection.</description>
  </table>
  <table name="(P0010) Intake Camshaft Position Actuator Circuit (Bank 1)" category="11.03 Diagnostics &amp; Switches - DTC Switches" type="1D" level="2" scaling="DTC enabled b0 mFF f00 sDE">
   <description>Bit 0 of its byte ([XX] = the whole byte). To flip this code: select the value, press Increment ( ] ) once. Do not use Decrement. "(no match)": too many other codes in this byte changed; use the mask table.</description>

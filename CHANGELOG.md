@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- New: **knock margin terms** on the 2019-2021 2.0 / 1.6 ROMs, the Ascent and the Legacy / Outback XT (5 tables,
+  Knock Control). The knock margin index that the knock torque cap's margin trigger watches is Knock Margin Base
+  (engine speed x load), less intake air temperature 2, plus a spark term (how far the primary ignition sits above
+  the timing ceiling) and an A/F term (richer adds margin), each with its own weight map (0 in stock).
+- New: **cam 2 AVCS tables** on 198 ROMs: the four Exhaust AVCS Feedback Oil Factor tables for cam 2 and the two AVCS
+  Activation Delay After Start curves for cam 2. Stock data equals the cam 1 tables; until now only cam 1 was editable.
+- New: **misfire detection thresholds** on the 2018-2021 2.0 / 1.6 ROMs, the Ascent and the Legacy / Outback XT (22
+  tables, Diagnostics > Monitor Thresholds): two threshold sets (A and B) by engine speed and load, each with variants
+  for two transmission flags, an alternate and a window map (65535 = no detection), coolant multipliers and a
+  learned-value multiplier. The threshold logic is read from the code; that the monitor is the misfire monitor is
+  inferred (it compares against a crank acceleration value).
 - New: **Knock Event Enrichment** on every 2019-2021 2.0 and 1.6 ROM, the Ascent and the Legacy / Outback XT (5
   tables, folder Open Loop & Enrichment Targets). This is 2019+ code: while one of the knock torque cap's triggers is
   set, the ECU adds fuel from a table by engine speed and load (Trigger A, Trigger B, Margin), then fades it out (Decay)

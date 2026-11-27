@@ -58845,6 +58845,61 @@ Details: When used: Used only while FFF899D7 bit 0 is set, a once-per-drive warm
    </table>
    <description>Open-loop AFR target for TGVs closed with AVCS in active control, part of a blend by TGV position and AVCS state, used above Open Loop Delay Load Threshold after a delay. The ECU uses the richer of the two systems, so leaning needs both.</description>
   </table>
+  <table type="3D" name="Knock Event Enrichment (Trigger A)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="3" storageaddress="0x021d6a">
+   <scaling units="% enrichment" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0228da">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0228aa">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Extra fuel added while the knock torque cap's trigger a trigger is set, by engine speed and load; it fades out afterwards.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment (Trigger B)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="3" storageaddress="0x02212a">
+   <scaling units="% enrichment" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0228da">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0228aa">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Extra fuel added while the knock torque cap's trigger b trigger is set, by engine speed and load; it fades out afterwards.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment (Margin)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="3" storageaddress="0x0224ea">
+   <scaling units="% enrichment" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0228da">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0228aa">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Extra fuel added while the knock torque cap's margin trigger is set, by engine speed and load.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment Decay" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="4" storageaddress="0x022cf2">
+   <scaling units="% enrichment per pass" expression="x/2.56" to_byte="x*2.56" format="0.00" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0230e2">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0230b2">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>How fast the Trigger A / B knock event enrichment fades once the trigger clears, per pass, by engine speed and load.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment Ramp (Margin)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="4" storageaddress="0x0228ee">
+   <scaling units="% enrichment per pass" expression="x/2.56" to_byte="x*2.56" format="0.00" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x022cde">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x022cae">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>How fast the margin-trigger knock event enrichment moves toward its target and back, per pass, by engine speed and load.</description>
+  </table>
   <table type="3D" name="Primary Open Loop Fueling (TGV Open, AVCS Inactive)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint8" endian="big" sizex="20" sizey="24" userlevel="1" storageaddress="0x01af00">
    <scaling units="AFR (gasoline)" expression="3763.2/(256+x)" to_byte="3763.2/x-256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x01205c">
@@ -66913,6 +66968,61 @@ Details: When used: Used only while FFF899D7 bit 0 is set, a once-per-drive warm
    </table>
    <description>Open-loop AFR target for TGVs closed with AVCS in active control, part of a blend by TGV position and AVCS state, used above Open Loop Delay Load Threshold after a delay. The ECU uses the richer of the two systems, so leaning needs both.</description>
   </table>
+  <table type="3D" name="Knock Event Enrichment (Trigger A)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="3" storageaddress="0x021d6a">
+   <scaling units="% enrichment" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0228da">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0228aa">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Extra fuel added while the knock torque cap's trigger a trigger is set, by engine speed and load; it fades out afterwards.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment (Trigger B)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="3" storageaddress="0x02212a">
+   <scaling units="% enrichment" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0228da">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0228aa">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Extra fuel added while the knock torque cap's trigger b trigger is set, by engine speed and load; it fades out afterwards.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment (Margin)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="3" storageaddress="0x0224ea">
+   <scaling units="% enrichment" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0228da">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0228aa">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Extra fuel added while the knock torque cap's margin trigger is set, by engine speed and load.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment Decay" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="4" storageaddress="0x022cf2">
+   <scaling units="% enrichment per pass" expression="x/2.56" to_byte="x*2.56" format="0.00" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0230e2">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0230b2">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>How fast the Trigger A / B knock event enrichment fades once the trigger clears, per pass, by engine speed and load.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment Ramp (Margin)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="4" storageaddress="0x0228ee">
+   <scaling units="% enrichment per pass" expression="x/2.56" to_byte="x*2.56" format="0.00" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x022cde">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x022cae">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>How fast the margin-trigger knock event enrichment moves toward its target and back, per pass, by engine speed and load.</description>
+  </table>
   <table type="3D" name="Primary Open Loop Fueling (TGV Open, AVCS Inactive)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint8" endian="big" sizex="20" sizey="24" userlevel="1" storageaddress="0x01af00">
    <scaling units="AFR (gasoline)" expression="3763.2/(256+x)" to_byte="3763.2/x-256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x01205c">
@@ -74894,6 +75004,61 @@ Details: When used: Used only while FFF899D7 bit 0 is set, a once-per-drive warm
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Open-loop AFR target for TGVs closed with AVCS in active control, part of a blend by TGV position and AVCS state, used above Open Loop Delay Load Threshold after a delay. The ECU uses the richer of the two systems, so leaning needs both.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment (Trigger A)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="3" storageaddress="0x021b0a">
+   <scaling units="% enrichment" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02267a">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02264a">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Extra fuel added while the knock torque cap's trigger a trigger is set, by engine speed and load; it fades out afterwards.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment (Trigger B)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="3" storageaddress="0x021eca">
+   <scaling units="% enrichment" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02267a">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02264a">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Extra fuel added while the knock torque cap's trigger b trigger is set, by engine speed and load; it fades out afterwards.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment (Margin)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="3" storageaddress="0x02228a">
+   <scaling units="% enrichment" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02267a">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02264a">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Extra fuel added while the knock torque cap's margin trigger is set, by engine speed and load.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment Decay" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="4" storageaddress="0x022a92">
+   <scaling units="% enrichment per pass" expression="x/2.56" to_byte="x*2.56" format="0.00" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x022e82">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x022e52">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>How fast the Trigger A / B knock event enrichment fades once the trigger clears, per pass, by engine speed and load.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment Ramp (Margin)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="4" storageaddress="0x02268e">
+   <scaling units="% enrichment per pass" expression="x/2.56" to_byte="x*2.56" format="0.00" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x022a7e">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x022a4e">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>How fast the margin-trigger knock event enrichment moves toward its target and back, per pass, by engine speed and load.</description>
   </table>
   <table type="3D" name="Primary Open Loop Fueling (TGV Open, AVCS Inactive)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint8" endian="big" sizex="20" sizey="24" userlevel="1" storageaddress="0x01ada0">
    <scaling units="AFR (gasoline)" expression="3763.2/(256+x)" to_byte="3763.2/x-256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
@@ -82972,6 +83137,61 @@ Details: When used: Used only while FFF899D7 bit 0 is set, a once-per-drive warm
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Open-loop AFR target for TGVs closed with AVCS in active control, part of a blend by TGV position and AVCS state, used above Open Loop Delay Load Threshold after a delay. The ECU uses the richer of the two systems, so leaning needs both.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment (Trigger A)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="3" storageaddress="0x021b0a">
+   <scaling units="% enrichment" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02267a">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02264a">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Extra fuel added while the knock torque cap's trigger a trigger is set, by engine speed and load; it fades out afterwards.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment (Trigger B)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="3" storageaddress="0x021eca">
+   <scaling units="% enrichment" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02267a">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02264a">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Extra fuel added while the knock torque cap's trigger b trigger is set, by engine speed and load; it fades out afterwards.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment (Margin)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="3" storageaddress="0x02228a">
+   <scaling units="% enrichment" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02267a">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02264a">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Extra fuel added while the knock torque cap's margin trigger is set, by engine speed and load.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment Decay" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="4" storageaddress="0x022a92">
+   <scaling units="% enrichment per pass" expression="x/2.56" to_byte="x*2.56" format="0.00" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x022e82">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x022e52">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>How fast the Trigger A / B knock event enrichment fades once the trigger clears, per pass, by engine speed and load.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment Ramp (Margin)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="4" storageaddress="0x02268e">
+   <scaling units="% enrichment per pass" expression="x/2.56" to_byte="x*2.56" format="0.00" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x022a7e">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x022a4e">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>How fast the margin-trigger knock event enrichment moves toward its target and back, per pass, by engine speed and load.</description>
   </table>
   <table type="3D" name="Primary Open Loop Fueling (TGV Open, AVCS Inactive)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint8" endian="big" sizex="20" sizey="24" userlevel="1" storageaddress="0x01ada0">
    <scaling units="AFR (gasoline)" expression="3763.2/(256+x)" to_byte="3763.2/x-256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
@@ -106167,6 +106387,61 @@ Details: When used: Used only while FFF899D7 bit 0 is set, a once-per-drive warm
    </table>
    <description>Open-loop AFR target for TGVs closed with AVCS in active control, part of a blend by TGV position and AVCS state, used above Open Loop Delay Load Threshold after a delay. The ECU uses the richer of the two systems, so leaning needs both.</description>
   </table>
+  <table type="3D" name="Knock Event Enrichment (Trigger A)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="3" storageaddress="0x021d6a">
+   <scaling units="% enrichment" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0228da">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0228aa">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Extra fuel added while the knock torque cap's trigger a trigger is set, by engine speed and load; it fades out afterwards.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment (Trigger B)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="3" storageaddress="0x02212a">
+   <scaling units="% enrichment" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0228da">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0228aa">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Extra fuel added while the knock torque cap's trigger b trigger is set, by engine speed and load; it fades out afterwards.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment (Margin)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="3" storageaddress="0x0224ea">
+   <scaling units="% enrichment" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0228da">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0228aa">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Extra fuel added while the knock torque cap's margin trigger is set, by engine speed and load.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment Decay" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="4" storageaddress="0x022cf2">
+   <scaling units="% enrichment per pass" expression="x/2.56" to_byte="x*2.56" format="0.00" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x0230e2">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x0230b2">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>How fast the Trigger A / B knock event enrichment fades once the trigger clears, per pass, by engine speed and load.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment Ramp (Margin)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="4" storageaddress="0x0228ee">
+   <scaling units="% enrichment per pass" expression="x/2.56" to_byte="x*2.56" format="0.00" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x022cde">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x022cae">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>How fast the margin-trigger knock event enrichment moves toward its target and back, per pass, by engine speed and load.</description>
+  </table>
   <table type="3D" name="Primary Open Loop Fueling (TGV Open, AVCS Inactive)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint8" endian="big" sizex="20" sizey="24" userlevel="1" storageaddress="0x01af00">
    <scaling units="AFR (gasoline)" expression="3763.2/(256+x)" to_byte="3763.2/x-256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
    <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x01205c">
@@ -122122,6 +122397,61 @@ Details: When used: Used only while FFF899D7 bit 0 is set, a once-per-drive warm
     <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
    </table>
    <description>Open-loop AFR target for TGVs closed with AVCS in active control, part of a blend by TGV position and AVCS state, used above Open Loop Delay Load Threshold after a delay. The ECU uses the richer of the two systems, so leaning needs both.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment (Trigger A)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="3" storageaddress="0x021b0a">
+   <scaling units="% enrichment" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02267a">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02264a">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Extra fuel added while the knock torque cap's trigger a trigger is set, by engine speed and load; it fades out afterwards.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment (Trigger B)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="3" storageaddress="0x021eca">
+   <scaling units="% enrichment" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02267a">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02264a">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Extra fuel added while the knock torque cap's trigger b trigger is set, by engine speed and load; it fades out afterwards.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment (Margin)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="3" storageaddress="0x02228a">
+   <scaling units="% enrichment" expression="x/2.56" to_byte="x*2.56" format="0.0" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x02267a">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x02264a">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>Extra fuel added while the knock torque cap's margin trigger is set, by engine speed and load.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment Decay" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="4" storageaddress="0x022a92">
+   <scaling units="% enrichment per pass" expression="x/2.56" to_byte="x*2.56" format="0.00" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x022e82">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x022e52">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>How fast the Trigger A / B knock event enrichment fades once the trigger clears, per pass, by engine speed and load.</description>
+  </table>
+  <table type="3D" name="Knock Event Enrichment Ramp (Margin)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint16" endian="big" sizex="20" sizey="24" userlevel="4" storageaddress="0x02268e">
+   <scaling units="% enrichment per pass" expression="x/2.56" to_byte="x*2.56" format="0.00" fineincrement="0.4" coarseincrement="1.6" />
+   <table type="X Axis" name="Engine Load" storagetype="uint8" endian="big" storageaddress="0x022a7e">
+    <scaling category="Default" units="g/rev" expression="x*0.010344" to_byte="x/0.010344" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+    <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   </table>
+   <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="big" storageaddress="0x022a4e">
+    <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   </table>
+   <description>How fast the margin-trigger knock event enrichment moves toward its target and back, per pass, by engine speed and load.</description>
   </table>
   <table type="3D" name="Primary Open Loop Fueling (TGV Open, AVCS Inactive)" category="Fueling//Open Loop &amp; Enrichment Targets" storagetype="uint8" endian="big" sizex="20" sizey="24" userlevel="1" storageaddress="0x01ada0">
    <scaling units="AFR (gasoline)" expression="3763.2/(256+x)" to_byte="3763.2/x-256" format="0.00" fineincrement="0.1" coarseincrement="0.4" />

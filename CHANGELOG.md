@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- New: **Knock Event Enrichment** on every 2019-2021 2.0 and 1.6 ROM, the Ascent and the Legacy / Outback XT (5
+  tables, folder Open Loop & Enrichment Targets). This is 2019+ code: while one of the knock torque cap's triggers is
+  set, the ECU adds fuel from a table by engine speed and load (Trigger A, Trigger B, Margin), then fades it out (Decay)
+  or ramps it (Ramp, margin trigger). In stock only Trigger A adds fuel, up to about 39 %. Read from the code: the
+  value divides the lambda target by 1 + value / 256, the same 1/256-of-fuel unit as the other enrichments.
 - New: **the logging patch and SUBUDS for 135 more ROMs**, 238 in all: every supported 2.0 and 1.6 ROM except
   LV9H000D, and all five 2019–2021 Ascents (LT8D700A and LT8F200C added). 101 of the new ones run byte-identical code to
   a ROM that already had a spec; 32 were moved from a sibling through its address map with a second sibling as the

@@ -252,19 +252,19 @@ were later replaced by an update, or are builds that Subaru's update database do
 | WRX | 2018 | CVT | USA | **LF9C001N** | 1309 | 228 | yes |
 | WRX | 2018 | CVT | USA | **LF9C002N** | 1309 | 228 | yes |
 | WRX | 2018 | CVT | USA | **LF9C200N** ★ | 1309 | 228 | yes |
-| WRX | 2019 | 6MT | USA | **LF9D010h** | 1274 | 229 | yes |
-| WRX | 2019 (2.5 MB ECU) | 6MT | USA | **LF9D012h** ★ | 1316 | 229 | yes |
-| WRX | 2019 | CVT | USA | **LF9D010g** | 1321 | 229 | yes |
-| WRX | 2019 (2.5 MB ECU) | CVT | USA | **LF9D011g** | 1321 | 229 | yes |
-| WRX | 2019 (2.5 MB ECU) | CVT | USA | **LF9D030g** ★ | 1315 | 229 | yes |
-| WRX | 2020 | 6MT | USA | **LF9G001T** | 1320 | 231 | yes |
-| WRX | 2020 | 6MT | USA | **LF9G002T** | 1320 | 231 | yes |
-| WRX | 2020 (2.5 MB ECU) | 6MT | USA | **LF9G003T** ★ | 1320 | 231 | yes |
-| WRX | 2020 (2.5 MB ECU) | CVT | USA | **LF9G002S** ★ | 1320 | 231 | yes |
-| WRX | 2021 (2.5 MB ECU) | 6MT | USA | **LF9J001E** | 1320 | 231 | yes |
-| WRX | 2021 (2.5 MB ECU) | 6MT | USA | **LF9K000E** ★ | 1320 | 231 | yes |
-| WRX | 2021 (2.5 MB ECU) | CVT | USA | **LF9J000D** | 1320 | 231 | yes |
-| WRX | 2021 (2.5 MB ECU) | CVT | USA | **LF9K000D** ★ | 1320 | 231 | yes |
+| WRX | 2019 | 6MT | USA | **LF9D010h** | 1279 | 229 | yes |
+| WRX | 2019 (2.5 MB ECU) | 6MT | USA | **LF9D012h** ★ | 1321 | 229 | yes |
+| WRX | 2019 | CVT | USA | **LF9D010g** | 1326 | 229 | yes |
+| WRX | 2019 (2.5 MB ECU) | CVT | USA | **LF9D011g** | 1326 | 229 | yes |
+| WRX | 2019 (2.5 MB ECU) | CVT | USA | **LF9D030g** ★ | 1320 | 229 | yes |
+| WRX | 2020 | 6MT | USA | **LF9G001T** | 1325 | 231 | yes |
+| WRX | 2020 | 6MT | USA | **LF9G002T** | 1325 | 231 | yes |
+| WRX | 2020 (2.5 MB ECU) | 6MT | USA | **LF9G003T** ★ | 1325 | 231 | yes |
+| WRX | 2020 (2.5 MB ECU) | CVT | USA | **LF9G002S** ★ | 1325 | 231 | yes |
+| WRX | 2021 (2.5 MB ECU) | 6MT | USA | **LF9J001E** | 1325 | 231 | yes |
+| WRX | 2021 (2.5 MB ECU) | 6MT | USA | **LF9K000E** ★ | 1325 | 231 | yes |
+| WRX | 2021 (2.5 MB ECU) | CVT | USA | **LF9J000D** | 1325 | 231 | yes |
+| WRX | 2021 (2.5 MB ECU) | CVT | USA | **LF9K000D** ★ | 1325 | 231 | yes |
 | WRX S4 | 2015 | CVT | Japan | **LF75300F** | 1275 | 226 | yes |
 | WRX S4 (early software) | 2015 | CVT | Japan | **LV9N100B** | 1202 | 222 | yes |
 | WRX S4 | 2018 | CVT | Japan | **LF9C001K** | 1309 | 228 | yes |
@@ -390,7 +390,7 @@ logging over CAN, so the patch has nothing to extend. Mode-22 (UDS) logging work
 | Levorg 2.0GT-S (early software) | 2014 | CVT | Japan | **LV9N100A** | 1202 | 222 | yes |
 | Levorg 2.0GT-S | 2017 | CVT | Australia | **LF79100S** ★ | 1305 | 228 | yes |
 | Levorg 2.0GT-S | 2017 | CVT | Europe / General | **LF79002S** | 1291 | 228 | yes |
-| Levorg STI 2.0 (2.5 MB ECU) | 2019 | CVT | Japan | **LF9F000R** | 1320 | 231 | yes |
+| Levorg STI 2.0 (2.5 MB ECU) | 2019 | CVT | Japan | **LF9F000R** | 1325 | 231 | yes |
 | Levorg 2.0 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF75300D** | 1275 | 226 | yes |
 | Levorg 2.0 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LF79001K** | 1291 | 228 | yes |
 | Levorg 2.0 or WRX S4 (unconfirmed) | not confirmed | CVT | Japan (unconfirmed) | **LV9N302B** | 1240 | 222 | yes |
@@ -425,21 +425,21 @@ logging over CAN, so the patch has nothing to extend. Mode-22 (UDS) logging work
 | Levorg 1.6 | 2018 | CVT | Europe / General | **LF9B002G** | 1313 | 228 | yes |
 | Levorg 1.6 | 2018 | CVT | Europe / General | **LV3C001T** | 1230 | 228 | yes |
 | Levorg 1.6 | 2018 | CVT | not confirmed | **LV3C100T** ★ | 1230 | 228 | yes |
-| Levorg 1.6 | 2019 (2.5 MB ECU) | CVT | Europe | **LF9D100e** ★ | 1317 | 229 | yes |
-| Levorg 1.6 | 2019 | CVT | Europe / General | **LF9D001e** | 1321 | 229 | yes |
-| Levorg 1.6 | 2019 (2.5 MB ECU) | CVT | Japan | **LF9D000d** | 1321 | 229 | yes |
-| Levorg 1.6 | 2019 (2.5 MB ECU) | CVT | Japan | **LF9D200d** | 1321 | 229 | yes |
-| Levorg 1.6 | 2020 (2.5 MB ECU) | CVT | Europe | **LF9F100Q** ★ | 1318 | 231 | yes |
-| Levorg 1.6 | 2020 | CVT | Europe / General | **LF9F000Q** | 1320 | 231 | yes |
-| Levorg 1.6 | 2020 (2.5 MB ECU) | CVT | Japan | **LF9F100P** | 1320 | 231 | yes |
-| Levorg 1.6 | 2020 (2.5 MB ECU) | CVT | Japan | **LF9F200P** | 1320 | 231 | yes |
+| Levorg 1.6 | 2019 (2.5 MB ECU) | CVT | Europe | **LF9D100e** ★ | 1322 | 229 | yes |
+| Levorg 1.6 | 2019 | CVT | Europe / General | **LF9D001e** | 1326 | 229 | yes |
+| Levorg 1.6 | 2019 (2.5 MB ECU) | CVT | Japan | **LF9D000d** | 1326 | 229 | yes |
+| Levorg 1.6 | 2019 (2.5 MB ECU) | CVT | Japan | **LF9D200d** | 1326 | 229 | yes |
+| Levorg 1.6 | 2020 (2.5 MB ECU) | CVT | Europe | **LF9F100Q** ★ | 1323 | 231 | yes |
+| Levorg 1.6 | 2020 | CVT | Europe / General | **LF9F000Q** | 1325 | 231 | yes |
+| Levorg 1.6 | 2020 (2.5 MB ECU) | CVT | Japan | **LF9F100P** | 1325 | 231 | yes |
+| Levorg 1.6 | 2020 (2.5 MB ECU) | CVT | Japan | **LF9F200P** | 1325 | 231 | yes |
 | Levorg 1.6 | not confirmed | CVT | not confirmed | **LF76100R** | 1258 | 226 | yes |
 | Levorg 1.6 | not confirmed | CVT | not confirmed | **LF76200R** | 1258 | 226 | yes |
 | Levorg 1.6 | not confirmed | CVT | not confirmed | **LF76301R** | 1274 | 226 | yes |
 | Levorg 1.6 | not confirmed | CVT | not confirmed | **LF76400R** | 1278 | 226 | yes |
 | Levorg 1.6 | not confirmed | CVT | not confirmed | **LF79101U** | 1305 | 228 | yes |
 | Levorg 1.6 | not confirmed | CVT | not confirmed | **LF79300U** | 1304 | 228 | yes |
-| Levorg 1.6 | not confirmed | CVT | not confirmed | **LF9F000P** | 1320 | 231 | yes |
+| Levorg 1.6 | not confirmed | CVT | not confirmed | **LF9F000P** | 1325 | 231 | yes |
 | Levorg 1.6 | not confirmed | CVT | not confirmed | **LV9N301J** | 1240 | 222 | yes |
 | Levorg 1.6 | not confirmed | CVT | not confirmed | **LV9N302J** | 1245 | 222 | yes |
 
@@ -458,13 +458,13 @@ Calibrations that aren't in Subaru's update database, so model, year and market 
 | not confirmed | not confirmed | 6MT | not confirmed | **LF79130P** | 1298 | 228 | yes |
 | not confirmed | not confirmed | 6MT | not confirmed | **LF9C300P** | 1309 | 228 | yes |
 | not confirmed | not confirmed | 6MT | not confirmed | **LF9C400P** | 1301 | 228 | yes |
-| not confirmed | not confirmed | 6MT | not confirmed | **LF9D000j** | 1321 | 229 | yes |
-| not confirmed | not confirmed | 6MT | not confirmed | **LF9D000m** | 1321 | 229 | yes |
-| not confirmed | not confirmed | 6MT | not confirmed | **LF9D040h** | 1321 | 229 | yes |
-| not confirmed | not confirmed | 6MT | not confirmed | **LF9D050h** | 1320 | 229 | yes |
-| not confirmed | not confirmed | 6MT | not confirmed | **LF9F000V** | 1320 | 231 | yes |
-| not confirmed | not confirmed | 6MT | not confirmed | **LF9F000Y** | 1320 | 231 | yes |
-| not confirmed | not confirmed | 6MT | not confirmed | **LF9L000E** | 1320 | 231 | yes |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF9D000j** | 1326 | 229 | yes |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF9D000m** | 1326 | 229 | yes |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF9D040h** | 1326 | 229 | yes |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF9D050h** | 1325 | 229 | yes |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF9F000V** | 1325 | 231 | yes |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF9F000Y** | 1325 | 231 | yes |
+| not confirmed | not confirmed | 6MT | not confirmed | **LF9L000E** | 1325 | 231 | yes |
 | not confirmed | not confirmed | CVT | not confirmed | **LF73100A** | 1226 | 226 | yes |
 | not confirmed | not confirmed | CVT | not confirmed | **LF75100D** | 1251 | 226 | yes |
 | not confirmed | not confirmed | CVT | not confirmed | **LF75300E** | 1275 | 226 | yes |
@@ -487,14 +487,14 @@ Calibrations that aren't in Subaru's update database, so model, year and market 
 | not confirmed | not confirmed | CVT | not confirmed | **LF9C000Z** | 1309 | 228 | yes |
 | not confirmed | not confirmed | CVT | not confirmed | **LF9C000b** | 1309 | 228 | yes |
 | not confirmed | not confirmed | CVT | not confirmed | **LF9C001D** | 1309 | 228 | yes |
-| not confirmed | not confirmed | CVT | not confirmed | **LF9D000f** | 1321 | 229 | yes |
-| not confirmed | not confirmed | CVT | not confirmed | **LF9D000i** | 1321 | 229 | yes |
-| not confirmed | not confirmed | CVT | not confirmed | **LF9D000k** | 1321 | 229 | yes |
-| not confirmed | not confirmed | CVT | not confirmed | **LF9D000n** | 1321 | 229 | yes |
-| not confirmed | not confirmed | CVT | not confirmed | **LF9F000U** | 1320 | 231 | yes |
-| not confirmed | not confirmed | CVT | not confirmed | **LF9F000W** | 1320 | 231 | yes |
-| not confirmed | not confirmed | CVT | not confirmed | **LF9F000Z** | 1320 | 231 | yes |
-| not confirmed | not confirmed | CVT | not confirmed | **LF9J000C** | 1320 | 231 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9D000f** | 1326 | 229 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9D000i** | 1326 | 229 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9D000k** | 1326 | 229 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9D000n** | 1326 | 229 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9F000U** | 1325 | 231 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9F000W** | 1325 | 231 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9F000Z** | 1325 | 231 | yes |
+| not confirmed | not confirmed | CVT | not confirmed | **LF9J000C** | 1325 | 231 | yes |
 | not confirmed | not confirmed | CVT | not confirmed | **LV9N000A** | 1200 | 222 | yes |
 
 </details>
@@ -504,15 +504,15 @@ Calibrations that aren't in Subaru's update database, so model, year and market 
 
 | Model | Model year | Transmission | Market | ROM (calibration ID) | Tables, scalars & switches | DTCs | Logging patch |
 |---|---|---|---|---|---|---|---|
-| Ascent 2.4 | 2019 | CVT | USA | **LT8D700A** | 1293 | 250 | yes |
-| Ascent 2.4 | 2019 | CVT | USA | **LT8D800A** ★ | 1293 | 250 | yes |
-| Ascent 2.4 | 2020 | CVT | USA | **LT8F200C** | 1293 | 250 | yes |
-| Ascent 2.4 | 2020 | CVT | USA | **LT8F300C** ★ | 1293 | 250 | yes |
-| Ascent 2.4 | 2021 | CVT | USA | **LT8H300D** ★ | 1266 | 251 | yes |
-| Legacy / Outback XT 2.4 | 2020 | CVT | USA | **LG7D430B** | 1266 | 250 | no SSM (see notes) |
-| Legacy / Outback XT 2.4 | 2020 | CVT | USA | **LG7D501B** ★ | 1262 | 250 | no SSM (see notes) |
-| Legacy / Outback XT 2.4 | 2021 | CVT | USA | **LG7F301F** ★ | 1264 | 250 | no SSM (see notes) |
-| Legacy / Outback XT 2.4 | not confirmed | CVT | not confirmed | **LG7F300F** | 1264 | 250 | no SSM (see notes) |
+| Ascent 2.4 | 2019 | CVT | USA | **LT8D700A** | 1298 | 250 | yes |
+| Ascent 2.4 | 2019 | CVT | USA | **LT8D800A** ★ | 1298 | 250 | yes |
+| Ascent 2.4 | 2020 | CVT | USA | **LT8F200C** | 1298 | 250 | yes |
+| Ascent 2.4 | 2020 | CVT | USA | **LT8F300C** ★ | 1298 | 250 | yes |
+| Ascent 2.4 | 2021 | CVT | USA | **LT8H300D** ★ | 1271 | 251 | yes |
+| Legacy / Outback XT 2.4 | 2020 | CVT | USA | **LG7D430B** | 1271 | 250 | no SSM (see notes) |
+| Legacy / Outback XT 2.4 | 2020 | CVT | USA | **LG7D501B** ★ | 1267 | 250 | no SSM (see notes) |
+| Legacy / Outback XT 2.4 | 2021 | CVT | USA | **LG7F301F** ★ | 1269 | 250 | no SSM (see notes) |
+| Legacy / Outback XT 2.4 | not confirmed | CVT | not confirmed | **LG7F300F** | 1269 | 250 | no SSM (see notes) |
 
 The Ascent and Legacy XT run a later build of the same ECU software, so most tables are the FA20DIT ones. Boost
 control is different: they have an electric wastegate, with its own Boost Control group (target, wastegate

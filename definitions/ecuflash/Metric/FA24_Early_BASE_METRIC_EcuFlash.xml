@@ -20,6 +20,8 @@
  <include>FA20DIT_BASE_METRIC</include>
  <scaling name="ms uint32" units="ms" toexpr="x*0.0008" frexpr="x/0.0008" format="%0.2f" min="0" max="3.43597e+06" inc="0.05" storagetype="uint32" endian="big" />
  <scaling name="g/rev uint8 (2.4)" units="g/rev" toexpr="x*0.015516" frexpr="x/0.015516" format="%0.2f" min="0" max="3.95658" inc="0.05" storagetype="uint8" endian="big" />
+ <scaling name="% enrichment uint16 (2.4)" units="% enrichment" toexpr="x/2.56" frexpr="x*2.56" format="%0.1f" min="0" max="25599.6" inc="0.4" storagetype="uint16" endian="big" />
+ <scaling name="% enrichment uint16 #2 (2.4)" units="% enrichment" toexpr="x/327.68" frexpr="x*327.68" format="%0.1f" min="0" max="199.997" inc="0.5" storagetype="uint16" endian="big" />
  <scaling name="g/rev (fuel basis) uint8 (2.4)" units="g/rev (fuel basis)" toexpr="x*0.9944*0.015516" frexpr="x*64.8125506964" format="%0.2f" min="0" max="3.93442" inc="0.05" storagetype="uint8" endian="big" />
  <scaling name="ms uint16 (2.4)" units="ms" toexpr="x*0.008" frexpr="x/0.008" format="%0.2f" min="0" max="524.28" inc="0.1" storagetype="uint16" endian="big" />
  <scaling name="ms uint16 #2 (2.4)" units="ms" toexpr="x*0.0008" frexpr="x/0.0008" format="%0.2f" min="0" max="52.428" inc="0.05" storagetype="uint16" endian="big" />
@@ -12748,6 +12750,31 @@
   <table name="Engine Speed" type="Y Axis" elements="24" scaling="RPM uint16" />
   <description>Open-loop AFR target for TGVs closed with AVCS in active control, part of a blend by TGV position and AVCS state, used above Open Loop Delay Load Threshold after a delay. The ECU uses the richer of the two systems, so leaning needs both.</description>
  </table>
+ <table name="Knock Event Enrichment (Trigger A)" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Engine Load" type="X Axis" elements="20" scaling="g/rev uint8 (2.4)" />
+  <table name="Engine Speed" type="Y Axis" elements="24" scaling="RPM uint16" />
+  <description>Extra fuel added while the knock torque cap's trigger a trigger is set, by engine speed and load; it fades out afterwards.</description>
+ </table>
+ <table name="Knock Event Enrichment (Trigger B)" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Engine Load" type="X Axis" elements="20" scaling="g/rev uint8 (2.4)" />
+  <table name="Engine Speed" type="Y Axis" elements="24" scaling="RPM uint16" />
+  <description>Extra fuel added while the knock torque cap's trigger b trigger is set, by engine speed and load; it fades out afterwards.</description>
+ </table>
+ <table name="Knock Event Enrichment (Margin)" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Engine Load" type="X Axis" elements="20" scaling="g/rev uint8 (2.4)" />
+  <table name="Engine Speed" type="Y Axis" elements="24" scaling="RPM uint16" />
+  <description>Extra fuel added while the knock torque cap's margin trigger is set, by engine speed and load.</description>
+ </table>
+ <table name="Knock Event Enrichment Decay" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="4" scaling="% enrichment per pass uint16">
+  <table name="Engine Load" type="X Axis" elements="20" scaling="g/rev uint8 (2.4)" />
+  <table name="Engine Speed" type="Y Axis" elements="24" scaling="RPM uint16" />
+  <description>How fast the Trigger A / B knock event enrichment fades once the trigger clears, per pass, by engine speed and load.</description>
+ </table>
+ <table name="Knock Event Enrichment Ramp (Margin)" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="4" scaling="% enrichment per pass uint16">
+  <table name="Engine Load" type="X Axis" elements="20" scaling="g/rev uint8 (2.4)" />
+  <table name="Engine Speed" type="Y Axis" elements="24" scaling="RPM uint16" />
+  <description>How fast the margin-trigger knock event enrichment moves toward its target and back, per pass, by engine speed and load.</description>
+ </table>
  <table name="Primary Open Loop Fueling (TGV Open, AVCS Inactive)" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="1" scaling="AFR (gasoline) uint8">
   <table name="Engine Load" type="X Axis" elements="20" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="24" scaling="RPM uint16" />
@@ -12787,20 +12814,24 @@
   <table name="Engine Speed" type="Y Axis" elements="24" scaling="RPM uint16" />
   <description>Fuel removed from Primary Open Loop Fueling, scaled by its DAM multiplier (negative cells add fuel). It only leans the target where the TGV/AVCS group is not richer.</description>
  </table>
- <table name="Low-DAM Enrichment" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="3" scaling="% enrichment uint16">
+ <table name="Low-DAM Enrichment" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="3" scaling="% enrichment uint16 #2 (2.4)">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
   <description>Extra fuel, by rpm and load, that richens the closed-loop target, the closed-loop override and the open-loop floor, scaled up as DAM falls (Low-DAM Enrichment DAM Multiplier). Probably a knock-history safety enrichment.</description>
  </table>
- <table name="Warm-Up Enrichment (TGV Open)" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="3" scaling="% enrichment uint16 #2">
+ <table name="Warm-Up Enrichment (TGV Open)" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="3" scaling="% enrichment uint16 (2.4)">
   <table name="Coolant Temp" type="X Axis" elements="16" scaling="degrees C uint16" />
   <table name="Engine Load" type="Y Axis" elements="16" scaling="g/rev uint8 (2.4)" />
   <description>Coolant-based warm-up enrichment with the TGVs open, blended with Warm-Up Enrichment (TGV Closed) by TGV position and scaled by Warm-Up Enrichment RPM Multiplier. Raising it adds fuel while cold. Warm-up role inferred from the coolant axis.</description>
  </table>
- <table name="Warm-Up Enrichment (TGV Closed)" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="3" scaling="% enrichment uint16 #2">
+ <table name="Warm-Up Enrichment (TGV Closed)" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="3" scaling="% enrichment uint16 (2.4)">
   <table name="Coolant Temp" type="X Axis" elements="16" scaling="degrees C uint16" />
   <table name="Engine Load" type="Y Axis" elements="16" scaling="g/rev uint8 (2.4)" />
   <description>Coolant-based warm-up enrichment with the TGVs closed, blended with Warm-Up Enrichment (TGV Open) by TGV position. Raising it adds fuel while cold.</description>
+ </table>
+ <table name="Warm-Up Enrichment (Coolant Window Override)" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="2D" level="4" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Replaces the warm-up enrichment for a while after start, but only when the start coolant falls inside a calibrated window.</description>
  </table>
  <table name="Fuel Factor Correction (RPM x Load)" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="3" scaling="% fuel uint8">
   <table name="Engine Load" type="X Axis" elements="24" scaling="g/rev uint8 (2.4)" />
@@ -12817,12 +12848,12 @@
   <table name="Engine Speed" type="Y Axis" elements="24" scaling="RPM uint16" />
   <description>Replacement for the TGV/AVCS open-loop group plus its knock additive, used only with the 'Use Alternate Map' calibration switch set.</description>
  </table>
- <table name="Additional Enrichment A" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="4" scaling="% enrichment uint16 #2">
+ <table name="Additional Enrichment A" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="4" scaling="% enrichment uint16 (2.4)">
   <table name="Engine Load" type="X Axis" elements="20" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="24" scaling="RPM uint16" />
   <description>Extra enrichment added to the open-loop enrichment at higher coolant and lower rpm.</description>
  </table>
- <table name="Additional Enrichment B" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="4" scaling="% enrichment uint16 #2">
+ <table name="Additional Enrichment B" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="4" scaling="% enrichment uint16 (2.4)">
   <table name="Engine Load" type="X Axis" elements="20" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="24" scaling="RPM uint16" />
   <description>Second table of the additional enrichment, used at low coolant or high rpm.</description>
@@ -12950,29 +12981,121 @@
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
   <description>Secondary cranking fuel pulse by coolant (repeat attempt). It is the cranking pulse whenever the engine cranks in normal combustion mode instead of the start mode: after about 10 s of continuous cranking, when the low-rail-pressure start latch is set (then scaled by Cranking Fuel Secondary Low Rail Pressure Multiplier), or on a re-crank before the start sequence reset; it also sets a floor on fuel in normal running until it decays. Raw units: change it proportionally.</description>
  </table>
- <table name="Start Enrichment (Load, TGV Open)" category="01.05 Fueling - Cranking &amp; Start" type="3D" level="3" scaling="% enrichment uint16 #2">
+ <table name="Low Rail Pressure Start Enrichment" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint8" />
+  <description>Extra fuel by coolant when rail pressure is still low some time into a start, until pressure has stayed close to target for a while.</description>
+ </table>
+ <table name="Start Enrichment (Load, TGV Open)" category="01.05 Fueling - Cranking &amp; Start" type="3D" level="3" scaling="% enrichment uint16 (2.4)">
   <table name="Coolant Temp" type="X Axis" elements="16" scaling="degrees C uint16" />
   <table name="Engine Load" type="Y Axis" elements="16" scaling="g/rev uint8 (2.4)" />
   <description>Start-path enrichment by load and coolant with the TGVs open, blended with the TGV Closed table by TGV position. Raising it adds fuel during start-up.</description>
  </table>
- <table name="Start Enrichment (Load, TGV Closed)" category="01.05 Fueling - Cranking &amp; Start" type="3D" level="3" scaling="% enrichment uint16 #2">
+ <table name="Start Enrichment (Load, TGV Closed)" category="01.05 Fueling - Cranking &amp; Start" type="3D" level="3" scaling="% enrichment uint16 (2.4)">
   <table name="Coolant Temp" type="X Axis" elements="16" scaling="degrees C uint16" />
   <table name="Engine Load" type="Y Axis" elements="16" scaling="g/rev uint8 (2.4)" />
   <description>Start-path enrichment by load and coolant with the TGVs closed, blended with the TGV Open table by TGV position and scaled by Start Enrichment (Load) RPM Multiplier.</description>
  </table>
- <table name="Start Enrichment Additive (Load, TGV Closed)" category="01.05 Fueling - Cranking &amp; Start" type="3D" level="3" scaling="% enrichment uint16 #2">
+ <table name="Start Enrichment Additive (Load, TGV Closed)" category="01.05 Fueling - Cranking &amp; Start" type="3D" level="3" scaling="% enrichment uint16 (2.4)">
   <table name="Coolant Temp" type="X Axis" elements="16" scaling="degrees C uint16" />
   <table name="Engine Load" type="Y Axis" elements="16" scaling="g/rev uint8 (2.4)" />
   <description>Extra start enrichment by load and coolant, added on top of Start Enrichment (Load) only while a start condition flag is set (depends on start coolant, pedal and speed; not fully decoded). TGVs closed side of a TGV blend.</description>
  </table>
- <table name="Start Enrichment Additive (Load, TGV Open)" category="01.05 Fueling - Cranking &amp; Start" type="3D" level="3" scaling="% enrichment uint16 #2">
+ <table name="Start Enrichment Additive (Load, TGV Open)" category="01.05 Fueling - Cranking &amp; Start" type="3D" level="3" scaling="% enrichment uint16 (2.4)">
   <table name="Coolant Temp" type="X Axis" elements="16" scaling="degrees C uint16" />
   <table name="Engine Load" type="Y Axis" elements="16" scaling="g/rev uint8 (2.4)" />
   <description>Extra start enrichment by load and coolant, added on top of Start Enrichment (Load) only while a start condition flag is set (depends on start coolant, pedal and speed; not fully decoded). TGVs open side of a TGV blend.</description>
  </table>
+ <table name="Start Enrichment (Coolant Window Override)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="4" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Replaces Start Enrichment (Load) for a while after start, but only when the start coolant falls inside a calibrated window.</description>
+ </table>
+ <table name="After-Start Enrichment 1 (Index 0)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Early-2015 LV9N-software version (LV9N101C / LV9N100F only; LF75404S and later use the TGV-split tables) of After-Start Enrichment 1: after-start enrichment by coolant, one of four tables chosen by a start index (this is index 0), with no TGV split. Faded by After-Start Enrichment Decay 1 (Index 0); numbering matched to the later builds by inference.</description>
+ </table>
+ <table name="After-Start Enrichment 1 (Index 1)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Early-2015 LV9N-software version (LV9N101C / LV9N100F only; LF75404S and later use the TGV-split tables) of After-Start Enrichment 1: after-start enrichment by coolant, one of four tables chosen by a start index (this is index 1), with no TGV split. Faded by After-Start Enrichment Decay 1 (Index 1); numbering matched to the later builds by inference.</description>
+ </table>
+ <table name="After-Start Enrichment 1 (Index 2)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Early-2015 LV9N-software version (LV9N101C / LV9N100F only; LF75404S and later use the TGV-split tables) of After-Start Enrichment 1: after-start enrichment by coolant, one of four tables chosen by a start index (this is index 2), with no TGV split. Faded by After-Start Enrichment Decay 1 (Index 2); numbering matched to the later builds by inference.</description>
+ </table>
+ <table name="After-Start Enrichment 1 (Index 3)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Early-2015 LV9N-software version (LV9N101C / LV9N100F only; LF75404S and later use the TGV-split tables) of After-Start Enrichment 1: after-start enrichment by coolant, one of four tables chosen by a start index (this is index 3), with no TGV split. Faded by After-Start Enrichment Decay 1 (Index 3); numbering matched to the later builds by inference.</description>
+ </table>
+ <table name="After-Start Enrichment 2 (Index 0)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Early-2015 LV9N-software version (LV9N101C / LV9N100F only; LF75404S and later use the TGV-split tables) of After-Start Enrichment 2: after-start enrichment by coolant, one of four tables chosen by a start index (this is index 0), with no TGV split. Faded by After-Start Enrichment Decay 2 (Index 0); numbering matched to the later builds by inference.</description>
+ </table>
+ <table name="After-Start Enrichment 2 (Index 1)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Early-2015 LV9N-software version (LV9N101C / LV9N100F only; LF75404S and later use the TGV-split tables) of After-Start Enrichment 2: after-start enrichment by coolant, one of four tables chosen by a start index (this is index 1), with no TGV split. Faded by After-Start Enrichment Decay 2 (Index 1); numbering matched to the later builds by inference.</description>
+ </table>
+ <table name="After-Start Enrichment 2 (Index 2)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Early-2015 LV9N-software version (LV9N101C / LV9N100F only; LF75404S and later use the TGV-split tables) of After-Start Enrichment 2: after-start enrichment by coolant, one of four tables chosen by a start index (this is index 2), with no TGV split. Faded by After-Start Enrichment Decay 2 (Index 2); numbering matched to the later builds by inference.</description>
+ </table>
+ <table name="After-Start Enrichment 2 (Index 3)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Early-2015 LV9N-software version (LV9N101C / LV9N100F only; LF75404S and later use the TGV-split tables) of After-Start Enrichment 2: after-start enrichment by coolant, one of four tables chosen by a start index (this is index 3), with no TGV split. Faded by After-Start Enrichment Decay 2 (Index 3); numbering matched to the later builds by inference.</description>
+ </table>
+ <table name="After-Start Enrichment 3 (Index 0)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Early-2015 LV9N-software version (LV9N101C / LV9N100F only; LF75404S and later use the TGV-split tables) of After-Start Enrichment 3: after-start enrichment by coolant, one of four tables chosen by a start index (this is index 0), with no TGV split. Faded by After-Start Enrichment Decay 3 (Index 0); numbering matched to the later builds by inference.</description>
+ </table>
+ <table name="After-Start Enrichment 3 (Index 1)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Early-2015 LV9N-software version (LV9N101C / LV9N100F only; LF75404S and later use the TGV-split tables) of After-Start Enrichment 3: after-start enrichment by coolant, one of four tables chosen by a start index (this is index 1), with no TGV split. Faded by After-Start Enrichment Decay 3 (Index 1); numbering matched to the later builds by inference.</description>
+ </table>
+ <table name="After-Start Enrichment 3 (Index 2)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Early-2015 LV9N-software version (LV9N101C / LV9N100F only; LF75404S and later use the TGV-split tables) of After-Start Enrichment 3: after-start enrichment by coolant, one of four tables chosen by a start index (this is index 2), with no TGV split. Faded by After-Start Enrichment Decay 3 (Index 2); numbering matched to the later builds by inference.</description>
+ </table>
+ <table name="After-Start Enrichment 3 (Index 3)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Early-2015 LV9N-software version (LV9N101C / LV9N100F only; LF75404S and later use the TGV-split tables) of After-Start Enrichment 3: after-start enrichment by coolant, one of four tables chosen by a start index (this is index 3), with no TGV split. Faded by After-Start Enrichment Decay 3 (Index 3); numbering matched to the later builds by inference.</description>
+ </table>
  <table name="After-Start Enrichment Coolant Multiplier (Repeat Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="4" scaling="multiplier uint8">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint8" />
   <description>Computed after a repeat crank but never used by the fuel calculation, so editing it does nothing.</description>
+ </table>
+ <table name="Running After-Start Enrichment 1 (First Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Running-path after-start enrichment 1 by coolant for a first start (start type meaning inferred). The ECU uses the largest of the three terms, each faded by its decay table; cut at very high load. Also blocks long-term trim learning while active.</description>
+ </table>
+ <table name="Running After-Start Enrichment 1 (Restart after Key-Off)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Running-path after-start enrichment 1 by coolant for a restart after key-off (start type meaning inferred). The ECU uses the largest of the three terms, each faded by its decay table; cut at very high load. Also blocks long-term trim learning while active.</description>
+ </table>
+ <table name="Running After-Start Enrichment 1 (Restart after Stall)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Running-path after-start enrichment 1 by coolant for a restart after a stall (start type meaning inferred). The ECU uses the largest of the three terms, each faded by its decay table; cut at very high load. Also blocks long-term trim learning while active.</description>
+ </table>
+ <table name="Running After-Start Enrichment 2 (First Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Running-path after-start enrichment 2 by coolant for a first start (start type meaning inferred). The ECU uses the largest of the three terms, each faded by its decay table; cut at very high load. Also blocks long-term trim learning while active.</description>
+ </table>
+ <table name="Running After-Start Enrichment 2 (Restart after Key-Off)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Running-path after-start enrichment 2 by coolant for a restart after key-off (start type meaning inferred). The ECU uses the largest of the three terms, each faded by its decay table; cut at very high load. Also blocks long-term trim learning while active.</description>
+ </table>
+ <table name="Running After-Start Enrichment 2 (Restart after Stall)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Running-path after-start enrichment 2 by coolant for a restart after a stall (start type meaning inferred). The ECU uses the largest of the three terms, each faded by its decay table; cut at very high load. Also blocks long-term trim learning while active.</description>
+ </table>
+ <table name="Running After-Start Enrichment 3 (First Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Running-path after-start enrichment 3 by coolant for a first start (start type meaning inferred). The ECU uses the largest of the three terms, each faded by its decay table; cut at very high load. Also blocks long-term trim learning while active.</description>
+ </table>
+ <table name="Running After-Start Enrichment 3 (Restart after Key-Off)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Running-path after-start enrichment 3 by coolant for a restart after key-off (start type meaning inferred). The ECU uses the largest of the three terms, each faded by its decay table; cut at very high load. Also blocks long-term trim learning while active.</description>
+ </table>
+ <table name="Running After-Start Enrichment 3 (Restart after Stall)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="3" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Running-path after-start enrichment 3 by coolant for a restart after a stall (start type meaning inferred). The ECU uses the largest of the three terms, each faded by its decay table; cut at very high load. Also blocks long-term trim learning while active.</description>
  </table>
  <table name="Cranking Fuel (Repeat Attempt, Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="5" scaling="ms uint16 (2.4)">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
@@ -13136,6 +13259,24 @@ Coolant-indexed base of the cranking pulse FFF8AFC6 (0x0C9038, read); used when 
  <table name="Cranking Fuel Secondary Decay by Start Type (Stall Window, Special Start, Initial)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="4" scaling="fraction per pass uint16">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
   <description>Secondary-path copy of Cranking Fuel Decay by Start Type (Stall Window, Special Start, Initial).</description>
+ </table>
+ <table name="Running After-Start Enrichment 1 (Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="5" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Running After-Start Enrichment 1 for the special start type, which is disabled by calibration.
+
+Details: When used: start type FFF8A6E7 = 3 or above, in fuel states 2 (cranking) and 3 (running). Amount E1 (1/256 of fuel) for this start type, on coolant FFF88A44. 0x0CDD8C (read) builds Confidence: inferred.</description>
+ </table>
+ <table name="Running After-Start Enrichment 2 (Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="5" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Running After-Start Enrichment 2 for the special start type, which is disabled by calibration.
+
+Details: When used: start type FFF8A6E7 = 3 or above, in fuel states 2 (cranking) and 3 (running). Amount E2 (1/256 of fuel) for this start type, on coolant FFF88A44. 0x0CDD8C (read) builds Confidence: inferred.</description>
+ </table>
+ <table name="Running After-Start Enrichment 3 (Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="5" scaling="% enrichment uint16 (2.4)">
+  <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees C uint16" />
+  <description>Running After-Start Enrichment 3 for the special start type, which is disabled by calibration.
+
+Details: When used: start type FFF8A6E7 = 3 or above, in fuel states 2 (cranking) and 3 (running). Amount E3 (1/256 of fuel) for this start type, on coolant FFF88A44. 0x0CDD8C (read) builds Confidence: inferred.</description>
  </table>
  <table name="Injection Timing (Single Injection)" category="01.06 Fueling - Injection Timing" type="3D" level="3" scaling="deg BTDC int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />

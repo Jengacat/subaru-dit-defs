@@ -59626,6 +59626,7 @@
  </scaling>
  <scaling name="deg BTDC (neg  ATDC) uint16" units="deg BTDC (neg = ATDC)" toexpr="x*-0.5" frexpr="x*-2" format="%0.1f" min="-32767.5" max="0" inc="0.5" storagetype="uint16" endian="big" />
  <scaling name="fraction uint8" units="fraction" toexpr="x/128" frexpr="x*128" format="%0.2f" min="0" max="1.99219" inc="0.01" storagetype="uint8" endian="big" />
+ <scaling name="% enrichment per pass uint16" units="% enrichment per pass" toexpr="x/2.56" frexpr="x*2.56" format="%0.2f" min="0" max="25599.6" inc="0.4" storagetype="uint16" endian="big" />
  <scaling name="ft-lb per pass uint16" units="ft-lb per pass" toexpr="x*0.00921952625" frexpr="x*80/0.7375621" format="%0.1f" min="0" max="604.202" inc="0.1" storagetype="uint16" endian="big" />
  <scaling name="Switch on b0 m03 f00" storagetype="bloblist">
   <data name="on [01]" value="01" />
@@ -61304,6 +61305,31 @@ Details: When used: Only with the automatic/CVT transmission coding (Cal Switche
   <table name="Engine Load" type="X Axis" elements="20" scaling="g/rev uint8" />
   <table name="Engine Speed" type="Y Axis" elements="24" scaling="RPM uint16" />
   <description>Open-loop AFR target for TGVs closed with AVCS in active control, part of a blend by TGV position and AVCS state, used above Open Loop Delay Load Threshold after a delay. The ECU uses the richer of the two systems, so leaning needs both.</description>
+ </table>
+ <table name="Knock Event Enrichment (Trigger A)" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="3" scaling="% enrichment uint16 #2">
+  <table name="Engine Load" type="X Axis" elements="20" scaling="g/rev uint8" />
+  <table name="Engine Speed" type="Y Axis" elements="24" scaling="RPM uint16" />
+  <description>Extra fuel added while the knock torque cap's trigger a trigger is set, by engine speed and load; it fades out afterwards.</description>
+ </table>
+ <table name="Knock Event Enrichment (Trigger B)" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="3" scaling="% enrichment uint16 #2">
+  <table name="Engine Load" type="X Axis" elements="20" scaling="g/rev uint8" />
+  <table name="Engine Speed" type="Y Axis" elements="24" scaling="RPM uint16" />
+  <description>Extra fuel added while the knock torque cap's trigger b trigger is set, by engine speed and load; it fades out afterwards.</description>
+ </table>
+ <table name="Knock Event Enrichment (Margin)" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="3" scaling="% enrichment uint16 #2">
+  <table name="Engine Load" type="X Axis" elements="20" scaling="g/rev uint8" />
+  <table name="Engine Speed" type="Y Axis" elements="24" scaling="RPM uint16" />
+  <description>Extra fuel added while the knock torque cap's margin trigger is set, by engine speed and load.</description>
+ </table>
+ <table name="Knock Event Enrichment Decay" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="4" scaling="% enrichment per pass uint16">
+  <table name="Engine Load" type="X Axis" elements="20" scaling="g/rev uint8" />
+  <table name="Engine Speed" type="Y Axis" elements="24" scaling="RPM uint16" />
+  <description>How fast the Trigger A / B knock event enrichment fades once the trigger clears, per pass, by engine speed and load.</description>
+ </table>
+ <table name="Knock Event Enrichment Ramp (Margin)" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="4" scaling="% enrichment per pass uint16">
+  <table name="Engine Load" type="X Axis" elements="20" scaling="g/rev uint8" />
+  <table name="Engine Speed" type="Y Axis" elements="24" scaling="RPM uint16" />
+  <description>How fast the margin-trigger knock event enrichment moves toward its target and back, per pass, by engine speed and load.</description>
  </table>
  <table name="Primary Open Loop Fueling (TGV Open, AVCS Inactive)" category="01.02 Fueling - Open Loop &amp; Enrichment Targets" type="3D" level="1" scaling="AFR (gasoline) uint8">
   <table name="Engine Load" type="X Axis" elements="20" scaling="g/rev uint8" />

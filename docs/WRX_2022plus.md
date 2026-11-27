@@ -9,10 +9,10 @@ everything here applies to their ROMs too. Read this before you start; the suppo
   once its first 65,536 bytes are removed; the checksum tool tells you if you have one.
 - **Checksum.** A different rule from the other ECUs, which `tools/checksum.py` and `checksum.ps1` handle (same
   commands as in [Fix the checksum before every flash](../README.md#fix-the-checksum-before-every-flash)). Not yet proven on a car.
-- **RomRaider.** `FA24DIT_RomRaider.xml` opens in any RomRaider 1.0.0 or later; fix the checksum with the
-  tool after saving. `FA24DIT_RomRaider_Checksum.xml` (keep its `checksum/` folder next to it) corrects the
-  sum when you save, but needs a RomRaider that can load a checksum module from the definition folder: my change for that ([RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)) is in [RomRaider 1.1.1](https://github.com/RomRaider/RomRaider/releases) and later. RomRaider 1.0.0 and 1.1.0 can't open the images with that file
-  at all, so install only one of the two.
+- **RomRaider.** `FA24DIT_RomRaider.xml` (keep its `checksum/` folder next to it) corrects the sum when you save.
+  It needs [RomRaider 1.1.1](https://github.com/RomRaider/RomRaider/releases) or later, which can load a checksum
+  module from the definition folder (my change, [RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248));
+  RomRaider 1.0.0 and 1.1.0 can't open the ROMs with it.
 - **FastECU, or EcuFlash with a copy.** The EcuFlash-format files (`FA24DIT_*_EcuFlash.xml`) are made for
   **FastECU**, which opens the full image with them (see FastECU below). EcuFlash itself (1.44) can't load the right memory model
   for these ROMs: none of its built-in models is the size of these images, so it only opens a 3 MB copy (every table

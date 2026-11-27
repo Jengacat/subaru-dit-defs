@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- FA20DIT (SH72543R) definitions, my own clean-room work: https://github.com/Jengacat/subaru-dit-defs
      Generated from my table list. Do not edit by hand. -->
+<!-- Checksum: RomRaider corrects it when you save, with the FA20Sum16 module in the checksum/ folder next
+     to this file (keep the folder there). Needs RomRaider 1.1.1 or later, which loads checksum modules from the
+     definition folder (RomRaider pull request #248). -->
 <!-- Inheritance: the first <rom> (FA20DIT_BASE) is a shared base that no image matches; each image's <rom>
      names its base and lists only its addresses and its own tables. -->
 <roms>
@@ -9248,6 +9251,7 @@ B270 is used in fan mode 7: duty = max.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table type="2D" name="Target Rail Pressure (Combustion Mode 1)" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint16" endian="big" sizey="16" userlevel="3" storageaddress="0x03f534">
    <scaling category="Default" units="psi" expression="x*0.0884730" to_byte="x/0.0884730" format="0" fineincrement="25" coarseincrement="100.0" />
    <scaling category="MPa" units="MPa" expression="x*0.00061" to_byte="x/0.00061" format="0.00" fineincrement="0.1" coarseincrement="0.4" />
@@ -14251,6 +14255,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="LF75404S">
   <romid>
@@ -14269,6 +14274,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="LF75404S">
   <romid>
@@ -14287,6 +14293,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Additional Enrichment A" storageaddress="0x0155ea" userlevel="4">
    <description>Extra enrichment added to the open-loop enrichment at higher coolant and lower rpm.</description>
   </table>
@@ -14569,6 +14576,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Transient Fuel Throttle-Rate Gain (AT/CVT)" storageaddress="0x0344cb" userlevel="2">
    <description>AT/CVT version of Transient Fuel Throttle-Rate Gain; only used with an automatic/CVT coding, no effect on a manual car.</description>
   </table>
@@ -14845,6 +14853,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x03f82e" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -14911,6 +14920,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x03f82e" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -14977,6 +14987,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Additional Enrichment A" storageaddress="0x0155ea" userlevel="4">
    <description>Extra enrichment added to the open-loop enrichment at higher coolant and lower rpm.</description>
   </table>
@@ -15259,6 +15270,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x03f82e" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -15325,6 +15337,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Additional Enrichment A" storageaddress="0x0155ea" userlevel="4">
    <description>Extra enrichment added to the open-loop enrichment at higher coolant and lower rpm.</description>
   </table>
@@ -15736,6 +15749,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Transient Fuel Throttle-Rate Gain (AT/CVT)" storageaddress="0x0344cb" userlevel="2">
    <description>AT/CVT version of Transient Fuel Throttle-Rate Gain; only used with an automatic/CVT coding, no effect on a manual car.</description>
   </table>
@@ -16135,6 +16149,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Transient Fuel Throttle-Rate Gain (AT/CVT)" storageaddress="0x0344cb" userlevel="2">
    <description>AT/CVT version of Transient Fuel Throttle-Rate Gain; only used with an automatic/CVT coding, no effect on a manual car.</description>
   </table>
@@ -16534,6 +16549,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x03f82e" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -16822,6 +16838,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x03f82e" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -16888,6 +16905,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x03f82e" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -17176,6 +17194,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x03f82e" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -17242,6 +17261,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x03f82e" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -17530,6 +17550,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="LF75404S">
   <romid>
@@ -17548,6 +17569,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Transient Fuel Throttle-Rate Gain (AT/CVT)" storageaddress="0x0344cb" userlevel="2">
    <description>AT/CVT version of Transient Fuel Throttle-Rate Gain; only used with an automatic/CVT coding, no effect on a manual car.</description>
   </table>
@@ -17785,6 +17807,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Transient Fuel Throttle-Rate Gain (AT/CVT)" storageaddress="0x0344cb" userlevel="2">
    <description>AT/CVT version of Transient Fuel Throttle-Rate Gain; only used with an automatic/CVT coding, no effect on a manual car.</description>
   </table>
@@ -18061,6 +18084,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Start Spark Target Base (Mode 1, Warm-Up Fallback)" storageaddress="0x02a726" userlevel="4">
    <description>Warm-up fallback copy of Start Spark Target Base (Mode 1) for the manual car.</description>
   </table>
@@ -18118,6 +18142,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Start Spark Target Base (Mode 1, Warm-Up Fallback)" storageaddress="0x02a726" userlevel="4">
    <description>Warm-up fallback copy of Start Spark Target Base (Mode 1) for the manual car.</description>
   </table>
@@ -18175,6 +18200,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Transient Fuel Throttle-Rate Gain (AT/CVT)" storageaddress="0x0344cb" userlevel="2">
    <description>AT/CVT version of Transient Fuel Throttle-Rate Gain; only used with an automatic/CVT coding, no effect on a manual car.</description>
   </table>
@@ -18412,6 +18438,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Additional Enrichment A" storageaddress="0x0155ea" userlevel="4">
    <description>Extra enrichment added to the open-loop enrichment at higher coolant and lower rpm.</description>
   </table>
@@ -18661,6 +18688,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x03f82e" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -18949,6 +18977,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x03f82e" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -19237,6 +19266,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x03f82e" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -19303,6 +19333,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x03f82e" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -19591,6 +19622,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="LF75404S">
   <romid>
@@ -19609,6 +19641,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Transient Fuel Throttle-Rate Gain (AT/CVT)" storageaddress="0x0344cb" userlevel="2">
    <description>AT/CVT version of Transient Fuel Throttle-Rate Gain; only used with an automatic/CVT coding, no effect on a manual car.</description>
   </table>
@@ -19846,6 +19879,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Additional Enrichment A" storageaddress="0x0155ea" userlevel="4">
    <description>Extra enrichment added to the open-loop enrichment at higher coolant and lower rpm.</description>
   </table>
@@ -20095,6 +20129,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="LF75404S">
   <romid>
@@ -20113,6 +20148,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="LF75404S">
   <romid>
@@ -20131,6 +20167,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Transient Fuel Throttle-Rate Gain (AT/CVT)" storageaddress="0x0344cb" userlevel="2">
    <description>AT/CVT version of Transient Fuel Throttle-Rate Gain; only used with an automatic/CVT coding, no effect on a manual car.</description>
   </table>
@@ -20368,6 +20405,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="LF75404S">
   <romid>
@@ -20386,6 +20424,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Additional Enrichment A" storageaddress="0x0155ea" userlevel="4">
    <description>Extra enrichment added to the open-loop enrichment at higher coolant and lower rpm.</description>
   </table>
@@ -20668,6 +20707,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Additional Enrichment A" storageaddress="0x0155ea" userlevel="4">
    <description>Extra enrichment added to the open-loop enrichment at higher coolant and lower rpm.</description>
   </table>
@@ -20950,6 +20990,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Additional Enrichment A" storageaddress="0x0155ea" userlevel="4">
    <description>Extra enrichment added to the open-loop enrichment at higher coolant and lower rpm.</description>
   </table>
@@ -21232,6 +21273,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Additional Enrichment A" storageaddress="0x0155ea" userlevel="4">
    <description>Extra enrichment added to the open-loop enrichment at higher coolant and lower rpm.</description>
   </table>
@@ -21514,6 +21556,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x02241e" />
   <table name="Injector Latency" storageaddress="0x03fef4">
    <table type="Y Axis" storageaddress="0x03fe7e" />
@@ -29753,6 +29796,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x048b20">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -29916,6 +29960,7 @@ Weighted DAM/16.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x022c1e" />
   <table name="Injector Latency" storageaddress="0x0413d8">
    <table type="Y Axis" storageaddress="0x041362" />
@@ -38464,6 +38509,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x04c2a4" userlevel="3">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -38747,6 +38793,7 @@ Weighted DAM/16. Phase 18 had put the Alternate entries on the Blend B reader's 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x04c2a4" userlevel="3">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -39027,6 +39074,7 @@ Weighted DAM/16. Phase 18 had put the Alternate entries on the Blend B reader's 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x04c264">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -39094,6 +39142,7 @@ Weighted DAM/16. Phase 18 had put the Alternate entries on the Blend B reader's 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x04c2a4" userlevel="3">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -39377,6 +39426,7 @@ Weighted DAM/16. Phase 18 had put the Alternate entries on the Blend B reader's 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x04c2a4" userlevel="3">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -39642,6 +39692,7 @@ Weighted DAM/16.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x04c2a4" userlevel="3">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -39907,6 +39958,7 @@ Weighted DAM/16.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x04c264" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -39970,6 +40022,7 @@ Weighted DAM/16.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x04c264" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -40033,6 +40086,7 @@ Weighted DAM/16.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x04c264" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -40096,6 +40150,7 @@ Weighted DAM/16.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="FA20DIT_BASE">
   <romid>
@@ -40114,6 +40169,7 @@ Weighted DAM/16.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x022bde" />
   <table name="Injector Latency" storageaddress="0x040f90">
    <table type="Y Axis" storageaddress="0x040f1a" />
@@ -48420,6 +48476,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x04a114" userlevel="3">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -48639,6 +48696,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x04a114" userlevel="3">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -48885,6 +48943,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x04a114" userlevel="3">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -49131,6 +49190,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x04a114" userlevel="3">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -49398,6 +49458,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x04a114" userlevel="3">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -49663,6 +49724,7 @@ Weighted DAM/16.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x04a114" userlevel="3">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -49930,6 +49992,7 @@ Weighted DAM/16.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x04a0d4" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -49993,6 +50056,7 @@ Weighted DAM/16.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="FA20DIT_BASE">
   <romid>
@@ -50011,6 +50075,7 @@ Weighted DAM/16.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x01ff7a" />
   <table name="Injector Latency" storageaddress="0x03ce84">
    <table type="Y Axis" storageaddress="0x03ce0e" />
@@ -58179,6 +58244,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x0191aa" />
   <table name="Injector Latency" storageaddress="0x033122">
    <table type="Y Axis" storageaddress="0x0330ac" />
@@ -65445,6 +65511,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Transient Fuel Throttle-Rate Gain (AT/CVT)" storageaddress="0x02fc13" userlevel="5">
    <description>AT/CVT version of Transient Fuel Throttle-Rate Gain; only used with an automatic/CVT coding, no effect on a manual car.</description>
   </table>
@@ -65692,6 +65759,7 @@ B0CC &gt;&gt; 8 is subtracted from the final timing sum while the A/C Cut Timing
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Transient Fuel Throttle-Rate Gain (AT/CVT)" storageaddress="0x02fc13" userlevel="5">
    <description>AT/CVT version of Transient Fuel Throttle-Rate Gain; only used with an automatic/CVT coding, no effect on a manual car.</description>
   </table>
@@ -65939,6 +66007,7 @@ B0CC &gt;&gt; 8 is subtracted from the final timing sum while the A/C Cut Timing
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Transient Fuel Throttle-Rate Gain (AT/CVT)" storageaddress="0x02fc13" userlevel="5">
    <description>AT/CVT version of Transient Fuel Throttle-Rate Gain; only used with an automatic/CVT coding, no effect on a manual car.</description>
   </table>
@@ -66186,6 +66255,7 @@ B0CC &gt;&gt; 8 is subtracted from the final timing sum while the A/C Cut Timing
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Low Voltage Idle Request Threshold (Alternator Command)" storageaddress="0x030632" userlevel="4">
    <description>Battery voltage threshold, by alternator command, for a low-voltage idle-up request. Unused in this ROM: its result is never read, so editing it has no effect.</description>
   </table>
@@ -66216,6 +66286,7 @@ B0CC &gt;&gt; 8 is subtracted from the final timing sum while the A/C Cut Timing
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Low Voltage Idle Request Threshold (Alternator Command)" storageaddress="0x030632" userlevel="4">
    <description>Battery voltage threshold, by alternator command, for a low-voltage idle-up request. Unused in this ROM: its result is never read, so editing it has no effect.</description>
   </table>
@@ -66246,6 +66317,7 @@ B0CC &gt;&gt; 8 is subtracted from the final timing sum while the A/C Cut Timing
    <filesize>2048kb</filesize>
    <obsolete>true</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x0191aa" />
   <table name="Injector Latency" storageaddress="0x03311e">
    <table type="Y Axis" storageaddress="0x0330a8" />
@@ -73511,6 +73583,7 @@ The module sets no DTC.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Primary Open Loop Fueling (Alternate)" storageaddress="0x013845">
    <description>Replacement for Primary Open Loop Fueling plus its knock additive, used only when the calibration switch 'Open Loop Fueling. Edit with Primary Open Loop Fueling (TGV/AVCS Group, Alternate) if you enable it.</description>
   </table>
@@ -73568,6 +73641,7 @@ The module sets no DTC.</description>
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x02420a" />
   <table name="Injector Latency" storageaddress="0x044bb8">
    <table type="Y Axis" storageaddress="0x044b42" />
@@ -82359,6 +82433,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x01a032" />
   <table name="Injector Latency" storageaddress="0x035eea">
    <table type="Y Axis" storageaddress="0x035e74" />
@@ -89997,6 +90072,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="LV9N301A">
   <romid>
@@ -90015,6 +90091,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x03c2a8" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -90048,6 +90125,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x03c2a8" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -90301,6 +90379,7 @@ B0CC &gt;&gt; 8 is subtracted from the final timing sum while the A/C Cut Timing
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x03c2a8" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -90334,6 +90413,7 @@ B0CC &gt;&gt; 8 is subtracted from the final timing sum while the A/C Cut Timing
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x03c2a8" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -90367,6 +90447,7 @@ B0CC &gt;&gt; 8 is subtracted from the final timing sum while the A/C Cut Timing
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x03c2a8" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -90620,6 +90701,7 @@ B0CC &gt;&gt; 8 is subtracted from the final timing sum while the A/C Cut Timing
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Decel Fuel Cut Resume RPM Adder (A/C, Alternate)" storageaddress="0x01b4a3" userlevel="4">
    <description>Alternate A/C resume-rpm adder for the decel fuel cut, by an unidentified CAN-derived value.</description>
   </table>
@@ -90683,6 +90765,7 @@ B0CC &gt;&gt; 8 is subtracted from the final timing sum while the A/C Cut Timing
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x03c2a8" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -90746,6 +90829,7 @@ B0CC &gt;&gt; 8 is subtracted from the final timing sum while the A/C Cut Timing
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x021f46" />
   <table name="Injector Latency" storageaddress="0x03f05c">
    <table type="Y Axis" storageaddress="0x03efe6" />
@@ -98925,6 +99009,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Exhaust Temperature Model Map A Enrichment Adder" storageaddress="0x020012">
    <description>2017+ only: extra amount added to Exhaust Temperature Model Map A (Enriched) while open loop enrichment is active, scaled by how far the enrichment has progressed (likely).</description>
   </table>
@@ -98955,6 +99040,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x02073a" />
   <table name="Injector Latency" storageaddress="0x03df20">
    <table type="Y Axis" storageaddress="0x03deaa" />
@@ -107127,6 +107213,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="LF78002H">
   <romid>
@@ -107145,6 +107232,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="LF78002H">
   <romid>
@@ -107163,6 +107251,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="LF78002H">
   <romid>
@@ -107181,6 +107270,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="LF78002H">
   <romid>
@@ -107199,6 +107289,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="LF78002H">
   <romid>
@@ -107217,6 +107308,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="FA20DIT_BASE">
   <romid>
@@ -107235,6 +107327,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector 2/4 Rail Pressure Offset" storageaddress="0x058c90">
    <table type="X Axis" storageaddress="0x058c80" />
    <table type="Y Axis" storageaddress="0x058c60" />
@@ -112969,6 +113062,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Additional Enrichment A" storageaddress="0x0155ea" userlevel="5">
    <description>Extra enrichment added to the open-loop enrichment at higher coolant and lower rpm.</description>
   </table>
@@ -113001,6 +113095,7 @@ Belongs to Additional Enrichment A/B.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Additional Enrichment A" storageaddress="0x0155ea" userlevel="5">
    <description>Extra enrichment added to the open-loop enrichment at higher coolant and lower rpm.</description>
   </table>
@@ -113033,6 +113128,7 @@ Belongs to Additional Enrichment A/B.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x021f46" />
   <table name="Injector Latency" storageaddress="0x03f05c">
    <table type="Y Axis" storageaddress="0x03efe6" />
@@ -121212,6 +121308,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x022bde" />
   <table name="Injector Latency" storageaddress="0x040f90">
    <table type="Y Axis" storageaddress="0x040f1a" />
@@ -129554,6 +129651,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x022c1e" />
   <table name="Injector Latency" storageaddress="0x0413d8">
    <table type="Y Axis" storageaddress="0x041362" />
@@ -138139,6 +138237,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="FA20DIT_BASE">
   <romid>
@@ -138157,6 +138256,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x023faa" />
   <table name="Injector Latency" storageaddress="0x0430a8">
    <table type="Y Axis" storageaddress="0x043032" />
@@ -146882,6 +146982,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x023faa" />
   <table name="Injector Latency" storageaddress="0x0430a8">
    <table type="Y Axis" storageaddress="0x043032" />
@@ -155539,6 +155640,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x02420a" />
   <table name="Injector Latency" storageaddress="0x0455a8">
    <table type="Y Axis" storageaddress="0x045532" />
@@ -164331,6 +164433,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x050494" userlevel="5">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -164552,6 +164655,7 @@ Same role as Transient Fuel Throttle-Rate Gain.</description>
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x02420a" />
   <table name="Injector Latency" storageaddress="0x0455ac">
    <table type="Y Axis" storageaddress="0x045536" />
@@ -173344,6 +173448,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x0504a0" userlevel="5">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -173565,6 +173670,7 @@ Same role as Transient Fuel Throttle-Rate Gain.</description>
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Additional Enrichment B" storageaddress="0x015d52" userlevel="4">
    <description>Second table of the additional enrichment, used at low coolant or high rpm.</description>
   </table>
@@ -173613,6 +173719,7 @@ Same role as Transient Fuel Throttle-Rate Gain.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x01a032" />
   <table name="Injector Latency" storageaddress="0x035eea">
    <table type="Y Axis" storageaddress="0x035e74" />
@@ -181262,6 +181369,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x03c294" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -181304,6 +181412,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x023faa" />
   <table name="Injector Latency" storageaddress="0x0430a8">
    <table type="Y Axis" storageaddress="0x043032" />
@@ -190088,6 +190197,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x01bc6a" />
   <table name="Injector Latency" storageaddress="0x0365cc">
    <table type="Y Axis" storageaddress="0x036556" />
@@ -197851,6 +197961,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Additional Enrichment A" storageaddress="0x01542a" userlevel="5">
    <description>Extra enrichment added to the open-loop enrichment at higher coolant and lower rpm.</description>
   </table>
@@ -198103,6 +198214,7 @@ B0CC &gt;&gt; 8 is subtracted from the final timing sum while the A/C Cut Timing
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x01ff7a" />
   <table name="Injector Latency" storageaddress="0x03ce84">
    <table type="Y Axis" storageaddress="0x03ce0e" />
@@ -206259,6 +206371,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="LF78000D">
   <romid>
@@ -206277,6 +206390,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="LF78000D">
   <romid>
@@ -206295,6 +206409,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="LF78000D">
   <romid>
@@ -206313,6 +206428,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="LF78000D">
   <romid>
@@ -206331,6 +206447,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="LF78000D">
   <romid>
@@ -206349,6 +206466,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="FA20DIT_BASE">
   <romid>
@@ -206367,6 +206485,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x021f46" />
   <table name="Injector Latency" storageaddress="0x03f05c">
    <table type="Y Axis" storageaddress="0x03efe6" />
@@ -214546,6 +214665,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="LF78101B">
   <romid>
@@ -214564,6 +214684,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="FA20DIT_BASE">
   <romid>
@@ -214582,6 +214703,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x02241e" />
   <table name="Injector Latency" storageaddress="0x03fef4">
    <table type="Y Axis" storageaddress="0x03fe7e" />
@@ -222846,6 +222968,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x048ae0" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -222912,6 +223035,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x048ae0" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -222978,6 +223102,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Additional Enrichment B" storageaddress="0x015d52" userlevel="4">
    <description>Second table of the additional enrichment, used at low coolant or high rpm.</description>
   </table>
@@ -223023,6 +223148,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Additional Enrichment B" storageaddress="0x015d52" userlevel="4">
    <description>Second table of the additional enrichment, used at low coolant or high rpm.</description>
   </table>
@@ -223068,6 +223194,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Additional Enrichment B" storageaddress="0x015d52" userlevel="4">
    <description>Second table of the additional enrichment, used at low coolant or high rpm.</description>
   </table>
@@ -223113,6 +223240,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x022bde" />
   <table name="Injector Latency" storageaddress="0x040f90">
    <table type="Y Axis" storageaddress="0x040f1a" />
@@ -231413,6 +231541,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x04a114" userlevel="3">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -231659,6 +231788,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x04a114" userlevel="3">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -231905,6 +232035,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x04a114" userlevel="3">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -232151,6 +232282,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x04a114" userlevel="3">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -232397,6 +232529,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x022c1e" />
   <table name="Injector Latency" storageaddress="0x0413d8">
    <table type="Y Axis" storageaddress="0x041362" />
@@ -240982,6 +241115,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x04c2a4" userlevel="5">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -241248,6 +241382,7 @@ Same role as Transient Fuel Throttle-Rate Gain.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="LF9C000B">
   <romid>
@@ -241266,6 +241401,7 @@ Same role as Transient Fuel Throttle-Rate Gain.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x04c2a4" userlevel="5">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -241499,6 +241635,7 @@ Same role as Transient Fuel Throttle-Rate Gain.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Additional Enrichment B" storageaddress="0x015d52" userlevel="4">
    <description>Second table of the additional enrichment, used at low coolant or high rpm.</description>
   </table>
@@ -241547,6 +241684,7 @@ Same role as Transient Fuel Throttle-Rate Gain.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Additional Enrichment B" storageaddress="0x015d52" userlevel="4">
    <description>Second table of the additional enrichment, used at low coolant or high rpm.</description>
   </table>
@@ -241595,6 +241733,7 @@ Same role as Transient Fuel Throttle-Rate Gain.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Additional Enrichment B" storageaddress="0x015d52" userlevel="4">
    <description>Second table of the additional enrichment, used at low coolant or high rpm.</description>
   </table>
@@ -241643,6 +241782,7 @@ Same role as Transient Fuel Throttle-Rate Gain.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x04c264" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -241709,6 +241849,7 @@ Same role as Transient Fuel Throttle-Rate Gain.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x04c264" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -241775,6 +241916,7 @@ Same role as Transient Fuel Throttle-Rate Gain.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x04c264" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -241841,6 +241983,7 @@ Same role as Transient Fuel Throttle-Rate Gain.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Additional Enrichment B" storageaddress="0x015d52" userlevel="4">
    <description>Second table of the additional enrichment, used at low coolant or high rpm.</description>
   </table>
@@ -241889,6 +242032,7 @@ Same role as Transient Fuel Throttle-Rate Gain.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Additional Enrichment B" storageaddress="0x015d52" userlevel="4">
    <description>Second table of the additional enrichment, used at low coolant or high rpm.</description>
   </table>
@@ -241937,6 +242081,7 @@ Same role as Transient Fuel Throttle-Rate Gain.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Additional Enrichment B" storageaddress="0x015d52" userlevel="4">
    <description>Second table of the additional enrichment, used at low coolant or high rpm.</description>
   </table>
@@ -241985,6 +242130,7 @@ Same role as Transient Fuel Throttle-Rate Gain.</description>
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x023faa" />
   <table name="Injector Latency" storageaddress="0x0430a8">
    <table type="Y Axis" storageaddress="0x043032" />
@@ -250767,6 +250913,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Additional Enrichment B" storageaddress="0x015d52" userlevel="4">
    <description>Second table of the additional enrichment, used at low coolant or high rpm.</description>
   </table>
@@ -250812,6 +250959,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x04df34" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -250878,6 +251026,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x04df74" userlevel="5">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -251144,6 +251293,7 @@ Same role as Transient Fuel Throttle-Rate Gain.</description>
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x04df34" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -251210,6 +251360,7 @@ Same role as Transient Fuel Throttle-Rate Gain.</description>
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x04df74" userlevel="5">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -251476,6 +251627,7 @@ Same role as Transient Fuel Throttle-Rate Gain.</description>
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x04df34" userlevel="4">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -251542,6 +251694,7 @@ Same role as Transient Fuel Throttle-Rate Gain.</description>
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x023faa" />
   <table name="Injector Latency" storageaddress="0x0430a8">
    <table type="Y Axis" storageaddress="0x043032" />
@@ -259874,6 +260027,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x02420a" />
   <table name="Injector Latency" storageaddress="0x0455a8">
    <table type="Y Axis" storageaddress="0x045532" />
@@ -268616,6 +268770,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
  </rom>
  <rom base="FA20DIT_BASE">
   <romid>
@@ -268634,6 +268789,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x0191aa" />
   <table name="Injector Latency" storageaddress="0x03311e">
    <table type="Y Axis" storageaddress="0x0330a8" />
@@ -275873,6 +276029,7 @@ Descriptor 050694.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Charging Target Voltage (Mode 1)" storageaddress="0x03440c" userlevel="5">
    <description>Charging target voltage for mode 1, a mode whose entry condition the ECU can never meet, so editing it has no effect.</description>
   </table>
@@ -275894,6 +276051,7 @@ Descriptor 050694.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x0191aa" />
   <table name="Injector Latency" storageaddress="0x033122">
    <table type="Y Axis" storageaddress="0x0330ac" />
@@ -283150,6 +283308,7 @@ Descriptor 050694.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="FA20DIT_BASE">
   <romid>
@@ -283168,6 +283327,7 @@ Descriptor 050694.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x01a032" />
   <table name="Injector Latency" storageaddress="0x035eea">
    <table type="Y Axis" storageaddress="0x035e74" />
@@ -290805,6 +290965,7 @@ Descriptor 054484.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Transient Fuel Throttle-Rate Gain (AT/CVT)" storageaddress="0x0329d3" userlevel="5">
    <description>AT/CVT version of Transient Fuel Throttle-Rate Gain; only used with an automatic/CVT coding, no effect on a manual car.</description>
   </table>
@@ -291055,6 +291216,7 @@ B0CC &gt;&gt; 8 is subtracted from the final timing sum while the A/C Cut Timing
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x03c2a8" userlevel="5">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -291090,6 +291252,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x03c2a8" userlevel="5">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -291125,6 +291288,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x01a032" />
   <table name="Injector Latency" storageaddress="0x035eea">
    <table type="Y Axis" storageaddress="0x035e74" />
@@ -298774,6 +298938,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x01bc6a" />
   <table name="Injector Latency" storageaddress="0x0365cc">
    <table type="Y Axis" storageaddress="0x036556" />
@@ -306536,6 +306701,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x02073a" />
   <table name="Injector Latency" storageaddress="0x03df20">
    <table type="Y Axis" storageaddress="0x03deaa" />
@@ -314708,6 +314874,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="FA20DIT_BASE">
   <romid>
@@ -314726,6 +314893,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x02420a" />
   <table name="Injector Latency" storageaddress="0x044bb8">
    <table type="Y Axis" storageaddress="0x044b42" />
@@ -323511,6 +323679,7 @@ Drive mode 4 with AT/CVT Coding. Path B: a second rise-shaping path evaluated af
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x04faa4" userlevel="5">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -323735,6 +323904,7 @@ Same role as Transient Fuel Throttle-Rate Gain.</description>
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
  </rom>
  <rom base="LF9F000U">
   <romid>
@@ -323753,6 +323923,7 @@ Same role as Transient Fuel Throttle-Rate Gain.</description>
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x04faa4" userlevel="5">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -323977,6 +324148,7 @@ Same role as Transient Fuel Throttle-Rate Gain.</description>
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
  </rom>
  <rom base="FA20DIT_BASE">
   <romid>
@@ -323995,6 +324167,7 @@ Same role as Transient Fuel Throttle-Rate Gain.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x01bc6a" />
   <table name="Injector Latency" storageaddress="0x0365cc">
    <table type="Y Axis" storageaddress="0x036556" />
@@ -331753,6 +331926,7 @@ Drive mode 4 with AT/CVT Coding. Path B: a second rise-shaping path evaluated af
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector 2/4 Rail Pressure Offset" storageaddress="0x058cf0">
    <table type="X Axis" storageaddress="0x058ce0" />
    <table type="Y Axis" storageaddress="0x058cc0" />
@@ -337330,6 +337504,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x01fd06" />
   <table name="Injector Latency" storageaddress="0x03b15c">
    <table type="Y Axis" storageaddress="0x03b0e6" />
@@ -344824,6 +344999,7 @@ Knock-detection background step for event slot 4, frequency channel 8.</descript
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x022bde" />
   <table name="Injector Latency" storageaddress="0x040f90">
    <table type="Y Axis" storageaddress="0x040f1a" />
@@ -353128,6 +353304,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x022c1e" />
   <table name="Injector Latency" storageaddress="0x0413d8">
    <table type="Y Axis" storageaddress="0x041362" />
@@ -361673,6 +361850,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x023faa" />
   <table name="Injector Latency" storageaddress="0x0430a8">
    <table type="Y Axis" storageaddress="0x043032" />
@@ -370407,6 +370585,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x023faa" />
   <table name="Injector Latency" storageaddress="0x0430a8">
    <table type="Y Axis" storageaddress="0x043032" />
@@ -379131,6 +379310,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x02420a" />
   <table name="Injector Latency" storageaddress="0x0455ac">
    <table type="Y Axis" storageaddress="0x045536" />
@@ -387875,6 +388055,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x0191aa" />
   <table name="Injector Latency" storageaddress="0x03311e">
    <table type="Y Axis" storageaddress="0x0330a8" />
@@ -395054,6 +395235,7 @@ Descriptor 050694.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x019c32" />
   <table name="Injector Latency" storageaddress="0x03520e">
    <table type="Y Axis" storageaddress="0x035198" />
@@ -402611,6 +402793,7 @@ Descriptor 053014.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector 2/4 Rail Pressure Offset" storageaddress="0x058cf0">
    <table type="X Axis" storageaddress="0x058ce0" />
    <table type="Y Axis" storageaddress="0x058cc0" />
@@ -408188,6 +408371,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x02420a" />
   <table name="Injector Latency" storageaddress="0x0455ac">
    <table type="Y Axis" storageaddress="0x045536" />
@@ -416980,6 +417164,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, AT/CVT Coding)" storageaddress="0x0504a0" userlevel="5">
    <description>AT/CVT version of Target Rail Pressure (Combustion Mode 1). Only used with the automatic/CVT transmission coding; no effect on a manual car.</description>
   </table>
@@ -417201,6 +417386,7 @@ Same role as Transient Fuel Throttle-Rate Gain.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x019c32" />
   <table name="Injector Latency" storageaddress="0x03520e">
    <table type="Y Axis" storageaddress="0x035198" />
@@ -424698,6 +424884,7 @@ Descriptor 053014.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Transient Fuel Throttle-Rate Gain (AT/CVT)" storageaddress="0x031cfb" userlevel="2">
    <description>AT/CVT version of Transient Fuel Throttle-Rate Gain; only used with an automatic/CVT coding, no effect on a manual car.</description>
   </table>
@@ -424938,6 +425125,7 @@ Descriptor 053014.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="LV9N300F">
   <romid>
@@ -424956,6 +425144,7 @@ Descriptor 053014.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" storageaddress="0x03b068" userlevel="5">
    <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
   </table>
@@ -425246,6 +425435,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Transient Fuel Throttle-Rate Gain (AT/CVT)" storageaddress="0x031cfb" userlevel="2">
    <description>AT/CVT version of Transient Fuel Throttle-Rate Gain; only used with an automatic/CVT coding, no effect on a manual car.</description>
   </table>
@@ -425516,6 +425706,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x01956a" />
   <table name="Injector Latency" storageaddress="0x033aaa">
    <table type="Y Axis" storageaddress="0x033a34" />
@@ -433064,6 +433255,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x0201ea" />
   <table name="Injector Latency" storageaddress="0x03d2f4">
    <table type="Y Axis" storageaddress="0x03d27e" />
@@ -441206,6 +441398,7 @@ Descriptor 063774.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x01f4aa" />
   <table name="Injector Latency" storageaddress="0x03aef0">
    <table type="Y Axis" storageaddress="0x03ae7a" />
@@ -448395,6 +448588,7 @@ Drive mode 4 with AT/CVT Coding. Path B: a second rise-shaping path evaluated af
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Additional Enrichment B" storageaddress="0x01588e" userlevel="5">
    <description>Second table of the additional enrichment, used at low coolant or high rpm.</description>
   </table>
@@ -448424,6 +448618,7 @@ Units: degrees BTDC = 180 - x/2 (segment 3 offset x; same frame as the other inj
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x01d982" />
   <table name="Injector Latency" storageaddress="0x03bd34">
    <table type="Y Axis" storageaddress="0x03bcbe" />
@@ -456653,6 +456848,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x01d9c2" />
   <table name="Injector Latency" storageaddress="0x03c17c">
    <table type="Y Axis" storageaddress="0x03c106" />
@@ -465114,6 +465310,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x018492" />
   <table name="Injector Latency" storageaddress="0x02ff02">
    <table type="Y Axis" storageaddress="0x02fe8c" />
@@ -477293,6 +477490,7 @@ The module sets no DTC.</description>
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Target Boost" storageaddress="0x063ad6" />
   <table name="Injector Scaling" storageaddress="0x01d8ba" />
   <table name="Injector Latency" storageaddress="0x03eb80">
@@ -482222,6 +482420,7 @@ The module sets no DTC.</description>
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Target Boost" storageaddress="0x064476" />
   <table name="Injector Scaling" storageaddress="0x01d8ba" />
   <table name="Injector Latency" storageaddress="0x03f508">
@@ -488329,6 +488528,7 @@ The module sets no DTC.</description>
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Target Boost" storageaddress="0x064a8a" />
   <table name="Injector Scaling" storageaddress="0x01d8f2" />
   <table name="Injector Latency" storageaddress="0x03f8ec">
@@ -494581,6 +494781,7 @@ Weighted DAM/16.</description>
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Target Boost" storageaddress="0x067ab2" />
   <table name="Injector Scaling" storageaddress="0x01dee6" />
   <table name="Injector Latency" storageaddress="0x042004">
@@ -500990,6 +501191,7 @@ Weighted DAM/16.</description>
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Target Boost" storageaddress="0x067c42" />
   <table name="Injector Scaling" storageaddress="0x01dee6" />
   <table name="Injector Latency" storageaddress="0x042020">
@@ -507478,6 +507680,7 @@ Weighted DAM/16.</description>
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
  </rom>
  <rom base="FA24_Early_BASE">
   <romid>
@@ -507496,6 +507699,7 @@ Weighted DAM/16.</description>
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Target Boost" storageaddress="0x063ad2" />
   <table name="Injector Scaling" storageaddress="0x01d8ba" />
   <table name="Injector Latency" storageaddress="0x03eb7c">
@@ -513323,6 +513527,7 @@ Weighted DAM/16.</description>
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Target Boost" storageaddress="0x064472" />
   <table name="Injector Scaling" storageaddress="0x01d8ba" />
   <table name="Injector Latency" storageaddress="0x03f504">
@@ -519430,6 +519635,7 @@ Weighted DAM/16.</description>
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Target Boost" storageaddress="0x067aae" />
   <table name="Injector Scaling" storageaddress="0x01dee6" />
   <table name="Injector Latency" storageaddress="0x042000">

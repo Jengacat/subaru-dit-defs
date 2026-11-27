@@ -29,28 +29,19 @@ in the settings.
 **Units:** load in g/rev, torque in ft-lb, boost in psi, rail pressure in psi and temperatures in °F by default. Other
 scales (%, Nm, kPa, MPa, °C) are available from each table's View menu.
 
-**Checksum.** Each file also comes as `…_Checksum.xml`, which corrects the checksum when you save; install only one
-of the two for each engine:
-
-| File | Checksum | RomRaider |
-|---|---|---|
-| `FA20DIT_RomRaider.xml`, `FB16DIT_RomRaider.xml` | Not corrected: run the [checksum tool](../../tools/) after saving | 1.0.0 or later |
-| `FA20DIT_RomRaider_Checksum.xml`, `FB16DIT_RomRaider_Checksum.xml` | Corrected on save, 2 MB and 2.5 MB ROMs alike, by the `FA20Sum16` module in `checksum/` | A RomRaider that can load a checksum module from the definition folder: my change for that ([RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)) is in [RomRaider 1.1.1](https://github.com/RomRaider/RomRaider/releases) and later. RomRaider 1.0.0 and 1.1.0 can't open the images with it |
-
-Keep the `checksum/` folder in the same folder as the XML: RomRaider loads
-`checksum/com/romraider/maps/checksum/FA20Sum16.class` from there (source: `checksum/FA20Sum16.java`). Either way, run `checksum.py verify` before flashing.
+**Checksum.** Every file corrects the checksum when you save, 2 MB and 2.5 MB ROMs alike, with the `FA20Sum16`
+module in `checksum/`. Keep the `checksum/` folder in the same folder as the XML: RomRaider loads
+`checksum/com/romraider/maps/checksum/FA20Sum16.class` from there (source: `checksum/FA20Sum16.java`). This needs
+[RomRaider 1.1.1](https://github.com/RomRaider/RomRaider/releases) or later, which can load a checksum module from the
+definition folder (my change, [RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)); RomRaider
+1.0.0 and 1.1.0 can't open the ROMs with these files. Run `checksum.py verify` before flashing all the same.
 
 ## 2022+ WRX (FA24DIT_RomRaider.xml)
 
 `FA24DIT_RomRaider.xml` covers the four supported 2022+ WRX ROMs, with a shared `FA24DIT_BASE` section like
-the others. It comes in two versions; install only one:
+the others. It corrects the checksum on save with the `RH850Sum16` module in `checksum/` (RomRaider 1.1.1 or later).
 
-| File | Checksum | RomRaider |
-|---|---|---|
-| `FA24DIT_RomRaider.xml` | Not corrected: run `tools/checksum.py` (or `.ps1`) after saving | 1.0.0 or later |
-| `FA24DIT_RomRaider_Checksum.xml` | Corrected on save, by the `RH850Sum16` module in `checksum/` | A RomRaider that can load a checksum module from the definition folder: my change for that ([RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)) is in [RomRaider 1.1.1](https://github.com/RomRaider/RomRaider/releases) and later. RomRaider 1.0.0 and 1.1.0 can't open the images with it |
-
-For the checksum version, keep the `checksum/` folder in the same folder as the XML: RomRaider loads
+Keep the `checksum/` folder in the same folder as the XML: RomRaider loads
 `checksum/com/romraider/maps/checksum/RH850Sum16.class` from there. The source is `checksum/RH850Sum16.java`
 (compile against RomRaider with `javac -cp RomRaider.jar -source 8 -target 8 -d checksum checksum/RH850Sum16.java`
 if you'd rather build it yourself). With it, RomRaider marks an edited ROM's checksum as invalid until you save, and

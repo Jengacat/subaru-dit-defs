@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- FB16DIT (Levorg 1.6, Hitachi SH72543R / SH72544R) definitions; the FB16DIT ECU runs the same software family as the FA20DIT, so the tables are the same ones at each ROM's own addresses, my own clean-room work: https://github.com/Jengacat/subaru-dit-defs
      Generated from my table list. Do not edit by hand. -->
+<!-- Checksum: RomRaider corrects it when you save, with the FA20Sum16 module in the checksum/ folder next
+     to this file (keep the folder there). Needs RomRaider 1.1.1 or later, which loads checksum modules from the
+     definition folder (RomRaider pull request #248). -->
 <!-- Inheritance: the first <rom> (FA20DIT_BASE) is a shared base that no image matches; each image's <rom>
      names its base and lists only its addresses and its own tables. -->
 <roms>
@@ -9879,6 +9882,7 @@ B270 is used in fan mode 7: duty = max.</description>
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table type="3D" name="Per-Injector Fuel Trim 1" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="20" sizey="9" userlevel="3" storageaddress="0x013018">
    <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
    <table type="X Axis" name="Engine Speed" storagetype="uint8" endian="big" storageaddress="0x012ff2">
@@ -13928,6 +13932,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="FB16DIT_BASE">
   <romid>
@@ -13946,6 +13951,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table type="3D" name="Per-Injector Fuel Trim 1" category="Fueling//Injectors &amp; Rail Pressure" storagetype="uint8" endian="big" sizex="20" sizey="9" userlevel="3" storageaddress="0x013018">
    <scaling units="multiplier" expression="x/128" to_byte="x*128" format="0.00" fineincrement="0.01" coarseincrement="0.04" />
    <table type="X Axis" name="Engine Speed" storagetype="uint8" endian="big" storageaddress="0x012ff2">
@@ -18043,6 +18049,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x01c4ce" />
   <table name="Injector Latency" storageaddress="0x03878c">
    <table type="Y Axis" storageaddress="0x038716" />
@@ -25610,6 +25617,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Knock Background Window Step (Event 1, Channel 1)" storageaddress="0x0282de" userlevel="5">
    <description>This software version: the table is the step only on the pass where the window flag sets.
 
@@ -25688,6 +25696,7 @@ Knock-detection background step for event slot 4, frequency channel 8.</descript
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Knock Background Window Step (Event 1, Channel 1)" storageaddress="0x0282de" userlevel="5">
    <description>This software version: the table is the step only on the pass where the window flag sets.
 
@@ -25766,6 +25775,7 @@ Knock-detection background step for event slot 4, frequency channel 8.</descript
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="LF76400Q">
   <romid>
@@ -25784,6 +25794,7 @@ Knock-detection background step for event slot 4, frequency channel 8.</descript
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Knock Background Window Step (Event 1, Channel 1)" storageaddress="0x0282de" userlevel="5">
    <description>This software version: the table is the step only on the pass where the window flag sets.
 
@@ -25862,6 +25873,7 @@ Knock-detection background step for event slot 4, frequency channel 8.</descript
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Knock Background Window Step (Event 1, Channel 1)" storageaddress="0x0282de" userlevel="5">
    <description>This software version: the table is the step only on the pass where the window flag sets.
 
@@ -25940,6 +25952,7 @@ Knock-detection background step for event slot 4, frequency channel 8.</descript
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x022bde" />
   <table name="Injector Latency" storageaddress="0x040fd0">
    <table type="Y Axis" storageaddress="0x040f5a" />
@@ -33790,6 +33803,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Knock Background Window Step (Event 2, Channel 1)" storageaddress="0x0300ce">
    <description>This software version: the table is the step only on the pass where the window flag sets.
 
@@ -33813,6 +33827,7 @@ Knock-detection background step for event slot 2, frequency channel 1.</descript
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Knock Background Window Step (Event 2, Channel 1)" storageaddress="0x0300ce">
    <description>This software version: the table is the step only on the pass where the window flag sets.
 
@@ -33836,6 +33851,7 @@ Knock-detection background step for event slot 2, frequency channel 1.</descript
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Knock Background Window Step (Event 1, Channel 1)" storageaddress="0x02fcce">
    <description>This software version: the table is the step only on the pass where the window flag sets.
 
@@ -33914,6 +33930,7 @@ Knock-detection background step for event slot 4, frequency channel 8.</descript
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Knock Background Window Step (Event 1, Channel 1)" storageaddress="0x02fcce">
    <description>This software version: the table is the step only on the pass where the window flag sets.
 
@@ -33992,6 +34009,7 @@ Knock-detection background step for event slot 4, frequency channel 8.</descript
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x022bde" />
   <table name="Injector Latency" storageaddress="0x040fd0">
    <table type="Y Axis" storageaddress="0x040f5a" />
@@ -41890,6 +41908,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x022c1e" />
   <table name="Injector Latency" storageaddress="0x041418">
    <table type="Y Axis" storageaddress="0x0413a2" />
@@ -50045,6 +50064,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="FB16DIT_BASE">
   <romid>
@@ -50063,6 +50083,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x022c1e" />
   <table name="Injector Latency" storageaddress="0x041418">
    <table type="Y Axis" storageaddress="0x0413a2" />
@@ -58174,6 +58195,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x023faa" />
   <table name="Injector Latency" storageaddress="0x0430a8">
    <table type="Y Axis" storageaddress="0x043032" />
@@ -66458,6 +66480,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
  </rom>
  <rom base="FB16DIT_BASE">
   <romid>
@@ -66476,6 +66499,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x023faa" />
   <table name="Injector Latency" storageaddress="0x0430a8">
    <table type="Y Axis" storageaddress="0x043032" />
@@ -74716,6 +74740,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x02420a" />
   <table name="Injector Latency" storageaddress="0x044bb8">
    <table type="Y Axis" storageaddress="0x044b42" />
@@ -83010,6 +83035,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
  </rom>
  <rom base="FB16DIT_BASE">
   <romid>
@@ -83028,6 +83054,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x02420a" />
   <table name="Injector Latency" storageaddress="0x044bb8">
    <table type="Y Axis" storageaddress="0x044b42" />
@@ -91300,6 +91327,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x028b4a" />
   <table name="Injector Latency" storageaddress="0x049628">
    <table type="Y Axis" storageaddress="0x0495b2" />
@@ -98407,6 +98435,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x022c1e" />
   <table name="Injector Latency" storageaddress="0x041418">
    <table type="Y Axis" storageaddress="0x0413a2" />
@@ -106562,6 +106591,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x023faa" />
   <table name="Injector Latency" storageaddress="0x0430a8">
    <table type="Y Axis" storageaddress="0x043032" />
@@ -114846,6 +114876,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x022bde" />
   <table name="Injector Latency" storageaddress="0x040f90">
    <table type="Y Axis" storageaddress="0x040f1a" />
@@ -122684,6 +122715,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
  </rom>
  <rom base="FB16DIT_BASE">
   <romid>
@@ -122702,6 +122734,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x02420a" />
   <table name="Injector Latency" storageaddress="0x044bb8">
    <table type="Y Axis" storageaddress="0x044b42" />
@@ -130996,6 +131029,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2560kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x280000" sumloc="0x27FFFE" target="0x5AA5" />
   <table name="Knock Background Window Step (Event 1, Channel 1)" storageaddress="0x03188a" userlevel="5">
    <description>Knock-detection background step for event slot 1, frequency channel 1.</description>
   </table>
@@ -131050,6 +131084,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x01c4ce" />
   <table name="Injector Latency" storageaddress="0x03878c">
    <table type="Y Axis" storageaddress="0x038716" />
@@ -138617,6 +138652,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x022bde" />
   <table name="Injector Latency" storageaddress="0x040fd0">
    <table type="Y Axis" storageaddress="0x040f5a" />
@@ -146467,6 +146503,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Latency" storageaddress="0x035eea">
    <table type="Y Axis" storageaddress="0x035e74" />
   </table>
@@ -152472,6 +152509,7 @@ States 2 and 3 (close conditions not met) reset the timer, so the TGVs stay open
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x01bd0e" />
   <table name="Injector Latency" storageaddress="0x037318">
    <table type="Y Axis" storageaddress="0x0372a2" />
@@ -159880,6 +159918,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x01bd0e" />
   <table name="Injector Latency" storageaddress="0x0376b4">
    <table type="Y Axis" storageaddress="0x03763e" />
@@ -167288,6 +167327,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x01c4ce" />
   <table name="Injector Latency" storageaddress="0x03874c">
    <table type="Y Axis" storageaddress="0x0386d6" />
@@ -174795,6 +174835,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x028b4a" />
   <table name="Injector Latency" storageaddress="0x049624">
    <table type="Y Axis" storageaddress="0x0495ae" />
@@ -181904,6 +181945,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x01bd0e" />
   <table name="Injector Latency" storageaddress="0x0376b4">
    <table type="Y Axis" storageaddress="0x03763e" />
@@ -189312,6 +189354,7 @@ With the bit set it takes the current power (torque x rpm / 9549.3), the engine 
    <filesize>2048kb</filesize>
    <obsolete>false</obsolete>
   </romid>
+  <checksum type="FA20Sum16" path="/checksum/" start="0x6000" end="0x200000" sumloc="0x1FFFFE" target="0x5AA5" />
   <table name="Injector Scaling" storageaddress="0x01c4ce" />
   <table name="Injector Latency" storageaddress="0x03874c">
    <table type="Y Axis" storageaddress="0x0386d6" />

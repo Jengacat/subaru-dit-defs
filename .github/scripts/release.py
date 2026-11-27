@@ -32,7 +32,7 @@ COMMON = ['README.md', 'CHANGELOG.md', 'LICENSE', 'definitions/README.md', 'defi
           'tools/checksum.ps1', 'docs/README.md', 'docs/ROM_IDS.md', 'docs/guide/*', 'docs/images/*']
 SH = ['tools/logpatch/README.md', 'tools/logpatch/make_logpatch.py', 'tools/logpatch/make_logpatch.ps1',
       'definitions/ecuflash/*/read_subaruhitachish72544.xml', 'extras/README.md']
-RR_FA20 = ['definitions/romraider/FA20DIT_RomRaider.xml', 'definitions/romraider/FA20DIT_RomRaider_Checksum.xml',
+RR_FA20 = ['definitions/romraider/FA20DIT_RomRaider.xml',
            'definitions/romraider/checksum/FA20Sum16.java', 'definitions/romraider/checksum/com/*/FA20Sum16.class']
 
 BUNDLES = {
@@ -42,8 +42,7 @@ BUNDLES = {
         'files': COMMON + SH + RR_FA20 + [
             'definitions/ecuflash/*/FA20DIT_*', 'logger/FA20DIT_Logger*.xml', 'logger/DIT_Logger_SUBUDS.xml',
             'extras/can/README.md', 'extras/can/FA20DIT_CAN*'],
-        'romraider': '`definitions/romraider/FA20DIT_RomRaider.xml` (or `FA20DIT_RomRaider_Checksum.xml` with its '
-                     '`checksum/` folder, RomRaider 1.1.1 or later)',
+        'romraider': '`definitions/romraider/FA20DIT_RomRaider.xml` with its `checksum/` folder (RomRaider 1.1.1 or later)',
         'ecuflash': '`FA20DIT_BASE_EcuFlash.xml` (Metric: `FA20DIT_BASE_METRIC_EcuFlash.xml`) plus '
                     '`FA20DIT_<calibration ID>_EcuFlash.xml`, from `definitions/ecuflash/Imperial/` or `Metric/`',
         'logger': '`logger/FA20DIT_Logger.xml`; `FA20DIT_Logger_LogPatch.xml` on a ROM with the logging patch; '
@@ -53,12 +52,11 @@ BUNDLES = {
         'cars': '2014–2020 Levorg 1.6',
         'prefix': 'FB16DIT',
         'files': COMMON + SH + [
-            'definitions/romraider/FB16DIT_RomRaider.xml', 'definitions/romraider/FB16DIT_RomRaider_Checksum.xml',
+            'definitions/romraider/FB16DIT_RomRaider.xml',
             'definitions/romraider/checksum/FA20Sum16.java', 'definitions/romraider/checksum/com/*/FA20Sum16.class',
             'definitions/ecuflash/*/FB16DIT_*', 'logger/FA20DIT_Logger*.xml', 'logger/DIT_Logger_SUBUDS.xml',
             'extras/can/README.md', 'extras/can/FA20DIT_CAN*'],
-        'romraider': '`definitions/romraider/FB16DIT_RomRaider.xml` (or `FB16DIT_RomRaider_Checksum.xml` with its '
-                     '`checksum/` folder, RomRaider 1.1.1 or later)',
+        'romraider': '`definitions/romraider/FB16DIT_RomRaider.xml` with its `checksum/` folder (RomRaider 1.1.1 or later)',
         'ecuflash': '`FB16DIT_BASE_EcuFlash.xml` (Metric: `FB16DIT_BASE_METRIC_EcuFlash.xml`) plus '
                     '`FB16DIT_<calibration ID>_EcuFlash.xml`, from `definitions/ecuflash/Imperial/` or `Metric/`',
         'logger': '`logger/FA20DIT_Logger.xml` (it covers the 1.6 too); `FA20DIT_Logger_LogPatch.xml` on a ROM with '
@@ -70,8 +68,8 @@ BUNDLES = {
         'files': COMMON + SH + RR_FA20 + [
             'definitions/ecuflash/*/FA20DIT_BASE_*', 'definitions/ecuflash/*/FA24_Early_*',
             'logger/FA24_Early_Logger*.xml', 'logger/DIT_Logger_SUBUDS.xml', 'extras/can/FA24_Early_CAN*'],
-        'romraider': '`definitions/romraider/FA20DIT_RomRaider.xml` (these ROMs are in the FA20DIT file; or '
-                     '`FA20DIT_RomRaider_Checksum.xml` with its `checksum/` folder, RomRaider 1.1.1 or later)',
+        'romraider': '`definitions/romraider/FA20DIT_RomRaider.xml` with its `checksum/` folder (these ROMs are in the FA20DIT '
+                     'file; RomRaider 1.1.1 or later)',
         'ecuflash': 'both base files, `FA20DIT_BASE_EcuFlash.xml` **and** `FA24_Early_BASE_EcuFlash.xml` (Metric: '
                     'the `_METRIC` ones), plus `FA24_Early_<calibration ID>_EcuFlash.xml`, from '
                     '`definitions/ecuflash/Imperial/` or `Metric/`',
@@ -83,12 +81,11 @@ BUNDLES = {
         'cars': '2022+ WRX, 2023+ Ascent and Legacy / Outback XT (FA24DIT on the Renesas RH850 ECU)',
         'prefix': 'FA24DIT',
         'files': COMMON + [
-            'definitions/romraider/FA24DIT_RomRaider.xml', 'definitions/romraider/FA24DIT_RomRaider_Checksum.xml',
+            'definitions/romraider/FA24DIT_RomRaider.xml',
             'definitions/romraider/checksum/RH850Sum16.java', 'definitions/romraider/checksum/com/*/RH850Sum16.class',
             'definitions/ecuflash/*/FA24DIT_*', 'logger/DIT_Logger_SUBUDS.xml', 'tools/ef_view.py', 'tools/ef_view.ps1',
             'docs/WRX_2022plus.md', 'extras/README.md', 'extras/can/FA24DIT_CAN*'],
-        'romraider': '`definitions/romraider/FA24DIT_RomRaider.xml` (or `FA24DIT_RomRaider_Checksum.xml` with its '
-                     '`checksum/` folder, RomRaider 1.1.1 or later)',
+        'romraider': '`definitions/romraider/FA24DIT_RomRaider.xml` with its `checksum/` folder (RomRaider 1.1.1 or later)',
         'ecuflash': '`FA24DIT_BASE_EcuFlash.xml` (Metric: `FA24DIT_BASE_METRIC_EcuFlash.xml`) plus '
                     '`FA24DIT_<calibration ID>_EcuFlash.xml`: made for FastECU; EcuFlash itself only opens a 3 MB '
                     'copy made with `tools/ef_view.py` (see `docs/WRX_2022plus.md`)',

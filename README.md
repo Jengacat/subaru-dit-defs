@@ -35,7 +35,8 @@ Check that your ROM is supported first: find its calibration ID in the [ROM list
 included](#whats-included) describes every folder.
 
 ### Editing with RomRaider
-1. Add `definitions/romraider/FA20DIT_RomRaider.xml` in RomRaider's Definition Manager (for a Levorg 1.6,
+1. Use **RomRaider 1.1.1 or later** and keep the `checksum/` folder next to the XML files: the definitions correct the
+   ROM checksum when you save. Add `definitions/romraider/FA20DIT_RomRaider.xml` in RomRaider's Definition Manager (for a Levorg 1.6,
    `FB16DIT_RomRaider.xml`; for a 2022+ WRX or a 2023+ Ascent / Legacy / Outback XT, `FA24DIT_RomRaider.xml`, see the [2022+ WRX guide](docs/WRX_2022plus.md); the
    Ascent and Legacy XT (FA24 Early) are in the FA20DIT file; having several installed is fine).
 2. Open your ROM. Tables are grouped by purpose (Fueling, Ignition Timing, Boost Control, …) in tuning order.
@@ -69,11 +70,10 @@ The [EcuFlash README](definitions/ecuflash/README.md) explains why.
 ### Fix the checksum before every flash
 
 This ECU checks a 16-bit checksum over the whole flash, and a ROM with a bad checksum won't run. **EcuFlash corrects
-it when you save** a 2015–2018 (2 MB) ROM. It can't for the 2019+ (2.5 MB) ROMs: fix those with the checksum tool. **RomRaider corrects it when you save** with the `_Checksum` definitions
-(`FA20DIT_RomRaider_Checksum.xml`, `FB16DIT_RomRaider_Checksum.xml`, `FA24DIT_RomRaider_Checksum.xml`, each with the
-`checksum/` folder next to it), for 2 MB and 2.5 MB ROMs alike. Those need a RomRaider that can load a checksum module from the definition folder: my change for that ([RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)) is in [RomRaider 1.1.1](https://github.com/RomRaider/RomRaider/releases) and later. RomRaider 1.0.0 and 1.1.0 can't open the images with the
-`_Checksum` files, so with those versions install the plain files and run every edited ROM through the checksum
-tool, as for every 2.5 MB ROM edited in EcuFlash. **PCMFlash** is reported to correct the checksum as it writes (not tested by me;
+it when you save** a 2015–2018 (2 MB) ROM. It can't for the 2019+ (2.5 MB) ROMs: fix those with the checksum tool. **RomRaider corrects it when you save**, for 2 MB, 2.5 MB and RH850 ROMs alike: the RomRaider definitions load a
+checksum module from the `checksum/` folder next to them. That needs [RomRaider 1.1.1](https://github.com/RomRaider/RomRaider/releases)
+or later (my change [RomRaider pull request #248](https://github.com/RomRaider/RomRaider/pull/248)); RomRaider 1.0.0
+and 1.1.0 can't open the ROMs with these definitions. **PCMFlash** is reported to correct the checksum as it writes (not tested by me;
 see [Reading your ECU](#reading-your-ecu)). Either way, confirm the file you're about to flash with `verify`:
 
 ```
@@ -150,7 +150,7 @@ It hasn't been run on a car yet. Once it has, the protocol will go to the RomRai
 
 | Folder | Contents |
 |---|---|
-| `definitions/romraider/` | `FA20DIT_RomRaider.xml`: one file covering every supported 2.0 ROM and the Ascent / Legacy XT (FA24 Early). `FB16DIT_RomRaider.xml`: the same for the Levorg 1.6. `FA24DIT_RomRaider.xml`: the 2022+ WRX and the 2023+ Ascent and Legacy / Outback XT (RH850 ECU). Each also comes as `…_Checksum.xml`, which corrects the checksum when you save, with the `checksum/` folder it needs (see [Fix the checksum](#fix-the-checksum-before-every-flash)). |
+| `definitions/romraider/` | `FA20DIT_RomRaider.xml`: one file covering every supported 2.0 ROM and the Ascent / Legacy XT (FA24 Early). `FB16DIT_RomRaider.xml`: the same for the Levorg 1.6. `FA24DIT_RomRaider.xml`: the 2022+ WRX and the 2023+ Ascent and Legacy / Outback XT (RH850 ECU). Each corrects the checksum when you save, with the `checksum/` folder next to it (RomRaider 1.1.1 or later; see [Fix the checksum](#fix-the-checksum-before-every-flash)). |
 | `definitions/ecuflash/Imperial/`, `definitions/ecuflash/Metric/` | The same EcuFlash definitions in two unit systems (EcuFlash can't switch units itself). Each folder has a base file per engine (every table) plus one small file per ROM; install one of the two. The Ascent / Legacy XT files are `FA24_Early_*`, on top of the FA20DIT base. The RH850 files (`FA24DIT_*`: 2022+ WRX, 2023+ Ascent and Legacy / Outback XT) are made for FastECU; EcuFlash can only open a 3 MB copy of those ROMs. |
 | `logger/` | `FA20DIT_Logger.xml` (stock SSM and OBD parameters, trouble codes; also for the Levorg 1.6) and `FA20DIT_Logger_LogPatch.xml` (stock plus the logging-patch parameters). `FA20DIT_Logger_LogPatch_only.xml` holds only the new parameters, for merging into your own logger file. `FA24_Early_Logger*.xml`: the same three for the 2019–2021 Ascent (the Legacy / Outback XT has no SSM). `DIT_Logger_SUBUDS.xml`: the same parameters without the patch, on the 238 SH-ECU ROMs with a patch spec and all 35 RH850 ROMs, for a RomRaider build with the SUBUDS protocol. |
 | `tools/checksum.py`, `tools/checksum.ps1` | Check and fix the ROM checksum of 2 MB, 2.5 MB and RH850 (4032 KB: 2022+ WRX, 2023+ Ascent and Legacy / Outback XT) ROMs (Python, or PowerShell for Windows). Needed after an edit in RomRaider unless you use a `_Checksum` definition, and `verify` before any flash (see below). |
@@ -612,9 +612,10 @@ Every table whose unit depends on the system has both an imperial and a metric s
   good stock read, change little at a time and log everything.
 - **Checksum.** A ROM with a bad checksum won't run, so check it before every flash
   ([how](#fix-the-checksum-before-every-flash)). EcuFlash corrects it on save for 2 MB ROMs, and PCMFlash is reported
-  to correct it when it flashes (not tested by me). RomRaider corrects it with the `_Checksum` files and RomRaider
-  1.1.1 or later. Otherwise, and for 2.5 MB ROMs in EcuFlash, use `tools/checksum.py` or `tools/checksum.ps1`.
-- **Use RomRaider 1.0.0 or later.** Older versions read the DTC tables wrong.
+  to correct it when it flashes (not tested by me). RomRaider 1.1.1 or later corrects it on save. For 2.5 MB ROMs in EcuFlash, use `tools/checksum.py` or
+  `tools/checksum.ps1`.
+- **Use RomRaider 1.1.1 or later.** The definitions need it for the checksum, and versions before 1.0.0 read the DTC
+  tables wrong.
 - **Ascent and Legacy / Outback XT (FA24 Early): first release.** Not yet checked against a read from a car. The checksum is the same as the 2.5 MB WRX's. These ROMs come
   from Subaru's dealer software, which has no boot block, so `verify` reports one boot marker as BAD on them; a full
   read from a car should pass.

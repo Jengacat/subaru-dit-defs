@@ -5,15 +5,15 @@ lists).
 
 | Folder | For | Files |
 |---|---|---|
-| [`romraider/`](romraider/) | RomRaider | `FA20DIT_RomRaider.xml` covers every supported 2.0 ROM, `FB16DIT_RomRaider.xml` every supported Levorg 1.6 ROM, the Ascent and Legacy / Outback XT (FA24 Early) inside the FA20DIT file, and `FA24DIT_RomRaider.xml` the 2022+ WRX (also as `FA24DIT_RomRaider_Checksum.xml`, with the `checksum/` folder). |
+| [`romraider/`](romraider/) | RomRaider | `FA20DIT_RomRaider.xml` covers every supported 2.0 ROM, `FB16DIT_RomRaider.xml` every supported Levorg 1.6 ROM, the Ascent and Legacy / Outback XT (FA24 Early) inside the FA20DIT file, and `FA24DIT_RomRaider.xml` the 2022+ WRX. All three correct the checksum on save, with the `checksum/` folder (RomRaider 1.1.1 or later). |
 | [`ecuflash/`](ecuflash/) | EcuFlash, FastECU | Imperial and Metric sets: a base file per engine plus one file per ROM, named by calibration ID (the Ascent / Legacy XT files are `FA24_Early_*`, with a second base, `FA24_Early_BASE`, on top of the FA20DIT one; the 2022+ WRX files are made for FastECU). Also `read_subaruhitachish72544.xml`, a read template for the 2.5 MB (2019+) ECUs (untested; see the [main README](../README.md#reading-your-ecu)). |
 
 Both carry the same tables, scalings and descriptions. Each table has a plain-English summary first and the detail
 after it, and tables are grouped by purpose in tuning order. The descriptions say what the ECU does with a table, not
 what a particular car's calibration holds: stock values differ between markets, models and the two engines.
 
-EcuFlash corrects this ECU's checksum on save for 2 MB ROMs, and RomRaider does with the `_Checksum` files (see the
-[RomRaider README](romraider/)). Otherwise, and for every 2.5 MB ROM edited in EcuFlash, run
+EcuFlash corrects this ECU's checksum on save for 2 MB ROMs, and RomRaider 1.1.1 or later does for every ROM (see the
+[RomRaider README](romraider/)). For every 2.5 MB ROM edited in EcuFlash, run
 [`tools/checksum.py`](../tools/) or `tools/checksum.ps1` before flashing. The 2022+ WRX has its own rule and its own options; see
 [2022+ WRX: what's different](../docs/WRX_2022plus.md).
 

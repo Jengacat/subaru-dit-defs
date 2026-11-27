@@ -1413,6 +1413,7 @@
  <table name="Surge Damping Timing Curve (Gear 1)" address="07c134">
   <table name="Engine Speed" address="06f0e8" />
   <table name="Surge Damping Input" address="06ed08" />
+  <description>Manual transmission, gear 1: timing correction (negative = retard) by the size of the throttle-flow change after a throttle step, scaled by the surge phase, coolant and mode factors. Appears to damp driveline surge (shuffle) by retarding while rpm swings up. This version also has an axis for Engine speed.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 2, Below 1800 RPM)" address="06f2e4">
   <table name="Surge Damping Step Count" address="06f2a8" />
@@ -1509,6 +1510,7 @@
  <table name="Surge Damping Timing Curve (Gear 6)" address="07c2c4">
   <table name="Engine Speed" address="06f0e8" />
   <table name="Surge Damping Input" address="06ed08" />
+  <description>Manual transmission, gear 6: timing correction (negative = retard) by the size of the throttle-flow change after a throttle step, scaled by the surge phase, coolant and mode factors. Appears to damp driveline surge (shuffle) by retarding while rpm swings up. This version also has an axis for Engine speed.</description>
  </table>
  <table name="Tip-In Retard Class 4 Throttle Minimum" address="009d46">
   <table name="Engine Speed" address="009c64" />
@@ -1548,7 +1550,7 @@
  <table name="Tip-In Lash Timing Retard Decay Change (Drive Mode 1, Default)" address="0795f4">
   <table name="Engine Speed" address="06e848" />
   <table name="Gear" address="06dba0" />
-  <description>Phase time of the tip-in lash retard (Drive Mode 1, Default), in passes counted from the tip-in: Decay Change. Before Start the retard is zero. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified.</description>
+  <description>Phase time of the tip-in lash retard (Drive Mode 1, Default), counted in passes of the ignition calculation from the tip-in: Decay Change. Before Start the retard is zero. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified.</description>
  </table>
  <table name="Tip-In Lash Timing Retard (Drive Mode 1, Default, Low Torque)" address="078474">
   <table name="Engine Speed" address="06e828" />
@@ -1599,7 +1601,7 @@
  <table name="Tip-In Lash Timing Retard Decay Change (Drive Mode 2, Sport)" address="0796d4">
   <table name="Engine Speed" address="06e848" />
   <table name="Gear" address="06dba0" />
-  <description>Phase time of the tip-in lash retard (Drive Mode 2, Sport), in passes counted from the tip-in: Decay Change. Before Start the retard is zero. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified.</description>
+  <description>Phase time of the tip-in lash retard (Drive Mode 2, Sport), counted in passes of the ignition calculation from the tip-in: Decay Change. Before Start the retard is zero. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified.</description>
  </table>
  <table name="Tip-In Lash Timing Retard (Drive Mode 2, Sport, Low Torque)" address="078554">
   <table name="Engine Speed" address="06e828" />
@@ -1650,7 +1652,7 @@
  <table name="Tip-In Lash Timing Retard Decay Change (Drive Mode 3, Intelligent)" address="0797b4">
   <table name="Engine Speed" address="06e848" />
   <table name="Gear" address="06dba0" />
-  <description>Phase time of the tip-in lash retard (Drive Mode 3, Intelligent), in passes counted from the tip-in: Decay Change. Before Start the retard is zero. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified.</description>
+  <description>Phase time of the tip-in lash retard (Drive Mode 3, Intelligent), counted in passes of the ignition calculation from the tip-in: Decay Change. Before Start the retard is zero. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified.</description>
  </table>
  <table name="Tip-In Lash Timing Retard (Drive Mode 3, Intelligent, Low Torque)" address="078634">
   <table name="Engine Speed" address="06e828" />
@@ -1701,7 +1703,7 @@
  <table name="Tip-In Lash Timing Retard Decay Change (Drive Mode 4, Sport Sharp)" address="079894">
   <table name="Engine Speed" address="06e848" />
   <table name="Gear" address="06dba0" />
-  <description>Phase time of the tip-in lash retard (Drive Mode 4, Sport Sharp), in passes counted from the tip-in: Decay Change. Before Start the retard is zero. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified.</description>
+  <description>Phase time of the tip-in lash retard (Drive Mode 4, Sport Sharp), counted in passes of the ignition calculation from the tip-in: Decay Change. Before Start the retard is zero. Drive mode is the SI-Drive request received over CAN: 1 Default (also used when no valid request arrives), 2 Sport, 3 Intelligent, 4 Sport Sharp (positions inferred from the FA20 platform). The ECU decodes the request from three bits: the two bits that give Sport and Sport Sharp on their own give mode 7 when both are set. What selects that combination on the car is not identified.</description>
  </table>
  <table name="Tip-In Lash Timing Retard (Drive Mode 4, Sport Sharp, Low Torque)" address="078714">
   <table name="Engine Speed" address="06e828" />
@@ -1862,27 +1864,27 @@
  </table>
  <table name="Surge Damping Timing Curve (Gear 1, Drive Mode 2 Sport)" address="07dbb4">
   <table name="Engine Speed" address="06f0e8" />
-  <table name="Axis 1" address="06ed08" />
+  <table name="Surge Damping Input" address="06ed08" />
  </table>
  <table name="Surge Damping Timing Curve (Gear 2, Drive Mode 2 Sport)" address="07dc04">
   <table name="Engine Speed" address="06f0e8" />
-  <table name="Axis 1" address="06ed08" />
+  <table name="Surge Damping Input" address="06ed08" />
  </table>
  <table name="Surge Damping Timing Curve (Gear 3, Drive Mode 2 Sport)" address="07dc54">
   <table name="Engine Speed" address="06f0e8" />
-  <table name="Axis 1" address="06ed08" />
+  <table name="Surge Damping Input" address="06ed08" />
  </table>
  <table name="Surge Damping Timing Curve (Gear 4, Drive Mode 2 Sport)" address="07dca4">
   <table name="Engine Speed" address="06f0e8" />
-  <table name="Axis 1" address="06ed08" />
+  <table name="Surge Damping Input" address="06ed08" />
  </table>
  <table name="Surge Damping Timing Curve (Gear 5, Drive Mode 2 Sport)" address="07dcf4">
   <table name="Engine Speed" address="06f0e8" />
-  <table name="Axis 1" address="06ed08" />
+  <table name="Surge Damping Input" address="06ed08" />
  </table>
  <table name="Surge Damping Timing Curve (Gear 6, Drive Mode 2 Sport)" address="07dd44">
   <table name="Engine Speed" address="06f0e8" />
-  <table name="Axis 1" address="06ed08" />
+  <table name="Surge Damping Input" address="06ed08" />
  </table>
  <table name="Ignition Timing Cap (Pedal Released, TGV Open)" address="074ae4">
   <table name="Engine Load" address="06f1c4" />
@@ -4308,6 +4310,7 @@
  <table name="Rear O2 Sensor Ready Heater Energy Threshold" address="06a250">
   <table name="Coolant Temp" address="06a240" />
  </table>
+ <table name="Barometric Sensor Enable" address="001390" />
  <table name="MAP Sensor Multiplier" address="000ed8" />
  <table name="MAP Sensor Offset" address="000eda" />
  <table name="Rail Pressure Sensor Voltage Low Limit (P0192)" address="000ba6" />
@@ -4320,7 +4323,6 @@
  <table name="Oil Temp Sensor Voltage High Limit (P0198)" address="000c0e" />
  <table name="Vehicle Stopped Flag Clear Speed" address="0c1d66" />
  <table name="Vehicle Stopped Flag Set Speed" address="0c1d68" />
- <table name="Barometric Sensor Enable" address="001390" />
  <table name="Open Loop Fueling: Use Alternate Map" address="0013a3" />
  <table name="Multi-Injection Allowed During High-Pedal Latch 3" address="099b01" />
  <table name="EGR Enable" address="00139f" />

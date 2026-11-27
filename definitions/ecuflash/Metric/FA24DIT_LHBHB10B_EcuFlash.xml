@@ -1867,7 +1867,7 @@
   <table name="Engine Speed" address="01ae98" />
  </table>
  <table name="Wastegate Position Feed-Forward Compensation" address="01c850">
-  <table name="Wastegate Feed-Forward Position" address="01a3d8" scaling="% open uint16" />
+  <table name="Wastegate Feed-Forward Position" address="01a3d8" scaling="% open uint16 #2" />
   <table name="Engine Speed" address="01ae98" />
  </table>
  <table name="Wastegate Learned Seat Maximum" address="018be4" />
@@ -3627,7 +3627,7 @@
  <table name="Exhaust AVCS Rate Feedback Oil Factor (Cams 1 and 2)" address="0c22e0">
   <table name="Oil Temp" address="0c2260" />
  </table>
- <table name="AVCS Activation Delay After Start (Second)" address="0c2350" level="4" scaling="s uint16 #3">
+ <table name="AVCS Activation Delay After Start (Second)" address="0c2350" level="4">
   <table name="Coolant Temp at Start" address="020a88" />
   <description>A second start-delay table that can only shorten the AVCS hold after the hold has already ended, so it never changes anything. Edit AVCS Activation Delay After Start instead.</description>
  </table>
@@ -4113,6 +4113,7 @@
  <table name="Rear O2 Sensor Ready Heater Energy Threshold" address="093d48">
   <table name="Coolant Temp" address="093d38" />
  </table>
+ <table name="Barometric Sensor Enable" address="018dc2" />
  <table name="MAP Sensor Multiplier" address="018a2e" />
  <table name="MAP Sensor Offset" address="018a30" />
  <table name="Rail Pressure Sensor Voltage Low Limit (P0192)" address="0186da" />
@@ -4125,11 +4126,10 @@
  <table name="Oil Temp Sensor Voltage High Limit (P0198)" address="018742" />
  <table name="Vehicle Stopped Flag Clear Speed" address="0e6fe0" />
  <table name="Vehicle Stopped Flag Set Speed" address="0e6fe2" />
- <table name="Barometric Sensor Enable" address="018dc2" />
  <table name="Open Loop Fueling: Use Alternate Map" address="018dd5" />
  <table name="EGR Enable" address="018dd1" />
  <table name="VE: Use AVCS-Not-Ready Table" address="023ea5" />
- <table name="Transmission Coding: Automatic/CVT" address="018dcf" />
+ <table name="Transmission Coding: Automatic/CVT" address="018dcf" scaling="Switch b1 fFD" />
  <table name="(P0335) Crankshaft Position Sensor A Circuit" address="0d3359" />
  <table name="(P0336) Crankshaft Position Sensor A Circuit Range/Performance" address="0d3359" />
  <table name="(P0604) Internal Control Module RAM Error" address="0d3359" />

@@ -26,7 +26,7 @@
  </romid>
  <include>FA24DIT_BASE</include>
  <table name="Injector Flow Compensation (set 1)" address="041e5c">
-  <table name="Rail Pressure (Plus RPM/Load Offset)" address="041e3c" scaling="raw uint16" />
+  <table name="Rail Pressure (Plus RPM/Load Offset)" address="041e3c" scaling="psi uint16" />
  </table>
  <table name="Injector Flow Compensation (set 2)" address="04157c">
   <table name="Rail Pressure" address="04155c" scaling="psi uint16 #5" />
@@ -127,7 +127,7 @@
   <table name="Coolant Temp" address="0208f0" />
  </table>
  <table name="Injector Small Pulse Compensation" address="05d00c">
-  <table name="Rail Pressure" address="042afc" scaling="raw uint16" />
+  <table name="Rail Pressure" address="042afc" scaling="psi uint16" />
   <table name="Injector Pulse Width (Flow-Compensated)" address="042abc" />
  </table>
  <table name="Injector Scaling" address="0ec5bc" />
@@ -1869,7 +1869,7 @@
   <table name="Engine Speed" address="01ad20" />
  </table>
  <table name="Wastegate Position Feed-Forward Compensation" address="01c6d8">
-  <table name="Wastegate Feed-Forward Position" address="01a2c0" scaling="% open uint16" />
+  <table name="Wastegate Feed-Forward Position" address="01a2c0" scaling="% open uint16 #2" />
   <table name="Engine Speed" address="01ad20" />
  </table>
  <table name="Wastegate Learned Seat Maximum" address="018ae0" />
@@ -2891,7 +2891,7 @@
  <table name="Torque Shaping Threshold B" address="0272f8">
   <table name="Engine Speed" address="0272e4" />
  </table>
- <table name="Requested Torque Gear Maps Switch" address="018d5e" />
+ <table name="Requested Torque Gear Maps Switch" address="018d5e" scaling="Switch b3 f00" />
  <table name="Requested Torque Cap (Drive Mode 1, Default)" address="0262a0" />
  <table name="Requested Torque Cap (Drive Mode 2, Sport)" address="0262a2" />
  <table name="Maximum Torque (DAM)" address="028278">
@@ -3629,7 +3629,7 @@
  <table name="Exhaust AVCS Rate Feedback Oil Factor (Cams 1 and 2)" address="0c215c">
   <table name="Oil Temp" address="0c20dc" />
  </table>
- <table name="AVCS Activation Delay After Start (Second)" address="0c21cc" level="4" scaling="s uint16 #3">
+ <table name="AVCS Activation Delay After Start (Second)" address="0c21cc" level="4">
   <table name="Coolant Temp at Start" address="020910" />
   <description>A second start-delay table that can only shorten the AVCS hold after the hold has already ended, so it never changes anything. Edit AVCS Activation Delay After Start instead.</description>
  </table>
@@ -4115,6 +4115,7 @@
  <table name="Rear O2 Sensor Ready Heater Energy Threshold" address="093bd0">
   <table name="Coolant Temp" address="093bc0" />
  </table>
+ <table name="Barometric Sensor Enable" address="018cae" />
  <table name="MAP Sensor Multiplier" address="01892a" />
  <table name="MAP Sensor Offset" address="01892c" />
  <table name="Rail Pressure Sensor Voltage Low Limit (P0192)" address="0185d6" />
@@ -4127,11 +4128,10 @@
  <table name="Oil Temp Sensor Voltage High Limit (P0198)" address="01863e" />
  <table name="Vehicle Stopped Flag Clear Speed" address="0e6dfc" />
  <table name="Vehicle Stopped Flag Set Speed" address="0e6dfe" />
- <table name="Barometric Sensor Enable" address="018cae" />
  <table name="Open Loop Fueling: Use Alternate Map" address="018cc1" />
  <table name="EGR Enable" address="018cbd" />
  <table name="VE: Use AVCS-Not-Ready Table" address="023d2d" />
- <table name="Transmission Coding: Automatic/CVT" address="018cbb" />
+ <table name="Transmission Coding: Automatic/CVT" address="018cbb" scaling="Switch b1 fFD" />
  <table name="(P0335) Crankshaft Position Sensor A Circuit" address="0d31d5" />
  <table name="(P0336) Crankshaft Position Sensor A Circuit Range/Performance" address="0d31d5" />
  <table name="(P0604) Internal Control Module RAM Error" address="0d31d5" />

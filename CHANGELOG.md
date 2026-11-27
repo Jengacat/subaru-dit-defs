@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- Real units on the RH850 ROMs (`FA24DIT_*`): about 125 tables and 30 axes that showed raw numbers now display in
+  units. These include the cranking and after-start fuel multipliers and enrichments, the start-sequence, catalyst
+  heating, idle state, surge damping and decel fuel cut staging times (in seconds), the TGV air flow limits (g/s),
+  wastegate feed-forward and boost feedback (% of wastegate position), the exhaust temperature model filters, DAM step
+  gain, the open-loop enrichment cap (as an AFR) and the rail pressure, closed-loop error and target torque axes.
+  The calibration switches (Barometric Sensor Enable, EGR Enable, Open Loop Fueling: Use Alternate Map and others)
+  are now on/off switches, as on the 2.0 ROMs. About 20 tables keep raw units because I haven't worked out what
+  their numbers mean yet: the knock thresholds and a few start, learning and throttle model values.
 - Cleaner descriptions everywhere: every table, value and logger parameter description in every definition and logger
   file now explains what the setting does, without memory addresses or notes on how it was found. Debug-level tables
   keep their plain explanation; the technical detail behind them is gone from the published files.

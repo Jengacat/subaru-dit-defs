@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- EcuFlash user levels fixed (2.0 / 1.6 and the 2018-2019 Ascent / Legacy files). EcuFlash counts its levels the
+- EcuFlash user levels fixed (the 2.0 / 1.6 files and the `FA24_Early` Ascent / Legacy XT files). EcuFlash counts its levels the
   other way from RomRaider, so at Beginner the core tables were the ones greyed out. Now Beginner shows the core
   tables (fueling, timing, boost, requested torque, rev limits, throttle maps), Intermediate and Advanced add more,
   and Developer shows everything. FastECU has no user levels and is unaffected.

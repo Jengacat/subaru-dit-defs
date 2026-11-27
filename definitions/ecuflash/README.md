@@ -11,7 +11,9 @@ EcuFlash shows each table in one unit, so the definitions come in two sets with 
 `FA24_Early_BASE_EcuFlash.xml`, which includes `FA20DIT_BASE_EcuFlash.xml`: install both base files. EcuFlash and
 FastECU both handle this.
 
-**FastECU** reads these EcuFlash files too, and shows the same values as EcuFlash.
+**FastECU** reads these EcuFlash files too, and shows the same values as EcuFlash. On the 2019+ (2.5 MB) ROMs the flash method is
+FastECU's 2.5 MB protocol (`sub_ecu_hitachi_sh72544r_can_2_5mb`), so FastECU picks it and corrects the checksum on
+save (its current source); EcuFlash shows that name under ROM Info and otherwise works as before.
 
 Units both systems use (g/rev, RPM, %, AFR, degrees, g/s) are the same in both. **Install one set only:** the ROM
 files in both have the same IDs, and EcuFlash would load whichever it finds first.
@@ -47,7 +49,7 @@ first.
   example), the value also shows the whole byte in brackets, `on [20]`, and the DTC rule applies: Increment once,
   no Decrement. The byte's other bits belong to other functions and are left as the ROM has them.
 - **Checksum:** EcuFlash corrects the checksum when you save a 2015–2018 (2 MB) ROM. It can't for the 2019+ (2.5 MB)
-  ROMs: fix those with the checksum tool. Either way, run `verify` on the file you're about to
+  ROMs: fix those with the checksum tool, or edit them in FastECU, which corrects it. Either way, run `verify` on the file you're about to
   flash (see the main README).
 
 Writing to the ECU with EcuFlash has not been tested on this ECU yet.

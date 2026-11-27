@@ -624,40 +624,37 @@ Every table whose unit depends on the system has both an imperial and a metric s
 
 ## Reading your ECU
 
-Use EcuFlash with the **larger, 2 MB** read setting. A smaller read stops partway through the flash and is not usable:
-a complete read of a 2015–2018 ECU is exactly **2,097,152 bytes**. Keep that stock read somewhere safe before you
-change anything.
+Read your ECU and keep that stock file somewhere safe before you change anything. A complete read is exactly the size
+below; a smaller file stopped partway and isn't usable. If the reading tool doesn't show a calibration ID, that's
+fine: the ID is inside the file (open it with these definitions, or [submit it](#submitting-a-rom) and I'll identify it).
 
-EcuFlash may not show the calibration ID if it has no definition for the ROM yet. That's fine: the ID is inside the
-file (open it with these definitions, or submit it as below and I'll identify it).
+| ECU | Cars | Complete read | Read it with |
+|---|---|---|---|
+| Hitachi SH72543R, 2 MB | 2014–2020 2.0 and 1.6 (every ROM in the lists not marked "2.5 MB ECU") | 2,097,152 bytes | EcuFlash, with the **2 MB** read setting |
+| Hitachi SH72544R, 2.5 MB | 2019–2021 ROMs marked "(2.5 MB ECU)" in the lists, and the 2019–2021 Ascent and Legacy / Outback XT | 2,621,440 bytes | FastECU (read-only) |
+| Renesas RH850, 4032 KB | 2022+ WRX, 2023+ Ascent and Legacy / Outback XT | 4,128,768 bytes | FastECU (read-only) |
 
-**PCMFlash** (commercial, licensed per module) is another option for reading and writing. Its "Subaru Hitachi" module
-(module 16) lists the SH72543 / 2 MB ECU used in these cars
-([module list](https://ecutools.eu/chip-tuning/pcmflash/#subproduct-group-8037)), and it has been reported to me that
-it reads and writes these ECUs and **corrects the checksum when it flashes**. I haven't tested it on these ECUs myself,
-so treat it as an alternative to EcuFlash rather than a recommendation, and still run `verify` on the file first.
+**FastECU** (free, open source, works with a Tactrix OpenPort 2.0) has a read protocol for each of the newer ECUs,
+both of which I added to the project. They're in FastECU 0.1.0-beta.7 and its current source:
 
-The 2019 and later ECUs (WRX, Levorg and presumably other DIT cars) have 2.5 MB of flash. A 2 MB read of one of those is
-incomplete. EcuFlash has a 2.5 MB memory model, SH72544R: with the read template
-`read_subaruhitachish72544.xml` (in both [`Imperial`](definitions/ecuflash/Imperial/read_subaruhitachish72544.xml) and `Metric`) in your
-EcuFlash definitions folder, EcuFlash offers a 2560k read for these ECUs and can open 2.5 MB files:
+- **2.5 MB:** "Subaru 2019+ 2.0 DIT CAN (Hitachi SH72544R/2.5MB), read only"
+  ([miikasyvanen/FastECU#159](https://github.com/miikasyvanen/FastECU/pull/159)).
+- **RH850:** "Subaru 2022+ DIT CAN (Renesas RH850/4MB)", under the vehicles WRX, Ascent, Legacy and Outback 2.4 DIT
+  ([miikasyvanen/FastECU#165](https://github.com/miikasyvanen/FastECU/pull/165)). Writing is switched off in it.
 
-![EcuFlash read templates: the 2048k SH72543R entry and the new 2560k SH72544R entry](docs/images/ecuflash_sh72544r_read_template.png)
+Both read with the ECU's own diagnostic memory read, so nothing is written to the ECU. **Neither has been run on a car
+yet.** If you try one, please [let me know](../../issues/new/choose) how it went, with the size of the file you got.
 
-**Not tested yet:** the template only tells EcuFlash the chip and size. Whether EcuFlash's `subaruhitachi` method can
-actually read (or write) a 2019+ ECU is unknown, so for now treat it as reported, not confirmed. PCMFlash may be able to read them: a 2019 JDM Levorg STI 2.0 (LF9F000R) on
-the RomRaider forum was read in full (2,621,440 bytes, valid checksum) with PCMFlash's "Levorg 2018+ 2.0 DIT CAT
-(Hitachi SH72544/2.5 MB)" module and a Tactrix OpenPort 2.0. That 2.5 MB module isn't on the module list linked above, and
-whether it covers the 2019+ WRX isn't confirmed.
+**EcuFlash** reads the 2 MB ECU. For the 2.5 MB ECU, the read template `read_subaruhitachish72544.xml` (in
+[`Imperial`](definitions/ecuflash/Imperial/read_subaruhitachish72544.xml) and `Metric`) adds a 2560k read, but
+whether EcuFlash can actually read that ECU is untested. EcuFlash has no support for the RH850 ECU.
 
-**FastECU** (free, open source, works with a Tactrix OpenPort 2.0) now has a read-only protocol for these ECUs:
-"Subaru 2019+ 2.0 DIT CAN (Hitachi SH72544R/2.5MB), read only", which I added to the project
-([miikasyvanen/FastECU#159](https://github.com/miikasyvanen/FastECU/pull/159)). It uses the ECU's own diagnostic memory
-read, so nothing is written to the ECU, and it reads the full 2.5 MB (2,621,440 bytes). Two caveats: it isn't in a
-FastECU release yet (only in the current source, where it shows in the protocol list); and I haven't tested it on a
-car yet. With these definitions FastECU also corrects the 2.5 MB checksum when you save (see
-[Editing with EcuFlash or FastECU](#editing-with-ecuflash-or-fastecu)). If you try it, a complete read is exactly 2,621,440 bytes; please let me know how it went. Writing
-the 2.5 MB ECUs isn't supported yet.
+**PCMFlash** (commercial, licensed per module) is reported to read and write the 2 MB ECU with its "Subaru Hitachi"
+module (module 16, [module list](https://ecutools.eu/chip-tuning/pcmflash/#subproduct-group-8037)) and to correct the
+checksum when it flashes. A 2019 JDM Levorg STI 2.0 (LF9F000R) was read in full with its "Levorg 2018+ 2.0 DIT CAT
+(Hitachi SH72544/2.5 MB)" module. I haven't tested PCMFlash myself.
+
+**Writing** the 2.5 MB and RH850 ECUs isn't supported by any free tool yet: FastECU's protocols for them only read.
 
 ## Submitting a ROM
 

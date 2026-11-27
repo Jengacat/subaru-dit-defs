@@ -37,4 +37,6 @@ everything here applies to their ROMs too. Read this before you start; the suppo
 - **Drive modes.** Tables marked Drive Mode 1–4 follow the SI-Drive mode the ECU receives over CAN (1 Default,
   2 Sport, 3 Intelligent, 4 Sport Sharp; the names of 2–4 are inferred from the older platform). The manual ROMs
   carry maps for every mode, but the manual car probably stays in mode 1 (inferred), so edit mode 1 there.
-- **Reading and writing the ECU:** nothing in this repository does either, and I haven't tested a tool for it.
+- **Reading and writing the ECU:** FastECU (0.1.0-beta.7 and its current source) reads this ECU with its "Subaru 2022+
+  DIT CAN (Renesas RH850/4MB)" protocol; a complete read is 4,128,768 bytes. Writing is switched off in it, and it
+  hasn't been run on a car yet (see [Reading your ECU](../README.md#reading-your-ecu)).

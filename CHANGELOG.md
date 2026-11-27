@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- README: "Reading your ECU" rewritten around what reads which ECU: a table of the three ECUs (2 MB, 2.5 MB and the
+  2022+ RH850) with the size of a complete read and the tool for each. FastECU 0.1.0-beta.7 reads the 2.5 MB and RH850
+  ECUs (read-only; not run on a car yet). The 2022+ WRX guide says the same.
 - README: the "Fix the checksum before every flash" section is gone. Each editor's section says whether it fixes the
   checksum on save, Known issues says when to run the checksum tool, and the commands are in the
   [tools README](tools/README.md#checksum).

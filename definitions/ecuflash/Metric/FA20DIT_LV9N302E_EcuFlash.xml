@@ -172,7 +172,7 @@
   <table name="Engine Load" address="01758a" />
   <table name="Engine Speed" address="01757a" />
  </table>
- <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" address="03c2a8" level="4">
+ <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" address="03c2a8">
   <table name="Coolant Temp" address="03bf8e" />
   <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
  </table>
@@ -230,17 +230,17 @@
   <table name="Engine Load" address="011cb4" elements="10" />
   <table name="Engine Speed" address="011cbe" />
  </table>
- <table name="Additional Enrichment A" address="015402" level="4">
+ <table name="Additional Enrichment A" address="015402">
   <table name="Engine Load" address="011cb4" elements="10" />
   <table name="Engine Speed" address="011cbe" />
   <description>Extra enrichment added to the open-loop enrichment at higher coolant and lower rpm.</description>
  </table>
- <table name="Additional Enrichment B" address="0155e2" level="4">
+ <table name="Additional Enrichment B" address="0155e2">
   <table name="Engine Load" address="011cb4" elements="10" />
   <table name="Engine Speed" address="011cbe" />
   <description>Second table of the additional enrichment, used at low coolant or high rpm.</description>
  </table>
- <table name="Additional Enrichment Throttle Threshold" address="013c54" level="4">
+ <table name="Additional Enrichment Throttle Threshold" address="013c54">
   <table name="Engine Speed" address="013c34" />
   <description>Throttle opening above idle, by rpm, needed to enable Additional Enrichment A/B.</description>
  </table>
@@ -1033,17 +1033,17 @@
  <table name="Decel Fuel Cut Resume RPM Adder (A/C, Alternate)" address="01b4a3">
   <table name="Input" address="01b49b" />
  </table>
- <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C Off)" address="01e7cc" level="4">
+ <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C Off)" address="01e7cc">
   <table name="Cut Count" address="01e558" />
   <table name="RPM Band" address="01e552" />
   <description>Alternate decel fuel cut staging (A/C off).</description>
  </table>
- <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C On)" address="01e67c" level="4">
+ <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C On)" address="01e67c">
   <table name="Cut Count" address="01e558" />
   <table name="RPM Band" address="01e552" />
   <description>Alternate decel fuel cut staging (A/C on).</description>
  </table>
- <table name="Decel Fuel Cut Full-Cut Shortcut Hold" address="020224" level="4">
+ <table name="Decel Fuel Cut Full-Cut Shortcut Hold" address="020224">
   <table name="Engine Speed" address="020234" />
   <description>Time, by rpm, after which all cylinders would be cut at once under unidentified conditions.</description>
  </table>
@@ -1624,7 +1624,7 @@
   <table name="Engine Speed" address="02e77c" />
   <table name="Throttle Opening" address="02e768" />
  </table>
- <table name="A/C Cut Timing Retard Step (Alternate Logic)" address="02dda6" level="4">
+ <table name="A/C Cut Timing Retard Step (Alternate Logic)" address="02dda6">
   <table name="Input" address="02dd8d" />
   <description>Alternate A/C-switch timing retard amount, by an unidentified input.</description>
  </table>
@@ -1727,22 +1727,22 @@
   <table name="Coolant Temp" address="035d60" />
   <table name="Count" address="028b12" />
  </table>
- <table name="Start Spark Target Base (Mode 1, Warm-Up Fallback)" address="0286f2" level="4">
+ <table name="Start Spark Target Base (Mode 1, Warm-Up Fallback)" address="0286f2">
   <table name="Coolant Temp" address="0280e6" />
   <table name="Engine Speed" address="0280ce" />
   <description>Warm-up fallback copy of Start Spark Target Base (Mode 1) for the manual car.</description>
  </table>
- <table name="Start Spark Target Torque Adder (Mode 1, Warm-Up Fallback)" address="0288f2" level="4">
+ <table name="Start Spark Target Torque Adder (Mode 1, Warm-Up Fallback)" address="0288f2">
   <table name="Coolant Temp" address="0280e6" />
   <table name="Torque Fraction" address="0280de" />
   <description>Warm-up fallback copy of Start Spark Target Torque Adder (Mode 1) for the manual car.</description>
  </table>
- <table name="Start Spark Target Run-Time Adder (Mode 1, Warm-Up Fallback)" address="028c32" level="4">
+ <table name="Start Spark Target Run-Time Adder (Mode 1, Warm-Up Fallback)" address="028c32">
   <table name="Coolant Temp" address="0280e6" />
   <table name="Count" address="028106" />
   <description>Warm-up fallback copy of Start Spark Target Run-Time Adder (Mode 1) for the manual car.</description>
  </table>
- <table name="Start Spark Target Re-Entry Adder (Mode 1, Warm-Up Fallback)" address="028a12" level="4">
+ <table name="Start Spark Target Re-Entry Adder (Mode 1, Warm-Up Fallback)" address="028a12">
   <table name="Coolant Temp" address="035d60" />
   <table name="Count" address="0289f2" />
   <description>Warm-up fallback copy of Start Spark Target Re-Entry Adder (Mode 1) for the manual car.</description>
@@ -2203,11 +2203,11 @@
  <table name="Fail-Safe Rev Limit Minimum Above Idle Target" address="0107ce" />
  <table name="Limit-State Spark: Normal Target in Speed Limit" address="021842" />
  <table name="Limit-State Spark: Normal Target in Rev/Overboost Cut" address="021842" />
- <table name="External Torque Limit Baro Factor" address="01e818" level="4">
+ <table name="External Torque Limit Baro Factor" address="01e818">
   <table name="Barometric Pressure" address="01e808" />
   <description>Air-density correction (barometric part) applied to a torque limit received over CAN, probably from the transmission controller.</description>
  </table>
- <table name="External Torque Limit IAT Factor" address="01e838" level="4">
+ <table name="External Torque Limit IAT Factor" address="01e838">
   <table name="Intake Air Temp" address="01e828" />
   <description>Air-density correction (intake temperature part) applied to a torque limit received over CAN, probably from the transmission controller.</description>
  </table>
@@ -3000,7 +3000,7 @@
  <table name="Idle Speed Target (Cold Idle, Mode 4)" address="022874">
   <description>Idle speed target by coolant for a cold-idle mode used when stopped below a coolant threshold.</description>
  </table>
- <table name="Idle Target Ramp Rate (Fallback Latch)" address="024b86" level="4">
+ <table name="Idle Target Ramp Rate (Fallback Latch)" address="024b86">
   <table name="Coolant Temp" address="035d60" />
   <description>Idle target ramp rate (by coolant) used when a warm-up fallback flag is set (manual-car version).</description>
  </table>
@@ -3010,7 +3010,7 @@
  <table name="Idle Target Ramp Rate (Mode 5 to 4)" address="0229b4">
   <table name="Coolant Temp" address="035d60" />
  </table>
- <table name="Idle Target Ramp Rate (Fallback Latch, AT/CVT)" address="024b66" level="4">
+ <table name="Idle Target Ramp Rate (Fallback Latch, AT/CVT)" address="024b66">
   <table name="Coolant Temp" address="035d60" />
   <description>Idle target ramp rate (by coolant) used when a warm-up fallback flag is set, on automatic/CVT cars.</description>
  </table>
@@ -3184,12 +3184,12 @@
   <table name="Coolant Temp" address="035d60" />
   <table name="Selector FFF8A6E8" address="023f72" />
  </table>
- <table name="A/C Idle Air (Alternate, Target RPM)" address="033980" level="4">
+ <table name="A/C Idle Air (Alternate, Target RPM)" address="033980">
   <table name="Engine Speed" address="0338e4" />
   <table name="Input" address="0338cc" />
   <description>A/C idle air by an unidentified CAN load value and idle target rpm, for an alternate A/C idle-air path.</description>
  </table>
- <table name="A/C Idle Air (Alternate, Engine Speed)" address="0338f0" level="4">
+ <table name="A/C Idle Air (Alternate, Engine Speed)" address="0338f0">
   <table name="Engine Speed" address="0338d8" />
   <table name="Input" address="0338cc" />
   <description>A/C idle air by an unidentified CAN load value and engine speed, for an alternate A/C idle-air path.</description>
@@ -3441,7 +3441,7 @@
  <table name="TGV Torque Threshold Exit (Start Modes)" address="03555e">
   <table name="Engine Speed" address="035478" />
  </table>
- <table name="TGV Coolant Minimum (Warm-Up Fallback)" address="035458" level="4">
+ <table name="TGV Coolant Minimum (Warm-Up Fallback)" address="035458">
   <description>Minimum coolant for TGV closing used only while a warm-up fallback flag is set.</description>
  </table>
  <table name="Cruise Pedal Equivalent (Other Drive Modes)" address="03caae">
@@ -3581,7 +3581,7 @@
  <table name="Charging Target Voltage (Normal)" address="0371da" />
  <table name="Charging Target Voltage (Battery Charged)" address="0371e0" />
  <table name="Charging Target Voltage (Accessory Load)" address="03741c" />
- <table name="Charging Target Voltage (Mode 1)" address="0371dc" level="4" />
+ <table name="Charging Target Voltage (Mode 1)" address="0371dc" />
  <table name="Charging Target Voltage (Adaptive) Maximum" address="0371ae" />
  <table name="Charging Target Voltage (Adaptive) Minimum" address="0371b0" />
  <table name="Charging Target Voltage Maximum" address="037420" />

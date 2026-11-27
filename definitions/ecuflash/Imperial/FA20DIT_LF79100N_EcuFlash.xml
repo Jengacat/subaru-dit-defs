@@ -3763,13 +3763,13 @@
  <table name="VDC Torque Request Correction" address="03e58c">
   <table name="Torque" address="03e56c" />
  </table>
- <table name="Brake Booster Vacuum Model Maximum" address="04dd9e" level="5">
+ <table name="Brake Booster Vacuum Model Maximum" address="04dd9e">
   <table name="Barometric Pressure" address="04dd94" />
   <description>Upper limit, by barometric pressure, of a modelled brake-booster vacuum.
 
 The module sets no DTC.</description>
  </table>
- <table name="Brake Booster Vacuum Model Manifold Threshold" address="04df56" level="5">
+ <table name="Brake Booster Vacuum Model Manifold Threshold" address="04df56">
   <table name="Barometric Pressure" address="04df4c" />
   <description>Manifold-vacuum threshold, by barometric pressure, for a brake-booster vacuum model.
 
@@ -3869,33 +3869,33 @@ The module sets no DTC.</description>
  <table name="CAN Engine Torque Fuel-Cut Fade Rate" address="03ef9e">
   <table name="Engine Speed" address="03efa2" />
  </table>
- <table name="Gear Road Speed per 1000 RPM" address="04032a" level="5">
+ <table name="Gear Road Speed per 1000 RPM" address="04032a">
   <table name="Gear" address="03f93a" />
   <description>Road speed per 1000 rpm for each gear, used only by the gear advice function. The values do not match the 6MT and probably belong to another transmission.
 
 Road speed per 1000 rpm for gear index 1-8. The values (11.3 to 53.9 km/h per 1000 rpm over 6 steps here, 11.0 to 53.9 over 8 in the Alternate table) do not fit the 6MT, so this belongs to another transmission (likely).</description>
  </table>
- <table name="Gear Road Speed per 1000 RPM (Alternate)" address="04033a" level="5">
+ <table name="Gear Road Speed per 1000 RPM (Alternate)" address="04033a">
   <table name="Gear" address="03f93a" />
   <description>Alternate road speed per 1000 rpm for each gear, used only by the gear advice function. The values do not match the 6MT and probably belong to another transmission.</description>
  </table>
- <table name="Gear Advice Consumption Map" address="03fe0a" level="5">
+ <table name="Gear Advice Consumption Map" address="03fe0a">
   <table name="Engine Speed" address="03f982" />
   <table name="Torque" address="03f95a" />
   <description>Fuel consumption map by torque and rpm (likely) for a gear-shift advice function that picks the most economical gear. One table edits all three copies.
 
 With the bit set it takes the current power (torque x rpm / 9549.3), the engine speed in the gear below and in the gear above, looks up the consumption map at the three points and advises the gear with the lowest value. One entry edits all three.</description>
  </table>
- <table name="Gear Advice Downshift Maximum RPM (Alternate)" address="0403aa" level="5">
+ <table name="Gear Advice Downshift Maximum RPM (Alternate)" address="0403aa">
   <table name="Gear" address="03f9d2" />
   <description>Alternate rpm limit, by gear, below which a downshift may be advised by the gear advice function.</description>
  </table>
- <table name="Gear Advice Upshift Minimum RPM" address="04012a" level="5">
+ <table name="Gear Advice Upshift Minimum RPM" address="04012a">
   <table name="Gear" address="03f9ca" />
   <table name="Accelerator Pedal" address="03f942" />
   <description>Minimum rpm in the next gear up, by pedal and gear, for an upshift to be advised by the gear advice function.</description>
  </table>
- <table name="Gear Advice Upshift Minimum RPM (Alternate)" address="0401aa" level="5">
+ <table name="Gear Advice Upshift Minimum RPM (Alternate)" address="0401aa">
   <table name="Gear" address="03f9ca" />
   <table name="Accelerator Pedal" address="03f942" />
   <description>Alternate minimum rpm in the next gear up, by pedal and gear, for an upshift to be advised by the gear advice function.</description>

@@ -260,17 +260,17 @@
   <table name="Engine Load" address="011af4" />
   <table name="Engine Speed" address="011b08" />
  </table>
- <table name="Additional Enrichment A" address="01542a" level="4">
+ <table name="Additional Enrichment A" address="01542a">
   <table name="Engine Load" address="011af4" />
   <table name="Engine Speed" address="011b08" />
   <description>Extra enrichment added to the open-loop enrichment at higher coolant and lower rpm.</description>
  </table>
- <table name="Additional Enrichment B" address="0157ea" level="4">
+ <table name="Additional Enrichment B" address="0157ea">
   <table name="Engine Load" address="011af4" />
   <table name="Engine Speed" address="011b08" />
   <description>Second table of the additional enrichment, used at low coolant or high rpm.</description>
  </table>
- <table name="Additional Enrichment Throttle Threshold" address="013c7c" level="4">
+ <table name="Additional Enrichment Throttle Threshold" address="013c7c">
   <table name="Engine Speed" address="013c5c" />
   <description>Throttle opening above idle, by rpm, needed to enable Additional Enrichment A/B.</description>
  </table>
@@ -1059,17 +1059,17 @@
  <table name="Decel Fuel Cut Resume RPM Adder (A/C, Alternate)" address="01d0db">
   <table name="Input" address="01d0d3" />
  </table>
- <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C Off)" address="020404" level="4">
+ <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C Off)" address="020404">
   <table name="Cut Count" address="020190" />
   <table name="RPM Band" address="02018a" />
   <description>Alternate decel fuel cut staging (A/C off).</description>
  </table>
- <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C On)" address="0202b4" level="4">
+ <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C On)" address="0202b4">
   <table name="Cut Count" address="020190" />
   <table name="RPM Band" address="02018a" />
   <description>Alternate decel fuel cut staging (A/C on).</description>
  </table>
- <table name="Decel Fuel Cut Full-Cut Shortcut Hold" address="021e5c" level="4">
+ <table name="Decel Fuel Cut Full-Cut Shortcut Hold" address="021e5c">
   <table name="Engine Speed" address="021e6c" />
   <description>Time, by rpm, after which all cylinders would be cut at once under unidentified conditions.</description>
  </table>
@@ -1629,7 +1629,7 @@
   <table name="Engine Speed" address="02e978" />
   <table name="Throttle Opening" address="02e964" />
  </table>
- <table name="A/C Cut Timing Retard Step (Alternate Logic)" address="02dfa2" level="4">
+ <table name="A/C Cut Timing Retard Step (Alternate Logic)" address="02dfa2">
   <table name="Input" address="02df89" />
   <description>Alternate A/C-switch timing retard amount, by an unidentified input.</description>
  </table>
@@ -2160,11 +2160,11 @@
  <table name="Fail-Safe Rev Limit Minimum Above Idle Target" address="0107ce" />
  <table name="Limit-State Spark: Normal Target in Speed Limit" address="022b8e" />
  <table name="Limit-State Spark: Normal Target in Rev/Overboost Cut" address="022b8e" />
- <table name="External Torque Limit Baro Factor" address="020450" level="4">
+ <table name="External Torque Limit Baro Factor" address="020450">
   <table name="Barometric Pressure" address="020440" />
   <description>Air-density correction (barometric part) applied to a torque limit received over CAN, probably from the transmission controller.</description>
  </table>
- <table name="External Torque Limit IAT Factor" address="020470" level="4">
+ <table name="External Torque Limit IAT Factor" address="020470">
   <table name="Intake Air Temp" address="020460" />
   <description>Air-density correction (intake temperature part) applied to a torque limit received over CAN, probably from the transmission controller.</description>
  </table>
@@ -3173,12 +3173,12 @@
   <table name="Coolant Temp" address="036440" />
   <table name="Selector FFF8A6E8" address="0253ce" />
  </table>
- <table name="A/C Idle Air (Alternate, Target RPM)" address="033570" level="4">
+ <table name="A/C Idle Air (Alternate, Target RPM)" address="033570">
   <table name="Engine Speed" address="0334d4" />
   <table name="Input" address="0334bc" />
   <description>A/C idle air by an unidentified CAN load value and idle target rpm, for an alternate A/C idle-air path.</description>
  </table>
- <table name="A/C Idle Air (Alternate, Engine Speed)" address="0334e0" level="4">
+ <table name="A/C Idle Air (Alternate, Engine Speed)" address="0334e0">
   <table name="Engine Speed" address="0334c8" />
   <table name="Input" address="0334bc" />
   <description>A/C idle air by an unidentified CAN load value and engine speed, for an alternate A/C idle-air path.</description>

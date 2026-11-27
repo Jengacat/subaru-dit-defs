@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- EcuFlash user levels fixed (2.0 / 1.6 and the 2018-2019 Ascent / Legacy files). EcuFlash counts its levels the
+  other way from RomRaider, so at Beginner the core tables were the ones greyed out. Now Beginner shows the core
+  tables (fueling, timing, boost, requested torque, rev limits, throttle maps), Intermediate and Advanced add more,
+  and Developer shows everything. FastECU has no user levels and is unaffected.
+- EcuFlash file headers reworded.
 - Real units on the RH850 ROMs (`FA24DIT_*`): about 125 tables and 30 axes that showed raw numbers now display in
   units. These include the cranking and after-start fuel multipliers and enrichments, the start-sequence, catalyst
   heating, idle state, surge damping and decel fuel cut staging times (in seconds), the TGV air flow limits (g/s),

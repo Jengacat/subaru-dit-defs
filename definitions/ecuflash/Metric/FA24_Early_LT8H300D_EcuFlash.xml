@@ -274,17 +274,17 @@
   <table name="Engine Load" address="011b38" />
   <table name="Engine Speed" address="011b4c" />
  </table>
- <table name="Additional Enrichment A" address="015482" level="5">
+ <table name="Additional Enrichment A" address="015482">
   <table name="Engine Load" address="011b38" />
   <table name="Engine Speed" address="011b4c" />
   <description>Extra enrichment added to the open-loop enrichment at higher coolant and lower rpm.</description>
  </table>
- <table name="Additional Enrichment B" address="015842" level="5">
+ <table name="Additional Enrichment B" address="015842">
   <table name="Engine Load" address="011b38" />
   <table name="Engine Speed" address="011b4c" />
   <description>Second table of the additional enrichment, used at low coolant or high rpm.</description>
  </table>
- <table name="Additional Enrichment Throttle Threshold" address="013cd4" level="5">
+ <table name="Additional Enrichment Throttle Threshold" address="013cd4">
   <table name="Engine Speed" address="013cb4" />
   <description>Throttle opening above idle, by rpm, needed to enable Additional Enrichment A/B.
 
@@ -1081,7 +1081,7 @@ Belongs to Additional Enrichment A/B.</description>
  <table name="Base Timing Coolant Compensation (Alternate, Above 5000 RPM)" address="03f523">
   <table name="Coolant Temp" address="03f760" />
  </table>
- <table name="Filtered RPM Rate Timing Term" address="0356f0" level="5">
+ <table name="Filtered RPM Rate Timing Term" address="0356f0">
   <table name="Filtered RPM Change" address="0356e6" />
   <description>Timing added or removed according to how fast engine speed is changing, which looks like an rpm-oscillation (surge) damper.</description>
  </table>
@@ -1183,24 +1183,24 @@ Belongs to Additional Enrichment A/B.</description>
   <table name="Engine Load" address="01de0c" />
   <table name="Engine Speed" address="01dde0" />
  </table>
- <table name="FBKC Retard Step (Secondary Knock, State 0x0D)" address="01d47b" level="5">
+ <table name="FBKC Retard Step (Secondary Knock, State 0x0D)" address="01d47b">
   <description>Timing pulled per event by feedback knock correction when the secondary knock detector fires.</description>
  </table>
- <table name="FBKC Retard Step (Secondary Knock, State 6)" address="01d47a" level="5">
+ <table name="FBKC Retard Step (Secondary Knock, State 6)" address="01d47a">
   <description>Timing pulled per event by feedback knock correction when the secondary knock detector fires (variant with an extra internal condition set).</description>
  </table>
- <table name="FLKC Counted-Cell Learned Value Threshold" address="01d8a6" level="5">
+ <table name="FLKC Counted-Cell Learned Value Threshold" address="01d8a6">
   <table name="Dynamic Advance Multiplier" address="01d89e" />
   <description>By DAM: a fine-knock-learning cell is counted when its learned value is at or above this, and the count sets an internal flag.</description>
  </table>
- <table name="Base Timing DAM Blend Alternate (DAM 0)" address="0390ee" level="5">
+ <table name="Base Timing DAM Blend Alternate (DAM 0)" address="0390ee">
   <table name="Engine Load" address="01de0c" />
   <table name="Engine Speed" address="01dde0" />
   <description>Alternate DAM-blended timing offset (DAM 0 side) for base timing. 32 = no change.
 
 Weighted (16 - DAM)/16.</description>
  </table>
- <table name="Base Timing DAM Blend Alternate (DAM 1)" address="03924e" level="5">
+ <table name="Base Timing DAM Blend Alternate (DAM 1)" address="03924e">
   <table name="Engine Load" address="01de0c" />
   <table name="Engine Speed" address="01dde0" />
   <description>Alternate DAM-blended timing offset (DAM 1 side) for base timing. 32 = no change.
@@ -2156,7 +2156,7 @@ Weighted DAM/16.</description>
  </table>
  <table name="Fail-Safe Rev Limit (Rail Pressure Fault)" address="010770" />
  <table name="Fail-Safe Rev Limit (Injector Driver Fault)" address="010772" />
- <table name="Fail-Safe Rev Limit (Unused Fault Flag)" address="010774" level="5">
+ <table name="Fail-Safe Rev Limit (Unused Fault Flag)" address="010774">
   <description>Fail-safe rev limit tied to a fault flag that nothing sets in this software, so no effect in stock. Stock 6100 rpm.</description>
  </table>
  <table name="Fail-Safe Rev Limit Hysteresis" address="01076c" />
@@ -2284,7 +2284,7 @@ Weighted DAM/16.</description>
   <table name="Coolant Temp" address="052f76" />
  </table>
  <table name="Throttle Torque Request Cap" address="01076a" />
- <table name="Throttle Limit (Rail Pressure Deviation)" address="026806" level="5">
+ <table name="Throttle Limit (Rail Pressure Deviation)" address="026806">
   <table name="Engine Speed" address="0267e6" />
   <description>Throttle opening cap by rpm for a rail-pressure-deviation fault mode.</description>
  </table>
@@ -2907,14 +2907,14 @@ Weighted DAM/16.</description>
  <table name="Idle Target Ramp Rate (AT/CVT, Mode 3 to 8)" address="028a6c">
   <table name="Coolant Temp" address="03f760" />
  </table>
- <table name="Idle Target Ramp Rate (AT/CVT, Mode 4 to 6)" address="028a8c" level="5">
+ <table name="Idle Target Ramp Rate (AT/CVT, Mode 4 to 6)" address="028a8c">
   <table name="Coolant Temp" address="03f760" />
   <description>How fast the idle speed target moves (by coolant) when idle switches from mode 4 (cold idle) to mode 6 (AT/CVT warm idle). Larger = quicker change. Automatic/CVT only: these modes never occur on a manual car, so this table has no effect there.</description>
  </table>
  <table name="Idle Target Ramp Rate (AT/CVT, Mode 5 to 6)" address="028aac">
   <table name="Coolant Temp" address="03f760" />
  </table>
- <table name="Idle Target Ramp Rate (AT/CVT, Mode 6 to 4)" address="028acc" level="5">
+ <table name="Idle Target Ramp Rate (AT/CVT, Mode 6 to 4)" address="028acc">
   <table name="Coolant Temp" address="03f760" />
   <description>How fast the idle speed target moves (by coolant) when idle switches from mode 6 (AT/CVT warm idle) to mode 4 (cold idle). Larger = quicker change. Automatic/CVT only: these modes never occur on a manual car, so this table has no effect there.</description>
  </table>
@@ -2936,7 +2936,7 @@ Weighted DAM/16.</description>
  <table name="Idle Target Ramp Rate (AT/CVT, Mode 8 to 7)" address="028b8c">
   <table name="Coolant Temp" address="03f760" />
  </table>
- <table name="Idle Speed Target (Cold Idle, Mode 4)" address="02888c" level="5">
+ <table name="Idle Speed Target (Cold Idle, Mode 4)" address="02888c">
   <description>Idle speed target by coolant for a cold-idle mode used when stopped below a coolant threshold.</description>
  </table>
  <table name="Idle Target Ramp Rate (Mode 4 to 5)" address="0289ac">
@@ -3074,10 +3074,10 @@ Weighted DAM/16.</description>
  <table name="Idle Air from Throttle Area (Torque Request)" address="029fc6">
   <table name="Throttle Area" address="029fe6" />
  </table>
- <table name="Idle Base Air (Cold Idle, Mode 4)" address="028dda" level="5">
+ <table name="Idle Base Air (Cold Idle, Mode 4)" address="028dda">
   <description>Base idle air by coolant for the cold-idle mode 4.</description>
  </table>
- <table name="Idle Base Air (Cold Idle, Mode 4, TGV Closed)" address="028cda" level="5">
+ <table name="Idle Base Air (Cold Idle, Mode 4, TGV Closed)" address="028cda">
   <description>Base idle air by coolant for the cold-idle mode 4 with the TGVs commanded closed.</description>
  </table>
  <table name="Post-Start Idle Air (Stop-Start Restart)" address="02a504">

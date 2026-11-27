@@ -260,17 +260,17 @@
   <table name="Engine Load" address="011af4" />
   <table name="Engine Speed" address="011b08" />
  </table>
- <table name="Additional Enrichment A" address="01542a" level="4">
+ <table name="Additional Enrichment A" address="01542a">
   <table name="Engine Load" address="011af4" />
   <table name="Engine Speed" address="011b08" />
   <description>Extra enrichment added to the open-loop enrichment at higher coolant and lower rpm.</description>
  </table>
- <table name="Additional Enrichment B" address="0157ea" level="4">
+ <table name="Additional Enrichment B" address="0157ea">
   <table name="Engine Load" address="011af4" />
   <table name="Engine Speed" address="011b08" />
   <description>Second table of the additional enrichment, used at low coolant or high rpm.</description>
  </table>
- <table name="Additional Enrichment Throttle Threshold" address="013c7c" level="4">
+ <table name="Additional Enrichment Throttle Threshold" address="013c7c">
   <table name="Engine Speed" address="013c5c" />
   <description>Throttle opening above idle, by rpm, needed to enable Additional Enrichment A/B.</description>
  </table>
@@ -1059,17 +1059,17 @@
  <table name="Decel Fuel Cut Resume RPM Adder (A/C, Alternate)" address="01d0db">
   <table name="Input" address="01d0d3" />
  </table>
- <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C Off)" address="020404" level="4">
+ <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C Off)" address="020404">
   <table name="Cut Count" address="020190" />
   <table name="RPM Band" address="02018a" />
   <description>Alternate decel fuel cut staging (A/C off).</description>
  </table>
- <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C On)" address="0202b4" level="4">
+ <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C On)" address="0202b4">
   <table name="Cut Count" address="020190" />
   <table name="RPM Band" address="02018a" />
   <description>Alternate decel fuel cut staging (A/C on).</description>
  </table>
- <table name="Decel Fuel Cut Full-Cut Shortcut Hold" address="021e5c" level="4">
+ <table name="Decel Fuel Cut Full-Cut Shortcut Hold" address="021e5c">
   <table name="Engine Speed" address="021e6c" />
   <description>Time, by rpm, after which all cylinders would be cut at once under unidentified conditions.</description>
  </table>
@@ -1629,7 +1629,7 @@
   <table name="Engine Speed" address="02e978" />
   <table name="Throttle Opening" address="02e964" />
  </table>
- <table name="A/C Cut Timing Retard Step (Alternate Logic)" address="02dfa2" level="4">
+ <table name="A/C Cut Timing Retard Step (Alternate Logic)" address="02dfa2">
   <table name="Input" address="02df89" />
   <description>Alternate A/C-switch timing retard amount, by an unidentified input.</description>
  </table>
@@ -2160,11 +2160,11 @@
  <table name="Fail-Safe Rev Limit Minimum Above Idle Target" address="0107ce" />
  <table name="Limit-State Spark: Normal Target in Speed Limit" address="022b8e" />
  <table name="Limit-State Spark: Normal Target in Rev/Overboost Cut" address="022b8e" />
- <table name="External Torque Limit Baro Factor" address="020450" level="4">
+ <table name="External Torque Limit Baro Factor" address="020450">
   <table name="Barometric Pressure" address="020440" />
   <description>Air-density correction (barometric part) applied to a torque limit received over CAN, probably from the transmission controller.</description>
  </table>
- <table name="External Torque Limit IAT Factor" address="020470" level="4">
+ <table name="External Torque Limit IAT Factor" address="020470">
   <table name="Intake Air Temp" address="020460" />
   <description>Air-density correction (intake temperature part) applied to a torque limit received over CAN, probably from the transmission controller.</description>
  </table>
@@ -3173,12 +3173,12 @@
   <table name="Coolant Temp" address="036440" />
   <table name="Selector FFF8A6E8" address="0253ce" />
  </table>
- <table name="A/C Idle Air (Alternate, Target RPM)" address="033570" level="4">
+ <table name="A/C Idle Air (Alternate, Target RPM)" address="033570">
   <table name="Engine Speed" address="0334d4" />
   <table name="Input" address="0334bc" />
   <description>A/C idle air by an unidentified CAN load value and idle target rpm, for an alternate A/C idle-air path.</description>
  </table>
- <table name="A/C Idle Air (Alternate, Engine Speed)" address="0334e0" level="4">
+ <table name="A/C Idle Air (Alternate, Engine Speed)" address="0334e0">
   <table name="Engine Speed" address="0334c8" />
   <table name="Input" address="0334bc" />
   <description>A/C idle air by an unidentified CAN load value and engine speed, for an alternate A/C idle-air path.</description>
@@ -3576,13 +3576,13 @@
  <table name="VDC Torque Request Correction" address="033bcc">
   <table name="Torque" address="033bac" />
  </table>
- <table name="Brake Booster Vacuum Model Maximum" address="040f66" level="5">
+ <table name="Brake Booster Vacuum Model Maximum" address="040f66">
   <table name="Barometric Pressure" address="040f5c" />
   <description>Upper limit, by barometric pressure, of a modelled brake-booster vacuum.
 
 The module sets no DTC.</description>
  </table>
- <table name="Brake Booster Vacuum Model Manifold Threshold" address="04111e" level="5">
+ <table name="Brake Booster Vacuum Model Manifold Threshold" address="04111e">
   <table name="Barometric Pressure" address="041114" />
   <description>Manifold-vacuum threshold, by barometric pressure, for a brake-booster vacuum model.
 
@@ -3591,7 +3591,7 @@ The module sets no DTC.</description>
  <table name="Charging Target Voltage (Normal)" address="0378ba" />
  <table name="Charging Target Voltage (Battery Charged)" address="0378c0" />
  <table name="Charging Target Voltage (Accessory Load)" address="037afa" />
- <table name="Charging Target Voltage (Mode 1)" address="0378bc" level="4" />
+ <table name="Charging Target Voltage (Mode 1)" address="0378bc" />
  <table name="Charging Target Voltage (Adaptive) Maximum" address="03788e" />
  <table name="Charging Target Voltage (Adaptive) Minimum" address="037890" />
  <table name="Charging Target Voltage Maximum" address="037afe" />
@@ -3679,33 +3679,33 @@ The module sets no DTC.</description>
  <table name="CAN Engine Torque Fuel-Cut Fade Rate" address="0345de">
   <table name="Engine Speed" address="0345e2" />
  </table>
- <table name="Gear Road Speed per 1000 RPM" address="03596a" level="5">
+ <table name="Gear Road Speed per 1000 RPM" address="03596a">
   <table name="Gear" address="034f7a" />
   <description>Road speed per 1000 rpm for each gear, used only by the gear advice function. The values do not match the 6MT and probably belong to another transmission.
 
 Road speed per 1000 rpm for gear index 1-8. The values (11.3 to 53.9 km/h per 1000 rpm over 6 steps here, 11.0 to 53.9 over 8 in the Alternate table) do not fit the 6MT, so this belongs to another transmission (likely).</description>
  </table>
- <table name="Gear Road Speed per 1000 RPM (Alternate)" address="03597a" level="5">
+ <table name="Gear Road Speed per 1000 RPM (Alternate)" address="03597a">
   <table name="Gear" address="034f7a" />
   <description>Alternate road speed per 1000 rpm for each gear, used only by the gear advice function. The values do not match the 6MT and probably belong to another transmission.</description>
  </table>
- <table name="Gear Advice Consumption Map" address="03544a" level="5">
+ <table name="Gear Advice Consumption Map" address="03544a">
   <table name="Engine Speed" address="034fc2" />
   <table name="Torque" address="034f9a" />
   <description>Fuel consumption map by torque and rpm (likely) for a gear-shift advice function that picks the most economical gear. One table edits all three copies.
 
 With the bit set it takes the current power (torque x rpm / 9549.3), the engine speed in the gear below and in the gear above, looks up the consumption map at the three points and advises the gear with the lowest value. One entry edits all three.</description>
  </table>
- <table name="Gear Advice Downshift Maximum RPM (Alternate)" address="0359ea" level="5">
+ <table name="Gear Advice Downshift Maximum RPM (Alternate)" address="0359ea">
   <table name="Gear" address="035012" />
   <description>Alternate rpm limit, by gear, below which a downshift may be advised by the gear advice function.</description>
  </table>
- <table name="Gear Advice Upshift Minimum RPM" address="03576a" level="5">
+ <table name="Gear Advice Upshift Minimum RPM" address="03576a">
   <table name="Gear" address="03500a" />
   <table name="Accelerator Pedal" address="034f82" />
   <description>Minimum rpm in the next gear up, by pedal and gear, for an upshift to be advised by the gear advice function.</description>
  </table>
- <table name="Gear Advice Upshift Minimum RPM (Alternate)" address="0357ea" level="5">
+ <table name="Gear Advice Upshift Minimum RPM (Alternate)" address="0357ea">
   <table name="Gear" address="03500a" />
   <table name="Accelerator Pedal" address="034f82" />
   <description>Alternate minimum rpm in the next gear up, by pedal and gear, for an upshift to be advised by the gear advice function.</description>

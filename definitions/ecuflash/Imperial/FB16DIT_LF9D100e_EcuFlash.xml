@@ -289,7 +289,7 @@
   <table name="Engine Load" address="01205c" />
   <table name="Engine Speed" address="012070" />
  </table>
- <table name="Additional Enrichment A" address="015992" level="4">
+ <table name="Additional Enrichment A" address="015992">
   <table name="Engine Load" address="01205c" />
   <table name="Engine Speed" address="012070" />
   <description>Extra enrichment added to the open-loop enrichment at higher coolant and lower rpm.</description>
@@ -298,7 +298,7 @@
   <table name="Engine Load" address="01205c" />
   <table name="Engine Speed" address="012070" />
  </table>
- <table name="Additional Enrichment Throttle Threshold" address="0141e4" level="4">
+ <table name="Additional Enrichment Throttle Threshold" address="0141e4">
   <table name="Engine Speed" address="0141c4" />
   <description>Throttle opening above idle, by rpm, needed to enable Additional Enrichment A/B.</description>
  </table>
@@ -1099,7 +1099,7 @@
  <table name="Decel Fuel Cut Resume RPM Adder (A/C, Alternate)" address="02541b">
   <table name="Input" address="025413" />
  </table>
- <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C Off)" address="028744" level="4">
+ <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C Off)" address="028744">
   <table name="Cut Count" address="0284d0" />
   <table name="RPM Band" address="0284ca" />
   <description>Alternate decel fuel cut staging (A/C off).</description>
@@ -1108,7 +1108,7 @@
   <table name="Cut Count" address="0284d0" />
   <table name="RPM Band" address="0284ca" />
  </table>
- <table name="Decel Fuel Cut Full-Cut Shortcut Hold" address="02a19c" level="4">
+ <table name="Decel Fuel Cut Full-Cut Shortcut Hold" address="02a19c">
   <table name="Engine Speed" address="02a1ac" />
   <description>Time, by rpm, after which all cylinders would be cut at once under unidentified conditions.</description>
  </table>
@@ -1520,62 +1520,62 @@
   <table name="Engine Speed" address="03137a" />
   <description>Knock signal processing for event slot 4, channel 6 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
- <table name="Knock Background Window Step (Event 1, Channel 1)" address="03138a" level="4">
+ <table name="Knock Background Window Step (Event 1, Channel 1)" address="03138a">
   <table name="Engine Load" address="031382" />
   <table name="Engine Speed" address="03137a" />
   <description>Knock-detection background step for event slot 1, frequency channel 1.</description>
  </table>
- <table name="Knock Background Window Step (Event 1, Channel 7)" address="03168a" level="4">
+ <table name="Knock Background Window Step (Event 1, Channel 7)" address="03168a">
   <table name="Engine Load" address="031382" />
   <table name="Engine Speed" address="03137a" />
   <description>Knock-detection background step for event slot 1, frequency channel 7.</description>
  </table>
- <table name="Knock Background Window Step (Event 1, Channel 8)" address="03170a" level="4">
+ <table name="Knock Background Window Step (Event 1, Channel 8)" address="03170a">
   <table name="Engine Load" address="031382" />
   <table name="Engine Speed" address="03137a" />
   <description>Knock-detection background step for event slot 1, frequency channel 8.</description>
  </table>
- <table name="Knock Background Window Step (Event 2, Channel 1)" address="03178a" level="4">
+ <table name="Knock Background Window Step (Event 2, Channel 1)" address="03178a">
   <table name="Engine Load" address="031382" />
   <table name="Engine Speed" address="03137a" />
   <description>Knock-detection background step for event slot 2, frequency channel 1.</description>
  </table>
- <table name="Knock Background Window Step (Event 2, Channel 7)" address="031a8a" level="4">
+ <table name="Knock Background Window Step (Event 2, Channel 7)" address="031a8a">
   <table name="Engine Load" address="031382" />
   <table name="Engine Speed" address="03137a" />
   <description>Knock-detection background step for event slot 2, frequency channel 7.</description>
  </table>
- <table name="Knock Background Window Step (Event 2, Channel 8)" address="031b0a" level="4">
+ <table name="Knock Background Window Step (Event 2, Channel 8)" address="031b0a">
   <table name="Engine Load" address="031382" />
   <table name="Engine Speed" address="03137a" />
   <description>Knock-detection background step for event slot 2, frequency channel 8.</description>
  </table>
- <table name="Knock Background Window Step (Event 3, Channel 1)" address="031b8a" level="4">
+ <table name="Knock Background Window Step (Event 3, Channel 1)" address="031b8a">
   <table name="Engine Load" address="031382" />
   <table name="Engine Speed" address="03137a" />
   <description>Knock-detection background step for event slot 3, frequency channel 1.</description>
  </table>
- <table name="Knock Background Window Step (Event 3, Channel 7)" address="031e8a" level="4">
+ <table name="Knock Background Window Step (Event 3, Channel 7)" address="031e8a">
   <table name="Engine Load" address="031382" />
   <table name="Engine Speed" address="03137a" />
   <description>Knock-detection background step for event slot 3, frequency channel 7.</description>
  </table>
- <table name="Knock Background Window Step (Event 3, Channel 8)" address="031f0a" level="4">
+ <table name="Knock Background Window Step (Event 3, Channel 8)" address="031f0a">
   <table name="Engine Load" address="031382" />
   <table name="Engine Speed" address="03137a" />
   <description>Knock-detection background step for event slot 3, frequency channel 8.</description>
  </table>
- <table name="Knock Background Window Step (Event 4, Channel 1)" address="031f8a" level="4">
+ <table name="Knock Background Window Step (Event 4, Channel 1)" address="031f8a">
   <table name="Engine Load" address="031382" />
   <table name="Engine Speed" address="03137a" />
   <description>Knock-detection background step for event slot 4, frequency channel 1.</description>
  </table>
- <table name="Knock Background Window Step (Event 4, Channel 7)" address="03228a" level="4">
+ <table name="Knock Background Window Step (Event 4, Channel 7)" address="03228a">
   <table name="Engine Load" address="031382" />
   <table name="Engine Speed" address="03137a" />
   <description>Knock-detection background step for event slot 4, frequency channel 7.</description>
  </table>
- <table name="Knock Background Window Step (Event 4, Channel 8)" address="03230a" level="4">
+ <table name="Knock Background Window Step (Event 4, Channel 8)" address="03230a">
   <table name="Engine Load" address="031382" />
   <table name="Engine Speed" address="03137a" />
   <description>Knock-detection background step for event slot 4, frequency channel 8.</description>
@@ -1752,7 +1752,7 @@
   <table name="Engine Speed" address="03adb8" />
   <table name="Throttle Opening" address="03ada4" />
  </table>
- <table name="A/C Cut Timing Retard Step (Alternate Logic)" address="03a3e2" level="4">
+ <table name="A/C Cut Timing Retard Step (Alternate Logic)" address="03a3e2">
   <table name="Input" address="03a3c9" />
   <description>Alternate A/C-switch timing retard amount, by an unidentified input.</description>
  </table>
@@ -2324,11 +2324,11 @@
  <table name="Fail-Safe Rev Limit Minimum Above Idle Target" address="0107ce" />
  <table name="Limit-State Spark: Normal Target in Speed Limit" address="02c162" />
  <table name="Limit-State Spark: Normal Target in Rev/Overboost Cut" address="02c162" />
- <table name="External Torque Limit Baro Factor" address="028790" level="4">
+ <table name="External Torque Limit Baro Factor" address="028790">
   <table name="Barometric Pressure" address="028780" />
   <description>Air-density correction (barometric part) applied to a torque limit received over CAN, probably from the transmission controller.</description>
  </table>
- <table name="External Torque Limit IAT Factor" address="0287b0" level="4">
+ <table name="External Torque Limit IAT Factor" address="0287b0">
   <table name="Intake Air Temp" address="0287a0" />
   <description>Air-density correction (intake temperature part) applied to a torque limit received over CAN, probably from the transmission controller.</description>
  </table>
@@ -3187,7 +3187,7 @@
  <table name="Intake AVCS OCV Current Integral Step" address="047238">
   <table name="OCV Current" address="0471ce" />
  </table>
- <table name="Exhaust AVCS OCV Current Integral Step" address="048124" level="4">
+ <table name="Exhaust AVCS OCV Current Integral Step" address="048124">
   <table name="OCV Current" address="0480ba" />
   <description>Integral step for the exhaust oil control valve current loop. a calibration setting forces the exhaust integral term to zero.</description>
  </table>

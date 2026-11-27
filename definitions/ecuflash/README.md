@@ -29,8 +29,9 @@ first.
 
 **Using it:**
 - Table folders are numbered in tuning order (`01.02 Fueling - …`).
-- EcuFlash opens at the **Beginner** user level, where most tables are greyed out. Set the level under the options
-  (gear icon) → User Level: **Intermediate** or **Advanced** for normal tuning, **Developer** to see everything.
+- User level, under the options (gear icon) → User Level: **Beginner** shows the core tables (fueling, timing,
+  boost, requested torque, rev limits, throttle maps), **Intermediate** and **Advanced** add more, and **Developer**
+  shows everything, including the debug-level tables. Tables above your level are greyed out.
 - **DTCs:** folder `11.03 Diagnostics & Switches - DTC Switches`, in code order. Every code has two tables next to
   each other: `(P0420) Catalyst System Efficiency Below Threshold (Bank 1)` (enabled or disabled) and the same name
   with `[Fail-Safe]` (whether a failed test of this code triggers fail-safe). EcuFlash can't show both in one table,

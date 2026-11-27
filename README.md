@@ -58,8 +58,8 @@ the FA20DIT base **and** `FA24_Early_BASE_EcuFlash.xml` or `FA24_Early_BASE_METR
 and the file for your ROM into one folder under your EcuFlash metadata folder (for example
 `rommetadata/subaru/FA20DIT/`) and restart EcuFlash. The base file is required: it holds the table definitions, and
 the ROM file only its addresses. Install only one of the two sets: both use the same ROM IDs. Table folders are numbered in tuning order
-(`01.02 Fueling - …`). EcuFlash starts at the Beginner user level, which greys out most tables; raise it in the
-options (gear icon) → User Level.
+(`01.02 Fueling - …`). EcuFlash's user level (options, gear icon → User Level) works like RomRaider's: Beginner shows
+the core tables and Developer shows everything; tables above your level are greyed out.
 
 Each DTC has two tables next to each other, in code order: the code itself (enabled or not) and `[Fail-Safe]`
 (whether it triggers fail-safe). To flip one, select its value and press **Increment ( `]` ) once**; don't use

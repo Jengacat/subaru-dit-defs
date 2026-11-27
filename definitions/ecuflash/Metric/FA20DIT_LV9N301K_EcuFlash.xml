@@ -172,7 +172,7 @@
   <table name="Engine Load" address="01758a" />
   <table name="Engine Speed" address="01757a" />
  </table>
- <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" address="03b068" level="4">
+ <table name="Target Rail Pressure (Combustion Mode 1, Fallback)" address="03b068">
   <table name="Coolant Temp" address="03ad4e" />
   <description>Rail pressure target in combustion mode 1 after a warm-up fallback has latched.</description>
  </table>
@@ -230,17 +230,17 @@
   <table name="Engine Load" address="011cb4" elements="10" />
   <table name="Engine Speed" address="011cbe" />
  </table>
- <table name="Additional Enrichment A" address="015402" level="4">
+ <table name="Additional Enrichment A" address="015402">
   <table name="Engine Load" address="011cb4" elements="10" />
   <table name="Engine Speed" address="011cbe" />
   <description>Extra enrichment added to the open-loop enrichment at higher coolant and lower rpm.</description>
  </table>
- <table name="Additional Enrichment B" address="0155e2" level="4">
+ <table name="Additional Enrichment B" address="0155e2">
   <table name="Engine Load" address="011cb4" elements="10" />
   <table name="Engine Speed" address="011cbe" />
   <description>Second table of the additional enrichment, used at low coolant or high rpm.</description>
  </table>
- <table name="Additional Enrichment Throttle Threshold" address="013c54" level="4">
+ <table name="Additional Enrichment Throttle Threshold" address="013c54">
   <table name="Engine Speed" address="013c34" />
   <description>Throttle opening above idle, by rpm, needed to enable Additional Enrichment A/B.</description>
  </table>
@@ -1030,21 +1030,21 @@
  <table name="Decel Fuel Cut Staging Time (Neutral)" address="01e400">
   <table name="Speed" address="01e3fc" />
  </table>
- <table name="Decel Fuel Cut Resume RPM Adder (A/C, Alternate)" address="01b0a3" level="4">
+ <table name="Decel Fuel Cut Resume RPM Adder (A/C, Alternate)" address="01b0a3">
   <table name="Input" address="01b09b" />
   <description>Alternate A/C resume-rpm adder for the decel fuel cut, by an unidentified CAN-derived value.</description>
  </table>
- <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C Off)" address="01e3cc" level="4">
+ <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C Off)" address="01e3cc">
   <table name="Cut Count" address="01e158" />
   <table name="RPM Band" address="01e152" />
   <description>Alternate decel fuel cut staging (A/C off).</description>
  </table>
- <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C On)" address="01e27c" level="4">
+ <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C On)" address="01e27c">
   <table name="Cut Count" address="01e158" />
   <table name="RPM Band" address="01e152" />
   <description>Alternate decel fuel cut staging (A/C on).</description>
  </table>
- <table name="Decel Fuel Cut Full-Cut Shortcut Hold" address="01fe24" level="4">
+ <table name="Decel Fuel Cut Full-Cut Shortcut Hold" address="01fe24">
   <table name="Engine Speed" address="01fe34" />
   <description>Time, by rpm, after which all cylinders would be cut at once under unidentified conditions.</description>
  </table>
@@ -1604,7 +1604,7 @@
   <table name="Engine Speed" address="02daa4" />
   <table name="Throttle Opening" address="02da90" />
  </table>
- <table name="A/C Cut Timing Retard Step (Alternate Logic)" address="02d0ce" level="4">
+ <table name="A/C Cut Timing Retard Step (Alternate Logic)" address="02d0ce">
   <table name="Input" address="02d0b5" />
   <description>Alternate A/C-switch timing retard amount, by an unidentified input.</description>
  </table>
@@ -1707,22 +1707,22 @@
   <table name="Coolant Temp" address="035084" />
   <table name="Count" address="027e3e" />
  </table>
- <table name="Start Spark Target Base (Mode 1, Warm-Up Fallback)" address="027a1e" level="4">
+ <table name="Start Spark Target Base (Mode 1, Warm-Up Fallback)" address="027a1e">
   <table name="Coolant Temp" address="027412" />
   <table name="Engine Speed" address="0273fa" />
   <description>Warm-up fallback copy of Start Spark Target Base (Mode 1) for the manual car.</description>
  </table>
- <table name="Start Spark Target Torque Adder (Mode 1, Warm-Up Fallback)" address="027c1e" level="4">
+ <table name="Start Spark Target Torque Adder (Mode 1, Warm-Up Fallback)" address="027c1e">
   <table name="Coolant Temp" address="027412" />
   <table name="Torque Fraction" address="02740a" />
   <description>Warm-up fallback copy of Start Spark Target Torque Adder (Mode 1) for the manual car.</description>
  </table>
- <table name="Start Spark Target Run-Time Adder (Mode 1, Warm-Up Fallback)" address="027f5e" level="4">
+ <table name="Start Spark Target Run-Time Adder (Mode 1, Warm-Up Fallback)" address="027f5e">
   <table name="Coolant Temp" address="027412" />
   <table name="Count" address="027432" />
   <description>Warm-up fallback copy of Start Spark Target Run-Time Adder (Mode 1) for the manual car.</description>
  </table>
- <table name="Start Spark Target Re-Entry Adder (Mode 1, Warm-Up Fallback)" address="027d3e" level="4">
+ <table name="Start Spark Target Re-Entry Adder (Mode 1, Warm-Up Fallback)" address="027d3e">
   <table name="Coolant Temp" address="035084" />
   <table name="Count" address="027d1e" />
   <description>Warm-up fallback copy of Start Spark Target Re-Entry Adder (Mode 1) for the manual car.</description>
@@ -2179,11 +2179,11 @@
  <table name="Fail-Safe Rev Limit Minimum Above Idle Target" address="0107ce" />
  <table name="Limit-State Spark: Normal Target in Speed Limit" address="020dc6" />
  <table name="Limit-State Spark: Normal Target in Rev/Overboost Cut" address="020dc6" />
- <table name="External Torque Limit Baro Factor" address="01e418" level="4">
+ <table name="External Torque Limit Baro Factor" address="01e418">
   <table name="Barometric Pressure" address="01e408" />
   <description>Air-density correction (barometric part) applied to a torque limit received over CAN, probably from the transmission controller.</description>
  </table>
- <table name="External Torque Limit IAT Factor" address="01e438" level="4">
+ <table name="External Torque Limit IAT Factor" address="01e438">
   <table name="Intake Air Temp" address="01e428" />
   <description>Air-density correction (intake temperature part) applied to a torque limit received over CAN, probably from the transmission controller.</description>
  </table>
@@ -2976,7 +2976,7 @@
  <table name="Idle Speed Target (Cold Idle, Mode 4)" address="021df8">
   <description>Idle speed target by coolant for a cold-idle mode used when stopped below a coolant threshold.</description>
  </table>
- <table name="Idle Target Ramp Rate (Fallback Latch)" address="02410a" level="4">
+ <table name="Idle Target Ramp Rate (Fallback Latch)" address="02410a">
   <table name="Coolant Temp" address="035084" />
   <description>Idle target ramp rate (by coolant) used when a warm-up fallback flag is set (manual-car version).</description>
  </table>
@@ -2986,19 +2986,19 @@
  <table name="Idle Target Ramp Rate (Mode 5 to 4)" address="021f38">
   <table name="Coolant Temp" address="035084" />
  </table>
- <table name="Idle Target Ramp Rate (Fallback Latch, AT/CVT)" address="0240ea" level="4">
+ <table name="Idle Target Ramp Rate (Fallback Latch, AT/CVT)" address="0240ea">
   <table name="Coolant Temp" address="035084" />
   <description>Idle target ramp rate (by coolant) used when a warm-up fallback flag is set, on automatic/CVT cars.</description>
  </table>
- <table name="CAN Idle Speed Request (Alternate)" address="032d70" level="4">
+ <table name="CAN Idle Speed Request (Alternate)" address="032d70">
   <table name="CAN Code" address="032d66" />
   <description>Minimum idle speed requested by another module over CAN, by request code.</description>
  </table>
- <table name="CAN Idle Speed Request Remap (Alternate)" address="032db8" level="4">
+ <table name="CAN Idle Speed Request Remap (Alternate)" address="032db8">
   <table name="Engine Speed" address="032da4" />
   <description>Remaps the CAN idle speed request before it is applied.</description>
  </table>
- <table name="CAN Idle Speed Request Remap (Flag Set, Alternate)" address="032dcc" level="4">
+ <table name="CAN Idle Speed Request Remap (Flag Set, Alternate)" address="032dcc">
   <table name="Engine Speed" address="032d90" />
   <description>Alternative remap of the CAN idle speed request, used when an unidentified CAN flag is set.</description>
  </table>
@@ -3163,21 +3163,21 @@
   <table name="Coolant Temp" address="035084" />
   <table name="Selector FFF8A6E8" address="0234f6" />
  </table>
- <table name="A/C Idle Air (Alternate, Target RPM)" address="032ca8" level="4">
+ <table name="A/C Idle Air (Alternate, Target RPM)" address="032ca8">
   <table name="Engine Speed" address="032c0c" />
   <table name="Input" address="032bf4" />
   <description>A/C idle air by an unidentified CAN load value and idle target rpm, for an alternate A/C idle-air path.</description>
  </table>
- <table name="A/C Idle Air (Alternate, Engine Speed)" address="032c18" level="4">
+ <table name="A/C Idle Air (Alternate, Engine Speed)" address="032c18">
   <table name="Engine Speed" address="032c00" />
   <table name="Input" address="032bf4" />
   <description>A/C idle air by an unidentified CAN load value and engine speed, for an alternate A/C idle-air path.</description>
  </table>
- <table name="A/C Idle Air Initial Kick (Alternate)" address="032bce" level="4">
+ <table name="A/C Idle Air Initial Kick (Alternate)" address="032bce">
   <table name="CAN Code" address="032bea" />
   <description>Initial A/C idle air kick by an unidentified CAN code, for an alternate A/C idle-air path.</description>
  </table>
- <table name="A/C Idle Air Kick Duration (Alternate)" address="032bdc" level="4">
+ <table name="A/C Idle Air Kick Duration (Alternate)" address="032bdc">
   <table name="CAN Code" address="032bea" />
   <description>How long the alternate A/C idle air kick is held, by an unidentified CAN code.</description>
  </table>
@@ -3422,7 +3422,7 @@
  <table name="TGV Torque Threshold Exit (Start Modes)" address="034882">
   <table name="Engine Speed" address="03479c" />
  </table>
- <table name="TGV Coolant Minimum (Warm-Up Fallback)" address="03477c" level="4">
+ <table name="TGV Coolant Minimum (Warm-Up Fallback)" address="03477c">
   <description>Minimum coolant for TGV closing used only while a warm-up fallback flag is set.</description>
  </table>
  <table name="Cruise Pedal Equivalent (Other Drive Modes)" address="03b86e">
@@ -3562,7 +3562,7 @@
  <table name="Charging Target Voltage (Normal)" address="0364fa" />
  <table name="Charging Target Voltage (Battery Charged)" address="036500" />
  <table name="Charging Target Voltage (Accessory Load)" address="03673c" />
- <table name="Charging Target Voltage (Mode 1)" address="0364fc" level="4" />
+ <table name="Charging Target Voltage (Mode 1)" address="0364fc" />
  <table name="Charging Target Voltage (Adaptive) Maximum" address="0364ce" />
  <table name="Charging Target Voltage (Adaptive) Minimum" address="0364d0" />
  <table name="Charging Target Voltage Maximum" address="036740" />
@@ -3575,7 +3575,7 @@
   <table name="Battery Sensor Value" address="036568" />
  </table>
  <table name="Charging Target Voltage at Start" address="0366ec" />
- <table name="Radiator Fan Duty (Coolant)" address="031b1e" level="4">
+ <table name="Radiator Fan Duty (Coolant)" address="031b1e">
   <table name="Coolant Temp" address="031b54" />
   <description>Radiator fan duty by coolant for an alternate (duty-based) fan control path.</description>
  </table>
@@ -3596,7 +3596,7 @@
  <table name="Charge Cycle Length" address="0364b0" />
  <table name="Adaptive Charging Time Limit" address="0364ac" />
  <table name="Adaptive Charging Charge Limit" address="0364bc" />
- <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" address="031b30" level="4">
+ <table name="Radiator Fan Duty (Coolant, Flag A807 Set)" address="031b30">
   <table name="Coolant Temp" address="031b54" />
   <description>Radiator fan duty by coolant, used when an unidentified driving-condition flag is set.</description>
  </table>
@@ -3611,7 +3611,7 @@
  <table name="Adaptive Charging Integral Gain" address="0364c8" />
  <table name="Adaptive Charging Integral Maximum" address="0364ca" />
  <table name="Adaptive Charging Integral Minimum" address="0364cc" />
- <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" address="031b42" level="4">
+ <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" address="031b42">
   <table name="Coolant Temp" address="031b54" />
   <description>Radiator fan duty by coolant, used when an unidentified CAN value is high.</description>
  </table>
@@ -3626,7 +3626,7 @@
  <table name="Charging Feedback Deadband Above" address="0364e0" />
  <table name="Charging Feedback Deadband Below" address="0364e2" />
  <table name="Charging Feedback Minimum RPM" address="0364ea" />
- <table name="Radiator Fan Duty (A/C, CAN 0x280 Value)" address="031b6a" level="4">
+ <table name="Radiator Fan Duty (A/C, CAN 0x280 Value)" address="031b6a">
   <table name="CAN Value" address="031b7c" />
   <description>Radiator fan duty with the A/C requested, by an unidentified CAN value.</description>
  </table>

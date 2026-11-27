@@ -326,7 +326,7 @@
   <table name="Coolant Temp" address="033352" />
  </table>
  <table name="Closed Loop Target Cold-Start Trim (TGVs Open)" address="03382c">
-  <table name="X Axis" address="0337ec" />
+  <table name="Accumulated Air" address="0337ec" />
   <table name="Coolant Temp" address="0337cc" />
  </table>
  <table name="Closed Loop Target Override" address="03359c">
@@ -336,36 +336,36 @@
  <table name="Closed Loop Minimum Target" address="03357a" />
  <table name="Closed Loop Integral Gain (Negative Error)" address="05557c">
   <table name="Engine Load" address="055530" />
-  <table name="Y Axis" address="055528" />
+  <table name="Engine Speed" address="055528" />
  </table>
  <table name="Closed Loop Integral Gain (Positive Error)" address="05553c">
   <table name="Engine Load" address="055520" />
-  <table name="Y Axis" address="055518" />
+  <table name="Engine Speed" address="055518" />
  </table>
  <table name="Closed Loop Integral Error Shaping (Idle, Negative Error)" address="0555dc">
-  <table name="Y Axis" address="0554f8" />
+  <table name="Closed Loop Error" address="0554f8" />
  </table>
  <table name="Closed Loop Integral Error Shaping (Idle, Positive Error)" address="0555bc">
-  <table name="Y Axis" address="0554f8" />
+  <table name="Closed Loop Error" address="0554f8" />
  </table>
  <table name="Closed Loop Integral Error Shaping (Warm, Negative Error)" address="05563c">
-  <table name="Y Axis" address="0554f8" />
+  <table name="Closed Loop Error" address="0554f8" />
  </table>
  <table name="Closed Loop Integral Error Shaping (Cold, Negative Error)" address="05565c">
-  <table name="Y Axis" address="0554f8" />
+  <table name="Closed Loop Error" address="0554f8" />
  </table>
  <table name="Closed Loop Integral Error Shaping (Warm, Positive Error)" address="0555fc">
-  <table name="Y Axis" address="0554f8" />
+  <table name="Closed Loop Error" address="0554f8" />
  </table>
  <table name="Closed Loop Integral Error Shaping (Cold, Positive Error)" address="05561c">
-  <table name="Y Axis" address="0554f8" />
+  <table name="Closed Loop Error" address="0554f8" />
  </table>
  <table name="Closed Loop Learning Averaging Passes" address="032ed2">
   <table name="Engine Load" address="032ec2" />
   <table name="Engine Speed" address="032eca" />
  </table>
  <table name="Closed Loop Learning Step" address="0553f4">
-  <table name="Y Axis" address="0553e4" />
+  <table name="Fuel Correction" address="0553e4" />
  </table>
  <table name="LTFT Coolant Scaling (Positive)" address="055413">
   <table name="Coolant Temp" address="03e9f0" />
@@ -393,7 +393,7 @@
  </table>
  <table name="Transient Fuel Film Target" address="039df6">
   <table name="Engine Speed" address="039dee" />
-  <table name="Y Axis" address="039de6" />
+  <table name="Fuel Load" address="039de6" />
  </table>
  <table name="Transient Fuel Film Gain RPM Multiplier" address="039d7b">
   <table name="Engine Speed" address="03eac0" />
@@ -414,16 +414,16 @@
   <table name="Coolant Temp" address="03e9f0" />
  </table>
  <table name="Transient Fuel Injected-Cylinder Mask (Event Index 0)" address="039c3a">
-  <table name="Y Axis" address="039c4a" />
+  <table name="Injection Events" address="039c4a" />
  </table>
  <table name="Transient Fuel Injected-Cylinder Mask (Event Index 1)" address="039c3e">
-  <table name="Y Axis" address="039c4a" />
+  <table name="Injection Events" address="039c4a" />
  </table>
  <table name="Transient Fuel Injected-Cylinder Mask (Event Index 2)" address="039c42">
-  <table name="Y Axis" address="039c4a" />
+  <table name="Injection Events" address="039c4a" />
  </table>
  <table name="Transient Fuel Injected-Cylinder Mask (Event Index 3)" address="039c46">
-  <table name="Y Axis" address="039c4a" />
+  <table name="Injection Events" address="039c4a" />
  </table>
  <table name="Standstill Tip-In Enrichment" address="03eb4a">
   <table name="Temperature" address="03e930" />
@@ -980,15 +980,15 @@
  </table>
  <table name="Start Split Injection Second Share (Idle)" address="02ee21">
   <table name="Coolant Temp" address="02ee08" />
-  <table name="Y Axis" address="02ee19" />
+  <table name="Engine Speed" address="02ee19" />
  </table>
  <table name="Start Split Injection Second Share" address="02ee62">
   <table name="Coolant Temp" address="02ee08" />
-  <table name="Y Axis" address="02ee19" />
+  <table name="Engine Speed" address="02ee19" />
  </table>
  <table name="Start Split Injection Second Share (Idle, Alternate)" address="02f1d4">
   <table name="Coolant Temp" address="02ee08" />
-  <table name="Y Axis" address="02ee19" />
+  <table name="Engine Speed" address="02ee19" />
  </table>
  <table name="Spark Angle Before Running (Coolant)" address="01ca64">
   <table name="Coolant Temp" address="01ca74" />
@@ -1003,8 +1003,8 @@
   <table name="Coolant Temp" address="03e9f0" />
  </table>
  <table name="Catalyst Heating Readiness Idle Stability Time" address="02e46a">
-  <table name="X Axis" address="02e45a" />
-  <table name="Y Axis" address="02e44a" />
+  <table name="RPM Difference" address="02e45a" />
+  <table name="RPM Change" address="02e44a" />
  </table>
  <table name="Decel Fuel Cut Delay" address="01f068">
   <table name="Engine Speed" address="01f058" />
@@ -1018,65 +1018,65 @@
  </table>
  <table name="Decel Fuel Cut Staging Time (Gear 1, A/C Off)" address="021f34">
   <table name="Cut Count" address="021de0" />
-  <table name="Y Axis" address="021dda" />
+  <table name="RPM Band" address="021dda" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Gear 1, A/C On)" address="021de4">
   <table name="Cut Count" address="021de0" />
-  <table name="Y Axis" address="021dda" />
+  <table name="RPM Band" address="021dda" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Gear 2, A/C Off)" address="021f64">
   <table name="Cut Count" address="021de0" />
-  <table name="Y Axis" address="021dda" />
+  <table name="RPM Band" address="021dda" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Gear 2, A/C On)" address="021e14">
   <table name="Cut Count" address="021de0" />
-  <table name="Y Axis" address="021dda" />
+  <table name="RPM Band" address="021dda" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Gear 3, A/C Off)" address="021f94">
   <table name="Cut Count" address="021de0" />
-  <table name="Y Axis" address="021dda" />
+  <table name="RPM Band" address="021dda" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Gear 3, A/C On)" address="021e44">
   <table name="Cut Count" address="021de0" />
-  <table name="Y Axis" address="021dda" />
+  <table name="RPM Band" address="021dda" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Gear 4, A/C Off)" address="021fc4">
   <table name="Cut Count" address="021de0" />
-  <table name="Y Axis" address="021dda" />
+  <table name="RPM Band" address="021dda" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Gear 4, A/C On)" address="021e74">
   <table name="Cut Count" address="021de0" />
-  <table name="Y Axis" address="021dda" />
+  <table name="RPM Band" address="021dda" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Gear 5, A/C Off)" address="021ff4">
   <table name="Cut Count" address="021de0" />
-  <table name="Y Axis" address="021dda" />
+  <table name="RPM Band" address="021dda" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Gear 5, A/C On)" address="021ea4">
   <table name="Cut Count" address="021de0" />
-  <table name="Y Axis" address="021dda" />
+  <table name="RPM Band" address="021dda" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Gear 6, A/C Off)" address="022024">
   <table name="Cut Count" address="021de0" />
-  <table name="Y Axis" address="021dda" />
+  <table name="RPM Band" address="021dda" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Gear 6, A/C On)" address="021ed4">
   <table name="Cut Count" address="021de0" />
-  <table name="Y Axis" address="021dda" />
+  <table name="RPM Band" address="021dda" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Neutral)" address="022088">
   <table name="Speed" address="022084" />
  </table>
  <table name="Decel Fuel Cut Resume RPM Adder (A/C, Alternate)" address="01ed2b">
-  <table name="Y Axis" address="01ed23" />
+  <table name="Input" address="01ed23" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C Off)" address="022054">
   <table name="Cut Count" address="021de0" />
-  <table name="Y Axis" address="021dda" />
+  <table name="RPM Band" address="021dda" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C On)" address="021f04">
   <table name="Cut Count" address="021de0" />
-  <table name="Y Axis" address="021dda" />
+  <table name="RPM Band" address="021dda" />
  </table>
  <table name="Decel Fuel Cut Full-Cut Shortcut Hold" address="023aac">
   <table name="Engine Speed" address="023abc" />
@@ -1086,19 +1086,19 @@
  </table>
  <table name="Purge Rate Limit (Fallback)" address="0268c0">
   <table name="Engine Load" address="026868" />
-  <table name="Y Axis" address="026870" />
+  <table name="Engine Speed" address="026870" />
  </table>
  <table name="Purge Rate Ramp Step (Off-Idle)" address="02684b">
-  <table name="Y Axis" address="026850" />
+  <table name="Purge Vapour Concentration" address="026850" />
  </table>
  <table name="Purge Rate Ramp Step (Idle)" address="026847">
-  <table name="Y Axis" address="026850" />
+  <table name="Purge Vapour Concentration" address="026850" />
  </table>
  <table name="Purge Rate Cut Recovery Step (Off-Idle)" address="03e31c">
-  <table name="Y Axis" address="026c9c" />
+  <table name="Fuel Correction" address="026c9c" />
  </table>
  <table name="Purge Rate Cut Recovery Step (Idle)" address="03e314">
-  <table name="Y Axis" address="026c9c" />
+  <table name="Fuel Correction" address="026c9c" />
  </table>
  <table name="Purge Rate (Open-Loop Enrichment)" address="026801">
   <table name="Engine Load" address="0267fd" />
@@ -1108,13 +1108,13 @@
   <table name="Intake Air Temp" address="026878" />
  </table>
  <table name="Purge Learning Weight (Purge Rate)" address="026931">
-  <table name="Y Axis" address="026921" />
+  <table name="Purge Rate" address="026921" />
  </table>
  <table name="Purge Learning Weight (Purge Flow)" address="02694a">
   <table name="Airflow" address="02693a" />
  </table>
  <table name="Purge Learning Weight (Trim Deviation)" address="026929">
-  <table name="Y Axis" address="026919" />
+  <table name="Trim Deviation" address="026919" />
  </table>
  <table name="Base Timing (EGR Off, TGV Open)" address="01000c">
   <table name="Engine Load" address="0105be" />
@@ -1210,7 +1210,7 @@
   <table name="FLKC Cell" address="01d7ee" />
  </table>
  <table name="FLKC Advance Learning Inhibit Zones" address="02b326">
-  <table name="Y Axis" address="02b349" />
+  <table name="Knock Zone" address="02b349" />
  </table>
  <table name="FLKC Range Boundary Load 1" address="01d40c" />
  <table name="FLKC Range Boundary Load 2" address="01d40e" />
@@ -1542,97 +1542,97 @@
   <table name="Engine Speed" address="034b56" />
  </table>
  <table name="Surge Damping Timing Curve (Gear 1)" address="035481">
-  <table name="Y Axis" address="0353c2" />
+  <table name="Airflow Change" address="0353c2" />
  </table>
  <table name="Surge Damping Timing Curve (Gear 2)" address="035491">
-  <table name="Y Axis" address="0353c2" />
+  <table name="Airflow Change" address="0353c2" />
  </table>
  <table name="Surge Damping Timing Curve (Gear 3)" address="0354a1">
-  <table name="Y Axis" address="0353c2" />
+  <table name="Airflow Change" address="0353c2" />
  </table>
  <table name="Surge Damping Timing Curve (Gear 4)" address="0354b1">
-  <table name="Y Axis" address="0353c2" />
+  <table name="Airflow Change" address="0353c2" />
  </table>
  <table name="Surge Damping Timing Curve (Gear 5)" address="0354c1">
-  <table name="Y Axis" address="0353c2" />
+  <table name="Airflow Change" address="0353c2" />
  </table>
  <table name="Surge Damping Timing Curve (Gear 6)" address="0354d1">
-  <table name="Y Axis" address="0353c2" />
+  <table name="Airflow Change" address="0353c2" />
  </table>
  <table name="Surge Damping Timing Curve (AT/CVT Gear 1)" address="035479">
-  <table name="Y Axis" address="0353c2" />
+  <table name="Airflow Change" address="0353c2" />
  </table>
  <table name="Surge Damping Timing Curve (AT/CVT Gear 2)" address="035489">
-  <table name="Y Axis" address="0353c2" />
+  <table name="Airflow Change" address="0353c2" />
  </table>
  <table name="Surge Damping Timing Curve (AT/CVT Gear 3)" address="035499">
-  <table name="Y Axis" address="0353c2" />
+  <table name="Airflow Change" address="0353c2" />
  </table>
  <table name="Surge Damping Timing Curve (AT/CVT Gear 4)" address="0354a9">
-  <table name="Y Axis" address="0353c2" />
+  <table name="Airflow Change" address="0353c2" />
  </table>
  <table name="Surge Damping Timing Curve (AT/CVT Gear 5)" address="0354b9">
-  <table name="Y Axis" address="0353c2" />
+  <table name="Airflow Change" address="0353c2" />
  </table>
  <table name="Surge Damping Timing Curve (AT/CVT Gear 6)" address="0354c9">
-  <table name="Y Axis" address="0353c2" />
+  <table name="Airflow Change" address="0353c2" />
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 1, Below 1800 RPM)" address="0353e0">
-  <table name="Y Axis" address="0353b8" />
+  <table name="RPM Swing Count" address="0353b8" />
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 1, From 1800 RPM)" address="0353e9">
-  <table name="Y Axis" address="0353b8" />
+  <table name="RPM Swing Count" address="0353b8" />
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 2, Below 1800 RPM)" address="0353fb">
-  <table name="Y Axis" address="0353b8" />
+  <table name="RPM Swing Count" address="0353b8" />
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 2, From 1800 RPM)" address="035404">
-  <table name="Y Axis" address="0353b8" />
+  <table name="RPM Swing Count" address="0353b8" />
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 3, Below 1800 RPM)" address="035416">
-  <table name="Y Axis" address="0353b8" />
+  <table name="RPM Swing Count" address="0353b8" />
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 3, From 1800 RPM)" address="03541f">
-  <table name="Y Axis" address="0353b8" />
+  <table name="RPM Swing Count" address="0353b8" />
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 4, Below 1800 RPM)" address="035431">
-  <table name="Y Axis" address="0353b8" />
+  <table name="RPM Swing Count" address="0353b8" />
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 4, From 1800 RPM)" address="03543a">
-  <table name="Y Axis" address="0353b8" />
+  <table name="RPM Swing Count" address="0353b8" />
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 5, Below 1800 RPM)" address="03544c">
-  <table name="Y Axis" address="0353b8" />
+  <table name="RPM Swing Count" address="0353b8" />
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 5, From 1800 RPM)" address="035455">
-  <table name="Y Axis" address="0353b8" />
+  <table name="RPM Swing Count" address="0353b8" />
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 6, Below 1800 RPM)" address="035467">
-  <table name="Y Axis" address="0353b8" />
+  <table name="RPM Swing Count" address="0353b8" />
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 6, From 1800 RPM)" address="035470">
-  <table name="Y Axis" address="0353b8" />
+  <table name="RPM Swing Count" address="0353b8" />
  </table>
  <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 1)" address="0353d7">
-  <table name="Y Axis" address="0353b8" />
+  <table name="RPM Swing Count" address="0353b8" />
  </table>
  <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 2)" address="0353f2">
-  <table name="Y Axis" address="0353b8" />
+  <table name="RPM Swing Count" address="0353b8" />
  </table>
  <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 3)" address="03540d">
-  <table name="Y Axis" address="0353b8" />
+  <table name="RPM Swing Count" address="0353b8" />
  </table>
  <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 4)" address="035428">
-  <table name="Y Axis" address="0353b8" />
+  <table name="RPM Swing Count" address="0353b8" />
  </table>
  <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 5)" address="035443">
-  <table name="Y Axis" address="0353b8" />
+  <table name="RPM Swing Count" address="0353b8" />
  </table>
  <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 6)" address="03545e">
-  <table name="Y Axis" address="0353b8" />
+  <table name="RPM Swing Count" address="0353b8" />
  </table>
  <table name="Surge Damping Timing Combustion Mode Factor" address="0354d9">
-  <table name="Y Axis" address="0353d2" />
+  <table name="Combustion Mode" address="0353d2" />
  </table>
  <table name="Surge Damping Timing Coolant Factor" address="0354ee">
   <table name="Coolant Temp" address="03e9f0" />
@@ -1642,10 +1642,10 @@
  </table>
  <table name="Surge Damping Throttle Flow Map" address="035550">
   <table name="Engine Speed" address="03553c" />
-  <table name="Y Axis" address="035528" />
+  <table name="Throttle Opening" address="035528" />
  </table>
  <table name="A/C Cut Timing Retard Step (Alternate Logic)" address="034b66">
-  <table name="Y Axis" address="034b4d" />
+  <table name="Input" address="034b4d" />
  </table>
  <table name="Torque Reduction Spark Retard" address="034a90">
   <table name="Requested Spark Torque Share" address="034a70" />
@@ -1688,14 +1688,14 @@
   <table name="Coolant Temp" address="03e9f0" />
  </table>
  <table name="Closed-Pedal Timing Coolant Compensation RPM Multiplier" address="025870">
-  <table name="Y Axis" address="03e9e0" />
+  <table name="Engine Speed" address="03e9e0" />
  </table>
  <table name="Post-Start Closed-Pedal Timing Advance (Coolant at Start)" address="036618">
   <table name="Coolant Temp at Start" address="0360fc" />
  </table>
  <table name="Start Spark Target Base (Mode 1, AT/CVT, Warm-Up Fallback)" address="02e798">
   <table name="Coolant Temp" address="02ebf2" />
-  <table name="Y Axis" address="02ebda" />
+  <table name="Engine Speed" address="02ebda" />
  </table>
  <table name="Start Spark Target Run-Time Adder (Mode 1)" address="02e998">
   <table name="Coolant Temp" address="02ebf2" />
@@ -1711,11 +1711,11 @@
  </table>
  <table name="Start Spark Target Base (Mode 1, Warm-Up Fallback)" address="02e698">
   <table name="Coolant Temp" address="02ebf2" />
-  <table name="Y Axis" address="02ebda" />
+  <table name="Engine Speed" address="02ebda" />
  </table>
  <table name="Start Spark Target Torque Adder (Mode 1, Warm-Up Fallback)" address="02e898">
   <table name="Coolant Temp" address="02ebf2" />
-  <table name="Y Axis" address="02ebea" />
+  <table name="Torque Fraction" address="02ebea" />
  </table>
  <table name="Target Boost (Electronic Wastegate)" address="063bc4">
   <table name="Target Torque" address="063f7a" />
@@ -1764,7 +1764,7 @@
   <table name="Module Voltage" address="063416" />
  </table>
  <table name="Wastegate Motor Holding Duty" address="063426">
-  <table name="Y Axis" address="063446" />
+  <table name="Input" address="063446" />
  </table>
  <table name="Wastegate Position Command Minimum" address="0638ae" />
  <table name="Wastegate Position Command Maximum" address="0638b0" />
@@ -2028,10 +2028,10 @@
   <table name="Coolant Temp" address="023b82" />
  </table>
  <table name="Target Torque Rise Path B Low-Speed Time" address="02415e">
-  <table name="Y Axis" address="023ba2" />
+  <table name="CAN Value" address="023ba2" />
  </table>
  <table name="Target Torque Rise Path B Pedal-Released Low-Speed Time" address="02413e">
-  <table name="Y Axis" address="023ba2" />
+  <table name="CAN Value" address="023ba2" />
  </table>
  <table name="Target Torque Rise Stage 2 Torque (Path B, Drive Mode 1, Default)" address="024058">
   <table name="Engine Speed" address="023fea" />
@@ -2250,101 +2250,101 @@
   <table name="Engine Speed" address="04dd78" />
  </table>
  <table name="Throttle Opening from Target Torque (TGV Closed)" address="01e848">
-  <table name="X Axis" address="01e830" />
+  <table name="Target Torque" address="01e830" />
   <table name="Engine Speed" address="01e804" />
  </table>
  <table name="Throttle Opening from Target Torque (TGV Closed, Monitor)" address="04d958">
-  <table name="X Axis" address="04d940" />
+  <table name="Target Torque" address="04d940" />
   <table name="Engine Speed" address="04d914" />
  </table>
  <table name="Throttle Opening from Target Torque (TGV Open)" address="01e3e4">
-  <table name="X Axis" address="01e3cc" />
+  <table name="Target Torque" address="01e3cc" />
   <table name="Engine Speed" address="01e3a0" />
  </table>
  <table name="Throttle Opening from Target Torque (TGV Open, Monitor)" address="04d4f4">
-  <table name="X Axis" address="04d4dc" />
+  <table name="Target Torque" address="04d4dc" />
   <table name="Engine Speed" address="04d4b0" />
  </table>
  <table name="Throttle Opening from Target Torque (TGV Closed, EGR)" address="02326a">
-  <table name="X Axis" address="01e830" />
+  <table name="Target Torque" address="01e830" />
   <table name="Engine Speed" address="01e804" />
  </table>
  <table name="Throttle Opening from Target Torque (TGV Closed, EGR, Monitor)" address="050f6a">
-  <table name="X Axis" address="04d940" />
+  <table name="Target Torque" address="04d940" />
   <table name="Engine Speed" address="04d914" />
  </table>
  <table name="Throttle Opening from Target Torque (TGV Open, EGR)" address="02368a">
-  <table name="X Axis" address="01e3cc" />
+  <table name="Target Torque" address="01e3cc" />
   <table name="Engine Speed" address="01e3a0" />
  </table>
  <table name="Throttle Opening from Target Torque (TGV Open, EGR, Monitor)" address="05138a">
-  <table name="X Axis" address="04d4dc" />
+  <table name="Target Torque" address="04d4dc" />
   <table name="Engine Speed" address="04d4b0" />
  </table>
  <table name="Throttle Opening from Target Torque (Cruise, TGV Closed)" address="022160">
-  <table name="X Axis" address="022142" />
+  <table name="Target Torque" address="022142" />
   <table name="Engine Speed" address="0220fe" />
  </table>
  <table name="Throttle Opening from Target Torque (Cruise, TGV Closed, Monitor)" address="04fe60">
-  <table name="X Axis" address="04fe42" />
+  <table name="Target Torque" address="04fe42" />
   <table name="Engine Speed" address="04fdfe" />
  </table>
  <table name="Throttle Opening from Target Torque (Cruise, TGV Closed, EGR)" address="022580">
-  <table name="X Axis" address="02212a" />
+  <table name="Target Torque" address="02212a" />
   <table name="Engine Speed" address="0220d2" />
  </table>
  <table name="Throttle Opening from Target Torque (Cruise, TGV Closed, EGR, Monitor)" address="050280">
-  <table name="X Axis" address="04fe2a" />
+  <table name="Target Torque" address="04fe2a" />
   <table name="Engine Speed" address="04fdd2" />
  </table>
  <table name="Throttle Opening from Target Torque (Cruise, TGV Open, Monitor)" address="0506a0">
-  <table name="X Axis" address="050f0c" />
+  <table name="Target Torque" address="050f0c" />
   <table name="Engine Speed" address="050ee0" />
  </table>
  <table name="Throttle Opening from Target Torque (Cruise, TGV Open, EGR)" address="0229a0">
-  <table name="X Axis" address="02320c" />
+  <table name="Target Torque" address="02320c" />
   <table name="Engine Speed" address="0231e0" />
  </table>
  <table name="Throttle Opening from Target Torque (Cruise, TGV Open, EGR, Monitor)" address="050ac0">
-  <table name="X Axis" address="050f50" />
+  <table name="Target Torque" address="050f50" />
   <table name="Engine Speed" address="050f24" />
  </table>
  <table name="Throttle Opening (Required Area)" address="026432">
   <table name="Required Throttle Area FFF8AFB4" address="026452" />
  </table>
  <table name="Throttle Opening (Monitor)" address="051fb6">
-  <table name="Y Axis" address="051fd6" />
+  <table name="Throttle Area" address="051fd6" />
  </table>
  <table name="Throttle Required Area" address="010872">
   <table name="Throttle Request FFF8AFA8" address="026472" />
   <table name="Engine Speed" address="010d92" />
  </table>
  <table name="Throttle Required Area (Monitor)" address="052622">
-  <table name="X Axis" address="051ff6" />
+  <table name="Multiplier" address="051ff6" />
   <table name="Engine Speed" address="052b02" />
  </table>
  <table name="Throttle Area from Opening" address="01e360">
-  <table name="Y Axis" address="01e380" />
+  <table name="Throttle Opening" address="01e380" />
  </table>
  <table name="Throttle Area from Opening (Monitor)" address="04d470">
-  <table name="Y Axis" address="04d490" />
+  <table name="Throttle Opening" address="04d490" />
  </table>
  <table name="Torque Fraction from Throttle Area" address="01d8c0">
-  <table name="X Axis" address="01dd70" />
+  <table name="Throttle Area" address="01dd70" />
   <table name="Engine Speed" address="01dd40" />
  </table>
  <table name="Torque Fraction from Throttle Area (Monitor)" address="04f8f0">
-  <table name="X Axis" address="04fda0" />
+  <table name="Throttle Area" address="04fda0" />
   <table name="Engine Speed" address="04fd70" />
  </table>
  <table name="Idle Air Request Limit (Coolant)" address="01e340">
   <table name="Coolant Temp" address="03e9f0" />
  </table>
  <table name="Idle Air Request to Throttle Area" address="01e320">
-  <table name="Y Axis" address="01e300" />
+  <table name="Idle Air" address="01e300" />
  </table>
  <table name="Idle Air Request to Throttle Area (Monitor)" address="04ddec">
-  <table name="Y Axis" address="04ddcc" />
+  <table name="Idle Air" address="04ddcc" />
  </table>
  <table name="Start Throttle Opening Add (Coolant)" address="0267da">
   <table name="Coolant Temp" address="03e9f0" />
@@ -2372,13 +2372,13 @@
   <table name="Coolant Temp" address="03e9f0" />
  </table>
  <table name="Throttle Air Spark Compensation Limit" address="010788">
-  <table name="Y Axis" address="010778" />
+  <table name="Ignition Timing" address="010778" />
  </table>
  <table name="Throttle Command Rate Term" address="0255b2">
-  <table name="Y Axis" address="0255c2" />
+  <table name="Throttle Command Change" address="0255c2" />
  </table>
  <table name="Throttle Command Term" address="025592">
-  <table name="Y Axis" address="0255a2" />
+  <table name="Throttle Opening" address="0255a2" />
  </table>
  <table name="Engine Torque from Load (DAM 1.0, TGV Closed)" address="03affc">
   <table name="Engine Load" address="03afcc" />
@@ -2436,10 +2436,10 @@
   <table name="Intake Air Temp" address="010722" />
  </table>
  <table name="Ignition Efficiency vs Retard" address="025eaa">
-  <table name="Y Axis" address="025e9a" />
+  <table name="Timing Retard" address="025e9a" />
  </table>
  <table name="Air Quantity for Torque" address="02652c">
-  <table name="X Axis" address="02650c" />
+  <table name="Torque" address="02650c" />
   <table name="Engine Speed" address="0264ac" />
  </table>
  <table name="Air Quantity Filter Rate" address="02676c">
@@ -2513,11 +2513,11 @@
  </table>
  <table name="Spark Air Compensation Limiter" address="025d9a">
   <table name="Coolant Temp" address="025c7a" />
-  <table name="Y Axis" address="025c5a" />
+  <table name="Multiplier" address="025c5a" />
  </table>
  <table name="Spark Air Compensation Limiter Baro Factor" address="011ab8">
   <table name="Barometric Pressure" address="011aa8" />
-  <table name="Y Axis" address="011a98" />
+  <table name="Multiplier" address="011a98" />
  </table>
  <table name="Primary Ignition (TGV Closed, AVCS Active)" address="034cbe">
   <table name="Engine Load" address="034c9e" />
@@ -2544,19 +2544,19 @@
   <table name="Engine Speed" address="02f4f4" />
  </table>
  <table name="Throttle Flow Function" address="02f3d4">
-  <table name="Y Axis" address="02f394" />
+  <table name="Pressure Ratio" address="02f394" />
  </table>
  <table name="Throttle Flow Temperature Correction" address="02f486">
   <table name="Temperature" address="02f476" />
  </table>
  <table name="Throttle Flow Filter Weight" address="02f454">
-  <table name="Y Axis" address="02f414" />
+  <table name="Pressure Ratio" address="02f414" />
  </table>
  <table name="Throttle Area from Throttle Position (Airflow Model)" address="03a1c8">
-  <table name="Y Axis" address="03a1e8" />
+  <table name="Throttle Opening" address="03a1e8" />
  </table>
  <table name="Throttle Flow Curve (Area per RPM, MAP Fallback Model)" address="03a208">
-  <table name="Y Axis" address="03a248" />
+  <table name="Input" address="03a248" />
  </table>
  <table name="Manifold Pressure Rate Span (RPM)" address="02fdcc">
   <table name="Engine Speed" address="02fdb8" />
@@ -2649,16 +2649,16 @@
   <table name="Engine Speed" address="013194" />
  </table>
  <table name="Exhaust Temperature Model Retard Multiplier A (No Enrichment)" address="01aa20">
-  <table name="Y Axis" address="013276" />
+  <table name="Timing Retard" address="013276" />
  </table>
  <table name="Exhaust Temperature Model Retard Multiplier A (Enriched)" address="01aa00">
-  <table name="Y Axis" address="013276" />
+  <table name="Timing Retard" address="013276" />
  </table>
  <table name="Exhaust Temperature Model Retard Multiplier B (No Enrichment)" address="01a9d0">
-  <table name="Y Axis" address="013276" />
+  <table name="Timing Retard" address="013276" />
  </table>
  <table name="Exhaust Temperature Model Retard Multiplier B (Enriched)" address="01a9b0">
-  <table name="Y Axis" address="013276" />
+  <table name="Timing Retard" address="013276" />
  </table>
  <table name="Exhaust Temperature Model Filter A (Rising)" address="019b60">
   <table name="Engine Load" address="013188" />
@@ -2669,15 +2669,15 @@
   <table name="Engine Speed" address="013194" />
  </table>
  <table name="Exhaust Temperature Model Filter B (Rising)" address="01a498">
-  <table name="X Axis" address="019ff8" />
+  <table name="Multiplier" address="019ff8" />
   <table name="Airflow" address="019fe0" />
  </table>
  <table name="Exhaust Temperature Model Filter B (Falling)" address="01a618">
-  <table name="X Axis" address="019ff8" />
+  <table name="Multiplier" address="019ff8" />
   <table name="Airflow" address="019fe0" />
  </table>
  <table name="Exhaust Temperature Model Fuel Cut Step" address="01a018">
-  <table name="X Axis" address="019ff8" />
+  <table name="Multiplier" address="019ff8" />
   <table name="Airflow" address="019fe0" />
  </table>
  <table name="Exhaust Temperature Model Fuel Cut Decay" address="01a998">
@@ -2712,10 +2712,10 @@
   <table name="Engine Speed" address="04a0e0" />
  </table>
  <table name="A/F Sensor Exhaust Temp Model Timing Factor" address="04a7a8">
-  <table name="Y Axis" address="049fd0" />
+  <table name="Ignition Timing" address="049fd0" />
  </table>
  <table name="A/F Sensor Exhaust Temp Model Retard Factor" address="04aa2c">
-  <table name="Y Axis" address="049fc0" />
+  <table name="Timing Retard" address="049fc0" />
  </table>
  <table name="A/F Sensor Exhaust Temp Model Filter" address="04a9b8">
   <table name="Coolant Temp" address="04a1a0" />
@@ -2731,7 +2731,7 @@
   <table name="Temperature" address="04a170" />
  </table>
  <table name="A/F Sensor Exhaust Temp Model Hot Restart Factor (2D)" address="04aac4">
-  <table name="X Axis" address="04aabc" />
+  <table name="Temperature Drop" address="04aabc" />
   <table name="Temperature" address="04aaac" />
  </table>
  <table name="Exhaust Cam Target 1A (TGV Open, Normal, Altitude)" address="044e30">
@@ -2792,35 +2792,35 @@
   <table name="Intake Air Temp" address="041e10" />
  </table>
  <table name="Intake AVCS Feedback Duty (Idle, Cam 1)" address="042a7a">
-  <table name="X Axis" address="0429e8" />
+  <table name="Cam Error" address="0429e8" />
   <table name="Engine Speed" address="0429d0" />
  </table>
  <table name="Intake AVCS Feedback Duty (Idle, Cam 2)" address="042ba4">
-  <table name="X Axis" address="042b92" />
+  <table name="Cam Error" address="042b92" />
   <table name="Engine Speed" address="0429d0" />
  </table>
  <table name="Exhaust AVCS Feedback Duty (Idle, Cam 1)" address="04394e">
-  <table name="X Axis" address="04393c" />
+  <table name="Cam Error" address="04393c" />
   <table name="Engine Speed" address="043922" />
  </table>
  <table name="Exhaust AVCS Feedback Duty (Idle, Cam 2)" address="043a8a">
-  <table name="X Axis" address="043a78" />
+  <table name="Cam Error" address="043a78" />
   <table name="Engine Speed" address="043922" />
  </table>
  <table name="Intake AVCS Rate Feedback Duty (Cam 1)" address="043e48">
-  <table name="X Axis" address="043dd0" />
+  <table name="Cam Rate" address="043dd0" />
   <table name="Engine Speed" address="043dc8" />
  </table>
  <table name="Intake AVCS Rate Feedback Duty (Cam 2)" address="043e28">
-  <table name="X Axis" address="043dc0" />
+  <table name="Cam Rate" address="043dc0" />
   <table name="Engine Speed" address="043db8" />
  </table>
  <table name="Exhaust AVCS Rate Feedback Duty (Cam 1)" address="043e88">
-  <table name="X Axis" address="043df0" />
+  <table name="Cam Rate" address="043df0" />
   <table name="Engine Speed" address="043de8" />
  </table>
  <table name="Exhaust AVCS Rate Feedback Duty (Cam 2)" address="043e68">
-  <table name="X Axis" address="043de0" />
+  <table name="Cam Rate" address="043de0" />
   <table name="Engine Speed" address="043dd8" />
  </table>
  <table name="Intake AVCS Rate Feedback Oil Factor" address="043ec8">
@@ -2869,10 +2869,10 @@
   <table name="Battery Voltage (Filtered)" address="043bd4" />
  </table>
  <table name="Intake AVCS OCV Expected Current" address="042d54">
-  <table name="Y Axis" address="042cea" />
+  <table name="Duty" address="042cea" />
  </table>
  <table name="Exhaust AVCS OCV Expected Current" address="043c4c">
-  <table name="Y Axis" address="043be2" />
+  <table name="Duty" address="043be2" />
  </table>
  <table name="Intake AVCS OCV Coil Factor (Oil Temp)" address="042d0a">
   <table name="Oil Temp" address="042ca0" />
@@ -2887,41 +2887,41 @@
   <table name="Oil Temp" address="043b90" />
  </table>
  <table name="Intake AVCS OCV Adaptation Step (Cam 1)" address="042d2c">
-  <table name="Y Axis" address="042cc2" />
+  <table name="OCV Current" address="042cc2" />
  </table>
  <table name="Intake AVCS OCV Adaptation Step (Cam 2)" address="042d86">
-  <table name="Y Axis" address="042d6c" />
+  <table name="OCV Current" address="042d6c" />
  </table>
  <table name="Exhaust AVCS OCV Adaptation Step (Cam 1)" address="043c24">
-  <table name="Y Axis" address="043bba" />
+  <table name="OCV Current" address="043bba" />
  </table>
  <table name="Exhaust AVCS OCV Adaptation Step (Cam 2)" address="043c7e">
-  <table name="Y Axis" address="043c64" />
+  <table name="OCV Current" address="043c64" />
  </table>
  <table name="Intake AVCS Feedback Duty (Cam 1)" address="01df44">
-  <table name="X Axis" address="01e034" />
+  <table name="Cam Error" address="01e034" />
   <table name="Engine Speed" address="01e01c" />
  </table>
  <table name="Intake AVCS Feedback Duty (Cam 2)" address="01de5a">
-  <table name="X Axis" address="01df32" />
+  <table name="Cam Error" address="01df32" />
   <table name="Engine Speed" address="01e01c" />
  </table>
  <table name="Exhaust AVCS Feedback Duty (Cam 1)" address="01e142">
-  <table name="X Axis" address="01e246" />
+  <table name="Cam Error" address="01e246" />
   <table name="Engine Speed" address="01e22c" />
  </table>
  <table name="Exhaust AVCS Feedback Duty (Cam 2)" address="01e046">
-  <table name="X Axis" address="01e130" />
+  <table name="Cam Error" address="01e130" />
   <table name="Engine Speed" address="01e22c" />
  </table>
  <table name="AVCS Activation Delay After Start (Second)" address="044146">
   <table name="Coolant Temp" address="03ea10" />
  </table>
  <table name="Intake AVCS OCV Current Integral Step" address="042d12">
-  <table name="Y Axis" address="042ca8" />
+  <table name="OCV Current" address="042ca8" />
  </table>
  <table name="Exhaust AVCS OCV Current Integral Step" address="043c0a">
-  <table name="Y Axis" address="043ba0" />
+  <table name="OCV Current" address="043ba0" />
  </table>
  <table name="Intake OCV Base Duty (Cam 1, Legacy Path)" address="02b22c">
   <table name="Engine Speed" address="02b1e2" />
@@ -3022,7 +3022,7 @@
   <table name="Coolant Temp" address="03e9f0" />
  </table>
  <table name="CAN Idle Speed Request (Alternate)" address="03ad48">
-  <table name="Y Axis" address="03ad3e" />
+  <table name="CAN Code" address="03ad3e" />
  </table>
  <table name="CAN Idle Speed Request Remap (Alternate)" address="03ad90">
   <table name="Engine Speed" address="03ad7c" />
@@ -3108,14 +3108,14 @@
  </table>
  <table name="Idle Air Reduction In Drive (AT/CVT, RPM Error)" address="028f4a">
   <table name="Coolant Temp" address="03e9f0" />
-  <table name="Y Axis" address="028f3a" />
+  <table name="RPM Difference" address="028f3a" />
  </table>
  <table name="Minimum Idle Air (Moving in Gear)" address="02876c">
   <table name="Coolant Temp" address="0288d1" />
   <table name="Engine Speed" address="0288bc" />
  </table>
  <table name="Pull-Away Anti-Stall Air" address="029ab0">
-  <table name="Y Axis" address="029a30" />
+  <table name="RPM Difference" address="029a30" />
  </table>
  <table name="Pull-Away Anti-Stall Reference Decay" address="029ac0">
   <table name="Engine Speed" address="029a40" />
@@ -3124,31 +3124,31 @@
   <table name="Engine Speed" address="029a50" />
  </table>
  <table name="Idle RPM-Drop Recovery Air (Drop Slowing)" address="029a90">
-  <table name="Y Axis" address="029b00" />
+  <table name="RPM Change" address="029b00" />
  </table>
  <table name="Idle RPM-Drop Recovery Air (Drop Continuing)" address="029aa0">
-  <table name="Y Axis" address="029b00" />
+  <table name="RPM Change" address="029b00" />
  </table>
  <table name="Idle Air Target-Change Feed-Forward (AT/CVT, State 0/5)" address="02973e">
-  <table name="Y Axis" address="02972c" />
+  <table name="RPM Difference" address="02972c" />
  </table>
  <table name="Idle Air Target-Change Feed-Forward" address="02971a">
-  <table name="Y Axis" address="02972c" />
+  <table name="RPM Difference" address="02972c" />
  </table>
  <table name="Idle Air Trim (Charging Command)" address="02904c">
-  <table name="Y Axis" address="029054" />
+  <table name="Alternator Command" address="029054" />
  </table>
  <table name="Electrical Load Idle Air Hold Release (Alternator Command)" address="029780">
-  <table name="Y Axis" address="029786" />
+  <table name="Alternator Command" address="029786" />
  </table>
  <table name="Idle Air Adder (CAN 0x370 Load Value)" address="029754">
-  <table name="Y Axis" address="02976a" />
+  <table name="CAN Value" address="02976a" />
  </table>
  <table name="Idle Air Adder (CAN 0x280 Stage)" address="029798">
-  <table name="Y Axis" address="0297a8" />
+  <table name="Stage" address="0297a8" />
  </table>
  <table name="Idle Air from Throttle Area (Torque Request)" address="0298be">
-  <table name="Y Axis" address="0298de" />
+  <table name="Throttle Area" address="0298de" />
  </table>
  <table name="Idle Base Air (Cold Idle, Mode 4)" address="0286d2" />
  <table name="Idle Base Air (Cold Idle, Mode 4, TGV Closed)" address="0285d2" />
@@ -3162,53 +3162,53 @@
  </table>
  <table name="A/C Idle Air (Alternate, Target RPM)" address="03ac7c">
   <table name="Engine Speed" address="03abe0" />
-  <table name="Y Axis" address="03abc8" />
+  <table name="Input" address="03abc8" />
  </table>
  <table name="A/C Idle Air (Alternate, Engine Speed)" address="03abec">
   <table name="Engine Speed" address="03abd4" />
-  <table name="Y Axis" address="03abc8" />
+  <table name="Input" address="03abc8" />
  </table>
  <table name="A/C Idle Air Initial Kick (Alternate)" address="03aba2">
-  <table name="Y Axis" address="03abbe" />
+  <table name="CAN Code" address="03abbe" />
  </table>
  <table name="A/C Idle Air Kick Duration (Alternate)" address="03abb0">
-  <table name="Y Axis" address="03abbe" />
+  <table name="CAN Code" address="03abbe" />
  </table>
  <table name="Low Voltage Idle Request Threshold (Alternator Command)" address="03a6ec">
-  <table name="Y Axis" address="03a6f2" />
+  <table name="Alternator Command" address="03a6f2" />
  </table>
  <table name="Idle Speed Feedback Map (Target MAP Offset)" address="028a26">
-  <table name="X Axis" address="0289f4" />
-  <table name="Y Axis" address="0289de" />
+  <table name="RPM Difference" address="0289f4" />
+  <table name="RPM Change" address="0289de" />
  </table>
  <table name="Idle Speed Feedback RPM Error Factor (Above Target)" address="0289ba">
-  <table name="Y Axis" address="0289ca" />
+  <table name="RPM Difference" address="0289ca" />
  </table>
  <table name="Idle Speed Feedback Gain Multiplier (Time in Feedback)" address="028934">
   <table name="Time" address="02895c" />
  </table>
  <table name="Idle Speed Torque Feedback P" address="01ed42">
-  <table name="X Axis" address="01ee52" />
+  <table name="RPM Difference" address="01ee52" />
   <table name="Engine Speed" address="01ee42" />
  </table>
  <table name="Idle Speed Torque Feedback D" address="01eee8">
-  <table name="X Axis" address="01eec8" />
+  <table name="RPM Difference" address="01eec8" />
   <table name="Engine Speed" address="01eeb8" />
  </table>
  <table name="Idle Speed Torque Feedback Reference Torque" address="01ee98">
   <table name="Engine Speed" address="01ee78" />
  </table>
  <table name="Idle Feedback Carry-Over Decay (Positive)" address="028dc8">
-  <table name="Y Axis" address="028df8" />
+  <table name="RPM Change" address="028df8" />
  </table>
  <table name="Idle Feedback Carry-Over Decay (Negative)" address="028de0">
-  <table name="Y Axis" address="028df8" />
+  <table name="RPM Change" address="028df8" />
  </table>
  <table name="Idle Feedback Carry-Over Limit (Positive)" address="028e10">
-  <table name="Y Axis" address="028e24" />
+  <table name="Throttle above Idle" address="028e24" />
  </table>
  <table name="Idle Feedback Carry-Over Limit (Negative)" address="028e1a">
-  <table name="Y Axis" address="028e24" />
+  <table name="Throttle above Idle" address="028e24" />
  </table>
  <table name="Idle Converter Slip Threshold (In Gear, AT/CVT)" address="028cfe">
   <table name="Coolant Temp" address="03e9f0" />
@@ -3229,7 +3229,7 @@
   <table name="Vehicle Speed" address="029852" />
  </table>
  <table name="Idle Learn Bias" address="029846">
-  <table name="Y Axis" address="02983a" />
+  <table name="Drive History" address="02983a" />
  </table>
  <table name="EGR Target Rate (TGV Open)" address="030b76">
   <table name="Engine Load" address="030956" />
@@ -3327,19 +3327,19 @@
   <table name="Engine Speed" address="030936" />
  </table>
  <table name="EGR Target Rate (Alternate, TGV Open)" address="030976">
-  <table name="X Axis" address="030966" />
+  <table name="Input" address="030966" />
   <table name="Engine Speed" address="030936" />
  </table>
  <table name="EGR Target Rate (Alternate, TGV Closed)" address="030a76">
-  <table name="X Axis" address="030966" />
+  <table name="Input" address="030966" />
   <table name="Engine Speed" address="030936" />
  </table>
  <table name="EGR Target Rate (Alternate, TGV Open, Multi-Injection)" address="0312b0">
-  <table name="X Axis" address="030966" />
+  <table name="Input" address="030966" />
   <table name="Engine Speed" address="030936" />
  </table>
  <table name="EGR Target Rate (Alternate, TGV Closed, Multi-Injection)" address="0313b0">
-  <table name="X Axis" address="030966" />
+  <table name="Input" address="030966" />
   <table name="Engine Speed" address="030936" />
  </table>
  <table name="EGR Target Rate Tip-Out Limit (TGV Open)" address="0316b6">
@@ -3406,20 +3406,20 @@
   <table name="Vehicle Speed" address="03e110" />
  </table>
  <table name="TGV Open Fraction from Position (Closing)" address="03e0ec">
-  <table name="Y Axis" address="03e0d4" />
+  <table name="Voltage" address="03e0d4" />
  </table>
  <table name="TGV Open Fraction from Position (Opening)" address="03e0e0">
-  <table name="Y Axis" address="03e0d4" />
+  <table name="Voltage" address="03e0d4" />
  </table>
  <table name="TGV Motor Duty Compensation" address="03e036">
   <table name="Battery Voltage" address="03e032" />
   <table name="Coolant Temp" address="03e022" />
  </table>
  <table name="TGV Drive Duty (Opening)" address="03e0ae">
-  <table name="Y Axis" address="03e09e" />
+  <table name="TGV Position" address="03e09e" />
  </table>
  <table name="TGV Drive Duty (Closing)" address="03e0b6">
-  <table name="Y Axis" address="03e09e" />
+  <table name="TGV Position" address="03e09e" />
  </table>
  <table name="TGV Torque Threshold Enter (Start Modes)" address="03e24c">
   <table name="Engine Speed" address="03e148" />
@@ -3429,54 +3429,54 @@
  </table>
  <table name="Cruise Pedal Equivalent (Other Drive Modes)" address="047c02">
   <table name="Engine Speed" address="047502" />
-  <table name="Y Axis" address="0474e2" />
+  <table name="Torque" address="0474e2" />
  </table>
  <table name="Cruise Pedal Equivalent (Drive Mode 2, Sport)" address="048002">
   <table name="Engine Speed" address="047582" />
-  <table name="Y Axis" address="047562" />
+  <table name="Torque" address="047562" />
  </table>
  <table name="Cruise Pedal Equivalent (Drive Mode 3, Intelligent)" address="047802">
   <table name="Engine Speed" address="047482" />
-  <table name="Y Axis" address="047462" />
+  <table name="Torque" address="047462" />
  </table>
  <table name="Cruise Pedal Equivalent (Other Drive Modes, Meter Cruise Option)" address="047a02">
   <table name="Engine Speed" address="0474c2" />
-  <table name="Y Axis" address="0474a2" />
+  <table name="Torque" address="0474a2" />
  </table>
  <table name="Cruise Pedal Equivalent (Drive Mode 2, Sport, Meter Cruise Option)" address="047e02">
   <table name="Engine Speed" address="047542" />
-  <table name="Y Axis" address="047522" />
+  <table name="Torque" address="047522" />
  </table>
  <table name="Cruise Pedal Equivalent (Drive Mode 3, Intelligent, Meter Cruise Option)" address="047602">
   <table name="Engine Speed" address="047442" />
-  <table name="Y Axis" address="047422" />
+  <table name="Torque" address="047422" />
  </table>
  <table name="Cruise Maximum Speed (km/h Meter)" address="0490c0">
-  <table name="Y Axis" address="048d40" />
+  <table name="Code" address="048d40" />
  </table>
  <table name="Cruise Maximum Speed (mph Meter)" address="0490e0">
-  <table name="Y Axis" address="048d40" />
+  <table name="Code" address="048d40" />
  </table>
  <table name="Cruise Maximum Speed (km/h Meter, Meter Cruise Option)" address="049140">
-  <table name="Y Axis" address="048d40" />
+  <table name="Code" address="048d40" />
  </table>
  <table name="Cruise Maximum Speed (mph Meter, Meter Cruise Option)" address="049160">
-  <table name="Y Axis" address="048d40" />
+  <table name="Code" address="048d40" />
  </table>
  <table name="Cruise Maximum Speed (km/h Meter, Meter Cruise Option, Alternate)" address="049100">
-  <table name="Y Axis" address="048d40" />
+  <table name="Code" address="048d40" />
  </table>
  <table name="Cruise Maximum Speed (mph Meter, Meter Cruise Option, Alternate)" address="049120">
-  <table name="Y Axis" address="048d40" />
+  <table name="Code" address="048d40" />
  </table>
  <table name="Cruise Cancel Speed" address="048f60">
-  <table name="Y Axis" address="048d40" />
+  <table name="Code" address="048d40" />
  </table>
  <table name="Cruise Set Speed Ramp While Accelerating" address="0482b6">
   <table name="Speed" address="048276" />
  </table>
  <table name="Cruise Torque Limit Offset" address="0482e8">
-  <table name="Y Axis" address="03e920" />
+  <table name="Engine Speed" address="03e920" />
  </table>
  <table name="Cruise Speed Error Gain (Default)" address="048892">
   <table name="Speed" address="04867e" />
@@ -3512,7 +3512,7 @@
  </table>
  <table name="Cruise Vehicle Speed from CAN Speed" address="048374">
   <table name="Speed" address="04832c" />
-  <table name="Y Axis" address="04831c" />
+  <table name="Code" address="04831c" />
  </table>
  <table name="Cruise Vehicle Speed Filter Weight" address="04834c">
   <table name="Vehicle Speed" address="048314" />
@@ -3553,7 +3553,7 @@
   <table name="Accelerator Pedal" address="04b2ac" />
  </table>
  <table name="VDC Torque Request Correction" address="03aedc">
-  <table name="Y Axis" address="03aebc" />
+  <table name="Torque" address="03aebc" />
  </table>
  <table name="Brake Booster Vacuum Model Maximum" address="04b0e2">
   <table name="Barometric Pressure" address="04b0d8" />
@@ -3570,11 +3570,11 @@
  <table name="Charging Target Voltage Maximum" address="040054" />
  <table name="Charging Target Voltage Minimum" address="040056" />
  <table name="Alternator Command from Target Voltage" address="03ffe0">
-  <table name="Y Axis" address="03ff0e" />
+  <table name="Voltage" address="03ff0e" />
  </table>
  <table name="Charging Target Temperature Correction Threshold" address="03fe86" />
  <table name="Charging Target Temperature Correction" address="03ffa4">
-  <table name="Y Axis" address="03feee" />
+  <table name="Battery Sensor Value" address="03feee" />
  </table>
  <table name="Charging Target Voltage at Start" address="040000" />
  <table name="Radiator Fan Duty (Coolant)" address="039486">
@@ -3582,17 +3582,17 @@
  </table>
  <table name="Battery Capacity" address="03fe94" />
  <table name="Battery Charge Efficiency (Charging)" address="03ffc4">
-  <table name="Y Axis" address="03fe12" />
+  <table name="Battery Sensor Value" address="03fe12" />
  </table>
  <table name="Battery Charge Efficiency (Discharging)" address="03ffd2">
-  <table name="Y Axis" address="03fe12" />
+  <table name="Battery Sensor Value" address="03fe12" />
  </table>
  <table name="Charge Control Delay After Start (SOC, Battery Sensor)" address="040f50">
-  <table name="X Axis" address="040936" />
-  <table name="Y Axis" address="040930" />
+  <table name="Battery Sensor Value" address="040936" />
+  <table name="Percent" address="040930" />
  </table>
  <table name="Charge Control Charge After Start (SOC)" address="040f62">
-  <table name="Y Axis" address="04093c" />
+  <table name="Percent" address="04093c" />
  </table>
  <table name="Battery State of Charge Reset Value" address="040920" />
  <table name="Battery Charged SOC Threshold" address="03fe3e" />
@@ -3605,7 +3605,7 @@
   <table name="Coolant Temp" address="0394aa" />
  </table>
  <table name="Adaptive Charging Target Current" address="03ff64">
-  <table name="Y Axis" address="03fece" />
+  <table name="Percent" address="03fece" />
  </table>
  <table name="Adaptive Charging Current Gain" address="03fe66" />
  <table name="Adaptive Charging Integral Deadband Above" address="03fe48" />
@@ -3619,7 +3619,7 @@
   <table name="Coolant Temp" address="0394aa" />
  </table>
  <table name="Charging Feedback Proportional" address="040028">
-  <table name="Y Axis" address="040006" />
+  <table name="Voltage" address="040006" />
  </table>
  <table name="Charging Feedback Integral Step Up" address="03fe70" />
  <table name="Charging Feedback Integral Step Down" address="03fe6e" />
@@ -3630,7 +3630,7 @@
  <table name="Charging Feedback Deadband Below" address="03fe6a" />
  <table name="Charging Feedback Minimum RPM" address="03fe72" />
  <table name="Radiator Fan Duty (A/C, CAN 0x280 Value)" address="0394c0">
-  <table name="Y Axis" address="0394d2" />
+  <table name="CAN Value" address="0394d2" />
  </table>
  <table name="Engine Torque from Load (CAN, DAM 1.0)" address="03d01e">
   <table name="Engine Load" address="03ae0a" />
@@ -3647,10 +3647,10 @@
   <table name="Engine Speed" address="03adda" />
  </table>
  <table name="Full-Load Air Flow IAT Factor (CAN Torque)" address="03ae84">
-  <table name="Y Axis" address="03ae02" />
+  <table name="Temperature Ratio" address="03ae02" />
  </table>
  <table name="Full-Load Air Flow Boost Limit Factor (CAN Torque)" address="03ae7a">
-  <table name="Y Axis" address="03adfa" />
+  <table name="Pressure Ratio" address="03adfa" />
  </table>
  <table name="CAN Engine Torque Fuel-Cut Fade Rate" address="03b88c">
   <table name="Engine Speed" address="03b890" />
@@ -3663,7 +3663,7 @@
  </table>
  <table name="Gear Advice Consumption Map" address="03c6f8">
   <table name="Engine Speed" address="03c270" />
-  <table name="Y Axis" address="03c248" />
+  <table name="Torque" address="03c248" />
  </table>
  <table name="Gear Advice Downshift Maximum RPM (Alternate)" address="03cc98">
   <table name="Gear" address="03c2c0" />

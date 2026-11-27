@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Cleaner descriptions everywhere: every table, value and logger parameter description in every definition and logger
+  file now explains what the setting does, without memory addresses or notes on how it was found. Debug-level tables
+  keep their plain explanation; the technical detail behind them is gone from the published files.
+- Every table axis now has a real name (Engine Speed, Ignition Timing, Boost, Throttle Opening and so on). About
+  4,000 axes in the 2.0 and 1.6 RomRaider files used to be labelled just "Axis".
+- Logger parameters that used to carry an address in their name are renamed: Throttle Signal 2, Throttle or Pedal
+  Signal A / B, Closed Loop Lambda, Closed Loop Target (Lambda), Fuel Correction, Knock Module Value A / B, AVCS
+  Value 1-4, Long-Term Fuel Trim (Learned Cell) and A/F Learning (Active Cell). The cam advance / retard parameters
+  keep their names without the address.
 - New: **knock margin terms** on the 2019-2021 2.0 / 1.6 ROMs, the Ascent and the Legacy / Outback XT (5 tables,
   Knock Control). The knock margin index that the knock torque cap's margin trigger watches is Knock Margin Base
   (engine speed x load), less intake air temperature 2, plus a spark term (how far the primary ignition sits above

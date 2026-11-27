@@ -12909,12 +12909,12 @@
  </table>
  <table name="Closed Loop Integral Gain (Negative Error)" category="01.03 Fueling - Closed Loop &amp; Fuel Trims" type="3D" level="4" scaling="gain uint8">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
-  <table name="Y Axis" type="Y Axis" elements="8" scaling="RPM uint8 #2" />
+  <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #2" />
   <description>How fast closed-loop fuel trim corrects when the error is negative, by rpm and load. Larger = faster correction, too large can make the trims oscillate.</description>
  </table>
  <table name="Closed Loop Integral Gain (Positive Error)" category="01.03 Fueling - Closed Loop &amp; Fuel Trims" type="3D" level="4" scaling="gain uint8">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
-  <table name="Y Axis" type="Y Axis" elements="8" scaling="RPM uint8 #2" />
+  <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #2" />
   <description>How fast closed-loop fuel trim corrects when the error is positive, by rpm and load. Larger = faster correction, too large can make the trims oscillate.</description>
  </table>
  <table name="Closed Loop Learning Averaging Passes" category="01.03 Fueling - Closed Loop &amp; Fuel Trims" type="3D" level="4" scaling="s uint16">
@@ -12936,8 +12936,8 @@
  </table>
  <table name="Transient Fuel Film Target" category="01.04 Fueling - Transient Fueling" type="3D" level="2" scaling="mg fuel (film target at gain 1.0) uint16">
   <table name="Engine Speed" type="X Axis" elements="8" scaling="RPM uint8 #2" />
-  <table name="Y Axis" type="Y Axis" elements="8" scaling="g/rev (fuel basis) uint8 (2.4)" />
-  <description>Fuel film mass target (mg) by load and rpm; when it rises, the difference is added to the following injections and then decays, compensating fuel film build-up (inferred). The values are fuel mass, but the load axis is fuel-based and scales with Injector Scaling: after changing Injector Scaling, multiply the load axis by new raw / 2918 to keep the same real loads.</description>
+  <table name="Fuel Load" type="Y Axis" elements="8" scaling="g/rev (fuel basis) uint8 (2.4)" />
+  <description>Fuel film mass target (mg) by load and rpm; when it rises, the difference is added to the following injections and then decays, compensating fuel film build-up (likely). The values are fuel mass, but the load axis is fuel-based and scales with Injector Scaling: after changing Injector Scaling, multiply the load axis by new raw / 2918 to keep the same real loads.</description>
  </table>
  <table name="TGV Transition Enrichment (Closing)" category="01.04 Fueling - Transient Fueling" type="3D" level="3" scaling="% fuel int16">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
@@ -13101,7 +13101,7 @@
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees F uint16" />
   <description>Cranking fuel pulse by coolant for a repeat attempt in the special start type.
 
-Coolant-indexed base of the cranking pulse FFF8AFC6 (0x0C9038, read); used when flag s4 (= TGV-module flag FFF8A881 bit 2, read) set, s8 set, FFF8A6E7 = 3 (s8 = FFF811A7 bit 7, the repeat-crank history; argument mapping read from the calls at 0x0C589C). Cranking pulse (read, 0x0C9038): FFF842C8 = clamp(base x 256 x A67E x A687 x C535 x coolant multiplier x 64 / (2^32 x 255), 0, 524280) x 0.125 (the 64 is fixed, folded into the constant 5.843592e-11; Cranking Fuel Secondary Low Rail Pressure Multiplier 05A1FC acts only on the secondary pulse in 0x0C8A28), and the per-injector quantity is never below 10 x that (0x0D168C), in 0.8 us counts. Raw units: the factors' normalisation is not fully resolved, so change it proportionally. FFF8AFC6 feeds injectors in fuel mode 0 or 3. Confidence: inferred.</description>
+Raw units: the factors' normalisation is not fully resolved, so change it proportionally.</description>
  </table>
  <table name="Cranking Fuel (Stall Window, First Attempt)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="4" scaling="ms uint16 (2.4)">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees F uint16" />
@@ -13262,21 +13262,15 @@ Coolant-indexed base of the cranking pulse FFF8AFC6 (0x0C9038, read); used when 
  </table>
  <table name="Running After-Start Enrichment 1 (Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="5" scaling="% enrichment uint16 (2.4)">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees F uint16" />
-  <description>Running After-Start Enrichment 1 for the special start type, which is disabled by calibration.
-
-Details: When used: start type FFF8A6E7 = 3 or above, in fuel states 2 (cranking) and 3 (running). Amount E1 (1/256 of fuel) for this start type, on coolant FFF88A44. 0x0CDD8C (read) builds Confidence: inferred.</description>
+  <description>Running After-Start Enrichment 1 for the special start type, which is disabled by calibration.</description>
  </table>
  <table name="Running After-Start Enrichment 2 (Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="5" scaling="% enrichment uint16 (2.4)">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees F uint16" />
-  <description>Running After-Start Enrichment 2 for the special start type, which is disabled by calibration.
-
-Details: When used: start type FFF8A6E7 = 3 or above, in fuel states 2 (cranking) and 3 (running). Amount E2 (1/256 of fuel) for this start type, on coolant FFF88A44. 0x0CDD8C (read) builds Confidence: inferred.</description>
+  <description>Running After-Start Enrichment 2 for the special start type, which is disabled by calibration.</description>
  </table>
  <table name="Running After-Start Enrichment 3 (Special Start)" category="01.05 Fueling - Cranking &amp; Start" type="2D" level="5" scaling="% enrichment uint16 (2.4)">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees F uint16" />
-  <description>Running After-Start Enrichment 3 for the special start type, which is disabled by calibration.
-
-Details: When used: start type FFF8A6E7 = 3 or above, in fuel states 2 (cranking) and 3 (running). Amount E3 (1/256 of fuel) for this start type, on coolant FFF88A44. 0x0CDD8C (read) builds Confidence: inferred.</description>
+  <description>Running After-Start Enrichment 3 for the special start type, which is disabled by calibration.</description>
  </table>
  <table name="Injection Timing (Single Injection)" category="01.06 Fueling - Injection Timing" type="3D" level="3" scaling="deg BTDC int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
@@ -13312,23 +13306,17 @@ Details: When used: start type FFF8A6E7 = 3 or above, in fuel states 2 (cranking
  <table name="Double Injection Split" category="01.06 Fueling - Injection Timing" type="3D" level="5" scaling="% of fuel uint8">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint16" />
-  <description>Share of the fuel in the first of two injections; the second gets the rest.
-
-Details: Share of the fuel in the first of two injections (0x0D05D8 -&gt; FFF8B068 -&gt; FFF8A6D1, read); the second gets the rest (0x0D0D50). Limited by FFF8A6DA (read). Confidence: inferred.</description>
+  <description>Share of the fuel in the first of two injections; the second gets the rest.</description>
  </table>
  <table name="Triple Injection Split 1" category="01.06 Fueling - Injection Timing" type="3D" level="5" scaling="% of fuel uint8">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint16" />
-  <description>Share of the fuel in the first of three injections (the third gets what the first two leave).
-
-Details: Share of the fuel in the first of three injections (0x0D06EC -&gt; FFF8A6C9 -&gt; FFF8A6D3, read); the third gets 128 minus the first two (0x0D0DC0). Confidence: inferred.</description>
+  <description>Share of the fuel in the first of three injections (the third gets what the first two leave).</description>
  </table>
  <table name="Triple Injection Split 2" category="01.06 Fueling - Injection Timing" type="3D" level="5" scaling="% of fuel uint8">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint16" />
-  <description>Share of the fuel in the second of three injections.
-
-Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF8A6CA -&gt; FFF8A6D4, read). Confidence: inferred.</description>
+  <description>Share of the fuel in the second of three injections.</description>
  </table>
  <table name="Catalyst Heating Phase 2 Injection Angle Base Adder (TGV Normal)" category="01.07 Fueling - Catalyst Heating &amp; Stratified Start" type="3D" level="3" scaling="deg later int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
@@ -13336,17 +13324,17 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <description>Rpm x load correction to Catalyst Heating Phase 2 Injection Angle Base (TGV Normal); positive = later. TGVs not closed.</description>
  </table>
  <table name="Decel Fuel Cut Resume RPM Adder (A/C, Alternate)" category="01.08 Fueling - Decel Fuel Cut" type="2D" level="4" scaling="RPM uint8 #2">
-  <table name="Y Axis" type="Y Axis" elements="8" scaling="raw uint8" />
+  <table name="Input" type="Y Axis" elements="8" scaling="raw uint8" />
   <description>Alternate A/C resume-rpm adder for the decel fuel cut, by an unidentified CAN-derived value.</description>
  </table>
  <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C Off)" category="01.08 Fueling - Decel Fuel Cut" type="3D" level="4" scaling="s uint16 #2">
   <table name="Cut Count" type="X Axis" elements="4" scaling="cylinders cut uint8" />
-  <table name="Y Axis" type="Y Axis" elements="6" scaling="rpm band (1 1800 2 2800 3 3800 4 4800 5 5800 6 from 5800 rpm) uint8" />
+  <table name="RPM Band" type="Y Axis" elements="6" scaling="rpm band (1 1800 2 2800 3 3800 4 4800 5 5800 6 from 5800 rpm) uint8" />
   <description>Alternate decel fuel cut staging (A/C off).</description>
  </table>
  <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C On)" category="01.08 Fueling - Decel Fuel Cut" type="3D" level="4" scaling="s uint16 #2">
   <table name="Cut Count" type="X Axis" elements="4" scaling="cylinders cut uint8" />
-  <table name="Y Axis" type="Y Axis" elements="6" scaling="rpm band (1 1800 2 2800 3 3800 4 4800 5 5800 6 from 5800 rpm) uint8" />
+  <table name="RPM Band" type="Y Axis" elements="6" scaling="rpm band (1 1800 2 2800 3 3800 4 4800 5 5800 6 from 5800 rpm) uint8" />
   <description>Alternate decel fuel cut staging (A/C on).</description>
  </table>
  <table name="Decel Fuel Cut Full-Cut Shortcut Hold" category="01.08 Fueling - Decel Fuel Cut" type="2D" level="4" scaling="s uint16 #2">
@@ -13355,7 +13343,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
  </table>
  <table name="Purge Rate Limit (Fallback)" category="01.09 Fueling - Evap Purge" type="3D" level="3" scaling="% of intake air uint8">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
-  <table name="Y Axis" type="Y Axis" elements="8" scaling="RPM uint8 #2" />
+  <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #2" />
   <description>Purge capacity by rpm and load used instead of the vacuum-based capacity when one of several unidentified fault/status flags is set.</description>
  </table>
  <table name="Purge Rate (Open-Loop Enrichment)" category="01.09 Fueling - Evap Purge" type="2D" level="3" scaling="% of intake air uint8">
@@ -13552,102 +13540,102 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
  <table name="Knock Background Window Step (Event 1, Channel 2)" category="02.04 Ignition Timing - Knock Detection" type="3D" level="4" scaling="knock channel level int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #3" />
-  <description>Knock signal processing for event slot 1, channel 2 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock. Larger = that event less likely to count as knock. Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 1, channel 2 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock. Larger = that event less likely to count as knock. Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 1, Channel 3)" category="02.04 Ignition Timing - Knock Detection" type="3D" level="4" scaling="knock channel level int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #3" />
-  <description>Knock signal processing for event slot 1, channel 3 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 1, channel 3 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 1, Channel 4)" category="02.04 Ignition Timing - Knock Detection" type="3D" level="4" scaling="knock channel level int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #3" />
-  <description>Knock signal processing for event slot 1, channel 4 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 1, channel 4 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 1, Channel 5)" category="02.04 Ignition Timing - Knock Detection" type="3D" level="4" scaling="knock channel level int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #3" />
-  <description>Knock signal processing for event slot 1, channel 5 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 1, channel 5 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 1, Channel 6)" category="02.04 Ignition Timing - Knock Detection" type="3D" level="4" scaling="knock channel level int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #3" />
-  <description>Knock signal processing for event slot 1, channel 6 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 1, channel 6 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 2, Channel 2)" category="02.04 Ignition Timing - Knock Detection" type="3D" level="4" scaling="knock channel level int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #3" />
-  <description>Knock signal processing for event slot 2, channel 2 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 2, channel 2 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 2, Channel 3)" category="02.04 Ignition Timing - Knock Detection" type="3D" level="4" scaling="knock channel level int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #3" />
-  <description>Knock signal processing for event slot 2, channel 3 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 2, channel 3 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 2, Channel 4)" category="02.04 Ignition Timing - Knock Detection" type="3D" level="4" scaling="knock channel level int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #3" />
-  <description>Knock signal processing for event slot 2, channel 4 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 2, channel 4 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 2, Channel 5)" category="02.04 Ignition Timing - Knock Detection" type="3D" level="4" scaling="knock channel level int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #3" />
-  <description>Knock signal processing for event slot 2, channel 5 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 2, channel 5 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 2, Channel 6)" category="02.04 Ignition Timing - Knock Detection" type="3D" level="4" scaling="knock channel level int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #3" />
-  <description>Knock signal processing for event slot 2, channel 6 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 2, channel 6 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 3, Channel 2)" category="02.04 Ignition Timing - Knock Detection" type="3D" level="4" scaling="knock channel level int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #3" />
-  <description>Knock signal processing for event slot 3, channel 2 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 3, channel 2 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 3, Channel 3)" category="02.04 Ignition Timing - Knock Detection" type="3D" level="4" scaling="knock channel level int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #3" />
-  <description>Knock signal processing for event slot 3, channel 3 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 3, channel 3 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 3, Channel 4)" category="02.04 Ignition Timing - Knock Detection" type="3D" level="4" scaling="knock channel level int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #3" />
-  <description>Knock signal processing for event slot 3, channel 4 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 3, channel 4 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 3, Channel 5)" category="02.04 Ignition Timing - Knock Detection" type="3D" level="4" scaling="knock channel level int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #3" />
-  <description>Knock signal processing for event slot 3, channel 5 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 3, channel 5 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 3, Channel 6)" category="02.04 Ignition Timing - Knock Detection" type="3D" level="4" scaling="knock channel level int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #3" />
-  <description>Knock signal processing for event slot 3, channel 6 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 3, channel 6 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 4, Channel 2)" category="02.04 Ignition Timing - Knock Detection" type="3D" level="4" scaling="knock channel level int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #3" />
-  <description>Knock signal processing for event slot 4, channel 2 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 4, channel 2 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 4, Channel 3)" category="02.04 Ignition Timing - Knock Detection" type="3D" level="4" scaling="knock channel level int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #3" />
-  <description>Knock signal processing for event slot 4, channel 3 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 4, channel 3 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 4, Channel 4)" category="02.04 Ignition Timing - Knock Detection" type="3D" level="4" scaling="knock channel level int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #3" />
-  <description>Knock signal processing for event slot 4, channel 4 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 4, channel 4 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 4, Channel 5)" category="02.04 Ignition Timing - Knock Detection" type="3D" level="4" scaling="knock channel level int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #3" />
-  <description>Knock signal processing for event slot 4, channel 5 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 4, channel 5 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 4, Channel 6)" category="02.04 Ignition Timing - Knock Detection" type="3D" level="4" scaling="knock channel level int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="8" scaling="RPM uint8 #3" />
-  <description>Knock signal processing for event slot 4, channel 6 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 4, channel 6 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 1, Channel 1)" category="02.04 Ignition Timing - Knock Detection" type="3D" level="4" scaling="knock channel level int16">
   <table name="Engine Load" type="X Axis" elements="8" scaling="g/rev uint8 (2.4)" />
@@ -13735,7 +13723,7 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <description>Timing pulled at high load in 5th gear (by rpm and load), used only above about 2800 rpm and 0.84 g/rev (65 % load) and not in neutral. Raising values adds retard. Not used if knock control is switched off.</description>
  </table>
  <table name="A/C Cut Timing Retard Step (Alternate Logic)" category="02.05 Ignition Timing - Retards &amp; Transient Timing" type="2D" level="4" scaling="degrees retard uint16">
-  <table name="Y Axis" type="Y Axis" elements="8" scaling="raw uint8" />
+  <table name="Input" type="Y Axis" elements="8" scaling="raw uint8" />
   <description>Alternate A/C-switch timing retard amount, by an unidentified input.</description>
  </table>
  <table name="Ignition Timing Per-Cylinder Trim (Cylinder 1)" category="02.05 Ignition Timing - Retards &amp; Transient Timing" type="3D" level="3" scaling="degrees int8">
@@ -13775,12 +13763,12 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
  </table>
  <table name="Start Spark Target Base (Mode 1, Warm-Up Fallback)" category="02.06 Ignition Timing - Idle &amp; Closed-Pedal Timing" type="3D" level="4" scaling="degrees BTDC int8">
   <table name="Coolant Temp" type="X Axis" elements="16" scaling="degrees F uint16" />
-  <table name="Y Axis" type="Y Axis" elements="16" scaling="RPM uint8 #2" />
+  <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint8 #2" />
   <description>Warm-up fallback copy of Start Spark Target Base (Mode 1) for the manual car.</description>
  </table>
  <table name="Start Spark Target Torque Adder (Mode 1, Warm-Up Fallback)" category="02.06 Ignition Timing - Idle &amp; Closed-Pedal Timing" type="3D" level="4" scaling="degrees BTDC int8">
   <table name="Coolant Temp" type="X Axis" elements="16" scaling="degrees F uint16" />
-  <table name="Y Axis" type="Y Axis" elements="8" scaling="% of full-load torque uint8" />
+  <table name="Torque Fraction" type="Y Axis" elements="8" scaling="% of full-load torque uint8" />
   <description>Warm-up fallback copy of Start Spark Target Torque Adder (Mode 1) for the manual car.</description>
  </table>
  <table name="Target Boost (Electronic Wastegate)" category="03.01 Boost Control - Boost Targets" type="3D" level="1" scaling="psi (gauge) uint16">
@@ -13845,10 +13833,8 @@ Details: Share of the fuel in the second of three injections (0x0D06EC -&gt; FFF
   <description>Scales the wastegate motor drive by supply voltage (1.00 = no change).</description>
  </table>
  <table name="Wastegate Motor Holding Duty" category="03.02 Boost Control - Wastegate Duty" type="2D" level="5" scaling="% int16 #2">
-  <table name="Y Axis" type="Y Axis" elements="16" scaling="raw uint16" />
-  <description>Motor drive used while the actuator holds still; negative is a closing force.
-
-Details: On FFF89940 (not identified) (0x0C9B64, read). Confidence: inferred.</description>
+  <table name="Input" type="Y Axis" elements="16" scaling="raw uint16" />
+  <description>Motor drive used while the actuator holds still; negative is a closing force.</description>
  </table>
  <table name="Wastegate Position Command Minimum" category="03.02 Boost Control - Wastegate Duty" type="1D" level="3" scaling="% open uint16 (2.4)">
   <description>Lowest position the boost control may command.</description>
@@ -13866,9 +13852,7 @@ Details: On FFF89940 (not identified) (0x0C9B64, read). Confidence: inferred.</d
   <description>Position used while the engine is not running.</description>
  </table>
  <table name="Wastegate Position (Service Open)" category="03.02 Boost Control - Wastegate Duty" type="1D" level="5" scaling="% open uint16 (2.4)">
-  <description>Position used when the open-for-service switch in the calibration is set.
-
-Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
+  <description>Position used when the open-for-service switch in the calibration is set.</description>
  </table>
  <table name="Wastegate Position Deadband" category="03.02 Boost Control - Wastegate Duty" type="1D" level="4" scaling="% uint16 #3 (2.4)">
   <description>Position error the actuator loop ignores.</description>
@@ -13943,10 +13927,10 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
   <description>How long underboost must last before P0299 sets (passes), by barometric pressure.</description>
  </table>
  <table name="P0299 Underboost Error Threshold" category="03.03 Boost Control - Boost Feedback &amp; Compensations" type="1D" level="3" scaling="psi int16 #2">
-  <description>Underboost (P0299) check: the fail count runs while boost is short of the target by at least this much (read).</description>
+  <description>Underboost (P0299) check: the fail count runs while boost is short of the target by at least this much.</description>
  </table>
  <table name="P0299 Underboost Time" category="03.03 Boost Control - Boost Feedback &amp; Compensations" type="1D" level="3" scaling="raw uint16">
-  <description>Underboost (P0299) check: the time setting of the check, the counterpart of the 2.0's P0299 Underboost Time (inferred from the code pairing).</description>
+  <description>Underboost (P0299) check: the time setting of the check, the counterpart of the 2.0's P0299 Underboost Time.</description>
  </table>
  <table name="Accelerator Pedal Span" category="04.01 Torque &amp; Throttle - Requested Torque" type="1D" level="4" scaling="V uint16 #2 (2.4)">
   <description>Pedal sensor voltage travel that counts as 100 % pedal. Normally leave alone; change only for a different pedal sensor.</description>
@@ -13956,11 +13940,11 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
   <description>Part of the condition that lets Path B tip-in smoothing act, based on how much the coolant has warmed since start.</description>
  </table>
  <table name="Target Torque Rise Path B Low-Speed Time" category="04.01 Torque &amp; Throttle - Requested Torque" type="2D" level="4" scaling="s uint16 #2">
-  <table name="Y Axis" type="Y Axis" elements="16" scaling="CAN value uint8" />
+  <table name="CAN Value" type="Y Axis" elements="16" scaling="CAN value uint8" />
   <description>Part of the condition that lets Path B tip-in smoothing act: probably the time the car has been stopped. Its axis input is not identified (raw).</description>
  </table>
  <table name="Target Torque Rise Path B Pedal-Released Low-Speed Time" category="04.01 Torque &amp; Throttle - Requested Torque" type="2D" level="4" scaling="s uint16 #2">
-  <table name="Y Axis" type="Y Axis" elements="16" scaling="CAN value uint8" />
+  <table name="CAN Value" type="Y Axis" elements="16" scaling="CAN value uint8" />
   <description>Part of the condition that lets Path B tip-in smoothing act: probably the time stopped with the pedal released. Its axis input is not identified (raw).</description>
  </table>
  <table name="Target Torque Rise Stage 2 Torque (Path B, Drive Mode 1, Default)" category="04.01 Torque &amp; Throttle - Requested Torque" type="3D" level="4" scaling="ft-lb uint16">
@@ -14130,11 +14114,11 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
   <description>Throttle opening cap by rpm for a rail-pressure-deviation fault mode.</description>
  </table>
  <table name="Throttle Command Rate Term" category="04.03 Torque &amp; Throttle - Throttle Control &amp; Throttle Model" type="2D" level="4" scaling="raw uint16">
-  <table name="Y Axis" type="Y Axis" elements="8" scaling="% per pass (change of throttle command FFF8AF84 unit) uint16" />
+  <table name="Throttle Command Change" type="Y Axis" elements="8" scaling="% per pass (change of throttle command FFF8AF84 unit) uint16" />
   <description>Has no effect: the ECU calculates a value from it that nothing reads.</description>
  </table>
  <table name="Throttle Command Term" category="04.03 Torque &amp; Throttle - Throttle Control &amp; Throttle Model" type="2D" level="4" scaling="raw uint16">
-  <table name="Y Axis" type="Y Axis" elements="8" scaling="% throttle uint16 #6" />
+  <table name="Throttle Opening" type="Y Axis" elements="8" scaling="% throttle uint16 #6" />
   <description>Has no effect: the ECU calculates a value from it that nothing reads.</description>
  </table>
  <table name="Engine Torque from Load (DAM 1.0, TGV Closed)" category="04.04 Torque &amp; Throttle - Torque Model" type="3D" level="3" scaling="ft-lb uint16">
@@ -14179,7 +14163,7 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
  </table>
  <table name="Spark Air Compensation Limiter" category="04.04 Torque &amp; Throttle - Torque Model" type="3D" level="4" scaling="multiplier uint8 #3">
   <table name="Coolant Temp" type="X Axis" elements="16" scaling="degrees F uint16" />
-  <table name="Y Axis" type="Y Axis" elements="16" scaling="multiplier uint16 #5" />
+  <table name="Multiplier" type="Y Axis" elements="16" scaling="multiplier uint16 #5" />
   <description>Limits, by requested amount and coolant, how much the throttle model may add air to make up for retarded spark (TGVs not closed). Large compensation is cut more when cold. Leave alone unless you know the model. On 2017+ ROMs edit the "(Alt)" version instead.</description>
  </table>
  <table name="Primary Ignition (TGV Closed, AVCS Active)" category="04.04 Torque &amp; Throttle - Torque Model" type="3D" level="4" scaling="degrees uint8 #3">
@@ -14221,37 +14205,37 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
  <table name="Exhaust Temperature Model Map A (No Enrichment)" category="05.02 Airflow &amp; Engine Model - Exhaust &amp; Temperature Models" type="3D" level="3" scaling="exhaust model units uint16">
   <table name="Engine Load" type="X Axis" elements="12" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
-  <description>Exhaust temperature estimate (inferred) that decides when Primary Open Loop Fueling kicks in. Map A is the fast-reacting part, by rpm and load, used while no open loop enrichment is active. Raising it brings enrichment in earlier; lowering it delays it.</description>
+  <description>Exhaust temperature estimate (likely) that decides when Primary Open Loop Fueling kicks in. Map A is the fast-reacting part, by rpm and load, used while no open loop enrichment is active. Raising it brings enrichment in earlier; lowering it delays it.</description>
  </table>
  <table name="Exhaust Temperature Model Map A (Standstill High Load)" category="05.02 Airflow &amp; Engine Model - Exhaust &amp; Temperature Models" type="3D" level="3" scaling="exhaust model units uint16">
   <table name="Engine Load" type="X Axis" elements="12" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
-  <description>Exhaust temperature estimate (inferred) that decides when Primary Open Loop Fueling kicks in. Map A is the fast-reacting part, by rpm and load, used instead of the other Map A tables while the car is at a standstill under high load (speed 5 km/h or less, pedal 80 % or more, load 40 % or more, for 1 s). Raising it brings enrichment in earlier; lowering it delays it.</description>
+  <description>Exhaust temperature estimate (likely) that decides when Primary Open Loop Fueling kicks in. Map A is the fast-reacting part, by rpm and load, used instead of the other Map A tables while the car is at a standstill under high load (speed 5 km/h or less, pedal 80 % or more, load 40 % or more, for 1 s). Raising it brings enrichment in earlier; lowering it delays it.</description>
  </table>
  <table name="Exhaust Temperature Model Map B (Standstill High Load)" category="05.02 Airflow &amp; Engine Model - Exhaust &amp; Temperature Models" type="3D" level="3" scaling="exhaust model units uint16">
   <table name="Engine Load" type="X Axis" elements="12" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
-  <description>Exhaust temperature estimate (inferred) that decides when Primary Open Loop Fueling kicks in. Map B is the steady-state value the estimate settles to, by rpm and load, used while an unidentified speed/pedal/load flag is set. Raising it brings enrichment in earlier; lowering it delays it.</description>
+  <description>Exhaust temperature estimate (likely) that decides when Primary Open Loop Fueling kicks in. Map B is the steady-state value the estimate settles to, by rpm and load, used while an unidentified speed/pedal/load flag is set. Raising it brings enrichment in earlier; lowering it delays it.</description>
  </table>
  <table name="Exhaust Temperature Model Filter A (Rising)" category="05.02 Airflow &amp; Engine Model - Exhaust &amp; Temperature Models" type="3D" level="4" scaling="fraction per 80 ms uint8">
   <table name="Engine Load" type="X Axis" elements="12" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
-  <description>Exhaust temperature estimate (inferred) that decides when Primary Open Loop Fueling kicks in. How quickly the Map A part of the estimate follows a rising value (higher = faster).</description>
+  <description>Exhaust temperature estimate (likely) that decides when Primary Open Loop Fueling kicks in. How quickly the Map A part of the estimate follows a rising value (higher = faster).</description>
  </table>
  <table name="Exhaust Temperature Model Filter A (Falling)" category="05.02 Airflow &amp; Engine Model - Exhaust &amp; Temperature Models" type="3D" level="4" scaling="fraction per 80 ms uint8">
   <table name="Engine Load" type="X Axis" elements="12" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
-  <description>Exhaust temperature estimate (inferred) that decides when Primary Open Loop Fueling kicks in. How quickly the Map A part of the estimate follows a falling value (higher = faster).</description>
+  <description>Exhaust temperature estimate (likely) that decides when Primary Open Loop Fueling kicks in. How quickly the Map A part of the estimate follows a falling value (higher = faster).</description>
  </table>
  <table name="Exhaust Temperature Estimate 2 Map (No Enrichment)" category="05.02 Airflow &amp; Engine Model - Exhaust &amp; Temperature Models" type="3D" level="4" scaling="exhaust model units uint16">
   <table name="Engine Load" type="X Axis" elements="12" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
-  <description>Second exhaust/catalyst temperature estimate (inferred), by rpm and load, with no enrichment active. When it gets high enough the ECU skips the delay before open loop fueling. Raising it brings open loop in sooner.</description>
+  <description>Second exhaust/catalyst temperature estimate (likely), by rpm and load, with no enrichment active. When it gets high enough the ECU skips the delay before open loop fueling. Raising it brings open loop in sooner.</description>
  </table>
  <table name="Exhaust Temperature Estimate 2 Map (Enriched)" category="05.02 Airflow &amp; Engine Model - Exhaust &amp; Temperature Models" type="3D" level="4" scaling="exhaust model units uint16">
   <table name="Engine Load" type="X Axis" elements="12" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
-  <description>Second exhaust/catalyst temperature estimate (inferred), by rpm and load, while open loop enrichment is active. When it gets high enough the ECU skips the delay before open loop fueling.</description>
+  <description>Second exhaust/catalyst temperature estimate (likely), by rpm and load, while open loop enrichment is active. When it gets high enough the ECU skips the delay before open loop fueling.</description>
  </table>
  <table name="Exhaust Temperature Estimate 2 Map (Standstill High Load)" category="05.02 Airflow &amp; Engine Model - Exhaust &amp; Temperature Models" type="3D" level="4" scaling="exhaust model units uint16">
   <table name="Engine Load" type="X Axis" elements="12" scaling="g/rev uint8 (2.4)" />
@@ -14279,7 +14263,7 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
   <description>Base exhaust temperature by rpm and load for the A/F sensor's exhaust model, which probably decides when it is safe to heat the front A/F sensor fully (water condensation check). Does not affect fuel or timing.</description>
  </table>
  <table name="A/F Sensor Exhaust Temp Model Retard Factor" category="05.02 Airflow &amp; Engine Model - Exhaust &amp; Temperature Models" type="2D" level="4" scaling="multiplier uint8 #6 (2.4)">
-  <table name="Y Axis" type="Y Axis" elements="16" scaling="degrees retard int8" />
+  <table name="Timing Retard" type="Y Axis" elements="16" scaling="degrees retard int8" />
   <description>Correction of the A/F sensor exhaust temperature model for knock-related retard. Does not affect fuel or timing.</description>
  </table>
  <table name="Exhaust Cam Target 1A (TGV Open, Normal, Altitude)" category="06.02 AVCS (Cam Timing) - Exhaust Targets" type="3D" level="2" scaling="deg retard int16">
@@ -14295,17 +14279,17 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
  <table name="Exhaust Cam Target Ceiling (Oil Temp Low, breakpoint 0x496C5)" category="06.02 AVCS (Cam Timing) - Exhaust Targets" type="3D" level="4" scaling="deg retard int16">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="20" scaling="RPM uint16" />
-  <description>Upper limit on the final exhaust cam target, interpolated by (probably) oil temperature between the Low / Mid / High ceiling tables.</description>
+  <description>Upper limit on the final exhaust cam target, interpolated by (likely) oil temperature between the Low / Mid / High ceiling tables.</description>
  </table>
  <table name="Exhaust Cam Target Ceiling (Oil Temp Mid, breakpoint 0x496C6)" category="06.02 AVCS (Cam Timing) - Exhaust Targets" type="3D" level="4" scaling="deg retard int16">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="20" scaling="RPM uint16" />
-  <description>Upper limit on the final exhaust cam target, interpolated by (probably) oil temperature between the Low / Mid / High ceiling tables.</description>
+  <description>Upper limit on the final exhaust cam target, interpolated by (likely) oil temperature between the Low / Mid / High ceiling tables.</description>
  </table>
  <table name="Exhaust Cam Target Ceiling (Oil Temp High, breakpoint 0x496C4)" category="06.02 AVCS (Cam Timing) - Exhaust Targets" type="3D" level="4" scaling="deg retard int16">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="20" scaling="RPM uint16" />
-  <description>Upper limit on the final exhaust cam target, interpolated by (probably) oil temperature between the Low / Mid / High ceiling tables.</description>
+  <description>Upper limit on the final exhaust cam target, interpolated by (likely) oil temperature between the Low / Mid / High ceiling tables.</description>
  </table>
  <table name="Intake AVCS OCV Battery Voltage Compensation" category="06.03 AVCS (Cam Timing) - AVCS Control &amp; Feedback" type="2D" level="4" scaling="multiplier uint16 #2">
   <table name="Battery Voltage (Filtered)" type="Y Axis" elements="7" scaling="V uint16 (2.4)" />
@@ -14320,36 +14304,28 @@ Details: Mode 5 (0x0C8C18, read). Confidence: inferred.</description>
   <description>A second start-delay table that can only shorten the AVCS hold after the hold has already ended, so it never changes anything. Edit AVCS Activation Delay After Start instead.</description>
  </table>
  <table name="Intake AVCS OCV Current Integral Step" category="06.03 AVCS (Cam Timing) - AVCS Control &amp; Feedback" type="2D" level="4" scaling="per 20 ms int16">
-  <table name="Y Axis" type="Y Axis" elements="13" scaling="A (inferred) int16" />
+  <table name="OCV Current" type="Y Axis" elements="13" scaling="A (inferred) int16" />
   <description>Integral step for the intake oil control valve current loop. a calibration setting forces the integral term to zero.</description>
  </table>
  <table name="Exhaust AVCS OCV Current Integral Step" category="06.03 AVCS (Cam Timing) - AVCS Control &amp; Feedback" type="2D" level="4" scaling="per 20 ms int16">
-  <table name="Y Axis" type="Y Axis" elements="13" scaling="A (inferred) int16" />
+  <table name="OCV Current" type="Y Axis" elements="13" scaling="A (inferred) int16" />
   <description>Integral step for the exhaust oil control valve current loop. a calibration setting forces the exhaust integral term to zero.</description>
  </table>
  <table name="Intake OCV Base Duty (Cam 1, Legacy Path)" category="06.03 AVCS (Cam Timing) - AVCS Control &amp; Feedback" type="2D" level="5" scaling="% duty uint8 (2.4)">
   <table name="Engine Speed" type="Y Axis" elements="21" scaling="RPM uint16" />
-  <description>Base intake cam 1 valve duty by rpm for an older, byte-based cam control path.
-
-Base term by rpm of the intake cam 1 OCV duty in the legacy byte-based AVCS path: about 49.2-52.0 % duty before the FFF88AA4 factor; the learned and feedback bytes are added around 128 (= 51.2 %). Module (read): seg 0x100000 0x104xxx-0x106xxx is the byte-based cam path; 0x10466C (intake, called at seg_0x100000.c:3516 with rpm CD54, FFF88AA4, learned bytes FFF8147A/147C/147E, feedback bytes FFF8B368, cam errors B956/B954) forms per cam: B352 = this(rpm) x 026EB0/026EC0(FFF88AA4)/128; B356 = 147A if the cam error &gt;= cal 0x26E82 (364 = 2.0 deg), 147C if &lt;= cal 0x26E84 (-2.0 deg), else 128; B366 = clamp(B368 + B352 + 147E + B356 - 384, 0, 250). 0x106A0C does the same for the exhaust cams (05CF08/05CF14, factors 0298F4/029904, errors B916/B914, thresholds cal 0x298C6/0x298C8) into B380. The OCV duty routines 0x15DF20 / 0x15E63C (intake cam 1 / 2) and 0x16269C / 0x162D18 (exhaust) set duty B8DE = B366[cam] x 10 (B380 for exhaust) only when cal 0x3CCC4 bit 0 is clear (read). FFF88AA4 = (FFF88AE6 &gt;&gt; 8 - 10) x 1.6 (0x060000 area, read); FFF88AE6 not identified. Confidence: inferred.</description>
+  <description>Base intake cam 1 valve duty by rpm for an older, byte-based cam control path.</description>
  </table>
  <table name="Intake OCV Base Duty (Cam 2, Legacy Path)" category="06.03 AVCS (Cam Timing) - AVCS Control &amp; Feedback" type="2D" level="5" scaling="% duty uint8 (2.4)">
   <table name="Engine Speed" type="Y Axis" elements="21" scaling="RPM uint16" />
-  <description>Base intake cam 2 valve duty by rpm for an older, byte-based cam control path.
-
-Base term by rpm of the intake cam 2 OCV duty in the legacy byte-based AVCS path: about 48.8-50.8 % duty before the FFF88AA4 factor; the learned and feedback bytes are added around 128 (= 51.2 %). Module (read): seg 0x100000 0x104xxx-0x106xxx is the byte-based cam path; 0x10466C (intake, called at seg_0x100000.c:3516 with rpm CD54, FFF88AA4, learned bytes FFF8147A/147C/147E, feedback bytes FFF8B368, cam errors B956/B954) forms per cam: B352 = this(rpm) x 026EB0/026EC0(FFF88AA4)/128; B356 = 147A if the cam error &gt;= cal 0x26E82 (364 = 2.0 deg), 147C if &lt;= cal 0x26E84 (-2.0 deg), else 128; B366 = clamp(B368 + B352 + 147E + B356 - 384, 0, 250). 0x106A0C does the same for the exhaust cams (05CF08/05CF14, factors 0298F4/029904, errors B916/B914, thresholds cal 0x298C6/0x298C8) into B380. The OCV duty routines 0x15DF20 / 0x15E63C (intake cam 1 / 2) and 0x16269C / 0x162D18 (exhaust) set duty B8DE = B366[cam] x 10 (B380 for exhaust) only when cal 0x3CCC4 bit 0 is clear (read). FFF88AA4 = (FFF88AE6 &gt;&gt; 8 - 10) x 1.6 (0x060000 area, read); FFF88AE6 not identified. Confidence: inferred.</description>
+  <description>Base intake cam 2 valve duty by rpm for an older, byte-based cam control path.</description>
  </table>
  <table name="Exhaust OCV Base Duty (Cam 1, Legacy Path)" category="06.03 AVCS (Cam Timing) - AVCS Control &amp; Feedback" type="2D" level="5" scaling="% duty uint8 (2.4)">
   <table name="Engine Speed" type="Y Axis" elements="21" scaling="RPM uint16" />
-  <description>Base exhaust cam 1 valve duty by rpm for an older, byte-based cam control path.
-
-Base term by rpm of the exhaust cam 1 OCV duty in the legacy byte-based AVCS path: about 48.8-50 % duty before the FFF88AA4 factor; the learned and feedback bytes are added around 128 (= 51.2 %). Module (read): seg 0x100000 0x104xxx-0x106xxx is the byte-based cam path; 0x10466C (intake, called at seg_0x100000.c:3516 with rpm CD54, FFF88AA4, learned bytes FFF8147A/147C/147E, feedback bytes FFF8B368, cam errors B956/B954) forms per cam: B352 = this(rpm) x 026EB0/026EC0(FFF88AA4)/128; B356 = 147A if the cam error &gt;= cal 0x26E82 (364 = 2.0 deg), 147C if &lt;= cal 0x26E84 (-2.0 deg), else 128; B366 = clamp(B368 + B352 + 147E + B356 - 384, 0, 250). 0x106A0C does the same for the exhaust cams (05CF08/05CF14, factors 0298F4/029904, errors B916/B914, thresholds cal 0x298C6/0x298C8) into B380. The OCV duty routines 0x15DF20 / 0x15E63C (intake cam 1 / 2) and 0x16269C / 0x162D18 (exhaust) set duty B8DE = B366[cam] x 10 (B380 for exhaust) only when cal 0x3CCC4 bit 0 is clear (read). FFF88AA4 = (FFF88AE6 &gt;&gt; 8 - 10) x 1.6 (0x060000 area, read); FFF88AE6 not identified. Confidence: inferred.</description>
+  <description>Base exhaust cam 1 valve duty by rpm for an older, byte-based cam control path.</description>
  </table>
  <table name="Exhaust OCV Base Duty (Cam 2, Legacy Path)" category="06.03 AVCS (Cam Timing) - AVCS Control &amp; Feedback" type="2D" level="5" scaling="% duty uint8 (2.4)">
   <table name="Engine Speed" type="Y Axis" elements="21" scaling="RPM uint16" />
-  <description>Base exhaust cam 2 valve duty by rpm for an older, byte-based cam control path.
-
-Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS path: about 47.2-50.8 % duty before the FFF88AA4 factor; the learned and feedback bytes are added around 128 (= 51.2 %). Module (read): seg 0x100000 0x104xxx-0x106xxx is the byte-based cam path; 0x10466C (intake, called at seg_0x100000.c:3516 with rpm CD54, FFF88AA4, learned bytes FFF8147A/147C/147E, feedback bytes FFF8B368, cam errors B956/B954) forms per cam: B352 = this(rpm) x 026EB0/026EC0(FFF88AA4)/128; B356 = 147A if the cam error &gt;= cal 0x26E82 (364 = 2.0 deg), 147C if &lt;= cal 0x26E84 (-2.0 deg), else 128; B366 = clamp(B368 + B352 + 147E + B356 - 384, 0, 250). 0x106A0C does the same for the exhaust cams (05CF08/05CF14, factors 0298F4/029904, errors B916/B914, thresholds cal 0x298C6/0x298C8) into B380. The OCV duty routines 0x15DF20 / 0x15E63C (intake cam 1 / 2) and 0x16269C / 0x162D18 (exhaust) set duty B8DE = B366[cam] x 10 (B380 for exhaust) only when cal 0x3CCC4 bit 0 is clear (read). FFF88AA4 = (FFF88AE6 &gt;&gt; 8 - 10) x 1.6 (0x060000 area, read); FFF88AE6 not identified. Confidence: inferred.</description>
+  <description>Base exhaust cam 2 valve duty by rpm for an older, byte-based cam control path.</description>
  </table>
  <table name="Idle Target Ramp Rate (AT/CVT, Mode 4 to 6)" category="07.01 Idle - Idle Speed Targets" type="2D" level="4" scaling="RPM per 10 ms int16">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees F uint16" />
@@ -14389,7 +14365,7 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
   <description>How fast the idle speed target moves (by coolant) when idle switches from mode 5 to mode 4.</description>
  </table>
  <table name="CAN Idle Speed Request (Alternate)" category="07.01 Idle - Idle Speed Targets" type="2D" level="4" scaling="RPM uint16">
-  <table name="Y Axis" type="Y Axis" elements="10" scaling="CAN code uint8" />
+  <table name="CAN Code" type="Y Axis" elements="10" scaling="CAN code uint8" />
   <description>Minimum idle speed requested by another module over CAN, by request code.</description>
  </table>
  <table name="CAN Idle Speed Request Remap (Alternate)" category="07.01 Idle - Idle Speed Targets" type="2D" level="4" scaling="RPM uint16">
@@ -14466,29 +14442,29 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
  </table>
  <table name="A/C Idle Air (Alternate, Target RPM)" category="07.02 Idle - Idle Airflow" type="3D" level="4" scaling="idle air (base-air units) uint16">
   <table name="Engine Speed" type="X Axis" elements="6" scaling="RPM uint16" />
-  <table name="Y Axis" type="Y Axis" elements="12" scaling="raw uint8" />
+  <table name="Input" type="Y Axis" elements="12" scaling="raw uint8" />
   <description>A/C idle air by an unidentified CAN load value and idle target rpm, for an alternate A/C idle-air path.</description>
  </table>
  <table name="A/C Idle Air (Alternate, Engine Speed)" category="07.02 Idle - Idle Airflow" type="3D" level="4" scaling="idle air (base-air units) uint16">
   <table name="Engine Speed" type="X Axis" elements="6" scaling="RPM uint16" />
-  <table name="Y Axis" type="Y Axis" elements="12" scaling="raw uint8" />
+  <table name="Input" type="Y Axis" elements="12" scaling="raw uint8" />
   <description>A/C idle air by an unidentified CAN load value and engine speed, for an alternate A/C idle-air path.</description>
  </table>
  <table name="A/C Idle Air Initial Kick (Alternate)" category="07.02 Idle - Idle Airflow" type="2D" level="4" scaling="idle air (base-air units) uint16">
-  <table name="Y Axis" type="Y Axis" elements="7" scaling="CAN code uint8" />
+  <table name="CAN Code" type="Y Axis" elements="7" scaling="CAN code uint8" />
   <description>Initial A/C idle air kick by an unidentified CAN code, for an alternate A/C idle-air path.</description>
  </table>
  <table name="A/C Idle Air Kick Duration (Alternate)" category="07.02 Idle - Idle Airflow" type="2D" level="4" scaling="s uint16 #2">
-  <table name="Y Axis" type="Y Axis" elements="7" scaling="CAN code uint8" />
+  <table name="CAN Code" type="Y Axis" elements="7" scaling="CAN code uint8" />
   <description>How long the alternate A/C idle air kick is held, by an unidentified CAN code.</description>
  </table>
  <table name="Low Voltage Idle Request Threshold (Alternator Command)" category="07.02 Idle - Idle Airflow" type="2D" level="4" scaling="V uint16 (2.4)">
-  <table name="Y Axis" type="Y Axis" elements="3" scaling="% duty (alternator inferred) uint16" />
+  <table name="Alternator Command" type="Y Axis" elements="3" scaling="% duty (alternator inferred) uint16" />
   <description>Battery voltage threshold, by alternator command, for a low-voltage idle-up request. Unused in this ROM: its result is never read, so editing it has no effect.</description>
  </table>
  <table name="Idle Speed Feedback Map (Target MAP Offset)" category="07.03 Idle - Idle Control &amp; Feedback" type="3D" level="3" scaling="psi uint16 #4 (2.4)">
-  <table name="X Axis" type="X Axis" elements="25" scaling="RPM difference int16" />
-  <table name="Y Axis" type="Y Axis" elements="11" scaling="RPM change per combustion event int16" />
+  <table name="RPM Difference" type="X Axis" elements="25" scaling="RPM difference int16" />
+  <table name="RPM Change" type="Y Axis" elements="11" scaling="RPM change per combustion event int16" />
   <description>Probably the main idle speed feedback map: how much the target manifold pressure (air) is raised or cut, by rpm error from the idle target and how fast rpm is changing. Positive = more air. Larger values give a stronger correction but risk hunting. Only active while idle feedback is on.</description>
  </table>
  <table name="EGR Target Rate (TGV Open)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="3" scaling="% EGR uint8">
@@ -14545,7 +14521,7 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
  <table name="EGR Upstream Pressure Estimate" category="08.01 EGR &amp; TGV - EGR" type="3D" level="4" scaling="psia uint8">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
-  <description>Estimated pressure upstream of the EGR valve (probably exhaust side) by rpm and load. The difference to manifold pressure sets the modelled EGR flow and decides whether EGR may be enabled.</description>
+  <description>Estimated pressure upstream of the EGR valve (likely) by rpm and load. The difference to manifold pressure sets the modelled EGR flow and decides whether EGR may be enabled.</description>
  </table>
  <table name="EGR Upstream Pressure Baro Adder" category="08.01 EGR &amp; TGV - EGR" type="3D" level="4" scaling="psi uint8 #4">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
@@ -14555,26 +14531,22 @@ Base term by rpm of the exhaust cam 2 OCV duty in the legacy byte-based AVCS pat
  <table name="EGR Target Rate (TGV Open, Multi-Injection)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="5" scaling="% EGR uint8">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
-  <description>EGR rate target by rpm and load with the TGVs open and multiple injections per cycle.
-
-Details: When used: TGVs not closed and multi-injection active (FFF8A775 bit 1); cal 0x2F797 bit 5 clear. Base target EGR rate A818, looked up by 0x0FA10C with rpm FFF8CD54 x load FFF8A616 (read, disassembly). Target EGR rate (0x0FA260, read): FFF8A81A = base A817 x Coolant Multiplier 05CB04/255 x 255/255 (A816) x Reduction Multiplier A81C/255 x DAM Multiplier 05CB10/128, x 640 (1/640 units), capped at cal 0x2C4E6 (192 = 30 %) and forced to 0 unless the enable conditions FFF8A811 bit 0 hold (0x0FAAFC). A817 follows the base table A818 (0x0FA068). Multi-injection = FFF8A775 bit 1, set by 0x0FAABC when the multi-injection enable FFF8A775 bit 0 is set and all four per-injector strategy bytes FFF8A69F..A6A2 are 2 or 3 (read). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). 0 = no EGR. Confidence: inferred.</description>
+  <description>EGR rate target by rpm and load with the TGVs open and multiple injections per cycle.</description>
  </table>
  <table name="EGR Target Rate (TGV Closed, Multi-Injection)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="5" scaling="% EGR uint8">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
-  <description>EGR rate target by rpm and load with the TGVs closed and multiple injections per cycle.
-
-Details: When used: TGVs closed and multi-injection active (FFF8A775 bit 1); cal 0x2F797 bit 5 clear. Base target EGR rate A818, looked up by 0x0FA10C with rpm FFF8CD54 x load FFF8A616 (read, disassembly). Target EGR rate (0x0FA260, read): FFF8A81A = base A817 x Coolant Multiplier 05CB04/255 x 255/255 (A816) x Reduction Multiplier A81C/255 x DAM Multiplier 05CB10/128, x 640 (1/640 units), capped at cal 0x2C4E6 (192 = 30 %) and forced to 0 unless the enable conditions FFF8A811 bit 0 hold (0x0FAAFC). A817 follows the base table A818 (0x0FA068). Multi-injection = FFF8A775 bit 1, set by 0x0FAABC when the multi-injection enable FFF8A775 bit 0 is set and all four per-injector strategy bytes FFF8A69F..A6A2 are 2 or 3 (read). TGVs closed = FFF8A881 bit 4 set (read: 0x10C948 drives the TGV open fraction FFF8B3E8 to 0 while the bit is set). EGR controller task 0x0F94A8 (read). That this is external EGR is inferred: its commanded output FFF8A81B is the OBD PID 0x2C (Commanded EGR) source and FFF88A1C (actual position) feeds PID 0x2D (EGR error) (0x1717C8, 0x1715F0, read). 0 = no EGR. Confidence: inferred.</description>
+  <description>EGR rate target by rpm and load with the TGVs closed and multiple injections per cycle.</description>
  </table>
  <table name="EGR Target Rate Tip-Out Limit (TGV Open)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="4" scaling="% EGR uint8">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
-  <description>Cap on the target EGR rate for a short time after a pedal tip-out (inferred), by rpm and load, TGVs open.</description>
+  <description>Cap on the target EGR rate for a short time after a pedal tip-out (likely), by rpm and load, TGVs open.</description>
  </table>
  <table name="EGR Target Rate Tip-Out Limit (TGV Closed)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="4" scaling="% EGR uint8">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
-  <description>Cap on the target EGR rate for a short time after a pedal tip-out (inferred), by rpm and load, TGVs closed.</description>
+  <description>Cap on the target EGR rate for a short time after a pedal tip-out (likely), by rpm and load, TGVs closed.</description>
  </table>
  <table name="EGR Target Rate Tip-Out Limit (TGV Open, Multi-Injection)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="4" scaling="% EGR uint8">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
@@ -14603,31 +14575,27 @@ Details: When used: TGVs closed and multi-injection active (FFF8A775 bit 1); cal
  <table name="EGR Timing Advance DAM Term (Multi-Injection, TGV Closed)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="5" scaling="degrees uint8">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint16 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="22" scaling="RPM uint16" />
-  <description>As the EGR DAM term, with multiple injection.
-
-Details: 0x0DD0DC (read), used while FFF8A775 bit 2 is set. Confidence: read.</description>
+  <description>As the EGR DAM term, with multiple injection.</description>
  </table>
  <table name="EGR Timing Advance DAM Term (Multi-Injection, TGV Open)" category="08.01 EGR &amp; TGV - EGR" type="3D" level="5" scaling="degrees uint8">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint16 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="22" scaling="RPM uint16" />
-  <description>As the EGR DAM term, with multiple injection.
-
-Details: 0x0DD0DC (read). Confidence: read.</description>
+  <description>As the EGR DAM term, with multiple injection.</description>
  </table>
  <table name="TGV Open Fraction from Position (Closing)" category="08.02 EGR &amp; TGV - TGV" type="2D" level="4" scaling="% open uint16 #2">
-  <table name="Y Axis" type="Y Axis" elements="6" scaling="V uint16 #3" />
+  <table name="Voltage" type="Y Axis" elements="6" scaling="V uint16 #3" />
   <description>Converts measured TGV position into the open fraction used to blend every TGV-open / TGV-closed table (fuel, timing, AVCS) while the TGVs are closing; the blend also cannot fall faster than about 0.5 s from open to closed.</description>
  </table>
  <table name="TGV Open Fraction from Position (Opening)" category="08.02 EGR &amp; TGV - TGV" type="2D" level="4" scaling="% open uint16 #2">
-  <table name="Y Axis" type="Y Axis" elements="6" scaling="V uint16 #3" />
+  <table name="Voltage" type="Y Axis" elements="6" scaling="V uint16 #3" />
   <description>Converts measured TGV position into the open fraction used to blend every TGV-open / TGV-closed table (fuel, timing, AVCS) while the TGVs are opening; the blend ramps at about 1 s from closed to open unless the valves open faster.</description>
  </table>
  <table name="TGV Drive Duty (Opening)" category="08.02 EGR &amp; TGV - TGV" type="2D" level="4" scaling="% duty uint8 (2.4)">
-  <table name="Y Axis" type="Y Axis" elements="8" scaling="% of learned stroke uint16" />
+  <table name="TGV Position" type="Y Axis" elements="8" scaling="% of learned stroke uint16" />
   <description>Motor duty used to drive the TGVs towards their open stop, by valve position (open meaning inferred). Leave alone unless the TGV actuators are changed.</description>
  </table>
  <table name="TGV Drive Duty (Closing)" category="08.02 EGR &amp; TGV - TGV" type="2D" level="4" scaling="% duty uint8 (2.4)">
-  <table name="Y Axis" type="Y Axis" elements="8" scaling="% of learned stroke uint16" />
+  <table name="TGV Position" type="Y Axis" elements="8" scaling="% of learned stroke uint16" />
   <description>Motor duty used to drive the TGVs towards their closed stop, by valve position (closed meaning inferred). Leave alone unless the TGV actuators are changed.</description>
  </table>
  <table name="TGV Torque Threshold Enter (Start Modes)" category="08.02 EGR &amp; TGV - TGV" type="2D" level="4" scaling="ft-lb uint16">
@@ -14644,7 +14612,7 @@ Details: 0x0DD0DC (read). Confidence: read.</description>
   <description>Brake pressure, by booster vacuum and vehicle speed, above which the brake counts as applied for brake override. Raise to make override need a firmer brake press. Used while the brake-pressure signal from the stability control unit is valid. Part of the brake override, which limits the accelerator signal when the brake is applied while the accelerator is held.</description>
  </table>
  <table name="VDC Torque Request Correction" category="09.02 Vehicle Functions - Brake Override &amp; VDC" type="2D" level="4" scaling="ft-lb uint16 #3 (2.4)">
-  <table name="Y Axis" type="Y Axis" elements="16" scaling="ft-lb uint16 #3 (2.4)" />
+  <table name="Torque" type="Y Axis" elements="16" scaling="ft-lb uint16 #3 (2.4)" />
   <description>Correction, by the gap between the stability control (VDC) torque request and actual engine torque, that sets how tightly the ECU limits target torque during a VDC torque reduction (VDC meaning inferred).</description>
  </table>
  <table name="Brake Booster Vacuum Model Maximum" category="09.02 Vehicle Functions - Brake Override &amp; VDC" type="2D" level="4" scaling="psi uint16 #2 (2.4)">
@@ -14659,12 +14627,12 @@ Details: 0x0DD0DC (read). Confidence: read.</description>
   <description>Radiator fan duty by coolant for an alternate (duty-based) fan control path.</description>
  </table>
  <table name="Charge Control Delay After Start (SOC, Battery Sensor)" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="3D" level="4" scaling="s uint16 #4">
-  <table name="X Axis" type="X Axis" elements="3" scaling="LIN battery sensor value uint16" />
-  <table name="Y Axis" type="Y Axis" elements="3" scaling="% uint16 #4" />
+  <table name="Battery Sensor Value" type="X Axis" elements="3" scaling="LIN battery sensor value uint16" />
+  <table name="Percent" type="Y Axis" elements="3" scaling="% uint16 #4" />
   <description>After a start, charge control (the battery-charged decision and adaptive charging) may begin this long after the engine starts, by the estimated state of charge at start and the battery sensor value.</description>
  </table>
  <table name="Charge Control Charge After Start (SOC)" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="2D" level="4" scaling="Ah uint16">
-  <table name="Y Axis" type="Y Axis" elements="8" scaling="% uint16 #4" />
+  <table name="Percent" type="Y Axis" elements="8" scaling="% uint16 #4" />
   <description>Charge control may also begin once the battery has taken back this much charge since the start, by the estimated state of charge at start.</description>
  </table>
  <table name="Battery State of Charge Reset Value" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="1D" level="4" scaling="% uint16 #4">
@@ -14681,7 +14649,7 @@ Details: 0x0DD0DC (read). Confidence: read.</description>
   <description>Radiator fan duty by coolant, used when an unidentified driving-condition flag is set.</description>
  </table>
  <table name="Adaptive Charging Target Current" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="2D" level="3" scaling="A int32">
-  <table name="Y Axis" type="Y Axis" elements="16" scaling="% uint16 #4" />
+  <table name="Percent" type="Y Axis" elements="16" scaling="% uint16 #4" />
   <description>During adaptive charging the ECU steers the charging voltage so the battery takes this current, by state of charge: positive charges, negative lets the battery discharge.</description>
  </table>
  <table name="Radiator Fan Duty (Coolant, CAN 0x282 Value High)" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="2D" level="4" scaling="% duty uint16 #3">
@@ -14689,26 +14657,26 @@ Details: 0x0DD0DC (read). Confidence: read.</description>
   <description>Radiator fan duty by coolant, used when an unidentified CAN value is high.</description>
  </table>
  <table name="Radiator Fan Duty (A/C, CAN 0x280 Value)" category="09.03 Vehicle Functions - Radiator Fan, Charging &amp; A/C" type="2D" level="4" scaling="% duty uint16 #3">
-  <table name="Y Axis" type="Y Axis" elements="9" scaling="CAN value uint8" />
+  <table name="CAN Value" type="Y Axis" elements="9" scaling="CAN value uint8" />
   <description>Radiator fan duty with the A/C requested, by an unidentified CAN value.</description>
  </table>
  <table name="Engine Torque from Load (CAN, DAM 1.0)" category="09.04 Vehicle Functions - CAN-side" type="3D" level="4" scaling="ft-lb uint16 #4">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
-  <description>Engine torque by rpm and load at DAM 1.0, blended with the DAM 0 table by DAM. Only affects the maximum-available torque value the ECU sends over CAN to other modules (inferred meaning); it does not change fuel, spark, throttle or boost. Mostly equal to Engine Torque from Load (DAM 1.0, TGV Open); keep consistent if you change the torque model.</description>
+  <description>Engine torque by rpm and load at DAM 1.0, blended with the DAM 0 table by DAM. Only affects the maximum-available torque value the ECU sends over CAN to other modules (likely); it does not change fuel, spark, throttle or boost. Mostly equal to Engine Torque from Load (DAM 1.0, TGV Open); keep consistent if you change the torque model.</description>
  </table>
  <table name="Engine Torque from Load (CAN, DAM 0)" category="09.04 Vehicle Functions - CAN-side" type="3D" level="4" scaling="ft-lb uint16 #4">
   <table name="Engine Load" type="X Axis" elements="16" scaling="g/rev uint8 (2.4)" />
   <table name="Engine Speed" type="Y Axis" elements="16" scaling="RPM uint16" />
-  <description>Engine torque by rpm and load at DAM 0, blended with the DAM 1.0 table by DAM. Only affects the maximum-available torque value the ECU sends over CAN to other modules (inferred meaning); it does not change fuel, spark, throttle or boost. Close to, but somewhat lower than, the Engine Torque from Load (DAM 0) tables.</description>
+  <description>Engine torque by rpm and load at DAM 0, blended with the DAM 1.0 table by DAM. Only affects the maximum-available torque value the ECU sends over CAN to other modules (likely); it does not change fuel, spark, throttle or boost. Close to, but somewhat lower than, the Engine Torque from Load (DAM 0) tables.</description>
  </table>
  <table name="Full-Load Air Flow IAT Factor (CAN Torque)" category="09.04 Vehicle Functions - CAN-side" type="2D" level="4" scaling="multiplier uint8 #8">
-  <table name="Y Axis" type="Y Axis" elements="8" scaling="T / Tref (absolute) uint8" />
-  <description>Multiplier on Full-Load Air Flow Estimate (CAN Torque) by intake temperature ratio. Only affects the maximum-available torque value the ECU sends over CAN to other modules (inferred meaning); it does not change fuel, spark, throttle or boost.</description>
+  <table name="Temperature Ratio" type="Y Axis" elements="8" scaling="T / Tref (absolute) uint8" />
+  <description>Multiplier on Full-Load Air Flow Estimate (CAN Torque) by intake temperature ratio. Only affects the maximum-available torque value the ECU sends over CAN to other modules (likely); it does not change fuel, spark, throttle or boost.</description>
  </table>
  <table name="Full-Load Air Flow Boost Limit Factor (CAN Torque)" category="09.04 Vehicle Functions - CAN-side" type="2D" level="4" scaling="multiplier uint8 #8">
-  <table name="Y Axis" type="Y Axis" elements="8" scaling="Boost Limit / reference pressure uint8" />
-  <description>Multiplier on Full-Load Air Flow Estimate (CAN Torque) by the ratio of the current boost limit to Full-Load Reference Pressure (CAN Torque). Only affects the maximum-available torque value the ECU sends over CAN to other modules (inferred meaning); it does not change fuel, spark, throttle or boost.</description>
+  <table name="Pressure Ratio" type="Y Axis" elements="8" scaling="Boost Limit / reference pressure uint8" />
+  <description>Multiplier on Full-Load Air Flow Estimate (CAN Torque) by the ratio of the current boost limit to Full-Load Reference Pressure (CAN Torque). Only affects the maximum-available torque value the ECU sends over CAN to other modules (likely); it does not change fuel, spark, throttle or boost.</description>
  </table>
  <table name="MAP Sensor Voltage Low Limit (P0107)" category="10 Sensors" type="1D" level="3" scaling="V uint16 #2 (2.4)">
   <description>Sensor voltage below which the MAP sensor is flagged as shorted low (P0107) and a substitute MAP is used. It works on raw voltage, so it does not change when you rescale the MAP sensor.</description>

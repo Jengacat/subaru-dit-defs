@@ -30,7 +30,7 @@
  </table>
  <table name="Injector Flow Compensation (set 2)" address="0416f4">
   <table name="Rail Pressure" address="0416d4" scaling="MPa uint16 #2" />
-  <description>Injector flow compensation by rail pressure, set 2. Set 2 is looked up by rail pressure alone; set 1 by rail pressure plus an rpm/load offset. Identified from this ECU's code. Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
+  <description>Injector flow compensation by rail pressure, set 2. Set 2 is looked up by rail pressure alone; set 1 by rail pressure plus an rpm/load offset.</description>
  </table>
  <table name="Injector Latency" address="041744">
   <table name="Rail Pressure" address="0416d4" scaling="MPa uint16 #2" />
@@ -110,11 +110,11 @@
  </table>
  <table name="Target Rail Pressure (Combustion Mode 1, Idle State Group 1)" address="0b8504" scaling="MPa uint16">
   <table name="Coolant Temp" address="0b84e4" />
-  <description>Target rail pressure by coolant in combustion mode 1, idle controller state group 1. Group 1: out of neutral, moving, or engine speed at or above a received idle-speed request; group 2: neutral (default state) or stopped below the request. On the manual car, probably without that request (inferred), group 1 = out of neutral and group 2 = neutral. Edit both together unless you know the difference. Combustion mode is the cold-start sequence: 0 cranking, 1 first warm-up phase, 2 stratified catalyst heating, 3 catalyst-heating phase 2, 4 normal running. Idle state groups: Group 1 is used out of neutral, while moving, or at or above a received idle-speed request; Group 2 in neutral (the default state) or stopped below that request. Identified from this ECU's code.</description>
+  <description>Target rail pressure by coolant in combustion mode 1, idle controller state group 1. Group 1: out of neutral, moving, or engine speed at or above a received idle-speed request; group 2: neutral (default state) or stopped below the request. On the manual car, probably without that request (likely), group 1 = out of neutral and group 2 = neutral. Edit both together unless you know the difference. Combustion mode is the cold-start sequence: 0 cranking, 1 first warm-up phase, 2 stratified catalyst heating, 3 catalyst-heating phase 2, 4 normal running. Idle state groups: Group 1 is used out of neutral, while moving, or at or above a received idle-speed request; Group 2 in neutral (the default state) or stopped below that request.</description>
  </table>
  <table name="Target Rail Pressure (Combustion Mode 1, Idle State Group 2)" address="0b8564" scaling="MPa uint16">
   <table name="Coolant Temp" address="0b84e4" />
-  <description>Target rail pressure by coolant in combustion mode 1, idle controller state group 2. Group 1: out of neutral, moving, or engine speed at or above a received idle-speed request; group 2: neutral (default state) or stopped below the request. On the manual car, probably without that request (inferred), group 1 = out of neutral and group 2 = neutral. Edit both together unless you know the difference. Combustion mode is the cold-start sequence: 0 cranking, 1 first warm-up phase, 2 stratified catalyst heating, 3 catalyst-heating phase 2, 4 normal running. Idle state groups: Group 1 is used out of neutral, while moving, or at or above a received idle-speed request; Group 2 in neutral (the default state) or stopped below that request. Identified from this ECU's code. Axis input inferred: this axis shares its breakpoint array with a table whose input was traced.</description>
+  <description>Target rail pressure by coolant in combustion mode 1, idle controller state group 2. Group 1: out of neutral, moving, or engine speed at or above a received idle-speed request; group 2: neutral (default state) or stopped below the request. On the manual car, probably without that request (likely), group 1 = out of neutral and group 2 = neutral. Edit both together unless you know the difference. Combustion mode is the cold-start sequence: 0 cranking, 1 first warm-up phase, 2 stratified catalyst heating, 3 catalyst-heating phase 2, 4 normal running. Idle state groups: Group 1 is used out of neutral, while moving, or at or above a received idle-speed request; Group 2 in neutral (the default state) or stopped below that request.</description>
  </table>
  <table name="Target Rail Pressure (Combustion Mode 1, Alternate Set)" address="0b85e4" scaling="MPa uint16">
   <table name="Coolant Temp" address="0b84e4" />
@@ -164,7 +164,7 @@
  <table name="Primary Open Loop Fueling (TGV Closed, AVCS Active, Alternate Set)" address="0486f4">
   <table name="Engine Load" address="043548" />
   <table name="Engine Speed" address="041824" />
-  <description>Alternate to Primary Open Loop Fueling (TGV Closed, AVCS Active). The ECU blends it in by a weight table; while that weight is zero, the main map is used alone. Identified from this ECU's code. The ECU also reads this table as: Primary Open Loop Fueling (TGV/AVCS Group, Alternate).</description>
+  <description>Alternate to Primary Open Loop Fueling (TGV Closed, AVCS Active). The ECU blends it in by a weight table; while that weight is zero, the main map is used alone. The ECU also reads this table as: Primary Open Loop Fueling (TGV/AVCS Group, Alternate).</description>
  </table>
  <table name="Open Loop Enrichment B" address="04d794">
   <table name="Engine Load" address="043608" />
@@ -197,7 +197,7 @@
  <table name="Primary Open Loop Fueling Subtractive (TGV/AVCS Group)" address="048154">
   <table name="Engine Load" address="043568" />
   <table name="Engine Speed" address="042564" />
-  <description>Fuel removed from the TGV/AVCS open-loop group, scaled by its own DAM multiplier (negative cells add fuel). Leaning only works where Primary Open Loop Fueling is not richer. Identified from this ECU's code. The ECU also reads this table as: Primary Open Loop Fueling Subtractive (TGV/AVCS Group, Alternate Set).</description>
+  <description>Fuel removed from the TGV/AVCS open-loop group, scaled by its own DAM multiplier (negative cells add fuel). Leaning only works where Primary Open Loop Fueling is not richer. The ECU also reads this table as: Primary Open Loop Fueling Subtractive (TGV/AVCS Group, Alternate Set).</description>
  </table>
  <table name="Primary Open Loop Fueling Subtractive DAM Multiplier (TGV/AVCS Group)" address="0425f4">
   <table name="Dynamic Advance Multiplier" address="042594" />
@@ -210,7 +210,7 @@
  <table name="Closed Loop Target Equivalence Ratio A" address="090bb8">
   <table name="Engine Load" address="08ff3c" />
   <table name="Engine Speed" address="08ff28" />
-  <description>Closed-loop target equivalence ratio map A by engine speed and load. Identified from this ECU's code. The ECU also reads this table as: Closed Loop Target Equivalence Ratio B.</description>
+  <description>Closed-loop target equivalence ratio map A by engine speed and load. The ECU also reads this table as: Closed Loop Target Equivalence Ratio B.</description>
  </table>
  <table name="Closed Loop Integral Error Shaping (Idle, Positive Error)" address="08fbb0">
   <table name="Closed Loop Lambda Error" address="08fb90" />
@@ -986,7 +986,7 @@
  <table name="Base Timing (EGR Off, TGV Closed)" address="03fed0">
   <table name="Engine Load" address="03e1ac" />
   <table name="Engine Speed" address="03e14c" />
-  <description>Base (upper-limit) ignition timing map used while the pedal is pressed, EGR is off (or only a few percent) and the TGVs are closed (typically cold or light-load running). The ECU fires the lower of this map and Primary Ignition plus knock correction advance and fine learning, so raising cells adds timing only where this map is the lower one. Identified from this ECU's code. The ECU also reads this table as: Base Timing Alternate 3.</description>
+  <description>Base (upper-limit) ignition timing map used while the pedal is pressed, EGR is off (or only a few percent) and the TGVs are closed (typically cold or light-load running). The ECU fires the lower of this map and Primary Ignition plus knock correction advance and fine learning, so raising cells adds timing only where this map is the lower one. The ECU also reads this table as: Base Timing Alternate 3.</description>
  </table>
  <table name="Base Timing Advance Rate (mode change)" address="040ca4">
   <table name="Target Torque" address="03e2c0" />
@@ -1338,63 +1338,63 @@
  </table>
  <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 3)" address="098c80">
   <table name="Surge Damping Step Count" address="098c2c" />
-  <description>AT/CVT version of the surge damping phase factor for gear 3. Identified from this ECU's code. This calibration is coded AT/CVT, so this table is in use.</description>
+  <description>AT/CVT version of the surge damping phase factor for gear 3. This calibration is coded AT/CVT, so this table is in use.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 4)" address="098ca4">
   <table name="Surge Damping Step Count" address="098c2c" />
-  <description>AT/CVT version of the surge damping phase factor for gear 4. Identified from this ECU's code. This calibration is coded AT/CVT, so this table is in use.</description>
+  <description>AT/CVT version of the surge damping phase factor for gear 4. This calibration is coded AT/CVT, so this table is in use.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 5)" address="098cc8">
   <table name="Surge Damping Step Count" address="098c2c" />
-  <description>AT/CVT version of the surge damping phase factor for gear 5. Identified from this ECU's code. This calibration is coded AT/CVT, so this table is in use.</description>
+  <description>AT/CVT version of the surge damping phase factor for gear 5. This calibration is coded AT/CVT, so this table is in use.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 1, Below 1800 RPM)" address="098c44">
   <table name="Surge Damping Step Count" address="098c2c" />
-  <description>Manual transmission, gear 1, below 1800 rpm: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. Identified from this ECU's code. The ECU reads this table only on manual coding; this ROM is coded AT/CVT.</description>
+  <description>Manual transmission, gear 1, below 1800 rpm: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. The ECU reads this table only on manual coding; this ROM is coded AT/CVT.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 1, From 1800 RPM)" address="098c50">
   <table name="Surge Damping Step Count" address="098c2c" />
-  <description>Manual transmission, gear 1, from 1800 rpm up: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. Identified from this ECU's code. The ECU reads this table only on manual coding; this ROM is coded AT/CVT.</description>
+  <description>Manual transmission, gear 1, from 1800 rpm up: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. The ECU reads this table only on manual coding; this ROM is coded AT/CVT.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 1)" address="098c38">
   <table name="Surge Damping Step Count" address="098c2c" />
-  <description>AT/CVT version of the surge damping phase factor for gear 1. Identified from this ECU's code. This calibration is coded AT/CVT, so this table is in use.</description>
+  <description>AT/CVT version of the surge damping phase factor for gear 1. This calibration is coded AT/CVT, so this table is in use.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 2, Below 1800 RPM)" address="098c68">
   <table name="Surge Damping Step Count" address="098c2c" />
-  <description>Manual transmission, gear 2, below 1800 rpm: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. Identified from this ECU's code. The ECU reads this table only on manual coding; this ROM is coded AT/CVT.</description>
+  <description>Manual transmission, gear 2, below 1800 rpm: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. The ECU reads this table only on manual coding; this ROM is coded AT/CVT.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 2, From 1800 RPM)" address="098c74">
   <table name="Surge Damping Step Count" address="098c2c" />
-  <description>Manual transmission, gear 2, from 1800 rpm up: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. Identified from this ECU's code. The ECU reads this table only on manual coding; this ROM is coded AT/CVT.</description>
+  <description>Manual transmission, gear 2, from 1800 rpm up: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. The ECU reads this table only on manual coding; this ROM is coded AT/CVT.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 2)" address="098c5c">
   <table name="Surge Damping Step Count" address="098c2c" />
-  <description>AT/CVT version of the surge damping phase factor for gear 2. Identified from this ECU's code. This calibration is coded AT/CVT, so this table is in use.</description>
+  <description>AT/CVT version of the surge damping phase factor for gear 2. This calibration is coded AT/CVT, so this table is in use.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 3, Below 1800 RPM)" address="098c8c">
   <table name="Surge Damping Step Count" address="098c2c" />
-  <description>Manual transmission, gear 3, below 1800 rpm: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. Identified from this ECU's code. The ECU reads this table only on manual coding; this ROM is coded AT/CVT.</description>
+  <description>Manual transmission, gear 3, below 1800 rpm: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. The ECU reads this table only on manual coding; this ROM is coded AT/CVT.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 3, From 1800 RPM)" address="098c98">
   <table name="Surge Damping Step Count" address="098c2c" />
-  <description>Manual transmission, gear 3, from 1800 rpm up: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. Identified from this ECU's code. The ECU reads this table only on manual coding; this ROM is coded AT/CVT.</description>
+  <description>Manual transmission, gear 3, from 1800 rpm up: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. The ECU reads this table only on manual coding; this ROM is coded AT/CVT.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 4, Below 1800 RPM)" address="098cb0">
   <table name="Surge Damping Step Count" address="098c2c" />
-  <description>Manual transmission, gear 4, below 1800 rpm: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. Identified from this ECU's code. The ECU reads this table only on manual coding; this ROM is coded AT/CVT.</description>
+  <description>Manual transmission, gear 4, below 1800 rpm: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. The ECU reads this table only on manual coding; this ROM is coded AT/CVT.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 4, From 1800 RPM)" address="098cbc">
   <table name="Surge Damping Step Count" address="098c2c" />
-  <description>Manual transmission, gear 4, from 1800 rpm up: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. Identified from this ECU's code. The ECU reads this table only on manual coding; this ROM is coded AT/CVT.</description>
+  <description>Manual transmission, gear 4, from 1800 rpm up: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. The ECU reads this table only on manual coding; this ROM is coded AT/CVT.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 5, Below 1800 RPM)" address="098cd4">
   <table name="Surge Damping Step Count" address="098c2c" />
-  <description>Manual transmission, gear 5, below 1800 rpm: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. Identified from this ECU's code. The ECU reads this table only on manual coding; this ROM is coded AT/CVT.</description>
+  <description>Manual transmission, gear 5, below 1800 rpm: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. The ECU reads this table only on manual coding; this ROM is coded AT/CVT.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 5, From 1800 RPM)" address="098ce0">
   <table name="Surge Damping Step Count" address="098c2c" />
-  <description>Manual transmission, gear 5, from 1800 rpm up: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. Identified from this ECU's code. The ECU reads this table only on manual coding; this ROM is coded AT/CVT.</description>
+  <description>Manual transmission, gear 5, from 1800 rpm up: how much of the surge damping timing correction is applied at each step of the rpm swing count (0 = none, 1.0 = full). Appears to target the rpm-rising part of a driveline surge. The ECU reads this table only on manual coding; this ROM is coded AT/CVT.</description>
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 6, Below 1800 RPM)" address="098cf8">
   <table name="Surge Damping Step Count" address="098c2c" />
@@ -1713,42 +1713,42 @@
  <table name="Tip-In Timing Retard Speed Split" address="0975fb" />
  <table name="Surge Damping Timing Curve (Gear 1)" address="097354" type="2D">
   <table name="Surge Damping Input" address="097adc" />
-  <description>Manual transmission, gear 1: timing correction (negative = retard) by the size of the throttle-flow change after a throttle step, scaled by the surge phase, coolant and mode factors. Appears to damp driveline surge (shuffle) by retarding while rpm swings up. Identified from this ECU's code.</description>
+  <description>Manual transmission, gear 1: timing correction (negative = retard) by the size of the throttle-flow change after a throttle step, scaled by the surge phase, coolant and mode factors. Appears to damp driveline surge (shuffle) by retarding while rpm swings up.</description>
  </table>
  <table name="Surge Damping Timing Curve (AT/CVT Gear 1)" address="09734c">
   <table name="Surge Damping Input" address="097adc" />
  </table>
  <table name="Surge Damping Timing Curve (Gear 2)" address="097364" type="2D">
   <table name="Surge Damping Input" address="097adc" />
-  <description>Manual transmission, gear 2: timing correction (negative = retard) by the size of the throttle-flow change after a throttle step, scaled by the surge phase, coolant and mode factors. Appears to damp driveline surge (shuffle) by retarding while rpm swings up. Identified from this ECU's code.</description>
+  <description>Manual transmission, gear 2: timing correction (negative = retard) by the size of the throttle-flow change after a throttle step, scaled by the surge phase, coolant and mode factors. Appears to damp driveline surge (shuffle) by retarding while rpm swings up.</description>
  </table>
  <table name="Surge Damping Timing Curve (AT/CVT Gear 2)" address="09735c">
   <table name="Surge Damping Input" address="097adc" />
  </table>
  <table name="Surge Damping Timing Curve (Gear 3)" address="097374" type="2D">
   <table name="Surge Damping Input" address="097adc" />
-  <description>Manual transmission, gear 3: timing correction (negative = retard) by the size of the throttle-flow change after a throttle step, scaled by the surge phase, coolant and mode factors. Appears to damp driveline surge (shuffle) by retarding while rpm swings up. Identified from this ECU's code.</description>
+  <description>Manual transmission, gear 3: timing correction (negative = retard) by the size of the throttle-flow change after a throttle step, scaled by the surge phase, coolant and mode factors. Appears to damp driveline surge (shuffle) by retarding while rpm swings up.</description>
  </table>
  <table name="Surge Damping Timing Curve (AT/CVT Gear 3)" address="09736c">
   <table name="Surge Damping Input" address="097adc" />
  </table>
  <table name="Surge Damping Timing Curve (Gear 4)" address="097384" type="2D">
   <table name="Surge Damping Input" address="097adc" />
-  <description>Manual transmission, gear 4: timing correction (negative = retard) by the size of the throttle-flow change after a throttle step, scaled by the surge phase, coolant and mode factors. Appears to damp driveline surge (shuffle) by retarding while rpm swings up. Identified from this ECU's code.</description>
+  <description>Manual transmission, gear 4: timing correction (negative = retard) by the size of the throttle-flow change after a throttle step, scaled by the surge phase, coolant and mode factors. Appears to damp driveline surge (shuffle) by retarding while rpm swings up.</description>
  </table>
  <table name="Surge Damping Timing Curve (AT/CVT Gear 4)" address="09737c">
   <table name="Surge Damping Input" address="097adc" />
  </table>
  <table name="Surge Damping Timing Curve (Gear 5)" address="097394" type="2D">
   <table name="Surge Damping Input" address="097adc" />
-  <description>Manual transmission, gear 5: timing correction (negative = retard) by the size of the throttle-flow change after a throttle step, scaled by the surge phase, coolant and mode factors. Appears to damp driveline surge (shuffle) by retarding while rpm swings up. Identified from this ECU's code.</description>
+  <description>Manual transmission, gear 5: timing correction (negative = retard) by the size of the throttle-flow change after a throttle step, scaled by the surge phase, coolant and mode factors. Appears to damp driveline surge (shuffle) by retarding while rpm swings up.</description>
  </table>
  <table name="Surge Damping Timing Curve (AT/CVT Gear 5)" address="09738c">
   <table name="Surge Damping Input" address="097adc" />
  </table>
  <table name="Surge Damping Timing Curve (Gear 6)" address="0973a4" type="2D">
   <table name="Surge Damping Input" address="097adc" />
-  <description>Manual transmission, gear 6: timing correction (negative = retard) by the size of the throttle-flow change after a throttle step, scaled by the surge phase, coolant and mode factors. Appears to damp driveline surge (shuffle) by retarding while rpm swings up. Identified from this ECU's code.</description>
+  <description>Manual transmission, gear 6: timing correction (negative = retard) by the size of the throttle-flow change after a throttle step, scaled by the surge phase, coolant and mode factors. Appears to damp driveline surge (shuffle) by retarding while rpm swings up.</description>
  </table>
  <table name="Surge Damping Timing Curve (AT/CVT Gear 6)" address="09739c">
   <table name="Surge Damping Input" address="097adc" />
@@ -1828,7 +1828,7 @@
  <table name="Target Boost (Electronic Wastegate)" address="01cda8">
   <table name="Target Torque" address="01d300" />
   <table name="Engine Speed" address="01afd8" />
-  <description>Boost target by engine speed and target torque. This is the main boost target table. Identified from this ECU's code. The ECU also reads this table as: Target Boost (Second Set).</description>
+  <description>Boost target by engine speed and target torque. This is the main boost target table. The ECU also reads this table as: Target Boost (Second Set).</description>
  </table>
  <table name="Target Boost IAT Multiplier" address="01a318">
   <table name="Intake Air Temp" address="026e6c" />
@@ -2986,7 +2986,7 @@
  <table name="Primary Ignition (TGV Open, AVCS Inactive)" address="09dcd0">
   <table name="Engine Load" address="0989bc" />
   <table name="Engine Speed" address="0988b4" />
-  <description>Knock-limited ignition timing by rpm and load for TGVs open while AVCS is not controlling (start-up, hold or fault), blended in when AVCS drops out. With knock correction advance and fine learning added it forms one side of the timing limit; the ECU fires the lower of this sum and the Base Timing map. Identified from this ECU's code. The ECU also reads this table as: Primary Ignition (Second Set, TGV Open, AVCS Inactive).</description>
+  <description>Knock-limited ignition timing by rpm and load for TGVs open while AVCS is not controlling (start-up, hold or fault), blended in when AVCS drops out. With knock correction advance and fine learning added it forms one side of the timing limit; the ECU fires the lower of this sum and the Base Timing map. The ECU also reads this table as: Primary Ignition (Second Set, TGV Open, AVCS Inactive).</description>
  </table>
  <table name="Ignition Efficiency vs Retard" address="03db64">
   <table name="Timing Retard" address="03db54" />
@@ -3262,15 +3262,15 @@
  </table>
  <table name="Exhaust Temperature Estimate 2 Retard Multiplier (No Enrichment)" address="041994">
   <table name="Timing Deficit" address="041964" />
-  <description>Multiplier (1.0 = none) on the matching exhaust temperature map, by the timing deficit (how far fired timing sits from primary ignition), so retarded timing raises the modelled exhaust temperature. Identified from this ECU's code.</description>
+  <description>Multiplier (1.0 = none) on the matching exhaust temperature map, by the timing deficit (how far fired timing sits from primary ignition), so retarded timing raises the modelled exhaust temperature.</description>
  </table>
  <table name="Exhaust Temperature Estimate 2 Retard Multiplier (Enriched)" address="041974">
   <table name="Timing Deficit" address="041964" />
-  <description>Multiplier (1.0 = none) on the matching exhaust temperature map, by the timing deficit (how far fired timing sits from primary ignition), so retarded timing raises the modelled exhaust temperature. Identified from this ECU's code.</description>
+  <description>Multiplier (1.0 = none) on the matching exhaust temperature map, by the timing deficit (how far fired timing sits from primary ignition), so retarded timing raises the modelled exhaust temperature.</description>
  </table>
  <table name="Exhaust Temperature Estimate 2 Retard Multiplier (Standstill High Load)" address="041ff4">
   <table name="Timing Deficit" address="041964" />
-  <description>Multiplier (1.0 = none) on the matching exhaust temperature map, by the timing deficit (how far fired timing sits from primary ignition), so retarded timing raises the modelled exhaust temperature. Identified from this ECU's code.</description>
+  <description>Multiplier (1.0 = none) on the matching exhaust temperature map, by the timing deficit (how far fired timing sits from primary ignition), so retarded timing raises the modelled exhaust temperature.</description>
  </table>
  <table name="Exhaust Temperature Estimate 2 Filter (Rising)" address="089c84">
   <table name="Engine Load" address="043668" />
@@ -3515,7 +3515,7 @@
  </table>
  <table name="AVCS Activation Delay After Start" address="0c1db0">
   <table name="Coolant Temp at Start" address="020a88" />
-  <description>Delay after start before cam control begins, by coolant at start. Identified from this ECU's code.</description>
+  <description>Delay after start before cam control begins, by coolant at start.</description>
  </table>
  <table name="Exhaust AVCS Feedback Oil Factor (Normal, Positive Error) (Cams 1 and 2)" address="0c2110">
   <table name="Oil Temp" address="0c2090" />
@@ -3546,7 +3546,7 @@
  </table>
  <table name="AVCS Activation Delay After Start (Second)" address="0c2350" level="4" scaling="s uint16 #3">
   <table name="Coolant Temp at Start" address="020a88" />
-  <description>A second start-delay table that can only shorten the AVCS hold after the hold has already ended, so it never changes anything. Edit AVCS Activation Delay After Start instead. Identified from this ECU's code.</description>
+  <description>A second start-delay table that can only shorten the AVCS hold after the hold has already ended, so it never changes anything. Edit AVCS Activation Delay After Start instead.</description>
  </table>
  <table name="Idle Speed Target (In Drive, AT/CVT)" address="0ae4a0">
   <table name="Coolant Temp" address="020a68" />
@@ -3753,7 +3753,7 @@
  <table name="EGR Upstream Pressure Estimate" address="0b3d20">
   <table name="Engine Load" address="0b3534" />
   <table name="Engine Speed" address="0b3514" />
-  <description>Estimated pressure upstream of the EGR valve (probably exhaust side) by rpm and load. The difference to manifold pressure sets the modelled EGR flow and decides whether EGR may be enabled. Identified from this ECU's code. The ECU also reads this table as: EGR Upstream Pressure Estimate (Alternate).</description>
+  <description>Estimated pressure upstream of the EGR valve (likely) by rpm and load. The difference to manifold pressure sets the modelled EGR flow and decides whether EGR may be enabled. The ECU also reads this table as: EGR Upstream Pressure Estimate (Alternate).</description>
  </table>
  <table name="EGR Valve Flow Model" address="0b3ba0">
   <table name="EGR Valve Position" address="0b34f4" />

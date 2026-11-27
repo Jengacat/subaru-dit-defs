@@ -15,7 +15,7 @@
     </transport>
    </transports>
    <ecuparams>
-    <ecuparam id="J01" name="Engine Speed" desc="Engine Speed (read; 0x11EE38: FFF8CD54 x 25 &gt;&gt; 5 (u16) = rpm x 4)" target="1">
+    <ecuparam id="J01" name="Engine Speed" desc="Engine Speed" target="1">
      <ecu id="A529A02007">
       <address length="2">0xF8B144</address>
      </ecu>
@@ -149,7 +149,7 @@
       <conversion units="rpm" expr="x/4" format="0" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J02" name="Coolant Temperature" desc="Coolant Temperature (read; 0x11F250: FFF8CD65 (degC + 50) - 10, floored at 0)" target="1">
+    <ecuparam id="J02" name="Coolant Temperature" desc="Coolant Temperature" target="1">
      <ecu id="A529A02007">
       <address>0xF8A627</address>
      </ecu>
@@ -284,7 +284,7 @@
       <conversion units="C" expr="x-40" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J03" name="Intake Air Temperature" desc="Intake Air Temperature (read; 0x11F098: FFF8CEE5 (the OBD IAT source, degC + 50) - 10, floored at 0)" target="1">
+    <ecuparam id="J03" name="Intake Air Temperature" desc="Intake Air Temperature" target="1">
      <ecu id="A529A02007">
       <address>0xF8A619</address>
      </ecu>
@@ -419,7 +419,7 @@
       <conversion units="C" expr="x-40" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J04" name="Ignition Timing" desc="Ignition Timing (read; 0x11E728: final timing FFF8A744 + 128 (0.5 degree units))" target="1">
+    <ecuparam id="J04" name="Ignition Timing" desc="Ignition Timing" target="1">
      <ecu id="A529A02007">
       <address>0xF8A5C6</address>
      </ecu>
@@ -553,7 +553,7 @@
       <conversion units="degrees" expr="(x-128)/2" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J05" name="Mass Airflow" desc="Mass Airflow (read; 0x11EF60: FFF88A4A x 0x753 &gt;&gt; 12, the same conversion as OBD PID 0x10 (0.01 g/s))" target="1">
+    <ecuparam id="J05" name="Mass Airflow" desc="Mass Airflow" target="1">
      <ecu id="A529A02007">
       <address length="2">0xF8B148</address>
      </ecu>
@@ -687,7 +687,7 @@
       <conversion units="g/s" expr="x/100" format="0.00" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J06" name="MAF Sensor Voltage" desc="MAF Sensor Voltage (inferred; 0x11F28C: FFF88A1A x 125 &gt;&gt; 15; volts if FFF88A1A = V x 13107)" target="1">
+    <ecuparam id="J06" name="MAF Sensor Voltage" desc="MAF Sensor Voltage" target="1">
      <ecu id="A529A02007">
       <address>0xF8A629</address>
      </ecu>
@@ -821,7 +821,7 @@
       <conversion units="V" expr="x*0.02" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J07" name="Manifold Absolute Pressure" desc="Manifold Absolute Pressure (inferred; 0x11EEDC: FFF88A34 &gt;&gt; 8; kPa because index 0x24 is this minus barometric pressure + 128)" target="1">
+    <ecuparam id="J07" name="Manifold Absolute Pressure" desc="Manifold Absolute Pressure" target="1">
      <ecu id="A529A02007">
       <address>0xF8A605</address>
      </ecu>
@@ -956,7 +956,7 @@
       <conversion units="kPa" expr="x" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J08" name="Manifold Relative Pressure" desc="Manifold Relative Pressure (read; 0x11E7FC: (FFF88A34 &gt;&gt; 8) - (FFF88E1E &gt;&gt; 8) + 128, clipped to 0...255; FFF88E1E is the OBD barometric source)" target="1">
+    <ecuparam id="J08" name="Manifold Relative Pressure" desc="Manifold Relative Pressure" target="1">
      <ecu id="A529A02007">
       <address>0xF8A5D0</address>
      </ecu>
@@ -1091,7 +1091,7 @@
       <conversion units="kPa" expr="x-128" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J09" name="Barometric Pressure" desc="Barometric Pressure (read; 0x11E75C: FFF88668 (kPa x 256) &gt;&gt; 8)" target="1">
+    <ecuparam id="J09" name="Barometric Pressure" desc="Barometric Pressure" target="1">
      <ecu id="A529A02007">
       <address>0xF8A5C9</address>
      </ecu>
@@ -1226,7 +1226,7 @@
       <conversion units="kPa" expr="x" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J10" name="Wastegate Duty" desc="Wastegate Duty (read; 0x11E910: FFF8B3B8 (WGDC, 25600 = 100 %) x 255/25600)" target="1">
+    <ecuparam id="J10" name="Wastegate Duty" desc="Wastegate Duty" target="1">
      <ecu id="A529A02007">
       <address>0xF8A5D9</address>
      </ecu>
@@ -1351,7 +1351,7 @@
       <conversion units="%" expr="x*100/255" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J11" name="Commanded Throttle" desc="Commanded Throttle (read; 0x11F218: FFF8AF84 x 255/25600; FFF8AF84 is the OBD PID 0x4C (commanded throttle actuator) source, written by 0x0C326C in the torque model)" target="1">
+    <ecuparam id="J11" name="Commanded Throttle" desc="Commanded Throttle" target="1">
      <ecu id="A529A02007">
       <address>0xF8A625</address>
      </ecu>
@@ -1485,7 +1485,7 @@
       <conversion units="%" expr="x*100/255" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J12" name="Battery Voltage" desc="Battery Voltage (inferred; 0x11F29C: FFF9DD61 x 125 &gt;&gt; 7; FFF9DD61 = V x 12.8 (inferred))" target="1">
+    <ecuparam id="J12" name="Battery Voltage" desc="Battery Voltage" target="1">
      <ecu id="A529A02007">
       <address>0xF8A62A</address>
      </ecu>
@@ -1619,7 +1619,7 @@
       <conversion units="V" expr="x*0.08" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J13" name="Vehicle Speed" desc="Vehicle Speed (inferred; 0x11F2B0: FFF99835 copied; the programming-session check 0x0AF014 refuses while FFF99835 &gt; cal 0x579AA, i.e. a vehicle-speed check (inferred))" target="1">
+    <ecuparam id="J13" name="Vehicle Speed" desc="Vehicle Speed" target="1">
      <ecu id="A529A02007">
       <address>0xF8A62B</address>
      </ecu>
@@ -1754,7 +1754,7 @@
       <conversion units="mph" expr="x*0.621371" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J14" name="Knock Learning (DAM)" desc="Knock Learning (DAM) (inferred; FFF811AE pointed to directly; DAM x 16 (inferred, see Knock Correction Advance))" target="1">
+    <ecuparam id="J14" name="Knock Learning (DAM)" desc="Knock Learning (DAM)" target="1">
      <ecu id="A529A02007">
       <address>0xF810DE</address>
      </ecu>
@@ -1888,7 +1888,7 @@
       <conversion units="DAM" expr="x/16" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J15" name="Throttle Position" desc="Throttle Position (read; 0x11E708: FFF8A346 (the OBD PID 0x11 source, 65535 = 100 %) x 125 &gt;&gt; 15 = % x 2.5)" target="1">
+    <ecuparam id="J15" name="Throttle Position" desc="Throttle Position" target="1">
      <ecu id="A529A02007">
       <address>0xF8A5C4</address>
      </ecu>
@@ -2022,7 +2022,7 @@
       <conversion units="%" expr="x*0.4" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J16" name="FFF8A348 (Throttle Scale)" desc="FFF8A348 (Throttle Scale) (inferred; 0x11E718: FFF8A348 x 125 &gt;&gt; 15, same scale as Throttle Position; likely the second throttle signal (inferred))" target="1">
+    <ecuparam id="J16" name="Throttle Signal 2" desc="Throttle Signal 2" target="1">
      <ecu id="A529A02007">
       <address>0xF8A5C5</address>
      </ecu>
@@ -2156,7 +2156,7 @@
       <conversion units="%" expr="x*0.4" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J17" name="FFF8A350 (Throttle Scale)" desc="FFF8A350 (Throttle Scale) (inferred; 0x11EF70: FFF8A350 x 125 &gt;&gt; 15; identity not decoded (pedal or throttle signal))" target="1">
+    <ecuparam id="J17" name="Throttle or Pedal Signal A" desc="Throttle or Pedal Signal A" target="1">
      <ecu id="A529A02007">
       <address>0xF8A60B</address>
      </ecu>
@@ -2290,7 +2290,7 @@
       <conversion units="%" expr="x*0.4" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J18" name="FFF8A352 (Throttle Scale)" desc="FFF8A352 (Throttle Scale) (inferred; 0x11EF80: FFF8A352 x 125 &gt;&gt; 15; identity not decoded)" target="1">
+    <ecuparam id="J18" name="Throttle or Pedal Signal B" desc="Throttle or Pedal Signal B" target="1">
      <ecu id="A529A02007">
       <address>0xF8A60C</address>
      </ecu>
@@ -2424,7 +2424,7 @@
       <conversion units="%" expr="x*0.4" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J19" name="Closed Loop Lambda (FFF8B2C2)" desc="Closed Loop Lambda (FFF8B2C2) (read; 0x11EDA4: (FFF8B2C2 &lt;&lt; 15) / cal 0x38278 (43194 = lambda 1.0) - 32768, &gt;&gt; 8, + 128; written by the closed-loop routines 0x0FBAFC/0x0FC0CC, role (measured or target) not decoded)" target="1">
+    <ecuparam id="J19" name="Closed Loop Lambda" desc="Closed Loop Lambda" target="1">
      <ecu id="A529A02007">
       <address>0xF8A5F9</address>
      </ecu>
@@ -2559,7 +2559,7 @@
       <conversion units="AFR" expr="x/128*14.7" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J20" name="Closed Loop Target (FFF8B312)" desc="Closed Loop Target (FFF8B312) (read; 0x11ED68: ((FFF8B312 &gt;&gt; 1) - 0x5587) x 0x3BDD &gt;&gt; 18 + 64, clipped; FFF8B312 is the closed-loop target in lambda x 43194 units (0x0FF634); the byte covers only lambda 0.96...1.17)" target="1">
+    <ecuparam id="J20" name="Closed Loop Target (Lambda)" desc="Closed Loop Target (Lambda)" target="1">
      <ecu id="A529A02007">
       <address>0xF8A5F8</address>
      </ecu>
@@ -2693,7 +2693,7 @@
       <conversion units="lambda" expr="((x-64)*262144/15325+21895)*2/43194" format="0.000" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J21" name="FFF8B2D8 (Fuel Correction)" desc="FFF8B2D8 (Fuel Correction) (inferred; 0x11ED58: FFF8B2D8 &gt;&gt; 8; FFF8B2D8 = 0x8000 when not running (0x0FBF58), so 128 = no correction (inferred))" target="1">
+    <ecuparam id="J21" name="Fuel Correction" desc="Fuel Correction" target="1">
      <ecu id="A529A02007">
       <address>0xF8A5F7</address>
      </ecu>
@@ -2827,7 +2827,7 @@
       <conversion units="%" expr="(x-128)/1.28" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J22" name="Knock Raw (A791/A7A7)" desc="Knock Raw (A791/A7A7) (read; 0x11F1E4: (FFF8A791 x 19 + FFF8A7A7 (s8) x 19 + 0xD80) / 27; knock-module variables, meaning not decoded)" target="1">
+    <ecuparam id="J22" name="Knock Module Value A" desc="Knock Module Value A" target="1">
      <ecu id="A529A02007">
       <address>0xF8A624</address>
      </ecu>
@@ -2961,7 +2961,7 @@
       <conversion units="raw" expr="x" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J23" name="FFF8A7A7 (Knock Module)" desc="FFF8A7A7 (Knock Module) (read; 0x11EF08: FFF8A7A7 (s8) x 45 &gt;&gt; 6 + 90)" target="1">
+    <ecuparam id="J23" name="Knock Module Value B" desc="Knock Module Value B" target="1">
      <ecu id="A529A02007">
       <address>0xF8A608</address>
      </ecu>
@@ -3095,7 +3095,7 @@
       <conversion units="raw" expr="x" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J24" name="AVCS FFF8B8EA" desc="AVCS FFF8B8EA (read; 0x11EE88: FFF8B8EA x 0xD0E5 &gt;&gt; 19; AVCS module variable (read by the OCV driver 0x15969C))" target="1">
+    <ecuparam id="J24" name="AVCS Value 1" desc="AVCS Value 1" target="1">
      <ecu id="A529A02007">
       <address>0xF8A601</address>
      </ecu>
@@ -3229,7 +3229,7 @@
       <conversion units="raw" expr="x" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J25" name="AVCS FFF8B8E4" desc="AVCS FFF8B8E4 (read; 0x11EE68: FFF8B8E4 x 0xD0E5 &gt;&gt; 19; AVCS module variable)" target="1">
+    <ecuparam id="J25" name="AVCS Value 2" desc="AVCS Value 2" target="1">
      <ecu id="A529A02007">
       <address>0xF8A600</address>
      </ecu>
@@ -3363,7 +3363,7 @@
       <conversion units="raw" expr="x" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J26" name="AVCS FFF8B900" desc="AVCS FFF8B900 (read; 0x11E990: FFF8B900 x 0xD0E5 &gt;&gt; 19; AVCS module variable)" target="1">
+    <ecuparam id="J26" name="AVCS Value 3" desc="AVCS Value 3" target="1">
      <ecu id="A529A02007">
       <address>0xF8A5DE</address>
      </ecu>
@@ -3497,7 +3497,7 @@
       <conversion units="raw" expr="x" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J27" name="AVCS FFF8B8FA" desc="AVCS FFF8B8FA (read; 0x11E970: FFF8B8FA x 0xD0E5 &gt;&gt; 19; AVCS module variable)" target="1">
+    <ecuparam id="J27" name="AVCS Value 4" desc="AVCS Value 4" target="1">
      <ecu id="A529A02007">
       <address>0xF8A5DD</address>
      </ecu>
@@ -3631,7 +3631,7 @@
       <conversion units="raw" expr="x" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J28" name="Long-Term Fuel Trim (FFF811D9)" desc="Long-Term Fuel Trim (FFF811D9) (read; SSM byte = FFF811D9 &gt;&gt; 1 + 64 (0x11EC9C, read). FFF811D9 = learned cell + 0x80 (0x0FD3E4) is copied to FFF8A689 (0x0CECA8), and fuel is multiplied by (A689 + 128)/256 (0x0D15EC, read), so one count of 811D9 = 0.39 %; on the SSM byte, % = (x-128) x 100/128 (corrected 2026-10-30; it was shown double).)" target="1">
+    <ecuparam id="J28" name="Long-Term Fuel Trim (Learned Cell)" desc="Long-Term Fuel Trim (Learned Cell)" target="1">
      <ecu id="A529A02007">
       <address>0xF8A5F1</address>
      </ecu>
@@ -3765,7 +3765,7 @@
       <conversion units="%" expr="(x-128)*100/128" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J29" name="Intake Cam Advance Bank 1 (FFF88DB0)" desc="Intake Cam Advance Bank 1 (FFF88DB0) (inferred; learned rest FFF81582 - measured FFF88D8C, advance positive; cam edges later = larger (0x1D165A) (read, my research notes).)" target="1">
+    <ecuparam id="J29" name="Intake Cam Advance Bank 1" desc="Intake Cam Advance Bank 1" target="1">
      <ecu id="A529A02007">
       <address>0xF8A614</address>
      </ecu>
@@ -3899,7 +3899,7 @@
       <conversion units="degrees" expr="x-50" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J30" name="Intake Cam Advance Bank 2 (FFF88DB2)" desc="Intake Cam Advance Bank 2 (FFF88DB2) (inferred; learned rest FFF81582 - measured FFF88D8C, advance positive; cam edges later = larger (0x1D165A) (read, my research notes).)" target="1">
+    <ecuparam id="J30" name="Intake Cam Advance Bank 2" desc="Intake Cam Advance Bank 2" target="1">
      <ecu id="A529A02007">
       <address>0xF8A613</address>
      </ecu>
@@ -4033,7 +4033,7 @@
       <conversion units="degrees" expr="x-50" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J31" name="Exhaust Cam Retard Bank 1 (FFF88DBC)" desc="Exhaust Cam Retard Bank 1 (FFF88DBC) (inferred; measured FFF88DA0 - learned rest FFF8157E, retard positive; cam edges later = larger (0x1D165A) (read, my research notes).)" target="1">
+    <ecuparam id="J31" name="Exhaust Cam Retard Bank 1" desc="Exhaust Cam Retard Bank 1" target="1">
      <ecu id="A529A02007">
       <address>0xF8A5E3</address>
      </ecu>
@@ -4167,7 +4167,7 @@
       <conversion units="degrees" expr="x-50" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J32" name="Exhaust Cam Retard Bank 2 (FFF88DBE)" desc="Exhaust Cam Retard Bank 2 (FFF88DBE) (inferred; measured FFF88DA0 - learned rest FFF8157E, retard positive; cam edges later = larger (0x1D165A) (read, my research notes).)" target="1">
+    <ecuparam id="J32" name="Exhaust Cam Retard Bank 2" desc="Exhaust Cam Retard Bank 2" target="1">
      <ecu id="A529A02007">
       <address>0xF8A5E2</address>
      </ecu>
@@ -4301,7 +4301,7 @@
       <conversion units="degrees" expr="x-50" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J33" name="Accelerator Pedal" desc="Accelerator Pedal (read; Index 0x029 points directly at FFF88A5E (2015/2016; FFF88DAE 2017, FFF88E3E 2018), the high byte of the u16 pedal value (65535 = 100 %) that feeds the Requested Torque maps (0x09E800 / 0x0BB588, read))" target="1">
+    <ecuparam id="J33" name="Accelerator Pedal" desc="Accelerator Pedal" target="1">
      <ecu id="A529A02007">
       <address>0xF8877E</address>
      </ecu>
@@ -4435,7 +4435,7 @@
       <conversion units="%" expr="x*100/256" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J34" name="ETC Motor Drive" desc="ETC Motor Drive (inferred; Shadow FFF8A93A from FFF8A3B4 (x - 128, read); FFF8A3B4 is the electronic throttle motor drive of the servo loop (inferred, Phase 13))" target="1">
+    <ecuparam id="J34" name="ETC Motor Drive" desc="ETC Motor Drive" target="1">
      <ecu id="A529A02007">
       <address>0xF8A5EE</address>
      </ecu>
@@ -4569,7 +4569,7 @@
       <conversion units="raw (signed)" expr="x-128" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J35" name="A/F Sensor Lambda" desc="A/F Sensor Lambda (read; 0x11F040: FFF88AF8 &gt;&gt; 6, capped at 255; FFF88AF8 = measured lambda x 8192 from the front A/F sensor (0x06C1A8, read), the same variable OBD PIDs 0x24/0x34 report. Reads up to lambda 1.99; AFR assumes 14.7 stoich)" target="1">
+    <ecuparam id="J35" name="A/F Sensor Lambda" desc="A/F Sensor Lambda" target="1">
      <ecu id="A529A02007">
       <address>0xF8A615</address>
      </ecu>
@@ -4704,7 +4704,7 @@
       <conversion units="AFR" expr="x/128*14.7" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J36" name="Calculated Engine Load (OBD)" desc="Calculated Engine Load (OBD) (read; 0x11EDE4 copies FFF886A2, which is also the OBD PID 0x04 source (0x171AC4 -&gt; FFF8AB77, read); 255 = 100 %)" target="1">
+    <ecuparam id="J36" name="Calculated Engine Load (OBD)" desc="Calculated Engine Load (OBD)" target="1">
      <ecu id="A529A02007">
       <address>0xF8A5FA</address>
      </ecu>
@@ -4838,7 +4838,7 @@
       <conversion units="%" expr="x*100/255" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J37" name="Injector Pulse Width (Injector 1)" desc="Injector Pulse Width (Injector 1) (inferred; 0x11F1C0: FFF8CF3C x 0x3333 &gt;&gt; 20 (= /80), capped at 255; FFF8CF3C = injector 1 pulse u32 &gt;&gt; 2 (0x1E5436, read). The pulse unit of 0.8 us is inferred (as logging-patch L24), so 0.256 ms per count; it saturates at about 65 ms)" target="1">
+    <ecuparam id="J37" name="Injector Pulse Width (Injector 1)" desc="Injector Pulse Width (Injector 1)" target="1">
      <ecu id="A529A02007">
       <address>0xF8A623</address>
      </ecu>
@@ -4972,7 +4972,7 @@
       <conversion units="ms" expr="x*0.256" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J38" name="Radiator Fan Duty" desc="Radiator Fan Duty (read; 0x11EFE0: FFF8B278 x 25 &gt;&gt; 14; FFF8B278 = radiator fan duty, 65535 = 100 % (0x0F7A88, read))" target="1">
+    <ecuparam id="J38" name="Radiator Fan Duty" desc="Radiator Fan Duty" target="1">
      <ecu id="A529A02007">
       <address>0xF8A611</address>
      </ecu>
@@ -5106,7 +5106,7 @@
       <conversion units="%" expr="x" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J39" name="Purge Valve Duty" desc="Purge Valve Duty (read; 0x11E85C: FFF8A707 x 65 &gt;&gt; 6, the same conversion and source as OBD PID 0x2E, commanded evaporative purge (0x1715D0 -&gt; FFF8AB6A, read))" target="1">
+    <ecuparam id="J39" name="Purge Valve Duty" desc="Purge Valve Duty" target="1">
      <ecu id="A529A02007">
       <address>0xF8A5D3</address>
      </ecu>
@@ -5240,7 +5240,7 @@
       <conversion units="%" expr="x*100/255" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J40" name="Alternator Duty" desc="Alternator Duty (inferred; 0x11E88C: FFF8B718 x 0x7AE1 &gt;&gt; 19 (x 0.06); FFF8B718 = charging output command, 1667 = 100 % (read; alternator identity inferred))" target="1">
+    <ecuparam id="J40" name="Alternator Duty" desc="Alternator Duty" target="1">
      <ecu id="A529A02007">
       <address>0xF8A5D5</address>
      </ecu>
@@ -5374,7 +5374,7 @@
       <conversion units="%" expr="x" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J41" name="EGR Valve Position" desc="EGR Valve Position (inferred; 0x11E9B0: FFF88A1C &gt;&gt; 1, capped at 255; FFF88A1C is the EGR valve position feedback, compared with 2 x the EGR command FFF8A81B for OBD PID 0x2D (0x1715F0, read); the step unit is inferred)" target="1">
+    <ecuparam id="J41" name="EGR Valve Position" desc="EGR Valve Position" target="1">
      <ecu id="A529A02007">
       <address>0xF8A5DF</address>
      </ecu>
@@ -5508,7 +5508,7 @@
       <conversion units="steps" expr="x*2" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J42" name="Intake OCV Current (Cam 1)" desc="Intake OCV Current (Cam 1) (inferred; 0x11EEB8: FFF88D70 x 625 &gt;&gt; 19; FFF88D70 x 2.5/65536 is the measured OCV current of the intake cam 1 AVCS current feedback (0x15ED58, read); amps inferred)" target="1">
+    <ecuparam id="J42" name="Intake OCV Current (Cam 1)" desc="Intake OCV Current (Cam 1)" target="1">
      <ecu id="A529A02007">
       <address>0xF8A603</address>
      </ecu>
@@ -5642,7 +5642,7 @@
       <conversion units="A" expr="x*0.032" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J43" name="Intake OCV Current (Cam 2)" desc="Intake OCV Current (Cam 2) (inferred; 0x11EEA8: FFF88D72 x 625 &gt;&gt; 19; measured OCV current of intake cam 2 (0x15F158, read); amps inferred)" target="1">
+    <ecuparam id="J43" name="Intake OCV Current (Cam 2)" desc="Intake OCV Current (Cam 2)" target="1">
      <ecu id="A529A02007">
       <address>0xF8A602</address>
      </ecu>
@@ -5776,7 +5776,7 @@
       <conversion units="A" expr="x*0.032" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J44" name="Exhaust OCV Current (Cam 1)" desc="Exhaust OCV Current (Cam 1) (inferred; 0x11EB18: FFF88D84 x 625 &gt;&gt; 19; measured OCV current of exhaust cam 1 (0x163394, read); amps inferred)" target="1">
+    <ecuparam id="J44" name="Exhaust OCV Current (Cam 1)" desc="Exhaust OCV Current (Cam 1)" target="1">
      <ecu id="A529A02007">
       <address>0xF8A5E7</address>
      </ecu>
@@ -5910,7 +5910,7 @@
       <conversion units="A" expr="x*0.032" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J45" name="Exhaust OCV Current (Cam 2)" desc="Exhaust OCV Current (Cam 2) (inferred; 0x11EB08: FFF88D86 x 625 &gt;&gt; 19; measured OCV current of exhaust cam 2 (0x163788, read); amps inferred)" target="1">
+    <ecuparam id="J45" name="Exhaust OCV Current (Cam 2)" desc="Exhaust OCV Current (Cam 2)" target="1">
      <ecu id="A529A02007">
       <address>0xF8A5E6</address>
      </ecu>
@@ -6044,7 +6044,7 @@
       <conversion units="A" expr="x*0.032" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="J46" name="Brake Booster Pressure" desc="Brake Booster Pressure (inferred; 0x11EEE8: FFF88D10 &gt;&gt; 8; FFF88D10 = filtered analog pressure input in kPa x 256, compared with barometric pressure FFF88668 (0x06CF60, read); the brake-booster vacuum model uses baro minus this (identity inferred))" target="1">
+    <ecuparam id="J46" name="Brake Booster Pressure" desc="Brake Booster Pressure" target="1">
      <ecu id="A529A02007">
       <address>0xF8A606</address>
      </ecu>
@@ -6179,7 +6179,7 @@
       <conversion units="kPa" expr="x" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L01" name="Target Torque" desc="Target Torque (read; FFF8AECA: target torque after the max-torque caps and shaping (0x0BD404 via 0x0BA868); axis of Target Boost and Wastegate Duty Initial/Maximum. Nm = x/80 - 200 (0x116A0C float constants). Read straight from RAM: no logging patch needed with SUBUDS.) Ascent: Target Torque (read; Ascent: FFF8C762 on LT8H300D (2021), found from the 2021 WRX code (read). The same quantity.)" target="1">
+    <ecuparam id="L01" name="Target Torque" desc="Target Torque Ascent: Target Torque" target="1">
      <ecu id="A529A02007">
       <address length="2">0xF8AB24</address>
      </ecu>
@@ -6314,7 +6314,7 @@
       <conversion units="Nm" expr="x/80-200" format="0.0" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L02" name="Throttle Torque Request" desc="Throttle Torque Request (read; FFF8AEDA: throttle-side torque request after the rev/boost torque limits (0x0BD62C), input of the throttle model 0x0C3E34 (AF98 = AF62 + AEDA - 16000). Read straight from RAM: no logging patch needed with SUBUDS.) Ascent: Throttle Torque Request (read; Ascent: FFF8C772 on LT8H300D (2021), found from the 2021 WRX code (read). The same quantity.)" target="1">
+    <ecuparam id="L02" name="Throttle Torque Request" desc="Throttle Torque Request Ascent: Throttle Torque Request" target="1">
      <ecu id="A529A02007">
       <address length="2">0xF8AB34</address>
      </ecu>
@@ -6449,7 +6449,7 @@
       <conversion units="Nm" expr="x/80-200" format="0.0" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L03" name="Base Timing" desc="Base Timing (read; FFF8A645 (s8, MOV.B): selected Base Timing table, rate-limited, plus two corrections (0x0C2C08); 0.5 degree units. Feeds A76A -&gt; A76D -&gt; A74B -&gt; fired timing FFF8A744. Read straight from RAM: no logging patch needed with SUBUDS.) Ascent: Base Timing (read; Ascent: FFF8BD78 on LT8H300D (2021), found from the 2021 WRX code (read). The same quantity.)" target="1">
+    <ecuparam id="L03" name="Base Timing" desc="Base Timing Ascent: Base Timing" target="1">
      <ecu id="A529A02007">
       <address>0xF8A304</address>
      </ecu>
@@ -6583,7 +6583,7 @@
       <conversion units="degrees" expr="((x+128)%256-128)/2" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L04" name="Feedback Knock Correction" desc="Feedback Knock Correction (read; FFF8A79A (s8 &lt;= 0): FBKC integrator (0x0E2BE4); 0x0D9E40 adds x*180&gt;&gt;8 to the 0.5 degree timing sum, so one count = 0.3516 degree. Read straight from RAM: no logging patch needed with SUBUDS.) Ascent: Feedback Knock Correction (read; Ascent: FFF8BF03 on LT8H300D (2021), found from the 2021 WRX code (read). The same quantity.)" target="1">
+    <ecuparam id="L04" name="Feedback Knock Correction" desc="Feedback Knock Correction Ascent: Feedback Knock Correction" target="1">
      <ecu id="A529A02007">
       <address>0xF8A44E</address>
      </ecu>
@@ -6717,7 +6717,7 @@
       <conversion units="degrees" expr="((x+128)%256-128)*0.3515625" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L05" name="Fine Learning Knock Correction" desc="Fine Learning Knock Correction (read; FFF8A7A7 (s8): applied FLKC cell value (0x0E73CC), same 0.3516 degree count as FBKC (0x0D9088: x 0x5A / 128). Index 0x199 (J23) carries a coarser copy (x*45&gt;&gt;6 + 90). Read straight from RAM: no logging patch needed with SUBUDS.) Ascent: Fine Learning Knock Correction (read; Ascent: FFF8BF19 on LT8H300D (2021), found from the 2021 WRX code (read). The same quantity.)" target="1">
+    <ecuparam id="L05" name="Fine Learning Knock Correction" desc="Fine Learning Knock Correction Ascent: Fine Learning Knock Correction" target="1">
      <ecu id="A529A02007">
       <address>0xF8A45B</address>
      </ecu>
@@ -6851,7 +6851,7 @@
       <conversion units="degrees" expr="((x+128)%256-128)*0.3515625" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L06" name="Knock Correction Advance" desc="Knock Correction Advance (read; FFF8A791 (u8, MOVU.B): KCA = KCA max x DAM curve (0x0E1FD8); same count as FBKC (0x0DB3D4 x 180 &gt;&gt; 8). Read straight from RAM: no logging patch needed with SUBUDS.) Ascent: Knock Correction Advance (read; Ascent: FFF8BEF6 on LT8H300D (2021), found from the 2021 WRX code (read). The same quantity.)" target="1">
+    <ecuparam id="L06" name="Knock Correction Advance" desc="Knock Correction Advance Ascent: Knock Correction Advance" target="1">
      <ecu id="A529A02007">
       <address>0xF8A445</address>
      </ecu>
@@ -6985,7 +6985,7 @@
       <conversion units="degrees" expr="x*0.3515625" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L07" name="Total Knock Correction" desc="Total Knock Correction (read; FFF8A77B (s8) = clamp(FBKC A79A + KCA A791 + FLKC A7A7, -128..127), 0 while FFF886AB bit 5 (0x0DFA88). Read straight from RAM: no logging patch needed with SUBUDS.) Ascent: Total Knock Correction (read; Ascent: FFF8BEDD on LT8H300D (2021), found from the 2021 WRX code (read). The same quantity.)" target="1">
+    <ecuparam id="L07" name="Total Knock Correction" desc="Total Knock Correction Ascent: Total Knock Correction" target="1">
      <ecu id="A529A02007">
       <address>0xF8A42F</address>
      </ecu>
@@ -7119,7 +7119,7 @@
       <conversion units="degrees" expr="((x+128)%256-128)*0.3515625" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L08" name="Combustion Mode" desc="Combustion Mode (read; FFF8A85C (u8): 0 -&gt; 1 -&gt; 2 -&gt; 3 -&gt; 4 after start (0x109B4C); 2 = stratified catalyst heating, 3 = second phase, 4 = normal running (roles inferred, Phase 7 / my research notes). Read straight from RAM: no logging patch needed with SUBUDS.) Ascent: Combustion Mode (read; Ascent: FFF8BFD8 on LT8H300D (2021), found from the 2021 WRX code (read). The same quantity.)" target="1">
+    <ecuparam id="L08" name="Combustion Mode" desc="Combustion Mode Ascent: Combustion Mode" target="1">
      <ecu id="A529A02007">
       <address>0xF8A510</address>
      </ecu>
@@ -7253,7 +7253,7 @@
       <conversion units="mode" expr="x" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L09" name="Fuel Rail Pressure" desc="Fuel Rail Pressure (read; FFF88884 (u16): filtered rail pressure used by the HPFP controller (0x164DB0 actual vs target) and OBD PID 0x23 (2015/2016); 1639.34 counts per MPa (injector-table axes). In 2017/2018 PID 0x23 reads a different variable; the value here is the HPFP controller input in every image. Read straight from RAM: no logging patch needed with SUBUDS.) Ascent: Fuel Rail Pressure (read; Ascent: FFF89768 on LT8H300D (2021), found from the 2021 WRX code (read). The same quantity.)" target="1">
+    <ecuparam id="L09" name="Fuel Rail Pressure" desc="Fuel Rail Pressure Ascent: Fuel Rail Pressure" target="1">
      <ecu id="A529A02007">
       <address length="2">0xF885A4</address>
      </ecu>
@@ -7388,7 +7388,7 @@
       <conversion units="MPa" expr="x/1639.34" format="0.00" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L10" name="Target Fuel Rail Pressure" desc="Target Fuel Rail Pressure (read; FFF8B9A0 (u16): HPFP target (0x165180: table byte x 150), same unit as the actual. Read straight from RAM: no logging patch needed with SUBUDS.) Ascent: Target Fuel Rail Pressure (read; Ascent: FFF8D48E on LT8H300D (2021), found from the 2021 WRX code (read). The same quantity.)" target="1">
+    <ecuparam id="L10" name="Target Fuel Rail Pressure" desc="Target Fuel Rail Pressure Ascent: Target Fuel Rail Pressure" target="1">
      <ecu id="A529A02007">
       <address length="2">0xF8B5D0</address>
      </ecu>
@@ -7523,7 +7523,7 @@
       <conversion units="MPa" expr="x/1639.34" format="0.00" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L11" name="Target Boost" desc="Target Boost (read; FFF8B3B0 (u16): compensated boost target (0x108678: Target Boost(rpm, target torque) x baro/IAT comp), boost-control unit kPa abs = (x + 3404)/256; psi shown against 101.325 kPa (project convention). Read straight from RAM: no logging patch needed with SUBUDS.) Ascent: Target Boost (read; FFF8ACC4 (u16): final boost target of the electronic-wastegate control (Target Boost (Electronic Wastegate) x the IAT and rpm/baro multipliers, capped; 0x0C8B4A). Same unit as the measured pressure: kPa abs = (x + 3404)/256 (0x232C9A). Read straight from RAM: no logging patch needed with SUBUDS.)" target="1">
+    <ecuparam id="L11" name="Target Boost" desc="Same unit as the measured pressure: kPa abs = (x + 3404)/256. Read straight from RAM: no logging patch needed with SUBUDS.)" target="1">
      <ecu id="A529A02007">
       <address length="2">0xF8AFF2</address>
      </ecu>
@@ -7658,7 +7658,7 @@
       <conversion units="kPa abs" expr="(x+3404)/256" format="0.0" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L12" name="Boost Control Pressure" desc="Boost Control Pressure (read; FFF89264 (u16): the boost controller's measured manifold pressure (0x1080E4 error = B3B0 - 89264), same unit as Target Boost. Read straight from RAM: no logging patch needed with SUBUDS.) Ascent: Boost Control Pressure (read; FFF8A14A (u16): measured manifold pressure the boost control compares with its target (0x0C90B2), from FFF8A008 = MAP - 3404 (0x232C9A). Read straight from RAM: no logging patch needed with SUBUDS.)" target="1">
+    <ecuparam id="L12" name="Boost Control Pressure" desc="Boost Control Pressure Ascent: Boost Control Pressure" target="1">
      <ecu id="A529A02007">
       <address length="2">0xF88F84</address>
      </ecu>
@@ -7793,7 +7793,7 @@
       <conversion units="kPa abs" expr="(x+3404)/256" format="0.0" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L13" name="Wastegate Duty (Full Resolution)" desc="Wastegate Duty (Full Resolution) (read; FFF8B3B8 (u16): wastegate duty to timer E channel 11 (0x1088B4), 25600 = 100 %. J10 is the same value / 100.4. Read straight from RAM: no logging patch needed with SUBUDS.)" target="1">
+    <ecuparam id="L13" name="Wastegate Duty (Full Resolution)" desc="Wastegate Duty (Full Resolution)" target="1">
      <ecu id="A529A02007">
       <address length="2">0xF8AFFA</address>
      </ecu>
@@ -7918,7 +7918,7 @@
       <conversion units="%" expr="x/256" format="0.0" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L14" name="Wastegate Duty Feedback" desc="Wastegate Duty Feedback (inferred; FFF8B3AA (s16): boost feedback P + I (0x1080E4), added to the initial duty in 0x108098 (B3A8 = min(B38C x B3B6/32768 + B3AA, B39C)); duty unit 256 per % assumed from B3B8 (inferred). Read straight from RAM: no logging patch needed with SUBUDS.)" target="1">
+    <ecuparam id="L14" name="Wastegate Duty Feedback" desc="Read straight from RAM: no logging patch needed with SUBUDS.)" target="1">
      <ecu id="A529A02007">
       <address length="2">0xF8AFEC</address>
      </ecu>
@@ -8043,7 +8043,7 @@
       <conversion units="%" expr="((x+32768)%65536-32768)/256" format="0.0" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L15" name="Closed Loop Target" desc="Closed Loop Target (read; FFF8B31E (u16): closed-loop target, equivalence ratio x 32768 (0x0FF8C8; OBD helper 0x171C88 reports 2^30/x). AFR uses stoich 14.7 (assumed). J20 is a coarse byte of the earlier stage B312. Read straight from RAM: no logging patch needed with SUBUDS.) Ascent: Closed Loop Target (read; Ascent: FFF8CC44 on LT8H300D (2021), found from the 2021 WRX code (read). The same quantity.)" target="1">
+    <ecuparam id="L15" name="Closed Loop Target" desc="Closed Loop Target Ascent: Closed Loop Target" target="1">
      <ecu id="A529A02007">
       <address length="2">0xF8AF62</address>
      </ecu>
@@ -8178,7 +8178,7 @@
       <conversion units="lambda" expr="32768/x" format="0.000" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L16" name="A/F Correction (Closed Loop)" desc="A/F Correction (Closed Loop) (read; FFF8B2F4 (s16): closed-loop correction (0x0FEC3C), factor B2EA = 32768 + B2F4 (0x0FE7F0), limited to +-11469; 32768 = 100 % (inferred from the factor form). Read straight from RAM: no logging patch needed with SUBUDS.) Ascent: A/F Correction (Closed Loop) (read; Ascent: FFF8CC10 on LT8H300D (2021), found from the 2021 WRX code (read). The same quantity.)" target="1">
+    <ecuparam id="L16" name="A/F Correction (Closed Loop)" desc="A/F Correction (Closed Loop) Ascent: A/F Correction (Closed Loop)" target="1">
      <ecu id="A529A02007">
       <address length="2">0xF8AF38</address>
      </ecu>
@@ -8312,7 +8312,7 @@
       <conversion units="%" expr="((x+32768)%65536-32768)/327.68" format="0.00" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L17" name="A/F Learning (FFF811D6)" desc="A/F Learning (FFF811D6) (inferred; FFF811D6 (s8, backup RAM): high byte of the learned value FFF8B2E0 (0x0FC400 -&gt; 0x0FC5B4); feeds the long-term trim chain 0x0FD3E4 -&gt; FFF811D9 -&gt; FFF8A689. one count = 0.39 % (the trim chain multiplies fuel by (A689+128)/256, 0x0D15EC, read; corrected 2026-10-30 from 0.78 %). Read straight from RAM: no logging patch needed with SUBUDS.) Ascent: A/F Learning (FFF811D6) (inferred; Ascent: FFF81049 on LT8H300D (2021), found from the 2021 WRX code (read). The same quantity.)" target="1">
+    <ecuparam id="L17" name="A/F Learning (Active Cell)" desc="A/F Learning (Active Cell) (likely) Ascent: A/F Learning (Active Cell)" target="1">
      <ecu id="A529A02007">
       <address>0xF81106</address>
      </ecu>
@@ -8446,7 +8446,7 @@
       <conversion units="%" expr="((x+128)%256-128)*0.390625" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L18" name="Throttle Model Air Requirement" desc="Throttle Model Air Requirement (inferred; FFF8AFA8 (u16): (AF2C - 16000)/(AF64 - 16000) x min(05A118, AF56) x 4 (0x0C37D8), 32768 = 1.0; input of Throttle Required Area 05A148 (meaning as % of full-load air inferred). Read straight from RAM: no logging patch needed with SUBUDS.) Ascent: Throttle Model Air Requirement (inferred; Ascent: FFF8C852 on LT8H300D (2021), found from the 2021 WRX code (read). The same quantity.)" target="1">
+    <ecuparam id="L18" name="Throttle Model Air Requirement" desc="Throttle Model Air Requirement Ascent: Throttle Model Air Requirement" target="1">
      <ecu id="A529A02007">
       <address length="2">0xF8AC02</address>
      </ecu>
@@ -8580,7 +8580,7 @@
       <conversion units="%" expr="x/327.68" format="0.0" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L19" name="Torque Model Throttle Opening" desc="Torque Model Throttle Opening (inferred; FFF8AF12 (u16): throttle opening from the Throttle Opening from Target Torque tables (0x0C0010), rate-limited; 65535 = 100 % (inferred from being the input of 059D2C). Read straight from RAM: no logging patch needed with SUBUDS.) Ascent: Torque Model Throttle Opening (inferred; Ascent: FFF8C7B6 on LT8H300D (2021), found from the 2021 WRX code (read). The same quantity.)" target="1">
+    <ecuparam id="L19" name="Torque Model Throttle Opening" desc="Torque Model Throttle Opening Ascent: Torque Model Throttle Opening" target="1">
      <ecu id="A529A02007">
       <address length="2">0xF8AB6C</address>
      </ecu>
@@ -8714,7 +8714,7 @@
       <conversion units="%" expr="x/655.35" format="0.0" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L20" name="Throttle Required Area" desc="Throttle Required Area (read; FFF8AFB4 (u16): Throttle Required Area 05A148(rpm, AFA8) (0x0C4D84), input of Throttle Opening 05A0BC in 0x0C326C; 21468 = wide open (physical unit not determined). Read straight from RAM: no logging patch needed with SUBUDS.) Ascent: Throttle Required Area (read; Ascent: FFF8C85E on LT8H300D (2021), found from the 2021 WRX code (read). The same quantity.)" target="1">
+    <ecuparam id="L20" name="Throttle Required Area" desc="Throttle Required Area Ascent: Throttle Required Area" target="1">
      <ecu id="A529A02007">
       <address length="2">0xF8AC0E</address>
      </ecu>
@@ -8848,7 +8848,7 @@
       <conversion units="raw area" expr="x" format="0" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L21" name="ETC Target" desc="ETC Target (read; FFF8AFBA (u16): ETC target after start add, idle floor and fault caps (0x0C4E5C); % = (x - 10)/460.09. Read straight from RAM: no logging patch needed with SUBUDS.) Ascent: ETC Target (read; Ascent: FFF8C864 on LT8H300D (2021), found from the 2021 WRX code (read). The same quantity.)" target="1">
+    <ecuparam id="L21" name="ETC Target" desc="ETC Target Ascent: ETC Target" target="1">
      <ecu id="A529A02007">
       <address length="2">0xF8AC14</address>
      </ecu>
@@ -8982,7 +8982,7 @@
       <conversion units="%" expr="(x-10)/460.09" format="0.0" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L22" name="Intake Cam Target" desc="Intake Cam Target (inferred; FFF8B94A (s16): final intake AVCS target of 0x15C250 (clamped +-90 degrees, 364.09 counts per degree), read by 0x15C880. Units read; crank/cam degrees and sign convention not verified (inferred). Read straight from RAM: no logging patch needed with SUBUDS.) Ascent: Intake Cam Target (inferred; Ascent: FFF8D436 on LT8H300D (2021), found from the 2021 WRX code (read). The same quantity.)" target="1">
+    <ecuparam id="L22" name="Intake Cam Target" desc="Intake Cam Target Ascent: Intake Cam Target" target="1">
      <ecu id="A529A02007">
       <address length="2">0xF8B57A</address>
      </ecu>
@@ -9116,7 +9116,7 @@
       <conversion units="degrees" expr="((x+32768)%65536-32768)*180/65536" format="0.0" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L23" name="Exhaust Cam Target" desc="Exhaust Cam Target (inferred; FFF8B90A (s16): final exhaust AVCS target of 0x16032C, read by 0x1608D8. Same unit and caveat as intake. Read straight from RAM: no logging patch needed with SUBUDS.) Ascent: Exhaust Cam Target (inferred; Ascent: FFF8D3E8 on LT8H300D (2021), found from the 2021 WRX code (read). The same quantity.)" target="1">
+    <ecuparam id="L23" name="Exhaust Cam Target" desc="Exhaust Cam Target Ascent: Exhaust Cam Target" target="1">
      <ecu id="A529A02007">
       <address length="2">0xF8B53A</address>
      </ecu>
@@ -9250,7 +9250,7 @@
       <conversion units="degrees" expr="((x+32768)%65536-32768)*180/65536" format="0.0" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L24" name="Injector Pulse Width (C0B0)" desc="Injector Pulse Width (C0B0) (inferred; Low word of FFF8C0B0 (u32): output of the first pulse routine 0x0D2BB8 (latency + quantity x flow comp, x 1.25 = counts of 0.8 us). Logged as the low 16 bits: wraps above 52.4 ms. First injector / first pulse (inferred from the call order). Read straight from RAM: no logging patch needed with SUBUDS.) Ascent: Injector Pulse Width (C0B0) (inferred; Ascent: FFF8DBA6 on LT8H300D (2021), found from the 2021 WRX code (read). The same quantity.)" target="1">
+    <ecuparam id="L24" name="Injector Pulse Width (C0B0)" desc="Injector Pulse Width (C0B0) Ascent: Injector Pulse Width (C0B0)" target="1">
      <ecu id="A529A02007">
       <address length="2">0xF8BBBA</address>
      </ecu>
@@ -9385,7 +9385,7 @@
       <conversion units="us" expr="x*0.8" format="0" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L25" name="Wastegate Motor Duty" desc="Wastegate Motor Duty (read; FFF8A96C (s16): wastegate motor drive (0x0C9B64); positive opens, negative closes. The output stage sets the H-bridge PWM to period x |duty| / 25600 (0x22A2EC), so 25600 = 100 %. Read straight from RAM: no logging patch needed with SUBUDS.)" target="1">
+    <ecuparam id="L25" name="Wastegate Motor Duty" desc="Wastegate Motor Duty" target="1">
      <ecu id="BB2CA07407,BB2CA07507">
       <address length="2">0xF8A7C4</address>
      </ecu>
@@ -9399,7 +9399,7 @@
       <conversion units="%" expr="((x+32768)%65536-32768)/256" format="0.0" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L26" name="Wastegate Position" desc="Wastegate Position (read; FFF8A960 (u16): wastegate position from its sensor (0x085778); 16384 = closed on the seat, larger = more open. % open taking 32768 as fully open (inferred). Read straight from RAM: no logging patch needed with SUBUDS.)" target="1">
+    <ecuparam id="L26" name="Wastegate Position" desc="Wastegate Position" target="1">
      <ecu id="BB2CA07407,BB2CA07507">
       <address length="2">0xF8A7B8</address>
      </ecu>
@@ -9414,7 +9414,7 @@
       <conversion units="raw" expr="x" format="0" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L27" name="Wastegate Position Command" desc="Wastegate Position Command (read; FFF8AC98 (u16): the position the wastegate motor loop follows (0x0C9520), same unit as Wastegate Position. Read straight from RAM: no logging patch needed with SUBUDS.)" target="1">
+    <ecuparam id="L27" name="Wastegate Position Command" desc="Wastegate Position Command" target="1">
      <ecu id="BB2CA07407,BB2CA07507">
       <address length="2">0xF8AAF0</address>
      </ecu>
@@ -9429,7 +9429,7 @@
       <conversion units="raw" expr="x" format="0" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L28" name="Boost Error" desc="Boost Error (read; FFF8ACD2 (s16): boost target minus measured pressure (0x0C90B2); positive = below target. P0234 and P0299 count on it. Read straight from RAM: no logging patch needed with SUBUDS.)" target="1">
+    <ecuparam id="L28" name="Boost Error" desc="Boost Error" target="1">
      <ecu id="BB2CA07407,BB2CA07507">
       <address length="2">0xF8AB2A</address>
      </ecu>
@@ -9444,7 +9444,7 @@
       <conversion units="kPa" expr="((x+32768)%65536-32768)/256" format="0.0" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L29" name="Target Boost (Table)" desc="Target Boost (Table) (read; FFF8ACCC (u16): Target Boost (Electronic Wastegate) table output, by rpm and target torque, before the multipliers and cap (0x0C8B32). Read straight from RAM: no logging patch needed with SUBUDS.)" target="1">
+    <ecuparam id="L29" name="Target Boost (Table)" desc="Target Boost (Table)" target="1">
      <ecu id="BB2CA07407,BB2CA07507">
       <address length="2">0xF8AB24</address>
      </ecu>
@@ -9459,7 +9459,7 @@
       <conversion units="kPa abs" expr="(x+3404)/256" format="0.0" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L30" name="Wastegate Control Mode" desc="Wastegate Control Mode (read; FFF8ACB3 (u8): 0 open (low rpm), 1 feed-forward only, 2 closed loop, 3 closed, 4 engine not running (inferred), 5 fixed position, 6 sweep (0x0C8998). Read straight from RAM: no logging patch needed with SUBUDS.)" target="1">
+    <ecuparam id="L30" name="Wastegate Control Mode" desc="Wastegate Control Mode" target="1">
      <ecu id="BB2CA07407,BB2CA07507">
       <address>0xF8AB0B</address>
      </ecu>
@@ -9473,7 +9473,7 @@
       <conversion units="mode" expr="x" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L31" name="Wastegate Position Sensor Voltage" desc="Wastegate Position Sensor Voltage (read; FFF8A95E (u16): wastegate position sensor input, 65535 = 5 V (fault limits 0.46 V / 4.68 V, P2564 / P2565). Read straight from RAM: no logging patch needed with SUBUDS.)" target="1">
+    <ecuparam id="L31" name="Wastegate Position Sensor Voltage" desc="Wastegate Position Sensor Voltage" target="1">
      <ecu id="BB2CA07407,BB2CA07507">
       <address length="2">0xF8A7B6</address>
      </ecu>
@@ -9487,7 +9487,7 @@
       <conversion units="V" expr="x*5/65535" format="0.000" storagetype="uint16" />
      </conversions>
     </ecuparam>
-    <ecuparam id="L32" name="Wastegate Position Feed-Forward" desc="Wastegate Position Feed-Forward (read; FFF8ACCE (u16): feed-forward position from Wastegate Position Feed-Forward (rpm x boost target), before the boost PI (0x0C8C18). Read straight from RAM: no logging patch needed with SUBUDS.)" target="1">
+    <ecuparam id="L32" name="Wastegate Position Feed-Forward" desc="Wastegate Position Feed-Forward" target="1">
      <ecu id="BB2CA07407,BB2CA07507">
       <address length="2">0xF8AB26</address>
      </ecu>
@@ -9503,7 +9503,7 @@
      </conversions>
     </ecuparam>
     <!-- RH850 (2022+ WRX, 2023+ Ascent and Legacy / Outback XT): rh850/tools/logging/add_to_subuds.py -->
-    <ecuparam id="D10A1" name="Mass Airflow Sensor Voltage" desc="Mass Airflow Sensor Voltage: the ECU's own mode-22 value (DID 10A1), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D10A1" name="Mass Airflow Sensor Voltage" desc="Mass Airflow Sensor Voltage" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF065E4</address>
      </ecu>
@@ -9538,7 +9538,7 @@
       <conversion units="V" expr="x*0.02" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D10A6" name="Accelerator Pedal Angle" desc="Accelerator Pedal Angle: the ECU's own mode-22 value (DID 10A6), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D10A6" name="Accelerator Pedal Angle" desc="Accelerator Pedal Angle" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06437</address>
      </ecu>
@@ -9576,7 +9576,7 @@
       <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D10AC" name="Primary Boost Control (Wastegate Duty)" desc="Primary Boost Control (Wastegate Duty): the ECU's own mode-22 value (DID 10AC), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D10AC" name="Primary Boost Control (Wastegate Duty)" desc="Primary Boost Control (Wastegate Duty)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF0651F</address>
      </ecu>
@@ -9611,7 +9611,7 @@
       <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D10AE" name="Purge Duty" desc="Purge Duty: the ECU's own mode-22 value (DID 10AE), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D10AE" name="Purge Duty" desc="Purge Duty" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06515</address>
      </ecu>
@@ -9646,7 +9646,7 @@
       <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D10B2" name="Alternator Duty" desc="Alternator Duty: the ECU's own mode-22 value (DID 10B2), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D10B2" name="Alternator Duty" desc="Alternator Duty" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF0651A</address>
      </ecu>
@@ -9681,7 +9681,7 @@
       <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D10B4" name="Intake Cam Advance (Right)" desc="Intake Cam Advance (Right): the ECU's own mode-22 value (DID 10B4), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D10B4" name="Intake Cam Advance (Right)" desc="Intake Cam Advance (Right)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF065BA</address>
      </ecu>
@@ -9716,7 +9716,7 @@
       <conversion units="deg" expr="x-50" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D10B5" name="Intake Cam Advance (Left)" desc="Intake Cam Advance (Left): the ECU's own mode-22 value (DID 10B5), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D10B5" name="Intake Cam Advance (Left)" desc="Intake Cam Advance (Left)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF065B9</address>
      </ecu>
@@ -9751,7 +9751,7 @@
       <conversion units="deg" expr="x-50" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D10B6" name="Intake OCV Duty (Right)" desc="Intake OCV Duty (Right): the ECU's own mode-22 value (DID 10B6), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D10B6" name="Intake OCV Duty (Right)" desc="Intake OCV Duty (Right)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF0658A</address>
      </ecu>
@@ -9786,7 +9786,7 @@
       <conversion units="%" expr="x*0.39215962" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D10B7" name="Intake OCV Duty (Left)" desc="Intake OCV Duty (Left): the ECU's own mode-22 value (DID 10B7), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D10B7" name="Intake OCV Duty (Left)" desc="Intake OCV Duty (Left)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06589</address>
      </ecu>
@@ -9821,7 +9821,7 @@
       <conversion units="%" expr="x*0.39215962" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D10B8" name="Intake OCV Current (Right)" desc="Intake OCV Current (Right): the ECU's own mode-22 value (DID 10B8), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D10B8" name="Intake OCV Current (Right)" desc="Intake OCV Current (Right)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF0658C</address>
      </ecu>
@@ -9856,7 +9856,7 @@
       <conversion units="A" expr="x*0.03200531006" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D10B9" name="Intake OCV Current (Left)" desc="Intake OCV Current (Left): the ECU's own mode-22 value (DID 10B9), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D10B9" name="Intake OCV Current (Left)" desc="Intake OCV Current (Left)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF0658B</address>
      </ecu>
@@ -9891,7 +9891,7 @@
       <conversion units="A" expr="x*0.03200531006" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D10BE" name="Lambda (Wideband)" desc="Lambda (Wideband): the ECU's own mode-22 value (DID 10BE), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D10BE" name="Lambda (Wideband)" desc="Lambda (Wideband)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF065BB</address>
      </ecu>
@@ -9926,7 +9926,7 @@
       <conversion units="lambda" expr="x*0.0078125" format="0.000" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D10C5" name="Vehicle Speed" desc="Vehicle Speed: the ECU's own mode-22 value (DID 10C5), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D10C5" name="Vehicle Speed" desc="Vehicle Speed" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF065E8</address>
      </ecu>
@@ -9962,7 +9962,7 @@
       <conversion units="km/h" expr="x" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D10D4" name="Wastegate Position" desc="Wastegate Position: the ECU's own mode-22 value (DID 10D4), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D10D4" name="Wastegate Position" desc="Wastegate Position" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address length="2">0xFEF09980</address>
      </ecu>
@@ -10000,7 +10000,7 @@
       <conversion units="raw" expr="x" format="0.00" storagetype="uint16" endian="little" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D10E3" name="Memorised Cruise Speed" desc="Memorised Cruise Speed: the ECU's own mode-22 value (DID 10E3), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D10E3" name="Memorised Cruise Speed" desc="Memorised Cruise Speed" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06637</address>
      </ecu>
@@ -10036,7 +10036,7 @@
       <conversion units="km/h" expr="x" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D10EE" name="Exhaust OCV Duty (Right)" desc="Exhaust OCV Duty (Right): the ECU's own mode-22 value (DID 10EE), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D10EE" name="Exhaust OCV Duty (Right)" desc="Exhaust OCV Duty (Right)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06524</address>
      </ecu>
@@ -10071,7 +10071,7 @@
       <conversion units="%" expr="x*0.39215962" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D10EF" name="Exhaust OCV Duty (Left)" desc="Exhaust OCV Duty (Left): the ECU's own mode-22 value (DID 10EF), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D10EF" name="Exhaust OCV Duty (Left)" desc="Exhaust OCV Duty (Left)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06523</address>
      </ecu>
@@ -10106,7 +10106,7 @@
       <conversion units="%" expr="x*0.39215962" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D10F0" name="Exhaust OCV Current (Right)" desc="Exhaust OCV Current (Right): the ECU's own mode-22 value (DID 10F0), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D10F0" name="Exhaust OCV Current (Right)" desc="Exhaust OCV Current (Right)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06535</address>
      </ecu>
@@ -10141,7 +10141,7 @@
       <conversion units="A" expr="x*0.03200531006" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D10F1" name="Exhaust OCV Current (Left)" desc="Exhaust OCV Current (Left): the ECU's own mode-22 value (DID 10F1), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D10F1" name="Exhaust OCV Current (Left)" desc="Exhaust OCV Current (Left)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06534</address>
      </ecu>
@@ -10176,7 +10176,7 @@
       <conversion units="A" expr="x*0.03200531006" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D1113" name="Dynamic Advance Multiplier" desc="Dynamic Advance Multiplier: the ECU's own mode-22 value (DID 1113), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D1113" name="Dynamic Advance Multiplier" desc="Dynamic Advance Multiplier" target="1">
      <ecu id="F02CB17107,FD2CB07007,162CA03007,FDA4B04007,FD2CA05007,F0A4A14007,F004A14007,F0A4B14007,F02CB17007,FDA4A03007,FD04A03007,1204A07007,1204A16107,1204A03007,1204B24007,FE2CA07007,FB2CA27107,FB2CA27007,FB2CA07107,082CA04007,082CA07107,E52CA07007,E574A07007,ED2CA07207,E574A05107,ED2CA27107">
       <address>0xFEEF959B</address>
      </ecu>
@@ -10187,7 +10187,7 @@
       <conversion units="ratio" expr="x*0.0625" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D1114" name="Feedback Knock Correction" desc="Feedback Knock Correction: the ECU's own mode-22 value (DID 1114), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D1114" name="Feedback Knock Correction" desc="Feedback Knock Correction" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF0651E</address>
      </ecu>
@@ -10222,7 +10222,7 @@
       <conversion units="deg" expr="x*0.25-32" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D1121" name="Target Idle Speed" desc="Target Idle Speed: the ECU's own mode-22 value (DID 1121), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D1121" name="Target Idle Speed" desc="Target Idle Speed" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address length="2">0xFEF06586</address>
      </ecu>
@@ -10257,7 +10257,7 @@
       <conversion units="rpm" expr="x*0.25" format="0" storagetype="uint16" endian="little" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D1136" name="Battery Temperature" desc="Battery Temperature: the ECU's own mode-22 value (DID 1136), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D1136" name="Battery Temperature" desc="Battery Temperature" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF065D0</address>
      </ecu>
@@ -10293,7 +10293,7 @@
       <conversion units="degC" expr="x-40" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D1137" name="Alternator Control Mode" desc="Alternator Control Mode: the ECU's own mode-22 value (DID 1137), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D1137" name="Alternator Control Mode" desc="Alternator Control Mode" target="1">
      <ecu id="EE2CB17407,EE2CA17607,EE2CB17607,EE04A17407,EE04A17207,EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF04F7C</address>
      </ecu>
@@ -10319,7 +10319,7 @@
       <conversion units="mode (raw)" expr="x" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D11C6" name="Accelerator Pedal Pressed" desc="Accelerator Pedal Pressed: the ECU's own mode-22 value (DID 11C6), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D11C6" name="Accelerator Pedal Pressed" desc="Accelerator Pedal Pressed" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06550</address>
      </ecu>
@@ -10354,7 +10354,7 @@
       <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D11D0" name="Knock Signal" desc="Knock Signal: the ECU's own mode-22 value (DID 11D0), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D11D0" name="Knock Signal" desc="Knock Signal" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06602</address>
      </ecu>
@@ -10389,7 +10389,7 @@
       <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D122F" name="Clutch Switch" desc="Clutch Switch: the ECU's own mode-22 value (DID 122F), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D122F" name="Clutch Switch" desc="Clutch Switch" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06512</address>
      </ecu>
@@ -10424,7 +10424,7 @@
       <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D1230" name="Stop Light Switch" desc="Stop Light Switch: the ECU's own mode-22 value (DID 1230), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D1230" name="Stop Light Switch" desc="Stop Light Switch" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF064E7</address>
      </ecu>
@@ -10459,7 +10459,7 @@
       <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D1231" name="Cruise Set/Coast Switch" desc="Cruise Set/Coast Switch: the ECU's own mode-22 value (DID 1231), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D1231" name="Cruise Set/Coast Switch" desc="Cruise Set/Coast Switch" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06630</address>
      </ecu>
@@ -10494,7 +10494,7 @@
       <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D1232" name="Cruise Resume/Accelerate Switch" desc="Cruise Resume/Accelerate Switch: the ECU's own mode-22 value (DID 1232), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D1232" name="Cruise Resume/Accelerate Switch" desc="Cruise Resume/Accelerate Switch" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF0661D</address>
      </ecu>
@@ -10529,7 +10529,7 @@
       <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D1233" name="Brake Switch" desc="Brake Switch: the ECU's own mode-22 value (DID 1233), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D1233" name="Brake Switch" desc="Brake Switch" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF064E6</address>
      </ecu>
@@ -10564,7 +10564,7 @@
       <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D1234" name="Cruise Main Switch" desc="Cruise Main Switch: the ECU's own mode-22 value (DID 1234), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D1234" name="Cruise Main Switch" desc="Cruise Main Switch" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF0660B</address>
      </ecu>
@@ -10599,7 +10599,7 @@
       <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D124A" name="Cruise Cancel Switch" desc="Cruise Cancel Switch: the ECU's own mode-22 value (DID 124A), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D124A" name="Cruise Cancel Switch" desc="Cruise Cancel Switch" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF064E8</address>
      </ecu>
@@ -10634,7 +10634,7 @@
       <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D124C" name="Oil Level Switch" desc="Oil Level Switch: the ECU's own mode-22 value (DID 124C), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D124C" name="Oil Level Switch" desc="Oil Level Switch" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF0658D</address>
      </ecu>
@@ -10669,7 +10669,7 @@
       <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D128F" name="Intake Cam Target (Right)" desc="Intake Cam Target (Right): the ECU's own mode-22 value (DID 128F), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D128F" name="Intake Cam Target (Right)" desc="Intake Cam Target (Right)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF065EF</address>
      </ecu>
@@ -10704,7 +10704,7 @@
       <conversion units="deg" expr="x-50" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D1290" name="Intake Cam Target (Left)" desc="Intake Cam Target (Left): the ECU's own mode-22 value (DID 1290), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D1290" name="Intake Cam Target (Left)" desc="Intake Cam Target (Left)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF065EE</address>
      </ecu>
@@ -10739,7 +10739,7 @@
       <conversion units="deg" expr="x-50" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D1291" name="Exhaust Cam Target (Right)" desc="Exhaust Cam Target (Right): the ECU's own mode-22 value (DID 1291), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D1291" name="Exhaust Cam Target (Right)" desc="Exhaust Cam Target (Right)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06533</address>
      </ecu>
@@ -10774,7 +10774,7 @@
       <conversion units="deg" expr="x-50" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D1292" name="Exhaust Cam Target (Left)" desc="Exhaust Cam Target (Left): the ECU's own mode-22 value (DID 1292), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D1292" name="Exhaust Cam Target (Left)" desc="Exhaust Cam Target (Left)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06532</address>
      </ecu>
@@ -10809,7 +10809,7 @@
       <conversion units="deg" expr="x-50" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D1298" name="Received Idle Speed Request" desc="Received Idle Speed Request: the ECU's own mode-22 value (DID 1298), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D1298" name="Received Idle Speed Request" desc="Received Idle Speed Request" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address length="2">0xFEF0941A</address>
      </ecu>
@@ -10847,7 +10847,7 @@
       <conversion units="rpm" expr="x" format="0" storagetype="uint16" endian="little" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D129D" name="A/C Signal 2 (CAN)" desc="A/C Signal 2 (CAN): the ECU's own mode-22 value (DID 129D), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D129D" name="A/C Signal 2 (CAN)" desc="A/C Signal 2 (CAN)" target="1">
      <ecu id="EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF09FDC</address>
      </ecu>
@@ -10894,7 +10894,7 @@
       <conversion units="raw" expr="x" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D130C" name="Fine Learning Knock Correction" desc="Fine Learning Knock Correction: the ECU's own mode-22 value (DID 130C), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D130C" name="Fine Learning Knock Correction" desc="Fine Learning Knock Correction" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06598</address>
      </ecu>
@@ -10929,7 +10929,7 @@
       <conversion units="deg" expr="x*0.5-45" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D1468" name="Knock Flag Gate (Cylinder 1)" desc="Knock Flag Gate (Cylinder 1): the ECU's own mode-22 value (DID 1468), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D1468" name="Knock Flag Gate (Cylinder 1)" desc="Knock Flag Gate (Cylinder 1)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF0659B</address>
      </ecu>
@@ -10964,7 +10964,7 @@
       <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D1469" name="Knock Flag Gate (Cylinder 2)" desc="Knock Flag Gate (Cylinder 2): the ECU's own mode-22 value (DID 1469), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D1469" name="Knock Flag Gate (Cylinder 2)" desc="Knock Flag Gate (Cylinder 2)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF0659C</address>
      </ecu>
@@ -10999,7 +10999,7 @@
       <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D146A" name="Knock Flag Gate (Cylinder 3)" desc="Knock Flag Gate (Cylinder 3): the ECU's own mode-22 value (DID 146A), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D146A" name="Knock Flag Gate (Cylinder 3)" desc="Knock Flag Gate (Cylinder 3)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF0659D</address>
      </ecu>
@@ -11034,7 +11034,7 @@
       <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D146B" name="Knock Flag Gate (Cylinder 4)" desc="Knock Flag Gate (Cylinder 4): the ECU's own mode-22 value (DID 146B), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D146B" name="Knock Flag Gate (Cylinder 4)" desc="Knock Flag Gate (Cylinder 4)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF0659E</address>
      </ecu>
@@ -11069,7 +11069,7 @@
       <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D7005" name="Coolant temperature (OBD copy)" desc="Coolant temperature (OBD copy): the ECU's own mode-22 value (DID 7005), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D7005" name="Coolant temperature (OBD copy)" desc="Coolant temperature (OBD copy)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06739</address>
      </ecu>
@@ -11105,7 +11105,7 @@
       <conversion units="degC" expr="x-40" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D700C" name="Engine Speed" desc="Engine Speed: the ECU's own mode-22 value (DID 700C), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D700C" name="Engine Speed" desc="Engine Speed" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address length="2">0xFEF06714</address>
      </ecu>
@@ -11140,7 +11140,7 @@
       <conversion units="rpm" expr="x*0.25" format="0" storagetype="uint16" endian="little" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D700E" name="Ignition timing (OBD copy)" desc="Ignition timing (OBD copy): the ECU's own mode-22 value (DID 700E), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D700E" name="Ignition timing (OBD copy)" desc="Ignition timing (OBD copy)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF066DF</address>
      </ecu>
@@ -11175,7 +11175,7 @@
       <conversion units="deg BTDC" expr="x*0.5-64" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D7010" name="Airflow" desc="Airflow: the ECU's own mode-22 value (DID 7010), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D7010" name="Airflow" desc="Airflow" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address length="2">0xFEF06708</address>
      </ecu>
@@ -11210,7 +11210,7 @@
       <conversion units="g/s" expr="x*0.01" format="0.00" storagetype="uint16" endian="little" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D7011" name="Throttle Position" desc="Throttle Position: the ECU's own mode-22 value (DID 7011), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D7011" name="Throttle Position" desc="Throttle Position" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06734</address>
      </ecu>
@@ -11245,7 +11245,7 @@
       <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D7033" name="Barometric pressure (kPa)" desc="Barometric pressure (kPa): the ECU's own mode-22 value (DID 7033), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D7033" name="Barometric pressure (kPa)" desc="Barometric pressure (kPa)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF0671C</address>
      </ecu>
@@ -11281,7 +11281,7 @@
       <conversion units="kPa abs" expr="x" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D703C" name="Catalyst Temp" desc="Catalyst Temp: the ECU's own mode-22 value (DID 703C), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D703C" name="Catalyst Temp" desc="Catalyst Temp" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address length="2">0xFEF066E2</address>
      </ecu>
@@ -11317,7 +11317,7 @@
       <conversion units="degC" expr="x*0.1-40" format="0" storagetype="uint16" endian="little" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D7042" name="Battery Voltage" desc="Battery Voltage: the ECU's own mode-22 value (DID 7042), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D7042" name="Battery Voltage" desc="Battery Voltage" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address length="2">0xFEF0673A</address>
      </ecu>
@@ -11352,7 +11352,7 @@
       <conversion units="V" expr="x*0.001" format="0.00" storagetype="uint16" endian="little" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D7047" name="Throttle Position (Sensor 2)" desc="Throttle Position (Sensor 2): the ECU's own mode-22 value (DID 7047), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D7047" name="Throttle Position (Sensor 2)" desc="Throttle Position (Sensor 2)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06735</address>
      </ecu>
@@ -11387,7 +11387,7 @@
       <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D7049" name="Accelerator pedal sensor 1" desc="Accelerator pedal sensor 1: the ECU's own mode-22 value (DID 7049), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D7049" name="Accelerator pedal sensor 1" desc="Accelerator pedal sensor 1" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF066E0</address>
      </ecu>
@@ -11422,7 +11422,7 @@
       <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D704A" name="Accelerator pedal sensor 2" desc="Accelerator pedal sensor 2: the ECU's own mode-22 value (DID 704A), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D704A" name="Accelerator pedal sensor 2" desc="Accelerator pedal sensor 2" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF066E1</address>
      </ecu>
@@ -11457,7 +11457,7 @@
       <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D704C" name="Target Throttle Position" desc="Target Throttle Position: the ECU's own mode-22 value (DID 704C), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D704C" name="Target Throttle Position" desc="Target Throttle Position" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06730</address>
      </ecu>
@@ -11492,7 +11492,7 @@
       <conversion units="%" expr="x*0.39215874" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D705C" name="Oil Temp" desc="Oil Temp: the ECU's own mode-22 value (DID 705C), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D705C" name="Oil Temp" desc="Oil Temp" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06743</address>
      </ecu>
@@ -11528,7 +11528,7 @@
       <conversion units="degC" expr="x-40" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D7641" name="Knock Gate A (Cylinder 1)" desc="Knock Gate A (Cylinder 1): the ECU's own mode-22 value (DID 7641), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D7641" name="Knock Gate A (Cylinder 1)" desc="Knock Gate A (Cylinder 1)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF065A4</address>
      </ecu>
@@ -11563,7 +11563,7 @@
       <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D7642" name="Knock Gate A (Cylinder 2)" desc="Knock Gate A (Cylinder 2): the ECU's own mode-22 value (DID 7642), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D7642" name="Knock Gate A (Cylinder 2)" desc="Knock Gate A (Cylinder 2)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF065A5</address>
      </ecu>
@@ -11598,7 +11598,7 @@
       <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D7643" name="Knock Gate A (Cylinder 3)" desc="Knock Gate A (Cylinder 3): the ECU's own mode-22 value (DID 7643), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D7643" name="Knock Gate A (Cylinder 3)" desc="Knock Gate A (Cylinder 3)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF065A6</address>
      </ecu>
@@ -11633,7 +11633,7 @@
       <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D7644" name="Knock Gate A (Cylinder 4)" desc="Knock Gate A (Cylinder 4): the ECU's own mode-22 value (DID 7644), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D7644" name="Knock Gate A (Cylinder 4)" desc="Knock Gate A (Cylinder 4)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF065A7</address>
      </ecu>
@@ -11668,7 +11668,7 @@
       <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D7649" name="Knock Flag Gate (Cylinder 1, Debounced)" desc="Knock Flag Gate (Cylinder 1, Debounced): the ECU's own mode-22 value (DID 7649), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D7649" name="Knock Flag Gate (Cylinder 1, Debounced)" desc="Knock Flag Gate (Cylinder 1, Debounced)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF0659F</address>
      </ecu>
@@ -11703,7 +11703,7 @@
       <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D764A" name="Knock Flag Gate (Cylinder 2, Debounced)" desc="Knock Flag Gate (Cylinder 2, Debounced): the ECU's own mode-22 value (DID 764A), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D764A" name="Knock Flag Gate (Cylinder 2, Debounced)" desc="Knock Flag Gate (Cylinder 2, Debounced)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF065A0</address>
      </ecu>
@@ -11738,7 +11738,7 @@
       <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D764B" name="Knock Flag Gate (Cylinder 3, Debounced)" desc="Knock Flag Gate (Cylinder 3, Debounced): the ECU's own mode-22 value (DID 764B), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D764B" name="Knock Flag Gate (Cylinder 3, Debounced)" desc="Knock Flag Gate (Cylinder 3, Debounced)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF065A1</address>
      </ecu>
@@ -11773,7 +11773,7 @@
       <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D764C" name="Knock Flag Gate (Cylinder 4, Debounced)" desc="Knock Flag Gate (Cylinder 4, Debounced): the ECU's own mode-22 value (DID 764C), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D764C" name="Knock Flag Gate (Cylinder 4, Debounced)" desc="Knock Flag Gate (Cylinder 4, Debounced)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF065A2</address>
      </ecu>
@@ -11808,7 +11808,7 @@
       <conversion units="state" expr="x*0.003921568627" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D76AF" name="Manifold Pressure" desc="Manifold Pressure: the ECU's own mode-22 value (DID 76AF), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D76AF" name="Manifold Pressure" desc="Manifold Pressure" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address length="2">0xFEF09A06</address>
      </ecu>
@@ -11847,7 +11847,7 @@
       <conversion units="kPa abs" expr="x*0.0078125" format="0.00" storagetype="uint16" endian="little" />
      </conversions>
     </ecuparam>
-    <ecuparam id="D76B0" name="Target Boost" desc="Target Boost: the ECU's own mode-22 value (DID 76B0), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="D76B0" name="Target Boost" desc="Target Boost" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address length="2">0xFEF09AB0</address>
      </ecu>
@@ -11886,7 +11886,7 @@
       <conversion units="kPa abs" expr="x*0.0078125+13.3" format="0.00" storagetype="uint16" endian="little" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF404" name="Calculated Engine Load" desc="Calculated Engine Load: the ECU's own mode-22 value (DID F404), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF404" name="Calculated Engine Load" desc="Calculated Engine Load" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06712</address>
      </ecu>
@@ -11921,7 +11921,7 @@
       <conversion units="%" expr="x*100/255" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF405" name="Coolant Temperature (OBD)" desc="Coolant Temperature (OBD): the ECU's own mode-22 value (DID F405), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF405" name="Coolant Temperature (OBD)" desc="Coolant Temperature (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06739</address>
      </ecu>
@@ -11957,7 +11957,7 @@
       <conversion units="degC" expr="x-40" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF406" name="Short Term Fuel Trim (OBD)" desc="Short Term Fuel Trim (OBD): the ECU's own mode-22 value (DID F406), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF406" name="Short Term Fuel Trim (OBD)" desc="Short Term Fuel Trim (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06700</address>
      </ecu>
@@ -11992,7 +11992,7 @@
       <conversion units="%" expr="(x-128)*100/128" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF407" name="Long Term Fuel Trim (OBD)" desc="Long Term Fuel Trim (OBD): the ECU's own mode-22 value (DID F407), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF407" name="Long Term Fuel Trim (OBD)" desc="Long Term Fuel Trim (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06703</address>
      </ecu>
@@ -12027,7 +12027,7 @@
       <conversion units="%" expr="(x-128)*100/128" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF40B" name="Manifold Absolute Pressure (OBD)" desc="Manifold Absolute Pressure (OBD): the ECU's own mode-22 value (DID F40B), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF40B" name="Manifold Absolute Pressure (OBD)" desc="Manifold Absolute Pressure (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06722</address>
      </ecu>
@@ -12063,7 +12063,7 @@
       <conversion units="kPa" expr="x" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF40C" name="Engine Speed (OBD)" desc="Engine Speed (OBD): the ECU's own mode-22 value (DID F40C), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF40C" name="Engine Speed (OBD)" desc="Engine Speed (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address length="2">0xFEF06714</address>
      </ecu>
@@ -12098,7 +12098,7 @@
       <conversion units="rpm" expr="x*0.25" format="0" storagetype="uint16" endian="little" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF40D" name="Vehicle Speed (OBD)" desc="Vehicle Speed (OBD): the ECU's own mode-22 value (DID F40D), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF40D" name="Vehicle Speed (OBD)" desc="Vehicle Speed (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF0673E</address>
      </ecu>
@@ -12134,7 +12134,7 @@
       <conversion units="km/h" expr="x" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF40E" name="Timing Advance (OBD)" desc="Timing Advance (OBD): the ECU's own mode-22 value (DID F40E), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF40E" name="Timing Advance (OBD)" desc="Timing Advance (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF066DF</address>
      </ecu>
@@ -12169,7 +12169,7 @@
       <conversion units="deg" expr="x*0.5-64" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF40F" name="Intake Air Temperature (OBD)" desc="Intake Air Temperature (OBD): the ECU's own mode-22 value (DID F40F), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF40F" name="Intake Air Temperature (OBD)" desc="Intake Air Temperature (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF0672E</address>
      </ecu>
@@ -12205,7 +12205,7 @@
       <conversion units="degC" expr="x-40" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF410" name="MAF Air Flow (OBD)" desc="MAF Air Flow (OBD): the ECU's own mode-22 value (DID F410), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF410" name="MAF Air Flow (OBD)" desc="MAF Air Flow (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address length="2">0xFEF06708</address>
      </ecu>
@@ -12240,7 +12240,7 @@
       <conversion units="g/s" expr="x*0.01" format="0.00" storagetype="uint16" endian="little" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF411" name="Throttle Position (OBD)" desc="Throttle Position (OBD): the ECU's own mode-22 value (DID F411), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF411" name="Throttle Position (OBD)" desc="Throttle Position (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06734</address>
      </ecu>
@@ -12275,7 +12275,7 @@
       <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF41F" name="Run Time Since Start (OBD)" desc="Run Time Since Start (OBD): the ECU's own mode-22 value (DID F41F), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF41F" name="Run Time Since Start (OBD)" desc="Run Time Since Start (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address length="2">0xFEF066EA</address>
      </ecu>
@@ -12310,7 +12310,7 @@
       <conversion units="s" expr="x" format="0.00" storagetype="uint16" endian="little" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF423" name="Fuel Rail Pressure (OBD)" desc="Fuel Rail Pressure (OBD): the ECU's own mode-22 value (DID F423), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF423" name="Fuel Rail Pressure (OBD)" desc="Fuel Rail Pressure (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address length="2">0xFEF066EE</address>
      </ecu>
@@ -12346,7 +12346,7 @@
       <conversion units="kPa" expr="x*10" format="0.00" storagetype="uint16" endian="little" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF42C" name="Commanded EGR (OBD)" desc="Commanded EGR (OBD): the ECU's own mode-22 value (DID F42C), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF42C" name="Commanded EGR (OBD)" desc="Commanded EGR (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF066E9</address>
      </ecu>
@@ -12381,7 +12381,7 @@
       <conversion units="%" expr="x*100/255" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF42E" name="Commanded Evap Purge (OBD)" desc="Commanded Evap Purge (OBD): the ECU's own mode-22 value (DID F42E), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF42E" name="Commanded Evap Purge (OBD)" desc="Commanded Evap Purge (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF066E4</address>
      </ecu>
@@ -12416,7 +12416,7 @@
       <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF42F" name="Fuel Level (OBD)" desc="Fuel Level (OBD): the ECU's own mode-22 value (DID F42F), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF42F" name="Fuel Level (OBD)" desc="Fuel Level (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06705</address>
      </ecu>
@@ -12451,7 +12451,7 @@
       <conversion units="%" expr="x*100/255" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF433" name="Barometric Pressure (OBD)" desc="Barometric Pressure (OBD): the ECU's own mode-22 value (DID F433), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF433" name="Barometric Pressure (OBD)" desc="Barometric Pressure (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF0671C</address>
      </ecu>
@@ -12487,7 +12487,7 @@
       <conversion units="kPa" expr="x" format="0.00" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF43C" name="Catalyst Temperature B1S1 (OBD)" desc="Catalyst Temperature B1S1 (OBD): the ECU's own mode-22 value (DID F43C), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF43C" name="Catalyst Temperature B1S1 (OBD)" desc="Catalyst Temperature B1S1 (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address length="2">0xFEF066E2</address>
      </ecu>
@@ -12523,7 +12523,7 @@
       <conversion units="degC" expr="x*0.1-40" format="0" storagetype="uint16" endian="little" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF442" name="Control Module Voltage (OBD)" desc="Control Module Voltage (OBD): the ECU's own mode-22 value (DID F442), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF442" name="Control Module Voltage (OBD)" desc="Control Module Voltage (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address length="2">0xFEF0673A</address>
      </ecu>
@@ -12558,7 +12558,7 @@
       <conversion units="V" expr="x*0.001" format="0.00" storagetype="uint16" endian="little" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF443" name="Absolute Load (OBD)" desc="Absolute Load (OBD): the ECU's own mode-22 value (DID F443), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF443" name="Absolute Load (OBD)" desc="Absolute Load (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address length="2">0xFEF066DC</address>
      </ecu>
@@ -12593,7 +12593,7 @@
       <conversion units="%" expr="x*100/255" format="0.0" storagetype="uint16" endian="little" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF444" name="Commanded Equivalence Ratio (OBD)" desc="Commanded Equivalence Ratio (OBD): the ECU's own mode-22 value (DID F444), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF444" name="Commanded Equivalence Ratio (OBD)" desc="Commanded Equivalence Ratio (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address length="2">0xFEF06732</address>
      </ecu>
@@ -12628,7 +12628,7 @@
       <conversion units="lambda" expr="x/32768" format="0.000" storagetype="uint16" endian="little" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF445" name="Relative Throttle Position (OBD)" desc="Relative Throttle Position (OBD): the ECU's own mode-22 value (DID F445), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF445" name="Relative Throttle Position (OBD)" desc="Relative Throttle Position (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06729</address>
      </ecu>
@@ -12663,7 +12663,7 @@
       <conversion units="%" expr="x*100/255" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF446" name="Ambient Air Temperature (OBD)" desc="Ambient Air Temperature (OBD): the ECU's own mode-22 value (DID F446), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF446" name="Ambient Air Temperature (OBD)" desc="Ambient Air Temperature (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF0672F</address>
      </ecu>
@@ -12699,7 +12699,7 @@
       <conversion units="degC" expr="x-40" format="0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF447" name="Absolute Throttle Position B (OBD)" desc="Absolute Throttle Position B (OBD): the ECU's own mode-22 value (DID F447), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF447" name="Absolute Throttle Position B (OBD)" desc="Absolute Throttle Position B (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06735</address>
      </ecu>
@@ -12734,7 +12734,7 @@
       <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF449" name="Accelerator Pedal Position D (OBD)" desc="Accelerator Pedal Position D (OBD): the ECU's own mode-22 value (DID F449), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF449" name="Accelerator Pedal Position D (OBD)" desc="Accelerator Pedal Position D (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF066E0</address>
      </ecu>
@@ -12769,7 +12769,7 @@
       <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF44A" name="Accelerator Pedal Position E (OBD)" desc="Accelerator Pedal Position E (OBD): the ECU's own mode-22 value (DID F44A), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF44A" name="Accelerator Pedal Position E (OBD)" desc="Accelerator Pedal Position E (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF066E1</address>
      </ecu>
@@ -12804,7 +12804,7 @@
       <conversion units="%" expr="x*0.3921568627" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF44C" name="Commanded Throttle Actuator (OBD)" desc="Commanded Throttle Actuator (OBD): the ECU's own mode-22 value (DID F44C), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF44C" name="Commanded Throttle Actuator (OBD)" desc="Commanded Throttle Actuator (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06730</address>
      </ecu>
@@ -12839,7 +12839,7 @@
       <conversion units="%" expr="x*0.39215874" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF45A" name="Relative Accelerator Pedal Position (OBD)" desc="Relative Accelerator Pedal Position (OBD): the ECU's own mode-22 value (DID F45A), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF45A" name="Relative Accelerator Pedal Position (OBD)" desc="Relative Accelerator Pedal Position (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF066DE</address>
      </ecu>
@@ -12874,7 +12874,7 @@
       <conversion units="%" expr="x*100/255" format="0.0" storagetype="uint8" />
      </conversions>
     </ecuparam>
-    <ecuparam id="DF45C" name="Engine Oil Temperature (OBD)" desc="Engine Oil Temperature (OBD): the ECU's own mode-22 value (DID F45C), read from its RAM copy; 35 of 35 ECUs" target="1">
+    <ecuparam id="DF45C" name="Engine Oil Temperature (OBD)" desc="Engine Oil Temperature (OBD)" target="1">
      <ecu id="EE04A17007,EE04A15107,EE2CA15107,EEA4B14007">
       <address>0xFEF06743</address>
      </ecu>

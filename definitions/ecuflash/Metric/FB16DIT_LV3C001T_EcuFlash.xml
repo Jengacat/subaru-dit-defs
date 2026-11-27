@@ -264,11 +264,11 @@
   <table name="Coolant Temp" address="03ddea" />
  </table>
  <table name="Closed Loop Target Cold-Start Trim (TGVs Open)" address="03e2c4">
-  <table name="X Axis" address="03e284" />
+  <table name="Accumulated Air" address="03e284" />
   <table name="Coolant Temp" address="03e264" />
  </table>
  <table name="Closed Loop Target Cold-Start Trim (TGVs Closed)" address="03ec78">
-  <table name="X Axis" address="03e284" />
+  <table name="Accumulated Air" address="03e284" />
   <table name="Coolant Temp" address="03e264" />
  </table>
  <table name="Closed Loop Target (Catalyst Monitor Active)" address="05e484">
@@ -282,36 +282,36 @@
  <table name="Closed Loop Minimum Target" address="03e012" />
  <table name="Closed Loop Integral Gain (Negative Error)" address="05e130">
   <table name="Engine Load" address="05e0e4" />
-  <table name="Y Axis" address="05e0dc" />
+  <table name="Engine Speed" address="05e0dc" />
  </table>
  <table name="Closed Loop Integral Gain (Positive Error)" address="05e0f0">
   <table name="Engine Load" address="05e0d4" />
-  <table name="Y Axis" address="05e0cc" />
+  <table name="Engine Speed" address="05e0cc" />
  </table>
  <table name="Closed Loop Integral Error Shaping (Idle, Negative Error)" address="05e190">
-  <table name="Y Axis" address="05e0ac" />
+  <table name="Closed Loop Error" address="05e0ac" />
  </table>
  <table name="Closed Loop Integral Error Shaping (Idle, Positive Error)" address="05e170">
-  <table name="Y Axis" address="05e0ac" />
+  <table name="Closed Loop Error" address="05e0ac" />
  </table>
  <table name="Closed Loop Integral Error Shaping (Warm, Negative Error)" address="05e1f0">
-  <table name="Y Axis" address="05e0ac" />
+  <table name="Closed Loop Error" address="05e0ac" />
  </table>
  <table name="Closed Loop Integral Error Shaping (Cold, Negative Error)" address="05e210">
-  <table name="Y Axis" address="05e0ac" />
+  <table name="Closed Loop Error" address="05e0ac" />
  </table>
  <table name="Closed Loop Integral Error Shaping (Warm, Positive Error)" address="05e1b0">
-  <table name="Y Axis" address="05e0ac" />
+  <table name="Closed Loop Error" address="05e0ac" />
  </table>
  <table name="Closed Loop Integral Error Shaping (Cold, Positive Error)" address="05e1d0">
-  <table name="Y Axis" address="05e0ac" />
+  <table name="Closed Loop Error" address="05e0ac" />
  </table>
  <table name="Closed Loop Learning Averaging Passes" address="03d96a">
   <table name="Engine Load" address="03d95a" />
   <table name="Engine Speed" address="03d962" />
  </table>
  <table name="Closed Loop Learning Step" address="05dfa8">
-  <table name="Y Axis" address="05df98" />
+  <table name="Fuel Correction" address="05df98" />
  </table>
  <table name="LTFT Coolant Scaling (Positive)" address="05dfc7">
   <table name="Coolant Temp" address="049498" />
@@ -333,7 +333,7 @@
  </table>
  <table name="Transient Fuel Film Target" address="045734">
   <table name="Engine Speed" address="04572c" />
-  <table name="Y Axis" address="045724" />
+  <table name="Fuel Load" address="045724" />
  </table>
  <table name="Transient Fuel Film Gain RPM Multiplier" address="0456b8">
   <table name="Engine Speed" address="049568" />
@@ -354,16 +354,16 @@
   <table name="Coolant Temp" address="049498" />
  </table>
  <table name="Transient Fuel Injected-Cylinder Mask (Event Index 0)" address="045546">
-  <table name="Y Axis" address="045556" />
+  <table name="Injection Events" address="045556" />
  </table>
  <table name="Transient Fuel Injected-Cylinder Mask (Event Index 1)" address="04554a">
-  <table name="Y Axis" address="045556" />
+  <table name="Injection Events" address="045556" />
  </table>
  <table name="Transient Fuel Injected-Cylinder Mask (Event Index 2)" address="04554e">
-  <table name="Y Axis" address="045556" />
+  <table name="Injection Events" address="045556" />
  </table>
  <table name="Transient Fuel Injected-Cylinder Mask (Event Index 3)" address="045552">
-  <table name="Y Axis" address="045556" />
+  <table name="Injection Events" address="045556" />
  </table>
  <table name="Standstill Tip-In Enrichment" address="0495f2">
   <table name="Temperature" address="0493d8" />
@@ -778,8 +778,8 @@
  <table name="Catalyst Heating Coolant Maximum" address="038320" />
  <table name="Catalyst Heating Rail Pressure Minimum" address="038324" />
  <table name="Catalyst Heating Readiness Idle Stability Time" address="038278">
-  <table name="X Axis" address="038268" />
-  <table name="Y Axis" address="038258" />
+  <table name="RPM Difference" address="038268" />
+  <table name="RPM Change" address="038258" />
  </table>
  <table name="Decel Fuel Cut Delay" address="02a2f8">
   <table name="Engine Speed" address="02a2e8" />
@@ -793,96 +793,96 @@
  </table>
  <table name="Decel Fuel Cut Staging Time (Gear 1, A/C Off)" address="02d1c4">
   <table name="Cut Count" address="02d070" />
-  <table name="Y Axis" address="02d06a" />
+  <table name="RPM Band" address="02d06a" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Gear 1, A/C On)" address="02d074">
   <table name="Cut Count" address="02d070" />
-  <table name="Y Axis" address="02d06a" />
+  <table name="RPM Band" address="02d06a" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Gear 2, A/C Off)" address="02d1f4">
   <table name="Cut Count" address="02d070" />
-  <table name="Y Axis" address="02d06a" />
+  <table name="RPM Band" address="02d06a" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Gear 2, A/C On)" address="02d0a4">
   <table name="Cut Count" address="02d070" />
-  <table name="Y Axis" address="02d06a" />
+  <table name="RPM Band" address="02d06a" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Gear 3, A/C Off)" address="02d224">
   <table name="Cut Count" address="02d070" />
-  <table name="Y Axis" address="02d06a" />
+  <table name="RPM Band" address="02d06a" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Gear 3, A/C On)" address="02d0d4">
   <table name="Cut Count" address="02d070" />
-  <table name="Y Axis" address="02d06a" />
+  <table name="RPM Band" address="02d06a" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Gear 4, A/C Off)" address="02d254">
   <table name="Cut Count" address="02d070" />
-  <table name="Y Axis" address="02d06a" />
+  <table name="RPM Band" address="02d06a" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Gear 4, A/C On)" address="02d104">
   <table name="Cut Count" address="02d070" />
-  <table name="Y Axis" address="02d06a" />
+  <table name="RPM Band" address="02d06a" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Gear 5, A/C Off)" address="02d284">
   <table name="Cut Count" address="02d070" />
-  <table name="Y Axis" address="02d06a" />
+  <table name="RPM Band" address="02d06a" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Gear 5, A/C On)" address="02d134">
   <table name="Cut Count" address="02d070" />
-  <table name="Y Axis" address="02d06a" />
+  <table name="RPM Band" address="02d06a" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Gear 6, A/C Off)" address="02d2b4">
   <table name="Cut Count" address="02d070" />
-  <table name="Y Axis" address="02d06a" />
+  <table name="RPM Band" address="02d06a" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Gear 6, A/C On)" address="02d164">
   <table name="Cut Count" address="02d070" />
-  <table name="Y Axis" address="02d06a" />
+  <table name="RPM Band" address="02d06a" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Neutral)" address="02d318">
   <table name="Speed" address="02d314" />
  </table>
  <table name="Decel Fuel Cut Resume RPM Adder (A/C, Alternate)" address="029fbb">
-  <table name="Y Axis" address="029fb3" />
+  <table name="Input" address="029fb3" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C Off)" address="02d2e4">
   <table name="Cut Count" address="02d070" />
-  <table name="Y Axis" address="02d06a" />
+  <table name="RPM Band" address="02d06a" />
  </table>
  <table name="Decel Fuel Cut Staging Time (Alternate Set, A/C On)" address="02d194">
   <table name="Cut Count" address="02d070" />
-  <table name="Y Axis" address="02d06a" />
+  <table name="RPM Band" address="02d06a" />
  </table>
  <table name="Decel Fuel Cut Full-Cut Shortcut Hold" address="02ed3c">
   <table name="Engine Speed" address="02ed4c" />
  </table>
  <table name="Purge Rate Limit (Off-Idle)" address="031b4e">
-  <table name="Y Axis" address="031b2e" />
+  <table name="Purge Vapour Concentration" address="031b2e" />
  </table>
  <table name="Purge Rate Limit (Idle)" address="031b3e">
-  <table name="Y Axis" address="031b2e" />
+  <table name="Purge Vapour Concentration" address="031b2e" />
  </table>
  <table name="Purge Rate Limit (Idle, Input Bit Clear)" address="031b46">
-  <table name="Y Axis" address="031b2e" />
+  <table name="Purge Vapour Concentration" address="031b2e" />
  </table>
  <table name="Purge Rate Limit Coolant Multiplier" address="031b76">
   <table name="Coolant Temp" address="031b56" />
  </table>
  <table name="Purge Rate Limit (Fallback)" address="031c00">
   <table name="Engine Load" address="031ba8" />
-  <table name="Y Axis" address="031bb0" />
+  <table name="Engine Speed" address="031bb0" />
  </table>
  <table name="Purge Rate Ramp Step (Off-Idle)" address="031b8b">
-  <table name="Y Axis" address="031b90" />
+  <table name="Purge Vapour Concentration" address="031b90" />
  </table>
  <table name="Purge Rate Ramp Step (Idle)" address="031b87">
-  <table name="Y Axis" address="031b90" />
+  <table name="Purge Vapour Concentration" address="031b90" />
  </table>
  <table name="Purge Rate Cut Recovery Step (Off-Idle)" address="048d84">
-  <table name="Y Axis" address="048d8c" />
+  <table name="Fuel Correction" address="048d8c" />
  </table>
  <table name="Purge Rate Cut Recovery Step (Idle)" address="048d7c">
-  <table name="Y Axis" address="048d8c" />
+  <table name="Fuel Correction" address="048d8c" />
  </table>
  <table name="Purge Rate (Open-Loop Enrichment)" address="031b29">
   <table name="Engine Load" address="031b25" />
@@ -903,13 +903,13 @@
   <table name="Battery Voltage" address="048d97" />
  </table>
  <table name="Purge Learning Weight (Purge Rate)" address="031c93">
-  <table name="Y Axis" address="031c83" />
+  <table name="Purge Rate" address="031c83" />
  </table>
  <table name="Purge Learning Weight (Purge Flow)" address="031cac">
   <table name="Airflow" address="031c9c" />
  </table>
  <table name="Purge Learning Weight (Trim Deviation)" address="031c8b">
-  <table name="Y Axis" address="031c7b" />
+  <table name="Trim Deviation" address="031c7b" />
  </table>
  <table name="Purge Injector Minimum Pulse Margin" address="031c72">
   <table name="Rail Pressure" address="031c62" />
@@ -1008,7 +1008,7 @@
   <table name="FLKC Cell" address="028a7e" />
  </table>
  <table name="FLKC Advance Learning Inhibit Zones" address="0351e2">
-  <table name="Y Axis" address="035205" />
+  <table name="Knock Zone" address="035205" />
  </table>
  <table name="FLKC Range Boundary Load 1" address="02869c" />
  <table name="FLKC Range Boundary Load 2" address="02869e" />
@@ -1137,186 +1137,162 @@
  <table name="Knock Background Window Step (Event 1, Channel 2)" address="035e36">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock signal processing for event slot 1, channel 2 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock. Larger = that event less likely to count as knock. Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 1, channel 2 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock. Larger = that event less likely to count as knock. Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 1, Channel 3)" address="035eb6">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock signal processing for event slot 1, channel 3 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 1, channel 3 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 1, Channel 4)" address="035f36">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock signal processing for event slot 1, channel 4 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 1, channel 4 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 1, Channel 5)" address="035fb6">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock signal processing for event slot 1, channel 5 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 1, channel 5 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 1, Channel 6)" address="036036">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock signal processing for event slot 1, channel 6 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 1, channel 6 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 2, Channel 2)" address="036236">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock signal processing for event slot 2, channel 2 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 2, channel 2 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 2, Channel 3)" address="0362b6">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock signal processing for event slot 2, channel 3 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 2, channel 3 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 2, Channel 4)" address="036336">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock signal processing for event slot 2, channel 4 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 2, channel 4 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 2, Channel 5)" address="0363b6">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock signal processing for event slot 2, channel 5 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 2, channel 5 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 2, Channel 6)" address="036436">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock signal processing for event slot 2, channel 6 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 2, channel 6 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 3, Channel 2)" address="036636">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock signal processing for event slot 3, channel 2 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 3, channel 2 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 3, Channel 3)" address="0366b6">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock signal processing for event slot 3, channel 3 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 3, channel 3 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 3, Channel 4)" address="036736">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock signal processing for event slot 3, channel 4 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 3, channel 4 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 3, Channel 5)" address="0367b6">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock signal processing for event slot 3, channel 5 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 3, channel 5 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 3, Channel 6)" address="036836">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock signal processing for event slot 3, channel 6 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 3, channel 6 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 4, Channel 2)" address="036a36">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock signal processing for event slot 4, channel 2 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 4, channel 2 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 4, Channel 3)" address="036ab6">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock signal processing for event slot 4, channel 3 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 4, channel 3 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 4, Channel 4)" address="036b36">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock signal processing for event slot 4, channel 4 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 4, channel 4 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 4, Channel 5)" address="036bb6">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock signal processing for event slot 4, channel 5 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 4, channel 5 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 4, Channel 6)" address="036c36">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock signal processing for event slot 4, channel 6 (probably a frequency band of the knock sensor). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not read as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
+  <description>Knock signal processing for event slot 4, channel 6 (likely). For the one event where the knock window switches length, it shifts the channel's background reference so the switch does not yet known as knock: added when the window lengthens, subtracted when it shortens. Larger = more compensation in both directions (the lengthening event less likely to count as knock, the shortening event more likely). Leave alone unless recalibrating knock detection.</description>
  </table>
  <table name="Knock Background Window Step (Event 1, Channel 1)" address="035db6">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock-detection background step for event slot 1, frequency channel 1.
-
-Details: event slot FFF8CDC0 = 1 (Event 1), knock channel 1 of 8 (index 0 of FFF8CDB0), which is masked: bit 0 of cal 0x1B97C is set (0xC1 = channels 1, 7 and 8 off for every slot). 0x0E51E4 (read) then writes a fixed ratio for the channel instead of 256 x measured/reference, and the reference ref_0 (the only place this step enters, statics FFF84AB4..FFF84AD0 read only by 0x0E51E4, ram_xref) is not used; the reference copies FFF8C130.. have no reader. So editing it has no effect unless that cal bit is cleared, which would make the channel count (then this would be the background step for FFF8C180[0] when FFF8A7C2 changes; overlap flag FFF8A7D2, gain curve cal 0x26F6F). Knock signal processing 0x0E51E4 (read; called once per knock window from 0x0E43B8 with load FFF8A616, after the event chain 0x0E433C): for the event slot FFF8CDC0 (1-4, the slot of the Knock Threshold tables) each of 8 knock channels i gets a reference ref_i = 32 x step_i + g x background_i, and the channel ratio is 256 x FFF8CDB0[i] / (ref_i / 32), i.e. measured / reference with 256 = equal (0x0E51E4 tail, read). Channels with their bit set in cal 0x1B97C..0x1B97F give 0; a channel flagged in FFF8CEED (driver flag, value at its lower limit, inferred) gives 256. The ratios are sorted and the largest min(cal 0x1B988, 5) = 3 are summed into the knock intensity FFF8C1C0[slot], which 0x0E80B4/0x0E8654 compare with Knock Threshold (read). The measured channels come from the knock sensor ADC: 0x1E7868 DMA-collects 32-sample blocks, 0x1E725A runs FFT-style butterflies, 0x1E73A4 takes sqrt(re^2+im^2) of 8 selected bins (pointer tables 0x34A88/0x34AA8), and 0x1E7724 sums them over the window into FFF8D1D4[8] -&gt; FFF8CDB0[8] (read), so the 8 channels are 8 frequency bins of the knock sensor signal (inferred). background_i is the per-slot channel background FFF8C180.. (slot 1) / C190.. / C1A0.. / C1B0.. (slot 4), a lag filter of the measured channel kept by 0x0E4500 when the event is not knocking, floored at the per-channel rpm curve FFF8C0D8 (0x0E22A4) (read). step_i is this table family: it is non-zero only on the one event where the slot's window-length flag changes: +table when the flag goes 0 -&gt; 1 (window switched to the extended length) and -table when it goes 1 -&gt; 0 (back to the nominal length); on that event the reference is also floored at 32 x FFF8C0D8[i] (read). The flag is set when the extended knock window is used (0x0E20E0, read: B11A = nominal + Knock Window Length Extension only while timing FFF8A744 &lt;= Knock Window Extension Timing Threshold and the extended window ends before the event angle). The step is skipped (0) and g is changed instead when the slot's overlap flag (FFF8A7D2..D5) changes while the window is nominal: g = gain curve cal (implicit rpm axis, x/32) on 0 -&gt; 1 and min(1024 / gain, cal 0x26FAF = 64) on 1 -&gt; 0, else g = 32 (x1.0) (read). On the event after a flag change 0x0E4500 resets the background almost fully to the new measurement (filter weight 255/256 while FFF8A7BC is set, read), so the step only bridges that single event: a larger value raises that channel's reference when the window lengthens (lower intensity, less likely to count as knock on that event) and lowers it when the window shortens (read). Axes: rpm FFF8CDC2 (x 31.25 + 500, 500-4000 rpm) x load FFF8A616 (read). Confidence: inferred.</description>
+  <description>Knock-detection background step for event slot 1, frequency channel 1.</description>
  </table>
  <table name="Knock Background Window Step (Event 1, Channel 7)" address="0360b6">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock-detection background step for event slot 1, frequency channel 7.
-
-Details: event slot FFF8CDC0 = 1 (Event 1), knock channel 7 of 8 (index 6 of FFF8CDB0), which is masked: bit 6 of cal 0x1B97C is set (0xC1 = channels 1, 7 and 8 off for every slot). 0x0E51E4 (read) then writes a fixed ratio for the channel instead of 256 x measured/reference, and the reference ref_6 (the only place this step enters, statics FFF84AB4..FFF84AD0 read only by 0x0E51E4, ram_xref) is not used; the reference copies FFF8C130.. have no reader. So editing it has no effect unless that cal bit is cleared, which would make the channel count (then this would be the background step for FFF8C180[6] when FFF8A7C2 changes; overlap flag FFF8A7D2, gain curve cal 0x26F6F). Knock signal processing 0x0E51E4 (read; called once per knock window from 0x0E43B8 with load FFF8A616, after the event chain 0x0E433C): for the event slot FFF8CDC0 (1-4, the slot of the Knock Threshold tables) each of 8 knock channels i gets a reference ref_i = 32 x step_i + g x background_i, and the channel ratio is 256 x FFF8CDB0[i] / (ref_i / 32), i.e. measured / reference with 256 = equal (0x0E51E4 tail, read). Channels with their bit set in cal 0x1B97C..0x1B97F give 0; a channel flagged in FFF8CEED (driver flag, value at its lower limit, inferred) gives 256. The ratios are sorted and the largest min(cal 0x1B988, 5) = 3 are summed into the knock intensity FFF8C1C0[slot], which 0x0E80B4/0x0E8654 compare with Knock Threshold (read). The measured channels come from the knock sensor ADC: 0x1E7868 DMA-collects 32-sample blocks, 0x1E725A runs FFT-style butterflies, 0x1E73A4 takes sqrt(re^2+im^2) of 8 selected bins (pointer tables 0x34A88/0x34AA8), and 0x1E7724 sums them over the window into FFF8D1D4[8] -&gt; FFF8CDB0[8] (read), so the 8 channels are 8 frequency bins of the knock sensor signal (inferred). background_i is the per-slot channel background FFF8C180.. (slot 1) / C190.. / C1A0.. / C1B0.. (slot 4), a lag filter of the measured channel kept by 0x0E4500 when the event is not knocking, floored at the per-channel rpm curve FFF8C0D8 (0x0E22A4) (read). step_i is this table family: it is non-zero only on the one event where the slot's window-length flag changes: +table when the flag goes 0 -&gt; 1 (window switched to the extended length) and -table when it goes 1 -&gt; 0 (back to the nominal length); on that event the reference is also floored at 32 x FFF8C0D8[i] (read). The flag is set when the extended knock window is used (0x0E20E0, read: B11A = nominal + Knock Window Length Extension only while timing FFF8A744 &lt;= Knock Window Extension Timing Threshold and the extended window ends before the event angle). The step is skipped (0) and g is changed instead when the slot's overlap flag (FFF8A7D2..D5) changes while the window is nominal: g = gain curve cal (implicit rpm axis, x/32) on 0 -&gt; 1 and min(1024 / gain, cal 0x26FAF = 64) on 1 -&gt; 0, else g = 32 (x1.0) (read). On the event after a flag change 0x0E4500 resets the background almost fully to the new measurement (filter weight 255/256 while FFF8A7BC is set, read), so the step only bridges that single event: a larger value raises that channel's reference when the window lengthens (lower intensity, less likely to count as knock on that event) and lowers it when the window shortens (read). Axes: rpm FFF8CDC2 (x 31.25 + 500, 500-4000 rpm) x load FFF8A616 (read). Confidence: inferred.</description>
+  <description>Knock-detection background step for event slot 1, frequency channel 7.</description>
  </table>
  <table name="Knock Background Window Step (Event 1, Channel 8)" address="036136">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock-detection background step for event slot 1, frequency channel 8.
-
-Details: event slot FFF8CDC0 = 1 (Event 1), knock channel 8 of 8 (index 7 of FFF8CDB0), which is masked: bit 7 of cal 0x1B97C is set (0xC1 = channels 1, 7 and 8 off for every slot). 0x0E51E4 (read) then writes a fixed ratio for the channel instead of 256 x measured/reference, and the reference ref_7 (the only place this step enters, statics FFF84AB4..FFF84AD0 read only by 0x0E51E4, ram_xref) is not used; the reference copies FFF8C130.. have no reader. So editing it has no effect unless that cal bit is cleared, which would make the channel count (then this would be the background step for FFF8C180[7] when FFF8A7C2 changes; overlap flag FFF8A7D2, gain curve cal 0x26F6F). Knock signal processing 0x0E51E4 (read; called once per knock window from 0x0E43B8 with load FFF8A616, after the event chain 0x0E433C): for the event slot FFF8CDC0 (1-4, the slot of the Knock Threshold tables) each of 8 knock channels i gets a reference ref_i = 32 x step_i + g x background_i, and the channel ratio is 256 x FFF8CDB0[i] / (ref_i / 32), i.e. measured / reference with 256 = equal (0x0E51E4 tail, read). Channels with their bit set in cal 0x1B97C..0x1B97F give 0; a channel flagged in FFF8CEED (driver flag, value at its lower limit, inferred) gives 256. The ratios are sorted and the largest min(cal 0x1B988, 5) = 3 are summed into the knock intensity FFF8C1C0[slot], which 0x0E80B4/0x0E8654 compare with Knock Threshold (read). The measured channels come from the knock sensor ADC: 0x1E7868 DMA-collects 32-sample blocks, 0x1E725A runs FFT-style butterflies, 0x1E73A4 takes sqrt(re^2+im^2) of 8 selected bins (pointer tables 0x34A88/0x34AA8), and 0x1E7724 sums them over the window into FFF8D1D4[8] -&gt; FFF8CDB0[8] (read), so the 8 channels are 8 frequency bins of the knock sensor signal (inferred). background_i is the per-slot channel background FFF8C180.. (slot 1) / C190.. / C1A0.. / C1B0.. (slot 4), a lag filter of the measured channel kept by 0x0E4500 when the event is not knocking, floored at the per-channel rpm curve FFF8C0D8 (0x0E22A4) (read). step_i is this table family: it is non-zero only on the one event where the slot's window-length flag changes: +table when the flag goes 0 -&gt; 1 (window switched to the extended length) and -table when it goes 1 -&gt; 0 (back to the nominal length); on that event the reference is also floored at 32 x FFF8C0D8[i] (read). The flag is set when the extended knock window is used (0x0E20E0, read: B11A = nominal + Knock Window Length Extension only while timing FFF8A744 &lt;= Knock Window Extension Timing Threshold and the extended window ends before the event angle). The step is skipped (0) and g is changed instead when the slot's overlap flag (FFF8A7D2..D5) changes while the window is nominal: g = gain curve cal (implicit rpm axis, x/32) on 0 -&gt; 1 and min(1024 / gain, cal 0x26FAF = 64) on 1 -&gt; 0, else g = 32 (x1.0) (read). On the event after a flag change 0x0E4500 resets the background almost fully to the new measurement (filter weight 255/256 while FFF8A7BC is set, read), so the step only bridges that single event: a larger value raises that channel's reference when the window lengthens (lower intensity, less likely to count as knock on that event) and lowers it when the window shortens (read). Axes: rpm FFF8CDC2 (x 31.25 + 500, 500-4000 rpm) x load FFF8A616 (read). Confidence: inferred.</description>
+  <description>Knock-detection background step for event slot 1, frequency channel 8.</description>
  </table>
  <table name="Knock Background Window Step (Event 2, Channel 1)" address="0361b6">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock-detection background step for event slot 2, frequency channel 1.
-
-Details: event slot FFF8CDC0 = 2 (Event 2), knock channel 1 of 8 (index 0 of FFF8CDB0), which is masked: bit 0 of cal 0x1B97D is set (0xC1 = channels 1, 7 and 8 off for every slot). 0x0E51E4 (read) then writes a fixed ratio for the channel instead of 256 x measured/reference, and the reference ref_0 (the only place this step enters, statics FFF84AB4..FFF84AD0 read only by 0x0E51E4, ram_xref) is not used; the reference copies FFF8C130.. have no reader. So editing it has no effect unless that cal bit is cleared, which would make the channel count (then this would be the background step for FFF8C190[0] when FFF8A7C3 changes; overlap flag FFF8A7D3, gain curve cal 0x26F7F). Knock signal processing 0x0E51E4 (read; called once per knock window from 0x0E43B8 with load FFF8A616, after the event chain 0x0E433C): for the event slot FFF8CDC0 (1-4, the slot of the Knock Threshold tables) each of 8 knock channels i gets a reference ref_i = 32 x step_i + g x background_i, and the channel ratio is 256 x FFF8CDB0[i] / (ref_i / 32), i.e. measured / reference with 256 = equal (0x0E51E4 tail, read). Channels with their bit set in cal 0x1B97C..0x1B97F give 0; a channel flagged in FFF8CEED (driver flag, value at its lower limit, inferred) gives 256. The ratios are sorted and the largest min(cal 0x1B988, 5) = 3 are summed into the knock intensity FFF8C1C0[slot], which 0x0E80B4/0x0E8654 compare with Knock Threshold (read). The measured channels come from the knock sensor ADC: 0x1E7868 DMA-collects 32-sample blocks, 0x1E725A runs FFT-style butterflies, 0x1E73A4 takes sqrt(re^2+im^2) of 8 selected bins (pointer tables 0x34A88/0x34AA8), and 0x1E7724 sums them over the window into FFF8D1D4[8] -&gt; FFF8CDB0[8] (read), so the 8 channels are 8 frequency bins of the knock sensor signal (inferred). background_i is the per-slot channel background FFF8C180.. (slot 1) / C190.. / C1A0.. / C1B0.. (slot 4), a lag filter of the measured channel kept by 0x0E4500 when the event is not knocking, floored at the per-channel rpm curve FFF8C0D8 (0x0E22A4) (read). step_i is this table family: it is non-zero only on the one event where the slot's window-length flag changes: +table when the flag goes 0 -&gt; 1 (window switched to the extended length) and -table when it goes 1 -&gt; 0 (back to the nominal length); on that event the reference is also floored at 32 x FFF8C0D8[i] (read). The flag is set when the extended knock window is used (0x0E20E0, read: B11A = nominal + Knock Window Length Extension only while timing FFF8A744 &lt;= Knock Window Extension Timing Threshold and the extended window ends before the event angle). The step is skipped (0) and g is changed instead when the slot's overlap flag (FFF8A7D2..D5) changes while the window is nominal: g = gain curve cal (implicit rpm axis, x/32) on 0 -&gt; 1 and min(1024 / gain, cal 0x26FAF = 64) on 1 -&gt; 0, else g = 32 (x1.0) (read). On the event after a flag change 0x0E4500 resets the background almost fully to the new measurement (filter weight 255/256 while FFF8A7BC is set, read), so the step only bridges that single event: a larger value raises that channel's reference when the window lengthens (lower intensity, less likely to count as knock on that event) and lowers it when the window shortens (read). Axes: rpm FFF8CDC2 (x 31.25 + 500, 500-4000 rpm) x load FFF8A616 (read). Confidence: inferred.</description>
+  <description>Knock-detection background step for event slot 2, frequency channel 1.</description>
  </table>
  <table name="Knock Background Window Step (Event 2, Channel 7)" address="0364b6">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock-detection background step for event slot 2, frequency channel 7.
-
-Details: event slot FFF8CDC0 = 2 (Event 2), knock channel 7 of 8 (index 6 of FFF8CDB0), which is masked: bit 6 of cal 0x1B97D is set (0xC1 = channels 1, 7 and 8 off for every slot). 0x0E51E4 (read) then writes a fixed ratio for the channel instead of 256 x measured/reference, and the reference ref_6 (the only place this step enters, statics FFF84AB4..FFF84AD0 read only by 0x0E51E4, ram_xref) is not used; the reference copies FFF8C130.. have no reader. So editing it has no effect unless that cal bit is cleared, which would make the channel count (then this would be the background step for FFF8C190[6] when FFF8A7C3 changes; overlap flag FFF8A7D3, gain curve cal 0x26F7F). Knock signal processing 0x0E51E4 (read; called once per knock window from 0x0E43B8 with load FFF8A616, after the event chain 0x0E433C): for the event slot FFF8CDC0 (1-4, the slot of the Knock Threshold tables) each of 8 knock channels i gets a reference ref_i = 32 x step_i + g x background_i, and the channel ratio is 256 x FFF8CDB0[i] / (ref_i / 32), i.e. measured / reference with 256 = equal (0x0E51E4 tail, read). Channels with their bit set in cal 0x1B97C..0x1B97F give 0; a channel flagged in FFF8CEED (driver flag, value at its lower limit, inferred) gives 256. The ratios are sorted and the largest min(cal 0x1B988, 5) = 3 are summed into the knock intensity FFF8C1C0[slot], which 0x0E80B4/0x0E8654 compare with Knock Threshold (read). The measured channels come from the knock sensor ADC: 0x1E7868 DMA-collects 32-sample blocks, 0x1E725A runs FFT-style butterflies, 0x1E73A4 takes sqrt(re^2+im^2) of 8 selected bins (pointer tables 0x34A88/0x34AA8), and 0x1E7724 sums them over the window into FFF8D1D4[8] -&gt; FFF8CDB0[8] (read), so the 8 channels are 8 frequency bins of the knock sensor signal (inferred). background_i is the per-slot channel background FFF8C180.. (slot 1) / C190.. / C1A0.. / C1B0.. (slot 4), a lag filter of the measured channel kept by 0x0E4500 when the event is not knocking, floored at the per-channel rpm curve FFF8C0D8 (0x0E22A4) (read). step_i is this table family: it is non-zero only on the one event where the slot's window-length flag changes: +table when the flag goes 0 -&gt; 1 (window switched to the extended length) and -table when it goes 1 -&gt; 0 (back to the nominal length); on that event the reference is also floored at 32 x FFF8C0D8[i] (read). The flag is set when the extended knock window is used (0x0E20E0, read: B11A = nominal + Knock Window Length Extension only while timing FFF8A744 &lt;= Knock Window Extension Timing Threshold and the extended window ends before the event angle). The step is skipped (0) and g is changed instead when the slot's overlap flag (FFF8A7D2..D5) changes while the window is nominal: g = gain curve cal (implicit rpm axis, x/32) on 0 -&gt; 1 and min(1024 / gain, cal 0x26FAF = 64) on 1 -&gt; 0, else g = 32 (x1.0) (read). On the event after a flag change 0x0E4500 resets the background almost fully to the new measurement (filter weight 255/256 while FFF8A7BC is set, read), so the step only bridges that single event: a larger value raises that channel's reference when the window lengthens (lower intensity, less likely to count as knock on that event) and lowers it when the window shortens (read). Axes: rpm FFF8CDC2 (x 31.25 + 500, 500-4000 rpm) x load FFF8A616 (read). Confidence: inferred.</description>
+  <description>Knock-detection background step for event slot 2, frequency channel 7.</description>
  </table>
  <table name="Knock Background Window Step (Event 2, Channel 8)" address="036536">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock-detection background step for event slot 2, frequency channel 8.
-
-Details: event slot FFF8CDC0 = 2 (Event 2), knock channel 8 of 8 (index 7 of FFF8CDB0), which is masked: bit 7 of cal 0x1B97D is set (0xC1 = channels 1, 7 and 8 off for every slot). 0x0E51E4 (read) then writes a fixed ratio for the channel instead of 256 x measured/reference, and the reference ref_7 (the only place this step enters, statics FFF84AB4..FFF84AD0 read only by 0x0E51E4, ram_xref) is not used; the reference copies FFF8C130.. have no reader. So editing it has no effect unless that cal bit is cleared, which would make the channel count (then this would be the background step for FFF8C190[7] when FFF8A7C3 changes; overlap flag FFF8A7D3, gain curve cal 0x26F7F). Knock signal processing 0x0E51E4 (read; called once per knock window from 0x0E43B8 with load FFF8A616, after the event chain 0x0E433C): for the event slot FFF8CDC0 (1-4, the slot of the Knock Threshold tables) each of 8 knock channels i gets a reference ref_i = 32 x step_i + g x background_i, and the channel ratio is 256 x FFF8CDB0[i] / (ref_i / 32), i.e. measured / reference with 256 = equal (0x0E51E4 tail, read). Channels with their bit set in cal 0x1B97C..0x1B97F give 0; a channel flagged in FFF8CEED (driver flag, value at its lower limit, inferred) gives 256. The ratios are sorted and the largest min(cal 0x1B988, 5) = 3 are summed into the knock intensity FFF8C1C0[slot], which 0x0E80B4/0x0E8654 compare with Knock Threshold (read). The measured channels come from the knock sensor ADC: 0x1E7868 DMA-collects 32-sample blocks, 0x1E725A runs FFT-style butterflies, 0x1E73A4 takes sqrt(re^2+im^2) of 8 selected bins (pointer tables 0x34A88/0x34AA8), and 0x1E7724 sums them over the window into FFF8D1D4[8] -&gt; FFF8CDB0[8] (read), so the 8 channels are 8 frequency bins of the knock sensor signal (inferred). background_i is the per-slot channel background FFF8C180.. (slot 1) / C190.. / C1A0.. / C1B0.. (slot 4), a lag filter of the measured channel kept by 0x0E4500 when the event is not knocking, floored at the per-channel rpm curve FFF8C0D8 (0x0E22A4) (read). step_i is this table family: it is non-zero only on the one event where the slot's window-length flag changes: +table when the flag goes 0 -&gt; 1 (window switched to the extended length) and -table when it goes 1 -&gt; 0 (back to the nominal length); on that event the reference is also floored at 32 x FFF8C0D8[i] (read). The flag is set when the extended knock window is used (0x0E20E0, read: B11A = nominal + Knock Window Length Extension only while timing FFF8A744 &lt;= Knock Window Extension Timing Threshold and the extended window ends before the event angle). The step is skipped (0) and g is changed instead when the slot's overlap flag (FFF8A7D2..D5) changes while the window is nominal: g = gain curve cal (implicit rpm axis, x/32) on 0 -&gt; 1 and min(1024 / gain, cal 0x26FAF = 64) on 1 -&gt; 0, else g = 32 (x1.0) (read). On the event after a flag change 0x0E4500 resets the background almost fully to the new measurement (filter weight 255/256 while FFF8A7BC is set, read), so the step only bridges that single event: a larger value raises that channel's reference when the window lengthens (lower intensity, less likely to count as knock on that event) and lowers it when the window shortens (read). Axes: rpm FFF8CDC2 (x 31.25 + 500, 500-4000 rpm) x load FFF8A616 (read). Confidence: inferred.</description>
+  <description>Knock-detection background step for event slot 2, frequency channel 8.</description>
  </table>
  <table name="Knock Background Window Step (Event 3, Channel 1)" address="0365b6">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock-detection background step for event slot 3, frequency channel 1.
-
-Details: event slot FFF8CDC0 = 3 (Event 3), knock channel 1 of 8 (index 0 of FFF8CDB0), which is masked: bit 0 of cal 0x1B97E is set (0xC1 = channels 1, 7 and 8 off for every slot). 0x0E51E4 (read) then writes a fixed ratio for the channel instead of 256 x measured/reference, and the reference ref_0 (the only place this step enters, statics FFF84AB4..FFF84AD0 read only by 0x0E51E4, ram_xref) is not used; the reference copies FFF8C130.. have no reader. So editing it has no effect unless that cal bit is cleared, which would make the channel count (then this would be the background step for FFF8C1A0[0] when FFF8A7C4 changes; overlap flag FFF8A7D4, gain curve cal 0x26F8F). Knock signal processing 0x0E51E4 (read; called once per knock window from 0x0E43B8 with load FFF8A616, after the event chain 0x0E433C): for the event slot FFF8CDC0 (1-4, the slot of the Knock Threshold tables) each of 8 knock channels i gets a reference ref_i = 32 x step_i + g x background_i, and the channel ratio is 256 x FFF8CDB0[i] / (ref_i / 32), i.e. measured / reference with 256 = equal (0x0E51E4 tail, read). Channels with their bit set in cal 0x1B97C..0x1B97F give 0; a channel flagged in FFF8CEED (driver flag, value at its lower limit, inferred) gives 256. The ratios are sorted and the largest min(cal 0x1B988, 5) = 3 are summed into the knock intensity FFF8C1C0[slot], which 0x0E80B4/0x0E8654 compare with Knock Threshold (read). The measured channels come from the knock sensor ADC: 0x1E7868 DMA-collects 32-sample blocks, 0x1E725A runs FFT-style butterflies, 0x1E73A4 takes sqrt(re^2+im^2) of 8 selected bins (pointer tables 0x34A88/0x34AA8), and 0x1E7724 sums them over the window into FFF8D1D4[8] -&gt; FFF8CDB0[8] (read), so the 8 channels are 8 frequency bins of the knock sensor signal (inferred). background_i is the per-slot channel background FFF8C180.. (slot 1) / C190.. / C1A0.. / C1B0.. (slot 4), a lag filter of the measured channel kept by 0x0E4500 when the event is not knocking, floored at the per-channel rpm curve FFF8C0D8 (0x0E22A4) (read). step_i is this table family: it is non-zero only on the one event where the slot's window-length flag changes: +table when the flag goes 0 -&gt; 1 (window switched to the extended length) and -table when it goes 1 -&gt; 0 (back to the nominal length); on that event the reference is also floored at 32 x FFF8C0D8[i] (read). The flag is set when the extended knock window is used (0x0E20E0, read: B11A = nominal + Knock Window Length Extension only while timing FFF8A744 &lt;= Knock Window Extension Timing Threshold and the extended window ends before the event angle). The step is skipped (0) and g is changed instead when the slot's overlap flag (FFF8A7D2..D5) changes while the window is nominal: g = gain curve cal (implicit rpm axis, x/32) on 0 -&gt; 1 and min(1024 / gain, cal 0x26FAF = 64) on 1 -&gt; 0, else g = 32 (x1.0) (read). On the event after a flag change 0x0E4500 resets the background almost fully to the new measurement (filter weight 255/256 while FFF8A7BC is set, read), so the step only bridges that single event: a larger value raises that channel's reference when the window lengthens (lower intensity, less likely to count as knock on that event) and lowers it when the window shortens (read). Axes: rpm FFF8CDC2 (x 31.25 + 500, 500-4000 rpm) x load FFF8A616 (read). Confidence: inferred.</description>
+  <description>Knock-detection background step for event slot 3, frequency channel 1.</description>
  </table>
  <table name="Knock Background Window Step (Event 3, Channel 7)" address="0368b6">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock-detection background step for event slot 3, frequency channel 7.
-
-Details: event slot FFF8CDC0 = 3 (Event 3), knock channel 7 of 8 (index 6 of FFF8CDB0), which is masked: bit 6 of cal 0x1B97E is set (0xC1 = channels 1, 7 and 8 off for every slot). 0x0E51E4 (read) then writes a fixed ratio for the channel instead of 256 x measured/reference, and the reference ref_6 (the only place this step enters, statics FFF84AB4..FFF84AD0 read only by 0x0E51E4, ram_xref) is not used; the reference copies FFF8C130.. have no reader. So editing it has no effect unless that cal bit is cleared, which would make the channel count (then this would be the background step for FFF8C1A0[6] when FFF8A7C4 changes; overlap flag FFF8A7D4, gain curve cal 0x26F8F). Knock signal processing 0x0E51E4 (read; called once per knock window from 0x0E43B8 with load FFF8A616, after the event chain 0x0E433C): for the event slot FFF8CDC0 (1-4, the slot of the Knock Threshold tables) each of 8 knock channels i gets a reference ref_i = 32 x step_i + g x background_i, and the channel ratio is 256 x FFF8CDB0[i] / (ref_i / 32), i.e. measured / reference with 256 = equal (0x0E51E4 tail, read). Channels with their bit set in cal 0x1B97C..0x1B97F give 0; a channel flagged in FFF8CEED (driver flag, value at its lower limit, inferred) gives 256. The ratios are sorted and the largest min(cal 0x1B988, 5) = 3 are summed into the knock intensity FFF8C1C0[slot], which 0x0E80B4/0x0E8654 compare with Knock Threshold (read). The measured channels come from the knock sensor ADC: 0x1E7868 DMA-collects 32-sample blocks, 0x1E725A runs FFT-style butterflies, 0x1E73A4 takes sqrt(re^2+im^2) of 8 selected bins (pointer tables 0x34A88/0x34AA8), and 0x1E7724 sums them over the window into FFF8D1D4[8] -&gt; FFF8CDB0[8] (read), so the 8 channels are 8 frequency bins of the knock sensor signal (inferred). background_i is the per-slot channel background FFF8C180.. (slot 1) / C190.. / C1A0.. / C1B0.. (slot 4), a lag filter of the measured channel kept by 0x0E4500 when the event is not knocking, floored at the per-channel rpm curve FFF8C0D8 (0x0E22A4) (read). step_i is this table family: it is non-zero only on the one event where the slot's window-length flag changes: +table when the flag goes 0 -&gt; 1 (window switched to the extended length) and -table when it goes 1 -&gt; 0 (back to the nominal length); on that event the reference is also floored at 32 x FFF8C0D8[i] (read). The flag is set when the extended knock window is used (0x0E20E0, read: B11A = nominal + Knock Window Length Extension only while timing FFF8A744 &lt;= Knock Window Extension Timing Threshold and the extended window ends before the event angle). The step is skipped (0) and g is changed instead when the slot's overlap flag (FFF8A7D2..D5) changes while the window is nominal: g = gain curve cal (implicit rpm axis, x/32) on 0 -&gt; 1 and min(1024 / gain, cal 0x26FAF = 64) on 1 -&gt; 0, else g = 32 (x1.0) (read). On the event after a flag change 0x0E4500 resets the background almost fully to the new measurement (filter weight 255/256 while FFF8A7BC is set, read), so the step only bridges that single event: a larger value raises that channel's reference when the window lengthens (lower intensity, less likely to count as knock on that event) and lowers it when the window shortens (read). Axes: rpm FFF8CDC2 (x 31.25 + 500, 500-4000 rpm) x load FFF8A616 (read). Confidence: inferred.</description>
+  <description>Knock-detection background step for event slot 3, frequency channel 7.</description>
  </table>
  <table name="Knock Background Window Step (Event 3, Channel 8)" address="036936">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock-detection background step for event slot 3, frequency channel 8.
-
-Details: event slot FFF8CDC0 = 3 (Event 3), knock channel 8 of 8 (index 7 of FFF8CDB0), which is masked: bit 7 of cal 0x1B97E is set (0xC1 = channels 1, 7 and 8 off for every slot). 0x0E51E4 (read) then writes a fixed ratio for the channel instead of 256 x measured/reference, and the reference ref_7 (the only place this step enters, statics FFF84AB4..FFF84AD0 read only by 0x0E51E4, ram_xref) is not used; the reference copies FFF8C130.. have no reader. So editing it has no effect unless that cal bit is cleared, which would make the channel count (then this would be the background step for FFF8C1A0[7] when FFF8A7C4 changes; overlap flag FFF8A7D4, gain curve cal 0x26F8F). Knock signal processing 0x0E51E4 (read; called once per knock window from 0x0E43B8 with load FFF8A616, after the event chain 0x0E433C): for the event slot FFF8CDC0 (1-4, the slot of the Knock Threshold tables) each of 8 knock channels i gets a reference ref_i = 32 x step_i + g x background_i, and the channel ratio is 256 x FFF8CDB0[i] / (ref_i / 32), i.e. measured / reference with 256 = equal (0x0E51E4 tail, read). Channels with their bit set in cal 0x1B97C..0x1B97F give 0; a channel flagged in FFF8CEED (driver flag, value at its lower limit, inferred) gives 256. The ratios are sorted and the largest min(cal 0x1B988, 5) = 3 are summed into the knock intensity FFF8C1C0[slot], which 0x0E80B4/0x0E8654 compare with Knock Threshold (read). The measured channels come from the knock sensor ADC: 0x1E7868 DMA-collects 32-sample blocks, 0x1E725A runs FFT-style butterflies, 0x1E73A4 takes sqrt(re^2+im^2) of 8 selected bins (pointer tables 0x34A88/0x34AA8), and 0x1E7724 sums them over the window into FFF8D1D4[8] -&gt; FFF8CDB0[8] (read), so the 8 channels are 8 frequency bins of the knock sensor signal (inferred). background_i is the per-slot channel background FFF8C180.. (slot 1) / C190.. / C1A0.. / C1B0.. (slot 4), a lag filter of the measured channel kept by 0x0E4500 when the event is not knocking, floored at the per-channel rpm curve FFF8C0D8 (0x0E22A4) (read). step_i is this table family: it is non-zero only on the one event where the slot's window-length flag changes: +table when the flag goes 0 -&gt; 1 (window switched to the extended length) and -table when it goes 1 -&gt; 0 (back to the nominal length); on that event the reference is also floored at 32 x FFF8C0D8[i] (read). The flag is set when the extended knock window is used (0x0E20E0, read: B11A = nominal + Knock Window Length Extension only while timing FFF8A744 &lt;= Knock Window Extension Timing Threshold and the extended window ends before the event angle). The step is skipped (0) and g is changed instead when the slot's overlap flag (FFF8A7D2..D5) changes while the window is nominal: g = gain curve cal (implicit rpm axis, x/32) on 0 -&gt; 1 and min(1024 / gain, cal 0x26FAF = 64) on 1 -&gt; 0, else g = 32 (x1.0) (read). On the event after a flag change 0x0E4500 resets the background almost fully to the new measurement (filter weight 255/256 while FFF8A7BC is set, read), so the step only bridges that single event: a larger value raises that channel's reference when the window lengthens (lower intensity, less likely to count as knock on that event) and lowers it when the window shortens (read). Axes: rpm FFF8CDC2 (x 31.25 + 500, 500-4000 rpm) x load FFF8A616 (read). Confidence: inferred.</description>
+  <description>Knock-detection background step for event slot 3, frequency channel 8.</description>
  </table>
  <table name="Knock Background Window Step (Event 4, Channel 1)" address="0369b6">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock-detection background step for event slot 4, frequency channel 1.
-
-Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 1 of 8 (index 0 of FFF8CDB0), which is masked: bit 0 of cal 0x1B97F is set (0xC1 = channels 1, 7 and 8 off for every slot). 0x0E51E4 (read) then writes a fixed ratio for the channel instead of 256 x measured/reference, and the reference ref_0 (the only place this step enters, statics FFF84AB4..FFF84AD0 read only by 0x0E51E4, ram_xref) is not used; the reference copies FFF8C130.. have no reader. So editing it has no effect unless that cal bit is cleared, which would make the channel count (then this would be the background step for FFF8C1B0[0] when FFF8A7C5 changes; overlap flag FFF8A7D5, gain curve cal 0x26F9F). Knock signal processing 0x0E51E4 (read; called once per knock window from 0x0E43B8 with load FFF8A616, after the event chain 0x0E433C): for the event slot FFF8CDC0 (1-4, the slot of the Knock Threshold tables) each of 8 knock channels i gets a reference ref_i = 32 x step_i + g x background_i, and the channel ratio is 256 x FFF8CDB0[i] / (ref_i / 32), i.e. measured / reference with 256 = equal (0x0E51E4 tail, read). Channels with their bit set in cal 0x1B97C..0x1B97F give 0; a channel flagged in FFF8CEED (driver flag, value at its lower limit, inferred) gives 256. The ratios are sorted and the largest min(cal 0x1B988, 5) = 3 are summed into the knock intensity FFF8C1C0[slot], which 0x0E80B4/0x0E8654 compare with Knock Threshold (read). The measured channels come from the knock sensor ADC: 0x1E7868 DMA-collects 32-sample blocks, 0x1E725A runs FFT-style butterflies, 0x1E73A4 takes sqrt(re^2+im^2) of 8 selected bins (pointer tables 0x34A88/0x34AA8), and 0x1E7724 sums them over the window into FFF8D1D4[8] -&gt; FFF8CDB0[8] (read), so the 8 channels are 8 frequency bins of the knock sensor signal (inferred). background_i is the per-slot channel background FFF8C180.. (slot 1) / C190.. / C1A0.. / C1B0.. (slot 4), a lag filter of the measured channel kept by 0x0E4500 when the event is not knocking, floored at the per-channel rpm curve FFF8C0D8 (0x0E22A4) (read). step_i is this table family: it is non-zero only on the one event where the slot's window-length flag changes: +table when the flag goes 0 -&gt; 1 (window switched to the extended length) and -table when it goes 1 -&gt; 0 (back to the nominal length); on that event the reference is also floored at 32 x FFF8C0D8[i] (read). The flag is set when the extended knock window is used (0x0E20E0, read: B11A = nominal + Knock Window Length Extension only while timing FFF8A744 &lt;= Knock Window Extension Timing Threshold and the extended window ends before the event angle). The step is skipped (0) and g is changed instead when the slot's overlap flag (FFF8A7D2..D5) changes while the window is nominal: g = gain curve cal (implicit rpm axis, x/32) on 0 -&gt; 1 and min(1024 / gain, cal 0x26FAF = 64) on 1 -&gt; 0, else g = 32 (x1.0) (read). On the event after a flag change 0x0E4500 resets the background almost fully to the new measurement (filter weight 255/256 while FFF8A7BC is set, read), so the step only bridges that single event: a larger value raises that channel's reference when the window lengthens (lower intensity, less likely to count as knock on that event) and lowers it when the window shortens (read). Axes: rpm FFF8CDC2 (x 31.25 + 500, 500-4000 rpm) x load FFF8A616 (read). Confidence: inferred.</description>
+  <description>Knock-detection background step for event slot 4, frequency channel 1.</description>
  </table>
  <table name="Knock Background Window Step (Event 4, Channel 7)" address="036cb6">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock-detection background step for event slot 4, frequency channel 7.
-
-Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 7 of 8 (index 6 of FFF8CDB0), which is masked: bit 6 of cal 0x1B97F is set (0xC1 = channels 1, 7 and 8 off for every slot). 0x0E51E4 (read) then writes a fixed ratio for the channel instead of 256 x measured/reference, and the reference ref_6 (the only place this step enters, statics FFF84AB4..FFF84AD0 read only by 0x0E51E4, ram_xref) is not used; the reference copies FFF8C130.. have no reader. So editing it has no effect unless that cal bit is cleared, which would make the channel count (then this would be the background step for FFF8C1B0[6] when FFF8A7C5 changes; overlap flag FFF8A7D5, gain curve cal 0x26F9F). Knock signal processing 0x0E51E4 (read; called once per knock window from 0x0E43B8 with load FFF8A616, after the event chain 0x0E433C): for the event slot FFF8CDC0 (1-4, the slot of the Knock Threshold tables) each of 8 knock channels i gets a reference ref_i = 32 x step_i + g x background_i, and the channel ratio is 256 x FFF8CDB0[i] / (ref_i / 32), i.e. measured / reference with 256 = equal (0x0E51E4 tail, read). Channels with their bit set in cal 0x1B97C..0x1B97F give 0; a channel flagged in FFF8CEED (driver flag, value at its lower limit, inferred) gives 256. The ratios are sorted and the largest min(cal 0x1B988, 5) = 3 are summed into the knock intensity FFF8C1C0[slot], which 0x0E80B4/0x0E8654 compare with Knock Threshold (read). The measured channels come from the knock sensor ADC: 0x1E7868 DMA-collects 32-sample blocks, 0x1E725A runs FFT-style butterflies, 0x1E73A4 takes sqrt(re^2+im^2) of 8 selected bins (pointer tables 0x34A88/0x34AA8), and 0x1E7724 sums them over the window into FFF8D1D4[8] -&gt; FFF8CDB0[8] (read), so the 8 channels are 8 frequency bins of the knock sensor signal (inferred). background_i is the per-slot channel background FFF8C180.. (slot 1) / C190.. / C1A0.. / C1B0.. (slot 4), a lag filter of the measured channel kept by 0x0E4500 when the event is not knocking, floored at the per-channel rpm curve FFF8C0D8 (0x0E22A4) (read). step_i is this table family: it is non-zero only on the one event where the slot's window-length flag changes: +table when the flag goes 0 -&gt; 1 (window switched to the extended length) and -table when it goes 1 -&gt; 0 (back to the nominal length); on that event the reference is also floored at 32 x FFF8C0D8[i] (read). The flag is set when the extended knock window is used (0x0E20E0, read: B11A = nominal + Knock Window Length Extension only while timing FFF8A744 &lt;= Knock Window Extension Timing Threshold and the extended window ends before the event angle). The step is skipped (0) and g is changed instead when the slot's overlap flag (FFF8A7D2..D5) changes while the window is nominal: g = gain curve cal (implicit rpm axis, x/32) on 0 -&gt; 1 and min(1024 / gain, cal 0x26FAF = 64) on 1 -&gt; 0, else g = 32 (x1.0) (read). On the event after a flag change 0x0E4500 resets the background almost fully to the new measurement (filter weight 255/256 while FFF8A7BC is set, read), so the step only bridges that single event: a larger value raises that channel's reference when the window lengthens (lower intensity, less likely to count as knock on that event) and lowers it when the window shortens (read). Axes: rpm FFF8CDC2 (x 31.25 + 500, 500-4000 rpm) x load FFF8A616 (read). Confidence: inferred.</description>
+  <description>Knock-detection background step for event slot 4, frequency channel 7.</description>
  </table>
  <table name="Knock Background Window Step (Event 4, Channel 8)" address="036d36">
   <table name="Engine Load" address="035dae" />
   <table name="Engine Speed" address="035da6" />
-  <description>Knock-detection background step for event slot 4, frequency channel 8.
-
-Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF8CDB0), which is masked: bit 7 of cal 0x1B97F is set (0xC1 = channels 1, 7 and 8 off for every slot). 0x0E51E4 (read) then writes a fixed ratio for the channel instead of 256 x measured/reference, and the reference ref_7 (the only place this step enters, statics FFF84AB4..FFF84AD0 read only by 0x0E51E4, ram_xref) is not used; the reference copies FFF8C130.. have no reader. So editing it has no effect unless that cal bit is cleared, which would make the channel count (then this would be the background step for FFF8C1B0[7] when FFF8A7C5 changes; overlap flag FFF8A7D5, gain curve cal 0x26F9F). Knock signal processing 0x0E51E4 (read; called once per knock window from 0x0E43B8 with load FFF8A616, after the event chain 0x0E433C): for the event slot FFF8CDC0 (1-4, the slot of the Knock Threshold tables) each of 8 knock channels i gets a reference ref_i = 32 x step_i + g x background_i, and the channel ratio is 256 x FFF8CDB0[i] / (ref_i / 32), i.e. measured / reference with 256 = equal (0x0E51E4 tail, read). Channels with their bit set in cal 0x1B97C..0x1B97F give 0; a channel flagged in FFF8CEED (driver flag, value at its lower limit, inferred) gives 256. The ratios are sorted and the largest min(cal 0x1B988, 5) = 3 are summed into the knock intensity FFF8C1C0[slot], which 0x0E80B4/0x0E8654 compare with Knock Threshold (read). The measured channels come from the knock sensor ADC: 0x1E7868 DMA-collects 32-sample blocks, 0x1E725A runs FFT-style butterflies, 0x1E73A4 takes sqrt(re^2+im^2) of 8 selected bins (pointer tables 0x34A88/0x34AA8), and 0x1E7724 sums them over the window into FFF8D1D4[8] -&gt; FFF8CDB0[8] (read), so the 8 channels are 8 frequency bins of the knock sensor signal (inferred). background_i is the per-slot channel background FFF8C180.. (slot 1) / C190.. / C1A0.. / C1B0.. (slot 4), a lag filter of the measured channel kept by 0x0E4500 when the event is not knocking, floored at the per-channel rpm curve FFF8C0D8 (0x0E22A4) (read). step_i is this table family: it is non-zero only on the one event where the slot's window-length flag changes: +table when the flag goes 0 -&gt; 1 (window switched to the extended length) and -table when it goes 1 -&gt; 0 (back to the nominal length); on that event the reference is also floored at 32 x FFF8C0D8[i] (read). The flag is set when the extended knock window is used (0x0E20E0, read: B11A = nominal + Knock Window Length Extension only while timing FFF8A744 &lt;= Knock Window Extension Timing Threshold and the extended window ends before the event angle). The step is skipped (0) and g is changed instead when the slot's overlap flag (FFF8A7D2..D5) changes while the window is nominal: g = gain curve cal (implicit rpm axis, x/32) on 0 -&gt; 1 and min(1024 / gain, cal 0x26FAF = 64) on 1 -&gt; 0, else g = 32 (x1.0) (read). On the event after a flag change 0x0E4500 resets the background almost fully to the new measurement (filter weight 255/256 while FFF8A7BC is set, read), so the step only bridges that single event: a larger value raises that channel's reference when the window lengthens (lower intensity, less likely to count as knock on that event) and lowers it when the window shortens (read). Axes: rpm FFF8CDC2 (x 31.25 + 500, 500-4000 rpm) x load FFF8A616 (read). Confidence: inferred.</description>
+  <description>Knock-detection background step for event slot 4, frequency channel 8.</description>
  </table>
  <table name="Timing Retard High Load (1st Gear)" address="03f760">
   <table name="Engine Load" address="03f754" />
@@ -1388,97 +1364,97 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF
   <table name="Engine Speed" address="03f7a6" />
  </table>
  <table name="Surge Damping Timing Curve (Gear 1)" address="0400d1">
-  <table name="Y Axis" address="040012" />
+  <table name="Airflow Change" address="040012" />
  </table>
  <table name="Surge Damping Timing Curve (Gear 2)" address="0400e1">
-  <table name="Y Axis" address="040012" />
+  <table name="Airflow Change" address="040012" />
  </table>
  <table name="Surge Damping Timing Curve (Gear 3)" address="0400f1">
-  <table name="Y Axis" address="040012" />
+  <table name="Airflow Change" address="040012" />
  </table>
  <table name="Surge Damping Timing Curve (Gear 4)" address="040101">
-  <table name="Y Axis" address="040012" />
+  <table name="Airflow Change" address="040012" />
  </table>
  <table name="Surge Damping Timing Curve (Gear 5)" address="040111">
-  <table name="Y Axis" address="040012" />
+  <table name="Airflow Change" address="040012" />
  </table>
  <table name="Surge Damping Timing Curve (Gear 6)" address="040121">
-  <table name="Y Axis" address="040012" />
+  <table name="Airflow Change" address="040012" />
  </table>
  <table name="Surge Damping Timing Curve (AT/CVT Gear 1)" address="0400c9">
-  <table name="Y Axis" address="040012" />
+  <table name="Airflow Change" address="040012" />
  </table>
  <table name="Surge Damping Timing Curve (AT/CVT Gear 2)" address="0400d9">
-  <table name="Y Axis" address="040012" />
+  <table name="Airflow Change" address="040012" />
  </table>
  <table name="Surge Damping Timing Curve (AT/CVT Gear 3)" address="0400e9">
-  <table name="Y Axis" address="040012" />
+  <table name="Airflow Change" address="040012" />
  </table>
  <table name="Surge Damping Timing Curve (AT/CVT Gear 4)" address="0400f9">
-  <table name="Y Axis" address="040012" />
+  <table name="Airflow Change" address="040012" />
  </table>
  <table name="Surge Damping Timing Curve (AT/CVT Gear 5)" address="040109">
-  <table name="Y Axis" address="040012" />
+  <table name="Airflow Change" address="040012" />
  </table>
  <table name="Surge Damping Timing Curve (AT/CVT Gear 6)" address="040119">
-  <table name="Y Axis" address="040012" />
+  <table name="Airflow Change" address="040012" />
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 1, Below 1800 RPM)" address="040030">
-  <table name="Y Axis" address="040008" />
+  <table name="RPM Swing Count" address="040008" />
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 1, From 1800 RPM)" address="040039">
-  <table name="Y Axis" address="040008" />
+  <table name="RPM Swing Count" address="040008" />
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 2, Below 1800 RPM)" address="04004b">
-  <table name="Y Axis" address="040008" />
+  <table name="RPM Swing Count" address="040008" />
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 2, From 1800 RPM)" address="040054">
-  <table name="Y Axis" address="040008" />
+  <table name="RPM Swing Count" address="040008" />
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 3, Below 1800 RPM)" address="040066">
-  <table name="Y Axis" address="040008" />
+  <table name="RPM Swing Count" address="040008" />
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 3, From 1800 RPM)" address="04006f">
-  <table name="Y Axis" address="040008" />
+  <table name="RPM Swing Count" address="040008" />
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 4, Below 1800 RPM)" address="040081">
-  <table name="Y Axis" address="040008" />
+  <table name="RPM Swing Count" address="040008" />
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 4, From 1800 RPM)" address="04008a">
-  <table name="Y Axis" address="040008" />
+  <table name="RPM Swing Count" address="040008" />
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 5, Below 1800 RPM)" address="04009c">
-  <table name="Y Axis" address="040008" />
+  <table name="RPM Swing Count" address="040008" />
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 5, From 1800 RPM)" address="0400a5">
-  <table name="Y Axis" address="040008" />
+  <table name="RPM Swing Count" address="040008" />
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 6, Below 1800 RPM)" address="0400b7">
-  <table name="Y Axis" address="040008" />
+  <table name="RPM Swing Count" address="040008" />
  </table>
  <table name="Surge Damping Timing Phase Factor (Gear 6, From 1800 RPM)" address="0400c0">
-  <table name="Y Axis" address="040008" />
+  <table name="RPM Swing Count" address="040008" />
  </table>
  <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 1)" address="040027">
-  <table name="Y Axis" address="040008" />
+  <table name="RPM Swing Count" address="040008" />
  </table>
  <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 2)" address="040042">
-  <table name="Y Axis" address="040008" />
+  <table name="RPM Swing Count" address="040008" />
  </table>
  <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 3)" address="04005d">
-  <table name="Y Axis" address="040008" />
+  <table name="RPM Swing Count" address="040008" />
  </table>
  <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 4)" address="040078">
-  <table name="Y Axis" address="040008" />
+  <table name="RPM Swing Count" address="040008" />
  </table>
  <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 5)" address="040093">
-  <table name="Y Axis" address="040008" />
+  <table name="RPM Swing Count" address="040008" />
  </table>
  <table name="Surge Damping Timing Phase Factor (AT/CVT Gear 6)" address="0400ae">
-  <table name="Y Axis" address="040008" />
+  <table name="RPM Swing Count" address="040008" />
  </table>
  <table name="Surge Damping Timing Combustion Mode Factor" address="040129">
-  <table name="Y Axis" address="040022" />
+  <table name="Combustion Mode" address="040022" />
  </table>
  <table name="Surge Damping Timing Coolant Factor" address="04013e">
   <table name="Coolant Temp" address="049498" />
@@ -1488,10 +1464,10 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF
  </table>
  <table name="Surge Damping Throttle Flow Map" address="0401a0">
   <table name="Engine Speed" address="04018c" />
-  <table name="Y Axis" address="040178" />
+  <table name="Throttle Opening" address="040178" />
  </table>
  <table name="A/C Cut Timing Retard Step (Alternate Logic)" address="03f7b6">
-  <table name="Y Axis" address="03f79d" />
+  <table name="Input" address="03f79d" />
  </table>
  <table name="Torque Reduction Spark Retard" address="03f6e0">
   <table name="Requested Spark Torque Share" address="03f6c0" />
@@ -1539,26 +1515,26 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF
   <table name="Coolant Temp" address="049498" />
  </table>
  <table name="Closed-Pedal Timing Coolant Compensation RPM Multiplier" address="030b58">
-  <table name="Y Axis" address="049488" />
+  <table name="Engine Speed" address="049488" />
  </table>
  <table name="Post-Start Closed-Pedal Timing Advance (Coolant at Start)" address="041268">
   <table name="Coolant Temp at Start" address="040d4c" />
  </table>
  <table name="Start Spark Target Base (Mode 1)" address="0384a8">
   <table name="Coolant Temp" address="038a02" />
-  <table name="Y Axis" address="0389ea" />
+  <table name="Engine Speed" address="0389ea" />
  </table>
  <table name="Start Spark Target Base (Mode 1, AT/CVT)" address="0385a8">
   <table name="Coolant Temp" address="038a02" />
-  <table name="Y Axis" address="0389ea" />
+  <table name="Engine Speed" address="0389ea" />
  </table>
  <table name="Start Spark Target Base (Mode 1, AT/CVT, Warm-Up Fallback)" address="039152">
   <table name="Coolant Temp" address="038a02" />
-  <table name="Y Axis" address="0389ea" />
+  <table name="Engine Speed" address="0389ea" />
  </table>
  <table name="Start Spark Target Torque Adder (Mode 1)" address="0386a8">
   <table name="Coolant Temp" address="038a02" />
-  <table name="Y Axis" address="0389fa" />
+  <table name="Torque Fraction" address="0389fa" />
  </table>
  <table name="Start Spark Target Run-Time Adder (Mode 1)" address="0387a8">
   <table name="Coolant Temp" address="038a02" />
@@ -1586,11 +1562,11 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF
  </table>
  <table name="Start Spark Target Base (Mode 1, Warm-Up Fallback)" address="039052">
   <table name="Coolant Temp" address="038a02" />
-  <table name="Y Axis" address="0389ea" />
+  <table name="Engine Speed" address="0389ea" />
  </table>
  <table name="Start Spark Target Torque Adder (Mode 1, Warm-Up Fallback)" address="039252">
   <table name="Coolant Temp" address="038a02" />
-  <table name="Y Axis" address="0389fa" />
+  <table name="Torque Fraction" address="0389fa" />
  </table>
  <table name="Start Spark Target Run-Time Adder (Mode 1, Warm-Up Fallback)" address="039592">
   <table name="Coolant Temp" address="038a02" />
@@ -1870,10 +1846,10 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF
   <table name="Coolant Temp" address="02ee12" />
  </table>
  <table name="Target Torque Rise Path B Low-Speed Time" address="02f3ee">
-  <table name="Y Axis" address="02ee32" />
+  <table name="CAN Value" address="02ee32" />
  </table>
  <table name="Target Torque Rise Path B Pedal-Released Low-Speed Time" address="02f3ce">
-  <table name="Y Axis" address="02ee32" />
+  <table name="CAN Value" address="02ee32" />
  </table>
  <table name="Target Torque Rise Stage 2 Torque (Path B, Drive Mode 1, Default)" address="02f2e8">
   <table name="Engine Speed" address="02f27a" />
@@ -2074,105 +2050,105 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF
   <table name="Engine Speed" address="05936c" />
  </table>
  <table name="Throttle Opening from Target Torque (TGV Closed)" address="029ad8">
-  <table name="X Axis" address="029ac0" />
+  <table name="Target Torque" address="029ac0" />
   <table name="Engine Speed" address="029a94" />
  </table>
  <table name="Throttle Opening from Target Torque (TGV Closed, Monitor)" address="058f4c">
-  <table name="X Axis" address="058f34" />
+  <table name="Target Torque" address="058f34" />
   <table name="Engine Speed" address="058f08" />
  </table>
  <table name="Throttle Opening from Target Torque (TGV Open)" address="029674">
-  <table name="X Axis" address="02965c" />
+  <table name="Target Torque" address="02965c" />
   <table name="Engine Speed" address="029630" />
  </table>
  <table name="Throttle Opening from Target Torque (TGV Open, Monitor)" address="058ae8">
-  <table name="X Axis" address="058ad0" />
+  <table name="Target Torque" address="058ad0" />
   <table name="Engine Speed" address="058aa4" />
  </table>
  <table name="Throttle Opening from Target Torque (TGV Closed, EGR)" address="02e4fa">
-  <table name="X Axis" address="029ac0" />
+  <table name="Target Torque" address="029ac0" />
   <table name="Engine Speed" address="029a94" />
  </table>
  <table name="Throttle Opening from Target Torque (TGV Closed, EGR, Monitor)" address="05c55e">
-  <table name="X Axis" address="058f34" />
+  <table name="Target Torque" address="058f34" />
   <table name="Engine Speed" address="058f08" />
  </table>
  <table name="Throttle Opening from Target Torque (TGV Open, EGR)" address="02e91a">
-  <table name="X Axis" address="02965c" />
+  <table name="Target Torque" address="02965c" />
   <table name="Engine Speed" address="029630" />
  </table>
  <table name="Throttle Opening from Target Torque (TGV Open, EGR, Monitor)" address="05c97e">
-  <table name="X Axis" address="058ad0" />
+  <table name="Target Torque" address="058ad0" />
   <table name="Engine Speed" address="058aa4" />
  </table>
  <table name="Throttle Opening from Target Torque (Cruise, TGV Closed)" address="02d3f0">
-  <table name="X Axis" address="02d3d2" />
+  <table name="Target Torque" address="02d3d2" />
   <table name="Engine Speed" address="02d38e" />
  </table>
  <table name="Throttle Opening from Target Torque (Cruise, TGV Closed, Monitor)" address="05b454">
-  <table name="X Axis" address="05b436" />
+  <table name="Target Torque" address="05b436" />
   <table name="Engine Speed" address="05b3f2" />
  </table>
  <table name="Throttle Opening from Target Torque (Cruise, TGV Closed, EGR)" address="02d810">
-  <table name="X Axis" address="02d3ba" />
+  <table name="Target Torque" address="02d3ba" />
   <table name="Engine Speed" address="02d362" />
  </table>
  <table name="Throttle Opening from Target Torque (Cruise, TGV Closed, EGR, Monitor)" address="05b874">
-  <table name="X Axis" address="05b41e" />
+  <table name="Target Torque" address="05b41e" />
   <table name="Engine Speed" address="05b3c6" />
  </table>
  <table name="Throttle Opening from Target Torque (Cruise, TGV Open)" address="02dc30">
-  <table name="X Axis" address="02e49c" />
+  <table name="Target Torque" address="02e49c" />
   <table name="Engine Speed" address="02e470" />
  </table>
  <table name="Throttle Opening from Target Torque (Cruise, TGV Open, Monitor)" address="05bc94">
-  <table name="X Axis" address="05c500" />
+  <table name="Target Torque" address="05c500" />
   <table name="Engine Speed" address="05c4d4" />
  </table>
  <table name="Throttle Opening from Target Torque (Cruise, TGV Open, EGR)" address="02e050">
-  <table name="X Axis" address="02e4e0" />
+  <table name="Target Torque" address="02e4e0" />
   <table name="Engine Speed" address="02e4b4" />
  </table>
  <table name="Throttle Opening from Target Torque (Cruise, TGV Open, EGR, Monitor)" address="05c0b4">
-  <table name="X Axis" address="05c544" />
+  <table name="Target Torque" address="05c544" />
   <table name="Engine Speed" address="05c518" />
  </table>
  <table name="Throttle Opening (Required Area)" address="03161c">
   <table name="Required Throttle Area FFF8AFB4" address="03163c" />
  </table>
  <table name="Throttle Opening (Monitor)" address="05cf46">
-  <table name="Y Axis" address="05cf66" />
+  <table name="Throttle Area" address="05cf66" />
  </table>
  <table name="Throttle Required Area" address="0108d2">
   <table name="Throttle Request FFF8AFA8" address="03165c" />
   <table name="Engine Speed" address="010df2" />
  </table>
  <table name="Throttle Required Area (Monitor)" address="05d5b2">
-  <table name="X Axis" address="05cf86" />
+  <table name="Multiplier" address="05cf86" />
   <table name="Engine Speed" address="05da92" />
  </table>
  <table name="Throttle Area from Opening" address="0295f0">
-  <table name="Y Axis" address="029610" />
+  <table name="Throttle Opening" address="029610" />
  </table>
  <table name="Throttle Area from Opening (Monitor)" address="058a64">
-  <table name="Y Axis" address="058a84" />
+  <table name="Throttle Opening" address="058a84" />
  </table>
  <table name="Torque Fraction from Throttle Area" address="028b50">
-  <table name="X Axis" address="029000" />
+  <table name="Throttle Area" address="029000" />
   <table name="Engine Speed" address="028fd0" />
  </table>
  <table name="Torque Fraction from Throttle Area (Monitor)" address="05aee4">
-  <table name="X Axis" address="05b394" />
+  <table name="Throttle Area" address="05b394" />
   <table name="Engine Speed" address="05b364" />
  </table>
  <table name="Idle Air Request Limit (Coolant)" address="0295d0">
   <table name="Coolant Temp" address="049498" />
  </table>
  <table name="Idle Air Request to Throttle Area" address="0295b0">
-  <table name="Y Axis" address="029590" />
+  <table name="Idle Air" address="029590" />
  </table>
  <table name="Idle Air Request to Throttle Area (Monitor)" address="0593e0">
-  <table name="Y Axis" address="0593c0" />
+  <table name="Idle Air" address="0593c0" />
  </table>
  <table name="Start Throttle Opening Add (Coolant)" address="0319c4">
   <table name="Coolant Temp" address="049498" />
@@ -2206,16 +2182,16 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF
   <table name="Coolant Temp" address="049498" />
  </table>
  <table name="Throttle Air Spark Compensation Limit" address="0107e8">
-  <table name="Y Axis" address="0107d8" />
+  <table name="Ignition Timing" address="0107d8" />
  </table>
  <table name="Throttle Limit (Unused Mode)" address="01076c">
   <table name="Engine Speed" address="03197c" />
  </table>
  <table name="Throttle Command Rate Term" address="03089a">
-  <table name="Y Axis" address="0308aa" />
+  <table name="Throttle Command Change" address="0308aa" />
  </table>
  <table name="Throttle Command Term" address="03087a">
-  <table name="Y Axis" address="03088a" />
+  <table name="Throttle Opening" address="03088a" />
  </table>
  <table name="Engine Torque from Load (DAM 1.0, TGV Closed)" address="046d9e">
   <table name="Engine Load" address="046d6e" />
@@ -2273,10 +2249,10 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF
   <table name="Intake Air Temp" address="010722" />
  </table>
  <table name="Ignition Efficiency vs Retard" address="031094">
-  <table name="Y Axis" address="031084" />
+  <table name="Timing Retard" address="031084" />
  </table>
  <table name="Air Quantity for Torque" address="031716">
-  <table name="X Axis" address="0316f6" />
+  <table name="Torque" address="0316f6" />
   <table name="Engine Speed" address="031696" />
  </table>
  <table name="Air Quantity Filter Rate" address="031956">
@@ -2368,23 +2344,23 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF
  </table>
  <table name="Spark Air Compensation Limiter" address="011f5a">
   <table name="Coolant Temp" address="030f64" />
-  <table name="Y Axis" address="030f44" />
+  <table name="Multiplier" address="030f44" />
  </table>
  <table name="Spark Air Compensation Limiter (Alt)" address="030f84">
   <table name="Coolant Temp" address="030f64" />
-  <table name="Y Axis" address="030f44" />
+  <table name="Multiplier" address="030f44" />
  </table>
  <table name="Spark Air Compensation Limiter (TGV Closed)" address="011e5a">
   <table name="Coolant Temp" address="030f64" />
-  <table name="Y Axis" address="030f44" />
+  <table name="Multiplier" address="030f44" />
  </table>
  <table name="Spark Air Compensation Limiter (Alt, TGV Closed)" address="011b98">
   <table name="Coolant Temp" address="030f64" />
-  <table name="Y Axis" address="030f44" />
+  <table name="Multiplier" address="030f44" />
  </table>
  <table name="Spark Air Compensation Limiter Baro Factor" address="011b08">
   <table name="Barometric Pressure" address="011b88" />
-  <table name="Y Axis" address="011af8" />
+  <table name="Multiplier" address="011af8" />
  </table>
  <table name="Primary Ignition (TGV Closed, AVCS Active)" address="03f90e">
   <table name="Engine Load" address="03f8ee" />
@@ -2411,19 +2387,19 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF
   <table name="Engine Speed" address="03a5bc" />
  </table>
  <table name="Throttle Flow Function" address="03a49c">
-  <table name="Y Axis" address="03a45c" />
+  <table name="Pressure Ratio" address="03a45c" />
  </table>
  <table name="Throttle Flow Temperature Correction" address="03a54e">
   <table name="Temperature" address="03a53e" />
  </table>
  <table name="Throttle Flow Filter Weight" address="03a51c">
-  <table name="Y Axis" address="03a4dc" />
+  <table name="Pressure Ratio" address="03a4dc" />
  </table>
  <table name="Throttle Area from Throttle Position (Airflow Model)" address="045b08">
-  <table name="Y Axis" address="045b28" />
+  <table name="Throttle Opening" address="045b28" />
  </table>
  <table name="Throttle Flow Curve (Area per RPM, MAP Fallback Model)" address="045b48">
-  <table name="Y Axis" address="045b88" />
+  <table name="Input" address="045b88" />
  </table>
  <table name="Manifold Pressure Rate Span (RPM)" address="03ae94">
   <table name="Engine Speed" address="03ae80" />
@@ -2528,16 +2504,16 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF
   <table name="Engine Speed" address="012f6c" />
  </table>
  <table name="Exhaust Temperature Model Retard Multiplier A (No Enrichment)" address="0191cc">
-  <table name="Y Axis" address="01304e" />
+  <table name="Timing Retard" address="01304e" />
  </table>
  <table name="Exhaust Temperature Model Retard Multiplier A (Enriched)" address="0191ac">
-  <table name="Y Axis" address="01304e" />
+  <table name="Timing Retard" address="01304e" />
  </table>
  <table name="Exhaust Temperature Model Retard Multiplier B (No Enrichment)" address="01917c">
-  <table name="Y Axis" address="01304e" />
+  <table name="Timing Retard" address="01304e" />
  </table>
  <table name="Exhaust Temperature Model Retard Multiplier B (Enriched)" address="01915c">
-  <table name="Y Axis" address="01304e" />
+  <table name="Timing Retard" address="01304e" />
  </table>
  <table name="Exhaust Temperature Model Filter A (Rising)" address="01830c">
   <table name="Engine Load" address="012f60" />
@@ -2548,15 +2524,15 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF
   <table name="Engine Speed" address="012f6c" />
  </table>
  <table name="Exhaust Temperature Model Filter B (Rising)" address="018c44">
-  <table name="X Axis" address="0187a4" />
+  <table name="Multiplier" address="0187a4" />
   <table name="Airflow" address="01878c" />
  </table>
  <table name="Exhaust Temperature Model Filter B (Falling)" address="018dc4">
-  <table name="X Axis" address="0187a4" />
+  <table name="Multiplier" address="0187a4" />
   <table name="Airflow" address="01878c" />
  </table>
  <table name="Exhaust Temperature Model Fuel Cut Step" address="0187c4">
-  <table name="X Axis" address="0187a4" />
+  <table name="Multiplier" address="0187a4" />
   <table name="Airflow" address="01878c" />
  </table>
  <table name="Exhaust Temperature Model Fuel Cut Decay" address="019144">
@@ -2591,10 +2567,10 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF
   <table name="Engine Speed" address="057554" />
  </table>
  <table name="A/F Sensor Exhaust Temp Model Timing Factor" address="057c1c">
-  <table name="Y Axis" address="057444" />
+  <table name="Ignition Timing" address="057444" />
  </table>
  <table name="A/F Sensor Exhaust Temp Model Retard Factor" address="057ea0">
-  <table name="Y Axis" address="057434" />
+  <table name="Timing Retard" address="057434" />
  </table>
  <table name="A/F Sensor Exhaust Temp Model Filter" address="057e2c">
   <table name="Coolant Temp" address="057614" />
@@ -2610,29 +2586,23 @@ Details: event slot FFF8CDC0 = 4 (Event 4), knock channel 8 of 8 (index 7 of FFF
   <table name="Temperature" address="0575e4" />
  </table>
  <table name="A/F Sensor Exhaust Temp Model Hot Restart Factor (2D)" address="057f38">
-  <table name="X Axis" address="057f30" />
+  <table name="Temperature Drop" address="057f30" />
   <table name="Temperature" address="057f20" />
  </table>
  <table name="Exhaust Temperature Model Map A Enrichment Adder" address="01dd46">
   <table name="Engine Load" address="01205c" />
   <table name="Engine Speed" address="012070" />
-  <description>2017+ only: extra amount added to Exhaust Temperature Model Map A (Enriched) while open loop enrichment is active, scaled by how far the enrichment has progressed (inferred).
-
-Details: When used: while open-loop enrichment is active (FFF8ABF4 != 0). 2017+ only. The LF79002P exhaust temperature model adds a signed term in the enriched branch (read, LF79002P decompilation): value = enriched map x retard multiplier / 256 + FFF8ABEE x this(rpm FFF8D3D4, load FFF8AB76)/256. FFF8ABEE = (enrichment FFF8ABF4 - FFF8ABF5) x 256 / (FFF8ABED - FFF8ABF5), clamped 0..255 (0x0DFB18, read), where FFF8ABED comes from 0x0DFA88, the Primary Open Loop Fueling style lookup on the 24 x 20 open-loop grid (0655F8 + 065620 x 065640(DAM) - 065634 x 06560C) - i.e. how far the enrichment has come towards the open-loop target (inferred). The table uses that same 24 x 20 grid (400-9200 rpm x 0.91-2.97 g/rev (70-230 % load)). Same data address in all three images; descriptors placed from the call sites (LF79100P / LF9C100P callsite maps and decompilations, read). LF79002P 0x0D9F80 (counterpart of LF75404S 0x0C9878): added to S = Exhaust Temperature Model Map A (Enriched) 064D64 x Retard Multiplier A (Enriched) 064E78 / 256 (unless FFF8AE27 bit 4 selects the Standstill High Load map). LF9C000C: a table LF75404S does not have. Confidence: read.</description>
+  <description>2017+ only: extra amount added to Exhaust Temperature Model Map A (Enriched) while open loop enrichment is active, scaled by how far the enrichment has progressed (likely).</description>
  </table>
  <table name="Exhaust Temperature Model Map B Enrichment Adder" address="01e106">
   <table name="Engine Load" address="01205c" />
   <table name="Engine Speed" address="012070" />
-  <description>2017+ only: extra amount added to Exhaust Temperature Model Map B (Enriched) while open loop enrichment is active, scaled by how far the enrichment has progressed (inferred).
-
-Details: When used: while open-loop enrichment is active (FFF8ABF4 != 0). 2017+ only. The LF79002P exhaust temperature model adds a signed term in the enriched branch (read, LF79002P decompilation): value = enriched map x retard multiplier / 256 + FFF8ABEE x this(rpm FFF8D3D4, load FFF8AB76)/256. FFF8ABEE = (enrichment FFF8ABF4 - FFF8ABF5) x 256 / (FFF8ABED - FFF8ABF5), clamped 0..255 (0x0DFB18, read), where FFF8ABED comes from 0x0DFA88, the Primary Open Loop Fueling style lookup on the 24 x 20 open-loop grid (0655F8 + 065620 x 065640(DAM) - 065634 x 06560C) - i.e. how far the enrichment has come towards the open-loop target (inferred). The table uses that same 24 x 20 grid (400-9200 rpm x 0.91-2.97 g/rev (70-230 % load)). Same data address in all three images; descriptors placed from the call sites (LF79100P / LF9C100P callsite maps and decompilations, read). LF79002P 0x0D9F80: added to U = Exhaust Temperature Model Map B (Enriched) 064E04 x Retard Multiplier B (Enriched) 064E54 / 256 (unless FFF8AE27 bit 4 selects the Standstill High Load map). LF9C000C: a table LF75404S does not have. Confidence: read.</description>
+  <description>2017+ only: extra amount added to Exhaust Temperature Model Map B (Enriched) while open loop enrichment is active, scaled by how far the enrichment has progressed (likely).</description>
  </table>
  <table name="Exhaust Temperature Estimate 2 Enrichment Adder" address="01d986">
   <table name="Engine Load" address="01205c" />
   <table name="Engine Speed" address="012070" />
-  <description>2017+ only: extra amount added to the second exhaust temperature estimate while open loop enrichment is active, scaled by how far the enrichment has progressed (inferred).
-
-Details: When used: while open-loop enrichment is active (FFF8ABF4 != 0) and FFF8AE27 bit 4 is clear. 2017+ only. The LF79002P exhaust temperature model adds a signed term in the enriched branch (read, LF79002P decompilation): value = enriched map x retard multiplier / 256 + FFF8ABEE x this(rpm FFF8D3D4, load FFF8AB76)/256. FFF8ABEE = (enrichment FFF8ABF4 - FFF8ABF5) x 256 / (FFF8ABED - FFF8ABF5), clamped 0..255 (0x0DFB18, read), where FFF8ABED comes from 0x0DFA88, the Primary Open Loop Fueling style lookup on the 24 x 20 open-loop grid (0655F8 + 065620 x 065640(DAM) - 065634 x 06560C) - i.e. how far the enrichment has come towards the open-loop target (inferred). The table uses that same 24 x 20 grid (400-9200 rpm x 0.91-2.97 g/rev (70-230 % load)). Same data address in all three images; descriptors placed from the call sites (LF79100P / LF9C100P callsite maps and decompilations, read). LF79002P 0x0D8F60 (counterpart of LF75404S 0x0C965C): added to Exhaust Temperature Estimate 2 Map (Enriched) 064A0C x Retard Multiplier 064AAC / 256. LF9C000C: a table LF75404S does not have. Confidence: read.</description>
+  <description>2017+ only: extra amount added to the second exhaust temperature estimate while open loop enrichment is active, scaled by how far the enrichment has progressed (likely).</description>
  </table>
  <table name="Intake Cam Target 1A (TGV Open, Normal, Altitude)" address="04ef0c">
   <table name="Engine Load" address="04c954" />
@@ -2795,35 +2765,35 @@ Details: When used: while open-loop enrichment is active (FFF8ABF4 != 0) and FFF
   <table name="Intake Air Temp" address="04c8be" />
  </table>
  <table name="Intake AVCS Feedback Duty (Idle, Cam 1)" address="04d51c">
-  <table name="X Axis" address="04d48a" />
+  <table name="Cam Error" address="04d48a" />
   <table name="Engine Speed" address="04d472" />
  </table>
  <table name="Intake AVCS Feedback Duty (Idle, Cam 2)" address="04d646">
-  <table name="X Axis" address="04d634" />
+  <table name="Cam Error" address="04d634" />
   <table name="Engine Speed" address="04d472" />
  </table>
  <table name="Exhaust AVCS Feedback Duty (Idle, Cam 1)" address="04e3e4">
-  <table name="X Axis" address="04e3d2" />
+  <table name="Cam Error" address="04e3d2" />
   <table name="Engine Speed" address="04e3b8" />
  </table>
  <table name="Exhaust AVCS Feedback Duty (Idle, Cam 2)" address="04e520">
-  <table name="X Axis" address="04e50e" />
+  <table name="Cam Error" address="04e50e" />
   <table name="Engine Speed" address="04e3b8" />
  </table>
  <table name="Intake AVCS Rate Feedback Duty (Cam 1)" address="04e8de">
-  <table name="X Axis" address="04e866" />
+  <table name="Cam Rate" address="04e866" />
   <table name="Engine Speed" address="04e85e" />
  </table>
  <table name="Intake AVCS Rate Feedback Duty (Cam 2)" address="04e8be">
-  <table name="X Axis" address="04e856" />
+  <table name="Cam Rate" address="04e856" />
   <table name="Engine Speed" address="04e84e" />
  </table>
  <table name="Exhaust AVCS Rate Feedback Duty (Cam 1)" address="04e91e">
-  <table name="X Axis" address="04e886" />
+  <table name="Cam Rate" address="04e886" />
   <table name="Engine Speed" address="04e87e" />
  </table>
  <table name="Exhaust AVCS Rate Feedback Duty (Cam 2)" address="04e8fe">
-  <table name="X Axis" address="04e876" />
+  <table name="Cam Rate" address="04e876" />
   <table name="Engine Speed" address="04e86e" />
  </table>
  <table name="Intake AVCS Rate Feedback Oil Factor" address="04e95e">
@@ -2872,10 +2842,10 @@ Details: When used: while open-loop enrichment is active (FFF8ABF4 != 0) and FFF
   <table name="Battery Voltage (Filtered)" address="04e66a" />
  </table>
  <table name="Intake AVCS OCV Expected Current" address="04d7f6">
-  <table name="Y Axis" address="04d78c" />
+  <table name="Duty" address="04d78c" />
  </table>
  <table name="Exhaust AVCS OCV Expected Current" address="04e6e2">
-  <table name="Y Axis" address="04e678" />
+  <table name="Duty" address="04e678" />
  </table>
  <table name="Intake AVCS OCV Coil Factor (Oil Temp)" address="04d7ac">
   <table name="Oil Temp" address="04d742" />
@@ -2890,41 +2860,41 @@ Details: When used: while open-loop enrichment is active (FFF8ABF4 != 0) and FFF
   <table name="Oil Temp" address="04e626" />
  </table>
  <table name="Intake AVCS OCV Adaptation Step (Cam 1)" address="04d7ce">
-  <table name="Y Axis" address="04d764" />
+  <table name="OCV Current" address="04d764" />
  </table>
  <table name="Intake AVCS OCV Adaptation Step (Cam 2)" address="04d828">
-  <table name="Y Axis" address="04d80e" />
+  <table name="OCV Current" address="04d80e" />
  </table>
  <table name="Exhaust AVCS OCV Adaptation Step (Cam 1)" address="04e6ba">
-  <table name="Y Axis" address="04e650" />
+  <table name="OCV Current" address="04e650" />
  </table>
  <table name="Exhaust AVCS OCV Adaptation Step (Cam 2)" address="04e714">
-  <table name="Y Axis" address="04e6fa" />
+  <table name="OCV Current" address="04e6fa" />
  </table>
  <table name="Intake AVCS Feedback Duty (Cam 1)" address="0291d4">
-  <table name="X Axis" address="0292c4" />
+  <table name="Cam Error" address="0292c4" />
   <table name="Engine Speed" address="0292ac" />
  </table>
  <table name="Intake AVCS Feedback Duty (Cam 2)" address="0290ea">
-  <table name="X Axis" address="0291c2" />
+  <table name="Cam Error" address="0291c2" />
   <table name="Engine Speed" address="0292ac" />
  </table>
  <table name="Exhaust AVCS Feedback Duty (Cam 1)" address="0293d2">
-  <table name="X Axis" address="0294d6" />
+  <table name="Cam Error" address="0294d6" />
   <table name="Engine Speed" address="0294bc" />
  </table>
  <table name="Exhaust AVCS Feedback Duty (Cam 2)" address="0292d6">
-  <table name="X Axis" address="0293c0" />
+  <table name="Cam Error" address="0293c0" />
   <table name="Engine Speed" address="0294bc" />
  </table>
  <table name="AVCS Activation Delay After Start (Second)" address="04ebdc">
   <table name="Coolant Temp" address="0494b8" />
  </table>
  <table name="Intake AVCS OCV Current Integral Step" address="04d7b4">
-  <table name="Y Axis" address="04d74a" />
+  <table name="OCV Current" address="04d74a" />
  </table>
  <table name="Exhaust AVCS OCV Current Integral Step" address="04e6a0" level="4">
-  <table name="Y Axis" address="04e636" />
+  <table name="OCV Current" address="04e636" />
   <description>Integral step for the exhaust oil control valve current loop. a calibration setting forces the exhaust integral term to zero.</description>
  </table>
  <table name="Intake OCV Base Duty (Cam 1, Legacy Path)" address="0350e8">
@@ -3035,7 +3005,7 @@ Details: When used: while open-loop enrichment is active (FFF8ABF4 != 0) and FFF
   <table name="Coolant Temp" address="049498" />
  </table>
  <table name="CAN Idle Speed Request (Alternate)" address="046688">
-  <table name="Y Axis" address="04667e" />
+  <table name="CAN Code" address="04667e" />
  </table>
  <table name="CAN Idle Speed Request Remap (Alternate)" address="0466d0">
   <table name="Engine Speed" address="0466bc" />
@@ -3152,14 +3122,14 @@ Details: When used: while open-loop enrichment is active (FFF8ABF4 != 0) and FFF
  </table>
  <table name="Idle Air Reduction In Drive (AT/CVT, RPM Error)" address="032b7a">
   <table name="Coolant Temp" address="049498" />
-  <table name="Y Axis" address="032b6a" />
+  <table name="RPM Difference" address="032b6a" />
  </table>
  <table name="Minimum Idle Air (Moving in Gear)" address="03239c">
   <table name="Coolant Temp" address="032501" />
   <table name="Engine Speed" address="0324ec" />
  </table>
  <table name="Pull-Away Anti-Stall Air" address="033700">
-  <table name="Y Axis" address="033680" />
+  <table name="RPM Difference" address="033680" />
  </table>
  <table name="Pull-Away Anti-Stall Reference Decay" address="033710">
   <table name="Engine Speed" address="033690" />
@@ -3168,41 +3138,37 @@ Details: When used: while open-loop enrichment is active (FFF8ABF4 != 0) and FFF
   <table name="Engine Speed" address="0336a0" />
  </table>
  <table name="Idle RPM-Drop Recovery Air (Drop Slowing)" address="0336e0">
-  <table name="Y Axis" address="033750" />
+  <table name="RPM Change" address="033750" />
  </table>
  <table name="Idle RPM-Drop Recovery Air (Drop Continuing)" address="0336f0">
-  <table name="Y Axis" address="033750" />
+  <table name="RPM Change" address="033750" />
  </table>
  <table name="Idle Air Target-Change Feed-Forward (AT/CVT, State 0/5)" address="03338e">
-  <table name="Y Axis" address="03337c" />
+  <table name="RPM Difference" address="03337c" />
  </table>
  <table name="Idle Air Target-Change Feed-Forward" address="03336a">
-  <table name="Y Axis" address="03337c" />
+  <table name="RPM Difference" address="03337c" />
  </table>
  <table name="Idle Air Trim (Charging Command)" address="032c7c">
-  <table name="Y Axis" address="032c84" />
+  <table name="Alternator Command" address="032c84" />
  </table>
  <table name="Electrical Load Idle Air Hold Release (Alternator Command)" address="0333d0">
-  <table name="Y Axis" address="0333d6" />
+  <table name="Alternator Command" address="0333d6" />
  </table>
  <table name="Idle Air Adder (CAN 0x370 Load Value)" address="0333a4">
-  <table name="Y Axis" address="0333ba" />
+  <table name="CAN Value" address="0333ba" />
  </table>
  <table name="Idle Air Adder (CAN 0x280 Stage)" address="0333e8">
-  <table name="Y Axis" address="0333f8" />
+  <table name="Stage" address="0333f8" />
  </table>
  <table name="Idle Air from Throttle Area (Torque Request)" address="03350e">
-  <table name="Y Axis" address="03352e" />
+  <table name="Throttle Area" address="03352e" />
  </table>
  <table name="Idle Base Air (Cold Idle, Mode 4)" address="0322e2">
-  <description>Base idle air by coolant for the cold-idle mode 4.
-
-Details: When used: idle mode 4, entered from mode 5 when stopped with coolant below cal 0x24E94 for cal 0x24E96 passes. 0x0F0D24: base idle air B20C by idle mode FFF8A7F0 and coolant, this table while FFF8A881 bit 4 (TGVs closed) is clear (read). Scale as Idle Base Air (Mode 5). Raise it with this mode's idle speed target so the feedback need not cover the difference (inferred). Implicit coolant axis -40..110 C in 10 C steps (lookup 0x7414). Confidence: inferred.</description>
+  <description>Base idle air by coolant for the cold-idle mode 4.</description>
  </table>
  <table name="Idle Base Air (Cold Idle, Mode 4, TGV Closed)" address="032202">
-  <description>Base idle air by coolant for the cold-idle mode 4 with the TGVs commanded closed.
-
-Details: When used: idle mode 4, entered from mode 5 when stopped with coolant below cal 0x24E94 for cal 0x24E96 passes. 0x0F0D24: base idle air B20C by idle mode FFF8A7F0 and coolant, this table while FFF8A881 bit 4 (TGV close command) is set (read). Scale as Idle Base Air (Mode 5). Raise it with this mode's idle speed target so the feedback need not cover the difference (inferred). Implicit coolant axis -40..110 C in 10 C steps (lookup 0x7414). FFF8A881 bit 4 is the normal TGV-close command (0x10DEFC, set mainly by the timed close request FFF8A883 bit 5 from 0x10E180 when requested torque, coolant and air flow are below the TGV thresholds; the same bit selects every TGV-closed table), not a forced or fault state (read). At a settled warm idle the request conditions hold, so the TGVs are normally commanded closed and the TGV Closed table is probably the one in use (inferred). Confidence: inferred.</description>
+  <description>Base idle air by coolant for the cold-idle mode 4 with the TGVs commanded closed.</description>
  </table>
  <table name="Post-Start Idle Air (Stop-Start Restart)" address="033a4c">
   <table name="Coolant Temp" address="049498" />
@@ -3214,53 +3180,53 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
  </table>
  <table name="A/C Idle Air (Alternate, Target RPM)" address="0465bc">
   <table name="Engine Speed" address="046520" />
-  <table name="Y Axis" address="046508" />
+  <table name="Input" address="046508" />
  </table>
  <table name="A/C Idle Air (Alternate, Engine Speed)" address="04652c">
   <table name="Engine Speed" address="046514" />
-  <table name="Y Axis" address="046508" />
+  <table name="Input" address="046508" />
  </table>
  <table name="A/C Idle Air Initial Kick (Alternate)" address="0464e2">
-  <table name="Y Axis" address="0464fe" />
+  <table name="CAN Code" address="0464fe" />
  </table>
  <table name="A/C Idle Air Kick Duration (Alternate)" address="0464f0">
-  <table name="Y Axis" address="0464fe" />
+  <table name="CAN Code" address="0464fe" />
  </table>
  <table name="Low Voltage Idle Request Threshold (Alternator Command)" address="04602c">
-  <table name="Y Axis" address="046032" />
+  <table name="Alternator Command" address="046032" />
  </table>
  <table name="Idle Speed Feedback Map (Target MAP Offset)" address="032656">
-  <table name="X Axis" address="032624" />
-  <table name="Y Axis" address="03260e" />
+  <table name="RPM Difference" address="032624" />
+  <table name="RPM Change" address="03260e" />
  </table>
  <table name="Idle Speed Feedback RPM Error Factor (Above Target)" address="0325ea">
-  <table name="Y Axis" address="0325fa" />
+  <table name="RPM Difference" address="0325fa" />
  </table>
  <table name="Idle Speed Feedback Gain Multiplier (Time in Feedback)" address="032564">
   <table name="Time" address="03258c" />
  </table>
  <table name="Idle Speed Torque Feedback P" address="029fd2">
-  <table name="X Axis" address="02a0e2" />
+  <table name="RPM Difference" address="02a0e2" />
   <table name="Engine Speed" address="02a0d2" />
  </table>
  <table name="Idle Speed Torque Feedback D" address="02a178">
-  <table name="X Axis" address="02a158" />
+  <table name="RPM Difference" address="02a158" />
   <table name="Engine Speed" address="02a148" />
  </table>
  <table name="Idle Speed Torque Feedback Reference Torque" address="02a128">
   <table name="Engine Speed" address="02a108" />
  </table>
  <table name="Idle Feedback Carry-Over Decay (Positive)" address="0329f8">
-  <table name="Y Axis" address="032a28" />
+  <table name="RPM Change" address="032a28" />
  </table>
  <table name="Idle Feedback Carry-Over Decay (Negative)" address="032a10">
-  <table name="Y Axis" address="032a28" />
+  <table name="RPM Change" address="032a28" />
  </table>
  <table name="Idle Feedback Carry-Over Limit (Positive)" address="032a40">
-  <table name="Y Axis" address="032a54" />
+  <table name="Throttle above Idle" address="032a54" />
  </table>
  <table name="Idle Feedback Carry-Over Limit (Negative)" address="032a4a">
-  <table name="Y Axis" address="032a54" />
+  <table name="Throttle above Idle" address="032a54" />
  </table>
  <table name="Idle Converter Slip Threshold (In Gear, AT/CVT)" address="03292e">
   <table name="Coolant Temp" address="049498" />
@@ -3281,7 +3247,7 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
   <table name="Vehicle Speed" address="0334a2" />
  </table>
  <table name="Idle Learn Bias" address="033496">
-  <table name="Y Axis" address="03348a" />
+  <table name="Drive History" address="03348a" />
  </table>
  <table name="EGR Target Rate (TGV Open)" address="03c142">
   <table name="Engine Load" address="03ba1e" />
@@ -3395,9 +3361,7 @@ Details: When used: idle mode 4, entered from mode 5 when stopped with coolant b
  </table>
  <table name="EGR Timing Advance DAM Term Weight (Multi-Injection)" address="030b9e">
   <table name="Dynamic Advance Multiplier" address="030b94" />
-  <description>How much of the multiple-injection DAM term applies, by DAM.
-
-Details: 0x0DD0DC (read). Confidence: inferred.</description>
+  <description>How much of the multiple-injection DAM term applies, by DAM.</description>
  </table>
  <table name="TGV Torque Threshold Enter (Drive Modes 1/4, Default/Sport Sharp)" address="048c2e">
   <table name="Engine Speed" address="048bae" />
@@ -3431,20 +3395,20 @@ Details: 0x0DD0DC (read). Confidence: inferred.</description>
   <table name="Vehicle Speed" address="048b74" />
  </table>
  <table name="TGV Open Fraction from Position (Closing)" address="048b50">
-  <table name="Y Axis" address="048b38" />
+  <table name="Voltage" address="048b38" />
  </table>
  <table name="TGV Open Fraction from Position (Opening)" address="048b44">
-  <table name="Y Axis" address="048b38" />
+  <table name="Voltage" address="048b38" />
  </table>
  <table name="TGV Motor Duty Compensation" address="048a9a">
   <table name="Battery Voltage" address="048a96" />
   <table name="Coolant Temp" address="048a86" />
  </table>
  <table name="TGV Drive Duty (Opening)" address="048b12">
-  <table name="Y Axis" address="048b02" />
+  <table name="TGV Position" address="048b02" />
  </table>
  <table name="TGV Drive Duty (Closing)" address="048b1a">
-  <table name="Y Axis" address="048b02" />
+  <table name="TGV Position" address="048b02" />
  </table>
  <table name="TGV Torque Threshold Enter (Start Modes)" address="048cb4">
   <table name="Engine Speed" address="048bae" />
@@ -3455,54 +3419,54 @@ Details: 0x0DD0DC (read). Confidence: inferred.</description>
  <table name="TGV Coolant Minimum (Warm-Up Fallback)" address="048b8e" />
  <table name="Cruise Pedal Equivalent (Other Drive Modes)" address="054fa0">
   <table name="Engine Speed" address="0548a0" />
-  <table name="Y Axis" address="054880" />
+  <table name="Torque" address="054880" />
  </table>
  <table name="Cruise Pedal Equivalent (Drive Mode 2, Sport)" address="0553a0">
   <table name="Engine Speed" address="054920" />
-  <table name="Y Axis" address="054900" />
+  <table name="Torque" address="054900" />
  </table>
  <table name="Cruise Pedal Equivalent (Drive Mode 3, Intelligent)" address="054ba0">
   <table name="Engine Speed" address="054820" />
-  <table name="Y Axis" address="054800" />
+  <table name="Torque" address="054800" />
  </table>
  <table name="Cruise Pedal Equivalent (Other Drive Modes, Meter Cruise Option)" address="054da0">
   <table name="Engine Speed" address="054860" />
-  <table name="Y Axis" address="054840" />
+  <table name="Torque" address="054840" />
  </table>
  <table name="Cruise Pedal Equivalent (Drive Mode 2, Sport, Meter Cruise Option)" address="0551a0">
   <table name="Engine Speed" address="0548e0" />
-  <table name="Y Axis" address="0548c0" />
+  <table name="Torque" address="0548c0" />
  </table>
  <table name="Cruise Pedal Equivalent (Drive Mode 3, Intelligent, Meter Cruise Option)" address="0549a0">
   <table name="Engine Speed" address="0547e0" />
-  <table name="Y Axis" address="0547c0" />
+  <table name="Torque" address="0547c0" />
  </table>
  <table name="Cruise Maximum Speed (km/h Meter)" address="056460">
-  <table name="Y Axis" address="0560e0" />
+  <table name="Code" address="0560e0" />
  </table>
  <table name="Cruise Maximum Speed (mph Meter)" address="056480">
-  <table name="Y Axis" address="0560e0" />
+  <table name="Code" address="0560e0" />
  </table>
  <table name="Cruise Maximum Speed (km/h Meter, Meter Cruise Option)" address="0564e0">
-  <table name="Y Axis" address="0560e0" />
+  <table name="Code" address="0560e0" />
  </table>
  <table name="Cruise Maximum Speed (mph Meter, Meter Cruise Option)" address="056500">
-  <table name="Y Axis" address="0560e0" />
+  <table name="Code" address="0560e0" />
  </table>
  <table name="Cruise Maximum Speed (km/h Meter, Meter Cruise Option, Alternate)" address="0564a0">
-  <table name="Y Axis" address="0560e0" />
+  <table name="Code" address="0560e0" />
  </table>
  <table name="Cruise Maximum Speed (mph Meter, Meter Cruise Option, Alternate)" address="0564c0">
-  <table name="Y Axis" address="0560e0" />
+  <table name="Code" address="0560e0" />
  </table>
  <table name="Cruise Cancel Speed" address="056300">
-  <table name="Y Axis" address="0560e0" />
+  <table name="Code" address="0560e0" />
  </table>
  <table name="Cruise Set Speed Ramp While Accelerating" address="055654">
   <table name="Speed" address="055614" />
  </table>
  <table name="Cruise Torque Limit Offset" address="055686">
-  <table name="Y Axis" address="0493c8" />
+  <table name="Engine Speed" address="0493c8" />
  </table>
  <table name="Cruise Speed Error Gain (Default)" address="055c32">
   <table name="Speed" address="055a1e" />
@@ -3538,7 +3502,7 @@ Details: 0x0DD0DC (read). Confidence: inferred.</description>
  </table>
  <table name="Cruise Vehicle Speed from CAN Speed" address="055712">
   <table name="Speed" address="0556ca" />
-  <table name="Y Axis" address="0556ba" />
+  <table name="Code" address="0556ba" />
  </table>
  <table name="Cruise Vehicle Speed Filter Weight" address="0556ea">
   <table name="Vehicle Speed" address="0556b2" />
@@ -3579,7 +3543,7 @@ Details: 0x0DD0DC (read). Confidence: inferred.</description>
   <table name="Accelerator Pedal" address="058720" />
  </table>
  <table name="VDC Torque Request Correction" address="046c1c">
-  <table name="Y Axis" address="046bfc" />
+  <table name="Torque" address="046bfc" />
  </table>
  <table name="Brake Booster Vacuum Model Maximum" address="058556">
   <table name="Barometric Pressure" address="05854c" />
@@ -3596,11 +3560,11 @@ Details: 0x0DD0DC (read). Confidence: inferred.</description>
  <table name="Charging Target Voltage Maximum" address="04ab42" />
  <table name="Charging Target Voltage Minimum" address="04ab44" />
  <table name="Alternator Command from Target Voltage" address="04aacc">
-  <table name="Y Axis" address="04a99a" />
+  <table name="Voltage" address="04a99a" />
  </table>
  <table name="Charging Target Temperature Correction Threshold" address="04a912" />
  <table name="Charging Target Temperature Correction" address="04aa50">
-  <table name="Y Axis" address="04a97a" />
+  <table name="Battery Sensor Value" address="04a97a" />
  </table>
  <table name="Charging Target Voltage at Start" address="04aaee" />
  <table name="Radiator Fan Duty (Coolant)" address="0453fa">
@@ -3608,18 +3572,18 @@ Details: 0x0DD0DC (read). Confidence: inferred.</description>
  </table>
  <table name="Battery Capacity" address="04a920" />
  <table name="Battery Charge Efficiency (Charging)" address="04aa70">
-  <table name="Y Axis" address="04a89e" />
+  <table name="Battery Sensor Value" address="04a89e" />
  </table>
  <table name="Battery Charge Efficiency (Discharging)" address="04aa7e">
-  <table name="Y Axis" address="04a89e" />
+  <table name="Battery Sensor Value" address="04a89e" />
  </table>
  <table name="Charge Control Delay After Start (SOC, Battery Sensor)" address="04b93e">
-  <table name="X Axis" address="04b322" />
-  <table name="Y Axis" address="04b31c" />
+  <table name="Battery Sensor Value" address="04b322" />
+  <table name="Percent" address="04b31c" />
  </table>
  <table name="Battery State of Charge Reset Value" address="04b30c" />
  <table name="Charge Control Charge After Start (SOC)" address="04b950">
-  <table name="Y Axis" address="04b328" />
+  <table name="Percent" address="04b328" />
  </table>
  <table name="Battery Charged SOC Threshold" address="04a8ca" />
  <table name="Battery Charged SOC Hysteresis" address="04a8cc" />
@@ -3631,7 +3595,7 @@ Details: 0x0DD0DC (read). Confidence: inferred.</description>
   <table name="Coolant Temp" address="045430" />
  </table>
  <table name="Adaptive Charging Target Current" address="04aa10">
-  <table name="Y Axis" address="04a95a" />
+  <table name="Percent" address="04a95a" />
  </table>
  <table name="Adaptive Charging Current Gain" address="04a8f2" />
  <table name="Adaptive Charging Integral Deadband Above" address="04a8d4" />
@@ -3645,22 +3609,20 @@ Details: 0x0DD0DC (read). Confidence: inferred.</description>
   <table name="Coolant Temp" address="045430" />
  </table>
  <table name="Charging Feedback Proportional" address="04ab16">
-  <table name="Y Axis" address="04aaf4" />
+  <table name="Voltage" address="04aaf4" />
  </table>
  <table name="Charging Feedback Integral Step Up" address="04a8fc" />
  <table name="Charging Feedback Integral Step Down" address="04a8fa" />
  <table name="Charging Feedback Integral Maximum" address="04aaf0" />
  <table name="Charging Feedback Integral Minimum" address="04aaf2" />
  <table name="Charging Feedback Integral Gain" address="04a8f8">
-  <description>Scales the feedback integral (100 = as is).
-
-Details: Integral x this / 100 after the clamp (0x13866C, read). Confidence: inferred.</description>
+  <description>Scales the feedback integral (100 = as is).</description>
  </table>
  <table name="Charging Feedback Deadband Above" address="04a8f4" />
  <table name="Charging Feedback Deadband Below" address="04a8f6" />
  <table name="Charging Feedback Minimum RPM" address="04a8fe" />
  <table name="Radiator Fan Duty (A/C, CAN 0x280 Value)" address="045446">
-  <table name="Y Axis" address="045458" />
+  <table name="CAN Value" address="045458" />
  </table>
  <table name="Engine Torque from Load (CAN, DAM 1.0)" address="04677a">
   <table name="Engine Load" address="04674a" />
@@ -3677,10 +3639,10 @@ Details: Integral x this / 100 after the clamp (0x13866C, read). Confidence: inf
   <table name="Engine Speed" address="04671a" />
  </table>
  <table name="Full-Load Air Flow IAT Factor (CAN Torque)" address="046bc4">
-  <table name="Y Axis" address="046742" />
+  <table name="Temperature Ratio" address="046742" />
  </table>
  <table name="Full-Load Air Flow Boost Limit Factor (CAN Torque)" address="046bba">
-  <table name="Y Axis" address="04673a" />
+  <table name="Pressure Ratio" address="04673a" />
  </table>
  <table name="CAN Engine Torque Fuel-Cut Fade Rate" address="04762e">
   <table name="Engine Speed" address="047632" />
@@ -3693,7 +3655,7 @@ Details: Integral x this / 100 after the clamp (0x13866C, read). Confidence: inf
  </table>
  <table name="Gear Advice Consumption Map" address="04849a">
   <table name="Engine Speed" address="048012" />
-  <table name="Y Axis" address="047fea" />
+  <table name="Torque" address="047fea" />
  </table>
  <table name="Gear Advice Downshift Maximum RPM (Alternate)" address="048a3a">
   <table name="Gear" address="048062" />

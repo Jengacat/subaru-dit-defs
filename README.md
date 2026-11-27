@@ -4,7 +4,7 @@ RomRaider and EcuFlash definitions, logging tools and a tuning guide for Subaru'
 
 The definitions were built from scratch from my own analysis of stock ROMs. No existing community definition was
 used as a source, so table names, scalings and descriptions are my own. Every table in every ROM's definition is
-placed from that ROM's own code, and every definition is checked in RomRaider 1.1.1, EcuFlash and FastECU. Every table carries
+placed from that ROM's own code. Every table also carries
 a plain-English summary and a description of what the ECU does with it.
 
 Across the supported ROMs, each definition averages roughly **1,280 entries**: about 1,090 maps and curves and

@@ -143,7 +143,6 @@ the logging patch adds can be logged without it. One logger file, `logger/DIT_Lo
 that also have a logging-patch spec (every 2.0 and 1.6 ROM except LV9H000D, and the five Ascents) and all 35 RH850 ROMs. It needs a RomRaider build with the protocol:
 [my fork of RomRaider](https://github.com/Jengacat/RomRaider/tree/subuds-pr) has it, with Windows and Linux
 builds on the fork's [subuds-22plus-update-2 release](https://github.com/Jengacat/RomRaider/releases/tag/subuds-22plus-update-2)
-(the older subuds-test-1 build can't read the file any more).
 It hasn't been run on a car yet. Once it has, the protocol will go to the RomRaider project. If you try it, please
 [open an issue](../../issues/new/choose) with how it went. Details: [logger README](logger/README.md#logging-without-the-patch-subuds).
 

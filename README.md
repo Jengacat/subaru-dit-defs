@@ -4,7 +4,7 @@ RomRaider and EcuFlash definitions, logging tools and a tuning guide for Subaru'
 
 The definitions were built from scratch from my own analysis of stock ROMs. No existing community definition was
 used as a source, so table names, scalings and descriptions are my own. Every table in every ROM's definition is
-placed from that ROM's own code, and every definition is checked in RomRaider, EcuFlash and FastECU. Every table carries
+placed from that ROM's own code, and every definition is checked in RomRaider 1.1.1, EcuFlash and FastECU. Every table carries
 a plain-English summary and a description of what the ECU does with it.
 
 Across the supported ROMs, each definition averages roughly **1,280 entries**: about 1,090 maps and curves and
@@ -35,8 +35,11 @@ Check that your ROM is supported first: find its calibration ID in the [ROM list
 included](#whats-included) describes every folder.
 
 ### Editing with RomRaider
-1. Use **RomRaider 1.1.1 or later** and keep the `checksum/` folder next to the XML files: the definitions correct the
-   ROM checksum when you save. Add `definitions/romraider/FA20DIT_RomRaider.xml` in RomRaider's Definition Manager (for a Levorg 1.6,
+1. Use **[RomRaider 1.1.1](https://github.com/RomRaider/RomRaider/releases)** (or later). The definitions need it:
+   RomRaider 1.0.0 and 1.1.0 can't open the ROMs with them. 1.1.1 is fully supported: I've tested opening, editing and
+   saving 2 MB, 2.5 MB and RH850 (2022+) ROMs in it, DTC tables included, and it corrects the checksum on save.
+   Keep the `checksum/` folder next to the XML files, since that's where RomRaider loads the checksum module from.
+   Add `definitions/romraider/FA20DIT_RomRaider.xml` in RomRaider's Definition Manager (for a Levorg 1.6,
    `FB16DIT_RomRaider.xml`; for a 2022+ WRX or a 2023+ Ascent / Legacy / Outback XT, `FA24DIT_RomRaider.xml`, see the [2022+ WRX guide](docs/WRX_2022plus.md); the
    Ascent and Legacy XT (FA24 Early) are in the FA20DIT file; having several installed is fine).
 2. Open your ROM. Tables are grouped by purpose (Fueling, Ignition Timing, Boost Control, …) in tuning order.
@@ -47,9 +50,9 @@ included](#whats-included) describes every folder.
 
 **Trouble codes (DTCs)** are in Diagnostics & Switches → DTC Switches, one table per code, in code order. Each has
 two cells: **Enabled** (1 = the code can set and report, 0 = it never sets) and **Fail-Safe** (1 = a failed test of
-this code raises the ECU's fail-safe request; what that request limits isn't decoded yet). **These tables need
-RomRaider 1.0.0 or later.** Older versions don't understand how the second cell is located and would show and change
-the wrong bit.
+this code raises the ECU's fail-safe request; what that request limits isn't decoded yet). They work in RomRaider
+1.1.1: changing a cell and saving changes exactly that code's bit (RomRaider versions before 1.0.0 would change the
+wrong one).
 
 ### Editing with EcuFlash
 Pick a unit system: `definitions/ecuflash/Imperial/` (psi, °F, ft-lb, mph) or `definitions/ecuflash/Metric/` (kPa /
@@ -614,8 +617,8 @@ Every table whose unit depends on the system has both an imperial and a metric s
   ([how](#fix-the-checksum-before-every-flash)). EcuFlash corrects it on save for 2 MB ROMs, and PCMFlash is reported
   to correct it when it flashes (not tested by me). RomRaider 1.1.1 or later corrects it on save. For 2.5 MB ROMs in EcuFlash, use `tools/checksum.py` or
   `tools/checksum.ps1`.
-- **Use RomRaider 1.1.1 or later.** The definitions need it for the checksum, and versions before 1.0.0 read the DTC
-  tables wrong.
+- **RomRaider 1.1.1 is required.** It's fully supported and tested with these definitions; RomRaider 1.0.0 and 1.1.0
+  can't open the ROMs with them.
 - **Ascent and Legacy / Outback XT (FA24 Early): first release.** Not yet checked against a read from a car. The checksum is the same as the 2.5 MB WRX's. These ROMs come
   from Subaru's dealer software, which has no boot block, so `verify` reports one boot marker as BAD on them; a full
   read from a car should pass.

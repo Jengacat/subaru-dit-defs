@@ -6,6 +6,8 @@
   the regular ones: `FA20DIT_RomRaider.xml`, `FB16DIT_RomRaider.xml` and `FA24DIT_RomRaider.xml`, each with the
   `checksum/` folder next to it. They need RomRaider 1.1.1 or later; RomRaider 1.0.0 and 1.1.0 can't open the ROMs
   with them. The separate `…_Checksum.xml` files are gone: if you installed one, switch to the regular file.
+- README: the definitions need RomRaider 1.1.1, which is fully supported. Tested in 1.1.1: opening, editing and saving
+  2 MB, 2.5 MB and RH850 ROMs (checksum corrected on save, `checksum.py verify` OK) and the two-cell DTC tables.
 - EcuFlash user levels fixed (the 2.0 / 1.6 files, the `FA24_Early` Ascent / Legacy XT files and the RH850 `FA24DIT_*`
   files). EcuFlash counts its levels the other way from RomRaider, so at Beginner the core tables were the ones greyed
   out. Now Beginner shows the core tables (fueling, timing, boost, requested torque, rev limits, throttle maps),

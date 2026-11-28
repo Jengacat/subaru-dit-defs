@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Learned values on the RH850 ROMs (`FA24DIT_*`): the SUBUDS logger file now lists where every 2022+ WRX, Ascent and
+  Legacy / Outback XT ROM keeps its fine learning knock correction (the 20 cells this ECU uses: 4 rpm x 5 load), DAM,
+  A/F learning (10 cells) and the four learned cam positions, for a RomRaider build with Learning Table Values over
+  SUBUDS. The RH850 definitions gain the A/F learning boundaries (LTFT RPM Range Boundary and LTFT Load Range Boundary
+  1-4, Fueling - Closed Loop & Fuel Trims), which that view uses to label its A/F cells.
 - First car read with FastECU's 2.5 MB protocol: a 2020 USA WRX 6MT (LF9G002T), complete (2,621,440 bytes, valid
   checksum) and identical to the reference copy. README updated.
 - ROM lists: every 2.5 MB ROM is now marked "(2.5 MB ECU)" (31 were missing it). All 2014–2018 ROMs are 2 MB and all

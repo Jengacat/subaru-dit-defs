@@ -465,6 +465,35 @@
    <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4" />
    <description>Richest target allowed in closed loop: if the target is richer than this, the ECU switches to open loop.</description>
   </table>
+  <table type="1D" name="LTFT RPM Range Boundary" category="Fueling//Closed Loop &amp; Fuel Trims" storagetype="uint16" endian="little" userlevel="4" storageaddress="0x064fc6">
+   <scaling units="RPM" expression="x*0.1953125" to_byte="x/0.1953125" format="0" fineincrement="50" coarseincrement="200.0" />
+   <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4" />
+   <description>Engine speed that splits the long-term fuel trim cells into a low-rpm and a high-rpm set.</description>
+  </table>
+  <table type="1D" name="LTFT Load Range Boundary 1" category="Fueling//Closed Loop &amp; Fuel Trims" storagetype="uint8" endian="little" userlevel="4" storageaddress="0x064fb1">
+   <scaling category="Default" units="g/rev" expression="x*0.015516" to_byte="x/0.015516" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+   <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4" />
+   <description>Load boundary 1 of the 10 long-term fuel trim cells (5 load ranges x 2 rpm ranges); load range 1 is below this value.</description>
+  </table>
+  <table type="1D" name="LTFT Load Range Boundary 2" category="Fueling//Closed Loop &amp; Fuel Trims" storagetype="uint8" endian="little" userlevel="4" storageaddress="0x064fb2">
+   <scaling category="Default" units="g/rev" expression="x*0.015516" to_byte="x/0.015516" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+   <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4" />
+   <description>Load boundary 2 of the 10 long-term fuel trim cells (5 load ranges x 2 rpm ranges); load range 2 is below this value.</description>
+  </table>
+  <table type="1D" name="LTFT Load Range Boundary 3" category="Fueling//Closed Loop &amp; Fuel Trims" storagetype="uint8" endian="little" userlevel="4" storageaddress="0x064fb3">
+   <scaling category="Default" units="g/rev" expression="x*0.015516" to_byte="x/0.015516" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+   <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4" />
+   <description>Load boundary 3 of the 10 long-term fuel trim cells (5 load ranges x 2 rpm ranges); load range 3 is below this value.</description>
+  </table>
+  <table type="1D" name="LTFT Load Range Boundary 4" category="Fueling//Closed Loop &amp; Fuel Trims" storagetype="uint8" endian="little" userlevel="4" storageaddress="0x064fb4">
+   <scaling category="Default" units="g/rev" expression="x*0.015516" to_byte="x/0.015516" format="0.00" fineincrement="0.05" coarseincrement="0.2" />
+   <scaling category="%" units="%" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4.0" />
+   <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4" />
+   <description>Load boundary 4 of the 10 long-term fuel trim cells (5 load ranges x 2 rpm ranges); load range 4 is below this value.</description>
+  </table>
   <table type="2D" name="TGV Transition Enrichment Coolant Multiplier" category="Fueling//Transient Fueling" storagetype="uint16" endian="little" sizey="16" userlevel="3" storageaddress="0x028b3c">
    <scaling units="multiplier" expression="x/32768" to_byte="x*32768" format="0.000" fineincrement="0.01" coarseincrement="0.04" />
    <scaling category="raw" units="raw" expression="x" to_byte="x" format="0" fineincrement="1" coarseincrement="4" />
@@ -11104,6 +11133,16 @@
   <table name="Stoichiometric AFR" storageaddress="0x0ec7be">
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x08fab8">
+  </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x08fa7e">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x08fa69">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x08fa6a">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x08fa6b">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x08fa6c">
   </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x041bc4">
    <table type="Y Axis" storageaddress="0x041ac4" />
@@ -23569,6 +23608,16 @@
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x0651a4">
   </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x06516a">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x065155">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x065156">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x065157">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x065158">
+  </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x028ce0">
    <table type="Y Axis" storageaddress="0x028be0" />
   </table>
@@ -31461,6 +31510,16 @@
   <table name="Stoichiometric AFR" storageaddress="0x0ca23e">
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x0666d8">
+  </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x06669e">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x066689">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x06668a">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x06668b">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x06668c">
   </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x029668">
    <table type="Y Axis" storageaddress="0x029568" />
@@ -40017,6 +40076,16 @@
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x08fab8">
   </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x08fa7e">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x08fa69">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x08fa6a">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x08fa6b">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x08fa6c">
+  </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x041bc4">
    <table type="Y Axis" storageaddress="0x041ac4" />
   </table>
@@ -47535,6 +47604,16 @@
   <table name="Stoichiometric AFR" storageaddress="0x0ec7c6">
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x08fabc">
+  </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x08fa82">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x08fa6d">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x08fa6e">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x08fa6f">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x08fa70">
   </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x041bc8">
    <table type="Y Axis" storageaddress="0x041ac8" />
@@ -55118,6 +55197,16 @@
   <table name="Stoichiometric AFR" storageaddress="0x0c8172">
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x0651a4">
+  </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x06516a">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x065155">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x065156">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x065157">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x065158">
   </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x028ce0">
    <table type="Y Axis" storageaddress="0x028be0" />
@@ -63005,6 +63094,16 @@
   <table name="Stoichiometric AFR" storageaddress="0x0c8172">
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x0651a4">
+  </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x06516a">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x065155">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x065156">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x065157">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x065158">
   </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x028ce0">
    <table type="Y Axis" storageaddress="0x028be0" />
@@ -70894,6 +70993,16 @@
   <table name="Stoichiometric AFR" storageaddress="0x0c770a">
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x064ffc">
+  </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x064fc2">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x064fad">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x064fae">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x064faf">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x064fb0">
   </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x028b38">
    <table type="Y Axis" storageaddress="0x028a38" />
@@ -78914,6 +79023,16 @@
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x064ffc">
   </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x064fc2">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x064fad">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x064fae">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x064faf">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x064fb0">
+  </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x028b38">
    <table type="Y Axis" storageaddress="0x028a38" />
   </table>
@@ -86932,6 +87051,16 @@
   <table name="Stoichiometric AFR" storageaddress="0x0c770a">
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x064ffc">
+  </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x064fc2">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x064fad">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x064fae">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x064faf">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x064fb0">
   </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x028b38">
    <table type="Y Axis" storageaddress="0x028a38" />
@@ -94952,6 +95081,16 @@
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x064ffc">
   </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x064fc2">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x064fad">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x064fae">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x064faf">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x064fb0">
+  </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x028b38">
    <table type="Y Axis" storageaddress="0x028a38" />
   </table>
@@ -102970,6 +103109,16 @@
   <table name="Stoichiometric AFR" storageaddress="0x0c816a">
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x0651a0">
+  </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x065166">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x065151">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x065152">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x065153">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x065154">
   </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x028cdc">
    <table type="Y Axis" storageaddress="0x028bdc" />
@@ -111126,6 +111275,16 @@
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x0651a0">
   </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x065166">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x065151">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x065152">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x065153">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x065154">
+  </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x028cdc">
    <table type="Y Axis" storageaddress="0x028bdc" />
   </table>
@@ -119215,6 +119374,16 @@
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x08fab8">
   </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x08fa7e">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x08fa69">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x08fa6a">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x08fa6b">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x08fa6c">
+  </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x041bc4">
    <table type="Y Axis" storageaddress="0x041ac4" />
   </table>
@@ -126733,6 +126902,16 @@
   <table name="Stoichiometric AFR" storageaddress="0x0ec7be">
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x08fab8">
+  </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x08fa7e">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x08fa69">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x08fa6a">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x08fa6b">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x08fa6c">
   </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x041bc4">
    <table type="Y Axis" storageaddress="0x041ac4" />
@@ -134253,6 +134432,16 @@
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x08fab0">
   </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x08fa76">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x08fa61">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x08fa62">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x08fa63">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x08fa64">
+  </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x041bbc">
    <table type="Y Axis" storageaddress="0x041abc" />
   </table>
@@ -141771,6 +141960,16 @@
   <table name="Stoichiometric AFR" storageaddress="0x0ec5b6">
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x08f940">
+  </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x08f906">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x08f8f1">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x08f8f2">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x08f8f3">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x08f8f4">
   </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x041a4c">
    <table type="Y Axis" storageaddress="0x04194c" />
@@ -149291,6 +149490,16 @@
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x08f940">
   </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x08f906">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x08f8f1">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x08f8f2">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x08f8f3">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x08f8f4">
+  </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x041a4c">
    <table type="Y Axis" storageaddress="0x04194c" />
   </table>
@@ -156809,6 +157018,16 @@
   <table name="Stoichiometric AFR" storageaddress="0x0ec5b6">
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x08f940">
+  </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x08f906">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x08f8f1">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x08f8f2">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x08f8f3">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x08f8f4">
   </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x041a4c">
    <table type="Y Axis" storageaddress="0x04194c" />
@@ -164394,6 +164613,16 @@
   <table name="Stoichiometric AFR" storageaddress="0x0c94ce">
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x065b28">
+  </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x065aee">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x065ad9">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x065ada">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x065adb">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x065adc">
   </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x029664">
    <table type="Y Axis" storageaddress="0x029564" />
@@ -173016,6 +173245,16 @@
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x065b28">
   </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x065aee">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x065ad9">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x065ada">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x065adb">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x065adc">
+  </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x029664">
    <table type="Y Axis" storageaddress="0x029564" />
   </table>
@@ -181637,6 +181876,16 @@
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x065b28">
   </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x065aee">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x065ad9">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x065ada">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x065adb">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x065adc">
+  </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x029664">
    <table type="Y Axis" storageaddress="0x029564" />
   </table>
@@ -190257,6 +190506,16 @@
   <table name="Stoichiometric AFR" storageaddress="0x0c94f2">
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x065b28">
+  </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x065aee">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x065ad9">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x065ada">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x065adb">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x065adc">
   </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x029664">
    <table type="Y Axis" storageaddress="0x029564" />
@@ -198880,6 +199139,16 @@
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x0651a0">
   </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x065166">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x065151">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x065152">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x065153">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x065154">
+  </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x028cdc">
    <table type="Y Axis" storageaddress="0x028bdc" />
   </table>
@@ -206987,6 +207256,16 @@
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x064ffc">
   </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x064fc2">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x064fad">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x064fae">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x064faf">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x064fb0">
+  </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x028b38">
    <table type="Y Axis" storageaddress="0x028a38" />
   </table>
@@ -214464,6 +214743,16 @@
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x064ffc">
   </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x064fc2">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x064fad">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x064fae">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x064faf">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x064fb0">
+  </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x028b38">
    <table type="Y Axis" storageaddress="0x028a38" />
   </table>
@@ -221940,6 +222229,16 @@
   <table name="Stoichiometric AFR" storageaddress="0x0c770e">
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x064ffc">
+  </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x064fc2">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x064fad">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x064fae">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x064faf">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x064fb0">
   </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x028b38">
    <table type="Y Axis" storageaddress="0x028a38" />
@@ -229466,6 +229765,16 @@
   <table name="Stoichiometric AFR" storageaddress="0x0c8422">
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x0653ac">
+  </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x065372">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x06535d">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x06535e">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x06535f">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x065360">
   </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x028ee8">
    <table type="Y Axis" storageaddress="0x028de8" />
@@ -237722,6 +238031,16 @@
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x0653ac">
   </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x065372">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x06535d">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x06535e">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x06535f">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x065360">
+  </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x028ee8">
    <table type="Y Axis" storageaddress="0x028de8" />
   </table>
@@ -245977,6 +246296,16 @@
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x064fdc">
   </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x064fa2">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x064f8d">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x064f8e">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x064f8f">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x064f90">
+  </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x028b18">
    <table type="Y Axis" storageaddress="0x028a18" />
   </table>
@@ -253882,6 +254211,16 @@
   <table name="Stoichiometric AFR" storageaddress="0x0c75b6">
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x064fdc">
+  </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x064fa2">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x064f8d">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x064f8e">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x064f8f">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x064f90">
   </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x028b18">
    <table type="Y Axis" storageaddress="0x028a18" />
@@ -261789,6 +262128,16 @@
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x064fdc">
   </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x064fa2">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x064f8d">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x064f8e">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x064f8f">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x064f90">
+  </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x028b18">
    <table type="Y Axis" storageaddress="0x028a18" />
   </table>
@@ -269695,6 +270044,16 @@
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x064fdc">
   </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x064fa2">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x064f8d">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x064f8e">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x064f8f">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x064f90">
+  </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x028b18">
    <table type="Y Axis" storageaddress="0x028a18" />
   </table>
@@ -277600,6 +277959,16 @@
   <table name="Stoichiometric AFR" storageaddress="0x0c75b6">
   </table>
   <table name="Closed Loop Minimum Target" storageaddress="0x064fdc">
+  </table>
+  <table name="LTFT RPM Range Boundary" storageaddress="0x064fa2">
+  </table>
+  <table name="LTFT Load Range Boundary 1" storageaddress="0x064f8d">
+  </table>
+  <table name="LTFT Load Range Boundary 2" storageaddress="0x064f8e">
+  </table>
+  <table name="LTFT Load Range Boundary 3" storageaddress="0x064f8f">
+  </table>
+  <table name="LTFT Load Range Boundary 4" storageaddress="0x064f90">
   </table>
   <table name="TGV Transition Enrichment Coolant Multiplier" storageaddress="0x028b18">
    <table type="Y Axis" storageaddress="0x028a18" />

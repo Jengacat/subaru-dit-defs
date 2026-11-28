@@ -31450,6 +31450,21 @@
  <table name="Closed Loop Minimum Target" category="01.03 Fueling - Closed Loop &amp; Fuel Trims" type="1D" level="2" scaling="AFR (gasoline) uint16">
   <description>Richest target allowed in closed loop: if the target is richer than this, the ECU switches to open loop.</description>
  </table>
+ <table name="LTFT RPM Range Boundary" category="01.03 Fueling - Closed Loop &amp; Fuel Trims" type="1D" level="1" scaling="RPM uint16">
+  <description>Engine speed that splits the long-term fuel trim cells into a low-rpm and a high-rpm set.</description>
+ </table>
+ <table name="LTFT Load Range Boundary 1" category="01.03 Fueling - Closed Loop &amp; Fuel Trims" type="1D" level="1" scaling="g/rev uint8">
+  <description>Load boundary 1 of the 10 long-term fuel trim cells (5 load ranges x 2 rpm ranges); load range 1 is below this value.</description>
+ </table>
+ <table name="LTFT Load Range Boundary 2" category="01.03 Fueling - Closed Loop &amp; Fuel Trims" type="1D" level="1" scaling="g/rev uint8">
+  <description>Load boundary 2 of the 10 long-term fuel trim cells (5 load ranges x 2 rpm ranges); load range 2 is below this value.</description>
+ </table>
+ <table name="LTFT Load Range Boundary 3" category="01.03 Fueling - Closed Loop &amp; Fuel Trims" type="1D" level="1" scaling="g/rev uint8">
+  <description>Load boundary 3 of the 10 long-term fuel trim cells (5 load ranges x 2 rpm ranges); load range 3 is below this value.</description>
+ </table>
+ <table name="LTFT Load Range Boundary 4" category="01.03 Fueling - Closed Loop &amp; Fuel Trims" type="1D" level="1" scaling="g/rev uint8">
+  <description>Load boundary 4 of the 10 long-term fuel trim cells (5 load ranges x 2 rpm ranges); load range 4 is below this value.</description>
+ </table>
  <table name="TGV Transition Enrichment Coolant Multiplier" category="01.04 Fueling - Transient Fueling" type="2D" level="2" scaling="multiplier uint16 #2">
   <table name="Coolant Temp" type="Y Axis" elements="16" scaling="degrees F uint16" />
   <description>Scales the TGV transition fuel adders by coolant.</description>

@@ -30,8 +30,9 @@ under Settings → Logger Protocol. RomRaider logs one protocol at a time.
 * **SSM** (the default): 46 parameters. Besides the basics (rpm, load, boost, timing, temperatures, A/F), these
   include DAM, the A/F sensor reading, injector pulse width, fan, purge and alternator duty, EGR valve position and the
   cam-timing solenoid currents.
-* **DTC tab**: about 155 trouble codes, each shown as pending (failed this drive) or stored. A few codes can't be read
-  this way, so a scan tool is still the complete check.
+* **DTC tab**: 157 trouble codes, each shown as pending (failed this drive) or stored. The other 74 codes in the 2.0
+  and 1.6 code lists can't be read over SSM on a stock ROM; the logging patch adds them (231 in all), and SUBUDS reads
+  every code without a patch (below).
 * **OBD**: 32 standard OBD-II parameters. This is the only stock way to see **actual fuel rail pressure**, and it also
   gives the commanded A/F and oil temperature. OBD updates more slowly than SSM.
 
@@ -107,7 +108,25 @@ The memory location of each value differs from ROM to ROM. I checked every one i
 own code: it had to return the same value the ECU's normal SSM read does, on all 238 SH ROMs. If your ECU isn't one of
 the supported calibrations, it still connects, but no parameters show up; nothing is guessed.
 
-SUBUDS logs only sensors and internal values. For trouble codes and OBD parameters, use the regular files.
+### Trouble codes and learned values over SUBUDS (2.0, 1.6 and Ascent)
+
+These need a RomRaider build newer than the subuds-22plus-update-2 test build (from the `subuds-pr` branch; a test
+build with them isn't released yet). Not tried on a car yet.
+
+* **Read Codes** (Tools menu, as usual) asks the ECU for its trouble codes with one standard UDS request. It works on a
+  stock ROM and shows every code the ECU has set, as pending or stored. The file lists 253 codes, every code in the
+  2.0, 1.6 and Ascent code lists, so one list fits every ROM; a code your ROM doesn't have just never shows.
+* **Learning Table Values** (Tools menu) reads the learned values straight from the ECU's memory:
+  * fine learning knock correction, the whole table: 35 cells, 7 rpm bands x 5 load bands, in degrees;
+  * A/F learning, the whole table: 10 cells, 2 rpm ranges x 5 load ranges, in %;
+  * DAM, and the four learned cam rest positions (intake and exhaust, both banks), in degrees.
+
+  Open your ROM in RomRaider's editor first and the rows and columns show its own rpm and load ranges (those settings
+  are in the ROM, which the ECU only lets UDS read with security access); otherwise they're numbered. Where each ROM
+  keeps these values was checked by running each of the 238 ROMs' own code. The 2021 Ascent (LT8H300D) shows everything
+  but the cam positions.
+
+For the standard OBD-II parameters, use the regular files.
 
 ## RH850 ECU (SUBUDS)
 

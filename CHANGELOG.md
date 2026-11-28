@@ -2,6 +2,26 @@
 
 ## Unreleased
 
+- **Trouble codes over SSM are complete** (`FA20DIT_Logger*.xml`, `FA24_Early_Logger*.xml`). RomRaider never read the
+  last code in a logger file's DTC list (in RomRaider 1.1.1 too), so P013A was never checked; every list now ends with
+  a placeholder entry, so every real code is read. The stock file adds P0140 (2019+ ROMs): 157 codes, the most a stock
+  ROM's SSM can reach (the other 35 status bytes have no SSM entry in any of the 253 2.0 / 1.6 ROMs checked). Where a
+  code differs between ROMs at one position, the name now says which ROMs have which, e.g. "(P226B on 2019+ ROMs)".
+- **The logging patch now shows every trouble code.** Each of the 233 2.0 / 1.6 specs points 70 more unused SSM entries
+  at the trouble-code bytes a stock ROM can't reach, so `FA20DIT_Logger_LogPatch.xml` shows all 231 codes in the 2.0
+  and 1.6 code lists. Re-patch your ROM with the new spec to get them; an older patched ROM still logs as before but
+  shows only the stock codes. Checked on every spec's ROM, and in an emulator running the ECU's own code.
+- **Read Codes and Learning Table Values over SUBUDS** on the SH-ECU ROMs (`DIT_Logger_SUBUDS.xml`), for a RomRaider
+  build that has them (my fork, newer than the subuds-22plus-update-2 test build; not released yet):
+  - Read Codes asks the ECU for its trouble codes with one standard UDS request on a stock ROM: no patch, every code
+    the ECU has set, shown as pending or stored. The file lists 253 codes (every code in the 2.0, 1.6 and Ascent code
+    lists); the same list works on every ROM.
+  - Learning Table Values shows the whole fine learning knock correction table (35 cells, 7 rpm x 5 load bands), the
+    A/F learning table (10 cells, 2 rpm x 5 load ranges), DAM and the four learned cam rest positions, read from the
+    ECU's memory. With your ROM open in RomRaider's editor, the rows and columns show its rpm and load ranges. Where
+    each ROM keeps these was checked by running each of the 238 ROMs' own code; the 2021 Ascent (LT8H300D) shows
+    everything but the cam positions.
+  - Not tried on a car yet.
 - Learned values on the RH850 ROMs (`FA24DIT_*`): the SUBUDS logger file now lists where every 2022+ WRX, Ascent and
   Legacy / Outback XT ROM keeps its fine learning knock correction (the 20 cells this ECU uses: 4 rpm x 5 load), DAM,
   A/F learning (10 cells) and the four learned cam positions, for a RomRaider build with Learning Table Values over

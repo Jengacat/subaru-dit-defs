@@ -90,7 +90,7 @@ The [EcuFlash README](definitions/ecuflash/README.md) explains why.
 
 `logger/FA20DIT_Logger.xml` works in RomRaider Logger with every supported 2.0 and 1.6 ROM: I checked each ROM's own
 SSM parameter table against it. Over SSM it has 46 parameters and
-shows pending and stored trouble codes in the DTC tab. Switch the logger protocol to OBD for 32 standard OBD-II
+shows pending and stored trouble codes in the DTC tab (157 codes; the logging patch adds the rest). Switch the logger protocol to OBD for 32 standard OBD-II
 parameters, including actual fuel rail pressure. On a stock ROM some of the most useful values (feedback knock
 correction, target boost, target torque, combustion mode, the rail-pressure target) can't be read with RomRaider at
 all. The **logging patch** fixes that. See the [logger README](logger/README.md).
@@ -114,7 +114,8 @@ python3 tools/logpatch/make_logpatch.py tools/logpatch/specs/logpatch_LF75404S.j
 
 Every supported 2.0 and 1.6 ROM has a spec except LV9H000D (2015 USA WRX, an early build), and so do all five 2019–2021 Ascent ROMs: 238 in all. The **Logging patch** column of the ROM lists says which ("yes"). SUBUDS (below), which needs no patch, covers the same 238 ROMs. The 2020–2021 Legacy / Outback XT has no SSM, so the patch doesn't apply there (see the Ascent's notes below). The tool refuses a ROM of another calibration ID, a ROM whose checksum is already bad, and any slot that is not
 unused. Then log with `logger/FA20DIT_Logger_LogPatch.xml` (parameters L01–L24). The patch uses the same slots on
-every ROM with a spec, so one logger file covers all of them.
+every ROM with a spec, so one logger file covers all of them. On a 2.0 or 1.6 ROM the patch also lets the DTC tab show
+every trouble code (231, against 157 on a stock ROM); a ROM patched before 2026-11-28 needs patching again for that.
 
 On the **Ascent**, log with `logger/FA24_Early_Logger_LogPatch.xml` instead. It has L01–L24 except the WRX wastegate pair
 (L13, L14), and adds the electric wastegate: motor duty, position, position command, the feed-forward position,

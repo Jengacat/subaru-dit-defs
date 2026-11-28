@@ -4,7 +4,9 @@
      stock ROM, with no reflash and no security access. Needs a RomRaider build with the SUBUDS protocol.
      RAM addresses differ between ROMs, so each parameter lists them per ECU ID (the SSM init reply); an ECU
      only gets the parameters that list its ID. Every address was checked in an emulator against the byte the
-     ECU's own SSM read returns. -->
+     ECU's own SSM read returns. Read Codes uses one ReadDTCInformation request (19 02 FF); the trouble-code
+     list is keyed by code number, so it is the same for every ROM. Learning Table Values reads the learned
+     tables from RAM at the addresses in the <learning> block. -->
 <logger version="DIT-SUBUDS">
  <protocols>
   <protocol id="SUBUDS" baud="500000" databits="8" stopbits="1" parity="0" connect_timeout="2000" send_timeout="55">
@@ -12913,13 +12915,312 @@
    
     <!-- end of the RH850 parameters -->
    </ecuparams>
-   <!-- RH850 learned values (Learning Table Values): rh850/tools/logging/learning_map.py, add_to_subuds.py -->
-   <learning>
+   <dtcodes>
+    <dtcode id="D001" name="P000A Intake Camshaft Position Slow Response (Bank 1)" desc="P000A" tmpaddr="0x00000A" memaddr="0x00000A" bit="0" />
+    <dtcode id="D002" name="P000B Exhaust Camshaft Position Slow Response (Bank 1)" desc="P000B" tmpaddr="0x00000B" memaddr="0x00000B" bit="0" />
+    <dtcode id="D003" name="P000C Intake Camshaft Position Slow Response (Bank 2)" desc="P000C" tmpaddr="0x00000C" memaddr="0x00000C" bit="0" />
+    <dtcode id="D004" name="P000D Exhaust Camshaft Position Slow Response (Bank 2)" desc="P000D" tmpaddr="0x00000D" memaddr="0x00000D" bit="0" />
+    <dtcode id="D005" name="P0010 Intake Camshaft Position Actuator Circuit (Bank 1)" desc="P0010" tmpaddr="0x000010" memaddr="0x000010" bit="0" />
+    <dtcode id="D006" name="P0011 Intake Camshaft Timing Over-Advanced or System Performance (Bank 1)" desc="P0011" tmpaddr="0x000011" memaddr="0x000011" bit="0" />
+    <dtcode id="D007" name="P0013 Exhaust Camshaft Position Actuator Circuit (Bank 1)" desc="P0013" tmpaddr="0x000013" memaddr="0x000013" bit="0" />
+    <dtcode id="D008" name="P0014 Exhaust Camshaft Timing Over-Advanced or System Performance (Bank 1)" desc="P0014" tmpaddr="0x000014" memaddr="0x000014" bit="0" />
+    <dtcode id="D009" name="P0016 Crankshaft/Camshaft Position Correlation (Bank 1 Sensor A)" desc="P0016" tmpaddr="0x000016" memaddr="0x000016" bit="0" />
+    <dtcode id="D010" name="P0017 Crankshaft/Camshaft Position Correlation (Bank 1 Sensor B)" desc="P0017" tmpaddr="0x000017" memaddr="0x000017" bit="0" />
+    <dtcode id="D011" name="P0018 Crankshaft/Camshaft Position Correlation (Bank 2 Sensor A)" desc="P0018" tmpaddr="0x000018" memaddr="0x000018" bit="0" />
+    <dtcode id="D012" name="P0019 Crankshaft/Camshaft Position Correlation (Bank 2 Sensor B)" desc="P0019" tmpaddr="0x000019" memaddr="0x000019" bit="0" />
+    <dtcode id="D013" name="P0020 Intake Camshaft Position Actuator Circuit (Bank 2)" desc="P0020" tmpaddr="0x000020" memaddr="0x000020" bit="0" />
+    <dtcode id="D014" name="P0021 Intake Camshaft Timing Over-Advanced or System Performance (Bank 2)" desc="P0021" tmpaddr="0x000021" memaddr="0x000021" bit="0" />
+    <dtcode id="D015" name="P0023 Exhaust Camshaft Position Actuator Circuit (Bank 2)" desc="P0023" tmpaddr="0x000023" memaddr="0x000023" bit="0" />
+    <dtcode id="D016" name="P0024 Exhaust Camshaft Timing Over-Advanced or System Performance (Bank 2)" desc="P0024" tmpaddr="0x000024" memaddr="0x000024" bit="0" />
+    <dtcode id="D017" name="P0030 HO2S Heater Control Circuit (Bank 1 Sensor 1)" desc="P0030" tmpaddr="0x000030" memaddr="0x000030" bit="0" />
+    <dtcode id="D018" name="P0031 HO2S Heater Control Circuit Low (Bank 1 Sensor 1)" desc="P0031" tmpaddr="0x000031" memaddr="0x000031" bit="0" />
+    <dtcode id="D019" name="P0032 HO2S Heater Control Circuit High (Bank 1 Sensor 1)" desc="P0032" tmpaddr="0x000032" memaddr="0x000032" bit="0" />
+    <dtcode id="D020" name="P0033" desc="P0033" tmpaddr="0x000033" memaddr="0x000033" bit="0" />
+    <dtcode id="D021" name="P0037 HO2S Heater Control Circuit Low (Bank 1 Sensor 2)" desc="P0037" tmpaddr="0x000037" memaddr="0x000037" bit="0" />
+    <dtcode id="D022" name="P0038 HO2S Heater Control Circuit High (Bank 1 Sensor 2)" desc="P0038" tmpaddr="0x000038" memaddr="0x000038" bit="0" />
+    <dtcode id="D023" name="P0039" desc="P0039" tmpaddr="0x000039" memaddr="0x000039" bit="0" />
+    <dtcode id="D024" name="P003A" desc="P003A" tmpaddr="0x00003A" memaddr="0x00003A" bit="0" />
+    <dtcode id="D025" name="P0045" desc="P0045" tmpaddr="0x000045" memaddr="0x000045" bit="0" />
+    <dtcode id="D026" name="P0068 MAP/MAF - Throttle Position Correlation" desc="P0068" tmpaddr="0x000068" memaddr="0x000068" bit="0" />
+    <dtcode id="D027" name="P0071 Ambient Air Temperature Sensor Range/Performance" desc="P0071" tmpaddr="0x000071" memaddr="0x000071" bit="0" />
+    <dtcode id="D028" name="P0072 Ambient Air Temperature Sensor Circuit Low" desc="P0072" tmpaddr="0x000072" memaddr="0x000072" bit="0" />
+    <dtcode id="D029" name="P0073 Ambient Air Temperature Sensor Circuit High" desc="P0073" tmpaddr="0x000073" memaddr="0x000073" bit="0" />
+    <dtcode id="D030" name="P0087 Fuel Rail/System Pressure Too Low" desc="P0087" tmpaddr="0x000087" memaddr="0x000087" bit="0" />
+    <dtcode id="D031" name="P0088 Fuel Rail/System Pressure Too High" desc="P0088" tmpaddr="0x000088" memaddr="0x000088" bit="0" />
+    <dtcode id="D032" name="P0096 Intake Air Temperature Sensor 2 Circuit Range/Performance" desc="P0096" tmpaddr="0x000096" memaddr="0x000096" bit="0" />
+    <dtcode id="D033" name="P0097 Intake Air Temperature Sensor 2 Circuit Low" desc="P0097" tmpaddr="0x000097" memaddr="0x000097" bit="0" />
+    <dtcode id="D034" name="P0098 Intake Air Temperature Sensor 2 Circuit High" desc="P0098" tmpaddr="0x000098" memaddr="0x000098" bit="0" />
+    <dtcode id="D035" name="P0101 Mass Air Flow Circuit Range/Performance" desc="P0101" tmpaddr="0x000101" memaddr="0x000101" bit="0" />
+    <dtcode id="D036" name="P0102 Mass Air Flow Circuit Low" desc="P0102" tmpaddr="0x000102" memaddr="0x000102" bit="0" />
+    <dtcode id="D037" name="P0103 Mass Air Flow Circuit High" desc="P0103" tmpaddr="0x000103" memaddr="0x000103" bit="0" />
+    <dtcode id="D038" name="P0107 Manifold Absolute Pressure Circuit Low" desc="P0107" tmpaddr="0x000107" memaddr="0x000107" bit="0" />
+    <dtcode id="D039" name="P0108 Manifold Absolute Pressure Circuit High" desc="P0108" tmpaddr="0x000108" memaddr="0x000108" bit="0" />
+    <dtcode id="D040" name="P0111 Intake Air Temperature Sensor 1 Circuit Range/Performance" desc="P0111" tmpaddr="0x000111" memaddr="0x000111" bit="0" />
+    <dtcode id="D041" name="P0112 Intake Air Temperature Sensor 1 Circuit Low" desc="P0112" tmpaddr="0x000112" memaddr="0x000112" bit="0" />
+    <dtcode id="D042" name="P0113 Intake Air Temperature Sensor 1 Circuit High" desc="P0113" tmpaddr="0x000113" memaddr="0x000113" bit="0" />
+    <dtcode id="D043" name="P0116 Engine Coolant Temperature Circuit Range/Performance" desc="P0116" tmpaddr="0x000116" memaddr="0x000116" bit="0" />
+    <dtcode id="D044" name="P0117 Engine Coolant Temperature Circuit Low" desc="P0117" tmpaddr="0x000117" memaddr="0x000117" bit="0" />
+    <dtcode id="D045" name="P0118 Engine Coolant Temperature Circuit High" desc="P0118" tmpaddr="0x000118" memaddr="0x000118" bit="0" />
+    <dtcode id="D046" name="P0122 Throttle Position Sensor A Circuit Low" desc="P0122" tmpaddr="0x000122" memaddr="0x000122" bit="0" />
+    <dtcode id="D047" name="P0123 Throttle Position Sensor A Circuit High" desc="P0123" tmpaddr="0x000123" memaddr="0x000123" bit="0" />
+    <dtcode id="D048" name="P0125 Insufficient Coolant Temperature for Closed Loop Fuel Control" desc="P0125" tmpaddr="0x000125" memaddr="0x000125" bit="0" />
+    <dtcode id="D049" name="P0128 Coolant Thermostat (Below Regulating Temperature)" desc="P0128" tmpaddr="0x000128" memaddr="0x000128" bit="0" />
+    <dtcode id="D050" name="P0130 O2 Sensor Circuit (Bank 1 Sensor 1)" desc="P0130" tmpaddr="0x000130" memaddr="0x000130" bit="0" />
+    <dtcode id="D051" name="P0131 O2 Sensor Circuit Low Voltage (Bank 1 Sensor 1)" desc="P0131" tmpaddr="0x000131" memaddr="0x000131" bit="0" />
+    <dtcode id="D052" name="P0132 O2 Sensor Circuit High Voltage (Bank 1 Sensor 1)" desc="P0132" tmpaddr="0x000132" memaddr="0x000132" bit="0" />
+    <dtcode id="D053" name="P0133 O2 Sensor Circuit Slow Response (Bank 1 Sensor 1)" desc="P0133" tmpaddr="0x000133" memaddr="0x000133" bit="0" />
+    <dtcode id="D054" name="P0134 O2 Sensor Circuit No Activity Detected (Bank 1 Sensor 1)" desc="P0134" tmpaddr="0x000134" memaddr="0x000134" bit="0" />
+    <dtcode id="D055" name="P0137 O2 Sensor Circuit Low Voltage (Bank 1 Sensor 2)" desc="P0137" tmpaddr="0x000137" memaddr="0x000137" bit="0" />
+    <dtcode id="D056" name="P0138 O2 Sensor Circuit High Voltage (Bank 1 Sensor 2)" desc="P0138" tmpaddr="0x000138" memaddr="0x000138" bit="0" />
+    <dtcode id="D057" name="P013A O2 Sensor Slow Response - Rich to Lean (Bank 1 Sensor 2)" desc="P013A" tmpaddr="0x00013A" memaddr="0x00013A" bit="0" />
+    <dtcode id="D058" name="P013B O2 Sensor Slow Response - Lean to Rich (Bank 1 Sensor 2)" desc="P013B" tmpaddr="0x00013B" memaddr="0x00013B" bit="0" />
+    <dtcode id="D059" name="P013E O2 Sensor Delayed Response - Rich to Lean (Bank 1 Sensor 2)" desc="P013E" tmpaddr="0x00013E" memaddr="0x00013E" bit="0" />
+    <dtcode id="D060" name="P013F O2 Sensor Delayed Response - Lean to Rich (Bank 1 Sensor 2)" desc="P013F" tmpaddr="0x00013F" memaddr="0x00013F" bit="0" />
+    <dtcode id="D061" name="P0140 O2 Sensor Circuit No Activity Detected (Bank 1 Sensor 2)" desc="P0140" tmpaddr="0x000140" memaddr="0x000140" bit="0" />
+    <dtcode id="D062" name="P0141 O2 Sensor Heater Circuit (Bank 1 Sensor 2)" desc="P0141" tmpaddr="0x000141" memaddr="0x000141" bit="0" />
+    <dtcode id="D063" name="P014C O2 Sensor Slow Response - Rich to Lean (Bank 1 Sensor 1)" desc="P014C" tmpaddr="0x00014C" memaddr="0x00014C" bit="0" />
+    <dtcode id="D064" name="P014D O2 Sensor Slow Response - Lean to Rich (Bank 1 Sensor 1)" desc="P014D" tmpaddr="0x00014D" memaddr="0x00014D" bit="0" />
+    <dtcode id="D065" name="P015A O2 Sensor Delayed Response - Rich to Lean (Bank 1 Sensor 1)" desc="P015A" tmpaddr="0x00015A" memaddr="0x00015A" bit="0" />
+    <dtcode id="D066" name="P015B O2 Sensor Delayed Response - Lean to Rich (Bank 1 Sensor 1)" desc="P015B" tmpaddr="0x00015B" memaddr="0x00015B" bit="0" />
+    <dtcode id="D067" name="P0171 System Too Lean (Bank 1)" desc="P0171" tmpaddr="0x000171" memaddr="0x000171" bit="0" />
+    <dtcode id="D068" name="P0172 System Too Rich (Bank 1)" desc="P0172" tmpaddr="0x000172" memaddr="0x000172" bit="0" />
+    <dtcode id="D069" name="P0191 Fuel Rail Pressure Sensor A Circuit Range/Performance" desc="P0191" tmpaddr="0x000191" memaddr="0x000191" bit="0" />
+    <dtcode id="D070" name="P0192 Fuel Rail Pressure Sensor A Circuit Low" desc="P0192" tmpaddr="0x000192" memaddr="0x000192" bit="0" />
+    <dtcode id="D071" name="P0193 Fuel Rail Pressure Sensor A Circuit High" desc="P0193" tmpaddr="0x000193" memaddr="0x000193" bit="0" />
+    <dtcode id="D072" name="P0196 Engine Oil Temperature Sensor Range/Performance" desc="P0196" tmpaddr="0x000196" memaddr="0x000196" bit="0" />
+    <dtcode id="D073" name="P0197 Engine Oil Temperature Sensor Low" desc="P0197" tmpaddr="0x000197" memaddr="0x000197" bit="0" />
+    <dtcode id="D074" name="P0198 Engine Oil Temperature Sensor High" desc="P0198" tmpaddr="0x000198" memaddr="0x000198" bit="0" />
+    <dtcode id="D075" name="P0222 Throttle Position Sensor B Circuit Low" desc="P0222" tmpaddr="0x000222" memaddr="0x000222" bit="0" />
+    <dtcode id="D076" name="P0223 Throttle Position Sensor B Circuit High" desc="P0223" tmpaddr="0x000223" memaddr="0x000223" bit="0" />
+    <dtcode id="D077" name="P0230 Fuel Pump Primary Circuit" desc="P0230" tmpaddr="0x000230" memaddr="0x000230" bit="0" />
+    <dtcode id="D078" name="P0234" desc="P0234" tmpaddr="0x000234" memaddr="0x000234" bit="0" />
+    <dtcode id="D079" name="P023F" desc="P023F" tmpaddr="0x00023F" memaddr="0x00023F" bit="0" />
+    <dtcode id="D080" name="P0244 Turbocharger Wastegate Solenoid A Range/Performance" desc="P0244" tmpaddr="0x000244" memaddr="0x000244" bit="0" />
+    <dtcode id="D081" name="P0245 Turbocharger Wastegate Solenoid A Low" desc="P0245" tmpaddr="0x000245" memaddr="0x000245" bit="0" />
+    <dtcode id="D082" name="P0246 Turbocharger Wastegate Solenoid A High" desc="P0246" tmpaddr="0x000246" memaddr="0x000246" bit="0" />
+    <dtcode id="D083" name="P0299" desc="P0299" tmpaddr="0x000299" memaddr="0x000299" bit="0" />
+    <dtcode id="D084" name="P0300 Random/Multiple Cylinder Misfire Detected" desc="P0300" tmpaddr="0x000300" memaddr="0x000300" bit="0" />
+    <dtcode id="D085" name="P0301 Cylinder 1 Misfire Detected" desc="P0301" tmpaddr="0x000301" memaddr="0x000301" bit="0" />
+    <dtcode id="D086" name="P0302 Cylinder 2 Misfire Detected" desc="P0302" tmpaddr="0x000302" memaddr="0x000302" bit="0" />
+    <dtcode id="D087" name="P0303 Cylinder 3 Misfire Detected" desc="P0303" tmpaddr="0x000303" memaddr="0x000303" bit="0" />
+    <dtcode id="D088" name="P0304 Cylinder 4 Misfire Detected" desc="P0304" tmpaddr="0x000304" memaddr="0x000304" bit="0" />
+    <dtcode id="D089" name="P0327 Knock Sensor 1 Circuit Low (Bank 1)" desc="P0327" tmpaddr="0x000327" memaddr="0x000327" bit="0" />
+    <dtcode id="D090" name="P0328 Knock Sensor 1 Circuit High (Bank 1)" desc="P0328" tmpaddr="0x000328" memaddr="0x000328" bit="0" />
+    <dtcode id="D091" name="P0332 Knock Sensor 2 Circuit Low (Bank 2)" desc="P0332" tmpaddr="0x000332" memaddr="0x000332" bit="0" />
+    <dtcode id="D092" name="P0333 Knock Sensor 2 Circuit High (Bank 2)" desc="P0333" tmpaddr="0x000333" memaddr="0x000333" bit="0" />
+    <dtcode id="D093" name="P0335 Crankshaft Position Sensor A Circuit" desc="P0335" tmpaddr="0x000335" memaddr="0x000335" bit="0" />
+    <dtcode id="D094" name="P0336 Crankshaft Position Sensor A Circuit Range/Performance" desc="P0336" tmpaddr="0x000336" memaddr="0x000336" bit="0" />
+    <dtcode id="D095" name="P0340 Camshaft Position Sensor A Circuit (Bank 1)" desc="P0340" tmpaddr="0x000340" memaddr="0x000340" bit="0" />
+    <dtcode id="D096" name="P0341 Camshaft Position Sensor A Circuit Range/Performance (Bank 1)" desc="P0341" tmpaddr="0x000341" memaddr="0x000341" bit="0" />
+    <dtcode id="D097" name="P0345 Camshaft Position Sensor A Circuit (Bank 2)" desc="P0345" tmpaddr="0x000345" memaddr="0x000345" bit="0" />
+    <dtcode id="D098" name="P0346 Camshaft Position Sensor A Circuit Range/Performance (Bank 2)" desc="P0346" tmpaddr="0x000346" memaddr="0x000346" bit="0" />
+    <dtcode id="D099" name="P0351 Ignition Coil A Primary/Secondary Circuit" desc="P0351" tmpaddr="0x000351" memaddr="0x000351" bit="0" />
+    <dtcode id="D100" name="P0352 Ignition Coil B Primary/Secondary Circuit" desc="P0352" tmpaddr="0x000352" memaddr="0x000352" bit="0" />
+    <dtcode id="D101" name="P0353 Ignition Coil C Primary/Secondary Circuit" desc="P0353" tmpaddr="0x000353" memaddr="0x000353" bit="0" />
+    <dtcode id="D102" name="P0354 Ignition Coil D Primary/Secondary Circuit" desc="P0354" tmpaddr="0x000354" memaddr="0x000354" bit="0" />
+    <dtcode id="D103" name="P0365 Camshaft Position Sensor B Circuit (Bank 1)" desc="P0365" tmpaddr="0x000365" memaddr="0x000365" bit="0" />
+    <dtcode id="D104" name="P0366 Camshaft Position Sensor B Circuit Range/Performance (Bank 1)" desc="P0366" tmpaddr="0x000366" memaddr="0x000366" bit="0" />
+    <dtcode id="D105" name="P0390 Camshaft Position Sensor B Circuit (Bank 2)" desc="P0390" tmpaddr="0x000390" memaddr="0x000390" bit="0" />
+    <dtcode id="D106" name="P0391 Camshaft Position Sensor B Circuit Range/Performance (Bank 2)" desc="P0391" tmpaddr="0x000391" memaddr="0x000391" bit="0" />
+    <dtcode id="D107" name="P0400 Exhaust Gas Recirculation Flow" desc="P0400" tmpaddr="0x000400" memaddr="0x000400" bit="0" />
+    <dtcode id="D108" name="P0401 Exhaust Gas Recirculation Flow Insufficient Detected" desc="P0401" tmpaddr="0x000401" memaddr="0x000401" bit="0" />
+    <dtcode id="D109" name="P0402 Exhaust Gas Recirculation Flow Excessive Detected" desc="P0402" tmpaddr="0x000402" memaddr="0x000402" bit="0" />
+    <dtcode id="D110" name="P0403 Exhaust Gas Recirculation Control Circuit" desc="P0403" tmpaddr="0x000403" memaddr="0x000403" bit="0" />
+    <dtcode id="D111" name="P0420 Catalyst System Efficiency Below Threshold (Bank 1)" desc="P0420" tmpaddr="0x000420" memaddr="0x000420" bit="0" />
+    <dtcode id="D112" name="P0441 Evaporative Emission System Incorrect Purge Flow" desc="P0441" tmpaddr="0x000441" memaddr="0x000441" bit="0" />
+    <dtcode id="D113" name="P0451 Evaporative Emission System Pressure Sensor Range/Performance" desc="P0451" tmpaddr="0x000451" memaddr="0x000451" bit="0" />
+    <dtcode id="D114" name="P0452 Evaporative Emission System Pressure Sensor Low" desc="P0452" tmpaddr="0x000452" memaddr="0x000452" bit="0" />
+    <dtcode id="D115" name="P0453 Evaporative Emission System Pressure Sensor High" desc="P0453" tmpaddr="0x000453" memaddr="0x000453" bit="0" />
+    <dtcode id="D116" name="P0455 Evaporative Emission System Leak Detected (Large Leak)" desc="P0455" tmpaddr="0x000455" memaddr="0x000455" bit="0" />
+    <dtcode id="D117" name="P0456 Evaporative Emission System Leak Detected (Very Small Leak)" desc="P0456" tmpaddr="0x000456" memaddr="0x000456" bit="0" />
+    <dtcode id="D118" name="P0458 Evaporative Emission System Purge Control Valve Circuit Low" desc="P0458" tmpaddr="0x000458" memaddr="0x000458" bit="0" />
+    <dtcode id="D119" name="P0459 Evaporative Emission System Purge Control Valve Circuit High" desc="P0459" tmpaddr="0x000459" memaddr="0x000459" bit="0" />
+    <dtcode id="D120" name="P0461 Fuel Level Sensor A Circuit Range/Performance" desc="P0461" tmpaddr="0x000461" memaddr="0x000461" bit="0" />
+    <dtcode id="D121" name="P0462 Fuel Level Sensor A Circuit Low" desc="P0462" tmpaddr="0x000462" memaddr="0x000462" bit="0" />
+    <dtcode id="D122" name="P0463 Fuel Level Sensor A Circuit High" desc="P0463" tmpaddr="0x000463" memaddr="0x000463" bit="0" />
+    <dtcode id="D123" name="P0480" desc="P0480" tmpaddr="0x000480" memaddr="0x000480" bit="0" />
+    <dtcode id="D124" name="P0481" desc="P0481" tmpaddr="0x000481" memaddr="0x000481" bit="0" />
+    <dtcode id="D125" name="P04AC Evaporative Emission System Purge Control Valve 'B' Circuit Low" desc="P04AC" tmpaddr="0x0004AC" memaddr="0x0004AC" bit="0" />
+    <dtcode id="D126" name="P04AD Evaporative Emission System Purge Control Valve 'B' Circuit High" desc="P04AD" tmpaddr="0x0004AD" memaddr="0x0004AD" bit="0" />
+    <dtcode id="D127" name="P04AE" desc="P04AE" tmpaddr="0x0004AE" memaddr="0x0004AE" bit="0" />
+    <dtcode id="D128" name="P04AF Evaporative Emission System Purge Control Valve 'B' Stuck Closed" desc="P04AF" tmpaddr="0x0004AF" memaddr="0x0004AF" bit="0" />
+    <dtcode id="D129" name="P04DB Crankcase Ventilation System Disconnected" desc="P04DB" tmpaddr="0x0004DB" memaddr="0x0004DB" bit="0" />
+    <dtcode id="D130" name="P04F0 Evaporative Emission System High Pressure Purge Line Performance" desc="P04F0" tmpaddr="0x0004F0" memaddr="0x0004F0" bit="0" />
+    <dtcode id="D131" name="P04F1" desc="P04F1" tmpaddr="0x0004F1" memaddr="0x0004F1" bit="0" />
+    <dtcode id="D132" name="P0500 Vehicle Speed Sensor A" desc="P0500" tmpaddr="0x000500" memaddr="0x000500" bit="0" />
+    <dtcode id="D133" name="P0506 Idle Control System RPM Lower Than Expected" desc="P0506" tmpaddr="0x000506" memaddr="0x000506" bit="0" />
+    <dtcode id="D134" name="P0507 Idle Control System RPM Higher Than Expected" desc="P0507" tmpaddr="0x000507" memaddr="0x000507" bit="0" />
+    <dtcode id="D135" name="P050A Cold Start Idle Air Control System Performance" desc="P050A" tmpaddr="0x00050A" memaddr="0x00050A" bit="0" />
+    <dtcode id="D136" name="P050B Cold Start Ignition Timing Performance" desc="P050B" tmpaddr="0x00050B" memaddr="0x00050B" bit="0" />
+    <dtcode id="D137" name="P050E Cold Start Engine Exhaust Temperature Too Low" desc="P050E" tmpaddr="0x00050E" memaddr="0x00050E" bit="0" />
+    <dtcode id="D138" name="P0512 Starter Request Circuit" desc="P0512" tmpaddr="0x000512" memaddr="0x000512" bit="0" />
+    <dtcode id="D139" name="P0557 Brake Booster Pressure Sensor Circuit Low" desc="P0557" tmpaddr="0x000557" memaddr="0x000557" bit="0" />
+    <dtcode id="D140" name="P0558 Brake Booster Pressure Sensor Circuit High" desc="P0558" tmpaddr="0x000558" memaddr="0x000558" bit="0" />
+    <dtcode id="D141" name="P0560 System Voltage" desc="P0560" tmpaddr="0x000560" memaddr="0x000560" bit="0" />
+    <dtcode id="D142" name="P0562 System Voltage Low" desc="P0562" tmpaddr="0x000562" memaddr="0x000562" bit="0" />
+    <dtcode id="D143" name="P0563 System Voltage High" desc="P0563" tmpaddr="0x000563" memaddr="0x000563" bit="0" />
+    <dtcode id="D144" name="P0604 Internal Control Module RAM Error" desc="P0604" tmpaddr="0x000604" memaddr="0x000604" bit="0" />
+    <dtcode id="D145" name="P0605 Internal Control Module ROM Error" desc="P0605" tmpaddr="0x000605" memaddr="0x000605" bit="0" />
+    <dtcode id="D146" name="P0606 Control Module Processor" desc="P0606" tmpaddr="0x000606" memaddr="0x000606" bit="0" />
+    <dtcode id="D147" name="P060A Internal Control Module Monitoring Processor Performance" desc="P060A" tmpaddr="0x00060A" memaddr="0x00060A" bit="0" />
+    <dtcode id="D148" name="P060B Internal Control Module A/D Processing Performance" desc="P060B" tmpaddr="0x00060B" memaddr="0x00060B" bit="0" />
+    <dtcode id="D149" name="P0616 Starter Relay Circuit Low" desc="P0616" tmpaddr="0x000616" memaddr="0x000616" bit="0" />
+    <dtcode id="D150" name="P0617 Starter Relay Circuit High" desc="P0617" tmpaddr="0x000617" memaddr="0x000617" bit="0" />
+    <dtcode id="D151" name="P0627 Fuel Pump A Control Circuit/Open" desc="P0627" tmpaddr="0x000627" memaddr="0x000627" bit="0" />
+    <dtcode id="D152" name="P0628 Fuel Pump A Control Circuit Low" desc="P0628" tmpaddr="0x000628" memaddr="0x000628" bit="0" />
+    <dtcode id="D153" name="P0629 Fuel Pump A Control Circuit High" desc="P0629" tmpaddr="0x000629" memaddr="0x000629" bit="0" />
+    <dtcode id="D154" name="P062D Fuel Injector Driver Circuit Performance (Bank 1)" desc="P062D" tmpaddr="0x00062D" memaddr="0x00062D" bit="0" />
+    <dtcode id="D155" name="P062F Internal Control Module EEPROM Error" desc="P062F" tmpaddr="0x00062F" memaddr="0x00062F" bit="0" />
+    <dtcode id="D156" name="P0685 ECM/PCM Power Relay Control Circuit/Open" desc="P0685" tmpaddr="0x000685" memaddr="0x000685" bit="0" />
+    <dtcode id="D157" name="P0700 Transmission Control System (MIL Request)" desc="P0700" tmpaddr="0x000700" memaddr="0x000700" bit="0" />
+    <dtcode id="D158" name="P081A Starter Disable Circuit Low" desc="P081A" tmpaddr="0x00081A" memaddr="0x00081A" bit="0" />
+    <dtcode id="D159" name="P0851 Park/Neutral Switch Input Circuit Low" desc="P0851" tmpaddr="0x000851" memaddr="0x000851" bit="0" />
+    <dtcode id="D160" name="P0852 Park/Neutral Switch Input Circuit High" desc="P0852" tmpaddr="0x000852" memaddr="0x000852" bit="0" />
+    <dtcode id="D161" name="P1134" desc="P1134" tmpaddr="0x001134" memaddr="0x001134" bit="0" />
+    <dtcode id="D162" name="P113A" desc="P113A" tmpaddr="0x00113A" memaddr="0x00113A" bit="0" />
+    <dtcode id="D163" name="P1160" desc="P1160" tmpaddr="0x001160" memaddr="0x001160" bit="0" />
+    <dtcode id="D164" name="P1191" desc="P1191" tmpaddr="0x001191" memaddr="0x001191" bit="0" />
+    <dtcode id="D165" name="P1192" desc="P1192" tmpaddr="0x001192" memaddr="0x001192" bit="0" />
+    <dtcode id="D166" name="P1193" desc="P1193" tmpaddr="0x001193" memaddr="0x001193" bit="0" />
+    <dtcode id="D167" name="P1261" desc="P1261" tmpaddr="0x001261" memaddr="0x001261" bit="0" />
+    <dtcode id="D168" name="P1262" desc="P1262" tmpaddr="0x001262" memaddr="0x001262" bit="0" />
+    <dtcode id="D169" name="P1263" desc="P1263" tmpaddr="0x001263" memaddr="0x001263" bit="0" />
+    <dtcode id="D170" name="P1264" desc="P1264" tmpaddr="0x001264" memaddr="0x001264" bit="0" />
+    <dtcode id="D171" name="P1449" desc="P1449" tmpaddr="0x001449" memaddr="0x001449" bit="0" />
+    <dtcode id="D172" name="P1451" desc="P1451" tmpaddr="0x001451" memaddr="0x001451" bit="0" />
+    <dtcode id="D173" name="P1458" desc="P1458" tmpaddr="0x001458" memaddr="0x001458" bit="0" />
+    <dtcode id="D174" name="P1459" desc="P1459" tmpaddr="0x001459" memaddr="0x001459" bit="0" />
+    <dtcode id="D175" name="P1492" desc="P1492" tmpaddr="0x001492" memaddr="0x001492" bit="0" />
+    <dtcode id="D176" name="P1493" desc="P1493" tmpaddr="0x001493" memaddr="0x001493" bit="0" />
+    <dtcode id="D177" name="P1494" desc="P1494" tmpaddr="0x001494" memaddr="0x001494" bit="0" />
+    <dtcode id="D178" name="P1495" desc="P1495" tmpaddr="0x001495" memaddr="0x001495" bit="0" />
+    <dtcode id="D179" name="P1496" desc="P1496" tmpaddr="0x001496" memaddr="0x001496" bit="0" />
+    <dtcode id="D180" name="P1497" desc="P1497" tmpaddr="0x001497" memaddr="0x001497" bit="0" />
+    <dtcode id="D181" name="P1498" desc="P1498" tmpaddr="0x001498" memaddr="0x001498" bit="0" />
+    <dtcode id="D182" name="P1499" desc="P1499" tmpaddr="0x001499" memaddr="0x001499" bit="0" />
+    <dtcode id="D183" name="P2004 Intake Manifold Runner Control Stuck Open (Bank 1)" desc="P2004" tmpaddr="0x002004" memaddr="0x002004" bit="0" />
+    <dtcode id="D184" name="P2005 Intake Manifold Runner Control Stuck Open (Bank 2)" desc="P2005" tmpaddr="0x002005" memaddr="0x002005" bit="0" />
+    <dtcode id="D185" name="P2006 Intake Manifold Runner Control Stuck Closed (Bank 1)" desc="P2006" tmpaddr="0x002006" memaddr="0x002006" bit="0" />
+    <dtcode id="D186" name="P2007 Intake Manifold Runner Control Stuck Closed (Bank 2)" desc="P2007" tmpaddr="0x002007" memaddr="0x002007" bit="0" />
+    <dtcode id="D187" name="P2008" desc="P2008" tmpaddr="0x002008" memaddr="0x002008" bit="0" />
+    <dtcode id="D188" name="P2009 Intake Manifold Runner Control Circuit Low (Bank 1)" desc="P2009" tmpaddr="0x002009" memaddr="0x002009" bit="0" />
+    <dtcode id="D189" name="P2011" desc="P2011" tmpaddr="0x002011" memaddr="0x002011" bit="0" />
+    <dtcode id="D190" name="P2012 Intake Manifold Runner Control Circuit Low (Bank 2)" desc="P2012" tmpaddr="0x002012" memaddr="0x002012" bit="0" />
+    <dtcode id="D191" name="P2016 Intake Manifold Runner Position Sensor/Switch Circuit Low (Bank 1)" desc="P2016" tmpaddr="0x002016" memaddr="0x002016" bit="0" />
+    <dtcode id="D192" name="P2017 Intake Manifold Runner Position Sensor/Switch Circuit High (Bank 1)" desc="P2017" tmpaddr="0x002017" memaddr="0x002017" bit="0" />
+    <dtcode id="D193" name="P2021 Intake Manifold Runner Position Sensor/Switch Circuit Low (Bank 2)" desc="P2021" tmpaddr="0x002021" memaddr="0x002021" bit="0" />
+    <dtcode id="D194" name="P2022 Intake Manifold Runner Position Sensor/Switch Circuit High (Bank 2)" desc="P2022" tmpaddr="0x002022" memaddr="0x002022" bit="0" />
+    <dtcode id="D195" name="P2088 A Camshaft Position Actuator Control Circuit Low (Bank 1)" desc="P2088" tmpaddr="0x002088" memaddr="0x002088" bit="0" />
+    <dtcode id="D196" name="P2089 A Camshaft Position Actuator Control Circuit High (Bank 1)" desc="P2089" tmpaddr="0x002089" memaddr="0x002089" bit="0" />
+    <dtcode id="D197" name="P2090 B Camshaft Position Actuator Control Circuit Low (Bank 1)" desc="P2090" tmpaddr="0x002090" memaddr="0x002090" bit="0" />
+    <dtcode id="D198" name="P2091 B Camshaft Position Actuator Control Circuit High (Bank 1)" desc="P2091" tmpaddr="0x002091" memaddr="0x002091" bit="0" />
+    <dtcode id="D199" name="P2092 A Camshaft Position Actuator Control Circuit Low (Bank 2)" desc="P2092" tmpaddr="0x002092" memaddr="0x002092" bit="0" />
+    <dtcode id="D200" name="P2093 A Camshaft Position Actuator Control Circuit High (Bank 2)" desc="P2093" tmpaddr="0x002093" memaddr="0x002093" bit="0" />
+    <dtcode id="D201" name="P2094 B Camshaft Position Actuator Control Circuit Low (Bank 2)" desc="P2094" tmpaddr="0x002094" memaddr="0x002094" bit="0" />
+    <dtcode id="D202" name="P2095 B Camshaft Position Actuator Control Circuit High (Bank 2)" desc="P2095" tmpaddr="0x002095" memaddr="0x002095" bit="0" />
+    <dtcode id="D203" name="P2096 Post Catalyst Fuel Trim System Too Lean (Bank 1)" desc="P2096" tmpaddr="0x002096" memaddr="0x002096" bit="0" />
+    <dtcode id="D204" name="P2097 Post Catalyst Fuel Trim System Too Rich (Bank 1)" desc="P2097" tmpaddr="0x002097" memaddr="0x002097" bit="0" />
+    <dtcode id="D205" name="P2101 Throttle Actuator Control Motor Circuit Range/Performance" desc="P2101" tmpaddr="0x002101" memaddr="0x002101" bit="0" />
+    <dtcode id="D206" name="P2102 Throttle Actuator Control Motor Circuit Low" desc="P2102" tmpaddr="0x002102" memaddr="0x002102" bit="0" />
+    <dtcode id="D207" name="P2103 Throttle Actuator Control Motor Circuit High" desc="P2103" tmpaddr="0x002103" memaddr="0x002103" bit="0" />
+    <dtcode id="D208" name="P2109 Throttle/Pedal Position Sensor A Minimum Stop Performance" desc="P2109" tmpaddr="0x002109" memaddr="0x002109" bit="0" />
+    <dtcode id="D209" name="P2119 Throttle Actuator Control Throttle Body Range/Performance" desc="P2119" tmpaddr="0x002119" memaddr="0x002119" bit="0" />
+    <dtcode id="D210" name="P2122 Throttle/Pedal Position Sensor/Switch D Circuit Low" desc="P2122" tmpaddr="0x002122" memaddr="0x002122" bit="0" />
+    <dtcode id="D211" name="P2123 Throttle/Pedal Position Sensor/Switch D Circuit High" desc="P2123" tmpaddr="0x002123" memaddr="0x002123" bit="0" />
+    <dtcode id="D212" name="P2127 Throttle/Pedal Position Sensor/Switch E Circuit Low" desc="P2127" tmpaddr="0x002127" memaddr="0x002127" bit="0" />
+    <dtcode id="D213" name="P2128 Throttle/Pedal Position Sensor/Switch E Circuit High" desc="P2128" tmpaddr="0x002128" memaddr="0x002128" bit="0" />
+    <dtcode id="D214" name="P2135 Throttle/Pedal Position Sensor/Switch A/B Voltage Correlation" desc="P2135" tmpaddr="0x002135" memaddr="0x002135" bit="0" />
+    <dtcode id="D215" name="P2138 Throttle/Pedal Position Sensor/Switch D/E Voltage Correlation" desc="P2138" tmpaddr="0x002138" memaddr="0x002138" bit="0" />
+    <dtcode id="D216" name="P2146 Fuel Injector Group A Supply Voltage Circuit/Open" desc="P2146" tmpaddr="0x002146" memaddr="0x002146" bit="0" />
+    <dtcode id="D217" name="P2158 Vehicle Speed Sensor B" desc="P2158" tmpaddr="0x002158" memaddr="0x002158" bit="0" />
+    <dtcode id="D218" name="P2195 O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 1)" desc="P2195" tmpaddr="0x002195" memaddr="0x002195" bit="0" />
+    <dtcode id="D219" name="P2196 O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 1)" desc="P2196" tmpaddr="0x002196" memaddr="0x002196" bit="0" />
+    <dtcode id="D220" name="P219A Bank 1 Air-Fuel Ratio Imbalance" desc="P219A" tmpaddr="0x00219A" memaddr="0x00219A" bit="0" />
+    <dtcode id="D221" name="P2227 Barometric Pressure Sensor A Circuit Range/Performance" desc="P2227" tmpaddr="0x002227" memaddr="0x002227" bit="0" />
+    <dtcode id="D222" name="P2228 Barometric Pressure Sensor A Circuit Low" desc="P2228" tmpaddr="0x002228" memaddr="0x002228" bit="0" />
+    <dtcode id="D223" name="P2229 Barometric Pressure Sensor A Circuit High" desc="P2229" tmpaddr="0x002229" memaddr="0x002229" bit="0" />
+    <dtcode id="D224" name="P226B" desc="P226B" tmpaddr="0x00226B" memaddr="0x00226B" bit="0" />
+    <dtcode id="D225" name="P2270 O2 Sensor Signal Biased/Stuck Lean (Bank 1 Sensor 2)" desc="P2270" tmpaddr="0x002270" memaddr="0x002270" bit="0" />
+    <dtcode id="D226" name="P2271 O2 Sensor Signal Biased/Stuck Rich (Bank 1 Sensor 2)" desc="P2271" tmpaddr="0x002271" memaddr="0x002271" bit="0" />
+    <dtcode id="D227" name="P2401 Evaporative Emission System Leak Detection Pump Control Circuit Low" desc="P2401" tmpaddr="0x002401" memaddr="0x002401" bit="0" />
+    <dtcode id="D228" name="P2402 Evaporative Emission System Leak Detection Pump Control Circuit High" desc="P2402" tmpaddr="0x002402" memaddr="0x002402" bit="0" />
+    <dtcode id="D229" name="P2404 Evaporative Emission System Leak Detection Pump Sense Circuit Range/Performance" desc="P2404" tmpaddr="0x002404" memaddr="0x002404" bit="0" />
+    <dtcode id="D230" name="P2419 Evaporative Emission System Switching Valve Control Circuit Low" desc="P2419" tmpaddr="0x002419" memaddr="0x002419" bit="0" />
+    <dtcode id="D231" name="P2420 Evaporative Emission System Switching Valve Control Circuit High" desc="P2420" tmpaddr="0x002420" memaddr="0x002420" bit="0" />
+    <dtcode id="D232" name="P24B9" desc="P24B9" tmpaddr="0x0024B9" memaddr="0x0024B9" bit="0" />
+    <dtcode id="D233" name="P24BA" desc="P24BA" tmpaddr="0x0024BA" memaddr="0x0024BA" bit="0" />
+    <dtcode id="D234" name="P24BB" desc="P24BB" tmpaddr="0x0024BB" memaddr="0x0024BB" bit="0" />
+    <dtcode id="D235" name="P24D6" desc="P24D6" tmpaddr="0x0024D6" memaddr="0x0024D6" bit="0" />
+    <dtcode id="D236" name="P24D7" desc="P24D7" tmpaddr="0x0024D7" memaddr="0x0024D7" bit="0" />
+    <dtcode id="D237" name="P24D8" desc="P24D8" tmpaddr="0x0024D8" memaddr="0x0024D8" bit="0" />
+    <dtcode id="D238" name="P2530 Ignition Switch Run Position Circuit" desc="P2530" tmpaddr="0x002530" memaddr="0x002530" bit="0" />
+    <dtcode id="D239" name="P2564" desc="P2564" tmpaddr="0x002564" memaddr="0x002564" bit="0" />
+    <dtcode id="D240" name="P2565" desc="P2565" tmpaddr="0x002565" memaddr="0x002565" bit="0" />
+    <dtcode id="D241" name="P2610 ECM/PCM Internal Engine Off Timer Performance" desc="P2610" tmpaddr="0x002610" memaddr="0x002610" bit="0" />
+    <dtcode id="D242" name="P2627 O2 Sensor Pumping Current Trim Circuit/Open (Bank 1 Sensor 1)" desc="P2627" tmpaddr="0x002627" memaddr="0x002627" bit="0" />
+    <dtcode id="D243" name="P2628 O2 Sensor Pumping Current Trim Circuit Low (Bank 1 Sensor 1)" desc="P2628" tmpaddr="0x002628" memaddr="0x002628" bit="0" />
+    <dtcode id="D244" name="P2A01 O2 Sensor Circuit Range/Performance (Bank 1 Sensor 2)" desc="P2A01" tmpaddr="0x002A01" memaddr="0x002A01" bit="0" />
+    <dtcode id="D245" name="U0073 Control Module Communication Bus Off" desc="U0073" tmpaddr="0x00C073" memaddr="0x00C073" bit="0" />
+    <dtcode id="D246" name="U0101 Lost Communication with TCM" desc="U0101" tmpaddr="0x00C101" memaddr="0x00C101" bit="0" />
+    <dtcode id="D247" name="U0122 Lost Communication with Vehicle Dynamics Control Module" desc="U0122" tmpaddr="0x00C122" memaddr="0x00C122" bit="0" />
+    <dtcode id="D248" name="U0140 Lost Communication with Body Control Module" desc="U0140" tmpaddr="0x00C140" memaddr="0x00C140" bit="0" />
+    <dtcode id="D249" name="U0155 Lost Communication with Instrument Panel Cluster Control Module" desc="U0155" tmpaddr="0x00C155" memaddr="0x00C155" bit="0" />
+    <dtcode id="D250" name="U0402 Invalid Data Received from TCM" desc="U0402" tmpaddr="0x00C402" memaddr="0x00C402" bit="0" />
+    <dtcode id="D251" name="U0416 Invalid Data Received from Vehicle Dynamics Control Module" desc="U0416" tmpaddr="0x00C416" memaddr="0x00C416" bit="0" />
+    <dtcode id="D252" name="U0422 Invalid Data Received from Body Control Module" desc="U0422" tmpaddr="0x00C422" memaddr="0x00C422" bit="0" />
+    <dtcode id="D253" name="U0423 Invalid Data Received from Instrument Panel Control Module" desc="U0423" tmpaddr="0x00C423" memaddr="0x00C423" bit="0" />
+    <dtcode id="D254" name="(end of list, not a trouble code)" desc="Placeholder: never reports a code." tmpaddr="0x000000" memaddr="0x000000" bit="0" />
+   </dtcodes>
+   <learning flkcrows="7" flkccols="5" flkctype="int16" flkcexpr="x/256*0.3515625" afrows="2" afcols="5" aftype="int8" afexpr="x*0.390625" vvttype="uint16" vvtexpr="x/364.0889" damtype="uint8" damexpr="x/16" endian="big" flkcrowaxis="FLKC Range Boundary RPM %d" flkccolaxis="FLKC Range Boundary Load %d" afrowaxis="LTFT RPM Range Boundary" afcolaxis="LTFT Load Range Boundary %d">
+    <learningecu ids="A529A02007" flkc="0xF81342" aflearning="0xF81394" dam="0xF810DE" intake1="0xF814B0" intake2="0xF814AE" exhaust1="0xF814AC" exhaust2="0xF814AA" />
+    <learningecu ids="A601A13007" flkc="0xF81412" aflearning="0xF81464" dam="0xF811AE" intake1="0xF81580" intake2="0xF8157E" exhaust1="0xF8157C" exhaust2="0xF8157A" />
+    <learningecu ids="A529A03007,8B145A7407,8B145E7307" flkc="0xF81414" aflearning="0xF81466" dam="0xF811AE" intake1="0xF81582" intake2="0xF81580" exhaust1="0xF8157E" exhaust2="0xF8157C" />
+    <learningecu ids="A601A17007,A601A07007,A601A27007,A629A05007,A629B05007,A669A05007,A669B05007,A689A05007,A689B05007,8B145A7507,8B145E7407,A529A07007,A669A07007,A669B07007,A689A07007,A6A9B07007" flkc="0xF81414" aflearning="0xF81466" dam="0xF811AE" intake1="0xF81582" intake2="0xF81580" exhaust1="0xF8157E" exhaust2="0xF8157C" />
+    <learningecu ids="A669B07107,A6A9A07107,8B145A7607,A601A17207,A601A07207,A601A27207,A629A07107,A669A07207,A669B07207,A689A07207,A689B07207,A6A9A07207,A6A9B07207,A529A07307,A629B07207,8B145A7807,8B145E7707,A529A07407,A629A07307,8B145A7907,8B145E7807,A629B07407,8B145A7A07" flkc="0xF81414" aflearning="0xF81466" dam="0xF811AE" intake1="0xF81582" intake2="0xF81580" exhaust1="0xF8157E" exhaust2="0xF8157C" />
+    <learningecu ids="A529A07507,A629A07407,8B145E7907" flkc="0xF81414" aflearning="0xF81466" dam="0xF811AE" intake1="0xF81582" intake2="0xF81580" exhaust1="0xF8157E" exhaust2="0xF8157C" />
+    <learningecu ids="A629B07507,8B145A7B07" flkc="0xF81414" aflearning="0xF81466" dam="0xF811AE" intake1="0xF81582" intake2="0xF81580" exhaust1="0xF8157E" exhaust2="0xF8157C" />
+    <learningecu ids="A761A01007" flkc="0xF8141A" aflearning="0xF8146C" dam="0xF811AE" intake1="0xF81588" intake2="0xF81586" exhaust1="0xF81584" exhaust2="0xF81582" />
+    <learningecu ids="A600A14007" flkc="0xF81414" aflearning="0xF81466" dam="0xF811AE" intake1="0xF81582" intake2="0xF81580" exhaust1="0xF8157E" exhaust2="0xF8157C" />
+    <learningecu ids="A660A15007,A600A17007" flkc="0xF81414" aflearning="0xF81466" dam="0xF811AE" intake1="0xF81582" intake2="0xF81580" exhaust1="0xF8157E" exhaust2="0xF8157C" />
+    <learningecu ids="A660A17107,A600A17207,A660A17207,A600A17307,A600A17407,A600A17507,A660A17307,A600A17607,A600A17707" flkc="0xF81418" aflearning="0xF8146C" dam="0xF811AE" intake1="0xF81588" intake2="0xF81586" exhaust1="0xF81584" exhaust2="0xF81582" />
+    <learningecu ids="A761A02007" flkc="0xF81450" aflearning="0xF814A2" dam="0xF811BE" intake1="0xF815BE" intake2="0xF815BC" exhaust1="0xF815BA" exhaust2="0xF815B8" />
+    <learningecu ids="A7E1A01107,B069A00007" flkc="0xF81420" aflearning="0xF81472" dam="0xF811AE" intake1="0xF8158E" intake2="0xF8158C" exhaust1="0xF8158A" exhaust2="0xF81588" />
+    <learningecu ids="A7E1A03007,A769A03007,A761A03007,A7D1A03007,A771A03007,A7A1A03007,B769A04007,A701A04107" flkc="0xF81450" aflearning="0xF814A2" dam="0xF811BE" intake1="0xF815BE" intake2="0xF815BC" exhaust1="0xF815BA" exhaust2="0xF815B8" />
+    <learningecu ids="A769A07007,A761A07007,A7E1A07107,A7D1A07007,A771A07007,A7A1A07007,A789A07007,B769A07007" flkc="0xF81452" aflearning="0xF814A6" dam="0xF811BE" intake1="0xF815C2" intake2="0xF815C0" exhaust1="0xF815BE" exhaust2="0xF815BC" />
+    <learningecu ids="A729A03007,A729A05007,A729A07007,A729A07107,A729A07307" flkc="0xF81450" aflearning="0xF814A2" dam="0xF811BE" intake1="0xF815BE" intake2="0xF815BC" exhaust1="0xF815BA" exhaust2="0xF815B8" />
+    <learningecu ids="A729A07407" flkc="0xF81450" aflearning="0xF814A2" dam="0xF811BE" intake1="0xF815BE" intake2="0xF815BC" exhaust1="0xF815BA" exhaust2="0xF815B8" />
+    <learningecu ids="B001A14007,B001A04007,B001A24007,B069B03007,B029A04007,B029B04007,B069A04007,B0A1A14007" flkc="0xF814D0" aflearning="0xF81522" dam="0xF8123E" intake1="0xF8163E" intake2="0xF8163C" exhaust1="0xF8163A" exhaust2="0xF81638" />
+    <learningecu ids="B001A17007,B001A07007,B001A27007,B029A07007,B029B07007,B069A07007,B069B07007,B0A1A17007,B001A17107,B001A07107,B001A27107,B029B07107,B060A16007,B000A16007,B029A07207,B029B07307,B060A17007,B000A17007,B000A17107,B000A17207,B060A17107,B000A17307,B000A17407" flkc="0xF814D2" aflearning="0xF81526" dam="0xF8123E" intake1="0xF81642" intake2="0xF81640" exhaust1="0xF8163E" exhaust2="0xF8163C" />
+    <learningecu ids="B029A07307" flkc="0xF814D2" aflearning="0xF81526" dam="0xF8123E" intake1="0xF81642" intake2="0xF81640" exhaust1="0xF8163E" exhaust2="0xF8163C" />
+    <learningecu ids="B029B07407" flkc="0xF814D2" aflearning="0xF81526" dam="0xF8123E" intake1="0xF81642" intake2="0xF81640" exhaust1="0xF8163E" exhaust2="0xF8163C" />
+    <learningecu ids="B029B07507" flkc="0xF814D2" aflearning="0xF81526" dam="0xF8123E" intake1="0xF81642" intake2="0xF81640" exhaust1="0xF8163E" exhaust2="0xF8163C" />
+    <learningecu ids="B2A0A14007,B200A14007,B2A0A17007,B200A17107,BA01A04007,BA29A04007,BA61A04007,BA89A04007,BA69A04007,B289A04007,B269A04007,B269B04007,B2A9A04007,BAA1A04007,BAD1A04007,BA71A04007,BA79A04107,B201A03207,B229A05007,B229B05007,BA29A07107,B229A07007,B289B07007,B229B07007,B269B07007,B2A9B07007,B229B07107,B229B07207" flkc="0xF813A0" aflearning="0xF813F4" dam="0xF81100" intake1="0xF81518" intake2="0xF81516" exhaust1="0xF81514" exhaust2="0xF81512" />
+    <learningecu ids="BA29A07207,B229A07107" flkc="0xF813A0" aflearning="0xF813F4" dam="0xF81100" intake1="0xF81518" intake2="0xF81516" exhaust1="0xF81514" exhaust2="0xF81512" />
+    <learningecu ids="B229B07307" flkc="0xF813B0" aflearning="0xF81404" dam="0xF81110" intake1="0xF81528" intake2="0xF81526" exhaust1="0xF81524" exhaust2="0xF81522" />
+    <learningecu ids="B229B07407" flkc="0xF813B0" aflearning="0xF81404" dam="0xF81110" intake1="0xF81528" intake2="0xF81526" exhaust1="0xF81524" exhaust2="0xF81522" />
+    <learningecu ids="C000A04007,C001A04007,C069A03007,C069B03007,C089A03007,C089B03007,C0A9A03007,C0A0A03107,C029A04007,C029B04007,C029A07007,C029B07107,C0A0A07007,C000A07107" flkc="0xF813D0" aflearning="0xF81424" dam="0xF81130" intake1="0xF8154A" intake2="0xF81548" exhaust1="0xF81546" exhaust2="0xF81544" />
+    <learningecu ids="C029A07107" flkc="0xF813D0" aflearning="0xF81424" dam="0xF81130" intake1="0xF8154A" intake2="0xF81548" exhaust1="0xF81546" exhaust2="0xF81544" />
+    <learningecu ids="C029B07207" flkc="0xF813D0" aflearning="0xF81424" dam="0xF81130" intake1="0xF8154A" intake2="0xF81548" exhaust1="0xF81546" exhaust2="0xF81544" />
+    <learningecu ids="C029B07307" flkc="0xF813D0" aflearning="0xF81424" dam="0xF81130" intake1="0xF8154A" intake2="0xF81548" exhaust1="0xF81546" exhaust2="0xF81544" />
+    <learningecu ids="CD00A04007,CDA0A03007,CD01A04007,CD69A03007,CD69B03007,CD89A03007,CD89B03007,CDA9A03007,CD00A07007,CDA0A07007,CD00A07107" flkc="0xF813D2" aflearning="0xF81426" dam="0xF81130" intake1="0xF81554" intake2="0xF81552" exhaust1="0xF81550" exhaust2="0xF8154E" />
+    <learningecu ids="CD29B07007,CD29A07107,CD29B07107,CD29B07207" flkc="0xF813D2" aflearning="0xF81426" dam="0xF81130" intake1="0xF81554" intake2="0xF81552" exhaust1="0xF81550" exhaust2="0xF8154E" />
+    <learningecu ids="D801A03007,D829A03007,D829B05007,D829A07007,D829B07007" flkc="0xF813D2" aflearning="0xF81426" dam="0xF81130" intake1="0xF81554" intake2="0xF81552" exhaust1="0xF81550" exhaust2="0xF8154E" />
+    <learningecu ids="D829B07107" flkc="0xF813D2" aflearning="0xF81426" dam="0xF81130" intake1="0xF81554" intake2="0xF81552" exhaust1="0xF81550" exhaust2="0xF8154E" />
+    <learningecu ids="B260A14107,B260A17007" flkc="0xF813BC" aflearning="0xF81410" dam="0xF81120" intake1="0xF81534" intake2="0xF81532" exhaust1="0xF81530" exhaust2="0xF8152E" />
+    <learningecu ids="8B045E4007,8B145E5007,8B345E5007,8B345E7007,8B745A7007" flkc="0xF8132A" aflearning="0xF8137C" dam="0xF810CE" intake1="0xF81496" intake2="0xF81494" exhaust1="0xF81492" exhaust2="0xF81490" />
+    <learningecu ids="8B045E7107,8B045F7107,8B345A7107,8B145E7207,8B345A7207,8BA45E7207,8B745E7207,8B745A7207" flkc="0xF8132A" aflearning="0xF8137C" dam="0xF810CE" intake1="0xF81496" intake2="0xF81494" exhaust1="0xF81492" exhaust2="0xF81490" />
+    <learningecu ids="8B345E7307,8B345A7307,8B745E7307,8B745A7307,ABE1A14007,A0E1A07007" flkc="0xF8132A" aflearning="0xF8137C" dam="0xF810CE" intake1="0xF81496" intake2="0xF81494" exhaust1="0xF81492" exhaust2="0xF81490" />
+    <learningecu ids="8B045E7307,8B045F7307,8B345E7407,8B345A7407,8B065E7707,8B045E7407,8B045F7407,8B345E7507,8B345A7507,8BA45E7507,8B745E7507,8B745A7507,8B065E7807,ABE1A17107,8B065E7907,A0E1A07207,8B065E7B07" flkc="0xF8132C" aflearning="0xF81380" dam="0xF810CE" intake1="0xF8149A" intake2="0xF81498" exhaust1="0xF81496" exhaust2="0xF81494" />
+    <learningecu ids="B4E1A14007,B4E1A17007,B4E1A07007" flkc="0xF8132E" aflearning="0xF81382" dam="0xF810CE" intake1="0xF8149C" intake2="0xF8149A" exhaust1="0xF81498" exhaust2="0xF81496" />
+    <learningecu ids="BB2CA07407,BB2CA07507" flkc="0xF81250" aflearning="0xF812A4" dam="0xF80FBA" intake1="0xF813D8" intake2="0xF813D6" exhaust1="0xF813D4" exhaust2="0xF813D2" />
+    <learningecu ids="D12CA07107,D12CA07207" flkc="0xF812A2" aflearning="0xF812F6" dam="0xF8100A" intake1="0xF8142A" intake2="0xF81428" exhaust1="0xF81426" exhaust2="0xF81424" />
+    <learningecu ids="D92CA07007" flkc="0xF812B8" aflearning="0xF8130C" dam="0xF8101E" />
+    <!-- RH850 learned values (Learning Table Values): rh850/tools/logging/learning_map.py, add_to_subuds.py -->
     <learningecu ids="EE04A15107,EE04A17007,EE04A17207,EE04A17407,EE2CA15107,EE2CA17607,EE2CB17407,EE2CB17607,EEA4B14007" flkc="0xFEEF9564" aflearning="0xFEEF9531" dam="0xFEEF95AB" intake1="0xFEEF966E" intake2="0xFEEF966C" exhaust1="0xFEEF966A" exhaust2="0xFEEF9668" afcolaxis="LTFT Load Range Boundary %d" afcols="5" afexpr="x*0.390625" afrowaxis="LTFT RPM Range Boundary" afrows="2" aftype="int8" damexpr="x/16" damtype="uint8" endian="little" flkccolaxis="FLKC Range Boundary Load %d" flkccols="5" flkcexpr="x/256*0.3515625" flkcrowaxis="FLKC Range Boundary RPM %d" flkcrows="4" flkctype="int16" vvtexpr="x/364.0889" vvttype="uint16" />
     <learningecu ids="E52CA07007,E574A05107,E574A07007,ED2CA07207,ED2CA27107,F004A14007,F02CB17007,F02CB17107,F0A4A14007,F0A4B14007,FB2CA07107,FB2CA27007,FB2CA27107" flkc="0xFEEF9554" aflearning="0xFEEF9521" dam="0xFEEF959B" intake1="0xFEEF965E" intake2="0xFEEF965C" exhaust1="0xFEEF965A" exhaust2="0xFEEF9658" afcolaxis="LTFT Load Range Boundary %d" afcols="5" afexpr="x*0.390625" afrowaxis="LTFT RPM Range Boundary" afrows="2" aftype="int8" damexpr="x/16" damtype="uint8" endian="little" flkccolaxis="FLKC Range Boundary Load %d" flkccols="5" flkcexpr="x/256*0.3515625" flkcrowaxis="FLKC Range Boundary RPM %d" flkcrows="4" flkctype="int16" vvtexpr="x/364.0889" vvttype="uint16" />
     <learningecu ids="082CA04007,082CA07107,1204A03007,1204A07007,1204A16107,1204B24007,162CA03007,FD04A03007,FD2CA05007,FD2CB07007,FDA4A03007,FDA4B04007,FE2CA07007" flkc="0xFEEF9554" aflearning="0xFEEF9521" dam="0xFEEF959B" intake1="0xFEEF964C" intake2="0xFEEF964E" exhaust1="0xFEEF965A" exhaust2="0xFEEF965C" afcolaxis="LTFT Load Range Boundary %d" afcols="5" afexpr="x*0.390625" afrowaxis="LTFT RPM Range Boundary" afrows="2" aftype="int8" damexpr="x/16" damtype="uint8" endian="little" flkccolaxis="FLKC Range Boundary Load %d" flkccols="5" flkcexpr="x/256*0.3515625" flkcrowaxis="FLKC Range Boundary RPM %d" flkcrows="4" flkctype="int16" vvtexpr="x/364.0889" vvttype="uint16" />
+    <!-- end of the RH850 learned values -->
    </learning>
-   <!-- end of the RH850 learned values -->
   </protocol>
  </protocols>
 </logger>
